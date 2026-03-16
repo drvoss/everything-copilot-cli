@@ -1,0 +1,36 @@
+{
+  "name": "everything-copilot-cli",
+  "version": "1.0.0",
+  "description": "The definitive guide & configuration system for GitHub Copilot CLI — agents, skills, rules, orchestration, and more",
+  "keywords": [
+    "github-copilot",
+    "copilot-cli",
+    "ai-coding",
+    "agents",
+    "skills",
+    "orchestration",
+    "multi-ai",
+    "mcp",
+    "claude-code",
+    "codex"
+  ],
+  "author": "Everything Copilot CLI Contributors",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/user/everything-copilot-cli"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "validate": "node scripts/validate-config.js",
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules",
+    "setup": "node scripts/setup.js"
+  },
+  "devDependencies": {
+    "markdownlint-cli": "^0.47.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

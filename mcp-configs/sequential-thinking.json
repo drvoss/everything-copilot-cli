@@ -1,0 +1,52 @@
+{
+  "_description": "MCP server for structured, step-by-step reasoning. Helps Copilot CLI break down complex problems, revise its thinking, and explore multiple solution paths before committing to an approach.",
+
+  "servers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "env": {}
+    }
+  },
+
+  "tools_provided": [
+    "sequential_thinking - Record a step in a chain of thought with revision and branching support"
+  ],
+
+  "tool_parameters": {
+    "thought": "The current thinking step (text)",
+    "nextThoughtNeeded": "Whether another step is needed (boolean)",
+    "thoughtNumber": "Current step number in the sequence",
+    "totalThoughts": "Estimated total steps (can be adjusted as thinking evolves)",
+    "isRevision": "Whether this step revises a previous thought (boolean)",
+    "revisesThought": "Which step number is being revised",
+    "branchFromThought": "Step number to branch from for exploring alternatives",
+    "branchId": "Identifier for the current branch of thinking"
+  },
+
+  "use_cases": [
+    "Breaking down complex architectural decisions into clear steps",
+    "Analyzing bugs by systematically tracing cause and effect",
+    "Evaluating multiple implementation approaches before choosing one",
+    "Planning multi-file refactoring with dependency analysis",
+    "Debugging by forming and testing hypotheses step by step"
+  ],
+
+  "configuration_notes": [
+    "This server has no external dependencies or storage — it runs entirely in memory",
+    "No environment variables or API keys needed",
+    "Best suited for complex reasoning tasks; overkill for simple questions",
+    "Each thinking session is independent — no persistence between sessions",
+    "The branching feature lets the AI explore 'what if' scenarios without losing earlier reasoning"
+  ],
+
+  "when_to_use": [
+    "Complex problems where the first approach might not be right",
+    "Tasks requiring analysis of trade-offs between multiple options",
+    "Debugging scenarios where multiple hypotheses need testing",
+    "Architecture decisions with significant downstream implications"
+  ]
+}

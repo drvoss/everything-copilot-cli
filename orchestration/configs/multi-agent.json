@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json.schemastore.org/mcp-config",
+  "_comment": "Multi-agent orchestration configuration combining all AI tools under Copilot CLI coordination",
+  "orchestration": {
+    "strategy": "agent-council",
+    "description": "Routes tasks to specialist AI agents based on task type, aggregates results, and resolves conflicts. Copilot CLI acts as the hub with native GitHub integration.",
+
+    "agents": {
+      "claude-code": {
+        "name": "Claude Code",
+        "role": "architect",
+        "description": "Deep reasoning, architecture design, security analysis, large-context understanding",
+        "command": "npx",
+        "args": ["@anthropic-ai/claude-code", "--mcp"],
+        "env": {
+          "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+        },
+        "strengths": ["reasoning", "architecture", "security", "large-context"],
+        "contextWindow": 200000,
+        "timeout": 180,
+        "costTier": "high"
+      },
+      "codex-cli": {
+        "name": "Codex CLI",
+        "role": "builder",
+        "description": "Fast code generation, boilerplate, multi-file implementation powered by GPT-5",
+        "command": "codex",
+        "args": ["--quiet"],
+        "env": {
+          "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+        },
+        "strengths": ["code-generation", "speed", "boilerplate", "multi-file"],
+        "contextWindow": 128000,
+        "timeout": 120,
+        "costTier": "medium"
+      },
+      "gemini-cli": {
+        "name": "Gemini CLI",
+        "role": "analyst",
+        "description": "Multimodal analysis, performance profiling, diagram understanding",
+        "command": "gemini",
+        "args": [],
+        "env": {
+          "GOOGLE_API_KEY": "${GOOGLE_API_KEY}"
+        },
+        "strengths": ["multimodal", "performance", "analysis", "large-context"],
+        "contextWindow": 1000000,
+        "timeout": 120,
+        "costTier": "low"
+      },
+      "copilot-cli": {
+        "name": "Copilot CLI",
+        "role": "integrator",
+        "description": "GitHub-native operations: PRs, Issues, Actions, code search, repository management",
+        "command": "gh",
+        "args": ["copilot"],
+        "strengths": ["github", "pr-management", "ci-cd", "code-search", "mcp"],
+        "contextWindow": 128000,
+        "timeout": 60,
+        "costTier": "included"
+      }
+    },
+
+    "routing": {
+      "description": "Maps task types to primary and fallback agents",
+      "rules": [
+        {
+          "taskType": "architecture",
+          "description": "System design, API design, database schema, service decomposition",
+          "primary": "claude-code",
+          "fallback": "gemini-cli",
+          "reason": "Claude's 200K context and reasoning excels at architecture"
+        },
+        {
+          "taskType": "implementation",
+          "description": "Code generation, feature implementation, boilerplate creation",
+          "primary": "codex-cli",
+          "fallback": "claude-code",
+          "reason": "Codex with GPT-5 is fastest for code generation"
+        },
+        {
+          "taskType": "security-review",
+          "description": "Vulnerability scanning, threat modeling, auth review",
+          "primary": "claude-code",
+          "fallback": "gemini-cli",
+          "reason": "Claude has the deepest security reasoning capabilities"
+        },
+        {
+          "taskType": "performance",
+          "description": "Performance analysis, optimization, profiling",
+          "primary": "gemini-cli",
+          "fallback": "claude-code",
+          "reason": "Gemini's large context handles full codebase performance analysis"
+        },
+        {
+          "taskType": "code-review",
+          "description": "General code review, best practices, maintainability",
+          "primary": "claude-code",
+          "fallback": "codex-cli",
+          "reason": "Claude provides the most thorough code reviews"
+        },
+        {
+          "taskType": "documentation",
+          "description": "API docs, README, inline documentation",
+          "primary": "codex-cli",
+          "fallback": "claude-code",
+          "reason": "Codex generates documentation quickly and accurately"
+        },
+        {
+          "taskType": "github-ops",
+          "description": "PR creation, issue management, Actions, CI/CD",
+          "primary": "copilot-cli",
+          "fallback": "codex-cli",
+          "reason": "Copilot CLI has native GitHub integration"
+        },
+        {
+          "taskType": "multimodal",
+          "description": "Image analysis, diagram review, UI comparison",
+          "primary": "gemini-cli",
+          "fallback": "claude-code",
+          "reason": "Gemini has the strongest multimodal capabilities"
+        },
+        {
+          "taskType": "refactoring",
+          "description": "Code restructuring, pattern extraction, migration",
+          "primary": "claude-code",
+          "fallback": "codex-cli",
+          "reason": "Refactoring needs deep reasoning about side effects"
+        }
+      ]
+    },
+
+    "conflictResolution": {
+      "strategy": "expert-authority",
+      "description": "When agents disagree, the domain expert's opinion takes priority",
+      "fallbackStrategy": "claude-synthesis",
+      "fallbackDescription": "If no clear expert, Claude synthesizes all perspectives"
+    },
+
+    "pipeline": {
+      "description": "Default pipeline for feature development",
+      "stages": [
+        {
+          "name": "plan",
+          "agent": "copilot-cli",
+          "description": "Create plan with todos using Plan Mode"
+        },
+        {
+          "name": "design",
+          "agent": "claude-code",
+          "description": "Architecture design and technical specification"
+        },
+        {
+          "name": "implement",
+          "agent": "codex-cli",
+          "description": "Code generation and implementation"
+        },
+        {
+          "name": "review",
+          "agent": "claude-code",
+          "description": "Security and architecture review"
+        },
+        {
+          "name": "ship",
+          "agent": "copilot-cli",
+          "description": "Create PR, run CI, manage GitHub"
+        }
+      ]
+    }
+  }
+}

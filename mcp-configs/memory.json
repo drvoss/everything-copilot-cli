@@ -1,0 +1,49 @@
+{
+  "_description": "MCP server for persistent memory using a knowledge graph. Allows Copilot CLI to remember information across sessions — useful for long-running projects, user preferences, and accumulated context.",
+
+  "servers": {
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "env": {}
+    }
+  },
+
+  "tools_provided": [
+    "create_entities - Create new entities in the knowledge graph",
+    "create_relations - Define relationships between entities",
+    "add_observations - Add facts/observations to existing entities",
+    "delete_entities - Remove entities from the graph",
+    "delete_observations - Remove specific observations",
+    "delete_relations - Remove relationships",
+    "read_graph - Read the entire knowledge graph",
+    "search_nodes - Search for entities by name or content",
+    "open_nodes - Retrieve specific entities by name"
+  ],
+
+  "use_cases": [
+    "Remember project architecture decisions across sessions",
+    "Track team coding preferences and conventions",
+    "Store frequently referenced API endpoints or config values",
+    "Build a knowledge base of codebase patterns and gotchas",
+    "Remember user preferences for code style, testing, etc."
+  ],
+
+  "configuration_notes": [
+    "Data is stored locally in a JSON file (memory.json) in the working directory",
+    "Set the MEMORY_FILE_PATH env var to customize the storage location",
+    "The knowledge graph persists across sessions automatically",
+    "Consider the context cost — large graphs consume tokens when read"
+  ],
+
+  "example_with_custom_path": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-memory"],
+    "env": {
+      "MEMORY_FILE_PATH": "/home/user/.copilot/memory.json"
+    }
+  }
+}

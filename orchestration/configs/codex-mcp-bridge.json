@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json.schemastore.org/mcp-config",
+  "_comment": "MCP Bridge configuration for connecting Copilot CLI to OpenAI Codex CLI",
+  "name": "codex-bridge",
+  "description": "Bridge to OpenAI Codex CLI for fast code generation powered by GPT-5. Use for rapid implementation, boilerplate generation, and multi-file scaffolding.",
+  "command": "node",
+  "args": ["orchestration/scripts/codex-bridge.js"],
+  "env": {
+    "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+    "CODEX_APPROVAL_MODE": "suggest",
+    "CODEX_TIMEOUT_SECONDS": "120"
+  },
+  "tools": [
+    {
+      "name": "codex_generate",
+      "description": "Generate code using Codex CLI. Best for fast implementation of well-defined tasks.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "description": "Description of the code to generate"
+          },
+          "language": {
+            "type": "string",
+            "description": "Target programming language (typescript, python, go, etc.)",
+            "default": "typescript"
+          },
+          "outputFormat": {
+            "type": "string",
+            "enum": ["code-only", "code-with-explanation", "diff"],
+            "default": "code-only",
+            "description": "Format of the generated output"
+          }
+        },
+        "required": ["prompt"]
+      }
+    },
+    {
+      "name": "codex_edit",
+      "description": "Edit existing files using Codex CLI. Provide file path and change description.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "description": "Path to the file to edit"
+          },
+          "instruction": {
+            "type": "string",
+            "description": "Description of the changes to make"
+          },
+          "approvalMode": {
+            "type": "string",
+            "enum": ["suggest", "auto-edit", "full-auto"],
+            "default": "suggest",
+            "description": "Level of autonomy for applying changes"
+          }
+        },
+        "required": ["filePath", "instruction"]
+      }
+    },
+    {
+      "name": "codex_explain",
+      "description": "Explain code using Codex CLI. Get detailed explanations of code logic.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "description": "Path to the file to explain"
+          },
+          "focus": {
+            "type": "string",
+            "description": "Aspect to focus on (e.g., 'error handling', 'performance', 'security')",
+            "default": "general"
+          }
+        },
+        "required": ["filePath"]
+      }
+    }
+  ],
+  "_usage": {
+    "registration": {
+      "userLevel": "Add to ~/.copilot/mcp.json under mcpServers.codex-bridge",
+      "projectLevel": "Add to .vscode/mcp.json or devcontainer.json",
+      "example": {
+        "mcpServers": {
+          "codex-bridge": {
+            "command": "node",
+            "args": ["orchestration/scripts/codex-bridge.js"],
+            "env": {
+              "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+            }
+          }
+        }
+      }
+    },
+    "prerequisites": [
+      "npm install -g @openai/codex (currently v0.114.0)",
+      "Set OPENAI_API_KEY environment variable"
+    ]
+  }
+}

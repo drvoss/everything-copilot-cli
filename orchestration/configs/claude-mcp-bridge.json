@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json.schemastore.org/mcp-config",
+  "_comment": "MCP Bridge configuration for connecting Copilot CLI to Claude Code",
+  "name": "claude-bridge",
+  "description": "Bridge to Claude Code for deep reasoning, architecture design, security analysis, and large-context code understanding. Leverages Claude's 200K token context window.",
+  "command": "npx",
+  "args": ["@anthropic-ai/claude-code", "--mcp"],
+  "env": {
+    "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
+    "CLAUDE_CODE_TIMEOUT": "180"
+  },
+  "tools": [
+    {
+      "name": "claude_reason",
+      "description": "Deep reasoning about code, architecture, and design decisions. Use when a task requires understanding complex interactions across the codebase.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "The question or problem to reason about"
+          },
+          "context": {
+            "type": "string",
+            "description": "Additional context (file contents, error messages, etc.)"
+          },
+          "depth": {
+            "type": "string",
+            "enum": ["quick", "thorough", "exhaustive"],
+            "default": "thorough",
+            "description": "How deep to analyze"
+          }
+        },
+        "required": ["question"]
+      }
+    },
+    {
+      "name": "claude_architect",
+      "description": "Design system architecture and make structural decisions. Best for greenfield designs, refactoring plans, and migration strategies.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "string",
+            "description": "The architecture task (e.g., 'design a caching layer', 'plan microservice decomposition')"
+          },
+          "constraints": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Technical constraints (e.g., 'must use PostgreSQL', 'latency < 100ms')"
+          },
+          "outputFormat": {
+            "type": "string",
+            "enum": ["prose", "json", "mermaid-diagram"],
+            "default": "prose",
+            "description": "Format of the architecture document"
+          }
+        },
+        "required": ["task"]
+      }
+    },
+    {
+      "name": "claude_review",
+      "description": "Security-focused code review with deep analysis. Checks for vulnerabilities, logic errors, and architectural issues.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string",
+            "description": "File path, directory, or diff to review"
+          },
+          "reviewType": {
+            "type": "string",
+            "enum": ["security", "architecture", "correctness", "comprehensive"],
+            "default": "comprehensive",
+            "description": "Type of review to perform"
+          },
+          "severity_threshold": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"],
+            "default": "medium",
+            "description": "Minimum severity to report"
+          }
+        },
+        "required": ["target"]
+      }
+    }
+  ],
+  "_usage": {
+    "registration": {
+      "userLevel": "Add to ~/.copilot/mcp.json under mcpServers.claude-bridge",
+      "projectLevel": "Add to .vscode/mcp.json or devcontainer.json",
+      "note": "Claude Code has native MCP server support — the --mcp flag exposes its tools directly",
+      "example": {
+        "mcpServers": {
+          "claude-code": {
+            "command": "npx",
+            "args": ["@anthropic-ai/claude-code", "--mcp"],
+            "env": {
+              "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+            }
+          }
+        }
+      }
+    },
+    "prerequisites": [
+      "npx @anthropic-ai/claude-code (runs without global install)",
+      "Set ANTHROPIC_API_KEY environment variable"
+    ]
+  }
+}

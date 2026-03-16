@@ -1,0 +1,53 @@
+{
+  "_comment": "GitHub MCP is BUILT INTO Copilot CLI — no configuration needed!",
+  "_description": "This file is a reference showing the tools available via the built-in GitHub MCP server. You do NOT need to add this to your config.",
+
+  "built_in": true,
+  "configuration_required": false,
+
+  "tools_available": {
+    "code_search": {
+      "tool": "search_code",
+      "description": "Search code across GitHub repositories using GitHub's native search engine"
+    },
+    "repository_search": {
+      "tool": "search_repositories",
+      "description": "Find repositories by name, description, topics, or other metadata"
+    },
+    "user_search": {
+      "tool": "search_users",
+      "description": "Find GitHub users by username, name, or profile info"
+    },
+    "file_contents": {
+      "tool": "get_file_contents",
+      "description": "Read file or directory contents from any accessible repository"
+    },
+    "commits": {
+      "tools": ["get_commit", "list_commits"],
+      "description": "View commit details and history"
+    },
+    "pull_requests": {
+      "tools": ["list_pull_requests", "pull_request_read", "search_pull_requests"],
+      "description": "List, search, and inspect PRs — diffs, reviews, comments, check runs"
+    },
+    "issues": {
+      "tools": ["list_issues", "issue_read", "search_issues"],
+      "description": "List, search, and inspect issues — comments, labels, sub-issues"
+    },
+    "actions": {
+      "tools": ["actions_list", "actions_get", "get_job_logs"],
+      "description": "List workflows, inspect runs/jobs, download artifacts, read logs"
+    },
+    "branches": {
+      "tool": "list_branches",
+      "description": "List branches in a repository"
+    }
+  },
+
+  "usage_notes": [
+    "All GitHub MCP tools are available immediately when Copilot CLI starts",
+    "Authentication uses your existing GitHub credentials (gh auth)",
+    "Tools respect your repository access permissions",
+    "No token or API key configuration is needed"
+  ]
+}

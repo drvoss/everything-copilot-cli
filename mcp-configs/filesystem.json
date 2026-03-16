@@ -1,0 +1,45 @@
+{
+  "_description": "MCP server for local filesystem operations. Useful when Copilot CLI needs to work with files outside the current workspace or perform batch file operations.",
+
+  "servers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${workspaceFolder}"
+      ],
+      "env": {}
+    }
+  },
+
+  "tools_provided": [
+    "read_file - Read contents of a file",
+    "read_multiple_files - Read multiple files at once",
+    "write_file - Create or overwrite a file",
+    "edit_file - Make targeted edits to a file",
+    "create_directory - Create a new directory",
+    "list_directory - List directory contents",
+    "move_file - Move or rename a file",
+    "search_files - Search for files by name pattern",
+    "get_file_info - Get file metadata (size, modified date)",
+    "list_allowed_directories - Show which directories the server can access"
+  ],
+
+  "configuration_notes": [
+    "Replace ${workspaceFolder} with the actual directory path you want to expose",
+    "You can pass multiple directory paths as additional args to allow access to several locations",
+    "The server restricts access to only the specified directories for security",
+    "Copilot CLI already has built-in file tools (view, edit, create, grep, glob) — use this MCP server only if you need additional filesystem capabilities"
+  ],
+
+  "example_multi_directory": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-filesystem",
+      "/home/user/projects",
+      "/home/user/documents"
+    ]
+  }
+}
