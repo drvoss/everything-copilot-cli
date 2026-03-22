@@ -9,14 +9,14 @@
 
 | # | Agent | Purpose | Copilot Agent Type | Model |
 |---|-------|---------|-------------------|-------|
-| 1 | [planner](#1-planner) | Break down complex features, identify dependencies | `general-purpose` | claude-sonnet-4.5 |
-| 2 | [architect](#2-architect) | System design, scalability decisions | `general-purpose` | claude-sonnet-4.5 |
-| 3 | [code-reviewer](#3-code-reviewer) | Quality, maintainability, best practices | `code-review` | claude-sonnet-4.5 |
-| 4 | [security-reviewer](#4-security-reviewer) | Vulnerability detection, hardened defaults | `code-review` | claude-sonnet-4.5 |
-| 5 | [tdd-guide](#5-tdd-guide) | Test-driven development workflow | `general-purpose` | gpt-4.1 |
-| 6 | [build-error-resolver](#6-build-error-resolver) | Fix build/compilation errors | `task` | gpt-4.1 |
+| 1 | [planner](#1-planner) | Break down complex features, identify dependencies | `general-purpose` | claude-sonnet-4.6 |
+| 2 | [architect](#2-architect) | System design, scalability decisions | `general-purpose` | claude-sonnet-4.6 |
+| 3 | [code-reviewer](#3-code-reviewer) | Quality, maintainability, best practices | `code-review` | claude-sonnet-4.6 |
+| 4 | [security-reviewer](#4-security-reviewer) | Vulnerability detection, hardened defaults | `code-review` | claude-sonnet-4.6 |
+| 5 | [tdd-guide](#5-tdd-guide) | Test-driven development workflow | `general-purpose` | gpt-5-mini |
+| 6 | [build-error-resolver](#6-build-error-resolver) | Fix build/compilation errors | `task` | gpt-5-mini |
 | 7 | [doc-updater](#7-doc-updater) | Documentation sync | `general-purpose` | claude-haiku-4.5 |
-| 8 | [refactor-cleaner](#8-refactor-cleaner) | Dead code removal, cleanup | `general-purpose` | gpt-4.1 |
+| 8 | [refactor-cleaner](#8-refactor-cleaner) | Dead code removal, cleanup | `general-purpose` | gpt-5-mini |
 
 ---
 
@@ -51,7 +51,7 @@
 
 ### Model Recommendation
 
-**claude-sonnet-4.5** — Strong reasoning for dependency analysis and task decomposition. For very large codebases, consider **claude-opus-4.5** for deeper analysis.
+**claude-sonnet-4.6** — Strong reasoning for dependency analysis and task decomposition. For very large codebases, consider **claude-opus-4.6** for deeper analysis.
 
 ### Escalation
 
@@ -91,7 +91,7 @@
 
 ### Model Recommendation
 
-**claude-sonnet-4.5** — Excellent for weighing trade-offs and producing structured design documents. For complex distributed systems, use **claude-opus-4.5**.
+**claude-sonnet-4.6** — Excellent for weighing trade-offs and producing structured design documents. For complex distributed systems, use **claude-opus-4.6**.
 
 ### Escalation
 
@@ -145,7 +145,7 @@
 
 ### Model Recommendation
 
-**claude-sonnet-4.5** — High-quality reasoning for catching subtle bugs. For large PRs touching many files, consider splitting across fleet agents.
+**claude-sonnet-4.6** — High-quality reasoning for catching subtle bugs. For large PRs touching many files, consider splitting across fleet agents.
 
 ### Escalation
 
@@ -199,7 +199,7 @@
 
 ### Model Recommendation
 
-**claude-sonnet-4.5** — Strong at identifying subtle security issues and explaining their impact. For comprehensive security audits, use **claude-opus-4.5**.
+**claude-sonnet-4.6** — Strong at identifying subtle security issues and explaining their impact. For comprehensive security audits, use **claude-opus-4.6**.
 
 ### Escalation
 
@@ -261,7 +261,7 @@ CREATE TABLE test_cases (
 
 ### Model Recommendation
 
-**gpt-4.1** — Fast iteration speed is critical for TDD cycles. Strong at generating test cases and minimal implementations. Use **claude-sonnet-4.5** for complex test logic.
+**gpt-5-mini** — Fast iteration speed is critical for TDD cycles. Strong at generating test cases and minimal implementations. Use **claude-sonnet-4.6** for complex test logic.
 
 ### Escalation
 
@@ -310,7 +310,7 @@ CREATE TABLE test_cases (
 
 ### Model Recommendation
 
-**gpt-4.1** — Fast turnaround for iterative fix-test-fix cycles. Excellent at parsing error messages and generating fixes. For complex dependency conflicts, use **claude-sonnet-4.5**.
+**gpt-5-mini** — Fast turnaround for iterative fix-test-fix cycles. Excellent at parsing error messages and generating fixes. For complex dependency conflicts, use **claude-sonnet-4.6**.
 
 ### Escalation
 
@@ -360,7 +360,7 @@ CREATE TABLE test_cases (
 
 ### Model Recommendation
 
-**claude-haiku-4.5** — Documentation updates are typically straightforward and benefit from fast execution. Use **claude-sonnet-4.5** for complex technical writing.
+**claude-haiku-4.5** — Documentation updates are typically straightforward and benefit from fast execution. Use **claude-sonnet-4.6** for complex technical writing.
 
 ### Escalation
 
@@ -418,7 +418,7 @@ CREATE TABLE test_cases (
 
 ### Model Recommendation
 
-**gpt-4.1** — Fast at identifying patterns and making targeted edits. For large-scale refactoring across many files, use **claude-sonnet-4.5** for better cross-file reasoning.
+**gpt-5-mini** — Fast at identifying patterns and making targeted edits. For large-scale refactoring across many files, use **claude-sonnet-4.6** for better cross-file reasoning.
 
 ### Escalation
 

@@ -41,7 +41,7 @@ Agents are personas with defined responsibilities, tool permissions, and behavio
 
 - **Identity**: Name, role description, expertise areas
 - **Tools**: Which tools the agent can use (e.g., `grep`, `edit`, `powershell`)
-- **Model**: Recommended AI model (e.g., `claude-sonnet-4.5`, `gpt-4.1`)
+- **Model**: Recommended AI model (e.g., `claude-sonnet-4.6`, `gpt-5-mini`)
 - **Behavioral Rules**: How the agent should approach tasks
 - **Escalation Policy**: When to hand off to another agent or human
 
@@ -126,7 +126,7 @@ Create a Markdown file in `agents/` with this structure:
 name: agent-name
 description: One-line description of what this agent does
 agent_type: general-purpose | explore | task | code-review
-model: claude-sonnet-4.5 | gpt-4.1 | claude-haiku-4.5
+model: claude-sonnet-4.6 | gpt-5-mini | claude-haiku-4.5
 tools:
   - grep
   - glob

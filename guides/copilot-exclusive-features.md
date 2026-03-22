@@ -115,14 +115,13 @@ task(agent_type="general-purpose", model="claude-opus-4.6", prompt="Redesign aut
 | `gpt-5.1` | OpenAI | Standard | General-purpose |
 | `gpt-5.1-codex-mini` | OpenAI | Fast/Cheap | Quick code tasks |
 | `gpt-5-mini` | OpenAI | Fast/Cheap | Simple tasks |
-| `gpt-4.1` | OpenAI | Fast/Cheap | Fast, cost-effective |
+| `gpt-5-mini` | OpenAI | Fast/Cheap | Quick general tasks |
 | `claude-sonnet-4.6` | Anthropic | Standard | Balanced quality + speed |
 | `claude-sonnet-4.5` | Anthropic | Standard | Reliable all-rounder |
 | `claude-sonnet-4` | Anthropic | Standard | Stable, proven |
 | `claude-haiku-4.5` | Anthropic | Fast/Cheap | Exploration, simple edits |
 | `claude-opus-4.6` | Anthropic | Premium | Deep analysis, architecture |
 | `claude-opus-4.6-fast` | Anthropic | Premium | Premium quality, faster |
-| `claude-opus-4.5` | Anthropic | Premium | Complex reasoning |
 | `gemini-3-pro-preview` | Google | Standard | Multimodal, large context |
 
 ### Example: Cost-Aware Routing
@@ -131,7 +130,7 @@ task(agent_type="general-purpose", model="claude-opus-4.6", prompt="Redesign aut
 Phase 1 — Explore (cheap):     claude-haiku-4.5      → $
 Phase 2 — Plan (standard):     default model          → $$
 Phase 3 — Implement (standard): claude-sonnet-4.6     → $$
-Phase 4 — Review (standard):    claude-sonnet-4.5     → $$
+Phase 4 — Review (standard):    claude-sonnet-4.6     → $$
 Phase 5 — Arch review (premium): claude-opus-4.6      → $$$  (only if needed)
 ```
 

@@ -193,18 +193,18 @@ The `session_store` database provides read-only access to history from previous 
 
 | Task | Recommended Model | Why |
 |---|---|---|
-| Quick questions | `gpt-4.1` | Fast, cheap |
+| Quick questions | `gpt-5-mini` | Fast, cheap |
 | Code generation | `gpt-5.1-codex` | Optimized for code |
-| Balanced work | `claude-sonnet-4.5` | Good reasoning + speed |
-| Deep analysis | `claude-opus-4.5` | Best reasoning |
+| Balanced work | `claude-sonnet-4.6` | Good reasoning + speed |
+| Deep analysis | `claude-opus-4.6` | Best reasoning |
 | Bulk operations | `claude-haiku-4.5` | Cheapest per token |
 | Complex architecture | `claude-opus-4.6` | Premium reasoning |
 
 Switch models mid-session:
 
 ```
-/model gpt-4.1          # Switch to fast model for simple tasks
-/model claude-opus-4.5   # Switch to deep model for architecture decisions
+/model gpt-5-mini          # Switch to fast model for simple tasks
+/model claude-opus-4.6   # Switch to deep model for architecture decisions
 ```
 
 ---

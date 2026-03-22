@@ -2,7 +2,7 @@
 name: refactor-cleaner
 description: Dead code removal, code cleanup, and safe modernization without behavioral changes
 agent_type: general-purpose
-model: claude-sonnet-4.5
+model: gpt-5-mini
 tools:
   - grep
   - glob

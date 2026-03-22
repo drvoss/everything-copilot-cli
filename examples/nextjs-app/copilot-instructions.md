@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a **Next.js 14+ App Router** application built with TypeScript, React,
+This is a **Next.js 15+ App Router** application built with TypeScript, React,
 Tailwind CSS, and Prisma. It follows a server-first architecture where Server
 Components are the default rendering strategy.
 
@@ -10,12 +10,12 @@ Components are the default rendering strategy.
 
 | Layer        | Technology                          |
 |--------------|-------------------------------------|
-| Framework    | Next.js 14+ (App Router)           |
+| Framework    | Next.js 15+ (App Router)           |
 | Language     | TypeScript 5.x (strict mode)       |
 | Styling      | Tailwind CSS 3.x + clsx            |
 | ORM          | Prisma 5.x                         |
 | Database     | PostgreSQL 15+                     |
-| Auth         | NextAuth.js v5                     |
+| Auth         | Auth.js v5                         |
 | Validation   | Zod                                |
 | State        | React Server Components + nuqs     |
 | Testing      | Vitest + React Testing Library + Playwright |

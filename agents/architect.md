@@ -2,7 +2,7 @@
 name: architect
 description: System design, scalability analysis, and technology decision-making
 agent_type: general-purpose
-model: claude-sonnet-4.5
+model: claude-sonnet-4.6
 tools:
   - grep
   - glob
@@ -52,7 +52,7 @@ evaluating technology trade-offs (e.g., choosing a database, message broker, or 
 - **Delegation**: The architect often works upstream of the planner. First the architect
   defines the approach, then the planner breaks it into tasks.
 - **Deep reasoning**: For particularly complex decisions, use a premium model like
-  `claude-opus-4.5` or `gpt-5.1-codex-max` to get higher-quality analysis.
+  `claude-opus-4.6` or `gpt-5.1-codex-max` to get higher-quality analysis.
 - **MCP tools**: Use GitHub MCP tools to review existing PRs, issues, and CI workflows
   that inform architectural constraints.
 

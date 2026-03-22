@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is an **ASP.NET Core 8 Web API** built with C# 12, Entity Framework Core,
+This is an **ASP.NET Core 9 Web API** built with C# 13, Entity Framework Core,
 MediatR, and FluentValidation. It follows Clean Architecture with strict layer
 boundaries and a CQRS pattern for request handling.
 
@@ -10,9 +10,9 @@ boundaries and a CQRS pattern for request handling.
 
 | Layer          | Technology                          |
 |----------------|-------------------------------------|
-| Framework      | ASP.NET Core 8                      |
-| Language       | C# 12                               |
-| ORM            | Entity Framework Core 8              |
+| Framework      | ASP.NET Core 9                      |
+| Language       | C# 13                               |
+| ORM            | Entity Framework Core 9              |
 | Mediator       | MediatR 12.x                        |
 | Validation     | FluentValidation 11.x               |
 | Database       | SQL Server / PostgreSQL              |

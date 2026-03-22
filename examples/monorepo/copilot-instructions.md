@@ -13,7 +13,7 @@ TypeScript libraries, and a React Native mobile app.
 | Build System | Turborepo                           |
 | Language     | TypeScript 5.x (strict mode)        |
 | Package Mgr  | pnpm workspaces                     |
-| Web App      | Next.js 14+ (App Router)            |
+| Web App      | Next.js 15+ (App Router)            |
 | API Server   | Node.js + Fastify                   |
 | Mobile       | React Native + Expo                 |
 | Shared       | TypeScript libraries (pure)         |

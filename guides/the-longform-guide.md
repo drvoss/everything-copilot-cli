@@ -91,9 +91,9 @@ Copilot CLI offers 18 models spanning three tiers. Choose based on task complexi
 
 | Tier | Models | Best For | Cost |
 |------|--------|----------|------|
-| **Premium** | `claude-opus-4.6`, `claude-opus-4.6-fast`, `claude-opus-4.5` | Architecture decisions, complex refactors, subtle bugs | High |
+| **Premium** | `claude-opus-4.6`, `claude-opus-4.6-fast` | Architecture decisions, complex refactors, subtle bugs | High |
 | **Standard** | `claude-sonnet-4.6`, `claude-sonnet-4.5`, `claude-sonnet-4`, `gpt-5.4`, `gpt-5.3-codex`, `gpt-5.2-codex`, `gpt-5.2`, `gpt-5.1-codex-max`, `gpt-5.1-codex`, `gpt-5.1`, `gemini-3-pro-preview` | General development, code review, multi-file changes | Medium |
-| **Fast/Cheap** | `gpt-5.1-codex-mini`, `gpt-5-mini`, `gpt-4.1`, `claude-haiku-4.5` | Exploration, simple edits, boilerplate, formatting | Low |
+| **Fast/Cheap** | `gpt-5.4-mini`, `gpt-5.1-codex-mini`, `gpt-5-mini`, `claude-haiku-4.5` | Exploration, simple edits, boilerplate, formatting | Low |
 
 ### Agent Type Costs
 
@@ -689,10 +689,10 @@ Route tasks to the cheapest model that can handle them:
 |-----------|------------------|------------|-----|
 | Find files / search code | `claude-haiku-4.5` | explore | Cheap, fast, sufficient |
 | Run builds / tests | `claude-haiku-4.5` | task | Only need pass/fail |
-| Simple edits / boilerplate | `gpt-4.1` | general-purpose | Fast generation |
+| Simple edits / boilerplate | `gpt-5-mini` | general-purpose | Fast generation |
 | Complex refactoring | `claude-sonnet-4.6` | general-purpose | Needs reasoning |
 | Architecture decisions | `claude-opus-4.6` | general-purpose | Deep analysis |
-| Security review | `claude-sonnet-4.5` | code-review | Specialized focus |
+| Security review | `claude-sonnet-4.6` | code-review | Specialized focus |
 
 ### Conflict Resolution When Agents Disagree
 

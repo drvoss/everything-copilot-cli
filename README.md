@@ -41,7 +41,7 @@ GitHub Copilot CLI has **11 structural advantages** over single-vendor coding ag
 | # | Advantage | Description |
 |---|-----------|-------------|
 | 1 | 🔗 **GitHub-Native Integration** | Issues, PRs, Actions, code search — all via built-in MCP. No extra setup. |
-| 2 | 🧠 **18+ Model Selection** | GPT-5, Claude Sonnet/Opus, Gemini Pro — pick the right model per task. |
+| 2 | 🧠 **18+ Model Selection** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — pick the right model per task. |
 | 3 | 🔄 **IDE ↔ CLI Seamless Switching** | Same Copilot context in VS Code, JetBrains, and the terminal. |
 | 4 | 📋 **Plan Mode** | Visual approval UI — review every step before execution. |
 | 5 | 🤖 **Autopilot Mode** | Autonomous task execution with guardrails. |

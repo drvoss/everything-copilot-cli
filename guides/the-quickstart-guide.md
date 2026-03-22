@@ -139,9 +139,9 @@ These commands work inside any Copilot CLI session:
 Quick model switching examples:
 
 ```
-/model claude-sonnet-4.5    # Balanced reasoning (default)
-/model gpt-4.1              # Fast code generation
-/model claude-opus-4.5      # Deep analysis (premium)
+/model claude-sonnet-4.6    # Balanced reasoning (default)
+/model gpt-5-mini              # Fast code generation
+/model claude-opus-4.6      # Deep analysis (premium)
 ```
 
 ---

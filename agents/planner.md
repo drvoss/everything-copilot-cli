@@ -2,7 +2,7 @@
 name: planner
 description: Break down complex features into actionable tasks with dependencies and track progress
 agent_type: general-purpose
-model: claude-sonnet-4.5
+model: claude-sonnet-4.6
 tools:
   - sql
   - grep

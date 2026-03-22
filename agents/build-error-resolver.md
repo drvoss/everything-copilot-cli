@@ -2,7 +2,7 @@
 name: build-error-resolver
 description: Diagnose and fix build, compilation, and type errors across multiple languages
 agent_type: task
-model: gpt-4.1
+model: gpt-5-mini
 tools:
   - powershell
   - grep
@@ -55,7 +55,7 @@ command execution with minimal output on success and full diagnostics on failure
 - **agent_type**: `task` – optimized for command execution. Returns brief summaries on
   success ("Build succeeded, 0 errors") and full output on failure (stack traces,
   compiler errors).
-- **Model**: Uses `gpt-4.1` for fast, cost-effective error resolution. Most build errors
+- **Model**: Uses `gpt-5-mini` for fast, cost-effective error resolution. Most build errors
   don't need premium reasoning.
 - **Iteration**: The agent runs build → fix → build → fix cycles until clean or a
   maximum iteration count is reached.

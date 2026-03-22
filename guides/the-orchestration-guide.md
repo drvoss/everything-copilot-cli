@@ -224,17 +224,17 @@ Use the right tool at the right price point for each task:
 
 ```
 # ❌ Expensive: Using Opus for everything
-/model claude-opus-4.5
+/model claude-opus-4.6
 > Fix the typo in the README
 
 # ✅ Smart: Match model to task
-/model gpt-4.1              # Typo fix — cheapest model
+/model gpt-5-mini              # Typo fix — cheapest model
 > Fix the typo in the README
 
-/model claude-sonnet-4.5     # Feature work — balanced
+/model claude-sonnet-4.6     # Feature work — balanced
 > Implement the caching layer
 
-/model claude-opus-4.5       # Architecture — worth the premium
+/model claude-opus-4.6       # Architecture — worth the premium
 > Design the event-driven migration strategy
 ```
 

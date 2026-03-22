@@ -384,7 +384,7 @@ Copilot CLI provides security features that enhance your development workflow:
 > Implement the password reset flow
 
 # 2. Security review (code-review agent with strong model)
-/model claude-sonnet-4.5
+/model claude-sonnet-4.6
 > Review the password reset implementation for security vulnerabilities
 
 # 3. Run security scans

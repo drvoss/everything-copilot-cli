@@ -92,9 +92,9 @@ These open-source projects pioneered multi-agent orchestration patterns:
 ## System Status
 
 > **Current Environment:**
-> - Codex CLI: v0.114.0 (installed globally via `npm i -g @openai/codex`)
+> - Codex CLI: Latest stable (installed globally via `npm i -g @openai/codex`)
 > - Claude Code: Available via `npx @anthropic-ai/claude-code`
-> - Gemini CLI: Available via `npx @anthropic-ai/claude-code` or direct install
+> - Gemini CLI: Available via `npx @anthropic-ai/gemini-cli` or direct install
 > - Copilot CLI: You're using it right now
 
 ## Quick Start

@@ -41,7 +41,7 @@ GitHub Copilot CLI는 단일 벤더 코딩 에이전트 대비 **11가지 구조
 | # | 장점 | 설명 |
 |---|------|------|
 | 1 | 🔗 **GitHub 네이티브 통합** | Issues, PR, Actions, 코드 검색 — 내장 MCP로 별도 설정 없이 바로 사용 |
-| 2 | 🧠 **18개 이상 모델 선택** | GPT-5, Claude Sonnet/Opus, Gemini Pro — 작업별로 최적의 모델 선택 |
+| 2 | 🧠 **18개 이상 모델 선택** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — 작업별로 최적의 모델 선택 |
 | 3 | 🔄 **IDE ↔ CLI 원활한 전환** | VS Code, JetBrains, 터미널에서 동일한 Copilot 컨텍스트 유지 |
 | 4 | 📋 **Plan Mode** | 시각적 승인 UI — 실행 전 모든 단계를 리뷰 |
 | 5 | 🤖 **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 |

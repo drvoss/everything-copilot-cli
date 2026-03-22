@@ -2,7 +2,7 @@
 name: code-reviewer
 description: Code quality, maintainability, and best practices review with high signal-to-noise ratio
 agent_type: code-review
-model: claude-sonnet-4.5
+model: claude-sonnet-4.6
 tools:
   - grep
   - glob

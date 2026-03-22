@@ -32,7 +32,7 @@ cross-provider optimization.
 |------------------------------|---------------------------------------------|
 | `claude-opus-4.6`            | Complex architecture, security analysis     |
 | `claude-opus-4.6-fast`       | Same quality, lower latency                 |
-| `claude-opus-4.5`            | Deep reasoning, nuanced code review         |
+| `claude-opus-4.6`            | Deep reasoning, nuanced code review         |
 
 #### Standard Tier (General Purpose)
 | Model                        | Best For                                    |
@@ -54,7 +54,6 @@ cross-provider optimization.
 |------------------------------|---------------------------------------------|
 | `gpt-5.1-codex-mini`         | Fast code tasks                             |
 | `gpt-5-mini`                 | Quick general tasks                         |
-| `gpt-4.1`                    | Budget-friendly, still capable              |
 | `claude-haiku-4.5`           | Exploration, simple edits, high-volume      |
 
 ### 1. Switch Your Main Model
@@ -109,11 +108,11 @@ Use the most capable model for security-critical analysis.
 
 ```
 # Launch fleet with cheap model for high-volume doc generation
-task(agent_type: "general-purpose", model: "gpt-4.1",
+task(agent_type: "general-purpose", model: "gpt-5-mini",
      prompt: "Add JSDoc to all exports in src/utils/string.ts")
-task(agent_type: "general-purpose", model: "gpt-4.1",
+task(agent_type: "general-purpose", model: "gpt-5-mini",
      prompt: "Add JSDoc to all exports in src/utils/array.ts")
-task(agent_type: "general-purpose", model: "gpt-4.1",
+task(agent_type: "general-purpose", model: "gpt-5-mini",
      prompt: "Add JSDoc to all exports in src/utils/date.ts")
 ```
 

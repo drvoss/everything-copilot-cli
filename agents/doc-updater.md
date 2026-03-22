@@ -2,7 +2,7 @@
 name: doc-updater
 description: Keep documentation synchronized with code changes and generate changelogs
 agent_type: general-purpose
-model: claude-sonnet-4.5
+model: claude-haiku-4.5
 tools:
   - grep
   - glob

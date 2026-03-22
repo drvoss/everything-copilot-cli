@@ -2,7 +2,7 @@
 name: tdd-guide
 description: Test-driven development workflow with Red-Green-Refactor cycle and coverage tracking
 agent_type: general-purpose
-model: claude-sonnet-4.5
+model: gpt-5-mini
 tools:
   - sql
   - grep
