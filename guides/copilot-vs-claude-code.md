@@ -59,9 +59,9 @@ unique capabilities.
 | Agent Council | ✅ Multi-tool deliberation | ❌ Single-tool | Bring multiple AIs to decisions |
 | **Extensibility** | | | |
 | Skill Library | ⚠️ Growing (~23 skills) | ✅ 65+ battle-tested | Claude Code's library is more mature |
-| Hook System | ⚠️ Startup hooks | ✅ Full lifecycle hooks | Claude Code has richer hook support |
-| Custom Commands | ✅ Slash commands | ✅ Slash commands | Both support custom commands |
-| Security Scanning | ⚠️ Via skills | ✅ AgentShield built-in | Claude Code has native security |
+| Hook System | ✅ `preToolUse` / `postToolUse` | ✅ Full lifecycle hooks | Both support lifecycle hooks (GA Feb 2026) |
+| Custom Commands | ✅ Slash commands + plugins | ✅ Slash commands | Both support custom commands |
+| Security Scanning | ⚠️ Via skills | ⚠️ Via skills | Both rely on security skill workflows |
 | **Configuration** | | | |
 | Instructions File | ✅ `.github/copilot-instructions.md` | ✅ `CLAUDE.md` | Same purpose, different locations |
 | Agent Config | ✅ `AGENTS.md` + frontmatter | ✅ `AGENTS.md` + frontmatter | Nearly identical format |
@@ -139,6 +139,11 @@ implementation with Sonnet ($$), architecture with Opus ($$$).
 Controlled autonomous execution with safety guardrails — more structured than Claude
 Code's permission-skipping approach.
 
+### 12. Lifecycle Hooks (GA Feb 2026)
+
+`preToolUse` and `postToolUse` hooks enable custom validation, logging, and automation
+at every tool call — now on par with Claude Code's hook support.
+
 ---
 
 ## Where Claude Code Excels
@@ -155,13 +160,13 @@ production use. Copilot CLI's library is growing but currently has ~23 skills.
 
 ### 3. Full Lifecycle Hooks
 
-Claude Code's hook system covers the entire agent lifecycle — pre-tool, post-tool,
-notification hooks, and more. Copilot CLI's hook support is more limited.
+Both tools now support lifecycle hooks. Claude Code has a more mature and documented
+hook ecosystem with a larger library of community-contributed hooks.
 
-### 4. AgentShield Security
+### 4. Security via Skills
 
-Built-in security scanning that monitors agent behavior in real-time, checking for
-dangerous operations before they execute.
+Both tools approach security scanning through skill-based workflows. Claude Code's
+security skills are more battle-tested with a larger community library.
 
 ### 5. Deep Claude Model Integration
 

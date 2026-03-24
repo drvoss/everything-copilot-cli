@@ -129,10 +129,15 @@ Copilot CLI reads this file automatically and tailors its behavior to your proje
 These commands work inside any Copilot CLI session:
 
 ```
-/model              # Switch between 18 available models
+/model              # Switch between 20+ available models
 /skills             # List available skills and workflows
 /add-dir ./src      # Add directories to context
 /clear              # Clear conversation history
+/diff               # Review current changes
+/review             # Run PR code review
+/init               # Initialize Copilot setup for this project
+/plugin install     # Install a community plugin
+/chronicle          # Standup reports & session history (experimental: /experimental on)
 /help               # Show all available commands
 ```
 
@@ -140,7 +145,7 @@ Quick model switching examples:
 
 ```
 /model claude-sonnet-4.6    # Balanced reasoning (default)
-/model gpt-5-mini              # Fast code generation
+/model gpt-5-mini           # Fast code generation
 /model claude-opus-4.6      # Deep analysis (premium)
 ```
 

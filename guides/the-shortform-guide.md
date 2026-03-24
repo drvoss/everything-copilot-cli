@@ -103,12 +103,17 @@ agent_type: general-purpose
 ### Essential Slash Commands
 
 ```
-/model [name]       # Switch AI model
+/model [name]       # Switch AI model (20+ available)
 /skills             # List available skills
 /add-dir <path>     # Add directory to context
 /clear              # Clear conversation history
 /compact            # Compress context to save tokens
 /login              # Authenticate with GitHub
+/diff               # Review current changes
+/review             # Run PR code review
+/init               # Initialize Copilot setup for this project
+/plugin install     # Install a community plugin
+/chronicle          # Standup reports & session history (experimental)
 /help               # Show all commands
 ```
 
@@ -150,12 +155,12 @@ Create `.vscode/mcp.json` or `~/.copilot/mcp-config.json`:
 
 ```json
 {
-  "mcpServers": {
+  "servers": {
     "my-server": {
       "command": "npx",
       "args": ["-y", "my-mcp-server"],
       "env": {
-        "API_KEY": "your-key"
+        "API_KEY": "${env:API_KEY}"
       }
     }
   }
@@ -182,6 +187,16 @@ CREATE TABLE test_results (id TEXT, passed BOOLEAN, duration_ms INTEGER);
 ### Session Resume
 Sessions persist across restarts. Your conversation history, SQL data, and context carry over.
 
+### /chronicle — Standup Reports & History _(Experimental)_
+Automatically summarizes your work from the session database.
+Requires `/experimental on` to activate:
+
+```
+/experimental on         # Enable experimental features
+/chronicle standup       # What did I work on today?
+/chronicle tips          # Tips based on session patterns
+```
+
 ### Cross-Session Memory
 The `session_store` database provides read-only access to history from previous sessions.
 
@@ -189,16 +204,17 @@ The `session_store` database provides read-only access to history from previous 
 
 ## Multi-Model Strategy
 
-18 models available. Choose based on your task:
+20+ models available across OpenAI, Anthropic, Google, and xAI. Choose based on your task:
 
 | Task | Recommended Model | Why |
 |---|---|---|
-| Quick questions | `gpt-5-mini` | Fast, cheap |
+| Quick questions | `gpt-5-mini` or `gpt-4.1` | Fast, cheap |
 | Code generation | `gpt-5.1-codex` | Optimized for code |
 | Balanced work | `claude-sonnet-4.6` | Good reasoning + speed |
 | Deep analysis | `claude-opus-4.6` | Best reasoning |
 | Bulk operations | `claude-haiku-4.5` | Cheapest per token |
 | Complex architecture | `claude-opus-4.6` | Premium reasoning |
+| Multimodal / images | `gemini-3.1-pro-preview` | Best visual understanding |
 
 Switch models mid-session:
 
@@ -236,15 +252,17 @@ Launches multiple agents in parallel for highly parallelizable work:
 # Fleet spawns parallel agents, each handling a subset of files
 ```
 
-### Background Agents
-Long-running agents that work asynchronously:
+### Background Agents (Background Delegation)
+Delegate tasks to a cloud Copilot coding agent with `&` — terminal is immediately free.
+The agent works on GitHub and opens a **draft PR** with results:
 
 ```
-# Launch a background agent
-task(mode="background", prompt="Run the full test suite and report failures")
+# Delegate to cloud agent
+& "Add comprehensive error handling to all API endpoints"
+# → Agent creates a draft PR on GitHub when done
 
-# Check on it later
-read_agent(agent_id="...")
+# /resume brings a cloud session into your local CLI (not for polling results)
+/resume abc123
 ```
 
 ---

@@ -107,22 +107,27 @@ task(agent_type="general-purpose", model="claude-opus-4.6", prompt="Redesign aut
 | Model | Provider | Tier | Best For |
 |-------|----------|------|----------|
 | `gpt-5.4` | OpenAI | Standard | General-purpose coding |
+| `gpt-5.4-mini` | OpenAI | Fast/Cheap | Quick general tasks |
+| `gpt-4.1` | OpenAI | Fast/Cheap | Fast, cost-efficient tasks |
 | `gpt-5.3-codex` | OpenAI | Standard | Code generation |
 | `gpt-5.2-codex` | OpenAI | Standard | Code generation |
 | `gpt-5.2` | OpenAI | Standard | General-purpose |
 | `gpt-5.1-codex-max` | OpenAI | Standard | Maximum code quality |
 | `gpt-5.1-codex` | OpenAI | Standard | Code generation |
-| `gpt-5.1` | OpenAI | Standard | General-purpose |
 | `gpt-5.1-codex-mini` | OpenAI | Fast/Cheap | Quick code tasks |
+| `gpt-5.1` | OpenAI | Standard | General-purpose |
 | `gpt-5-mini` | OpenAI | Fast/Cheap | Simple tasks |
-| `gpt-5-mini` | OpenAI | Fast/Cheap | Quick general tasks |
+| `claude-opus-4.6` | Anthropic | Premium | Deep analysis, architecture |
+| `claude-opus-4.6-fast` | Anthropic | Premium | Premium quality, faster output |
+| `claude-opus-4.5` | Anthropic | Premium | Deep analysis |
 | `claude-sonnet-4.6` | Anthropic | Standard | Balanced quality + speed |
 | `claude-sonnet-4.5` | Anthropic | Standard | Reliable all-rounder |
 | `claude-sonnet-4` | Anthropic | Standard | Stable, proven |
 | `claude-haiku-4.5` | Anthropic | Fast/Cheap | Exploration, simple edits |
-| `claude-opus-4.6` | Anthropic | Premium | Deep analysis, architecture |
-| `claude-opus-4.6-fast` | Anthropic | Premium | Premium quality, faster |
 | `gemini-3-pro-preview` | Google | Standard | Multimodal, large context |
+| `gemini-3.1-pro-preview` | Google | Standard | Latest Gemini multimodal |
+| `gemini-3-flash` | Google | Fast/Cheap | Fast multimodal tasks |
+| `grok-code-fast-1` | xAI | Standard | Code-focused tasks |
 
 ### Example: Cost-Aware Routing
 
@@ -315,56 +320,65 @@ See [Autopilot Patterns skill](../skills/copilot-exclusive/autopilot-patterns.md
 
 ### What It Is
 
-Background agents run asynchronously in separate processes while you continue working
-in your main session. You receive a notification when they complete, then read their
-results.
+**Background Delegation** hands off tasks to a cloud-based Copilot coding agent that
+runs autonomously on GitHub. Your terminal is immediately freed. The agent works on a
+new branch and opens a **draft PR** — results are reviewed on GitHub, not polled from
+the terminal.
 
 ### Why It Matters
 
-Long-running tasks (codebase analysis, test suites, documentation generation) no longer
-block your workflow. Start a background agent, continue coding, and collect results when
-they're ready.
+Long-running tasks (large refactors, multi-file migrations, full test suite additions)
+no longer block your workflow. Delegate with `&`, keep coding locally, and review the
+agent's draft PR on GitHub when it's ready.
 
 ### How to Use It
 
-```
-# Launch
-agent_id = task(mode="background", agent_type="explore",
-    prompt="Analyze all error handling patterns in this codebase")
-
-# Continue working on other things...
-
-# Get notified when complete, then read results
-results = read_agent(agent_id)
-
-# Optionally send follow-up messages
-write_agent(agent_id, "Now categorize the patterns by severity")
-```
-
-**Multi-turn pattern:**
+Prefix any prompt with `&` (or use `/delegate [PROMPT]`) to hand off to the cloud agent:
 
 ```
-Turn 1: "Analyze the authentication system"
-  → Agent investigates, reports findings
-Turn 2: "Focus on the token refresh flow — are there race conditions?"
-  → Agent drills deeper with accumulated context
-Turn 3: "Write a summary with recommendations"
-  → Agent produces final report
+# Delegate to cloud Copilot coding agent — terminal is immediately free
+& "Add pagination to the /api/users endpoint and write integration tests"
+
+# The agent:
+#   1. Commits current state to a new branch
+#   2. Works autonomously on GitHub
+#   3. Opens a draft PR with the completed changes
+
+# → Review the draft PR on GitHub for results
+```
+
+**`/resume` — continuing a cloud session locally:**
+
+`/resume` brings a cloud agent session into your local CLI — it is not for polling
+delegation results. Use it when you want to continue the conversation after reviewing
+the draft PR:
+
+```
+# List recent sessions
+/resume
+
+# Bring a specific cloud session into the local CLI
+/resume abc123
+
+# Continue from where the cloud agent left off
+> Refactor the pagination logic to use cursor-based pagination instead
 ```
 
 ### Example
 
 ```
-# Launch two background agents in parallel
-agent1 = task(mode="background", prompt="Audit all npm dependencies for vulnerabilities")
-agent2 = task(mode="background", prompt="Generate test coverage report for src/services/")
+# Delegate a long-running task to the cloud agent
+& "Migrate all REST endpoints to use the new auth middleware"
 
-# Both run concurrently while you work on a feature
-# ...implementing a new feature...
+# Terminal is free — continue local work while the agent runs on GitHub
+# ...coding a new feature locally...
 
-# Results arrive via notifications
-read_agent(agent1)  # → "Found 3 vulnerabilities: lodash (high), ..."
-read_agent(agent2)  # → "Coverage: auth 87%, users 62%, payments 91%"
+# GitHub notifies you when the draft PR is ready
+# → Open the PR on GitHub to review changes, leave comments, or approve
+
+# Optionally: bring the session local to continue in the CLI
+/resume abc123
+> Update the migration guide to reflect these changes
 ```
 
 See [Background Agent skill](../skills/copilot-exclusive/background-agent.md).
@@ -508,6 +522,30 @@ UPDATE test_cases SET status = 'passing' WHERE id = 'login-valid';
 -- 5. Check progress
 SELECT status, COUNT(*) as count FROM test_cases GROUP BY status;
 ```
+
+### /chronicle — Session History & Standup Reports (Experimental)
+
+> ⚠️ **Experimental feature** — requires `/experimental on` to activate.
+
+The `/chronicle` command leverages the session database to generate automatic summaries
+of your work, productivity insights, and standup-ready reports:
+
+```
+# Enable experimental features first
+/experimental on
+
+# What did I do today?
+/chronicle standup
+
+# Tips based on session patterns
+/chronicle tips
+
+# Reindex session history
+/chronicle reindex
+```
+
+`/chronicle` reads from `~/.copilot/session-store.db`, which records prompts, responses,
+tools used, and files modified across all sessions. No manual logging required.
 
 See [Session Management skill](../skills/copilot-exclusive/session-management.md).
 

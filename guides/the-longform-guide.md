@@ -91,9 +91,9 @@ Copilot CLI offers 18 models spanning three tiers. Choose based on task complexi
 
 | Tier | Models | Best For | Cost |
 |------|--------|----------|------|
-| **Premium** | `claude-opus-4.6`, `claude-opus-4.6-fast` | Architecture decisions, complex refactors, subtle bugs | High |
-| **Standard** | `claude-sonnet-4.6`, `claude-sonnet-4.5`, `claude-sonnet-4`, `gpt-5.4`, `gpt-5.3-codex`, `gpt-5.2-codex`, `gpt-5.2`, `gpt-5.1-codex-max`, `gpt-5.1-codex`, `gpt-5.1`, `gemini-3-pro-preview` | General development, code review, multi-file changes | Medium |
-| **Fast/Cheap** | `gpt-5.4-mini`, `gpt-5.1-codex-mini`, `gpt-5-mini`, `claude-haiku-4.5` | Exploration, simple edits, boilerplate, formatting | Low |
+| **Premium** | `claude-opus-4.6`, `claude-opus-4.6-fast`, `claude-opus-4.5` | Architecture decisions, complex refactors, subtle bugs | High |
+| **Standard** | `claude-sonnet-4.6`, `claude-sonnet-4.5`, `claude-sonnet-4`, `gpt-5.4`, `gpt-5.3-codex`, `gpt-5.2-codex`, `gpt-5.2`, `gpt-5.1-codex-max`, `gpt-5.1-codex`, `gpt-5.1`, `gemini-3-pro-preview`, `gemini-3.1-pro-preview`, `grok-code-fast-1` | General development, code review, multi-file changes | Medium |
+| **Fast/Cheap** | `gpt-5.4-mini`, `gpt-5.1-codex-mini`, `gpt-5-mini`, `gpt-4.1`, `claude-haiku-4.5`, `gemini-3-flash` | Exploration, simple edits, boilerplate, formatting | Low |
 
 ### Agent Type Costs
 
@@ -312,22 +312,28 @@ windows. This is Copilot CLI's most powerful scaling feature.
 
 See [Fleet Parallel skill](../skills/copilot-exclusive/fleet-parallel.md).
 
-### Background Agents
+### Background Agents (Background Delegation)
 
-Background agents run asynchronously while you continue working:
+**Background Delegation** frees your terminal immediately. Prefix any prompt with `&`
+to hand off work to a cloud-based Copilot coding agent:
 
 ```
-1. Launch background agent:  task(mode="background", prompt="...")
-2. Continue your main work
-3. Get notified when the agent completes
-4. Read results with read_agent(agent_id)
+1. Delegate:    & "Migrate all service tests to the new test framework"
+2. Terminal is immediately free — continue your main work
+3. Agent works on GitHub, opens a draft PR when complete
+4. Review results on GitHub via the draft PR
+5. Optionally bring the session local:  /resume [SESSION-ID]
 ```
+
+> **Note:** `/resume` brings a cloud agent session into your local CLI for continued
+> conversation. Results from delegation are surfaced via the draft PR on GitHub, not
+> by polling with `/resume`.
 
 **Use cases:**
-- Long-running test suites
-- Codebase-wide analysis
+- Large-scale refactors spanning many files
+- Full test suite additions or migrations
 - Documentation generation
-- Dependency audit
+- Dependency audit and upgrade
 
 ### Multi-Agent Orchestration
 
@@ -374,18 +380,20 @@ Step 4: code-review agent
 
 ### Background Agent Multi-Turn Conversations
 
-Background agents can receive follow-up messages, enabling iterative workflows:
+After a cloud delegation completes and opens a draft PR, bring the session local with
+`/resume` to continue the conversation with full accumulated context:
 
 ```
-1. Launch: agent_id = task(mode="background", prompt="Analyze auth system")
-2. Wait for completion notification
-3. Read results: read_agent(agent_id)
-4. Send follow-up: write_agent(agent_id, "Now check the session management")
-5. Agent continues with accumulated context
+1. Delegate:        & "Analyze auth system and refactor weak points"
+2. Continue locally, agent works on GitHub
+3. Draft PR opens:  review changes on GitHub
+4. Bring local:     /resume abc123
+5. Follow-up:       > Also check the session management — same issues?
+6. Agent continues with accumulated context from the original run
 ```
 
-This is powerful for progressive refinement — start broad, then drill into specifics
-based on initial findings.
+This is powerful for progressive refinement — review the initial work on GitHub, then
+drill into specifics by resuming the session locally.
 
 ### Fleet Agent Result Aggregation
 
@@ -809,8 +817,8 @@ node path/to/server.js --help
 
 **Solution:**
 ```
-1. Use read_agent to check current status and partial output
-2. If stuck, stop the agent and refine the prompt
+1. Use /resume to check current status and partial output
+2. If stuck, refine the prompt and re-delegate with &
 3. Break large tasks into smaller, well-defined chunks
 ```
 

@@ -58,7 +58,7 @@ GitHub Copilot CLI has **11 structural advantages** over single-vendor coding ag
 
 ```bash
 # 1. Install GitHub Copilot CLI
-gh extension install github/gh-copilot
+npm install -g @github/copilot
 
 # 2. Clone this repository
 git clone https://github.com/anthropics/everything-copilot-cli.git
@@ -71,14 +71,18 @@ npm install && npm run setup
 Then open a terminal and start using Copilot CLI with the included agents, skills, and rules:
 
 ```bash
-# Use an agent
-gh copilot --agent planner "Design a REST API for user management"
+# Start a session in your project directory
+cd your-project
+copilot
 
-# Use a skill
-gh copilot --skill tdd "Add tests for the auth module"
+# Use the planner agent (inside the session)
+> Design a REST API for user management — use plan mode
+
+# Run TDD workflow
+> Add tests for the auth module using TDD
 
 # Orchestrate multiple AIs
-gh copilot --skill orchestrate "Claude reasons, Codex implements, Copilot reviews"
+> Claude reasons architecture, Codex implements, Copilot reviews — delegate accordingly
 ```
 
 > 📖 For detailed instructions, see the [Quick Start Guide](guides/).
@@ -286,15 +290,11 @@ No single AI is best at everything. Claude excels at reasoning, Codex at rapid i
 
 The orchestration system is informed by real-world multi-agent frameworks:
 
-- [MCO (Multi-Claude Orchestrator)](https://github.com/example/mco) — Multi-instance orchestration
-- [hcom](https://github.com/example/hcom) — Human-Computer Orchestration Model
-- [roam-code](https://github.com/example/roam-code) — Roaming agent architecture
-- [claude-flow](https://github.com/example/claude-flow) — Flow-based agent coordination
-- [swarm](https://github.com/example/swarm) — OpenAI Swarm patterns
-- [autogen](https://github.com/example/autogen) — Microsoft AutoGen framework
-- [crewai](https://github.com/example/crewai) — CrewAI role-based agents
-- [langgraph](https://github.com/example/langgraph) — LangGraph state machines
-- [metagpt](https://github.com/example/metagpt) — MetaGPT multi-agent SOP
+- [microsoft/autogen](https://github.com/microsoft/autogen) — Microsoft AutoGen framework
+- [crewAIInc/crewAI](https://github.com/crewAIInc/crewAI) — CrewAI role-based agents
+- [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) — LangGraph state machines
+- [geekan/MetaGPT](https://github.com/geekan/MetaGPT) — MetaGPT multi-agent SOP
+- [openai/swarm](https://github.com/openai/swarm) — OpenAI Swarm patterns
 
 > 📖 See the full [Orchestration Guide](guides/) for implementation details.
 
@@ -317,7 +317,7 @@ The orchestration system is informed by real-world multi-agent frameworks:
 | Multi-AI Orchestration | ✅ | ❌ |
 | Deep Reasoning (single model) | ⚠️ Model-dependent | ✅ Opus |
 | Community & ecosystem maturity | ⚠️ Growing | ✅ Established |
-| Custom slash commands | ❌ | ✅ |
+| Custom slash commands | ⚠️ Plugin-based | ✅ |
 
 > ⚖️ See the full [Comparison Guide](guides/) for detailed analysis.
 

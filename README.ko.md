@@ -58,7 +58,7 @@ GitHub Copilot CLI는 단일 벤더 코딩 에이전트 대비 **11가지 구조
 
 ```bash
 # 1. GitHub Copilot CLI 설치
-gh extension install github/gh-copilot
+npm install -g @github/copilot
 
 # 2. 저장소 클론
 git clone https://github.com/anthropics/everything-copilot-cli.git
@@ -71,14 +71,18 @@ npm install && npm run setup
 이제 터미널에서 포함된 에이전트, 스킬, 규칙과 함께 Copilot CLI를 사용해보세요:
 
 ```bash
-# 에이전트 사용
-gh copilot --agent planner "사용자 관리 REST API 설계해줘"
+# 프로젝트 디렉토리에서 세션 시작
+cd your-project
+copilot
 
-# 스킬 사용
-gh copilot --skill tdd "인증 모듈에 테스트 추가해줘"
+# planner 에이전트 사용 (세션 안에서)
+> 사용자 관리 REST API를 설계해줘 — plan mode 사용
+
+# TDD 워크플로우 실행
+> TDD로 인증 모듈에 테스트 추가해줘
 
 # 멀티 AI 오케스트레이션
-gh copilot --skill orchestrate "Claude가 추론, Codex가 구현, Copilot이 리뷰"
+> Claude가 아키텍처 추론, Codex가 구현, Copilot이 리뷰 — 적절히 위임해줘
 ```
 
 > 📖 자세한 안내는 [빠른 시작 가이드](guides/)를 참고하세요.
@@ -286,15 +290,11 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 
 오케스트레이션 시스템은 실전 검증된 멀티 에이전트 프레임워크들을 참고합니다:
 
-- [MCO (Multi-Claude Orchestrator)](https://github.com/example/mco) — 멀티 인스턴스 오케스트레이션
-- [hcom](https://github.com/example/hcom) — Human-Computer Orchestration Model
-- [roam-code](https://github.com/example/roam-code) — 로밍 에이전트 아키텍처
-- [claude-flow](https://github.com/example/claude-flow) — Flow 기반 에이전트 코디네이션
-- [swarm](https://github.com/example/swarm) — OpenAI Swarm 패턴
-- [autogen](https://github.com/example/autogen) — Microsoft AutoGen 프레임워크
-- [crewai](https://github.com/example/crewai) — CrewAI 역할 기반 에이전트
-- [langgraph](https://github.com/example/langgraph) — LangGraph 상태 머신
-- [metagpt](https://github.com/example/metagpt) — MetaGPT 멀티 에이전트 SOP
+- [microsoft/autogen](https://github.com/microsoft/autogen) — Microsoft AutoGen 프레임워크
+- [crewAIInc/crewAI](https://github.com/crewAIInc/crewAI) — CrewAI 역할 기반 에이전트
+- [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) — LangGraph 상태 머신
+- [geekan/MetaGPT](https://github.com/geekan/MetaGPT) — MetaGPT 멀티 에이전트 SOP
+- [openai/swarm](https://github.com/openai/swarm) — OpenAI Swarm 패턴
 
 > 📖 구현 세부 사항은 [오케스트레이션 가이드](guides/)를 참고하세요.
 
@@ -317,7 +317,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | Multi-AI Orchestration | ✅ | ❌ |
 | 심층 추론 (단일 모델) | ⚠️ 모델 의존적 | ✅ Opus |
 | 커뮤니티 & 생태계 성숙도 | ⚠️ 성장 중 | ✅ 자리잡음 |
-| 커스텀 슬래시 명령 | ❌ | ✅ |
+| 커스텀 슬래시 명령 | ⚠️ 플러그인 기반 | ✅ |
 
 > ⚖️ 상세 분석은 [비교 가이드](guides/)를 참고하세요.
 
