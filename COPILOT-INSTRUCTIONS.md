@@ -49,11 +49,20 @@ Agents are personas with defined responsibilities, tool permissions, and behavio
 
 Skills are composable capabilities that agents can invoke. They are organized by domain:
 
-- `skills/copilot-exclusive/` — GitHub-specific integrations (PRs, Issues, Actions)
+- `skills/copilot-exclusive/` — GitHub-specific integrations (PRs, Issues, Actions, fleet, background agents)
 - `skills/development/` — Code generation, refactoring, debugging
 - `skills/documentation/` — Doc generation, README updates, API docs
 - `skills/security/` — Vulnerability scanning, secret detection
 - `skills/testing/` — Test generation, coverage analysis, TDD workflows
+- `skills/workflow/` — End-to-end development workflows (sprint, security audit, retrospective)
+- `skills/product/` — Product management (OST framework, feature prioritization, launch strategy)
+- `skills/content/` — Content strategy and AI visibility (GEO, llms.txt, SEO)
+
+Skills follow the [agentskills.io](https://agentskills.io) spec: each skill lives in a
+`skill-name/SKILL.md` directory, not a flat `.md` file. This ensures compatibility with
+`gemini skills install`, Codex CLI, and other skill-compatible tools.
+
+See [`skills/README.md`](../skills/README.md) for the full catalog and installation instructions.
 
 Each skill file should include a **"When to Use"** section describing trigger conditions.
 
@@ -163,18 +172,14 @@ Detailed description of the agent's purpose and expertise.
 
 ### Adding a New Skill
 
-Create a Markdown file in the appropriate `skills/<category>/` subdirectory:
+Create a `SKILL.md` file inside a subdirectory in the appropriate `skills/<category>/` folder:
 
 ```markdown
 ---
 name: skill-name
-category: development | testing | security | documentation | copilot-exclusive
-triggers:
-  - keyword or phrase that activates this skill
-  - another trigger condition
-requires_tools:
-  - tool1
-  - tool2
+description: What the skill does
+metadata:
+  category: development | testing | security | documentation | copilot-exclusive | workflow | product | content
 ---
 
 # Skill Name
@@ -516,7 +521,7 @@ Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
 | Run tests | `npm test` |
 | Setup project | `npm run setup` |
 | Add an agent | Create `agents/<name>.md` with frontmatter |
-| Add a skill | Create `skills/<category>/<name>.md` |
+| Add a skill | Create `skills/<category>/<skill-name>/SKILL.md` (agentskills.io spec) |
 | Add a rule | Create `rules/common/<name>.md` or `rules/languages/<lang>.md` |
 | Add orchestration | Create `orchestration/patterns/<name>.md` |
 | Add an example | Create files in `examples/<project-type>/` |

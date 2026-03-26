@@ -21,7 +21,7 @@ function collectFiles(dir, ext = ".md") {
   const results = [];
   if (!statSync(dir, { throwIfNoEntry: false })?.isDirectory()) return results;
   for (const entry of readdirSync(dir, { withFileTypes: true, recursive: true })) {
-    if (entry.isFile() && extname(entry.name) === ext) {
+    if (entry.isFile() && extname(entry.name) === ext && entry.name !== "README.md") {
       results.push(join(entry.parentPath ?? entry.path, entry.name));
     }
   }
@@ -102,6 +102,7 @@ function validateSkills() {
 
   const validCategories = [
     "development", "testing", "security", "documentation", "copilot-exclusive",
+    "workflow", "product", "content",
   ];
   const names = new Set();
 
@@ -112,11 +113,13 @@ function validateSkills() {
       report("error", file, "Missing YAML frontmatter (---...---)");
       continue;
     }
-    for (const field of ["name", "description", "category"]) {
+    for (const field of ["name", "description"]) {
       if (!fm[field]) report("error", file, `Missing required field: ${field}`);
     }
-    if (fm.category && !validCategories.includes(fm.category)) {
-      report("warn", file, `Unrecognized category "${fm.category}". Known: ${validCategories.join(", ")}`);
+    // Category can be at top-level OR nested under metadata: (agentskills.io spec)
+    const category = fm.category || fm["  category"];
+    if (category && !validCategories.includes(category)) {
+      report("warn", file, `Unrecognized category "${category}". Known: ${validCategories.join(", ")}`);
     }
     if (fm.name) {
       if (names.has(fm.name)) report("error", file, `Duplicate skill name: "${fm.name}"`);

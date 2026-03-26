@@ -12,6 +12,9 @@ const VALID_CATEGORIES = [
   "security",
   "documentation",
   "copilot-exclusive",
+  "workflow",
+  "product",
+  "content",
 ];
 
 function parseFrontmatter(content) {
@@ -31,11 +34,21 @@ function collectMarkdownFiles(dir) {
   if (!statSync(dir, { throwIfNoEntry: false })?.isDirectory()) return [];
   const results = [];
   for (const entry of readdirSync(dir, { withFileTypes: true, recursive: true })) {
-    if (entry.isFile() && extname(entry.name) === ".md") {
+    if (entry.isFile() && extname(entry.name) === ".md" && entry.name !== "README.md") {
       results.push(join(entry.parentPath ?? entry.path, entry.name));
     }
   }
   return results;
+}
+
+// Extract category from either top-level field or metadata.category (agentskills.io spec)
+function getCategory(content) {
+  const fm = parseFrontmatter(content);
+  if (!fm) return null;
+  if (fm.category) return fm.category;
+  // Check for indented metadata.category
+  const metaMatch = content.match(/^metadata:\s*\n(?:[ \t]+\S.*\n)*?[ \t]+category:\s*(\S+)/m);
+  return metaMatch ? metaMatch[1] : null;
 }
 
 const skillFiles = collectMarkdownFiles(SKILLS_DIR);
@@ -55,22 +68,21 @@ describe("skills/ validation", () => {
       assert.ok(fm, "Missing YAML frontmatter (---...---)");
     });
 
-    it(`${filename} should have required fields (name, description, category)`, () => {
+    it(`${filename} should have required fields (name, description)`, () => {
       const content = readFileSync(file, "utf-8");
       const fm = parseFrontmatter(content);
       assert.ok(fm, "No frontmatter");
       assert.ok(fm.name, 'Missing "name" field');
       assert.ok(fm.description, 'Missing "description" field');
-      assert.ok(fm.category, 'Missing "category" field');
     });
 
     it(`${filename} should have a valid category`, () => {
       const content = readFileSync(file, "utf-8");
-      const fm = parseFrontmatter(content);
-      assert.ok(fm?.category, "No category");
+      const category = getCategory(content);
+      assert.ok(category, "No category (set at top-level or under metadata.category)");
       assert.ok(
-        VALID_CATEGORIES.includes(fm.category),
-        `Invalid category "${fm.category}". Must be one of: ${VALID_CATEGORIES.join(", ")}`
+        VALID_CATEGORIES.includes(category),
+        `Invalid category "${category}". Must be one of: ${VALID_CATEGORIES.join(", ")}`
       );
     });
   }
