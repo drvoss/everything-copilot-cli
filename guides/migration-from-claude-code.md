@@ -27,7 +27,7 @@ Copilot CLI equivalent:
 | Context files | `contexts/` directory | Reusable context definitions |
 | Todo tracking (file-based) | SQL `todos` table | Better in Copilot — queryable, dependency-aware |
 | Session memory (hooks) | `session_store` database | Both experimental, different approaches |
-| Single model (Claude) | 18 models (GPT, Claude, Gemini) | Major upgrade in model flexibility |
+| Single model (Claude) | 20+ models (GPT, Claude, Gemini, Grok) | Major upgrade in model flexibility |
 
 ---
 
@@ -220,13 +220,13 @@ Migrating to Copilot CLI unlocks 11 capabilities not available in Claude Code:
 | # | Capability | Impact |
 |---|-----------|--------|
 | 1 | **GitHub Native Integration** | No MCP setup for PRs, issues, Actions, code search |
-| 2 | **18 Model Selection** | Choose the best model per task — cost optimization |
+| 2 | **20+ Model Selection** | Choose the best model per task — cost optimization |
 | 3 | **VS Code Integration** | Share context between IDE and terminal |
 | 4 | **Fleet Parallel Execution** | 3-4x speedup on parallelizable work |
 | 5 | **Background Agents** | Async agents with completion notifications |
 | 6 | **SQL Session Database** | Structured state that survives compaction |
-| 7 | **Plan Mode UI** | Visual approval with autopilot transition |
-| 8 | **Autopilot Mode** | Safer autonomous execution |
+| 7 | **Plan Mode** | Structured text planning with autopilot transition |
+| 8 | **Autopilot Mode** | Safer autonomous execution _(Experimental)_ |
 | 9 | **Multi-AI Orchestration** | Use Claude Code, Codex, Gemini as workers |
 | 10 | **Cross-Session Search** | FTS5 search across previous sessions |
 | 11 | **LSP Support** | Language-aware code navigation |

@@ -12,7 +12,7 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <a href="#"><img src="https://img.shields.io/badge/copilot--cli-ready-28a745?logo=github" alt="Copilot CLI Ready" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/models-18%2B-blueviolet" alt="18+ Models" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/models-20%2B-blueviolet" alt="20+ Models" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-8-orange" alt="8 Agents" /></a>
   <a href="#"><img src="https://img.shields.io/badge/skills-30%2B-green" alt="30+ Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="https://img.shields.io/badge/★_Multi--AI-Orchestrator-ff6f00" alt="Multi-AI Orchestrator" /></a>
@@ -26,11 +26,11 @@
 
 ## What is this?
 
-**everything-copilot-cli** is for [GitHub Copilot CLI](https://githubnext.com/projects/copilot-cli/) what [everything-claude-code](https://github.com/anthropics/everything-claude-code) is for Claude Code — a curated, community-driven collection of agents, reusable skills, coding rules, MCP configurations, and comprehensive guides.
+**everything-copilot-cli** is for [GitHub Copilot CLI](https://github.com/github/copilot-cli) what [everything-claude-code](https://github.com/anthropics/everything-claude-code) is for Claude Code — a curated, community-driven collection of agents, reusable skills, coding rules, MCP configurations, and comprehensive guides.
 
-But we go further. Because Copilot CLI sits inside the GitHub ecosystem and supports 18+ models from multiple providers, it can do something no other coding agent can:
+But we go further. Because Copilot CLI sits inside the GitHub ecosystem and supports 20+ models from multiple providers, it can do something no other coding agent can:
 
-> **Act as a Multi-AI Orchestrator** — coordinating Claude Code, Codex CLI, Gemini CLI, and more from a single command line.
+> **Act as a Multi-AI Orchestrator** — coordinating Claude Code, Codex CLI, Gemini CLI, and more from a single command line. _(Community pattern — see [Multi-AI Orchestration](#multi-ai-orchestration-))_
 
 ---
 
@@ -41,11 +41,11 @@ GitHub Copilot CLI has **11 structural advantages** over single-vendor coding ag
 | # | Advantage | Description |
 |---|-----------|-------------|
 | 1 | 🔗 **GitHub-Native Integration** | Issues, PRs, Actions, code search — all via built-in MCP. No extra setup. |
-| 2 | 🧠 **18+ Model Selection** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — pick the right model per task. |
+| 2 | 🧠 **20+ Model Selection** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — pick the right model per task. |
 | 3 | 🔄 **IDE ↔ CLI Seamless Switching** | Same Copilot context in VS Code, JetBrains, and the terminal. |
-| 4 | 📋 **Plan Mode** | Visual approval UI — review every step before execution. |
-| 5 | 🤖 **Autopilot Mode** | Autonomous task execution with guardrails. |
-| 6 | 👻 **Background Agents** | Fire-and-forget agents with auto-completion notifications. |
+| 4 | 📋 **Plan Mode** | Structured text planning — Copilot builds a step-by-step implementation plan before writing any code. |
+| 5 | 🤖 **Autopilot Mode** | Autonomous task execution with guardrails. _(Experimental)_ |
+| 6 | 👻 **Background Agents** | Delegate to cloud Copilot agents via `&` or `/delegate`; resume anytime with `/resume`. |
 | 7 | ⚡ **Fleet Mode** | Parallel agent execution — split work across multiple agents simultaneously. |
 | 8 | 🗄️ **Session SQL Database** | Built-in SQLite per session for structured data, todo tracking, and state. |
 | 9 | 🧲 **Cross-Session Memory** | Persistent knowledge via `session_store` — learn across sessions. |
@@ -61,7 +61,7 @@ GitHub Copilot CLI has **11 structural advantages** over single-vendor coding ag
 npm install -g @github/copilot
 
 # 2. Clone this repository
-git clone https://github.com/anthropics/everything-copilot-cli.git
+git clone https://github.com/drvoss/everything-copilot-cli.git
 cd everything-copilot-cli
 
 # 3. Run setup
@@ -202,8 +202,8 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 1. **Fleet Parallel Execution** — Split work across multiple agents
 2. **Session SQL Tracking** — Use built-in SQLite for task management
 3. **Cross-Session Memory** — Persist knowledge between sessions
-4. **Background Agent Fire** — Launch fire-and-forget agents
-5. **Plan Mode Review** — Visual step-by-step approval
+4. **Background Agent Delegation** — Delegate to cloud agents via `&` or `/delegate`, resume with `/resume`
+5. **Plan Mode Review** — Structured text planning before execution
 6. **Model Selector** — Pick optimal model per subtask
 7. **GitHub Issue Triage** — Auto-triage with built-in GitHub MCP
 8. **PR Review Pipeline** — End-to-end PR review workflow
@@ -245,7 +245,7 @@ All guides are in the [`guides/`](guides/) directory.
 
 ## Multi-AI Orchestration ★
 
-> **The killer feature.** GitHub Copilot CLI can act as a **meta-hub** that orchestrates multiple AI coding agents — each contributing its unique strength.
+> **Community pattern.** This is not an official built-in feature of GitHub Copilot CLI — it is a community-proposed workflow pattern that uses shell scripting, MCP, and pipelines to combine multiple AI tools. Copilot CLI serves as a convenient hub because of its GitHub integration and multi-model support.
 
 ### The Idea
 
@@ -305,10 +305,10 @@ The orchestration system is informed by real-world multi-agent frameworks:
 | Feature | Copilot CLI | Claude Code |
 |---------|:-----------:|:-----------:|
 | GitHub-native MCP (Issues, PRs, Actions) | ✅ | ❌ |
-| Multi-model (18+ models) | ✅ | ⚠️ Single vendor |
-| IDE ↔ CLI shared context | ✅ | ❌ |
-| Plan Mode with visual UI | ✅ | ⚠️ Text-only |
-| Autopilot Mode | ✅ | ⚠️ `--dangerously-skip-permissions` |
+| Multi-model (20+ models) | ✅ | ⚠️ Single vendor |
+| IDE ↔ CLI shared context | ✅ | ⚠️ Via VS Code extension |
+| Plan Mode with structured text planning | ✅ | ⚠️ Text-only |
+| Autopilot Mode _(Experimental)_ | ✅ | ⚠️ `--dangerously-skip-permissions` |
 | Background Agents | ✅ | ❌ |
 | Fleet Mode (parallel agents) | ✅ | ❌ |
 | Session SQL Database | ✅ | ❌ |

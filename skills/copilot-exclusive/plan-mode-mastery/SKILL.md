@@ -12,8 +12,8 @@ metadata:
 
 Copilot CLI has a **dedicated Plan Mode** activated by Shift+Tab that fundamentally changes
 how you interact with the agent. Instead of executing immediately, Copilot creates a structured
-plan with SQL-backed todo tracking, presents it through a visual approval UI, and lets you choose
-between interactive execution, autopilot, or fleet mode. Claude Code has no planning mode — it
+plan with SQL-backed todo tracking, presents it in the terminal for review, and lets you choose
+between interactive execution, autopilot, or fleet mode. Claude Code has no dedicated planning mode — it
 either executes immediately or you manually structure your requests.
 
 ## When to Use
@@ -57,7 +57,7 @@ INSERT INTO todo_deps (todo_id, depends_on) VALUES
   ('update-tests', 'auth-middleware');
 ```
 
-### 4. Visual Approval UI
+### 4. Review Plan in Terminal
 
 Copilot calls `exit_plan_mode` to present the plan:
 

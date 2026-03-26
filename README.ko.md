@@ -12,7 +12,7 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <a href="#"><img src="https://img.shields.io/badge/copilot--cli-ready-28a745?logo=github" alt="Copilot CLI Ready" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/models-18%2B-blueviolet" alt="18+ Models" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/models-20%2B-blueviolet" alt="20+ Models" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-8-orange" alt="8 Agents" /></a>
   <a href="#"><img src="https://img.shields.io/badge/skills-30%2B-green" alt="30+ Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="https://img.shields.io/badge/★_Multi--AI-Orchestrator-ff6f00" alt="Multi-AI Orchestrator" /></a>
@@ -26,11 +26,11 @@
 
 ## 이게 뭔가요?
 
-**everything-copilot-cli**는 [everything-claude-code](https://github.com/anthropics/everything-claude-code)가 Claude Code에게 해주는 역할을 [GitHub Copilot CLI](https://githubnext.com/projects/copilot-cli/)에게 해주는 프로젝트입니다 — 에이전트, 재사용 가능한 스킬, 코딩 규칙, MCP 설정, 종합 가이드를 체계적으로 모아둔 커뮤니티 기반 컬렉션입니다.
+**everything-copilot-cli**는 [everything-claude-code](https://github.com/anthropics/everything-claude-code)가 Claude Code에게 해주는 역할을 [GitHub Copilot CLI](https://github.com/github/copilot-cli)에게 해주는 프로젝트입니다 — 에이전트, 재사용 가능한 스킬, 코딩 규칙, MCP 설정, 종합 가이드를 체계적으로 모아둔 커뮤니티 기반 컬렉션입니다.
 
-하지만 여기서 한 발 더 나아갑니다. Copilot CLI는 GitHub 생태계 안에 있고 여러 제공사의 18개 이상 모델을 지원하기 때문에, 다른 어떤 코딩 에이전트도 할 수 없는 일을 할 수 있습니다:
+하지만 여기서 한 발 더 나아갑니다. Copilot CLI는 GitHub 생태계 안에 있고 여러 제공사의 20개 이상 모델을 지원하기 때문에, 다른 어떤 코딩 에이전트도 할 수 없는 일을 할 수 있습니다:
 
-> **Multi-AI Orchestrator로 동작** — Claude Code, Codex CLI, Gemini CLI 등을 하나의 커맨드 라인에서 통합 조율합니다.
+> **Multi-AI Orchestrator로 동작** — Claude Code, Codex CLI, Gemini CLI 등을 하나의 커맨드 라인에서 통합 조율합니다. _(커뮤니티 패턴 — [Multi-AI Orchestration](#multi-ai-orchestration-) 참고)_
 
 ---
 
@@ -41,11 +41,11 @@ GitHub Copilot CLI는 단일 벤더 코딩 에이전트 대비 **11가지 구조
 | # | 장점 | 설명 |
 |---|------|------|
 | 1 | 🔗 **GitHub 네이티브 통합** | Issues, PR, Actions, 코드 검색 — 내장 MCP로 별도 설정 없이 바로 사용 |
-| 2 | 🧠 **18개 이상 모델 선택** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — 작업별로 최적의 모델 선택 |
+| 2 | 🧠 **20개 이상 모델 선택** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — 작업별로 최적의 모델 선택 |
 | 3 | 🔄 **IDE ↔ CLI 원활한 전환** | VS Code, JetBrains, 터미널에서 동일한 Copilot 컨텍스트 유지 |
-| 4 | 📋 **Plan Mode** | 시각적 승인 UI — 실행 전 모든 단계를 리뷰 |
-| 5 | 🤖 **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 |
-| 6 | 👻 **Background Agents** | 실행 후 잊어도 되는 에이전트 — 완료 시 자동 알림 |
+| 4 | 📋 **Plan Mode** | 구조화된 텍스트 플래닝 — 코드를 작성하기 전에 단계별 구현 계획을 수립 |
+| 5 | 🤖 **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 _(실험적 기능)_ |
+| 6 | 👻 **Background Agents** | `&` 또는 `/delegate`로 클라우드 에이전트에 위임, `/resume`으로 재개 |
 | 7 | ⚡ **Fleet Mode** | 병렬 에이전트 실행 — 여러 에이전트가 동시에 작업 분담 |
 | 8 | 🗄️ **Session SQL Database** | 세션별 내장 SQLite — 구조화된 데이터, 할일 추적, 상태 관리 |
 | 9 | 🧲 **Cross-Session Memory** | `session_store`를 통한 영속적 지식 — 세션 간 학습 |
@@ -61,7 +61,7 @@ GitHub Copilot CLI는 단일 벤더 코딩 에이전트 대비 **11가지 구조
 npm install -g @github/copilot
 
 # 2. 저장소 클론
-git clone https://github.com/anthropics/everything-copilot-cli.git
+git clone https://github.com/drvoss/everything-copilot-cli.git
 cd everything-copilot-cli
 
 # 3. 셋업 실행
@@ -245,7 +245,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 
 ## Multi-AI Orchestration ★
 
-> **킬러 피처.** GitHub Copilot CLI는 여러 AI 코딩 에이전트를 통합 조율하는 **메타 허브** 역할을 할 수 있습니다 — 각 에이전트의 고유한 강점을 살려서.
+> **커뮤니티 패턴.** 이것은 GitHub Copilot CLI의 공식 내장 기능이 아닙니다 — 쉘 스크립팅, MCP, 파이프라인을 활용해 여러 AI 도구를 결합하는 커뮤니티 제안 워크플로 패턴입니다. Copilot CLI는 GitHub 통합과 멀티 모델 지원 덕분에 허브로 활용하기 적합합니다.
 
 ### 핵심 아이디어
 
@@ -305,10 +305,10 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | 기능 | Copilot CLI | Claude Code |
 |------|:-----------:|:-----------:|
 | GitHub 네이티브 MCP (Issues, PR, Actions) | ✅ | ❌ |
-| 멀티 모델 (18개 이상) | ✅ | ⚠️ 단일 벤더 |
-| IDE ↔ CLI 공유 컨텍스트 | ✅ | ❌ |
-| Plan Mode (시각적 UI) | ✅ | ⚠️ 텍스트 전용 |
-| Autopilot Mode | ✅ | ⚠️ `--dangerously-skip-permissions` |
+| 멀티 모델 (20개 이상) | ✅ | ⚠️ 단일 벤더 |
+| IDE ↔ CLI 공유 컨텍스트 | ✅ | ⚠️ VS Code 확장으로 가능 |
+| Plan Mode (구조화된 텍스트 플래닝) | ✅ | ⚠️ 텍스트 전용 |
+| Autopilot Mode _(실험적)_ | ✅ | ⚠️ `--dangerously-skip-permissions` |
 | Background Agents | ✅ | ❌ |
 | Fleet Mode (병렬 에이전트) | ✅ | ❌ |
 | Session SQL Database | ✅ | ❌ |

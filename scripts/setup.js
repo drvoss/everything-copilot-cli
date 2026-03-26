@@ -18,8 +18,8 @@ const TARGET = process.cwd();
 
 function checkPrerequisites() {
   const [major] = process.versions.node.split(".").map(Number);
-  if (major < 18) {
-    console.error("❌  Node.js 18+ is required. Current:", process.version);
+  if (major < 22) {
+    console.error("❌  Node.js 22+ is required. Current:", process.version);
     process.exit(1);
   }
   console.log("✅  Node.js", process.version);

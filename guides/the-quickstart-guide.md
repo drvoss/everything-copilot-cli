@@ -18,16 +18,35 @@ Before you start, make sure you have:
 
 | Requirement | Check |
 |---|---|
-| Node.js 18+ | `node --version` |
 | GitHub account | [github.com](https://github.com) |
-| Copilot subscription | Individual, Business, or Enterprise |
-| Terminal | PowerShell, bash, zsh, or any modern terminal |
+| Copilot subscription | Free, Pro, Pro+, Business, or Enterprise |
+| Terminal | PowerShell v6+, bash, zsh, or any modern terminal |
+
+> 💡 **Copilot CLI is available on all plans, including the free tier.** See [Copilot plans](https://github.com/features/copilot/plans).
 
 ---
 
 ## Step 1: Install Copilot CLI
 
+Choose the installation method for your platform:
+
+**macOS / Linux — install script (recommended, auto-updates):**
+```bash
+curl -fsSL https://gh.io/copilot-install | bash
+```
+
+**macOS / Linux — Homebrew (auto-updates):**
+```bash
+brew install copilot-cli
+```
+
+**Windows — WinGet (auto-updates):**
 ```powershell
+winget install GitHub.Copilot
+```
+
+**All platforms — npm** _(requires Node.js 22+)_**:**
+```bash
 npm install -g @github/copilot
 ```
 

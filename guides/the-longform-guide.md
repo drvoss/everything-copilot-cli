@@ -87,7 +87,7 @@ new work. You can observe compaction in `events.jsonl`.
 
 ### Model Selection Matrix
 
-Copilot CLI offers 18 models spanning three tiers. Choose based on task complexity and cost:
+Copilot CLI offers 20+ models spanning three tiers. Choose based on task complexity and cost:
 
 | Tier | Models | Best For | Cost |
 |------|--------|----------|------|

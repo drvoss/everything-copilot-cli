@@ -9,8 +9,9 @@
 ## Overview
 
 **GitHub Copilot CLI** is GitHub's terminal-based AI assistant, deeply integrated with
-the GitHub ecosystem. It supports 18 models across multiple providers, offers native
-IDE integration with VS Code, and can orchestrate other AI tools as a meta-hub.
+the GitHub ecosystem. It supports 20+ models across multiple providers, offers native
+IDE integration with VS Code, and can act as a hub for multi-AI workflows via shell
+scripting and MCP (community pattern).
 
 **Claude Code** is Anthropic's terminal-based AI assistant, powered by Claude models.
 It features a mature skill library (65+ skills), a comprehensive hook system, and
@@ -32,29 +33,29 @@ unique capabilities.
 | JetBrains Integration | ✅ Plugin available | ❌ Terminal only | Copilot works across IDEs |
 | CI/CD Integration | ✅ GitHub Actions native | ⚠️ Manual setup | Copilot reads/debugs Actions natively |
 | **Model Support** | | | |
-| Model Selection | ✅ 18 models | ⚠️ Claude models only | GPT, Claude, Gemini families |
+| Model Selection | ✅ 20+ models | ⚠️ Claude models only | GPT, Claude, Gemini, Grok families |
 | Model Override per Agent | ✅ Per-agent model | ⚠️ Limited | Choose cheap/expensive per task |
 | Multi-Provider | ✅ OpenAI + Anthropic + Google | ❌ Anthropic only | Cost optimization via routing |
 | **Agent System** | | | |
 | Specialized Agent Types | ⚠️ 4 types | ✅ 16 types | Claude Code has more granularity |
-| Background Agents | ✅ Native async | ❌ No support | Fire-and-forget with notifications |
-| Fleet Parallel Execution | ✅ Native fleet mode | ⚠️ Git worktrees | Copilot's fleet is more integrated |
+| Background Agents | ✅ Native async (`&`/`/delegate` + `/resume`) | ❌ No support | Cloud delegation with resumable sessions |
+| Fleet Parallel Execution | ✅ Native fleet mode (`/fleet`) | ⚠️ Git worktrees | Copilot's fleet is more integrated |
 | Agent Multi-Turn | ✅ Background conversations | ⚠️ Limited | Send follow-ups to running agents |
 | **Planning & Execution** | | | |
-| Plan Mode | ✅ Visual approval UI | ⚠️ Basic `/plan` | Copilot has structured plan review |
-| Autopilot Mode | ✅ Native mode | ⚠️ `--dangerously-skip-permissions` | Copilot's approach is more controlled |
+| Plan Mode | ✅ Structured text planning (Shift+Tab) | ⚠️ Basic `/plan` | Both are terminal text-based; Copilot builds a full implementation plan before coding |
+| Autopilot Mode _(Experimental)_ | ✅ Native mode | ⚠️ `--dangerously-skip-permissions` / `--autoaccept` | Copilot's approach is more controlled; both require explicit activation |
 | SQL Task Tracking | ✅ Built-in SQLite | ❌ File-based | Query todos, track state with SQL |
 | Todo Dependencies | ✅ SQL dependency graph | ❌ Manual tracking | Automatically find "ready" tasks |
 | **Memory & State** | | | |
 | Session Database | ✅ SQL built-in | ❌ None | Structured state that survives compaction |
-| Cross-Session Memory | ✅ session_store (experimental) | ⚠️ Hook-based | Both approaches are evolving |
+| Cross-Session Memory | ✅ `session_store` read-only DB (experimental) | ⚠️ `CLAUDE.md` + hooks + memory files | Both approaches are evolving; Claude Code has more options |
 | Session Resume | ✅ events.jsonl | ⚠️ Similar | Both support session continuation |
 | **Code Intelligence** | | | |
 | LSP Support | ✅ First-class | ❌ None | Language-aware navigation |
 | Code Search | ✅ ripgrep + glob | ✅ ripgrep + glob | Similar capabilities |
 | GitHub Code Search | ✅ Native | ⚠️ MCP required | Search across all GitHub repos |
 | **Multi-AI Orchestration** | | | |
-| Multi-AI Hub | ✅ Meta-hub architecture | ❌ Claude only | Copilot orchestrates all tools |
+| Multi-AI Hub | ⚠️ Community pattern (shell + MCP) | ❌ Claude only | Copilot can act as a hub via shell scripting and MCP — not a built-in native feature |
 | MCP Protocol | ✅ Client + server | ✅ Client + server | Both support MCP |
 | Agent Council | ✅ Multi-tool deliberation | ❌ Single-tool | Bring multiple AIs to decisions |
 | **Extensibility** | | | |
@@ -83,7 +84,7 @@ advantage for teams using GitHub.
 "Search code across all our repos" → GitHub's code search engine
 ```
 
-### 2. Multi-Model Selection (18 Models)
+### 2. Multi-Model Selection (20+ Models)
 
 Choose the right model for each task. Use cheap models for exploration, powerful models
 for architecture decisions:
@@ -92,7 +93,7 @@ for architecture decisions:
 - **Claude Opus 4.6** for deep analysis
 - **Claude Haiku 4.5** for fast, cheap exploration
 - **Gemini 3 Pro** for multimodal tasks
-- And 14 more options
+- And 16+ more options
 
 ### 3. IDE ↔ CLI Synergy
 
@@ -101,7 +102,7 @@ Switch seamlessly between visual IDE work and terminal automation.
 
 ### 4. Fleet Parallel Execution
 
-Native fleet mode decomposes tasks and runs multiple agents in parallel with automatic
+Native `/fleet` command and fleet mode decompose tasks and run multiple agents in parallel with automatic
 result aggregation. No git worktree management required.
 
 ### 5. Background Agents with Multi-Turn
@@ -114,15 +115,19 @@ follow-up messages for progressive refinement.
 Built-in SQLite database with pre-configured tables for todo tracking, dependency
 management, and custom state. Survives context compaction.
 
-### 7. Plan Mode with Visual Approval
+### 7. Plan Mode with Structured Text Planning
 
-Structured planning workflow with visual approval UI, automatic todo generation,
-and seamless transition to autopilot execution.
+Structured planning workflow entirely within the terminal — Copilot analyzes your request,
+asks clarifying questions, and builds a step-by-step implementation plan before writing any code.
+Approve the plan to proceed; reject to revise. Not a separate visual UI — same terminal, structured output.
 
-### 8. Multi-AI Orchestration
+### 8. Multi-AI Orchestration (Community Pattern)
 
-The defining feature: Copilot CLI can orchestrate Claude Code, Codex CLI, Gemini CLI,
-and any MCP-compatible tool from a single hub.
+Using Copilot CLI as a hub, you can combine Claude Code, Codex CLI, Gemini CLI,
+and any MCP-compatible tool from a single interface via shell scripting and MCP.
+
+> **Note:** This is a community-proposed workflow pattern, not a built-in native feature of
+> Copilot CLI. See the [Orchestration Guide](../orchestration/) for implementation details.
 
 ### 9. Cross-Session Search
 
@@ -134,10 +139,11 @@ Find how you solved similar problems before.
 Route each sub-task to the cheapest model that can handle it. Exploration with Haiku ($),
 implementation with Sonnet ($$), architecture with Opus ($$$).
 
-### 11. Autopilot Mode
+### 11. Autopilot Mode _(Experimental)_
 
 Controlled autonomous execution with safety guardrails — more structured than Claude
-Code's permission-skipping approach.
+Code's permission-skipping approach. Currently an experimental feature; activate with
+`/experimental on` or the `--experimental` flag.
 
 ### 12. Lifecycle Hooks (GA Feb 2026)
 
@@ -222,7 +228,7 @@ See [Orchestration Patterns](../orchestration/README.md) for implementation deta
 | If You... | Consider... | Because... |
 |-----------|------------|------------|
 | Use GitHub heavily | Copilot CLI | Native GitHub integration saves setup time |
-| Need multiple AI models | Copilot CLI | 18 models vs Claude-only |
+| Need multiple AI models | Copilot CLI | 20+ models vs Claude-only |
 | Want mature skill library | Claude Code | 65+ battle-tested skills |
 | Need full lifecycle hooks | Claude Code | Richer hook system |
 | Work across IDEs | Copilot CLI | VS Code + JetBrains integration |

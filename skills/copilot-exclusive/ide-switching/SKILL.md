@@ -38,7 +38,7 @@ IDE counterpart; switching contexts means losing your AI assistant entirely.
 | PR review & management      | ⚠️ Basic                 | ✅ Full GitHub MCP       |
 | Batch test execution        | ⚠️ Manual                | ✅ Background agents     |
 | SQL-based task tracking     | ❌                        | ✅ Session database      |
-| Multi-model selection       | ⚠️ Limited               | ✅ 18 models available   |
+| Multi-model selection       | ⚠️ Limited               | ✅ 20+ models available  |
 | Terminal automation         | ⚠️ Integrated terminal   | ✅ Native                |
 
 ### Switching Patterns

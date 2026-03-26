@@ -9,7 +9,7 @@
 ## Table of Contents
 
 1. [GitHub Native Integration](#github-native-integration)
-2. [18-Model Selection](#18-model-selection)
+2. [20+ Model Selection](#20-model-selection)
 3. [IDE ↔ CLI Synergy](#ide--cli-synergy)
 4. [Plan Mode Mastery](#plan-mode-mastery)
 5. [Autopilot Deep-Dive](#autopilot-deep-dive)
@@ -79,11 +79,11 @@ See [GitHub PR Workflow skill](../skills/copilot-exclusive/github-pr-workflow.md
 
 ---
 
-## 18-Model Selection
+## 20+ Model Selection
 
 ### What It Is
 
-Copilot CLI supports 18 models across three providers (OpenAI, Anthropic, Google),
+Copilot CLI supports 20+ models across multiple providers (OpenAI, Anthropic, Google, xAI),
 organized into three tiers: premium, standard, and fast/cheap.
 
 ### Why It Matters
@@ -195,7 +195,7 @@ See [IDE Switching skill](../skills/copilot-exclusive/ide-switching.md).
 ### What It Is
 
 Plan Mode is a structured planning workflow where Copilot CLI produces a detailed
-implementation plan, presents it for visual approval, and optionally transitions to
+implementation plan, presents it for review in the terminal, and optionally transitions to
 autopilot for execution.
 
 ### Why It Matters
@@ -211,7 +211,7 @@ early and ensures alignment before any code is written.
 ```
 1. Request enters plan mode    → Copilot analyzes the task
 2. Plan created (plan.md)      → Structured breakdown with todos
-3. Visual approval presented   → You review and approve/modify
+3. Plan presented in terminal    → You review and approve/modify
 4. Execution begins            → Interactive, autopilot, or fleet
 ```
 
@@ -600,11 +600,16 @@ See [Cross-Session Memory skill](../skills/copilot-exclusive/cross-session-memor
 
 ## Multi-AI Orchestration
 
+> ⚠️ **Community Pattern** — This is not a built-in native feature of GitHub Copilot CLI.
+> It is a community-proposed workflow pattern that uses shell scripting, MCP, and pipelines
+> to combine multiple AI tools. Copilot CLI serves as a convenient hub due to its GitHub
+> integration and multi-model support.
+
 ### What It Is
 
-Copilot CLI can serve as a **meta-hub** that orchestrates multiple AI coding tools —
+Using Copilot CLI as a hub, you can orchestrate multiple AI coding tools —
 Claude Code, Codex CLI, Gemini CLI, and any MCP-compatible tool — routing tasks to
-whichever tool is best suited.
+whichever tool is best suited via shell scripting and MCP.
 
 ### Why It Matters
 
@@ -655,15 +660,15 @@ See the full [Orchestration Guide](../orchestration/README.md) and
 | Feature | Copilot CLI | Claude Code | Codex CLI | Gemini CLI |
 |---------|:-----------:|:-----------:|:---------:|:----------:|
 | GitHub Native | ✅ | ❌ | ❌ | ❌ |
-| 18 Models | ✅ | ❌ | ❌ | ❌ |
+| 20+ Models | ✅ | ❌ | ❌ | ❌ |
 | IDE Synergy | ✅ | ❌ | ❌ | ❌ |
 | Plan Mode | ✅ | ⚠️ | ❌ | ❌ |
-| Autopilot | ✅ | ⚠️ | ⚠️ | ❌ |
+| Autopilot _(Experimental)_ | ✅ | ⚠️ | ⚠️ | ❌ |
 | Background Agents | ✅ | ❌ | ❌ | ❌ |
 | Fleet Execution | ✅ | ❌ | ❌ | ❌ |
 | Session SQL DB | ✅ | ❌ | ❌ | ❌ |
 | Cross-Session Memory | ✅ | ⚠️ | ❌ | ❌ |
-| Multi-AI Orchestration | ✅ | ❌ | ❌ | ❌ |
+| Multi-AI Orchestration _(community pattern)_ | ⚠️ | ❌ | ❌ | ❌ |
 
 **These features combined make Copilot CLI uniquely powerful as both a standalone tool
 and an orchestration hub for the entire AI-assisted development ecosystem.**

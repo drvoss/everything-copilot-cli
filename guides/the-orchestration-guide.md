@@ -373,7 +373,7 @@ Multi-AI orchestration is evolving rapidly. Here's where it's heading:
 GitHub Copilot CLI is uniquely positioned as the orchestration hub because:
 
 1. **GitHub is where code lives** — PRs, Issues, Actions, code search are native
-2. **Model-agnostic** — 18 models from multiple providers, more coming
+2. **Model-agnostic** — 20+ models from multiple providers, more coming
 3. **MCP-native** — The protocol for AI tool interoperability is built in
 4. **Enterprise-ready** — Authentication, permissions, audit trails from day one
 5. **IDE-bridged** — Seamless transition between terminal and VS Code
