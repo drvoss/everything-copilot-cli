@@ -14,7 +14,7 @@
   <a href="#"><img src="https://img.shields.io/badge/copilot--cli-ready-28a745?logo=github" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="https://img.shields.io/badge/models-20%2B-blueviolet" alt="20+ Models" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-8-orange" alt="8 Agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-30%2B-green" alt="30+ Skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-37-green" alt="37 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="https://img.shields.io/badge/★_Multi--AI-Orchestrator-ff6f00" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -26,9 +26,10 @@
 
 ## What is this?
 
-**everything-copilot-cli** is for [GitHub Copilot CLI](https://github.com/github/copilot-cli) what [everything-claude-code](https://github.com/anthropics/everything-claude-code) is for Claude Code — a curated, community-driven collection of agents, reusable skills, coding rules, MCP configurations, and comprehensive guides.
+**everything-copilot-cli** is a curated, community-driven collection of agents, reusable skills,
+coding rules, MCP configurations, and comprehensive guides for [GitHub Copilot CLI](https://github.com/github/copilot-cli).
 
-But we go further. Because Copilot CLI sits inside the GitHub ecosystem and supports 20+ models from multiple providers, it can do something no other coding agent can:
+It started as a parallel to [everything-claude-code](https://github.com/anthropics/everything-claude-code) and drew inspiration from community resources like [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — but has since grown into its own identity. The focus is on what makes Copilot CLI genuinely different: **native GitHub integration, multi-model flexibility, and the ability to orchestrate other AI coding agents from a single hub**.
 
 > **Act as a Multi-AI Orchestrator** — coordinating Claude Code, Codex CLI, Gemini CLI, and more from a single command line. _(Community pattern — see [Multi-AI Orchestration](#multi-ai-orchestration-))_
 
@@ -103,26 +104,29 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills
-│   ├── development/               #   Dev skills (TDD, code review, etc.)
-│   ├── security/                  #   Security scanning & validation
-│   ├── documentation/             #   Doc generation & updates
-│   ├── testing/                   #   Test coverage & E2E
-│   └── copilot-exclusive/         #   ★ Copilot-only skills (12)
+├── skills/                        # Reusable workflow skills (37 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (13)
+│   ├── development/               #   Dev skills (5)
+│   ├── documentation/             #   Doc skills (3)
+│   ├── security/                  #   Security skills (4)
+│   ├── testing/                   #   Test skills (2)
+│   ├── workflow/                  #   Workflow skills (4)
+│   ├── product/                   #   Product skills (4)
+│   └── content/                   #   Content & GEO skills (2)
 │
 ├── rules/                         # Coding rules & guidelines
-│   ├── common/                    #   Universal rules
-│   └── languages/                 #   Language-specific (TS, Python, Go, C#, Java)
+│   ├── common/                    #   Universal rules (5)
+│   └── languages/                 #   Language-specific: TS, Python, Go, C#, Java
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   5 orchestration patterns
 │   ├── configs/                   #   MCP bridge configs
-│   ├── skills/                    #   Orchestration skills
-│   └── examples/                  #   Real-world examples
+│   ├── skills/                    #   Orchestration skills (4)
+│   └── examples/                  #   Real-world examples (3)
 │
-├── guides/                        # Comprehensive guides
-├── mcp-configs/                   # MCP server configurations
-├── examples/                      # Project-specific examples
+├── guides/                        # 9 comprehensive guides
+├── mcp-configs/                   # MCP server configurations (4)
+├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
 │   ├── python-api/
 │   ├── dotnet-webapp/
@@ -153,64 +157,103 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### ⚙️ Skills (20+ Core · 12 Copilot-Exclusive · Orchestration)
+### ⚙️ Skills (37 Total · 8 Categories)
 
-Reusable, composable workflows that agents can invoke.
-
-<details>
-<summary><strong>Development Skills</strong></summary>
-
-- TDD Workflow
-- Code Review Checklist
-- Refactoring Patterns
-- Dependency Upgrade
-- Git Workflow Automation
-</details>
+Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>Security Skills</strong></summary>
-
-- Secret Scanning
-- Dependency Audit
-- SAST Analysis
-- Input Validation Checks
-</details>
-
-<details>
-<summary><strong>Documentation Skills</strong></summary>
-
-- API Doc Generation
-- README Sync
-- Changelog Generation
-- Architecture Decision Records
-</details>
-
-<details>
-<summary><strong>Testing Skills</strong></summary>
-
-- Unit Test Generation
-- E2E Test Scaffolding
-- Coverage Analysis
-- Mutation Testing
-</details>
-
-<details>
-<summary><strong>★ Copilot-Exclusive Skills (12)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (13)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
-1. **Fleet Parallel Execution** — Split work across multiple agents
-2. **Session SQL Tracking** — Use built-in SQLite for task management
-3. **Cross-Session Memory** — Persist knowledge between sessions
-4. **Background Agent Delegation** — Delegate to cloud agents via `&` or `/delegate`, resume with `/resume`
-5. **Plan Mode Review** — Structured text planning before execution
-6. **Model Selector** — Pick optimal model per subtask
-7. **GitHub Issue Triage** — Auto-triage with built-in GitHub MCP
-8. **PR Review Pipeline** — End-to-end PR review workflow
-9. **Actions Debug** — Debug CI/CD failures with native Actions access
-10. **LSP-Powered Refactor** — Refactor using Language Server intelligence
-11. **Copilot Space Query** — Query Copilot Spaces for team context
-12. **Multi-AI Delegate** — Delegate subtasks to other AI coding agents
+| Skill | Description |
+|-------|-------------|
+| `context-prime` | Load project context at session start (README, file tree, commits, stack) |
+| `session-management` | Built-in SQLite for todo tracking and structured state |
+| `plan-mode-mastery` | Structured text planning with approval workflow |
+| `autopilot-patterns` | Autonomous execution with guardrails |
+| `background-agent` | Delegate to cloud agents via `&` / `/delegate` |
+| `fleet-parallel` | Parallel agent execution with `/fleet` |
+| `github-pr-workflow` | Full PR lifecycle via built-in GitHub MCP |
+| `github-issue-triage` | Bulk issue classification and triage |
+| `actions-debugging` | Debug CI failures with native Actions access |
+| `cross-session-memory` | Persist knowledge across sessions |
+| `multi-model-strategy` | Pick the right model per task |
+| `mcp-ecosystem` | Extend with custom MCP servers |
+| `ide-switching` | Seamless VS Code ↔ CLI context sharing |
+</details>
+
+<details>
+<summary><strong>Development Skills (5)</strong></summary>
+
+| Skill | Description |
+|-------|-------------|
+| `tdd-workflow` | Red → Green → Refactor cycle |
+| `code-review` | Structured review with severity levels |
+| `fix-github-issue` | Read issue → locate bug → fix → test → PR |
+| `fix-build-errors` | Diagnose and resolve build failures |
+| `refactor-clean` | Remove dead code, simplify logic safely |
+</details>
+
+<details>
+<summary><strong>Documentation Skills (3)</strong></summary>
+
+| Skill | Description |
+|-------|-------------|
+| `add-to-changelog` | Keep a Changelog format, semver version sync |
+| `doc-update` | Sync docs when implementation changes |
+| `api-documentation` | Generate and maintain API docs from source |
+</details>
+
+<details>
+<summary><strong>Security Skills (4)</strong></summary>
+
+| Skill | Description |
+|-------|-------------|
+| `evaluate-repository` | 6-dimension scorecard (1–10) with remediation plan |
+| `security-scan` | OWASP Top 10 + dependency audit |
+| `secret-detection` | Find hardcoded secrets in source and git history |
+| `input-validation` | Prevent injection attacks (SQL, XSS, CSRF) |
+</details>
+
+<details>
+<summary><strong>Workflow Skills (4)</strong></summary>
+
+| Skill | Description |
+|-------|-------------|
+| `commit-workflow` | Conventional commits + emoji, atomic split guidance |
+| `sprint-workflow` | Full sprint: Think → Plan → Build → Review → Ship |
+| `security-audit` | OWASP Top 10 + STRIDE threat modeling |
+| `sprint-retro` | Data-driven retros using git metrics |
+</details>
+
+<details>
+<summary><strong>Product Skills (4)</strong></summary>
+
+| Skill | Description |
+|-------|-------------|
+| `create-prd` | JTBD-grounded PRD template |
+| `feature-prioritization` | Impact × Confidence × Effort matrix |
+| `opportunity-solution-tree` | Teresa Torres' OST framework |
+| `launch-strategy` | Alpha → Beta → GA launch checklist |
+</details>
+
+<details>
+<summary><strong>Testing Skills (2)</strong></summary>
+
+| Skill | Description |
+|-------|-------------|
+| `test-coverage` | Identify gaps and write targeted tests |
+| `e2e-testing` | E2E test scaffolding for critical paths |
+</details>
+
+<details>
+<summary><strong>Content Skills (2)</strong></summary>
+
+| Skill | Description |
+|-------|-------------|
+| `ai-visibility` | GEO optimization: llms.txt, AI crawler access |
+| `content-strategy` | Keyword research, topic clusters, content calendar |
 </details>
 
 ### 📏 Rules
@@ -234,9 +277,10 @@ The Multi-AI Orchestration system (see [dedicated section](#multi-ai-orchestrati
 | 📗 **Shortform Guide** | Concise reference for everyday use |
 | 📕 **Longform Guide** | Deep dive into every feature |
 | 🔒 **Security Guide** | Security best practices and scanning |
-| ⚖️ **Copilot vs Claude Code** | Feature-by-feature comparison |
-| 🚚 **Migration from Claude Code** | Step-by-step migration path |
 | ⭐ **Copilot Exclusive Features** | Features only available in Copilot CLI |
+| ⚖️ **Copilot vs Claude Code** | Feature-by-feature comparison |
+| 🚚 **Migration from Claude Code** | Step-by-step migration path with concept mapping |
+| 🪝 **Hooks to GitHub Actions** | Claude Code Hooks alternatives (Git Hooks / Actions / Prompt Guards) |
 | 🌐 **Orchestration Guide** ★ | Multi-AI orchestration patterns and setup |
 
 All guides are in the [`guides/`](guides/) directory.
@@ -325,12 +369,13 @@ The orchestration system is informed by real-world multi-agent frameworks:
 
 ## Migration from Claude Code
 
-Already using `everything-claude-code`? Migration is straightforward:
+Already using Claude Code or `everything-claude-code`? Migration is straightforward — the skill format is nearly identical:
 
 ```
-CLAUDE.md rules       →  rules/common/ & rules/languages/
-.claude/commands/     →  skills/
-.claude/settings.json →  mcp-configs/ & contexts/
+CLAUDE.md rules        →  .github/copilot-instructions.md
+.claude/commands/      →  skills/
+.claude/settings.json  →  mcp-configs/ & contexts/
+Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 ```
 
 The migration script automates most of the work:
@@ -339,7 +384,7 @@ The migration script automates most of the work:
 node scripts/migrate-from-claude.js --source /path/to/your/project
 ```
 
-> 🚚 See the full [Migration Guide](guides/) for step-by-step instructions.
+> 🚚 See the full [Migration Guide](guides/migration-from-claude-code.md) and [Hooks Alternatives Guide](guides/hooks-to-github-actions.md).
 
 ---
 
@@ -381,5 +426,5 @@ Please read the existing guides and follow the established patterns before submi
 ---
 
 <p align="center">
-  <sub>Inspired by <a href="https://github.com/anthropics/everything-claude-code">everything-claude-code</a> · Built for the GitHub Copilot CLI community</sub>
+  <sub>Built for the GitHub Copilot CLI community · Inspired by <a href="https://github.com/anthropics/everything-claude-code">everything-claude-code</a> and <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a></sub>
 </p>

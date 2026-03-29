@@ -14,7 +14,7 @@
   <a href="#"><img src="https://img.shields.io/badge/copilot--cli-ready-28a745?logo=github" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="https://img.shields.io/badge/models-20%2B-blueviolet" alt="20+ Models" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-8-orange" alt="8 Agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-30%2B-green" alt="30+ Skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-37-green" alt="37 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="https://img.shields.io/badge/★_Multi--AI-Orchestrator-ff6f00" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -26,9 +26,9 @@
 
 ## 이게 뭔가요?
 
-**everything-copilot-cli**는 [everything-claude-code](https://github.com/anthropics/everything-claude-code)가 Claude Code에게 해주는 역할을 [GitHub Copilot CLI](https://github.com/github/copilot-cli)에게 해주는 프로젝트입니다 — 에이전트, 재사용 가능한 스킬, 코딩 규칙, MCP 설정, 종합 가이드를 체계적으로 모아둔 커뮤니티 기반 컬렉션입니다.
+**everything-copilot-cli**는 [GitHub Copilot CLI](https://github.com/github/copilot-cli)를 위한 에이전트, 재사용 가능한 스킬, 코딩 규칙, MCP 설정, 종합 가이드를 체계적으로 모아둔 커뮤니티 기반 컬렉션입니다.
 
-하지만 여기서 한 발 더 나아갑니다. Copilot CLI는 GitHub 생태계 안에 있고 여러 제공사의 20개 이상 모델을 지원하기 때문에, 다른 어떤 코딩 에이전트도 할 수 없는 일을 할 수 있습니다:
+처음에는 [everything-claude-code](https://github.com/anthropics/everything-claude-code)와 [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) 같은 커뮤니티 리소스에서 영감을 받아 시작했지만, 이제는 독자적인 정체성을 갖추게 되었습니다. Copilot CLI만의 강점 — **네이티브 GitHub 통합, 멀티 모델 유연성, 다른 AI 에이전트를 허브에서 조율하는 능력** — 에 집중합니다.
 
 > **Multi-AI Orchestrator로 동작** — Claude Code, Codex CLI, Gemini CLI 등을 하나의 커맨드 라인에서 통합 조율합니다. _(커뮤니티 패턴 — [Multi-AI Orchestration](#multi-ai-orchestration-) 참고)_
 
@@ -103,26 +103,29 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬
-│   ├── development/               #   개발 스킬 (TDD, 코드 리뷰 등)
-│   ├── security/                  #   보안 스캐닝 & 검증
-│   ├── documentation/             #   문서 생성 & 업데이트
-│   ├── testing/                   #   테스트 커버리지 & E2E
-│   └── copilot-exclusive/         #   ★ Copilot 전용 스킬 (12개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (37개)
+│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (13개)
+│   ├── development/               #   개발 스킬 (5개)
+│   ├── documentation/             #   문서화 스킬 (3개)
+│   ├── security/                  #   보안 스킬 (4개)
+│   ├── testing/                   #   테스팅 스킬 (2개)
+│   ├── workflow/                  #   워크플로우 스킬 (4개)
+│   ├── product/                   #   프로덕트 스킬 (4개)
+│   └── content/                   #   콘텐츠 & GEO 스킬 (2개)
 │
 ├── rules/                         # 코딩 규칙 & 가이드라인
-│   ├── common/                    #   범용 규칙
-│   └── languages/                 #   언어별 규칙 (TS, Python, Go, C#, Java)
+│   ├── common/                    #   범용 규칙 (5개)
+│   └── languages/                 #   언어별 규칙: TS, Python, Go, C#, Java
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   5가지 오케스트레이션 패턴
 │   ├── configs/                   #   MCP 브릿지 설정
-│   ├── skills/                    #   오케스트레이션 스킬
-│   └── examples/                  #   실전 예제
+│   ├── skills/                    #   오케스트레이션 스킬 (4개)
+│   └── examples/                  #   실전 예제 (3개)
 │
-├── guides/                        # 종합 가이드
-├── mcp-configs/                   # MCP 서버 설정
-├── examples/                      # 프로젝트별 예제
+├── guides/                        # 종합 가이드 (9개)
+├── mcp-configs/                   # MCP 서버 설정 (4개)
+├── examples/                      # 프로젝트별 copilot-instructions 예제
 │   ├── nextjs-app/
 │   ├── python-api/
 │   ├── dotnet-webapp/
@@ -153,64 +156,103 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### ⚙️ 스킬 (20개 이상 코어 · 12개 Copilot 전용 · 오케스트레이션)
+### ⚙️ 스킬 (총 37개 · 8개 카테고리)
 
-에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다.
-
-<details>
-<summary><strong>개발 스킬</strong></summary>
-
-- TDD 워크플로우
-- 코드 리뷰 체크리스트
-- 리팩토링 패턴
-- 의존성 업그레이드
-- Git 워크플로우 자동화
-</details>
+에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
 <details>
-<summary><strong>보안 스킬</strong></summary>
-
-- 시크릿 스캐닝
-- 의존성 감사
-- SAST 분석
-- 입력 유효성 검사
-</details>
-
-<details>
-<summary><strong>문서화 스킬</strong></summary>
-
-- API 문서 생성
-- README 동기화
-- 변경 로그 생성
-- Architecture Decision Records
-</details>
-
-<details>
-<summary><strong>테스팅 스킬</strong></summary>
-
-- 단위 테스트 생성
-- E2E 테스트 스캐폴딩
-- 커버리지 분석
-- 뮤테이션 테스팅
-</details>
-
-<details>
-<summary><strong>★ Copilot 전용 스킬 (12개)</strong></summary>
+<summary><strong>★ Copilot 전용 스킬 (13개)</strong></summary>
 
 GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
-1. **Fleet Parallel Execution** — 여러 에이전트에게 작업을 분배하여 병렬 실행
-2. **Session SQL Tracking** — 내장 SQLite로 작업 관리
-3. **Cross-Session Memory** — 세션 간 지식 영속화
-4. **Background Agent Fire** — 실행 후 잊어도 되는 에이전트 실행
-5. **Plan Mode Review** — 시각적 단계별 승인
-6. **Model Selector** — 하위 작업별 최적 모델 자동 선택
-7. **GitHub Issue Triage** — 내장 GitHub MCP로 이슈 자동 분류
-8. **PR Review Pipeline** — 엔드투엔드 PR 리뷰 워크플로우
-9. **Actions Debug** — 네이티브 Actions 접근으로 CI/CD 실패 디버깅
-10. **LSP-Powered Refactor** — Language Server 인텔리전스를 활용한 리팩토링
-11. **Copilot Space Query** — Copilot Spaces에서 팀 컨텍스트 조회
-12. **Multi-AI Delegate** — 다른 AI 코딩 에이전트에게 하위 작업 위임
+| 스킬 | 설명 |
+|------|------|
+| `context-prime` | 세션 시작 시 README, 파일 트리, 커밋, 스택 로딩 |
+| `session-management` | 내장 SQLite로 할일 추적 및 구조화된 상태 관리 |
+| `plan-mode-mastery` | 승인 워크플로우가 포함된 구조화된 텍스트 플래닝 |
+| `autopilot-patterns` | 가드레일이 있는 자율 실행 |
+| `background-agent` | `&` / `/delegate`로 클라우드 에이전트에 위임 |
+| `fleet-parallel` | `/fleet`으로 병렬 에이전트 실행 |
+| `github-pr-workflow` | 내장 GitHub MCP를 통한 전체 PR 라이프사이클 |
+| `github-issue-triage` | 이슈 대량 분류 및 트리아지 |
+| `actions-debugging` | 네이티브 Actions 접근으로 CI 실패 디버깅 |
+| `cross-session-memory` | 세션 간 지식 영속화 |
+| `multi-model-strategy` | 작업별 최적 모델 선택 |
+| `mcp-ecosystem` | 커스텀 MCP 서버로 기능 확장 |
+| `ide-switching` | VS Code ↔ CLI 원활한 컨텍스트 공유 |
+</details>
+
+<details>
+<summary><strong>개발 스킬 (5개)</strong></summary>
+
+| 스킬 | 설명 |
+|------|------|
+| `tdd-workflow` | Red → Green → Refactor 사이클 |
+| `code-review` | 심각도 수준이 포함된 구조화된 코드 리뷰 |
+| `fix-github-issue` | 이슈 읽기 → 버그 위치 → 수정 → 테스트 → PR |
+| `fix-build-errors` | 빌드 실패 진단 및 해결 |
+| `refactor-clean` | 동작 보존하며 데드 코드 제거 및 로직 단순화 |
+</details>
+
+<details>
+<summary><strong>문서화 스킬 (3개)</strong></summary>
+
+| 스킬 | 설명 |
+|------|------|
+| `add-to-changelog` | Keep a Changelog 형식, semver 버전 동기화 |
+| `doc-update` | 구현 변경 시 문서 동기화 |
+| `api-documentation` | 소스 코드에서 API 문서 생성 및 유지 |
+</details>
+
+<details>
+<summary><strong>보안 스킬 (4개)</strong></summary>
+
+| 스킬 | 설명 |
+|------|------|
+| `evaluate-repository` | 6개 차원 1~10점 보안 스코어카드 + 개선 계획 |
+| `security-scan` | OWASP Top 10 + 의존성 감사 |
+| `secret-detection` | 소스 및 git 히스토리에서 하드코딩된 시크릿 탐지 |
+| `input-validation` | SQL/XSS/CSRF 인젝션 공격 방어 |
+</details>
+
+<details>
+<summary><strong>워크플로우 스킬 (4개)</strong></summary>
+
+| 스킬 | 설명 |
+|------|------|
+| `commit-workflow` | 컨벤셔널 커밋 + 이모지, 원자적 분할 가이드 |
+| `sprint-workflow` | 전체 스프린트: 구상 → 계획 → 구축 → 리뷰 → 출시 |
+| `security-audit` | OWASP Top 10 + STRIDE 위협 모델링 |
+| `sprint-retro` | git 메트릭을 활용한 데이터 기반 회고 |
+</details>
+
+<details>
+<summary><strong>프로덕트 스킬 (4개)</strong></summary>
+
+| 스킬 | 설명 |
+|------|------|
+| `create-prd` | Jobs-to-be-Done 기반 PRD 템플릿 |
+| `feature-prioritization` | 임팩트 × 신뢰도 × 노력 매트릭스 |
+| `opportunity-solution-tree` | Teresa Torres의 OST 프레임워크 |
+| `launch-strategy` | Alpha → Beta → GA 런치 체크리스트 |
+</details>
+
+<details>
+<summary><strong>테스팅 스킬 (2개)</strong></summary>
+
+| 스킬 | 설명 |
+|------|------|
+| `test-coverage` | 커버리지 갭 식별 및 타겟 테스트 작성 |
+| `e2e-testing` | 핵심 사용자 경로 E2E 테스트 스캐폴딩 |
+</details>
+
+<details>
+<summary><strong>콘텐츠 스킬 (2개)</strong></summary>
+
+| 스킬 | 설명 |
+|------|------|
+| `ai-visibility` | GEO 최적화: llms.txt, AI 크롤러 접근 최적화 |
+| `content-strategy` | 키워드 리서치, 토픽 클러스터, 콘텐츠 캘린더 |
 </details>
 
 ### 📏 규칙
@@ -234,9 +276,10 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | 📗 **숏폼 가이드** | 일상적 사용을 위한 간결한 레퍼런스 |
 | 📕 **롱폼 가이드** | 모든 기능에 대한 심층 안내 |
 | 🔒 **보안 가이드** | 보안 모범 사례 및 스캐닝 |
-| ⚖️ **Copilot vs Claude Code** | 기능별 상세 비교 |
-| 🚚 **Claude Code에서 마이그레이션** | 단계별 마이그레이션 가이드 |
 | ⭐ **Copilot 전용 기능** | Copilot CLI에서만 가능한 기능 |
+| ⚖️ **Copilot vs Claude Code** | 기능별 상세 비교 |
+| 🚚 **Claude Code에서 마이그레이션** | 개념 매핑과 단계별 마이그레이션 가이드 |
+| 🪝 **Hooks to GitHub Actions** | Claude Code Hooks 대안 (Git Hooks / Actions / Prompt Guards) |
 | 🌐 **오케스트레이션 가이드** ★ | Multi-AI 오케스트레이션 패턴 및 설정 |
 
 모든 가이드는 [`guides/`](guides/) 디렉토리에 있습니다.
@@ -325,12 +368,13 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 
 ## Claude Code에서 마이그레이션
 
-이미 `everything-claude-code`를 사용하고 계신가요? 마이그레이션은 간단합니다:
+이미 Claude Code나 `everything-claude-code`를 사용하고 계신가요? 마이그레이션은 간단합니다 — 스킬 형식이 거의 동일합니다:
 
 ```
-CLAUDE.md 규칙        →  rules/common/ & rules/languages/
-.claude/commands/     →  skills/
-.claude/settings.json →  mcp-configs/ & contexts/
+CLAUDE.md 규칙         →  .github/copilot-instructions.md
+.claude/commands/      →  skills/
+.claude/settings.json  →  mcp-configs/ & contexts/
+Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 ```
 
 마이그레이션 스크립트가 대부분의 작업을 자동화합니다:
@@ -339,7 +383,7 @@ CLAUDE.md 규칙        →  rules/common/ & rules/languages/
 node scripts/migrate-from-claude.js --source /path/to/your/project
 ```
 
-> 🚚 단계별 안내는 [마이그레이션 가이드](guides/)를 참고하세요.
+> 🚚 [마이그레이션 가이드](guides/migration-from-claude-code.md)와 [Hooks 대안 가이드](guides/hooks-to-github-actions.md)를 참고하세요.
 
 ---
 
@@ -381,5 +425,5 @@ PR을 제출하기 전에 기존 가이드를 읽고 확립된 패턴을 따라�
 ---
 
 <p align="center">
-  <sub><a href="https://github.com/anthropics/everything-claude-code">everything-claude-code</a>에서 영감을 받아 · GitHub Copilot CLI 커뮤니티를 위해 제작</sub>
+  <sub>GitHub Copilot CLI 커뮤니티를 위해 제작 · <a href="https://github.com/anthropics/everything-claude-code">everything-claude-code</a>와 <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a>에서 영감을 받아</sub>
 </p>
