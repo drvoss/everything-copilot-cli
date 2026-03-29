@@ -147,6 +147,38 @@ For comprehensive E2E verification:
 & "Create a PR: Fix slow product queries — add DB index + query optimization"
 ```
 
+## Output Format
+
+Each step produces verifiable output:
+
+| Step | Output | How to Verify |
+|------|--------|---------------|
+| Think | Written problem statement | Challenge at least one assumption |
+| Plan | `plan.md` with numbered tasks + file list | Confirm scope before approving |
+| Build | File changes | `/diff` — confirm only planned files changed |
+| Review | `[PASS]`/`[CONCERN]`/`[BLOCK]` per category | Address all BLOCKs before continuing |
+| Test | Test run output (pass count, coverage delta) | Zero regressions; new tests for new behaviour |
+| Ship | PR URL + description | PR description references the plan |
+
+### `/review` Output Interpretation
+
+```
+✅ PASS    — No issues in this category
+⚠️ CONCERN — Advisory; fix if feasible, document if not
+🚫 BLOCK   — Must fix before merging
+
+Categories: Logic, Security, Tests, Performance, API Contracts
+```
+
+### `/diff` Output Interpretation
+
+```
+# Confirm scope is correct:
+# - Only files in the plan should appear
+# - No unintended deletions
+# - No debug code or temporary files
+```
+
 ## Tips
 
 - **Plan Mode is not optional** for features > 1 file. It prevents costly mid-build corrections.
@@ -154,3 +186,10 @@ For comprehensive E2E verification:
 - **`/review` before every PR** — the signal-to-noise is high, it surfaces real issues.
 - **Use `/diff` to sanity-check** scope before shipping — did Copilot change more than planned?
 - **Reference the plan in the PR description** — use `/session plan` to surface it.
+
+## See Also
+
+- [`fix-github-issue`](../../development/fix-github-issue/SKILL.md) — Issue-driven variant of this sprint workflow
+- [`commit-workflow`](../commit-workflow/SKILL.md) — Conventional commit + emoji for the Ship step
+- [`pr-multi-perspective-review`](../../development/pr-multi-perspective-review/SKILL.md) — Deeper 6-lens review for the Review step
+- [`sprint-retro`](../sprint-retro/SKILL.md) — Retrospective after the sprint completes
