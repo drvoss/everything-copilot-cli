@@ -241,7 +241,6 @@ If you're coming from `awesome-claude-code` slash commands, here's how each comm
 | `/clean` | `refactor-clean` agent | `agents/refactor-cleaner.md` |
 | `/todo` | SQL `todos` table | `sql` tool |
 | `/evaluate-repository` | `evaluate-repository` skill | `skills/security/evaluate-repository/` |
-| `/context-prime` | `context-prime` skill | `skills/copilot-exclusive/context-prime/` |
 | CLAUDE.md | `.github/copilot-instructions.md` | See Step 1 above |
 | Hooks (pre/post-tool) | Git Hooks / GitHub Actions | See Step 5 above |
 
