@@ -222,9 +222,98 @@ Add to `.github/copilot-instructions.md`:
 For a comprehensive alternative mapping with examples, see:
 → **[guides/hooks-to-github-actions.md](./hooks-to-github-actions.md)**
 
+## Slash Command to Copilot CLI Mapping
+
+If you're coming from `awesome-claude-code` slash commands, here's how each command maps to Copilot CLI skills and workflows:
+
+| awesome-claude-code Command | Copilot CLI Equivalent | Location |
+|----------------------------|------------------------|----------|
+| `/commit` | `commit-workflow` skill | `skills/workflow/commit-workflow/` |
+| `/pr-review` | `pr-multi-perspective-review` skill | `skills/development/pr-multi-perspective-review/` |
+| `/fix-github-issue` | `fix-github-issue` skill | `skills/development/fix-github-issue/` |
+| `/create-prd` | `create-prd` skill | `skills/product/create-prd/` |
+| `/add-to-changelog` | `add-to-changelog` skill | `skills/documentation/add-to-changelog/` |
+| `/release` | `release` skill | `skills/workflow/release/` |
+| `/context-prime` | `context-prime` skill | `skills/copilot-exclusive/context-prime/` |
+| `/create-pr` | `gh pr create` + commit-workflow | Native `gh` CLI |
+| `/update-docs` | Prompt Copilot to update docs after changes | No dedicated skill yet |
+| `/optimize` | Describe optimization goal in Plan Mode | No dedicated skill |
+| `/clean` | `refactor-clean` agent | `agents/refactor-cleaner.md` |
+| `/todo` | SQL `todos` table | `sql` tool |
+| `/evaluate-repository` | `evaluate-repository` skill | `skills/security/evaluate-repository/` |
+| `/context-prime` | `context-prime` skill | `skills/copilot-exclusive/context-prime/` |
+| CLAUDE.md | `.github/copilot-instructions.md` | See Step 1 above |
+| Hooks (pre/post-tool) | Git Hooks / GitHub Actions | See Step 5 above |
+
+### Installing a Skill
+
+Copilot CLI skills are Markdown files — install by copying to your project:
+
+```powershell
+# From everything-copilot-cli repository
+$skill = "commit-workflow"
+$category = "workflow"
+Copy-Item "skills/$category/$skill/SKILL.md" ".copilot/skills/$skill.md"
+```
+
+Or reference the skill directly in a Copilot prompt:
+
+```
+> Use the commit-workflow skill from everything-copilot-cli to commit these changes
+> with a conventional commit message and appropriate emoji.
+```
+
 ---
 
-## What You Gain
+## Using awesome-claude-code Resources with Copilot CLI
+
+The `awesome-claude-code` repository contains CLAUDE.md examples, slash commands, and workflows that can be adapted for Copilot CLI:
+
+### Use CLAUDE.md Files as Inspiration
+
+The `resources/claude.md-files/` directory in awesome-claude-code contains 20+ real-world `CLAUDE.md` files from production projects. These map directly to `.github/copilot-instructions.md`:
+
+```powershell
+# Clone awesome-claude-code for reference
+git clone https://github.com/hesreallyhim/awesome-claude-code.git .ref/awesome-claude-code
+
+# View available CLAUDE.md examples
+Get-ChildItem .ref/awesome-claude-code/resources/claude.md-files/
+
+# Adapt one for your project (remove Claude-specific syntax)
+# Key adaptations:
+# - Remove "You are Claude..." identity statements
+# - Replace Bash/Read/Write tool references with powershell/view/edit
+# - Generalize model hints (ultrathink → model: "claude-opus-4.6")
+```
+
+### Adapt Slash Commands as Skills
+
+awesome-claude-code slash commands (`.claude/commands/*.md`) are nearly identical to Copilot CLI SKILL.md format. To adapt:
+
+```powershell
+# 1. Copy the command file
+Copy-Item .ref/awesome-claude-code/.claude/commands/commit.md skills/workflow/commit-workflow/SKILL.md
+
+# 2. Add required frontmatter if missing
+# 3. Update tool references (Bash → powershell, Read → view)
+# 4. Generalize Claude-specific prompting (e.g., remove "ultrathink")
+```
+
+### Running Both Tools Together
+
+For teams running both Claude Code and Copilot CLI simultaneously, use Copilot CLI as the hub:
+
+```
+Copilot CLI (GitHub integration, orchestration)
+    ├── delegates deep analysis → Claude Code (200K context)
+    ├── delegates fast codegen  → Codex CLI
+    └── delegates visual review → Gemini CLI
+```
+
+See [Using Both Together](#using-both-together) and [orchestration patterns](../orchestration/README.md).
+
+---
 
 Migrating to Copilot CLI unlocks 11 capabilities not available in Claude Code:
 
