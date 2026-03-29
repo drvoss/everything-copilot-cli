@@ -14,7 +14,7 @@
   <a href="#"><img src="https://img.shields.io/badge/copilot--cli-ready-28a745?logo=github" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="https://img.shields.io/badge/models-20%2B-blueviolet" alt="20+ Models" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-8-orange" alt="8 Agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-37-green" alt="37 Skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-39-green" alt="39 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="https://img.shields.io/badge/★_Multi--AI-Orchestrator-ff6f00" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -184,7 +184,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Development Skills (5)</strong></summary>
+<summary><strong>Development Skills (6)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -192,6 +192,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `code-review` | Structured review with severity levels |
 | `fix-github-issue` | Read issue → locate bug → fix → test → PR |
 | `fix-build-errors` | Diagnose and resolve build failures |
+| `pr-multi-perspective-review` | 6-lens PR review: PM / Dev / QA / Security / DevOps / UX |
 | `refactor-clean` | Remove dead code, simplify logic safely |
 </details>
 
@@ -217,11 +218,12 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Workflow Skills (4)</strong></summary>
+<summary><strong>Workflow Skills (5)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `commit-workflow` | Conventional commits + emoji, atomic split guidance |
+| `release` | tag → GitHub Release → publish (npm/PyPI/Docker) |
 | `sprint-workflow` | Full sprint: Think → Plan → Build → Review → Ship |
 | `security-audit` | OWASP Top 10 + STRIDE threat modeling |
 | `sprint-retro` | Data-driven retros using git metrics |
@@ -248,7 +250,9 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Content Skills (2)</strong></summary>
+<summary><strong>Content & Marketing Skills (2) — 확장 스킬</strong></summary>
+
+> 개발자 외 마케터, 콘텐츠 팀을 위한 확장 스킬입니다.
 
 | Skill | Description |
 |-------|-------------|

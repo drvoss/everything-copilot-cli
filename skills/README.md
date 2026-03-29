@@ -68,6 +68,7 @@ Core software development skills applicable to any project.
 | [`code-review`](development/code-review/SKILL.md) | Structured code review for quality and correctness |
 | [`fix-build-errors`](development/fix-build-errors/SKILL.md) | Diagnose and fix build failures fast |
 | [`fix-github-issue`](development/fix-github-issue/SKILL.md) | Resolve a GitHub Issue end-to-end: read → locate → fix → test → PR |
+| [`pr-multi-perspective-review`](development/pr-multi-perspective-review/SKILL.md) | Review PRs from 6 lenses: PM / Dev / QA / Security / DevOps / UX |
 | [`refactor-clean`](development/refactor-clean/SKILL.md) | Remove dead code and simplify complex logic |
 | [`tdd-workflow`](development/tdd-workflow/SKILL.md) | Test-driven development with red-green-refactor cycles |
 
@@ -108,6 +109,7 @@ End-to-end development workflow skills — from planning to shipping.
 | Skill | Description |
 |-------|-------------|
 | [`commit-workflow`](workflow/commit-workflow/SKILL.md) | Conventional commit messages with emoji, atomic splits, and pre-commit checks |
+| [`release`](workflow/release/SKILL.md) | Cut a versioned release: tag → GitHub Release → publish (npm/PyPI/Docker) |
 | [`sprint-workflow`](workflow/sprint-workflow/SKILL.md) | Full sprint: Think → Plan → Build → Review → Test → Ship |
 | [`security-audit`](workflow/security-audit/SKILL.md) | OWASP Top 10 + STRIDE threat modeling audit |
 | [`sprint-retro`](workflow/sprint-retro/SKILL.md) | Data-driven retrospectives using `/chronicle` and git metrics |
@@ -123,9 +125,10 @@ Product management and strategy skills.
 | [`feature-prioritization`](product/feature-prioritization/SKILL.md) | Impact × Confidence × Effort matrix with SQL tracking |
 | [`launch-strategy`](product/launch-strategy/SKILL.md) | Product launch checklist: alpha → beta → GA |
 
-### 📣 Content (`content/`)
+### 📣 Content & Marketing (`content/`)
 
-Content strategy and AI visibility skills.
+> **확장 스킬 (비개발 업무)** — 개발자 외 마케터, 콘텐츠 팀, 제품 성장 담당자에게 유용한 스킬입니다.
+> Core developer skills 와 별도로 분류됩니다.
 
 | Skill | Description |
 |-------|-------------|
