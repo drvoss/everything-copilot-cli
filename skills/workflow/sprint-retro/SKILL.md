@@ -111,25 +111,90 @@ Generate concrete, owner-assigned improvements:
 
 ## Full Retro Workflow
 
-```
-# 1. Gather data
+### Step 1: Gather Session Data
+
+```powershell
+# Enable experimental features and pull session chronicle
 /experimental on
 /chronicle
+```
 
-# 2. Git analysis
-> Analyze git log from [start date] to [end date]. Summarize commits, churn, and PR velocity.
+### Step 2: Collect Git Metrics
 
-# 3. What shipped
-> Create a sprint summary from the chronicle and git data.
+```powershell
+# Commit count this sprint
+git log --since="2 weeks ago" --oneline | Measure-Object -Line | Select-Object -ExpandProperty Lines
 
-# 4. Friction analysis
-> What took longer than expected? What blocked progress?
+# Files with highest churn (changed most often)
+git log --since="2 weeks ago" --name-only --pretty=format: |
+  Where-Object { $_ -ne "" } | Sort-Object | Group-Object | Sort-Object Count -Descending |
+  Select-Object -First 15 | Format-Table Count, Name -AutoSize
 
-# 5. Action items
-> Generate 3 concrete improvements for next sprint.
+# PR cycle time (open → merged)
+gh pr list --state merged --json number,title,createdAt,mergedAt --limit 20 |
+  ConvertFrom-Json | ForEach-Object {
+    $cycle = ([datetime]$_.mergedAt - [datetime]$_.createdAt).TotalHours
+    [PSCustomObject]@{ PR = $_.number; Hours = [math]::Round($cycle,1); Title = $_.title }
+  } | Sort-Object Hours -Descending | Format-Table -AutoSize
+```
 
-# 6. Save and share
-> Write a retro summary to docs/retro-YYYY-MM-DD.md
+### Step 3: Generate Retro Summary
+
+```
+> Using the /chronicle data and git metrics above, create a sprint retrospective report.
+> Include: (1) shipped features, (2) velocity vs. plan, (3) top 3 friction points,
+> (4) what worked well. Cite specific commits or PRs where possible.
+```
+
+### Step 4: Generate Action Items
+
+```
+> Based on the retro analysis, generate exactly 3 concrete action items for next sprint.
+> Each must be specific, measurable, and completable in one sprint.
+> Format as a table: | Action | Owner | Success Metric |
+```
+
+### Step 5: Save to File
+
+```powershell
+# Write the retro to the team docs folder
+$date = Get-Date -Format "yyyy-MM-dd"
+# Paste Copilot output into:
+New-Item -Path "docs/retros/retro-$date.md" -ItemType File
+```
+
+## Output Format
+
+A completed retro produces:
+
+```markdown
+## Sprint Retro — 2024-12-06
+
+### Shipped
+| Feature | PR | Cycle Time |
+|---------|-----|-----------|
+| User pagination | #142 | 18h |
+| Rate limiting | #147 | 6h |
+
+### Velocity
+- Planned: 5 features → Shipped: 4 (80%)
+- Unplanned work: 2 hotfixes consumed ~20% capacity
+
+### Friction Points
+1. PR reviews averaging 14h (target: 8h)
+2. `src/db/` changed in 60% of commits — high instability
+3. Test suite takes 4m 30s — slows feedback loop
+
+### What Worked
+- Plan Mode prevented 2 mid-sprint course corrections
+- `/fleet` parallelized the API route work
+
+### Action Items
+| Action | Owner | Success Metric |
+|--------|-------|----------------|
+| Add required reviewers policy | @lead | PR cycle time < 8h |
+| Extract db helpers to reduce churn | @dev | db/ churn < 30% |
+| Parallelize test suite with --shard | @ci | Suite time < 2m |
 ```
 
 ## Tips
@@ -139,3 +204,9 @@ Generate concrete, owner-assigned improvements:
 - **Time-box action items**: If you generate 10 items, nothing changes. Pick 3 max.
 - **Compare sprint over sprint**: Keep a `docs/retros/` folder and trend the metrics over time
 - **Don't skip when things go well**: The best retros often come from successful sprints
+
+## See Also
+
+- [`sprint-workflow`](../sprint-workflow/SKILL.md) — Full sprint execution (Think → Plan → Build → Review → Ship)
+- [`commit-workflow`](../commit-workflow/SKILL.md) — Conventional commits that feed clean git metrics
+- [`add-to-changelog`](../../documentation/add-to-changelog/SKILL.md) — Changelog entries generated from same git data

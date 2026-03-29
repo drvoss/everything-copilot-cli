@@ -119,10 +119,45 @@ task agent_type: "explore"
 prompt: "Find all database query functions and check if they use parameterized queries or string concatenation. List each file, line, and whether it's safe or vulnerable."
 ```
 
+## STRIDE Threat Modeling
+
+For new features or significant changes, apply STRIDE before scanning:
+
+```
+> Apply STRIDE threat modeling to the [feature/module]:
+>
+> S — Spoofing: Can an attacker impersonate a user or service?
+> T — Tampering: Can data be modified in transit or at rest without detection?
+> R — Repudiation: Can a user deny performing an action?
+> I — Information Disclosure: Can sensitive data leak to unauthorized parties?
+> D — Denial of Service: Can availability be disrupted?
+> E — Elevation of Privilege: Can a user gain more permissions than intended?
+>
+> For each threat, rate likelihood (1-3) × impact (1-3) = risk score.
+> List mitigations for risk score ≥ 4.
+```
+
+## Severity Classification
+
+| Level | CVSS | Examples | Response Time |
+|-------|------|---------|---------------|
+| 🔴 **Critical** | 9.0–10.0 | RCE, auth bypass, secret leak in code | Fix before next commit |
+| 🟠 **High** | 7.0–8.9 | SQLi, XSS, broken access control | Fix this sprint |
+| 🟡 **Medium** | 4.0–6.9 | Missing rate limiting, weak crypto | Fix next sprint |
+| 🔵 **Low** | 0.1–3.9 | Verbose error messages, info disclosure | Backlog |
+
 ## Tips
+
 - Run `npm audit` in CI to catch new vulnerabilities automatically
 - Use `.gitignore` to prevent secrets from being committed — but also verify with `git ls-files`
 - Focus on **input boundaries** — anywhere user data enters the system
 - Check both direct dependencies and transitive dependencies
 - Security is a spectrum: prioritize by exploitability and impact, not just severity score
 - Schedule regular scans, not just one-time reviews
+
+## See Also
+
+- [`evaluate-repository`](../evaluate-repository/SKILL.md) — Full 6-dimension repository security scorecard
+- [`secret-detection`](../secret-detection/SKILL.md) — Dedicated secret and credential scanning
+- [`pr-multi-perspective-review`](../../development/pr-multi-perspective-review/SKILL.md) — Security Lens in PR review
+- [`input-validation`](../input-validation/SKILL.md) — Dedicated input sanitization patterns
