@@ -14,7 +14,7 @@
   <a href="#"><img src="https://img.shields.io/badge/copilot--cli-ready-28a745?logo=github" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="https://img.shields.io/badge/models-20%2B-blueviolet" alt="20+ Models" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-8-orange" alt="8 Agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-37-green" alt="37 Skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-39-green" alt="39 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="https://img.shields.io/badge/★_Multi--AI-Orchestrator-ff6f00" alt="Multi-AI Orchestrator" /></a>
 </p>
 
