@@ -81,14 +81,31 @@ $jobs += Start-Job -Name "db-review" {
       "Review src/db/ for N+1 query patterns and missing indexes."
 }
 
-# Wait for all
-$jobs | Wait-Job | Out-Null
+# Wait for all with timeout (seconds)
+$jobs | Wait-Job -Timeout 180 | Out-Null
 
-# Collect results
+# Collect results — surface failures explicitly
 $results = @{}
 foreach ($job in $jobs) {
-    $results[$job.Name] = $job | Receive-Job
+    if ($job.State -eq 'Failed') {
+        $err = $job.ChildJobs[0].JobStateInfo.Reason.Message
+        $results[$job.Name] = "[ERROR] Job failed: $err"
+        Write-Warning "⚠️  $($job.Name) failed: $err"
+    } elseif ($job.State -eq 'Running') {
+        $results[$job.Name] = "[TIMEOUT] Job did not complete within 180s"
+        Write-Warning "⏱️  $($job.Name) timed out"
+        $job | Stop-Job
+    } else {
+        $output = $job | Receive-Job
+        $results[$job.Name] = if ($output) { $output } else { "[EMPTY] No output returned" }
+    }
     $job | Remove-Job
+}
+
+# Warn if any subtask failed — don't silently produce a partial report
+$failed = $results.GetEnumerator() | Where-Object { $_.Value -match '^\[ERROR\]|\[TIMEOUT\]' }
+if ($failed) {
+    Write-Warning "$($failed.Count) subtask(s) failed. Report will be partial."
 }
 ```
 
@@ -109,13 +126,20 @@ foreach ($lang in $languages) {
     }
 }
 
-$jobs | Wait-Job | Out-Null
+$jobs | Wait-Job -Timeout 120 | Out-Null
 
 foreach ($job in $jobs) {
     $lang = $job.Name.Replace("translate-", "")
-    $job | Receive-Job | Set-Content "docs/README.$lang.md"
+    if ($job.State -eq 'Failed') {
+        Write-Warning "⚠️  Translation to $lang failed: $($job.ChildJobs[0].JobStateInfo.Reason.Message)"
+    } elseif ($job.State -eq 'Running') {
+        Write-Warning "⏱️  Translation to $lang timed out"
+        $job | Stop-Job
+    } else {
+        $job | Receive-Job | Set-Content "docs/README.$lang.md"
+        Write-Host "✅ docs/README.$lang.md written"
+    }
     $job | Remove-Job
-    Write-Host "✅ docs/README.$lang.md written"
 }
 ```
 

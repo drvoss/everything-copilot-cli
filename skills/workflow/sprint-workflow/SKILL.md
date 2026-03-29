@@ -19,6 +19,16 @@ Inspired by Garry Tan's gstack approach — each step feeds the next, nothing fa
 - When you want structured, reviewable output rather than ad-hoc changes
 - Team environments where pull requests are the delivery mechanism
 
+## Prerequisites
+
+- Copilot CLI authenticated (`gh auth status`)
+- For the **Review step**: standard mode (no extra setup)
+- For the **sprint-retro** skill after this sprint: enable experimental features first:
+  ```
+  /experimental on
+  ```
+  > ⚠️ `/chronicle` (used in `sprint-retro`) requires `/experimental on` to be run in the **same session**.
+
 ## The Sprint
 
 ### Step 1: Think — Frame the Problem

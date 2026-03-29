@@ -142,3 +142,20 @@ Request a structured report:
 - **Check the infrastructure too**: Security isn't just code — review CORS config, headers, TLS
 - **Rotate secrets after audits**: If you found any, assume they're compromised
 - **Schedule regular audits**: Security debt accumulates; quarterly > never
+
+## Skill Differentiation
+
+| Skill | Scope | When |
+|-------|-------|------|
+| **security-audit** (this skill) | Full threat model: OWASP + STRIDE + auth + deps. Strategic/CSO view. | Pre-launch, quarterly, new auth feature |
+| [`security-scan`](../../security/security-scan/SKILL.md) | Code-level grep patterns + `npm audit`. Quick tactical scan. | Before every PR, CI integration |
+| [`evaluate-repository`](../../security/evaluate-repository/SKILL.md) | Repository-wide 6-dimension scorecard (secrets, deps, auth, error handling, supply chain). | Onboarding to unknown codebase |
+
+Run `security-scan` every PR. Run `security-audit` every sprint or release. Run `evaluate-repository` once on unfamiliar codebases.
+
+## See Also
+
+- [`security-scan`](../../security/security-scan/SKILL.md) — Quick code-level vulnerability scan (OWASP grep + STRIDE per feature)
+- [`evaluate-repository`](../../security/evaluate-repository/SKILL.md) — Full repo security scorecard
+- [`pr-multi-perspective-review`](../../development/pr-multi-perspective-review/SKILL.md) — Security Lens in PR reviews
+- [`secret-detection`](../../security/secret-detection/SKILL.md) — Dedicated secret and credential scanning
