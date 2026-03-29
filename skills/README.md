@@ -48,6 +48,7 @@ fleet mode, plan mode, and GitHub integration.
 | [`actions-debugging`](copilot-exclusive/actions-debugging/SKILL.md) | Debug GitHub Actions workflow failures using the Copilot CLI integration |
 | [`autopilot-patterns`](copilot-exclusive/autopilot-patterns/SKILL.md) | Master Autopilot mode for autonomous multi-step task execution |
 | [`background-agent`](copilot-exclusive/background-agent/SKILL.md) | Delegate long-running tasks to cloud Copilot agents via `&` or `/delegate` |
+| [`context-prime`](copilot-exclusive/context-prime/SKILL.md) | Load project context at session start — README, file tree, recent commits, stack |
 | [`cross-session-memory`](copilot-exclusive/cross-session-memory/SKILL.md) | Persist knowledge across sessions using memory tools |
 | [`fleet-parallel`](copilot-exclusive/fleet-parallel/SKILL.md) | Execute tasks across multiple parallel agents with `/fleet` |
 | [`github-issue-triage`](copilot-exclusive/github-issue-triage/SKILL.md) | Triage and classify GitHub issues at scale |
@@ -66,6 +67,7 @@ Core software development skills applicable to any project.
 |-------|-------------|
 | [`code-review`](development/code-review/SKILL.md) | Structured code review for quality and correctness |
 | [`fix-build-errors`](development/fix-build-errors/SKILL.md) | Diagnose and fix build failures fast |
+| [`fix-github-issue`](development/fix-github-issue/SKILL.md) | Resolve a GitHub Issue end-to-end: read → locate → fix → test → PR |
 | [`refactor-clean`](development/refactor-clean/SKILL.md) | Remove dead code and simplify complex logic |
 | [`tdd-workflow`](development/tdd-workflow/SKILL.md) | Test-driven development with red-green-refactor cycles |
 
@@ -75,6 +77,7 @@ Skills for keeping docs accurate and up-to-date.
 
 | Skill | Description |
 |-------|-------------|
+| [`add-to-changelog`](documentation/add-to-changelog/SKILL.md) | Add versioned entries to CHANGELOG.md (Keep a Changelog format) |
 | [`api-documentation`](documentation/api-documentation/SKILL.md) | Generate and maintain API documentation |
 | [`doc-update`](documentation/doc-update/SKILL.md) | Sync documentation when implementation changes |
 
@@ -84,6 +87,7 @@ Skills for identifying and fixing security issues.
 
 | Skill | Description |
 |-------|-------------|
+| [`evaluate-repository`](security/evaluate-repository/SKILL.md) | Score a repository 1-10 across 6 security dimensions with remediation plan |
 | [`input-validation`](security/input-validation/SKILL.md) | Validate and sanitize all user-supplied inputs |
 | [`secret-detection`](security/secret-detection/SKILL.md) | Find and remove hardcoded secrets |
 | [`security-scan`](security/security-scan/SKILL.md) | Run a security scan across the codebase |
@@ -103,6 +107,7 @@ End-to-end development workflow skills — from planning to shipping.
 
 | Skill | Description |
 |-------|-------------|
+| [`commit-workflow`](workflow/commit-workflow/SKILL.md) | Conventional commit messages with emoji, atomic splits, and pre-commit checks |
 | [`sprint-workflow`](workflow/sprint-workflow/SKILL.md) | Full sprint: Think → Plan → Build → Review → Test → Ship |
 | [`security-audit`](workflow/security-audit/SKILL.md) | OWASP Top 10 + STRIDE threat modeling audit |
 | [`sprint-retro`](workflow/sprint-retro/SKILL.md) | Data-driven retrospectives using `/chronicle` and git metrics |
@@ -113,6 +118,7 @@ Product management and strategy skills.
 
 | Skill | Description |
 |-------|-------------|
+| [`create-prd`](product/create-prd/SKILL.md) | Generate a structured PRD grounded in Jobs-to-be-Done thinking |
 | [`opportunity-solution-tree`](product/opportunity-solution-tree/SKILL.md) | Teresa Torres' OST framework: outcome → opportunity → solution → experiment |
 | [`feature-prioritization`](product/feature-prioritization/SKILL.md) | Impact × Confidence × Effort matrix with SQL tracking |
 | [`launch-strategy`](product/launch-strategy/SKILL.md) | Product launch checklist: alpha → beta → GA |

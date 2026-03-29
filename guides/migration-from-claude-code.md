@@ -16,7 +16,7 @@ Copilot CLI equivalent:
 | `CLAUDE.md` | `.github/copilot-instructions.md` | Same purpose — project-level AI instructions |
 | `AGENTS.md` | `AGENTS.md` + skill files | Direct mapping; Copilot also uses `skills/` directory |
 | `/agent-name` (slash command) | `agent_type` parameter in task tool | Architecture differs — Copilot uses 4 agent types |
-| Hooks (pre-tool, post-tool) | Startup hooks + lifecycle | Partial mapping — Copilot has fewer hook points |
+| Hooks (pre-tool, post-tool) | Git Hooks / GitHub Actions / Prompt Guards | **No direct equivalent** — use [alternatives](./hooks-to-github-actions.md) depending on purpose |
 | Skills (`.claude/skills/`) | Skills (`skills/` directory) | Nearly identical format! Markdown + YAML frontmatter |
 | Slash commands (`/help`, `/clear`) | Slash commands (`/help`, `/clear`) | Direct mapping for most commands |
 | MCP config (`.mcp.json`) | `devcontainer.json` / `.vscode/mcp.json` | Format change, same concept |
@@ -175,41 +175,52 @@ orchestration to delegate to Claude Code:
 See orchestration/skills/delegate-to-claude.md
 ```
 
-### Step 5: Replace Hooks with Startup Scripts
+### Step 5: Replace Hooks with Alternatives
 
-Claude Code hooks are lifecycle callbacks (pre-tool, post-tool, notification).
-Copilot CLI handles this differently:
+Claude Code hooks (pre-tool, post-tool, notification, stop) are **AI session lifecycle
+callbacks** — they fire inside the AI session when the model calls a tool.
 
-**Claude Code hooks:**
-```json
-{
-  "hooks": {
-    "pre-tool": ["validate-safety.sh"],
-    "post-tool": ["log-action.sh"],
-    "notification": ["slack-notify.sh"]
-  }
-}
+Copilot CLI has **no direct equivalent**. Instead, choose the right alternative based
+on your use case:
+
+| Claude Code Hook Purpose | Copilot Alternative | Details |
+|-------------------------|---------------------|---------|
+| Lint/validate before changes | Git Pre-commit Hook (Husky) | Runs locally on every commit |
+| Test/format after changes | Git Post-commit Hook | Same — runs locally |
+| PR gate before merge | GitHub Actions workflow | Team-wide enforcement |
+| Notify on session complete | GitHub Actions (push/merge event) | CI/CD notification |
+| Guard what AI can modify | Prompt-level instructions | Add rules to `copilot-instructions.md` |
+
+**Example: Pre-commit Hook (replaces PreToolUse validation)**
+
+```powershell
+# Install Husky for Node.js projects
+npm install --save-dev husky
+npx husky init
+
+# .husky/pre-commit
+@"
+npm run lint && npm run test -- --passWithNoTests
+"@ | Set-Content .husky/pre-commit
 ```
 
-**Copilot CLI equivalent:**
-- **Pre-session setup:** Use startup scripts or context files
-- **Tool validation:** Handled by Copilot's built-in safety model
-- **Post-action logging:** Use the session SQL database
-- **Notifications:** Use background agent completion notifications
+**Example: Prompt Guard (replaces PreToolUse check)**
 
-```sql
--- Track actions in SQL instead of hook-based logging
-CREATE TABLE action_log (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    action TEXT,
-    tool TEXT,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    result TEXT
-);
+Add to `.github/copilot-instructions.md`:
+```markdown
+## Before Making Changes
+1. Run `npm run lint` — fix any existing errors before adding new code
+2. Never modify `auth/` or `config/` files without first reading them completely
 ```
 
-**Note:** This is an area where Claude Code currently has more flexibility.
-See [What You Lose](#what-you-lose) below.
+> **Why no direct equivalent?**
+> Claude Code Hooks fire inside the AI session at tool-call boundaries.
+> Copilot CLI's architecture doesn't expose session-level tool hooks externally.
+> Git Hooks and GitHub Actions solve the same *goals* but at different points in
+> the development lifecycle.
+
+For a comprehensive alternative mapping with examples, see:
+→ **[guides/hooks-to-github-actions.md](./hooks-to-github-actions.md)**
 
 ---
 
@@ -332,7 +343,7 @@ Use this checklist to track your migration progress:
 - [ ] Port custom skills to `skills/<category>/` with updated frontmatter
 - [ ] Convert MCP configs to `.vscode/mcp.json` or `devcontainer.json`
 - [ ] Map agent invocations to Copilot CLI's 4 agent types
-- [ ] Replace hooks with startup scripts and SQL logging
+- [ ] Replace hooks with Git Pre-commit Hooks, GitHub Actions, or Prompt Guards (see [hooks guide](./hooks-to-github-actions.md))
 - [ ] Set up Claude Code as MCP bridge (if keeping both tools)
 - [ ] Test key workflows (build, test, PR creation, code review)
 - [ ] Train team on new features (fleet mode, plan mode, SQL database)
