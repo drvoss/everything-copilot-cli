@@ -117,7 +117,6 @@ description: Use when …; NOT when …
 - [ ] Includes a **NOT when…** clause if the skill is easy to mis-invoke.
 - [ ] Stays **1–2 sentences**; no long feature lists unless they improve routing.
 
-
 ---
 
 ## 7) Why-First Principle
@@ -140,9 +139,8 @@ description: |
 
 ---
 
-## 8) 500-Line Limit + eferences/ Split
-
-Keep the main skill body under ~500 lines. If it grows beyond that, split extended platform or domain material into a eferences/ subdirectory — the core skill stays scannable, and the model loads detail only when needed.
+## 8) 500-Line Limit + `references/` Split
+Keep the main skill body under ~500 lines. If it grows beyond that, split extended platform or domain material into a `references/` subdirectory — the core skill stays scannable, and the model loads detail only when needed.
 
 ```
 skills/<category>/<skill-name>/

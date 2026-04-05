@@ -110,7 +110,7 @@ everything-copilot-cli/
 │   ├── documentation/             #   Doc skills (3)
 │   ├── security/                  #   Security skills (4)
 │   ├── testing/                   #   Test skills (2)
-│   ├── workflow/                  #   Workflow skills (4)
+│   ├── workflow/                  #   Workflow skills (5)
 │   ├── product/                   #   Product skills (4)
 │   └── content/                   #   Content & GEO skills (2)
 │
@@ -122,6 +122,7 @@ everything-copilot-cli/
 │   ├── patterns/                  #   10 orchestration patterns
 │   ├── configs/                   #   MCP bridge configs
 │   ├── skills/                    #   Orchestration skills (6)
+│   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (5)
 │
 ├── guides/                        # 11 comprehensive guides
