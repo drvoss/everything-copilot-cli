@@ -395,6 +395,31 @@ After a cloud delegation completes and opens a draft PR, bring the session local
 This is powerful for progressive refinement — review the initial work on GitHub, then
 drill into specifics by resuming the session locally.
 
+### Sub-Agent Lifecycle Tools
+
+When background agents are running, Copilot CLI provides four tools to manage them:
+
+| Tool | Purpose |
+|------|---------|
+| `task` | Launch an agent (`sync` or `background` mode) — returns `agent_id` for background runs |
+| `read_agent` | Read output from a running or completed background agent |
+| `write_agent` | Send a follow-up message to an **idle** agent (waiting for input) |
+| `list_agents` | List all active and completed background agents in the session |
+
+**Typical lifecycle:**
+
+```
+1. task(..., mode="background")  → get agent_id
+2. [continue other work]         → notified automatically on completion
+3. read_agent(agent_id)          → retrieve full results
+4. write_agent(agent_id, msg)    → if agent is idle and needs more input
+5. list_agents()                 → rediscover agent IDs if lost
+```
+
+> These tools are the backbone of the [Team Planner](../skills/copilot-exclusive/team-planner/SKILL.md) skill's **Phase 5: Monitor** — dispatch multiple background agents, then poll/follow-up using `read_agent` and `write_agent`, storing summaries in the SQL session database.
+
+---
+
 ### Fleet Agent Result Aggregation
 
 When fleet agents complete in parallel, aggregate their results:

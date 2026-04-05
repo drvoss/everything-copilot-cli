@@ -72,6 +72,20 @@ gemini skills install github:drvoss/everything-copilot-cli/skills/<category>/<sk
 
 ---
 
+## Skill Architecture (Three-Layer Model)
+
+Skills in this repository fall into three functional layers, based on the harness research:
+
+| Layer | Role | Examples in this repo |
+|-------|------|-----------------------|
+| **Orchestrator** | Coordinates teams, manages workflow, handles errors and synthesis | `team-planner`, `fleet-parallel`, `orchestration/skills/*` |
+| **Agent-Extending** | Adds domain expertise to an agent — loaded when the agent needs specialized knowledge | Most `development/`, `security/`, `testing/`, `documentation/` skills |
+| **External** | Integrates external services and tools beyond the built-in CLI toolset | `mcp-ecosystem`, `ai-visibility`, `github-pr-workflow` |
+
+**Why this matters:** When composing workflows, load Orchestrator skills into the coordinating agent and Agent-Extending skills into specialist sub-agents. External skills can live in either layer depending on context.
+
+---
+
 ## Skill Categories
 
 ### 🔵 Copilot-Exclusive (`copilot-exclusive/`)
