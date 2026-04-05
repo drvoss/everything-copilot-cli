@@ -1,6 +1,6 @@
 ---
 name: security-scan
-description: Scan for security vulnerabilities including OWASP Top 10 and dependency audits
+description: Use when you want a quick security pass on code changes or dependencies — checks OWASP Top 10 patterns, runs dependency audits, and surfaces critical vulnerabilities with targeted fixes.
 metadata:
   category: security
   agent_type: general-purpose

@@ -1,6 +1,6 @@
 ---
 name: opportunity-solution-tree
-description: Apply Teresa Torres' Opportunity Solution Tree (OST) framework to break down product outcomes into opportunities, solutions, and experiments. Connects every feature to a measurable business outcome.
+description: Use when you need to ensure every feature in the backlog connects to a measurable business outcome — applies Teresa Torres' OST framework to map outcomes → opportunities → solutions → experiments.
 metadata:
   category: product
 ---

@@ -1,6 +1,6 @@
 ---
 name: autopilot-patterns
-description: Effective Autopilot mode patterns with guardrails and safety considerations
+description: Use when you're ready to let Copilot execute a multi-step plan autonomously — configures appropriate guardrails, handles plan-to-autopilot transitions, and sets safety boundaries.
 metadata:
   category: copilot-exclusive
   copilot_feature: "Autopilot mode, autonomous execution, plan-to-autopilot transitions"

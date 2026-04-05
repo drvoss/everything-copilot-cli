@@ -1,6 +1,6 @@
 ---
 name: security-audit
-description: Perform a thorough security audit using OWASP Top 10 and STRIDE threat modeling. Adopt the CSO perspective — every endpoint, input, and auth path is suspect until proven safe.
+description: Use when a codebase needs a formal security audit beyond a quick scan — applies OWASP Top 10 and STRIDE threat modeling from a CSO perspective to surface systemic vulnerabilities.
 metadata:
   category: workflow
 ---

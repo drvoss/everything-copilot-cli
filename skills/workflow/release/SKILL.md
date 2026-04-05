@@ -1,6 +1,6 @@
 ---
 name: release
-description: Cut a versioned release — tag, GitHub Release notes, and publish — completing the commit-workflow → add-to-changelog → release pipeline
+description: Use when a sprint or feature is complete and ready to ship — tags the version, generates GitHub Release notes, and publishes to npm/PyPI/Docker registries.
 metadata:
   category: workflow
   agent_type: general-purpose

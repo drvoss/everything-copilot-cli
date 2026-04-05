@@ -1,6 +1,6 @@
 ---
 name: sprint-retro
-description: Run a sprint retrospective using /chronicle session stats and git metrics. Surface what shipped, what slowed you down, and concrete improvements for next sprint.
+description: Use at the end of a sprint to run a data-driven retrospective — analyzes session history and git metrics to surface what shipped, what slowed you down, and concrete improvements.
 metadata:
   category: workflow
 ---

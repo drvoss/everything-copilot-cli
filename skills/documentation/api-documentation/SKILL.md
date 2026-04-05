@@ -1,6 +1,6 @@
 ---
 name: api-documentation
-description: Generate and maintain API documentation from source code
+description: Use when source code has changed and API docs are stale, or a new endpoint lacks documentation — generates accurate docs from implementation, not guesswork.
 metadata:
   category: documentation
   agent_type: general-purpose

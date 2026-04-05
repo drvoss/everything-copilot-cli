@@ -1,6 +1,6 @@
 ---
 name: feature-prioritization
-description: Score and rank features using an Impact × Risk × Effort matrix with SQL tracking. Make prioritization decisions defensible, transparent, and fast.
+description: Use when you have a backlog of features and need to rank them for the next sprint — scores each feature using Impact × Confidence × Effort matrix with SQL tracking for transparent prioritization.
 metadata:
   category: product
 ---

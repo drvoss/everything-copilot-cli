@@ -112,11 +112,27 @@ Notes:
 
 ## 5. Quick Checklist (before shipping a skill)
 
-- [ ] At least 3 should-trigger queries written and tested
-- [ ] At least 2 should-NOT-trigger queries verified (no false positives)
+- [ ] At least 8–10 should-trigger queries written and tested (aim for diversity: different phrasings, contexts, urgency levels)
+- [ ] At least 8–10 should-NOT-trigger queries verified (no false positives), including **near-miss queries**
 - [ ] Description field follows `skill-writing-best-practices.md` (trigger-first pattern)
 - [ ] Output format section in `SKILL.md` matches what the skill actually produces
 - [ ] Tested in at least one real project context (not just synthetic examples)
+
+### Near-Miss Query Design
+
+A near-miss is a query that *sounds like* it should trigger the skill but shouldn't — because a simpler or more specific skill is the right choice.
+
+**How to design near-misses:**
+1. Take a valid trigger query and weaken/reframe it: change scope ("just one file" vs "the whole repo"), reduce specificity ("check for issues" vs "run a full security scan"), or shift to a different skill's domain.
+2. Verify the near-miss does NOT trigger the skill (if it does, tighten the `NOT when…` clause in the description).
+
+**Example near-miss pairs (for `security-scan`):**
+
+| Trigger (should fire) | Near-miss (should NOT fire) |
+|---|---|
+| "Run a full security scan before our release" | "Is this function safe?" → use `code-review` |
+| "Check all dependencies for CVEs" | "What does this package do?" → use chat |
+| "Audit our auth module for OWASP issues" | "Review this PR for security" → use `pr-multi-perspective-review` |
 
 ## 6. Testing the `description:` Field Specifically
 

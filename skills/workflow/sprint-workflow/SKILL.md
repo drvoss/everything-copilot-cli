@@ -1,6 +1,6 @@
 ---
 name: sprint-workflow
-description: Full sprint workflow from idea to shipped PR using Copilot CLI modes. Think → Plan → Build → Review → Test → Ship. Use when starting a new feature, refactor, or any multi-step development task.
+description: Use when starting a new feature, refactor, or multi-step dev task — runs the full sprint cycle (Think → Plan → Build → Review → Test → Ship) using Copilot CLI's plan/autopilot modes.
 metadata:
   category: workflow
 ---

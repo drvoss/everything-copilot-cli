@@ -1,6 +1,6 @@
 ---
 name: create-prd
-description: Generate a structured Product Requirements Document (PRD) for a well-scoped feature, grounded in Jobs-to-be-Done thinking
+description: Use when you're ready to define a feature before building it — generates a structured PRD using Jobs-to-be-Done thinking, success metrics, and explicit scope boundaries.
 metadata:
   category: product
   agent_type: general-purpose

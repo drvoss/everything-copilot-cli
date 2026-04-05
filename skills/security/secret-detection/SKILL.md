@@ -1,6 +1,6 @@
 ---
 name: secret-detection
-description: Find and remove hardcoded secrets from source code and git history
+description: Use when you suspect API keys, tokens, or passwords are hardcoded in source code or committed to git history — scans and guides safe removal without breaking existing integrations.
 metadata:
   category: security
   agent_type: general-purpose

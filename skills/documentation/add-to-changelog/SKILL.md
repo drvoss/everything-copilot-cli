@@ -1,6 +1,6 @@
 ---
 name: add-to-changelog
-description: Add a versioned entry to CHANGELOG.md following Keep a Changelog conventions, and sync version in package manifests
+description: Use when you've shipped a feature, fix, or breaking change and need to update CHANGELOG.md — follows Keep a Changelog format and syncs version numbers across package manifests.
 metadata:
   category: documentation
   agent_type: general-purpose

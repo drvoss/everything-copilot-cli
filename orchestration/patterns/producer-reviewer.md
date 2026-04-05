@@ -50,8 +50,11 @@ This is distinct from:
 
 The key to making this pattern reliable is an explicit **quality gate signal** (PASS/REVISE) and a bounded loop.
 
-```powershell
-# Producer-Reviewer loop (Copilot CLI orchestration pseudocode)
+> **Syntax note:** Lines containing `task(...)` and `sql(...)` are **Copilot CLI tool invocations** — they are not valid PowerShell. All other `$var`, `while`, `if`, and `Write-Host` lines are standard PowerShell.
+
+```text
+# Producer-Reviewer loop (Copilot CLI pseudocode)
+# --- task(...) and sql(...) are Copilot CLI tool calls, not PowerShell ---
 # - Producer: general-purpose (often Codex model)
 # - Reviewer: code-review (often Claude model)
 

@@ -51,9 +51,9 @@ Below is a practical PowerShell-style sketch for a **large codebase audit** that
 
 Each domain orchestrator then spawns its own specialist workers and writes progress into Copilot CLI's **built-in SQL session database**.
 
-> Note: `task(...)` and `sql(...)` are shown in the “Copilot CLI tool invocation” style used throughout this repo.
+> **Syntax note:** Lines containing `task(...)` and `sql(...)` are **Copilot CLI tool invocations** — they are not valid PowerShell syntax. All `$var`, loops, and string operations are standard PowerShell.
 
-```powershell
+```text
 # -------------------------------
 # Root Orchestrator
 # -------------------------------
