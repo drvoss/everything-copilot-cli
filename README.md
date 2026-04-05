@@ -14,7 +14,7 @@
   <a href="#"><img src="https://img.shields.io/badge/copilot--cli-ready-28a745?logo=github" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="https://img.shields.io/badge/models-20%2B-blueviolet" alt="20+ Models" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-8-orange" alt="8 Agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-39-green" alt="39 Skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-40-green" alt="40 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="https://img.shields.io/badge/★_Multi--AI-Orchestrator-ff6f00" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -104,9 +104,9 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (37 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (13)
-│   ├── development/               #   Dev skills (5)
+├── skills/                        # Reusable workflow skills (40 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (14)
+│   ├── development/               #   Dev skills (6)
 │   ├── documentation/             #   Doc skills (3)
 │   ├── security/                  #   Security skills (4)
 │   ├── testing/                   #   Test skills (2)
@@ -119,12 +119,12 @@ everything-copilot-cli/
 │   └── languages/                 #   Language-specific: TS, Python, Go, C#, Java
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
-│   ├── patterns/                  #   5 orchestration patterns
+│   ├── patterns/                  #   10 orchestration patterns
 │   ├── configs/                   #   MCP bridge configs
-│   ├── skills/                    #   Orchestration skills (4)
-│   └── examples/                  #   Real-world examples (3)
+│   ├── skills/                    #   Orchestration skills (6)
+│   └── examples/                  #   Real-world examples (5)
 │
-├── guides/                        # 9 comprehensive guides
+├── guides/                        # 11 comprehensive guides
 ├── mcp-configs/                   # MCP server configurations (4)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
@@ -157,12 +157,12 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### ⚙️ Skills (37 Total · 8 Categories)
+### ⚙️ Skills (40 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>★ Copilot-Exclusive Skills (13)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (14)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
@@ -181,6 +181,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `multi-model-strategy` | Pick the right model per task |
 | `mcp-ecosystem` | Extend with custom MCP servers |
 | `ide-switching` | Seamless VS Code ↔ CLI context sharing |
+| `team-planner` | Assemble specialist agent teams via SQL roster + `/fleet` dispatch |
 </details>
 
 <details>
@@ -286,6 +287,8 @@ The Multi-AI Orchestration system (see [dedicated section](#multi-ai-orchestrati
 | 🚚 **Migration from Claude Code** | Step-by-step migration path with concept mapping |
 | 🪝 **Hooks to GitHub Actions** | Claude Code Hooks alternatives (Git Hooks / Actions / Prompt Guards) |
 | 🌐 **Orchestration Guide** ★ | Multi-AI orchestration patterns and setup |
+| ✍️ **Skill Writing Best Practices** | Write trigger-first descriptions that actually fire |
+| 🧪 **Skill Testing Guide** | Test trigger accuracy and output quality for promptware |
 
 All guides are in the [`guides/`](guides/) directory.
 
@@ -313,7 +316,7 @@ No single AI is best at everything. Claude excels at reasoning, Codex at rapid i
 └──────────────────────────────────────────────────┘
 ```
 
-### 5 Orchestration Patterns
+### 5 Orchestration Patterns (Patterns 1–5: cross-AI)
 
 | Pattern | How It Works | Best For |
 |---------|-------------|----------|
@@ -322,6 +325,16 @@ No single AI is best at everything. Claude excels at reasoning, Codex at rapid i
 | 💬 **Message IPC** | Inter-process communication via files/pipes | Real-time collaboration |
 | 🔗 **Pipeline** | Chain agents sequentially — output of one feeds the next | Multi-stage workflows |
 | 🏛️ **Agent Council** | Multiple agents deliberate and vote on decisions | Critical decisions |
+
+### 5 Additional Patterns (Intra-team orchestration)
+
+| Pattern | How It Works | Best For |
+|---------|-------------|----------|
+| ⚡ **Fan-Out Parallel** | Dispatch independent subtasks simultaneously | Batch operations |
+| 🔁 **Producer-Reviewer** | Iterative produce→review feedback loop | Artifact refinement |
+| 🌲 **Hierarchical Delegation** | Nested orchestrators (root→domain→specialists) | Large multi-domain tasks |
+| 🔄 **Iterative Refinement** | Self-correction loop with measurable exit criteria | Quality-sensitive generation |
+| 🤝 **Review Trio** | 3-way review for non-PR artifacts (RFC, schema, architecture) | Pre-publish review |
 
 ### Tool Strength Matrix
 

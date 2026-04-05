@@ -14,7 +14,7 @@
   <a href="#"><img src="https://img.shields.io/badge/copilot--cli-ready-28a745?logo=github" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="https://img.shields.io/badge/models-20%2B-blueviolet" alt="20+ Models" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-8-orange" alt="8 Agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-39-green" alt="39 Skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-40-green" alt="40 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="https://img.shields.io/badge/★_Multi--AI-Orchestrator-ff6f00" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -103,9 +103,9 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (37개)
-│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (13개)
-│   ├── development/               #   개발 스킬 (5개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (40개)
+│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (14개)
+│   ├── development/               #   개발 스킬 (6개)
 │   ├── documentation/             #   문서화 스킬 (3개)
 │   ├── security/                  #   보안 스킬 (4개)
 │   ├── testing/                   #   테스팅 스킬 (2개)
@@ -118,12 +118,12 @@ everything-copilot-cli/
 │   └── languages/                 #   언어별 규칙: TS, Python, Go, C#, Java
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
-│   ├── patterns/                  #   5가지 오케스트레이션 패턴
+│   ├── patterns/                  #   10가지 오케스트레이션 패턴
 │   ├── configs/                   #   MCP 브릿지 설정
-│   ├── skills/                    #   오케스트레이션 스킬 (4개)
-│   └── examples/                  #   실전 예제 (3개)
+│   ├── skills/                    #   오케스트레이션 스킬 (6개)
+│   └── examples/                  #   실전 예제 (5개)
 │
-├── guides/                        # 종합 가이드 (9개)
+├── guides/                        # 종합 가이드 (11개)
 ├── mcp-configs/                   # MCP 서버 설정 (4개)
 ├── examples/                      # 프로젝트별 copilot-instructions 예제
 │   ├── nextjs-app/
@@ -156,12 +156,12 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### ⚙️ 스킬 (총 37개 · 8개 카테고리)
+### ⚙️ 스킬 (총 40개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
 <details>
-<summary><strong>★ Copilot 전용 스킬 (13개)</strong></summary>
+<summary><strong>★ Copilot 전용 스킬 (14개)</strong></summary>
 
 GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
@@ -180,10 +180,11 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `multi-model-strategy` | 작업별 최적 모델 선택 |
 | `mcp-ecosystem` | 커스텀 MCP 서버로 기능 확장 |
 | `ide-switching` | VS Code ↔ CLI 원활한 컨텍스트 공유 |
+| `team-planner` | SQL 로스터 + `/fleet` 디스패치로 전문가 팀 구성 |
 </details>
 
 <details>
-<summary><strong>개발 스킬 (5개)</strong></summary>
+<summary><strong>개발 스킬 (6개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -191,6 +192,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `code-review` | 심각도 수준이 포함된 구조화된 코드 리뷰 |
 | `fix-github-issue` | 이슈 읽기 → 버그 위치 → 수정 → 테스트 → PR |
 | `fix-build-errors` | 빌드 실패 진단 및 해결 |
+| `pr-multi-perspective-review` | 6가지 관점 PR 리뷰: PM/Dev/QA/Security/DevOps/UX |
 | `refactor-clean` | 동작 보존하며 데드 코드 제거 및 로직 단순화 |
 </details>
 
@@ -216,11 +218,12 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (4개)</strong></summary>
+<summary><strong>워크플로우 스킬 (5개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `commit-workflow` | 컨벤셔널 커밋 + 이모지, 원자적 분할 가이드 |
+| `release` | 태그 → GitHub Release → 배포 (npm/PyPI/Docker) |
 | `sprint-workflow` | 전체 스프린트: 구상 → 계획 → 구축 → 리뷰 → 출시 |
 | `security-audit` | OWASP Top 10 + STRIDE 위협 모델링 |
 | `sprint-retro` | git 메트릭을 활용한 데이터 기반 회고 |
@@ -281,6 +284,8 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | 🚚 **Claude Code에서 마이그레이션** | 개념 매핑과 단계별 마이그레이션 가이드 |
 | 🪝 **Hooks to GitHub Actions** | Claude Code Hooks 대안 (Git Hooks / Actions / Prompt Guards) |
 | 🌐 **오케스트레이션 가이드** ★ | Multi-AI 오케스트레이션 패턴 및 설정 |
+| ✍️ **스킬 작성 모범 사례** | 실제로 동작하는 트리거 우선 description 작성법 |
+| 🧪 **스킬 테스팅 가이드** | 프롬프트웨어의 트리거 정확도 및 출력 품질 테스트 |
 
 모든 가이드는 [`guides/`](guides/) 디렉토리에 있습니다.
 
@@ -308,7 +313,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 └──────────────────────────────────────────────────┘
 ```
 
-### 5가지 오케스트레이션 패턴
+### 5가지 크로스-AI 오케스트레이션 패턴
 
 | 패턴 | 동작 방식 | 적합한 상황 |
 |------|-----------|-------------|
@@ -317,6 +322,16 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | 💬 **Message IPC** | 파일/파이프를 통한 프로세스 간 통신 | 실시간 협업 |
 | 🔗 **Pipeline** | 에이전트를 순차 연결 — 이전 출력이 다음 입력으로 | 다단계 워크플로우 |
 | 🏛️ **Agent Council** | 여러 에이전트가 토론하고 결정에 투표 | 중요한 의사결정 |
+
+### 5가지 팀 내부 오케스트레이션 패턴
+
+| 패턴 | 동작 방식 | 적합한 상황 |
+|------|-----------|-------------|
+| ⚡ **Fan-Out Parallel** | 독립 서브태스크 동시 병렬 디스패치 | 배치 작업 |
+| 🔁 **Producer-Reviewer** | 반복적 제작→리뷰 피드백 루프 | 아티팩트 품질 개선 |
+| 🌲 **Hierarchical Delegation** | 중첩 오케스트레이터 (루트→도메인→전문가) | 대규모 멀티도메인 작업 |
+| 🔄 **Iterative Refinement** | 측정 가능한 종료 기준 기반 자기 개선 루프 | 품질 민감한 생성 |
+| 🤝 **Review Trio** | PR 외 아티팩트 (RFC, 스키마, 아키텍처) 3자 리뷰 | 배포 전 검토 |
 
 ### 도구별 강점 매트릭스
 
