@@ -5,6 +5,41 @@ Each skill follows the [agentskills.io](https://agentskills.io) spec — skills 
 subdirectories containing a `SKILL.md` file that can be installed directly into
 any compatible AI coding tool.
 
+## Cross-Platform Compatibility (agentskills.io)
+
+All skills in this repository follow the **[agentskills.io](https://agentskills.io)** open standard — the same spec used by Claude Code, Hermes Agent, Cursor, and Codex CLI.
+
+### What this means
+
+- **Portable**: Skills written here can be used in Claude Code, Hermes, and other agentskills.io-compatible runtimes with minimal adaptation
+- **Standard format**: The `SKILL.md` subdirectory layout (`skills/<category>/<skill-name>/SKILL.md`) is the canonical agentskills.io path
+- **Install from GitHub**: Any agentskills.io-compatible tool can install skills directly:
+
+  ```bash
+  # Gemini CLI
+  gemini skills install github:drvoss/everything-copilot-cli/skills/development/fix-github-issue
+
+  # Claude Code
+  claude skills install github:drvoss/everything-copilot-cli/skills/workflow/commit-workflow
+  ```
+
+### Cross-runtime compatibility table
+
+| Runtime | Compatible | Notes |
+|---------|:----------:|-------|
+| GitHub Copilot CLI | ✅ | Native — all features available |
+| Claude Code | ✅ | Skills portable; agent_type mapping differs |
+| Codex CLI | ✅ | Skills work; no fleet/background equivalent |
+| Hermes Agent | ✅ | Full agentskills.io spec support |
+| Cursor | ⚠️ | Skill content reusable; different invocation model |
+
+### Key differences when using in Claude Code
+
+- Replace `/fleet` with `Agent` tool calls
+- `background-agent` skill maps to `&` background subprocess
+- `sql` tool state maps to `~/.claude/state.json` or custom memory files
+- Copilot-exclusive skills (`skills/copilot-exclusive/`) require adaptation
+
 ## Installing Skills
 
 ### GitHub Copilot CLI

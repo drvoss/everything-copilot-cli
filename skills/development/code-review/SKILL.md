@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Systematic code review process with checklist and severity levels
+description: Use when reviewing code changes for quality, correctness, and security — runs a structured checklist with severity-rated findings
 metadata:
   category: development
   agent_type: code-review

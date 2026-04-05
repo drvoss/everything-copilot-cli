@@ -1,6 +1,6 @@
 ---
 name: commit-workflow
-description: Craft conventional commits with emoji, auto-stage, and split atomic commits from a mixed diff
+description: Use when you're about to commit (especially with a mixed diff) to stage changes, split into atomic commits, and write Conventional Commit messages with emoji
 metadata:
   category: workflow
   agent_type: general-purpose

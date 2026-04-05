@@ -1,6 +1,6 @@
 ---
 name: refactor-clean
-description: Code refactoring workflow to improve structure while preserving behavior
+description: Use when code has grown complex, duplicated, or cluttered — clean up structure and remove dead code without changing observable behavior
 metadata:
   category: development
   agent_type: general-purpose
