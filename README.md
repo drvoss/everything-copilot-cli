@@ -125,7 +125,7 @@ everything-copilot-cli/
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (5)
 │
-├── guides/                        # 11 comprehensive guides
+├── guides/                        # 12 comprehensive guides
 ├── mcp-configs/                   # MCP server configurations (4)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
@@ -290,6 +290,7 @@ The Multi-AI Orchestration system (see [dedicated section](#multi-ai-orchestrati
 | 🌐 **Orchestration Guide** ★ | Multi-AI orchestration patterns and setup |
 | ✍️ **Skill Writing Best Practices** | Write trigger-first descriptions that actually fire |
 | 🧪 **Skill Testing Guide** | Test trigger accuracy and output quality for promptware |
+| 🔍 **QA Agent Guide** | Design QA agents that catch real bugs via boundary-crossing comparison |
 
 All guides are in the [`guides/`](guides/) directory.
 

@@ -124,7 +124,7 @@ everything-copilot-cli/
 │   ├── templates/                 #   재사용 가능한 오케스트레이터 템플릿
 │   └── examples/                  #   실전 예제 (5개)
 │
-├── guides/                        # 종합 가이드 (11개)
+├── guides/                        # 종합 가이드 (12개)
 ├── mcp-configs/                   # MCP 서버 설정 (4개)
 ├── examples/                      # 프로젝트별 copilot-instructions 예제
 │   ├── nextjs-app/
@@ -287,6 +287,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | 🌐 **오케스트레이션 가이드** ★ | Multi-AI 오케스트레이션 패턴 및 설정 |
 | ✍️ **스킬 작성 모범 사례** | 실제로 동작하는 트리거 우선 description 작성법 |
 | 🧪 **스킬 테스팅 가이드** | 프롬프트웨어의 트리거 정확도 및 출력 품질 테스트 |
+| 🔍 **QA 에이전트 가이드** | 경계면 교차 비교 기반의 실질적인 QA 에이전트 설계 |
 
 모든 가이드는 [`guides/`](guides/) 디렉토리에 있습니다.
 

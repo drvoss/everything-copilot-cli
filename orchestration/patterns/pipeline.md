@@ -279,6 +279,39 @@ if ($review -match '"approved":\s*true') {
 }
 ```
 
+## Phase Reconstruction Pattern
+
+A powerful pipeline variant where the **team composition changes between phases**. Each phase uses a different set of specialists; their output is saved to an intermediate file before the team is released and a new one assembled.
+
+Use this when different phases require fundamentally different expertise (e.g., analysis vs. implementation vs. polish).
+
+**Example — Technical Report Writing:**
+
+| Phase | Specialist team | Output file |
+|-------|----------------|-------------|
+| 1: Research | `{analyst, researcher}` | `phase1-findings.md` |
+| 2: Architecture | `{architect, security-reviewer}` | `phase2-design.md` |
+| 3: Implementation | `{developer, tester}` | `phase3-code/` |
+| 4: Documentation | `{doc-writer, editor}` | `phase4-docs.md` |
+
+**PowerShell skeleton:**
+
+```powershell
+# Phase 1: Research team
+# task: agent_type="general-purpose", name="analyst", prompt="Analyze requirements and output findings to phase1-findings.md"
+# task: agent_type="explore",          name="researcher", prompt="Research prior art and append to phase1-findings.md"
+
+# → Wait for Phase 1 to complete, review phase1-findings.md
+
+# Phase 2: Architecture team (different agents, same session SQL for continuity)
+# task: agent_type="general-purpose", name="architect", prompt="Design solution based on phase1-findings.md. Save to phase2-design.md"
+# task: agent_type="code-review",     name="security",  prompt="Review design in phase2-design.md for security risks."
+```
+
+> **Key difference from hierarchical-delegation:** In Phase Reconstruction, teams are **sequential** (one phase completes before the next starts) and the team composition **changes** each time. In hierarchical-delegation, all sub-agents run in **parallel** under one orchestrator.
+
+---
+
 ## Pros and Cons
 
 | Pros | Cons |

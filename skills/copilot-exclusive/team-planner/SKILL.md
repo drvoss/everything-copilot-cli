@@ -50,6 +50,16 @@ Outputs to produce in this phase:
 
 Create a team roster in SQL.
 
+**Team size guidelines** — balance specialization against coordination overhead:
+
+| Task scale | Recommended team size | Tasks per agent |
+|------------|----------------------|-----------------|
+| Small (5–10 tasks) | 2–3 agents | 3–5 tasks each |
+| Medium (10–20 tasks) | 3–5 agents | 4–6 tasks each |
+| Large (20+ tasks) | 5–7 agents | 4–5 tasks each |
+
+> Rule of thumb: more than 7 agents creates more coordination overhead than parallelism value. Split into sub-phases instead.
+
 **Output:** SQL `INSERT` statements into a `team` table:
 
 ```sql
