@@ -1,6 +1,6 @@
 ---
 name: mcp-ecosystem
-description: Leverage the MCP server ecosystem with built-in GitHub MCP and custom extensions
+description: Use when Copilot CLI's built-in tools don't cover a service you need (database, custom API, internal tool) — add an MCP server to extend capabilities beyond the default GitHub MCP. NOT when the built-in tools already cover the task.
 metadata:
   category: copilot-exclusive
   copilot_feature: "Built-in GitHub MCP, MCP config system, mcp_reload/mcp_validate tools"

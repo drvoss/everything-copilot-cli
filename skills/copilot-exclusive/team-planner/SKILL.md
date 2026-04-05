@@ -26,6 +26,15 @@ Copilot CLI’s actual primitives:
 
 **NOT for:** single-domain tasks, quick one-shot requests, tasks under ~30 minutes.
 
+## Pre-Flight Checklist
+
+Before designing the team, verify all of the following:
+
+- [ ] **No duplicate agents**: search `agents/` and `orchestration/skills/` — avoid recreating a specialist that already exists
+- [ ] **No slash commands**: team-planner **never creates** slash command files in `.github/copilot/commands/` — it only assembles work assignments
+- [ ] **Parallelism confirmed**: work can be split with no hard sequential dependencies between agents (if strong dependencies exist, use the Pipeline pattern instead)
+- [ ] **Scope justification**: task spans 3+ distinct domains; single-domain tasks do not need a team
+
 ## The 6 Phases (Copilot-native)
 
 ### Phase 1: Analyze — Decompose the task

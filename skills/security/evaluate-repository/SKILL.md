@@ -1,6 +1,6 @@
 ---
 name: evaluate-repository
-description: Perform a structured security and quality audit of a repository, scoring 1-10 across 6 dimensions with prioritized remediation recommendations
+description: Use when you need a comprehensive health scorecard of a codebase — scores security, code quality, test coverage, and documentation across 6 dimensions with a prioritized remediation plan.
 metadata:
   category: security
   agent_type: code-review

@@ -1,6 +1,6 @@
 ---
 name: background-agent
-description: Delegate long-running tasks to a cloud Copilot coding agent using & or /delegate. The agent works on GitHub and opens a draft PR. Use /resume to bring a cloud session into the local CLI.
+description: Use when a task is too long to block the current session or should run autonomously — delegates to a cloud background agent via & or /delegate and opens a draft PR when done.
 metadata:
   category: copilot-exclusive
   copilot_feature: "Background Delegation (&, /delegate), cloud Copilot coding agent, draft PR, /resume"

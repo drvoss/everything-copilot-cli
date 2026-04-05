@@ -1,6 +1,6 @@
 ---
 name: launch-strategy
-description: Plan and execute a product launch using a structured checklist covering positioning, distribution, messaging, and success metrics. From private beta to public launch.
+description: Use when you're preparing to launch a product or feature publicly — builds a structured checklist covering positioning, distribution, messaging, and success metrics from private beta to GA.
 metadata:
   category: product
 ---

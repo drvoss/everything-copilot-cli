@@ -1,6 +1,6 @@
 ---
 name: test-coverage
-description: Identify uncovered code and write targeted tests to improve coverage
+description: Use when test coverage falls below target or a new module has no tests — identifies untested code paths and writes targeted unit or integration tests to close the coverage gap.
 metadata:
   category: testing
   agent_type: general-purpose

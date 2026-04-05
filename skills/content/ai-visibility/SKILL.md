@@ -1,6 +1,6 @@
 ---
 name: ai-visibility
-description: Optimize your product's visibility in AI-generated answers (GEO — Generative Engine Optimization). Create llms.txt, optimize content for AI citation, and ensure AI crawlers can access your site.
+description: Use when you want your product to surface in AI-generated answers (ChatGPT, Perplexity, Gemini) — creates llms.txt, optimizes structured data, and configures AI crawler access for GEO.
 metadata:
   category: content
 ---

@@ -116,3 +116,59 @@ description: Use when …; NOT when …
 - [ ] Avoids **noun-only** or **category** wording.
 - [ ] Includes a **NOT when…** clause if the skill is easy to mis-invoke.
 - [ ] Stays **1–2 sentences**; no long feature lists unless they improve routing.
+
+
+---
+
+## 7) Why-First Principle
+
+Prefer explaining *why* over writing ALWAYS/NEVER imperatives. Imperatives are brittle — they don't transfer well to edge cases, unusual repos, or novel tooling. When the model understands the reason, it applies correct judgment even when the literal instruction would be wrong.
+
+**Bad (imperative, no rationale):**
+```yaml
+description: ALWAYS run every test suite before making any change. NEVER edit configuration files.
+```
+
+**Good (reasoning-based, preserves intent):**
+```yaml
+description: |
+  Prioritize correctness: run the smallest relevant tests first (unit/lint), then broaden
+  coverage when changes touch shared code. Avoid config edits unless the change requires it —
+  config mistakes can break unrelated workflows. If a config change is necessary, validate it
+  and explain why.
+```
+
+---
+
+## 8) 500-Line Limit + eferences/ Split
+
+Keep the main skill body under ~500 lines. If it grows beyond that, split extended platform or domain material into a eferences/ subdirectory — the core skill stays scannable, and the model loads detail only when needed.
+
+```
+skills/<category>/<skill-name>/
+  SKILL.md            ← under 500 lines
+  references/
+    <topic>.md        ← extended platform/domain content
+```
+
+**Convention:** at the very top of each reference file, include a pointer:
+> **Read this file when:** [condition] (e.g., "when deploying to Kubernetes" or "when debugging OAuth flows")
+
+---
+
+## 9) Domain-Based Conditional References
+
+If a skill spans multiple platforms or environments, split references by domain so only the relevant content is loaded — this reduces noise, token waste, and cross-platform confusion.
+
+**Example for a hypothetical `cloud-deploy` skill:**
+```
+skills/development/cloud-deploy/
+  SKILL.md
+  references/
+    aws.md      ← Read when: target is AWS (EC2, ECS, Lambda)
+    gcp.md      ← Read when: target is Google Cloud (GKE, Cloud Run)
+    azure.md    ← Read when: target is Azure (AKS, Container Apps)
+    common.md   ← Read when: shared concepts apply (naming, rollout, rollback)
+```
+
+Keep provider-specific commands and pitfalls in the respective files, and shared concepts in `common.md`.

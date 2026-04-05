@@ -1,6 +1,6 @@
 ---
 name: github-issue-triage
-description: Manage and triage GitHub Issues using Copilot's built-in GitHub MCP tools
+description: Use when you have a backlog of unorganized GitHub Issues — bulk-reads, labels, prioritizes, and assigns issues at scale using Copilot's built-in GitHub MCP tools.
 metadata:
   category: copilot-exclusive
   copilot_feature: "Built-in GitHub MCP server (list_issues, search_issues, issue_read)"

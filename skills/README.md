@@ -16,11 +16,12 @@ All skills in this repository follow the **[agentskills.io](https://agentskills.
 - **Install from GitHub**: Any agentskills.io-compatible tool can install skills directly:
 
   ```bash
-  # Gemini CLI
+  # Gemini CLI (native skills install command)
   gemini skills install github:drvoss/everything-copilot-cli/skills/development/fix-github-issue
 
-  # Claude Code
-  claude skills install github:drvoss/everything-copilot-cli/skills/workflow/commit-workflow
+  # Claude Code (manual copy — claude does not have a shell-level skills install command)
+  # Copy the skill directory to your project's .claude/skills/ or user-level ~/.claude/skills/
+  cp -r skills/workflow/commit-workflow ~/.claude/skills/workflow/
   ```
 
 ### Cross-runtime compatibility table
@@ -80,19 +81,20 @@ fleet mode, plan mode, and GitHub integration.
 
 | Skill | Description |
 |-------|-------------|
-| [`actions-debugging`](copilot-exclusive/actions-debugging/SKILL.md) | Debug GitHub Actions workflow failures using the Copilot CLI integration |
-| [`autopilot-patterns`](copilot-exclusive/autopilot-patterns/SKILL.md) | Master Autopilot mode for autonomous multi-step task execution |
-| [`background-agent`](copilot-exclusive/background-agent/SKILL.md) | Delegate long-running tasks to cloud Copilot agents via `&` or `/delegate` |
-| [`context-prime`](copilot-exclusive/context-prime/SKILL.md) | Load project context at session start — README, file tree, recent commits, stack |
-| [`cross-session-memory`](copilot-exclusive/cross-session-memory/SKILL.md) | Persist knowledge across sessions using memory tools |
-| [`fleet-parallel`](copilot-exclusive/fleet-parallel/SKILL.md) | Execute tasks across multiple parallel agents with `/fleet` |
-| [`github-issue-triage`](copilot-exclusive/github-issue-triage/SKILL.md) | Triage and classify GitHub issues at scale |
-| [`github-pr-workflow`](copilot-exclusive/github-pr-workflow/SKILL.md) | Full PR lifecycle — draft, review, merge — using Copilot CLI |
-| [`ide-switching`](copilot-exclusive/ide-switching/SKILL.md) | Context-switch efficiently between CLI and IDE editors |
-| [`mcp-ecosystem`](copilot-exclusive/mcp-ecosystem/SKILL.md) | Extend Copilot CLI with MCP tools and servers |
-| [`multi-model-strategy`](copilot-exclusive/multi-model-strategy/SKILL.md) | Select the right model for each task type |
-| [`plan-mode-mastery`](copilot-exclusive/plan-mode-mastery/SKILL.md) | Use Plan Mode for structured, approved task execution |
-| [`session-management`](copilot-exclusive/session-management/SKILL.md) | Manage, resume, and archive Copilot CLI sessions |
+| [`actions-debugging`](copilot-exclusive/actions-debugging/SKILL.md) | Use when a GitHub Actions workflow fails — diagnose the run log, identify the root cause, and apply a targeted fix |
+| [`autopilot-patterns`](copilot-exclusive/autopilot-patterns/SKILL.md) | Use when you're ready to let Copilot execute a multi-step plan autonomously — configures guardrails and handles plan-to-autopilot transitions |
+| [`background-agent`](copilot-exclusive/background-agent/SKILL.md) | Use when a task is too long to block the current session — delegates to a cloud background agent via `&` or `/delegate` and opens a draft PR |
+| [`context-prime`](copilot-exclusive/context-prime/SKILL.md) | Invoke when starting a session (or resuming after a break) on a repo before making changes, to load live project context |
+| [`cross-session-memory`](copilot-exclusive/cross-session-memory/SKILL.md) | Use when you need to remember context, decisions, or artifacts across multiple sessions — writes to session store and resumes via /resume |
+| [`fleet-parallel`](copilot-exclusive/fleet-parallel/SKILL.md) | Use when you need to run the same task across many files or contexts in parallel — triggers /fleet mode for batch operations |
+| [`github-issue-triage`](copilot-exclusive/github-issue-triage/SKILL.md) | Use when you have a backlog of unorganized GitHub Issues — bulk-labels, prioritizes, and assigns at scale |
+| [`github-pr-workflow`](copilot-exclusive/github-pr-workflow/SKILL.md) | Use when creating, reviewing, or merging a PR — runs the full PR lifecycle through Copilot's built-in GitHub MCP |
+| [`ide-switching`](copilot-exclusive/ide-switching/SKILL.md) | Use when moving between VS Code and Copilot CLI — transfers context so you don't lose state when switching environments |
+| [`mcp-ecosystem`](copilot-exclusive/mcp-ecosystem/SKILL.md) | Use when built-in tools don't cover a service you need — add a custom MCP server to extend Copilot CLI's capabilities |
+| [`multi-model-strategy`](copilot-exclusive/multi-model-strategy/SKILL.md) | Use when choosing which model to use for a task — routes to the best model based on task type and cost trade-offs |
+| [`plan-mode-mastery`](copilot-exclusive/plan-mode-mastery/SKILL.md) | Use when you want structured, approval-gated planning before execution — switches to Plan Mode for complex multi-step tasks |
+| [`session-management`](copilot-exclusive/session-management/SKILL.md) | Use when a task spans multiple steps or sessions and needs structured state tracking via the built-in SQLite session database |
+| [`team-planner`](copilot-exclusive/team-planner/SKILL.md) | Use when a task is too large or multi-domain for a single agent — assemble a specialist team with SQL tracking and /fleet dispatch |
 
 ### 🛠 Development (`development/`)
 
@@ -162,8 +164,7 @@ Product management and strategy skills.
 
 ### 📣 Content & Marketing (`content/`)
 
-> **확장 스킬 (비개발 업무)** — 개발자 외 마케터, 콘텐츠 팀, 제품 성장 담당자에게 유용한 스킬입니다.
-> Core developer skills 와 별도로 분류됩니다.
+> **Extended skills (non-development tasks)** — useful for marketers, content teams, and product growth roles in addition to developers. Classified separately from core development skills.
 
 | Skill | Description |
 |-------|-------------|

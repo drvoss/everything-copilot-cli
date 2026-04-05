@@ -1,6 +1,6 @@
 ---
 name: fix-github-issue
-description: Resolve a GitHub Issue end-to-end — read the issue, locate the bug, fix it, test it, and open a PR, all from the terminal
+description: Use when you have a GitHub Issue number or link and want it resolved end-to-end — reads the issue, locates the bug, applies a fix, writes tests, and opens a PR from the terminal.
 metadata:
   category: development
   agent_type: general-purpose

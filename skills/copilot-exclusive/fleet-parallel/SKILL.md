@@ -1,6 +1,6 @@
 ---
 name: fleet-parallel
-description: Use /fleet or Fleet mode to execute tasks across multiple parallel sub-agents simultaneously. Ideal for batch operations like testing, refactoring, or reviewing across many files.
+description: Use when you need to run the same task across many files, components, or contexts in parallel — triggers /fleet mode for batch refactoring, mass testing, or bulk review. NOT when sequential order matters.
 metadata:
   category: copilot-exclusive
   copilot_feature: "/fleet slash command, autopilot_fleet, parallel sub-agent orchestration"

@@ -1,6 +1,6 @@
 ---
 name: content-strategy
-description: Build a content strategy with keyword research, topic clusters, and a content calendar. Drive organic traffic and authority in your product category.
+description: Use when you need a content plan to grow organic traffic for a product or new area — produces keyword research, topic clusters, and a content calendar targeting your category.
 metadata:
   category: content
 ---

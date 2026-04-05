@@ -1,5 +1,21 @@
 # Orchestration Skill: Review Squad
 
+## Which Review Skill to Use?
+
+There are four review options in this repo. Choose based on artifact size and depth needed:
+
+```
+Which review skill?
+  ├─ Quick review, single session, cost-sensitive?
+  │   → skills/development/code-review/SKILL.md
+  ├─ PR with 6 perspectives (PM/Dev/QA/Security/DevOps/UX)?
+  │   → skills/development/pr-multi-perspective-review/SKILL.md
+  ├─ Non-PR artifact (RFC, schema, architecture doc)?
+  │   → orchestration/patterns/review-trio.md
+  └─ Large PR (200+ lines), need deep parallel specialist review?
+      → orchestration/skills/review-squad.md  ← (you are here)
+```
+
 > **When to use this vs `pr-multi-perspective-review`:**
 > - Use `pr-multi-perspective-review` for: quick reviews, single session, lower token cost
 > - Use Review Squad for: large PRs, when specialist depth matters, true parallel context isolation
@@ -117,8 +133,11 @@ $Diff
 
   Start-Job -Name $Name -ScriptBlock {
     param($p)
-    # Use --no-interactive to avoid prompts; adjust flags as your gh copilot supports.
-    gh copilot suggest --no-interactive --prompt $p
+    # NOTE: gh copilot suggest is interactive by default and --no-interactive is not an
+    # officially documented flag. This script is illustrative.
+    # Preferred: run review-squad INSIDE a Copilot CLI session using the task tool.
+    # Outside a session, check `gh copilot suggest --help` for supported flags in your version.
+    gh copilot suggest "$p"
   } -ArgumentList $prompt
 }
 
@@ -198,7 +217,9 @@ $($results['style'])
 $($results['ux'])
 "@
 
-$commentBody = gh copilot suggest --no-interactive --prompt $synthPrompt
+# NOTE: In a Copilot CLI session, use the task tool for synthesis (preferred over gh copilot suggest).
+# See: skills/copilot-exclusive/team-planner/SKILL.md for the task-tool pattern.
+$commentBody = gh copilot suggest "$synthPrompt"
 
 # 5) Post as PR comment review
 gh pr review $Pr --comment --body $commentBody
