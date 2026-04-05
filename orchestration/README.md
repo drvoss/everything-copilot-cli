@@ -175,4 +175,6 @@ orchestration/
     ├── full-workflow.md               # E2E: Complete multi-AI workflow
     ├── code-review-team.md            # E2E: 5-specialist parallel PR review
     └── migration-supervisor.md        # E2E: Supervised incremental migration
+└── templates/
+    └── orchestrator-template.md       # Reusable template for new orchestration skills
 ```

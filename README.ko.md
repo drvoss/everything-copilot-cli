@@ -121,6 +121,7 @@ everything-copilot-cli/
 │   ├── patterns/                  #   10가지 오케스트레이션 패턴
 │   ├── configs/                   #   MCP 브릿지 설정
 │   ├── skills/                    #   오케스트레이션 스킬 (6개)
+│   ├── templates/                 #   재사용 가능한 오케스트레이터 템플릿
 │   └── examples/                  #   실전 예제 (5개)
 │
 ├── guides/                        # 종합 가이드 (11개)
