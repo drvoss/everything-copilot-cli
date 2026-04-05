@@ -1,6 +1,6 @@
 ---
 name: github-pr-workflow
-description: Automate PR creation, review, and management using Copilot's built-in GitHub MCP tools
+description: Use when creating, updating, or managing pull requests — automates the full PR lifecycle (open, review requests, labels, merge) via GitHub MCP
 metadata:
   category: copilot-exclusive
   copilot_feature: "Built-in GitHub MCP server (pull_request_read, list_pull_requests, search_pull_requests)"

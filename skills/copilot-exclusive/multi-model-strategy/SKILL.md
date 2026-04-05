@@ -1,6 +1,6 @@
 ---
 name: multi-model-strategy
-description: Strategic use of 20+ available AI models for optimal cost, speed, and quality
+description: Use when choosing which AI model to use for a task — select from 20+ models based on cost, speed, context window, or reasoning depth requirements
 metadata:
   category: copilot-exclusive
   copilot_feature: "20+ model selection (/model command), per-agent model override, cost tiers"

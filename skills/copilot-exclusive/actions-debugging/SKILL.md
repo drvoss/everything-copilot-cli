@@ -1,6 +1,6 @@
 ---
 name: actions-debugging
-description: Debug GitHub Actions workflow failures using Copilot's built-in CI/CD tools
+description: Use when a GitHub Actions workflow fails — diagnose the run log, identify the root cause, and apply a targeted fix
 metadata:
   category: copilot-exclusive
   copilot_feature: "Built-in GitHub MCP server (actions_list, actions_get, get_job_logs)"

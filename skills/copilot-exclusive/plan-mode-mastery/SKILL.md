@@ -1,6 +1,6 @@
 ---
 name: plan-mode-mastery
-description: Master Plan Mode for structured planning with approval workflows and SQL-backed todos
+description: Use when starting a complex multi-step task to create an approved plan, track todos in SQL, and execute with checkpoints
 metadata:
   category: copilot-exclusive
   copilot_feature: "Plan Mode (Shift+Tab), exit_plan_mode tool, SQL todo tracking, approval UI"

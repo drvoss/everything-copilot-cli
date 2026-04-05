@@ -1,6 +1,6 @@
 ---
 name: tdd-workflow
-description: Test-Driven Development workflow using the Red→Green→Refactor cycle
+description: Use when starting a new feature or function to write failing tests first, then implement the minimal code to pass (Red→Green→Refactor)
 metadata:
   category: development
   agent_type: general-purpose
