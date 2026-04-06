@@ -105,14 +105,14 @@ everything-copilot-cli/
 │   └── refactor-cleaner.md
 │
 ├── skills/                        # Reusable workflow skills (49 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (14)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (15)
 │   ├── development/               #   Dev skills (6)
-│   ├── documentation/             #   Doc skills (3)
-│   ├── security/                  #   Security skills (4)
-│   ├── testing/                   #   Test skills (2)
-│   ├── workflow/                  #   Workflow skills (5)
-│   ├── product/                   #   Product skills (4)
-│   └── content/                   #   Content & GEO skills (2)
+│   ├── documentation/             #   Doc skills (4)
+│   ├── security/                  #   Security skills (5)
+│   ├── testing/                   #   Test skills (3)
+│   ├── workflow/                  #   Workflow skills (8)
+│   ├── product/                   #   Product skills (5)
+│   └── content/                   #   Content & GEO skills (3)
 │
 ├── rules/                         # Coding rules & guidelines
 │   ├── common/                    #   Universal rules (5)
@@ -163,7 +163,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>★ Copilot-Exclusive Skills (14)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (15)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
@@ -183,6 +183,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `mcp-ecosystem` | Extend with custom MCP servers |
 | `ide-switching` | Seamless VS Code ↔ CLI context sharing |
 | `team-planner` | Assemble specialist agent teams via SQL roster + `/fleet` dispatch |
+| `agentic-engineering` | Design 15-min task units, eval-first loops, and explicit I/O contracts |
 </details>
 
 <details>
@@ -199,17 +200,18 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Documentation Skills (3)</strong></summary>
+<summary><strong>Documentation Skills (4)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `add-to-changelog` | Keep a Changelog format, semver version sync |
 | `doc-update` | Sync docs when implementation changes |
 | `api-documentation` | Generate and maintain API docs from source |
+| `code-tour` | Generate VS Code CodeTour `.tour` files for codebase onboarding |
 </details>
 
 <details>
-<summary><strong>Security Skills (4)</strong></summary>
+<summary><strong>Security Skills (5)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -217,10 +219,11 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `security-scan` | OWASP Top 10 + dependency audit |
 | `secret-detection` | Find hardcoded secrets in source and git history |
 | `input-validation` | Prevent injection attacks (SQL, XSS, CSRF) |
+| `security-bounty-hunter` | Bug-bounty-perspective vuln hunting with proof-of-concept steps |
 </details>
 
 <details>
-<summary><strong>Workflow Skills (5)</strong></summary>
+<summary><strong>Workflow Skills (8)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -229,10 +232,13 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `sprint-workflow` | Full sprint: Think → Plan → Build → Review → Ship |
 | `security-audit` | OWASP Top 10 + STRIDE threat modeling |
 | `sprint-retro` | Data-driven retros using git metrics |
+| `cost-audit` | Audit AI inference token spend and recommend model/prompt optimizations |
+| `council` | Convene a 4-voice adversarial decision council for high-stakes choices |
+| `deep-research` | Systematic multi-source research with structured synthesis |
 </details>
 
 <details>
-<summary><strong>Product Skills (4)</strong></summary>
+<summary><strong>Product Skills (5)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -240,26 +246,27 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `feature-prioritization` | Impact × Confidence × Effort matrix |
 | `opportunity-solution-tree` | Teresa Torres' OST framework |
 | `launch-strategy` | Alpha → Beta → GA launch checklist |
+| `product-capability` | Transform requirements into SRS-style capability specs with ACs and traceability |
 </details>
 
 <details>
-<summary><strong>Testing Skills (2)</strong></summary>
+<summary><strong>Testing Skills (3)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `test-coverage` | Identify gaps and write targeted tests |
 | `e2e-testing` | E2E test scaffolding for critical paths |
+| `eval-harness` | Build LLM pipeline evaluation suites with SQL-tracked test cases |
 </details>
 
 <details>
-<summary><strong>Content & Marketing Skills (2) — 확장 스킬</strong></summary>
-
-> 개발자 외 마케터, 콘텐츠 팀을 위한 확장 스킬입니다.
+<summary><strong>Content & Marketing Skills (3)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `ai-visibility` | GEO optimization: llms.txt, AI crawler access |
 | `content-strategy` | Keyword research, topic clusters, content calendar |
+| `seo` | Technical SEO audit: Core Web Vitals, structured data, crawl issues |
 </details>
 
 ### 📏 Rules
