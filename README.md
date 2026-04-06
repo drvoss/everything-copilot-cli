@@ -29,7 +29,7 @@
 **everything-copilot-cli** is a curated, community-driven collection of agents, reusable skills,
 coding rules, MCP configurations, and comprehensive guides for [GitHub Copilot CLI](https://github.com/github/copilot-cli).
 
-It started as a parallel to [everything-claude-code](https://github.com/anthropics/everything-claude-code) and drew inspiration from community resources like [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — but has since grown into its own identity. The focus is on what makes Copilot CLI genuinely different: **native GitHub integration, multi-model flexibility, and the ability to orchestrate other AI coding agents from a single hub**.
+It started as a parallel to [everything-claude-code](https://github.com/affaan-m/everything-claude-code) and drew inspiration from community resources like [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — but has since grown into its own identity. The focus is on what makes Copilot CLI genuinely different: **native GitHub integration, multi-model flexibility, and the ability to orchestrate other AI coding agents from a single hub**.
 
 > **Act as a Multi-AI Orchestrator** — coordinating Claude Code, Codex CLI, Gemini CLI, and more from a single command line. _(Community pattern — see [Multi-AI Orchestration](#multi-ai-orchestration-))_
 
@@ -445,5 +445,5 @@ Please read the existing guides and follow the established patterns before submi
 ---
 
 <p align="center">
-  <sub>Built for the GitHub Copilot CLI community · Inspired by <a href="https://github.com/anthropics/everything-claude-code">everything-claude-code</a> and <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a></sub>
+  <sub>Built for the GitHub Copilot CLI community · Inspired by <a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a> and <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a></sub>
 </p>
