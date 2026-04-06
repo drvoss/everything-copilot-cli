@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <a href="README.md">🇺🇸 English</a>
+  <a href="README.md">English</a>
 </p>
 
 ---
@@ -40,17 +40,17 @@ GitHub Copilot CLI는 단일 벤더 코딩 에이전트 대비 **11가지 구조
 
 | # | 장점 | 설명 |
 |---|------|------|
-| 1 | 🔗 **GitHub 네이티브 통합** | Issues, PR, Actions, 코드 검색 — 내장 MCP로 별도 설정 없이 바로 사용 |
-| 2 | 🧠 **20개 이상 모델 선택** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — 작업별로 최적의 모델 선택 |
-| 3 | 🔄 **IDE ↔ CLI 원활한 전환** | VS Code, JetBrains, 터미널에서 동일한 Copilot 컨텍스트 유지 |
-| 4 | 📋 **Plan Mode** | 구조화된 텍스트 플래닝 — 코드를 작성하기 전에 단계별 구현 계획을 수립 |
-| 5 | 🤖 **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 _(실험적 기능)_ |
-| 6 | 👻 **Background Agents** | `&` 또는 `/delegate`로 클라우드 에이전트에 위임, `/resume`으로 재개 |
-| 7 | ⚡ **Fleet Mode** | 병렬 에이전트 실행 — 여러 에이전트가 동시에 작업 분담 |
-| 8 | 🗄️ **Session SQL Database** | 세션별 내장 SQLite — 구조화된 데이터, 할일 추적, 상태 관리 |
-| 9 | 🧲 **Cross-Session Memory** | `session_store`를 통한 영속적 지식 — 세션 간 학습 |
-| 10 | 🏗️ **LSP 퍼스트클래스 지원** | Language Server Protocol 통합으로 정밀한 코드 인텔리전스 |
-| 11 | 🌐 **Multi-AI Orchestrator** | ★ Copilot을 메타 허브로 삼아 Claude Code, Codex, Gemini CLI를 통합 조율 |
+| 1 | **GitHub 네이티브 통합** | Issues, PR, Actions, 코드 검색 — 내장 MCP로 별도 설정 없이 바로 사용 |
+| 2 | **20개 이상 모델 선택** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — 작업별로 최적의 모델 선택 |
+| 3 | **IDE ↔ CLI 원활한 전환** | VS Code, JetBrains, 터미널에서 동일한 Copilot 컨텍스트 유지 |
+| 4 | **Plan Mode** | 구조화된 텍스트 플래닝 — 코드를 작성하기 전에 단계별 구현 계획을 수립 |
+| 5 | **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 _(실험적 기능)_ |
+| 6 | **Background Agents** | `&` 또는 `/delegate`로 클라우드 에이전트에 위임, `/resume`으로 재개 |
+| 7 | **Fleet Mode** | 병렬 에이전트 실행 — 여러 에이전트가 동시에 작업 분담 |
+| 8 | **Session SQL Database** | 세션별 내장 SQLite — 구조화된 데이터, 할일 추적, 상태 관리 |
+| 9 | **Cross-Session Memory** | `session_store`를 통한 영속적 지식 — 세션 간 학습 |
+| 10 | **LSP 퍼스트클래스 지원** | Language Server Protocol 통합으로 정밀한 코드 인텔리전스 |
+| 11 | **Multi-AI Orchestrator** | Copilot을 메타 허브로 삼아 Claude Code, Codex, Gemini CLI를 통합 조율 |
 
 ---
 
@@ -85,7 +85,7 @@ copilot
 > Claude가 아키텍처 추론, Codex가 구현, Copilot이 리뷰 — 적절히 위임해줘
 ```
 
-> 📖 자세한 안내는 [빠른 시작 가이드](guides/)를 참고하세요.
+> 자세한 안내는 [빠른 시작 가이드](guides/)를 참고하세요.
 
 ---
 
@@ -142,7 +142,7 @@ everything-copilot-cli/
 
 ## 핵심 구성 요소
 
-### 🤖 에이전트 (8개 코어)
+### 에이전트 (8개 코어)
 
 역할, 시스템 프롬프트, 도구 세트가 사전 설정된 에이전트 정의입니다.
 
@@ -157,7 +157,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### ⚙️ 스킬 (총 49개 · 8개 카테고리)
+### 스킬 (총 49개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -268,14 +268,14 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `seo` | 기술적 SEO 감사: Core Web Vitals, 구조화 데이터, 크롤링 이슈 |
 </details>
 
-### 📏 규칙
+### 규칙
 
 범위별로 정리된 코딩 규칙과 가이드라인입니다:
 
 - **Common Rules** — 범용 모범 사례 (에러 처리, 로깅, 네이밍 컨벤션)
 - **Language-Specific Rules** — TypeScript, Python, Go, C#, Java
 
-### 🌐 오케스트레이션
+### 오케스트레이션
 
 Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration-) 참고).
 
@@ -285,18 +285,18 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 
 | 가이드 | 설명 |
 |--------|------|
-| 📘 **빠른 시작** | 5분 안에 시작하기 |
-| 📗 **숏폼 가이드** | 일상적 사용을 위한 간결한 레퍼런스 |
-| 📕 **롱폼 가이드** | 모든 기능에 대한 심층 안내 |
-| 🔒 **보안 가이드** | 보안 모범 사례 및 스캐닝 |
-| ⭐ **Copilot 전용 기능** | Copilot CLI에서만 가능한 기능 |
-| ⚖️ **Copilot vs Claude Code** | 기능별 상세 비교 |
-| 🚚 **Claude Code에서 마이그레이션** | 개념 매핑과 단계별 마이그레이션 가이드 |
-| 🪝 **Hooks to GitHub Actions** | Claude Code Hooks 대안 (Git Hooks / Actions / Prompt Guards) |
-| 🌐 **오케스트레이션 가이드** ★ | Multi-AI 오케스트레이션 패턴 및 설정 |
-| ✍️ **스킬 작성 모범 사례** | 실제로 동작하는 트리거 우선 description 작성법 |
-| 🧪 **스킬 테스팅 가이드** | 프롬프트웨어의 트리거 정확도 및 출력 품질 테스트 |
-| 🔍 **QA 에이전트 가이드** | 경계면 교차 비교 기반의 실질적인 QA 에이전트 설계 |
+| **빠른 시작** | 5분 안에 시작하기 |
+| **숏폼 가이드** | 일상적 사용을 위한 간결한 레퍼런스 |
+| **롱폼 가이드** | 모든 기능에 대한 심층 안내 |
+| **보안 가이드** | 보안 모범 사례 및 스캐닝 |
+| **Copilot 전용 기능** | Copilot CLI에서만 가능한 기능 |
+| **Copilot vs Claude Code** | 기능별 상세 비교 |
+| **Claude Code에서 마이그레이션** | 개념 매핑과 단계별 마이그레이션 가이드 |
+| **Hooks to GitHub Actions** | Claude Code Hooks 대안 (Git Hooks / Actions / Prompt Guards) |
+| **오케스트레이션 가이드** | Multi-AI 오케스트레이션 패턴 및 설정 |
+| **스킬 작성 모범 사례** | 실제로 동작하는 트리거 우선 description 작성법 |
+| **스킬 테스팅 가이드** | 프롬프트웨어의 트리거 정확도 및 출력 품질 테스트 |
+| **QA 에이전트 가이드** | 경계면 교차 비교 기반의 실질적인 QA 에이전트 설계 |
 
 모든 가이드는 [`guides/`](guides/) 디렉토리에 있습니다.
 
@@ -312,14 +312,14 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 
 ```
 ┌──────────────────────────────────────────────────┐
-│              GitHub Copilot CLI                   │
-│           (Orchestrator / 메타 허브)               │
+│                GitHub Copilot CLI                │
+│            (Orchestrator / 메타 허브)            │
 ├──────────────────────────────────────────────────┤
 │                                                  │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐       │
-│  │Claude Code│  │ Codex CLI│  │Gemini CLI│  ...  │
-│  │  (추론)   │  │  (구현)   │  │(멀티모달)│       │
-│  └──────────┘  └──────────┘  └──────────┘       │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐  │
+│  │ Claude Code│  │  Codex CLI │  │ Gemini CLI │  │
+│  │   (추론)   │  │   (구현)   │  │ (멀티모달) │  │
+│  └────────────┘  └────────────┘  └────────────┘  │
 │                                                  │
 └──────────────────────────────────────────────────┘
 ```
@@ -328,21 +328,21 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 
 | 패턴 | 동작 방식 | 적합한 상황 |
 |------|-----------|-------------|
-| 🐚 **Shell Execution** | Copilot이 셸 명령으로 다른 CLI를 생성 | 단순한 작업 위임 |
-| 🔌 **MCP Bridge** | Model Context Protocol 서버를 통해 에이전트 연결 | 구조화된 도구 공유 |
-| 💬 **Message IPC** | 파일/파이프를 통한 프로세스 간 통신 | 실시간 협업 |
-| 🔗 **Pipeline** | 에이전트를 순차 연결 — 이전 출력이 다음 입력으로 | 다단계 워크플로우 |
-| 🏛️ **Agent Council** | 여러 에이전트가 토론하고 결정에 투표 | 중요한 의사결정 |
+| **Shell Execution** | Copilot이 셸 명령으로 다른 CLI를 생성 | 단순한 작업 위임 |
+| **MCP Bridge** | Model Context Protocol 서버를 통해 에이전트 연결 | 구조화된 도구 공유 |
+| **Message IPC** | 파일/파이프를 통한 프로세스 간 통신 | 실시간 협업 |
+| **Pipeline** | 에이전트를 순차 연결 — 이전 출력이 다음 입력으로 | 다단계 워크플로우 |
+| **Agent Council** | 여러 에이전트가 토론하고 결정에 투표 | 중요한 의사결정 |
 
 ### 5가지 팀 내부 오케스트레이션 패턴
 
 | 패턴 | 동작 방식 | 적합한 상황 |
 |------|-----------|-------------|
-| ⚡ **Fan-Out Parallel** | 독립 서브태스크 동시 병렬 디스패치 | 배치 작업 |
-| 🔁 **Producer-Reviewer** | 반복적 제작→리뷰 피드백 루프 | 아티팩트 품질 개선 |
-| 🌲 **Hierarchical Delegation** | 중첩 오케스트레이터 (루트→도메인→전문가) | 대규모 멀티도메인 작업 |
-| 🔄 **Iterative Refinement** | 측정 가능한 종료 기준 기반 자기 개선 루프 | 품질 민감한 생성 |
-| 🤝 **Review Trio** | PR 외 아티팩트 (RFC, 스키마, 아키텍처) 3자 리뷰 | 배포 전 검토 |
+| **Fan-Out Parallel** | 독립 서브태스크 동시 병렬 디스패치 | 배치 작업 |
+| **Producer-Reviewer** | 반복적 제작→리뷰 피드백 루프 | 아티팩트 품질 개선 |
+| **Hierarchical Delegation** | 중첩 오케스트레이터 (루트→도메인→전문가) | 대규모 멀티도메인 작업 |
+| **Iterative Refinement** | 측정 가능한 종료 기준 기반 자기 개선 루프 | 품질 민감한 생성 |
+| **Review Trio** | PR 외 아티팩트 (RFC, 스키마, 아키텍처) 3자 리뷰 | 배포 전 검토 |
 
 ### 도구별 강점 매트릭스
 
@@ -365,7 +365,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 - [geekan/MetaGPT](https://github.com/geekan/MetaGPT) — MetaGPT 멀티 에이전트 SOP
 - [openai/swarm](https://github.com/openai/swarm) — OpenAI Swarm 패턴
 
-> 📖 구현 세부 사항은 [오케스트레이션 가이드](guides/)를 참고하세요.
+> 구현 세부 사항은 [오케스트레이션 가이드](guides/)를 참고하세요.
 
 ---
 
@@ -388,7 +388,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | 커뮤니티 & 생태계 성숙도 | ⚠️ 성장 중 | ✅ 자리잡음 |
 | 커스텀 슬래시 명령 | ⚠️ 플러그인 기반 | ✅ |
 
-> ⚖️ 상세 분석은 [비교 가이드](guides/)를 참고하세요.
+> 상세 분석은 [비교 가이드](guides/)를 참고하세요.
 
 ---
 
@@ -409,7 +409,7 @@ Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 node scripts/migrate-from-claude.js --source /path/to/your/project
 ```
 
-> 🚚 [마이그레이션 가이드](guides/migration-from-claude-code.md)와 [Hooks 대안 가이드](guides/hooks-to-github-actions.md)를 참고하세요.
+> [마이그레이션 가이드](guides/migration-from-claude-code.md)와 [Hooks 대안 가이드](guides/hooks-to-github-actions.md)를 참고하세요.
 
 ---
 
