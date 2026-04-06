@@ -96,6 +96,7 @@ fleet mode, plan mode, and GitHub integration.
 | Skill | Description |
 |-------|-------------|
 | [`actions-debugging`](copilot-exclusive/actions-debugging/SKILL.md) | Use when a GitHub Actions workflow fails — diagnose the run log, identify the root cause, and apply a targeted fix |
+| [`agentic-engineering`](copilot-exclusive/agentic-engineering/SKILL.md) | Use when designing or decomposing a task for agent execution — applies 15-minute task units, eval-first loops, and explicit input/output contracts |
 | [`autopilot-patterns`](copilot-exclusive/autopilot-patterns/SKILL.md) | Use when you're ready to let Copilot execute a multi-step plan autonomously — configures guardrails and handles plan-to-autopilot transitions |
 | [`background-agent`](copilot-exclusive/background-agent/SKILL.md) | Use when a task is too long to block the current session — delegates to a cloud background agent via `&` or `/delegate` and opens a draft PR |
 | [`context-prime`](copilot-exclusive/context-prime/SKILL.md) | Invoke when starting a session (or resuming after a break) on a repo before making changes, to load live project context |
@@ -178,9 +179,10 @@ Product management and strategy skills.
 | Skill | Description |
 |-------|-------------|
 | [`create-prd`](product/create-prd/SKILL.md) | Generate a structured PRD grounded in Jobs-to-be-Done thinking |
-| [`opportunity-solution-tree`](product/opportunity-solution-tree/SKILL.md) | Teresa Torres' OST framework: outcome → opportunity → solution → experiment |
 | [`feature-prioritization`](product/feature-prioritization/SKILL.md) | Impact × Confidence × Effort matrix with SQL tracking |
 | [`launch-strategy`](product/launch-strategy/SKILL.md) | Product launch checklist: alpha → beta → GA |
+| [`opportunity-solution-tree`](product/opportunity-solution-tree/SKILL.md) | Teresa Torres' OST framework: outcome → opportunity → solution → experiment |
+| [`product-capability`](product/product-capability/SKILL.md) | Use when engineering needs testable, implementable technical requirements — capability spec with acceptance criteria, task breakdown, and traceability |
 
 ### 📣 Content & Marketing (`content/`)
 
