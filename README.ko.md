@@ -14,7 +14,7 @@
   <a href="#"><img src="https://img.shields.io/badge/copilot--cli-ready-28a745?logo=github" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="https://img.shields.io/badge/models-20%2B-blueviolet" alt="20+ Models" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-8-orange" alt="8 Agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-47-green" alt="47 Skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-49-green" alt="49 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="https://img.shields.io/badge/★_Multi--AI-Orchestrator-ff6f00" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -103,7 +103,7 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (47개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (49개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (14개)
 │   ├── development/               #   개발 스킬 (6개)
 │   ├── documentation/             #   문서화 스킬 (3개)
@@ -157,7 +157,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### ⚙️ 스킬 (총 47개 · 8개 카테고리)
+### ⚙️ 스킬 (총 49개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
