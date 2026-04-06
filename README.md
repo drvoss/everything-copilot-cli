@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <a href="README.ko.md">🇰🇷 한국어</a>
+  <a href="README.ko.md">한국어</a>
 </p>
 
 ---
@@ -41,17 +41,17 @@ GitHub Copilot CLI has **11 structural advantages** over single-vendor coding ag
 
 | # | Advantage | Description |
 |---|-----------|-------------|
-| 1 | 🔗 **GitHub-Native Integration** | Issues, PRs, Actions, code search — all via built-in MCP. No extra setup. |
-| 2 | 🧠 **20+ Model Selection** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — pick the right model per task. |
-| 3 | 🔄 **IDE ↔ CLI Seamless Switching** | Same Copilot context in VS Code, JetBrains, and the terminal. |
-| 4 | 📋 **Plan Mode** | Structured text planning — Copilot builds a step-by-step implementation plan before writing any code. |
-| 5 | 🤖 **Autopilot Mode** | Autonomous task execution with guardrails. _(Experimental)_ |
-| 6 | 👻 **Background Agents** | Delegate to cloud Copilot agents via `&` or `/delegate`; resume anytime with `/resume`. |
-| 7 | ⚡ **Fleet Mode** | Parallel agent execution — split work across multiple agents simultaneously. |
-| 8 | 🗄️ **Session SQL Database** | Built-in SQLite per session for structured data, todo tracking, and state. |
-| 9 | 🧲 **Cross-Session Memory** | Persistent knowledge via `session_store` — learn across sessions. |
-| 10 | 🏗️ **LSP First-Class Support** | Language Server Protocol integration for precise code intelligence. |
-| 11 | 🌐 **Multi-AI Orchestrator** | ★ Orchestrate Claude Code, Codex, Gemini CLI from Copilot as the meta-hub. |
+| 1 | **GitHub-Native Integration** | Issues, PRs, Actions, code search — all via built-in MCP. No extra setup. |
+| 2 | **20+ Model Selection** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — pick the right model per task. |
+| 3 | **IDE ↔ CLI Seamless Switching** | Same Copilot context in VS Code, JetBrains, and the terminal. |
+| 4 | **Plan Mode** | Structured text planning — Copilot builds a step-by-step implementation plan before writing any code. |
+| 5 | **Autopilot Mode** | Autonomous task execution with guardrails. _(Experimental)_ |
+| 6 | **Background Agents** | Delegate to cloud Copilot agents via `&` or `/delegate`; resume anytime with `/resume`. |
+| 7 | **Fleet Mode** | Parallel agent execution — split work across multiple agents simultaneously. |
+| 8 | **Session SQL Database** | Built-in SQLite per session for structured data, todo tracking, and state. |
+| 9 | **Cross-Session Memory** | Persistent knowledge via `session_store` — learn across sessions. |
+| 10 | **LSP First-Class Support** | Language Server Protocol integration for precise code intelligence. |
+| 11 | **Multi-AI Orchestrator** | Orchestrate Claude Code, Codex, Gemini CLI from Copilot as the meta-hub. |
 
 ---
 
@@ -86,7 +86,7 @@ copilot
 > Claude reasons architecture, Codex implements, Copilot reviews — delegate accordingly
 ```
 
-> 📖 For detailed instructions, see the [Quick Start Guide](guides/).
+> For detailed instructions, see the [Quick Start Guide](guides/).
 
 ---
 
@@ -143,7 +143,7 @@ everything-copilot-cli/
 
 ## Core Components
 
-### 🤖 Agents (8 Core)
+### Agents (8 Core)
 
 Pre-configured agent definitions — each with a specific role, system prompt, and tool set.
 
@@ -158,7 +158,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### ⚙️ Skills (49 Total · 8 Categories)
+### Skills (49 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -269,14 +269,14 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `seo` | Technical SEO audit: Core Web Vitals, structured data, crawl issues |
 </details>
 
-### 📏 Rules
+### Rules
 
 Coding rules and guidelines, organized by scope:
 
 - **Common Rules** — Universal best practices (error handling, logging, naming conventions)
 - **Language-Specific Rules** — TypeScript, Python, Go, C#, Java
 
-### 🌐 Orchestration
+### Orchestration
 
 The Multi-AI Orchestration system (see [dedicated section](#multi-ai-orchestration-) below).
 
@@ -286,18 +286,18 @@ The Multi-AI Orchestration system (see [dedicated section](#multi-ai-orchestrati
 
 | Guide | Description |
 |-------|-------------|
-| 📘 **Quick Start** | Get up and running in 5 minutes |
-| 📗 **Shortform Guide** | Concise reference for everyday use |
-| 📕 **Longform Guide** | Deep dive into every feature |
-| 🔒 **Security Guide** | Security best practices and scanning |
-| ⭐ **Copilot Exclusive Features** | Features only available in Copilot CLI |
-| ⚖️ **Copilot vs Claude Code** | Feature-by-feature comparison |
-| 🚚 **Migration from Claude Code** | Step-by-step migration path with concept mapping |
-| 🪝 **Hooks to GitHub Actions** | Claude Code Hooks alternatives (Git Hooks / Actions / Prompt Guards) |
-| 🌐 **Orchestration Guide** ★ | Multi-AI orchestration patterns and setup |
-| ✍️ **Skill Writing Best Practices** | Write trigger-first descriptions that actually fire |
-| 🧪 **Skill Testing Guide** | Test trigger accuracy and output quality for promptware |
-| 🔍 **QA Agent Guide** | Design QA agents that catch real bugs via boundary-crossing comparison |
+| **Quick Start** | Get up and running in 5 minutes |
+| **Shortform Guide** | Concise reference for everyday use |
+| **Longform Guide** | Deep dive into every feature |
+| **Security Guide** | Security best practices and scanning |
+| **Copilot Exclusive Features** | Features only available in Copilot CLI |
+| **Copilot vs Claude Code** | Feature-by-feature comparison |
+| **Migration from Claude Code** | Step-by-step migration path with concept mapping |
+| **Hooks to GitHub Actions** | Claude Code Hooks alternatives (Git Hooks / Actions / Prompt Guards) |
+| **Orchestration Guide** | Multi-AI orchestration patterns and setup |
+| **Skill Writing Best Practices** | Write trigger-first descriptions that actually fire |
+| **Skill Testing Guide** | Test trigger accuracy and output quality for promptware |
+| **QA Agent Guide** | Design QA agents that catch real bugs via boundary-crossing comparison |
 
 All guides are in the [`guides/`](guides/) directory.
 
@@ -313,14 +313,14 @@ No single AI is best at everything. Claude excels at reasoning, Codex at rapid i
 
 ```
 ┌──────────────────────────────────────────────────┐
-│              GitHub Copilot CLI                   │
-│            (Orchestrator / Meta-Hub)              │
+│                GitHub Copilot CLI                │
+│            (Orchestrator / Meta-Hub)             │
 ├──────────────────────────────────────────────────┤
 │                                                  │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐       │
-│  │Claude Code│  │ Codex CLI│  │Gemini CLI│  ...  │
-│  │(Reasoning)│  │(Implement)│ │(Multimod)│       │
-│  └──────────┘  └──────────┘  └──────────┘       │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐  │
+│  │ Claude Code│  │  Codex CLI │  │ Gemini CLI │  │
+│  │ (Reasoning)│  │(Impl./Gen.)│  │(Multimodal)│  │
+│  └────────────┘  └────────────┘  └────────────┘  │
 │                                                  │
 └──────────────────────────────────────────────────┘
 ```
@@ -329,21 +329,21 @@ No single AI is best at everything. Claude excels at reasoning, Codex at rapid i
 
 | Pattern | How It Works | Best For |
 |---------|-------------|----------|
-| 🐚 **Shell Execution** | Copilot spawns other CLIs via shell commands | Simple delegation |
-| 🔌 **MCP Bridge** | Connect agents via Model Context Protocol servers | Structured tool sharing |
-| 💬 **Message IPC** | Inter-process communication via files/pipes | Real-time collaboration |
-| 🔗 **Pipeline** | Chain agents sequentially — output of one feeds the next | Multi-stage workflows |
-| 🏛️ **Agent Council** | Multiple agents deliberate and vote on decisions | Critical decisions |
+| **Shell Execution** | Copilot spawns other CLIs via shell commands | Simple delegation |
+| **MCP Bridge** | Connect agents via Model Context Protocol servers | Structured tool sharing |
+| **Message IPC** | Inter-process communication via files/pipes | Real-time collaboration |
+| **Pipeline** | Chain agents sequentially — output of one feeds the next | Multi-stage workflows |
+| **Agent Council** | Multiple agents deliberate and vote on decisions | Critical decisions |
 
 ### 5 Additional Patterns (Intra-team orchestration)
 
 | Pattern | How It Works | Best For |
 |---------|-------------|----------|
-| ⚡ **Fan-Out Parallel** | Dispatch independent subtasks simultaneously | Batch operations |
-| 🔁 **Producer-Reviewer** | Iterative produce→review feedback loop | Artifact refinement |
-| 🌲 **Hierarchical Delegation** | Nested orchestrators (root→domain→specialists) | Large multi-domain tasks |
-| 🔄 **Iterative Refinement** | Self-correction loop with measurable exit criteria | Quality-sensitive generation |
-| 🤝 **Review Trio** | 3-way review for non-PR artifacts (RFC, schema, architecture) | Pre-publish review |
+| **Fan-Out Parallel** | Dispatch independent subtasks simultaneously | Batch operations |
+| **Producer-Reviewer** | Iterative produce→review feedback loop | Artifact refinement |
+| **Hierarchical Delegation** | Nested orchestrators (root→domain→specialists) | Large multi-domain tasks |
+| **Iterative Refinement** | Self-correction loop with measurable exit criteria | Quality-sensitive generation |
+| **Review Trio** | 3-way review for non-PR artifacts (RFC, schema, architecture) | Pre-publish review |
 
 ### Tool Strength Matrix
 
@@ -366,7 +366,7 @@ The orchestration system is informed by real-world multi-agent frameworks:
 - [geekan/MetaGPT](https://github.com/geekan/MetaGPT) — MetaGPT multi-agent SOP
 - [openai/swarm](https://github.com/openai/swarm) — OpenAI Swarm patterns
 
-> 📖 See the full [Orchestration Guide](guides/) for implementation details.
+> See the full [Orchestration Guide](guides/) for implementation details.
 
 ---
 
@@ -389,7 +389,7 @@ The orchestration system is informed by real-world multi-agent frameworks:
 | Community & ecosystem maturity | ⚠️ Growing | ✅ Established |
 | Custom slash commands | ⚠️ Plugin-based | ✅ |
 
-> ⚖️ See the full [Comparison Guide](guides/) for detailed analysis.
+> See the full [Comparison Guide](guides/) for detailed analysis.
 
 ---
 
@@ -410,7 +410,7 @@ The migration script automates most of the work:
 node scripts/migrate-from-claude.js --source /path/to/your/project
 ```
 
-> 🚚 See the full [Migration Guide](guides/migration-from-claude-code.md) and [Hooks Alternatives Guide](guides/hooks-to-github-actions.md).
+> See the full [Migration Guide](guides/migration-from-claude-code.md) and [Hooks Alternatives Guide](guides/hooks-to-github-actions.md).
 
 ---
 
