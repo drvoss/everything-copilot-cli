@@ -104,14 +104,14 @@ everything-copilot-cli/
 │   └── refactor-cleaner.md
 │
 ├── skills/                        # 재사용 가능한 워크플로우 스킬 (49개)
-│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (14개)
+│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (15개)
 │   ├── development/               #   개발 스킬 (6개)
-│   ├── documentation/             #   문서화 스킬 (3개)
-│   ├── security/                  #   보안 스킬 (4개)
-│   ├── testing/                   #   테스팅 스킬 (2개)
-│   ├── workflow/                  #   워크플로우 스킬 (4개)
-│   ├── product/                   #   프로덕트 스킬 (4개)
-│   └── content/                   #   콘텐츠 & GEO 스킬 (2개)
+│   ├── documentation/             #   문서화 스킬 (4개)
+│   ├── security/                  #   보안 스킬 (5개)
+│   ├── testing/                   #   테스팅 스킬 (3개)
+│   ├── workflow/                  #   워크플로우 스킬 (8개)
+│   ├── product/                   #   프로덕트 스킬 (5개)
+│   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │
 ├── rules/                         # 코딩 규칙 & 가이드라인
 │   ├── common/                    #   범용 규칙 (5개)
@@ -162,7 +162,7 @@ everything-copilot-cli/
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
 <details>
-<summary><strong>★ Copilot 전용 스킬 (14개)</strong></summary>
+<summary><strong>★ Copilot 전용 스킬 (15개)</strong></summary>
 
 GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
@@ -182,6 +182,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `mcp-ecosystem` | 커스텀 MCP 서버로 기능 확장 |
 | `ide-switching` | VS Code ↔ CLI 원활한 컨텍스트 공유 |
 | `team-planner` | SQL 로스터 + `/fleet` 디스패치로 전문가 팀 구성 |
+| `agentic-engineering` | 15분 단위 작업 설계, eval-first 루프, 명시적 I/O 계약 |
 </details>
 
 <details>
@@ -198,17 +199,18 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>문서화 스킬 (3개)</strong></summary>
+<summary><strong>문서화 스킬 (4개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `add-to-changelog` | Keep a Changelog 형식, semver 버전 동기화 |
 | `doc-update` | 구현 변경 시 문서 동기화 |
 | `api-documentation` | 소스 코드에서 API 문서 생성 및 유지 |
+| `code-tour` | 코드베이스 온보딩용 VS Code CodeTour `.tour` 파일 생성 |
 </details>
 
 <details>
-<summary><strong>보안 스킬 (4개)</strong></summary>
+<summary><strong>보안 스킬 (5개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -216,10 +218,11 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `security-scan` | OWASP Top 10 + 의존성 감사 |
 | `secret-detection` | 소스 및 git 히스토리에서 하드코딩된 시크릿 탐지 |
 | `input-validation` | SQL/XSS/CSRF 인젝션 공격 방어 |
+| `security-bounty-hunter` | 버그 바운티 관점 취약점 탐색 및 개념 증명 |
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (5개)</strong></summary>
+<summary><strong>워크플로우 스킬 (8개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -228,10 +231,13 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `sprint-workflow` | 전체 스프린트: 구상 → 계획 → 구축 → 리뷰 → 출시 |
 | `security-audit` | OWASP Top 10 + STRIDE 위협 모델링 |
 | `sprint-retro` | git 메트릭을 활용한 데이터 기반 회고 |
+| `cost-audit` | AI 토큰 비용 감사 및 모델/프롬프트 최적화 권고 |
+| `council` | 고위험 의사결정을 위한 4개 관점 적대적 토론 패널 |
+| `deep-research` | 체계적 멀티소스 리서치 및 구조화 합성 |
 </details>
 
 <details>
-<summary><strong>프로덕트 스킬 (4개)</strong></summary>
+<summary><strong>프로덕트 스킬 (5개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -239,24 +245,27 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `feature-prioritization` | 임팩트 × 신뢰도 × 노력 매트릭스 |
 | `opportunity-solution-tree` | Teresa Torres의 OST 프레임워크 |
 | `launch-strategy` | Alpha → Beta → GA 런치 체크리스트 |
+| `product-capability` | 요구사항을 AC 및 추적 행렬이 포함된 SRS 스타일 명세로 변환 |
 </details>
 
 <details>
-<summary><strong>테스팅 스킬 (2개)</strong></summary>
+<summary><strong>테스팅 스킬 (3개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `test-coverage` | 커버리지 갭 식별 및 타겟 테스트 작성 |
 | `e2e-testing` | 핵심 사용자 경로 E2E 테스트 스캐폴딩 |
+| `eval-harness` | SQL 추적 테스트 케이스로 LLM 파이프라인 평가 하네스 구축 |
 </details>
 
 <details>
-<summary><strong>콘텐츠 스킬 (2개)</strong></summary>
+<summary><strong>콘텐츠 스킬 (3개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `ai-visibility` | GEO 최적화: llms.txt, AI 크롤러 접근 최적화 |
 | `content-strategy` | 키워드 리서치, 토픽 클러스터, 콘텐츠 캘린더 |
+| `seo` | 기술적 SEO 감사: Core Web Vitals, 구조화 데이터, 크롤링 이슈 |
 </details>
 
 ### 📏 규칙
