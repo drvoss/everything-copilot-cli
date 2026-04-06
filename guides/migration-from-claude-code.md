@@ -326,7 +326,7 @@ Migrating to Copilot CLI unlocks 11 capabilities not available in Claude Code:
 | 6 | **SQL Session Database** | Structured state that survives compaction |
 | 7 | **Plan Mode** | Structured text planning with autopilot transition |
 | 8 | **Autopilot Mode** | Safer autonomous execution _(Experimental)_ |
-| 9 | **Multi-AI Orchestration** | Use Claude Code, Codex, Gemini as workers |
+| 9 | **Multi-AI Orchestration** | Use Claude Code, Codex, Hermes, Gemini as workers |
 | 10 | **Cross-Session Search** | FTS5 search across previous sessions |
 | 11 | **LSP Support** | Language-aware code navigation |
 
@@ -397,6 +397,54 @@ The recommended approach for teams in transition: **use both, with Copilot CLI a
 
 See [Claude MCP Bridge config](../orchestration/configs/claude-mcp-bridge.json) and
 [Delegate to Claude skill](../orchestration/skills/delegate-to-claude.md).
+
+---
+
+## Migrating from Other AI CLI Tools
+
+### Hermes
+
+[Hermes](https://github.com/NousResearch/Hermes) is an open-source AI CLI that uses instruction-following models locally. Migrating from Hermes to Copilot CLI:
+
+| Hermes concept | Copilot CLI equivalent |
+|---------------|----------------------|
+| Instruction files (`.hermes/`) | `.github/copilot-instructions.md` |
+| Tool plugins (shell scripts) | MCP servers (`mcp-configs/`) |
+| Local model inference | `model:` override (use `claude-haiku-4.5` for local-speed workflows) |
+| Task files | SQL `todos` table |
+
+**Key difference:** Hermes is local-first with no GitHub integration. Copilot CLI is GitHub-native. Skills port without changes; instruction files need light adaptation (remove Hermes-specific syntax).
+
+### Adapting Harness Files from Hook-Based Tools
+
+Claude Code harnesses often rely on session lifecycle hooks (`PreToolUse`, `PostToolUse`, `Stop`). When porting a harness to Copilot CLI:
+
+1. **Replace hook triggers with SQL state transitions** — track workflow state explicitly in the session database rather than relying on event callbacks
+2. **Replace `PreToolUse` validation** with prompt-level guards in `copilot-instructions.md`
+3. **Replace `Stop` cleanup** with final SQL queries or post-task checklists in skill files
+4. **Replace `SubagentStop` aggregation** with `read_agent` polling after `task(mode: "background")` calls
+
+Example: a harness that ran lint on every file save (PreToolUse) becomes:
+```markdown
+<!-- In copilot-instructions.md -->
+After editing any source file, run `npm run lint -- <file>` before proceeding to the next step.
+```
+
+### Diagnostic Tools for Orphaned Configs
+
+When migrating from any Claude Code / Hermes setup, use **[claude-rules-doctor](https://github.com/gruns/claude-rules-doctor)** to detect orphaned or contradictory config files:
+
+```powershell
+# Scan for orphaned .claude/, .hermes/, or CLAUDE.md files that may conflict
+npx claude-rules-doctor scan .
+
+# Common findings:
+# - Multiple CLAUDE.md at different directory levels (unexpected hierarchy)
+# - .claude/commands/ files with no corresponding skill equivalents
+# - Rules that reference tools no longer installed
+```
+
+> **Note:** claude-rules-doctor is a community diagnostic tool. Run in read-only mode first to review findings before taking action.
 
 ---
 
