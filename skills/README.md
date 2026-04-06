@@ -131,6 +131,7 @@ Skills for keeping docs accurate and up-to-date.
 |-------|-------------|
 | [`add-to-changelog`](documentation/add-to-changelog/SKILL.md) | Add versioned entries to CHANGELOG.md (Keep a Changelog format) |
 | [`api-documentation`](documentation/api-documentation/SKILL.md) | Generate and maintain API documentation |
+| [`code-tour`](documentation/code-tour/SKILL.md) | Use when a user asks for a code tour, onboarding walkthrough, architecture tour, or PR tour — creates persona-targeted `.tour` files with real file and line anchors |
 | [`doc-update`](documentation/doc-update/SKILL.md) | Sync documentation when implementation changes |
 
 ### 🔒 Security (`security/`)
@@ -142,6 +143,7 @@ Skills for identifying and fixing security issues.
 | [`evaluate-repository`](security/evaluate-repository/SKILL.md) | Score a repository 1-10 across 6 security dimensions with remediation plan |
 | [`input-validation`](security/input-validation/SKILL.md) | Validate and sanitize all user-supplied inputs |
 | [`secret-detection`](security/secret-detection/SKILL.md) | Find and remove hardcoded secrets |
+| [`security-bounty-hunter`](security/security-bounty-hunter/SKILL.md) | Use when the goal is practical vulnerability discovery for responsible disclosure or bounty submission — focuses on remotely reachable, exploitable issues |
 | [`security-scan`](security/security-scan/SKILL.md) | Run a security scan across the codebase |
 
 ### 🧪 Testing (`testing/`)
@@ -151,6 +153,7 @@ Skills for improving test coverage and quality.
 | Skill | Description |
 |-------|-------------|
 | [`e2e-testing`](testing/e2e-testing/SKILL.md) | Write and run end-to-end tests |
+| [`eval-harness`](testing/eval-harness/SKILL.md) | Use when you need to evaluate an LLM pipeline or AI feature systematically — sets up test cases, scoring rubrics, and pass/fail tracking |
 | [`test-coverage`](testing/test-coverage/SKILL.md) | Analyze and improve test coverage |
 
 ### 🔄 Workflow (`workflow/`)
@@ -160,6 +163,9 @@ End-to-end development workflow skills — from planning to shipping.
 | Skill | Description |
 |-------|-------------|
 | [`commit-workflow`](workflow/commit-workflow/SKILL.md) | Conventional commit messages with emoji, atomic splits, and pre-commit checks |
+| [`cost-audit`](workflow/cost-audit/SKILL.md) | Use when AI inference costs are growing unexpectedly or when comparing model choices by cost/quality ratio — produces an actionable cost reduction plan |
+| [`council`](workflow/council/SKILL.md) | Use when a decision has multiple credible paths and no obvious winner — convene a four-voice council (Architect, Skeptic, Pragmatist, Critic) for adversarial deliberation |
+| [`deep-research`](workflow/deep-research/SKILL.md) | Use when a question requires comprehensive evidence gathering from multiple sources, systematic synthesis, and traceable citations |
 | [`release`](workflow/release/SKILL.md) | Cut a versioned release: tag → GitHub Release → publish (npm/PyPI/Docker) |
 | [`sprint-workflow`](workflow/sprint-workflow/SKILL.md) | Full sprint: Think → Plan → Build → Review → Test → Ship |
 | [`security-audit`](workflow/security-audit/SKILL.md) | OWASP Top 10 + STRIDE threat modeling audit |
@@ -184,6 +190,7 @@ Product management and strategy skills.
 |-------|-------------|
 | [`ai-visibility`](content/ai-visibility/SKILL.md) | GEO optimization: llms.txt, AI crawler access, citation optimization |
 | [`content-strategy`](content/content-strategy/SKILL.md) | Keyword research, topic clusters, and content calendar planning |
+| [`seo`](content/seo/SKILL.md) | Use when the user wants better search visibility, SEO remediation, schema markup, or Core Web Vitals improvements — distinct from ai-visibility (GEO) |
 
 ---
 

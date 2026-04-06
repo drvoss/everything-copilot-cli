@@ -14,7 +14,7 @@
   <a href="#"><img src="https://img.shields.io/badge/copilot--cli-ready-28a745?logo=github" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="https://img.shields.io/badge/models-20%2B-blueviolet" alt="20+ Models" /></a>
   <a href="#"><img src="https://img.shields.io/badge/agents-8-orange" alt="8 Agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-40-green" alt="40 Skills" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/skills-47-green" alt="47 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="https://img.shields.io/badge/★_Multi--AI-Orchestrator-ff6f00" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -104,7 +104,7 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (40 total)
+├── skills/                        # Reusable workflow skills (47 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (14)
 │   ├── development/               #   Dev skills (6)
 │   ├── documentation/             #   Doc skills (3)
@@ -158,7 +158,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### ⚙️ Skills (40 Total · 8 Categories)
+### ⚙️ Skills (47 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 

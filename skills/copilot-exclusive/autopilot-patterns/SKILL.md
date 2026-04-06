@@ -149,6 +149,53 @@ You: "Add JSDoc to all exported functions in src/. Use autopilot, run
       the TypeScript compiler after each file to verify no errors."
 ```
 
+#### Pattern 5: Ralph Wiggum Autonomous Loop
+
+An autonomous improvement cycle that repeats until an exit condition is met. Use for iterative quality improvement tasks where the number of passes is unknown upfront.
+
+```
+[Loop start]
+1. Execute task (run tests / lint / analyze)
+2. Collect failures or gaps
+3. Apply fixes
+4. Re-run verification
+5. If all pass → exit. Else → repeat from step 1.
+
+[Loop exit condition: all tests pass OR max 5 iterations reached]
+```
+
+**Implementation with SQL state:**
+```sql
+CREATE TABLE IF NOT EXISTS loop_state (
+    iteration INTEGER DEFAULT 0,
+    status TEXT DEFAULT 'running',  -- running | done | max_reached
+    failures_last_run INTEGER DEFAULT 0
+);
+INSERT INTO loop_state VALUES (0, 'running', -1);
+```
+
+Each iteration:
+```sql
+-- Before iteration
+UPDATE loop_state SET iteration = iteration + 1;
+
+-- After verification
+UPDATE loop_state SET
+    failures_last_run = :count,
+    status = CASE
+        WHEN :count = 0 THEN 'done'
+        WHEN iteration >= 5 THEN 'max_reached'
+        ELSE 'running'
+    END;
+```
+
+**Best for:** Auto-fix lint cycles, test-fix-retest loops, retry-until-passing scenarios.
+
+**Guard rails:**
+- Always set a hard max iterations (5 is a good default)
+- Log each iteration's result before continuing
+- If `max_reached`: surface remaining failures for human review — do not silently skip them
+
 ## Tips
 
 - **Plan quality determines autopilot quality**: A vague plan produces vague

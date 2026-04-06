@@ -170,3 +170,25 @@ skills/development/cloud-deploy/
 ```
 
 Keep provider-specific commands and pitfalls in the respective files, and shared concepts in `common.md`.
+
+---
+
+## 10) Linting Agent Configuration Files
+
+Use **[agnix](https://github.com/russellballestrini/agnix)** — an open-source agent configuration linter — to catch structural issues in agent and skill files before committing.
+
+Agnix checks for:
+- Missing or malformed YAML frontmatter fields
+- Required fields (`name`, `description`, `agent_type` / `category`) absent or empty
+- Frontmatter type mismatches (e.g., `tools` not an array)
+- Orphaned agent definition files with no corresponding task references
+
+```powershell
+# Run agnix on agents/ and skills/
+npx agnix lint agents/
+npx agnix lint skills/
+```
+
+**When to run:** Add agnix to your pre-commit hook or CI quality gate whenever agent or skill files change.
+
+> **Note:** agnix is a community tool. Verify compatibility with your Copilot CLI version and frontmatter conventions before adopting in CI.

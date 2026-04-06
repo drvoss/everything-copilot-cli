@@ -293,6 +293,71 @@ At the end of each task:
 
 ---
 
+## 대안 4: AST 기반 안전한 명령 자동 승인 (Dippy 패턴)
+
+**적합한 경우**: `PreToolUse` 훅이 CLI 명령을 자동 승인/거부하던 패턴을 대체할 때
+
+Claude Code의 hooks는 `bash` 명령을 실행 전에 가로채 AST 또는 패턴 분석으로 안전성을 판단할 수 있었습니다.
+Copilot CLI에는 동일한 메커니즘이 없지만, **허용 목록(allowlist) + 프롬프트 가드** 방식으로 유사한 효과를 낼 수 있습니다.
+
+### 허용 목록 기반 접근 방식
+
+안전하다고 알려진 명령 패턴을 `.github/copilot-instructions.md`에 명시합니다:
+
+```markdown
+## Safe Commands (auto-proceed without asking)
+
+The following command patterns are safe to execute without confirmation:
+- `git status`, `git log`, `git diff` — read-only git operations
+- `npm test`, `npm run lint`, `npm run build` — standard project scripts
+- `Get-Content`, `Select-String` — read-only file inspection
+- `node --version`, `npm --version` — version checks
+
+## Requires Confirmation
+
+Always ask before:
+- `git push`, `git force-push` — remote state changes
+- `rm`, `Remove-Item` — file deletion
+- Any command with `--force` or `-f` flags
+- Database migrations or schema changes
+```
+
+### 패턴 매칭 방식 (PowerShell Pre-commit Hook)
+
+커밋 전에 위험한 패턴을 탐지하는 로컬 스크립트:
+
+```powershell
+# .husky/pre-commit (위험 패턴 탐지)
+$dangerousPatterns = @(
+    'rm -rf',
+    '--force',
+    'DROP TABLE',
+    'DELETE FROM.*WHERE 1=1',
+    'eval\(',
+    'shell=True'
+)
+
+$stagedFiles = git diff --cached --name-only
+foreach ($file in $stagedFiles) {
+    $content = Get-Content $file -Raw -ErrorAction SilentlyContinue
+    foreach ($pattern in $dangerousPatterns) {
+        if ($content -match $pattern) {
+            Write-Host "⚠️  Dangerous pattern '$pattern' found in $file"
+            Write-Host "Review before committing."
+            exit 1
+        }
+    }
+}
+```
+
+**장점**: 명시적이고 버전 관리되며 팀 전체에 적용됨
+**단점**: 런타임 명령이 아닌 소스 코드만 검사 (Claude Code Hooks만큼 세밀하지 않음)
+
+> **참고:** [Dippy](https://github.com/dippyai/dippy)는 Claude Code용 AST 기반 안전 명령 자동 승인 패턴입니다.
+> Copilot CLI에서 유사한 보안 수준을 원한다면 위의 허용 목록 접근 방식이 현실적인 대안입니다.
+
+---
+
 ## 관련 가이드
 
 - [`migration-from-claude-code.md`](./migration-from-claude-code.md) — 전체 마이그레이션 개요
