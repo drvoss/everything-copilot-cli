@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.githubassets.com/images/icons/copilot/cp-head-square.svg" width="80" alt="Copilot CLI" />
+  <img src="https://raw.githubusercontent.com/primer/octicons/main/icons/copilot-48.svg" width="80" alt="Copilot CLI" />
 </p>
 
 <h1 align="center">everything-copilot-cli</h1>
