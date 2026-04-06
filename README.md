@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/primer/octicons/main/icons/copilot-48.svg" width="80" alt="Copilot CLI" />
+  <img src="docs/images/copilot.svg" width="80" alt="Copilot CLI" />
 </p>
 
 <h1 align="center">everything-copilot-cli</h1>
@@ -10,12 +10,12 @@
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/copilot--cli-ready-28a745?logo=github" alt="Copilot CLI Ready" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/models-20%2B-blueviolet" alt="20+ Models" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/agents-8-orange" alt="8 Agents" /></a>
-  <a href="#"><img src="https://img.shields.io/badge/skills-49-green" alt="49 Skills" /></a>
-  <a href="#multi-ai-orchestration-"><img src="https://img.shields.io/badge/★_Multi--AI-Orchestrator-ff6f00" alt="Multi-AI Orchestrator" /></a>
+  <a href="LICENSE"><img src="docs/images/badge-license.svg" alt="MIT License" /></a>
+  <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
+  <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
+  <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="49 Skills" /></a>
+  <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
 <p align="center">
