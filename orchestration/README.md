@@ -92,6 +92,16 @@ Need a lightweight 3-way review for documents or designs?
 
 ## Skills (Reusable Recipes)
 
+Orchestration skills fall into the **Orchestrator** tier of the [three-layer skill architecture](../skills/README.md#skill-architecture-three-layer-model):
+
+| Layer | Role | Examples here |
+|-------|------|---------------|
+| **Orchestrator** | Coordinates teams, manages workflow, synthesizes results | `team-planner`, `fleet-parallel`, all `orchestration/skills/*` |
+| **Agent-Extending** | Adds domain expertise loaded by sub-agents | Most `development/`, `security/`, `testing/` skills |
+| **External** | Bridges external services beyond the built-in toolset | `mcp-ecosystem`, `github-pr-workflow`, `ai-visibility` |
+
+> When composing workflows: load **Orchestrator** skills into the coordinating agent; load **Agent-Extending** skills into specialist sub-agents.
+
 - [Delegate to Claude Code](skills/delegate-to-claude.md) — Deep reasoning, architecture, security
 - [Delegate to Codex CLI](skills/delegate-to-codex.md) — Fast generation, boilerplate, multi-file
 - [Parallel Agents](skills/parallel-agents.md) — Run multiple AIs simultaneously
