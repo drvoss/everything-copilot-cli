@@ -28,7 +28,7 @@
 
 **everything-copilot-cli**는 [GitHub Copilot CLI](https://github.com/github/copilot-cli)를 위한 에이전트, 재사용 가능한 스킬, 코딩 규칙, MCP 설정, 종합 가이드를 체계적으로 모아둔 커뮤니티 기반 컬렉션입니다.
 
-처음에는 [everything-claude-code](https://github.com/anthropics/everything-claude-code)와 [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) 같은 커뮤니티 리소스에서 영감을 받아 시작했지만, 이제는 독자적인 정체성을 갖추게 되었습니다. Copilot CLI만의 강점 — **네이티브 GitHub 통합, 멀티 모델 유연성, 다른 AI 에이전트를 허브에서 조율하는 능력** — 에 집중합니다.
+처음에는 [everything-claude-code](https://github.com/affaan-m/everything-claude-code)와 [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) 같은 커뮤니티 리소스에서 영감을 받아 시작했지만, 이제는 독자적인 정체성을 갖추게 되었습니다. Copilot CLI만의 강점 — **네이티브 GitHub 통합, 멀티 모델 유연성, 다른 AI 에이전트를 허브에서 조율하는 능력** — 에 집중합니다.
 
 > **Multi-AI Orchestrator로 동작** — Claude Code, Codex CLI, Gemini CLI 등을 하나의 커맨드 라인에서 통합 조율합니다. _(커뮤니티 패턴 — [Multi-AI Orchestration](#multi-ai-orchestration-) 참고)_
 
@@ -442,5 +442,5 @@ PR을 제출하기 전에 기존 가이드를 읽고 확립된 패턴을 따라�
 ---
 
 <p align="center">
-  <sub>GitHub Copilot CLI 커뮤니티를 위해 제작 · <a href="https://github.com/anthropics/everything-claude-code">everything-claude-code</a>와 <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a>에서 영감을 받아</sub>
+  <sub>GitHub Copilot CLI 커뮤니티를 위해 제작 · <a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a>와 <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a>에서 영감을 받아</sub>
 </p>
