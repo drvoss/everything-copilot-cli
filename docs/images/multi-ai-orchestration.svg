@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="260" viewBox="0 0 600 260" role="img" aria-label="Multi-AI Orchestration architecture: GitHub Copilot CLI as Orchestrator/Meta-Hub connecting Claude Code, Codex CLI, and Gemini CLI">
+  <title>Multi-AI Orchestration Architecture</title>
+  <defs>
+    <style>
+      .outer-box { fill: #f6f8fa; stroke: #30363d; stroke-width: 2; rx: 8; }
+      .divider { stroke: #30363d; stroke-width: 1.5; }
+      .inner-box { fill: #ffffff; stroke: #57606a; stroke-width: 1.5; }
+      .hub-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; font-weight: 700; fill: #24292f; text-anchor: middle; }
+      .hub-subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; fill: #57606a; text-anchor: middle; }
+      .agent-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; font-weight: 600; fill: #24292f; text-anchor: middle; }
+      .agent-subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 11px; fill: #57606a; text-anchor: middle; }
+      .connector { stroke: #57606a; stroke-width: 1.5; stroke-dasharray: 4 3; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#57606a" />
+    </marker>
+  </defs>
+
+  <!-- Outer container -->
+  <rect x="10" y="10" width="580" height="240" rx="8" ry="8" fill="#f6f8fa" stroke="#30363d" stroke-width="2" />
+
+  <!-- Header section of outer container -->
+  <rect x="10" y="10" width="580" height="70" rx="8" ry="8" fill="#ddf4ff" stroke="#30363d" stroke-width="2" />
+  <rect x="10" y="50" width="580" height="30" fill="#ddf4ff" />
+
+  <!-- Divider line -->
+  <line x1="10" y1="80" x2="590" y2="80" stroke="#30363d" stroke-width="1.5" />
+
+  <!-- Hub title -->
+  <text x="300" y="42" class="hub-title">GitHub Copilot CLI</text>
+  <text x="300" y="68" class="hub-subtitle">(Orchestrator / Meta-Hub)</text>
+
+  <!-- Connector lines from hub to each agent box -->
+  <line x1="300" y1="80" x2="109" y2="140" stroke="#57606a" stroke-width="1.5" stroke-dasharray="5 3" />
+  <line x1="300" y1="80" x2="300" y2="140" stroke="#57606a" stroke-width="1.5" stroke-dasharray="5 3" />
+  <line x1="300" y1="80" x2="491" y2="140" stroke="#57606a" stroke-width="1.5" stroke-dasharray="5 3" />
+
+  <!-- Claude Code box -->
+  <rect x="30" y="140" width="158" height="80" rx="6" ry="6" fill="#ffffff" stroke="#57606a" stroke-width="1.5" />
+  <text x="109" y="172" class="agent-title">Claude Code</text>
+  <text x="109" y="192" class="agent-subtitle">(Reasoning)</text>
+
+  <!-- Codex CLI box -->
+  <rect x="221" y="140" width="158" height="80" rx="6" ry="6" fill="#ffffff" stroke="#57606a" stroke-width="1.5" />
+  <text x="300" y="172" class="agent-title">Codex CLI</text>
+  <text x="300" y="192" class="agent-subtitle">(Implementation / Generation)</text>
+
+  <!-- Gemini CLI box -->
+  <rect x="412" y="140" width="158" height="80" rx="6" ry="6" fill="#ffffff" stroke="#57606a" stroke-width="1.5" />
+  <text x="491" y="172" class="agent-title">Gemini CLI</text>
+  <text x="491" y="192" class="agent-subtitle">(Multimodal)</text>
+</svg>

@@ -13,6 +13,7 @@ Static image assets for README.md and README.ko.md.
 | `badge-agents.svg` | Agent count badge |
 | `badge-skills.svg` | Skill count badge |
 | `badge-multi-ai.svg` | Multi-AI Orchestrator badge |
+| `multi-ai-orchestration.svg` | Multi-AI Orchestration architecture diagram (Copilot CLI as hub with Claude Code, Codex CLI, Gemini CLI) |
 
 ## Updating a badge
 

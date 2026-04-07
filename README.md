@@ -322,19 +322,9 @@ All guides are in the [`guides/`](guides/) directory.
 
 No single AI is best at everything. Claude excels at reasoning, Codex at rapid implementation, Gemini at multimodal understanding, and Copilot at GitHub integration. What if you could use **all of them** from one place?
 
-```
-┌──────────────────────────────────────────────────┐
-│                GitHub Copilot CLI                │
-│            (Orchestrator / Meta-Hub)             │
-├──────────────────────────────────────────────────┤
-│                                                  │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐  │
-│  │ Claude Code│  │  Codex CLI │  │ Gemini CLI │  │
-│  │ (Reasoning)│  │(Impl./Gen.)│  │(Multimodal)│  │
-│  └────────────┘  └────────────┘  └────────────┘  │
-│                                                  │
-└──────────────────────────────────────────────────┘
-```
+<p align="center">
+  <img src="docs/images/multi-ai-orchestration.svg" width="600" alt="Multi-AI Orchestration: GitHub Copilot CLI as Orchestrator/Meta-Hub connecting Claude Code (Reasoning), Codex CLI (Implementation/Generation), and Gemini CLI (Multimodal)" />
+</p>
 
 ### 5 Orchestration Patterns (Patterns 1–5: cross-AI)
 

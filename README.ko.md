@@ -321,19 +321,9 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 
 모든 일을 가장 잘하는 단일 AI는 없습니다. Claude는 추론에, Codex는 빠른 구현에, Gemini는 멀티모달 이해에, Copilot은 GitHub 통합에 강합니다. 이 모든 것을 **한 곳에서** 쓸 수 있다면 어떨까요?
 
-```
-┌──────────────────────────────────────────────────┐
-│                GitHub Copilot CLI                │
-│            (Orchestrator / 메타 허브)            │
-├──────────────────────────────────────────────────┤
-│                                                  │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐  │
-│  │ Claude Code│  │  Codex CLI │  │ Gemini CLI │  │
-│  │   (추론)   │  │   (구현)   │  │ (멀티모달) │  │
-│  └────────────┘  └────────────┘  └────────────┘  │
-│                                                  │
-└──────────────────────────────────────────────────┘
-```
+<p align="center">
+  <img src="docs/images/multi-ai-orchestration.svg" width="600" alt="Multi-AI Orchestration: GitHub Copilot CLI가 오케스트레이터/메타 허브로서 Claude Code (추론), Codex CLI (구현/생성), Gemini CLI (멀티모달)를 연결" />
+</p>
 
 ### 5가지 크로스-AI 오케스트레이션 패턴
 
