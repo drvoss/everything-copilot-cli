@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="49 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="53 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -103,7 +103,7 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (49개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (53개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (16개)
 │   ├── development/               #   개발 스킬 (9개)
 │   ├── documentation/             #   문서화 스킬 (4개)
@@ -158,7 +158,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 49개 · 8개 카테고리)
+### 스킬 (총 53개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -198,6 +198,11 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `fix-build-errors` | 빌드 실패 진단 및 해결 |
 | `pr-multi-perspective-review` | 6가지 관점 PR 리뷰: PM/Dev/QA/Security/DevOps/UX |
 | `refactor-clean` | 동작 보존하며 데드 코드 제거 및 로직 단순화 |
+
+**콤보 스킬** (두 기술을 함께 사용할 때 활성화):
+
+| 스킬 | 설명 |
+|------|------|
 | `nextjs-prisma` | Next.js App Router + Prisma 프로젝트의 타입 안전 데이터 페칭 및 Server Actions |
 | `react-vitest` | React + Vitest 프로젝트의 컴포넌트 테스트 설정 및 패턴 |
 | `nestjs-prisma` | NestJS + Prisma의 PrismaService 싱글톤, 레포지토리 패턴 및 단위 테스트 |
@@ -279,6 +284,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
 - **Common Rules** — 범용 모범 사례 (에러 처리, 로깅, 네이밍 컨벤션)
 - **Language-Specific Rules** — TypeScript, Python, Go, C#, Java
+- **Framework-Specific Rules** — Next.js, React, Prisma, Playwright, NestJS, Cloudflare Workers, Vitest
 
 ### 오케스트레이션
 

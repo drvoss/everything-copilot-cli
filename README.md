@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="49 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="53 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -104,7 +104,7 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (49 total)
+├── skills/                        # Reusable workflow skills (53 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (16)
 │   ├── development/               #   Dev skills (9)
 │   ├── documentation/             #   Doc skills (4)
@@ -159,7 +159,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (49 Total · 8 Categories)
+### Skills (53 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -199,6 +199,11 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `fix-build-errors` | Diagnose and resolve build failures |
 | `pr-multi-perspective-review` | 6-lens PR review: PM / Dev / QA / Security / DevOps / UX |
 | `refactor-clean` | Remove dead code, simplify logic safely |
+
+**Combo Skills** (activate when two technologies are used together):
+
+| Skill | Description |
+|-------|-------------|
 | `nextjs-prisma` | Type-safe data fetching and Server Actions for Next.js App Router + Prisma projects |
 | `react-vitest` | Component testing setup and patterns for React + Vitest projects |
 | `nestjs-prisma` | PrismaService singleton, repository pattern, and unit testing for NestJS + Prisma |
@@ -280,6 +285,7 @@ Coding rules and guidelines, organized by scope:
 
 - **Common Rules** — Universal best practices (error handling, logging, naming conventions)
 - **Language-Specific Rules** — TypeScript, Python, Go, C#, Java
+- **Framework-Specific Rules** — Next.js, React, Prisma, Playwright, NestJS, Cloudflare Workers, Vitest
 
 ### Orchestration
 

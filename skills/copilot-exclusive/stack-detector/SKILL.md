@@ -10,14 +10,16 @@ metadata:
 
 ## Why This is Copilot-Exclusive
 
-Copilot CLI has direct access to the workspace file system and can run shell commands
-to inspect project files at session start. This skill orchestrates that access to build
-a tech-stack fingerprint and map it to the skill/rule collection in this repository.
+This skill is specific to the **everything-copilot-cli collection**: the recommendation table
+maps detected technologies to skill and rule file paths that only exist in this repository.
+Other AI agents can also inspect file systems, but this skill's value is the curated mapping
+to this specific collection's skills and rules — not the file-scanning mechanics itself.
 
 ## When to Use
 
-- At the start of a session on an unfamiliar codebase
-- Before running `context-prime` — run this first to know which additional skills to load
+- At the start of a session on an unfamiliar codebase, before or alongside `context-prime`
+- When you want focused recommendations for which skills and rules apply to this project
+  (`context-prime` loads broad context; `stack-detector` targets specific recommendations)
 - When onboarding a new contributor and recommending which skills to study
 - When auditing a project to suggest missing tooling or practices
 
@@ -156,9 +158,12 @@ Based on the detected stack, recommend the following from this repository:
 | Prisma / Drizzle     | `evaluate-repository`                    | `rules/frameworks/prisma.md`                                        |
 | Playwright           | `test-coverage`, `e2e-testing`           | `rules/frameworks/playwright.md`                                    |
 | Vitest               | `tdd-workflow`, `eval-harness`           | `rules/frameworks/vitest.md`                                        |
-| NestJS / Express     | `security-scan`, `input-validation`      | `rules/frameworks/nestjs.md`                                        |
+| NestJS / Express     | `security-scan`                          | `rules/frameworks/nestjs.md`                                        |
 | Cloudflare Workers   | `cost-audit`                             | `rules/frameworks/cloudflare-workers.md`                            |
-| Any project          | `supply-chain-security`                  | `rules/common/supply-chain-security.md`                             |
+| Python               | `security-scan`, `evaluate-repository`  | `rules/languages/python.md`                                         |
+| Go                   | `security-scan`                          | `rules/languages/golang.md`                                         |
+| Java / JVM           | `security-scan`, `evaluate-repository`  | `rules/languages/java.md`                                           |
+| Any project          | `security-scan`                          | `rules/common/supply-chain-security.md`                             |
 | Next.js + Prisma     | `nextjs-prisma`                          | `rules/frameworks/nextjs.md`, `rules/frameworks/prisma.md`          |
 | React + Vitest       | `react-vitest`                           | `rules/frameworks/react.md`, `rules/frameworks/vitest.md`           |
 | NestJS + Prisma      | `nestjs-prisma`                          | `rules/frameworks/nestjs.md`, `rules/frameworks/prisma.md`          |
