@@ -106,7 +106,7 @@ everything-copilot-cli/
 │
 ├── skills/                        # Reusable workflow skills (49 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (16)
-│   ├── development/               #   Dev skills (6)
+│   ├── development/               #   Dev skills (9)
 │   ├── documentation/             #   Doc skills (4)
 │   ├── security/                  #   Security skills (5)
 │   ├── testing/                   #   Test skills (3)
@@ -189,7 +189,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Development Skills (6)</strong></summary>
+<summary><strong>Development Skills (9)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -199,6 +199,9 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `fix-build-errors` | Diagnose and resolve build failures |
 | `pr-multi-perspective-review` | 6-lens PR review: PM / Dev / QA / Security / DevOps / UX |
 | `refactor-clean` | Remove dead code, simplify logic safely |
+| `nextjs-prisma` | Type-safe data fetching and Server Actions for Next.js App Router + Prisma projects |
+| `react-vitest` | Component testing setup and patterns for React + Vitest projects |
+| `nestjs-prisma` | PrismaService singleton, repository pattern, and unit testing for NestJS + Prisma |
 </details>
 
 <details>

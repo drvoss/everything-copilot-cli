@@ -148,20 +148,22 @@ foreach ($pattern in $configMap.Keys) {
 
 Based on the detected stack, recommend the following from this repository:
 
-| Detected Technology  | Recommended Skills                       | Recommended Rules                          |
-|----------------------|------------------------------------------|--------------------------------------------|
-| TypeScript           | `tdd-workflow`, `code-review`            | `rules/languages/typescript.md`            |
-| Next.js              | `commit-workflow`, `release`             | `rules/languages/typescript.md`            |
-| React                | `code-review`, `refactor-clean`          | `rules/common/coding-style.md`             |
-| Prisma / Drizzle     | `evaluate-repository`                    | `rules/common/security.md`                 |
-| Playwright           | `test-coverage`, `e2e-testing`           | `rules/common/testing.md`                  |
-| Vitest               | `tdd-workflow`, `eval-harness`           | `rules/common/testing.md`                  |
-| NestJS / Express     | `security-scan`, `input-validation`      | `rules/common/security.md`                 |
-| Cloudflare Workers   | `deploy`-related, `cost-audit`           | `rules/common/error-handling.md`           |
-| Any project          | `supply-chain-security`                  | `rules/common/supply-chain-security.md`    |
+| Detected Technology  | Recommended Skills                       | Recommended Rules                                                   |
+|----------------------|------------------------------------------|---------------------------------------------------------------------|
+| TypeScript           | `tdd-workflow`, `code-review`            | `rules/languages/typescript.md`                                     |
+| Next.js              | `commit-workflow`, `release`             | `rules/frameworks/nextjs.md`                                        |
+| React                | `code-review`, `refactor-clean`          | `rules/frameworks/react.md`                                         |
+| Prisma / Drizzle     | `evaluate-repository`                    | `rules/frameworks/prisma.md`                                        |
+| Playwright           | `test-coverage`, `e2e-testing`           | `rules/frameworks/playwright.md`                                    |
+| Vitest               | `tdd-workflow`, `eval-harness`           | `rules/frameworks/vitest.md`                                        |
+| NestJS / Express     | `security-scan`, `input-validation`      | `rules/frameworks/nestjs.md`                                        |
+| Cloudflare Workers   | `cost-audit`                             | `rules/frameworks/cloudflare-workers.md`                            |
+| Any project          | `supply-chain-security`                  | `rules/common/supply-chain-security.md`                             |
+| Next.js + Prisma     | `nextjs-prisma`                          | `rules/frameworks/nextjs.md`, `rules/frameworks/prisma.md`          |
+| React + Vitest       | `react-vitest`                           | `rules/frameworks/react.md`, `rules/frameworks/vitest.md`           |
+| NestJS + Prisma      | `nestjs-prisma`                          | `rules/frameworks/nestjs.md`, `rules/frameworks/prisma.md`          |
 
-> **Note**: This recommendation table will be updated as Phase 03 (tech-specific framework rules)
-> and Phase 04 (combo skills) are completed. See `README.md` for the current full skill list.
+> **Note**: See `README.md` for the current full list of available skills and rules.
 
 ### 5. Output Summary
 

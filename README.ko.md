@@ -105,7 +105,7 @@ everything-copilot-cli/
 │
 ├── skills/                        # 재사용 가능한 워크플로우 스킬 (49개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (16개)
-│   ├── development/               #   개발 스킬 (6개)
+│   ├── development/               #   개발 스킬 (9개)
 │   ├── documentation/             #   문서화 스킬 (4개)
 │   ├── security/                  #   보안 스킬 (5개)
 │   ├── testing/                   #   테스팅 스킬 (3개)
@@ -188,7 +188,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>개발 스킬 (6개)</strong></summary>
+<summary><strong>개발 스킬 (9개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -198,6 +198,9 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `fix-build-errors` | 빌드 실패 진단 및 해결 |
 | `pr-multi-perspective-review` | 6가지 관점 PR 리뷰: PM/Dev/QA/Security/DevOps/UX |
 | `refactor-clean` | 동작 보존하며 데드 코드 제거 및 로직 단순화 |
+| `nextjs-prisma` | Next.js App Router + Prisma 프로젝트의 타입 안전 데이터 페칭 및 Server Actions |
+| `react-vitest` | React + Vitest 프로젝트의 컴포넌트 테스트 설정 및 패턴 |
+| `nestjs-prisma` | NestJS + Prisma의 PrismaService 싱글톤, 레포지토리 패턴 및 단위 테스트 |
 </details>
 
 <details>
