@@ -110,6 +110,7 @@ fleet mode, plan mode, and GitHub integration.
 | [`plan-mode-mastery`](copilot-exclusive/plan-mode-mastery/SKILL.md) | Use when you want structured, approval-gated planning before execution — switches to Plan Mode for complex multi-step tasks |
 | [`session-management`](copilot-exclusive/session-management/SKILL.md) | Use when a task spans multiple steps or sessions and needs structured state tracking via the built-in SQLite session database |
 | [`team-planner`](copilot-exclusive/team-planner/SKILL.md) | Use when a task is too large or multi-domain for a single agent — assemble a specialist team with SQL tracking and /fleet dispatch |
+| [`stack-detector`](copilot-exclusive/stack-detector/SKILL.md) | Scan the project tech stack (package.json, config files, lockfiles) and recommend the most relevant skills and rules from this collection |
 
 ### 🛠 Development (`development/`)
 
@@ -123,6 +124,14 @@ Core software development skills applicable to any project.
 | [`pr-multi-perspective-review`](development/pr-multi-perspective-review/SKILL.md) | Review PRs from 6 lenses: PM / Dev / QA / Security / DevOps / UX |
 | [`refactor-clean`](development/refactor-clean/SKILL.md) | Remove dead code and simplify complex logic |
 | [`tdd-workflow`](development/tdd-workflow/SKILL.md) | Test-driven development with red-green-refactor cycles |
+
+**Combo Skills** (activate when two technologies are used together):
+
+| Skill | Description |
+|-------|-------------|
+| [`nextjs-prisma`](development/nextjs-prisma/SKILL.md) | Type-safe data fetching and Server Actions for Next.js App Router + Prisma projects |
+| [`react-vitest`](development/react-vitest/SKILL.md) | Component testing setup and patterns for React + Vitest projects |
+| [`nestjs-prisma`](development/nestjs-prisma/SKILL.md) | PrismaService singleton, repository pattern, and unit testing for NestJS + Prisma |
 
 ### 📝 Documentation (`documentation/`)
 

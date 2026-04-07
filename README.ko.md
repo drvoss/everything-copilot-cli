@@ -163,7 +163,7 @@ everything-copilot-cli/
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
 <details>
-<summary><strong>★ Copilot 전용 스킬 (15개)</strong></summary>
+<summary><strong>★ Copilot 전용 스킬 (16개)</strong></summary>
 
 GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
