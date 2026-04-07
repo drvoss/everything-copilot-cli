@@ -164,7 +164,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>★ Copilot-Exclusive Skills (15)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (16)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
