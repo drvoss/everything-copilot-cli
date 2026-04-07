@@ -115,7 +115,8 @@ everything-copilot-cli/
 │
 ├── rules/                         # 코딩 규칙 & 가이드라인
 │   ├── common/                    #   범용 규칙 (6개)
-│   └── languages/                 #   언어별 규칙: TS, Python, Go, C#, Java
+│   ├── languages/                 #   언어별 규칙: TS, Python, Go, C#, Java
+│   └── frameworks/                #   프레임워크 규칙 (7개)
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   10가지 오케스트레이션 패턴
