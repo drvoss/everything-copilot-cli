@@ -104,7 +104,7 @@ everything-copilot-cli/
 │   └── refactor-cleaner.md
 │
 ├── skills/                        # 재사용 가능한 워크플로우 스킬 (49개)
-│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (15개)
+│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (16개)
 │   ├── development/               #   개발 스킬 (6개)
 │   ├── documentation/             #   문서화 스킬 (4개)
 │   ├── security/                  #   보안 스킬 (5개)
@@ -183,6 +183,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `ide-switching` | VS Code ↔ CLI 원활한 컨텍스트 공유 |
 | `team-planner` | SQL 로스터 + `/fleet` 디스패치로 전문가 팀 구성 |
 | `agentic-engineering` | 15분 단위 작업 설계, eval-first 루프, 명시적 I/O 계약 |
+| `stack-detector` | 프로젝트 기술 스택 감지 후 컬렉션 내 관련 스킬·룰셋 추천 |
 </details>
 
 <details>

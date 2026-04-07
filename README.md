@@ -105,7 +105,7 @@ everything-copilot-cli/
 │   └── refactor-cleaner.md
 │
 ├── skills/                        # Reusable workflow skills (49 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (15)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (16)
 │   ├── development/               #   Dev skills (6)
 │   ├── documentation/             #   Doc skills (4)
 │   ├── security/                  #   Security skills (5)
@@ -184,6 +184,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `ide-switching` | Seamless VS Code ↔ CLI context sharing |
 | `team-planner` | Assemble specialist agent teams via SQL roster + `/fleet` dispatch |
 | `agentic-engineering` | Design 15-min task units, eval-first loops, and explicit I/O contracts |
+| `stack-detector` | Scan project tech stack and recommend relevant skills and rules from this collection |
 </details>
 
 <details>
