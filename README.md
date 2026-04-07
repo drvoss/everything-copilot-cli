@@ -115,7 +115,7 @@ everything-copilot-cli/
 │   └── content/                   #   Content & GEO skills (3)
 │
 ├── rules/                         # Coding rules & guidelines
-│   ├── common/                    #   Universal rules (5)
+│   ├── common/                    #   Universal rules (6)
 │   └── languages/                 #   Language-specific: TS, Python, Go, C#, Java
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
