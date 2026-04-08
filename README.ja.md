@@ -1,0 +1,477 @@
+<p align="center">
+  <img src="docs/images/copilot.svg" width="80" alt="Copilot CLI" />
+</p>
+
+<h1 align="center">everything-copilot-cli</h1>
+
+<p align="center">
+  <strong>GitHub Copilot CLI のための決定版ガイド＆設定システム</strong><br/>
+  Agents · Skills · Rules · Multi-AI Orchestration
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img src="docs/images/badge-license.svg" alt="MIT License" /></a>
+  <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
+  <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
+  <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="58 Skills" /></a>
+  <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
+</p>
+
+<p align="center">
+  <a href="README.md">English</a> ·
+  <a href="README.ko.md">한국어</a> ·
+  <a href="README.zh.md">中文</a>
+</p>
+
+---
+
+## これは何ですか？
+
+**everything-copilot-cli** は、[GitHub Copilot CLI](https://github.com/github/copilot-cli) 向けの、厳選されたコミュニティ主導の agent、再利用可能な skill、コーディングルール、MCP 設定、そして包括的なガイド集です。
+
+このプロジェクトは [everything-claude-code](https://github.com/affaan-m/everything-claude-code) の並行プロジェクトとして始まり、[awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) などのコミュニティリソースから着想を得ました。現在は独自のアイデンティティへと成長しています。焦点は、Copilot CLI を本当にユニークにする要素、すなわち **GitHub とのネイティブ統合、マルチモデルの柔軟性、そして単一ハブから他の AI coding agent をオーケストレーションできること** にあります。
+
+> **マルチAIオーケストレーションの実行者として振る舞う** — 1つのコマンドラインから Claude Code、Codex CLI、Gemini CLI などを連携できます。_（コミュニティパターン。詳しくは [Multi-AI Orchestration](#multi-ai-orchestration-) を参照してください）_
+
+---
+
+## なぜ Copilot CLI なのか？
+
+GitHub Copilot CLI には、AI 支援開発の理想的なハブとなる **11 の強み** があります。
+
+| # | 強み | 説明 |
+|---|-----------|-------------|
+| 1 | **GitHub ネイティブ統合** | Issue、PR、Actions、code search をすべて組み込み MCP で利用できます。追加設定は不要です。 |
+| 2 | **20+ モデル選択** | GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3 Pro から、task ごとに最適なモデルを選べます。 |
+| 3 | **IDE ↔ CLI のシームレス切り替え** | VS Code、JetBrains、terminal で同じ Copilot context を共有できます。 |
+| 4 | **Plan Mode** | 構造化テキストで計画できます。Copilot はコードを書く前に段階的な実装計画を作成します。 |
+| 5 | **Autopilot Mode** | ガードレール付きの自律 task 実行。_（実験的機能）_ |
+| 6 | **Background Agents** | `&` または `/delegate` で cloud Copilot agent に委任し、`/resume` でいつでも再開できます。 |
+| 7 | **Fleet Mode** | 複数 agent を同時並列で実行し、作業を分割できます。 |
+| 8 | **Session SQL Database** | session ごとに組み込み SQLite を利用でき、構造化データ、todo 追跡、状態管理が可能です。 |
+| 9 | **Cross-Session Memory** | `session_store` により永続知識を活用し、session をまたいで学習できます。 |
+| 10 | **LSP のファーストクラスサポート** | Language Server Protocol 統合により、高精度な code intelligence を実現します。 |
+| 11 | **Multi-AI Orchestrator** | Copilot をメタハブとして Claude Code、Codex、Gemini CLI をオーケストレーションできます。 |
+
+---
+
+## クイックスタート
+
+```bash
+# 1. Install GitHub Copilot CLI
+npm install -g @github/copilot
+
+# 2. Clone this repository
+git clone https://github.com/drvoss/everything-copilot-cli.git
+cd everything-copilot-cli
+
+# 3. Run setup
+npm install && npm run setup
+```
+
+その後、terminal を開き、同梱されている agent・skill・rule を使って Copilot CLI を開始します。
+
+```bash
+# Start a session in your project directory
+cd your-project
+copilot
+
+# Use the planner agent (inside the session)
+> Design a REST API for user management — use plan mode
+
+# Run TDD workflow
+> Add tests for the auth module using TDD
+
+# Orchestrate multiple AIs
+> Claude reasons architecture, Codex implements, Copilot reviews — delegate accordingly
+```
+
+> 詳細な手順は [Quick Start Guide](guides/) を参照してください。
+
+---
+
+## リポジトリ構造
+
+```
+everything-copilot-cli/
+├── agents/                        # Agent definitions (8 core agents)
+│   ├── planner.md
+│   ├── architect.md
+│   ├── code-reviewer.md
+│   ├── security-reviewer.md
+│   ├── tdd-guide.md
+│   ├── build-error-resolver.md
+│   ├── doc-updater.md
+│   └── refactor-cleaner.md
+│
+├── skills/                        # Reusable workflow skills (58 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (16)
+│   ├── development/               #   Dev skills (12)
+│   ├── documentation/             #   Doc skills (5)
+│   ├── security/                  #   Security skills (5)
+│   ├── testing/                   #   Test skills (4)
+│   ├── workflow/                  #   Workflow skills (8)
+│   ├── product/                   #   Product skills (5)
+│   └── content/                   #   Content & GEO skills (3)
+│
+├── rules/                         # Coding rules & guidelines
+│   ├── common/                    #   Universal rules (6)
+│   ├── languages/                 #   Language-specific: TS, Python, Go, C#, Java
+│   └── frameworks/                #   Framework rules (7)
+│
+├── orchestration/                 # ★ Multi-AI Orchestration
+│   ├── patterns/                  #   10 orchestration patterns
+│   ├── configs/                   #   MCP bridge configs
+│   ├── skills/                    #   Orchestration skills (6)
+│   ├── templates/                 #   Reusable orchestrator templates
+│   └── examples/                  #   Real-world examples (5)
+│
+├── guides/                        # 12 comprehensive guides
+├── mcp-configs/                   # MCP server configurations (4)
+├── examples/                      # Project-specific copilot-instructions
+│   ├── nextjs-app/
+│   ├── python-api/
+│   ├── dotnet-webapp/
+│   └── monorepo/
+│
+├── contexts/                      # Context presets
+├── schemas/                       # Validation schemas
+├── references/                    # Checklist & pattern references
+│   ├── testing-patterns.md        # AAA structure, mocking, component/API/E2E patterns
+│   ├── security-checklist.md      # OWASP Top 10, auth, input validation, security headers
+│   ├── performance-checklist.md   # Core Web Vitals, frontend/backend optimization
+│   └── accessibility-checklist.md # WCAG 2.1 AA, keyboard nav, screen reader, forms
+├── scripts/                       # Setup & migration tools
+└── tests/                         # Test suite
+```
+
+---
+
+## コアコンポーネント
+
+### エージェント（8 Core）
+
+事前設定済みの agent 定義です。それぞれが特定の役割、system prompt、tool セットを持ちます。
+
+| Agent | 目的 |
+|-------|---------|
+| **planner** | 依存関係を追跡しながら task を構造化された計画に分解します |
+| **architect** | system architecture と component 境界を設計します |
+| **code-reviewer** | bug、ロジックエラー、security 問題をレビューします |
+| **security-reviewer** | OWASP/CWE 分類に基づく security audit に特化します |
+| **tdd-guide** | Test-Driven Development workflow（red/green/refactor）を実行します |
+| **build-error-resolver** | build/compilation エラーを診断・修正します |
+| **doc-updater** | code 変更に合わせて documentation を同期します |
+| **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
+
+### スキル（合計58・8カテゴリ）
+
+カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
+
+<details>
+<summary><strong>★ Copilot 専用 Skills（16）</strong></summary>
+
+GitHub Copilot CLI 固有の機能を活用する skill です。
+
+| Skill | 説明 |
+|-------|-------------|
+| `context-prime` | session 開始時に project context（README、file tree、commit、stack）を読み込みます |
+| `session-management` | 組み込み SQLite で todo 追跡と構造化状態管理を行います |
+| `plan-mode-mastery` | 承認 workflow 付きの構造化テキスト計画を実行します |
+| `autopilot-patterns` | ガードレール付きで自律実行します |
+| `background-agent` | `&` / `/delegate` で cloud agent に委任します |
+| `fleet-parallel` | `/fleet` で並列 agent 実行を行います |
+| `github-pr-workflow` | 組み込み GitHub MCP で PR ライフサイクル全体を扱います |
+| `github-issue-triage` | Issue を一括分類・トリアージします |
+| `actions-debugging` | native Actions アクセスで CI failure をデバッグします |
+| `cross-session-memory` | session 間で知識を永続化します |
+| `multi-model-strategy` | task ごとに最適な model を選択します |
+| `mcp-ecosystem` | カスタム MCP server で拡張します |
+| `ide-switching` | VS Code ↔ CLI の context 共有をシームレスにします |
+| `team-planner` | SQL roster + `/fleet` dispatch で専門 agent チームを編成します |
+| `agentic-engineering` | 15分単位の task、eval-first ループ、明示的 I/O 契約を設計します |
+| `stack-detector` | project tech stack をスキャンし、このコレクションの関連 skill と rule を推奨します |
+</details>
+
+<details>
+<summary><strong>開発 Skills（12）</strong></summary>
+
+| Skill | 説明 |
+|-------|-------------|
+| `tdd-workflow` | Red → Green → Refactor サイクル |
+| `code-review` | 重大度レベル付きの構造化 review |
+| `fix-github-issue` | issue を読む → bug 特定 → 修正 → test → PR |
+| `fix-build-errors` | build failure を診断して解決します |
+| `pr-multi-perspective-review` | 6視点 PR review：PM / Dev / QA / Security / DevOps / UX |
+| `refactor-clean` | dead code を削除し、ロジックを安全に簡素化します |
+| `spec-driven-development` | coding 前に technical spec を作成し、interface・構造・境界を先に定義します |
+| `context-engineering` | AI agent への情報伝達を最適化し、noise を最小化、signal を最大化します |
+| `deprecation-and-migration` | 3フェーズで旧 API を安全に廃止し、新パターンへ移行します |
+
+**Combo Skills**（2つの技術を併用する場合に有効化）:
+
+| Skill | 説明 |
+|-------|-------------|
+| `nextjs-prisma` | Next.js App Router + Prisma project 向けの type-safe data fetching と Server Actions |
+| `react-vitest` | React + Vitest project 向けの component testing 設定とパターン |
+| `nestjs-prisma` | NestJS + Prisma 向けの PrismaService singleton、repository pattern、unit testing |
+</details>
+
+<details>
+<summary><strong>ドキュメント Skills（5）</strong></summary>
+
+| Skill | 説明 |
+|-------|-------------|
+| `add-to-changelog` | Keep a Changelog 形式と semver version 同期を維持します |
+| `doc-update` | 実装変更時に docs を同期します |
+| `api-documentation` | source から API docs を生成・保守します |
+| `code-tour` | codebase onboarding 用の VS Code CodeTour `.tour` file を生成します |
+| `architecture-decisions` | 取り消しづらい技術判断を Architecture Decision Records（ADR）として記録します |
+</details>
+
+<details>
+<summary><strong>セキュリティ Skills（5）</strong></summary>
+
+| Skill | 説明 |
+|-------|-------------|
+| `evaluate-repository` | 6次元 scorecard（1〜10）と remediation plan を作成します |
+| `security-scan` | OWASP Top 10 + dependency audit を実施します |
+| `secret-detection` | source と git history 内のハードコードされた secret を検出します |
+| `input-validation` | injection 攻撃（SQL、XSS、CSRF）を防止します |
+| `security-bounty-hunter` | bug bounty 観点で vuln を探索し、proof-of-concept 手順を示します |
+</details>
+
+<details>
+<summary><strong>ワークフロー Skills（8）</strong></summary>
+
+| Skill | 説明 |
+|-------|-------------|
+| `commit-workflow` | Conventional commit + emoji、atomic split ガイダンス |
+| `release` | tag → GitHub Release → publish（npm/PyPI/Docker） |
+| `sprint-workflow` | sprint 全体：Think → Plan → Build → Review → Ship |
+| `security-audit` | OWASP Top 10 + STRIDE threat modeling |
+| `sprint-retro` | git metrics に基づくデータ駆動 retro |
+| `cost-audit` | AI inference token コストを監査し、model/prompt 最適化を提案します |
+| `council` | 高リスク判断向けの 4者 adversarial decision council を開催します |
+| `deep-research` | 構造化 synthesis を伴う体系的な複数ソース調査を行います |
+</details>
+
+<details>
+<summary><strong>プロダクト Skills（5）</strong></summary>
+
+| Skill | 説明 |
+|-------|-------------|
+| `create-prd` | JTBD に基づく PRD template |
+| `feature-prioritization` | Impact × Confidence × Effort マトリクス |
+| `opportunity-solution-tree` | Teresa Torres の OST フレームワーク |
+| `launch-strategy` | Alpha → Beta → GA の launch checklist |
+| `product-capability` | 要件を AC と traceability を備えた SRS 形式の capability spec に変換します |
+</details>
+
+<details>
+<summary><strong>テスト Skills（4）</strong></summary>
+
+| Skill | 説明 |
+|-------|-------------|
+| `test-coverage` | ギャップを特定し、狙いを定めた test を作成します |
+| `e2e-testing` | 重要経路向け E2E test scaffolding |
+| `eval-harness` | SQL 追跡 test case 付きで LLM pipeline 評価スイートを構築します |
+| `browser-devtools` | 実行時 frontend 挙動を検証します（DOM 検証、network 検査、performance profiling） |
+</details>
+
+<details>
+<summary><strong>コンテンツ＆マーケティング Skills（3）</strong></summary>
+
+| Skill | 説明 |
+|-------|-------------|
+| `ai-visibility` | GEO 最適化：llms.txt、AI crawler access |
+| `content-strategy` | keyword 調査、topic cluster、content calendar |
+| `seo` | technical SEO 監査：Core Web Vitals、structured data、crawl 問題 |
+</details>
+
+### ルール
+
+コーディングルールとガイドラインは、スコープごとに整理されています。
+
+- **Common Rules** — 汎用ベストプラクティス（エラーハンドリング、logging、命名規則）
+- **Language-Specific Rules** — TypeScript、Python、Go、C#、Java
+- **Framework-Specific Rules** — Next.js、React、Prisma、Playwright、NestJS、Cloudflare Workers、Vitest
+
+### オーケストレーション
+
+マルチAIオーケストレーションシステムです（下の [専用セクション](#multi-ai-orchestration-) を参照してください）。
+
+---
+
+## ガイド
+
+| ガイド | 説明 |
+|-------|-------------|
+| **Quick Start** | 5分で利用開始できます |
+| **Shortform Guide** | 日常利用向けの簡潔なリファレンスです |
+| **Longform Guide** | 全機能を深掘りしたガイドです |
+| **Security Guide** | security のベストプラクティスとスキャン方法です |
+| **Copilot Exclusive Features** | Copilot CLI でのみ利用できる機能です |
+| **Tool Selection Guide** | task ごとに適切な AI tool を選ぶ方法です |
+| **Migration Guide** | 概念対応表付きの段階的 migration パスです |
+| **Hooks to GitHub Actions** | Claude Code Hooks の代替（Git Hooks / Actions / Prompt Guards）です |
+| **Orchestration Guide** | マルチAIオーケストレーションのパターンと設定方法です |
+| **Skill Writing Best Practices** | 実際に発火する trigger-first 記述の書き方です |
+| **Skill Testing Guide** | promptware 向けに trigger 精度と出力品質を検証する方法です |
+| **QA Agent Guide** | 境界横断比較により実バグを捕捉する QA agent 設計です |
+
+すべてのガイドは [`guides/`](guides/) ディレクトリにあります。
+
+---
+
+## マルチAIオーケストレーション ★
+
+> **コミュニティパターン。** これは GitHub Copilot CLI の公式組み込み機能ではありません。shell scripting、MCP、pipeline を使って複数 AI tool を組み合わせる、コミュニティ提案の workflow パターンです。Copilot CLI は GitHub 統合とマルチモデル対応により、便利なハブとして機能します。
+
+### アイデア
+
+1つの AI がすべてに最適とは限りません。Claude は推論、Codex は高速実装、Gemini はマルチモーダル理解、Copilot は GitHub 統合に強みがあります。これら **すべて** を1か所から使えたらどうでしょうか。
+
+```
+┌──────────────────────────────────────────────────┐
+│                GitHub Copilot CLI                │
+│            (Orchestrator / Meta-Hub)             │
+├──────────────────────────────────────────────────┤
+│                                                  │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐  │
+│  │ Claude Code│  │  Codex CLI │  │ Gemini CLI │  │
+│  │ (Reasoning)│  │(Impl./Gen.)│  │(Multimodal)│  │
+│  └────────────┘  └────────────┘  └────────────┘  │
+│                                                  │
+└──────────────────────────────────────────────────┘
+```
+
+### 5つのオーケストレーションパターン（Pattern 1〜5：cross-AI）
+
+| Pattern | 仕組み | 最適な用途 |
+|---------|-------------|----------|
+| **Shell Execution** | Copilot が shell command で他 CLI を起動します | シンプルな委任 |
+| **MCP Bridge** | Model Context Protocol server を介して agent を接続します | 構造化された tool 共有 |
+| **Message IPC** | file/pipe を使ったプロセス間通信です | リアルタイム連携 |
+| **Pipeline** | agent を順次連結し、前段の出力を次段に渡します | 多段 workflow |
+| **Agent Council** | 複数 agent が議論し、判断を投票します | 重要な意思決定 |
+
+### 追加の5パターン（チーム内オーケストレーション）
+
+| Pattern | 仕組み | 最適な用途 |
+|---------|-------------|----------|
+| **Fan-Out Parallel** | 独立した subtask を同時に dispatch します | バッチ処理 |
+| **Producer-Reviewer** | produce→review の反復フィードバックループです | 成果物の洗練 |
+| **Hierarchical Delegation** | 入れ子の orchestrator（root→domain→specialists）です | 大規模・複数ドメイン task |
+| **Iterative Refinement** | 計測可能な終了条件を持つ自己修正ループです | 品質重視の生成 |
+| **Review Trio** | PR 以外の成果物（RFC、schema、architecture）向け 3者 review です | 公開前 review |
+
+### tool の専門性
+
+オーケストレーションエコシステム内の各 AI tool には、明確な専門性があります。Copilot CLI はそれらを束ねる coordinator として機能します。
+
+| AI Tool | 専門性 | workflow での役割 |
+|---------|---------------|----------------------|
+| **Copilot CLI** | GitHub 統合 · マルチモデル柔軟性 · オーケストレーション | メタハブ / coordinator |
+| **Claude Code** | 深い推論 · 大規模 context 分析 | 推論 specialist |
+| **Codex CLI** | 高速 code 生成 · boilerplate | 実装 specialist |
+| **Gemini CLI** | マルチモーダル理解 · 視覚分析 | vision / マルチモーダル specialist |
+
+### 参考情報と実証済みフレームワーク
+
+このオーケストレーションシステムは、実運用されているマルチagentフレームワークを参考にしています。
+
+- [microsoft/autogen](https://github.com/microsoft/autogen) — Microsoft AutoGen framework
+- [crewAIInc/crewAI](https://github.com/crewAIInc/crewAI) — CrewAI role-based agents
+- [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) — LangGraph state machines
+- [geekan/MetaGPT](https://github.com/geekan/MetaGPT) — MetaGPT multi-agent SOP
+- [openai/swarm](https://github.com/openai/swarm) — OpenAI Swarm patterns
+
+> 実装の詳細は [Orchestration Guide](guides/) を参照してください。
+
+---
+
+## Copilot CLI の独自性
+
+Copilot CLI は GitHub workflow に最適化されて設計されています。標準で次の機能を利用できます。
+
+| 機能 | 詳細 |
+|-----------|---------|
+| **GitHub-Native MCP** | Issue、PR、Actions、code search を追加設定なしで利用できます |
+| **20+ Model Selection** | task ごとに GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3 Pro を切り替えられます |
+| **IDE ↔ CLI Context Sharing** | VS Code、JetBrains、terminal 間をシームレスに切り替えられます |
+| **Plan Mode** | code を書く前に承認 workflow 付きの構造化テキスト計画を行います |
+| **Autopilot Mode** | ガードレール付きの自律 task 実行 _（実験的機能）_ |
+| **Background Agents** | `&` / `/delegate` で cloud agent に委任し、`/resume` で再開します |
+| **Fleet Mode** | 複数 agent を同時並列で実行し、作業を分割します |
+| **Session SQL Database** | session ごとの組み込み SQLite で構造化状態と todo を管理します |
+| **Cross-Session Memory** | `session_store` で知識を永続化し、session をまたいで活用します |
+| **LSP Integration** | Language Server Protocol により symbol-aware な高精度 code intelligence を提供します |
+| **Multi-AI Orchestration** | 単一ハブから Claude Code、Codex、Gemini CLI を連携します |
+
+> 各機能の詳細は [Copilot Exclusive Features guide](guides/) を参照してください。
+
+---
+
+## 他ツールからの移行
+
+別の AI coding tool から移行しますか？ skill 形式はほぼ同じため、移行は容易です。
+
+```
+CLAUDE.md rules        →  .github/copilot-instructions.md
+.claude/commands/      →  skills/
+.claude/settings.json  →  mcp-configs/ & contexts/
+Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
+```
+
+migration script により、多くの作業を自動化できます。
+
+```bash
+node scripts/migrate-from-claude.js --source /path/to/your/project
+```
+
+> 詳細は [Migration Guide](guides/migration-from-claude-code.md) と [Hooks Alternatives Guide](guides/hooks-to-github-actions.md) を参照してください。
+
+---
+
+## コントリビュート
+
+コントリビューションを歓迎します！次の方法で貢献できます。
+
+1. **agent を追加** — `agents/` に新しい agent role を定義します
+2. **skill を作成** — `skills/` に再利用可能な workflow を追加します
+3. **rule を作成** — `rules/` にコーディングガイドラインを追加します
+4. **オーケストレーションパターンを共有** — `orchestration/` に貢献します
+5. **ガイドを改善** — `guides/` の documentation を強化します
+6. **example を追加** — `examples/` に実運用セットアップを追加します
+
+### 開発
+
+```bash
+# Install dependencies
+npm install
+
+# Validate configs
+npm run validate
+
+# Run tests
+npm test
+
+# Lint markdown
+npm run lint:md
+```
+
+PR を送る前に、既存ガイドを読み、確立されたパターンに従ってください。
+
+---
+
+## ライセンス
+
+[MIT](LICENSE) © Everything Copilot CLI Contributors
+
+---
+
+<p align="center">
+  <sub>GitHub Copilot CLI community のために構築 · <a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a> と <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a> に着想を得ています</sub>
+</p>
