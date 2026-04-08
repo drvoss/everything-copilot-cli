@@ -180,6 +180,7 @@ export function validate(schema: ZodSchema) {
 - [ ] File uploads validated for type, size, and path
 - [ ] Validation failures return 400 responses (no detailed internal error exposure)
 - [ ] Input validation tests cover both valid and malicious input cases
+
 ## Tips
 - **Validate at the boundary, trust internally** — validate once where input enters your system
 - Use allowlists over denylists — define what's allowed rather than what's blocked

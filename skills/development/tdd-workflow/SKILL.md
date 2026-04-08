@@ -132,6 +132,7 @@ npx jest --watch --testPathPattern="feature" # mode: async
 - [ ] Line coverage ≥80% and branch coverage ≥90% on critical paths for new code
 - [ ] Each test runs independently (no ordering dependencies)
 - [ ] Tests exist for edge cases (null, empty values, boundary values)
+
 ## Tips
 - Write the **assertion first**, then work backward to the setup
 - Each test should verify **one behavior** — keep tests small and descriptive

@@ -168,6 +168,7 @@ For new features or significant changes, apply STRIDE before scanning:
 - [ ] OWASP Top 10 checklist completed
 - [ ] Server-side validation present for all user inputs
 - [ ] Security headers verified (CSP, HSTS, X-Frame-Options)
+
 ## Tips
 
 - Run `npm audit` in CI to catch new vulnerabilities automatically

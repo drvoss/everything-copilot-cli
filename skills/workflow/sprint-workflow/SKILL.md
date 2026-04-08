@@ -211,6 +211,7 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 - [ ] All PRs merged by sprint end passed code review
 - [ ] `sprint-retro` skill used for a data-driven retrospective
 - [ ] Next sprint backlog prepared
+
 ## Tips
 
 - **Plan Mode is not optional** for features > 1 file. It prevents costly mid-build corrections.

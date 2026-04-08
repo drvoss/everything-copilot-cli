@@ -123,6 +123,7 @@ prompt: "Review changes between main and the current branch. Focus on correctnes
 - [ ] Auth/authorization code was reviewed from a security perspective
 - [ ] New logic has corresponding tests
 - [ ] Reviewed the full `git --no-pager diff main...HEAD`
+
 ## Tips
 - Review tests first — they document the intended behavior
 - Read the PR description/issue before the code to understand intent

@@ -149,6 +149,7 @@ function process(input) {
 - [ ] Complexity metrics improved (reduced function length, nesting depth)
 - [ ] Refactor commit contains no feature changes (commit message: `refactor:`)
 - [ ] PR describes the motivation for the refactor (why this code was cleaned up)
+
 ## Tips
 - **Never refactor and add features in the same commit** — keep them separate
 - Use `explore` agent to understand call graphs before renaming or moving functions

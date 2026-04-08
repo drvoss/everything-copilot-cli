@@ -168,6 +168,7 @@ prompt: "Run 'npm test -- --coverage' and report the coverage summary. List any 
 - [ ] Tests exist for all error handling paths
 - [ ] Uncovered lines in the coverage report have been reviewed
 - [ ] Files/paths excluded from coverage are documented
+
 ## Tips
 - **Don't chase 100%** — aim for 80%+ overall, 90%+ on critical paths
 - Cover **branches**, not just lines — branch coverage catches more bugs

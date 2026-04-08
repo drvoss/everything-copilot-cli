@@ -230,6 +230,7 @@ gh release create "v1.2.0" --generate-notes
 - [ ] Git tag created in `v{version}` format
 - [ ] GitHub Release notes written
 - [ ] npm/PyPI/Registry publish confirmed successful
+
 ## Tips
 
 - **`--generate-notes` is your friend**: `gh release create` can auto-generate notes from merged PRs since the last tag — combine with CHANGELOG for best results

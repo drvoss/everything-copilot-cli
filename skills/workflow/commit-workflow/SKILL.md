@@ -174,6 +174,7 @@ Update .env files and CI secrets before deploying."
 - [ ] Each commit contains exactly one logical change
 - [ ] Breaking changes are marked with `BREAKING CHANGE:`
 - [ ] `git log --oneline` tells a readable story of the changes
+
 ## Tips
 
 - **Check `git log --oneline` after** — if you can't parse the history at a glance, the messages need work

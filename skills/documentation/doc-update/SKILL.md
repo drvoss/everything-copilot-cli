@@ -141,6 +141,7 @@ grep -rn "utils" docs/ --include="*.md"
 - [ ] README code examples run successfully on the current version
 - [ ] Breaking changes are recorded in the CHANGELOG
 - [ ] New environment variables or configuration options are documented
+
 ## Tips
 - Update docs **in the same PR** as code changes — don't defer it
 - Write docs for your audience: READMEs for users, inline docs for developers
