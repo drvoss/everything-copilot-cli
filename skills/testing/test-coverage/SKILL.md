@@ -146,6 +146,29 @@ task agent_type: "task"
 prompt: "Run 'npm test -- --coverage' and report the coverage summary. List any files below 80% line coverage."
 ```
 
+## Common Rationalizations
+
+| Rationalization | Reality |
+|----------------|---------|
+| "커버리지 80%면 충분하다" | 80%는 최소치다. 어떤 20%를 커버하지 않는지가 더 중요하다. |
+| "커버리지 100%는 비실용적이다" | 핵심 비즈니스 로직과 보안 코드는 100% 브랜치 커버리지가 목표다. |
+| "커버리지가 높으니 품질이 좋다" | 커버리지는 실행된 줄을 측정하지, assertion 품질을 측정하지 않는다. |
+| "이 파일은 테스트하기 어렵다" | 테스트하기 어려운 코드는 나쁜 설계의 신호다. 인터페이스를 개선해야 한다. |
+
+## Red Flags
+- 커버리지 숫자는 높지만 assertion이 없는 테스트 (`expect(true).toBe(true)`)
+- 에러 경로 (catch 블록, 실패 케이스)에 테스트가 없음
+- 새 기능 추가 시 커버리지가 하락함
+- 테스트 파일이 소스 파일보다 훨씬 적음
+- Happy path만 테스트하고 edge case 없음
+
+## Verification
+- [ ] `npm run coverage` 결과가 베이스라인 이상 유지
+- [ ] 새로 추가된 파일의 커버리지 ≥80%
+- [ ] 모든 에러 처리 경로에 테스트 존재
+- [ ] 커버리지 리포트에서 미커버 라인 검토 완료
+- [ ] 커버리지에서 제외된 파일/경로가 문서화됨
+
 ## Tips
 - **Don't chase 100%** — aim for 80%+ overall, 90%+ on critical paths
 - Cover **branches**, not just lines — branch coverage catches more bugs

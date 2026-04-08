@@ -189,6 +189,29 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 # - No debug code or temporary files
 ```
 
+## Common Rationalizations
+
+| Rationalization | Reality |
+|----------------|---------|
+| "계획 단계를 건너뛰고 바로 코딩하겠다" | 계획 없이 시작한 스프린트는 중간에 방향을 잃는다. Plan Mode를 1시간 쓰면 3시간을 아낀다. |
+| "리뷰는 다음 스프린트에" | 리뷰 없이 완료된 기능은 기술 부채를 쌓는다. Done의 정의에 리뷰가 포함되어야 한다. |
+| "테스트는 기능 안정화 후에" | 안정화 시점은 없다. 기능이 출시되면 테스트 추가 시간은 사라진다. |
+| "스프린트 마감이 다가와서 품질을 낮추겠다" | 낮은 품질로 '완료'된 기능은 다음 스프린트에 버그로 돌아온다. |
+
+## Red Flags
+- Done의 정의 없이 스프린트 시작
+- 스프린트 내 테스트 없는 기능 머지
+- 회고(Retro) 없이 다음 스프린트 바로 시작
+- 스프린트 목표가 없거나 너무 많음 (5개 이상)
+- PR 리뷰 없이 직접 main 머지
+
+## Verification
+- [ ] 스프린트 목표가 1~3개 문장으로 명확히 정의됨
+- [ ] 모든 태스크에 완료 기준(acceptance criteria)이 있음
+- [ ] 스프린트 종료 시 모든 머지된 PR이 리뷰를 통과함
+- [ ] `sprint-retro` 스킬로 데이터 기반 회고 수행됨
+- [ ] 다음 스프린트 백로그 준비됨
+
 ## Tips
 
 - **Plan Mode is not optional** for features > 1 file. It prevents costly mid-build corrections.

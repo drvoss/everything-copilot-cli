@@ -121,6 +121,27 @@ grep -rn "utils" docs/ --include="*.md"
 # Use edit tool on each file to update references
 ```
 
+## Common Rationalizations
+
+| Rationalization | Reality |
+|----------------|---------|
+| "코드가 곧 문서다" | 코드는 '무엇'을 설명한다. 문서는 '왜'를 설명한다. 둘은 보완 관계다. |
+| "바빠서 나중에 문서 업데이트하겠다" | 다음 PR이 나오면 컨텍스트를 잃는다. 문서는 변경과 함께 업데이트한다. |
+| "내부 API라서 문서가 필요 없다" | 3개월 후의 자신도 내부 API 사용자다. |
+| "README는 이미 최신이다" | 마지막 README 업데이트와 마지막 코드 변경을 비교해봐라. |
+
+## Red Flags
+- 코드 변경 PR에 문서 업데이트가 없음
+- README의 예시 코드가 현재 API와 불일치
+- CHANGELOG에 기록되지 않은 breaking change
+- 제거된 기능이 문서에 여전히 존재
+
+## Verification
+- [ ] 변경된 public API에 대응하는 문서 업데이트 존재
+- [ ] README의 예시 코드가 현재 버전에서 실행 가능
+- [ ] Breaking change는 CHANGELOG에 기록됨
+- [ ] 새 환경 변수/설정 항목이 문서화됨
+
 ## Tips
 - Update docs **in the same PR** as code changes — don't defer it
 - Write docs for your audience: READMEs for users, inline docs for developers

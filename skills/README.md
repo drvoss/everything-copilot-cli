@@ -119,10 +119,13 @@ Core software development skills applicable to any project.
 | Skill | Description |
 |-------|-------------|
 | [`code-review`](development/code-review/SKILL.md) | Structured code review for quality and correctness |
+| [`context-engineering`](development/context-engineering/SKILL.md) | Optimize information delivery to AI agents — minimize noise, maximize signal |
+| [`deprecation-and-migration`](development/deprecation-and-migration/SKILL.md) | Safely remove old APIs and migrate to new patterns with a 3-phase process |
 | [`fix-build-errors`](development/fix-build-errors/SKILL.md) | Diagnose and fix build failures fast |
 | [`fix-github-issue`](development/fix-github-issue/SKILL.md) | Resolve a GitHub Issue end-to-end: read → locate → fix → test → PR |
 | [`pr-multi-perspective-review`](development/pr-multi-perspective-review/SKILL.md) | Review PRs from 6 lenses: PM / Dev / QA / Security / DevOps / UX |
 | [`refactor-clean`](development/refactor-clean/SKILL.md) | Remove dead code and simplify complex logic |
+| [`spec-driven-development`](development/spec-driven-development/SKILL.md) | Write a technical spec before coding — defines interface, structure, and boundaries first |
 | [`tdd-workflow`](development/tdd-workflow/SKILL.md) | Test-driven development with red-green-refactor cycles |
 
 **Combo Skills** (activate when two technologies are used together):
@@ -141,6 +144,7 @@ Skills for keeping docs accurate and up-to-date.
 |-------|-------------|
 | [`add-to-changelog`](documentation/add-to-changelog/SKILL.md) | Add versioned entries to CHANGELOG.md (Keep a Changelog format) |
 | [`api-documentation`](documentation/api-documentation/SKILL.md) | Generate and maintain API documentation |
+| [`architecture-decisions`](documentation/architecture-decisions/SKILL.md) | Document hard-to-reverse technical decisions as Architecture Decision Records (ADRs) |
 | [`code-tour`](documentation/code-tour/SKILL.md) | Use when a user asks for a code tour, onboarding walkthrough, architecture tour, or PR tour — creates persona-targeted `.tour` files with real file and line anchors |
 | [`doc-update`](documentation/doc-update/SKILL.md) | Sync documentation when implementation changes |
 
@@ -162,6 +166,7 @@ Skills for improving test coverage and quality.
 
 | Skill | Description |
 |-------|-------------|
+| [`browser-devtools`](testing/browser-devtools/SKILL.md) | Verify frontend behavior at runtime — DOM validation, network inspection, performance profiling |
 | [`e2e-testing`](testing/e2e-testing/SKILL.md) | Write and run end-to-end tests |
 | [`eval-harness`](testing/eval-harness/SKILL.md) | Use when you need to evaluate an LLM pipeline or AI feature systematically — sets up test cases, scoring rubrics, and pass/fail tracking |
 | [`test-coverage`](testing/test-coverage/SKILL.md) | Analyze and improve test coverage |

@@ -146,6 +146,29 @@ For new features or significant changes, apply STRIDE before scanning:
 | 🟡 **Medium** | 4.0–6.9 | Missing rate limiting, weak crypto | Fix next sprint |
 | 🔵 **Low** | 0.1–3.9 | Verbose error messages, info disclosure | Backlog |
 
+## Common Rationalizations
+
+| Rationalization | Reality |
+|----------------|---------|
+| "내부 도구라서 보안이 덜 중요하다" | 내부 도구가 침해되면 모든 내부 시스템에 접근할 수 있다. |
+| "의존성은 검증된 것들이라 괜찮다" | npm/PyPI 패키지의 공급망 공격은 지속적으로 발생한다. |
+| "입력 검증은 프론트에서 했다" | 프론트엔드 검증은 UX용이다. 백엔드 검증은 보안이다. |
+| "SQL injection은 ORM 쓰니까 안전하다" | Raw query, dynamic query, ORM 오용은 여전히 취약하다. |
+
+## Red Flags
+- `eval()`, `exec()`, `subprocess(shell=True)` 사용
+- SQL 쿼리에 문자열 연결 (f-string, + 연산자)
+- 소스 코드에 API 키, 비밀번호 하드코딩
+- `npm audit`에서 Critical 취약점이 무시됨
+- CORS에 `*` 와일드카드 사용
+
+## Verification
+- [ ] `npm audit --audit-level=high` 또는 `pip-audit` 결과 0건
+- [ ] 소스 코드에 시크릿 없음 (`secret-detection` 스킬 실행)
+- [ ] OWASP Top 10 항목별 체크 완료
+- [ ] 모든 사용자 입력에 서버 사이드 검증 존재
+- [ ] 보안 헤더 설정 확인 (CSP, HSTS, X-Frame-Options)
+
 ## Tips
 
 - Run `npm audit` in CI to catch new vulnerabilities automatically

@@ -153,6 +153,28 @@ BREAKING CHANGE: rename environment variable API_KEY → COPILOT_API_KEY.
 Update .env files and CI secrets before deploying."
 ```
 
+## Common Rationalizations
+
+| Rationalization | Reality |
+|----------------|---------|
+| "빠르게 커밋하고 나중에 메시지 정리하겠다" | 나중에 정리한 커밋은 원래 맥락을 잃는다. 커밋 시점의 의도가 가장 명확하다. |
+| "WIP 커밋은 나중에 squash할 것이다" | Squash 없이 PR이 머지되는 경우가 더 많다. 처음부터 의미있는 커밋을 만들어라. |
+| "커밋 메시지는 아무도 안 읽는다" | `git log`, `git blame`, `git bisect`는 모두 커밋 메시지에 의존한다. |
+| "작은 변경이라 타입 분류가 필요 없다" | 소규모 변경일수록 타입 분류가 쉽다. 분류하지 않으면 changelog가 불가능하다. |
+
+## Red Flags
+- `fix`, `update`, `changes`, `stuff` 같은 의미없는 커밋 메시지
+- 하나의 커밋에 관련 없는 여러 변경사항 묶음
+- 커밋 메시지에 이슈/PR 참조 없음
+- 수백 줄 변경이 "minor fix"로 커밋됨
+- 테스트와 구현이 별도 커밋 (같은 기능이면 함께 커밋)
+
+## Verification
+- [ ] 커밋 메시지가 Conventional Commits 형식을 따름 (`type(scope): description`)
+- [ ] 각 커밋이 하나의 논리적 변경만 포함
+- [ ] Breaking change가 있으면 `BREAKING CHANGE:` 표기
+- [ ] `git log --oneline` 으로 봤을 때 변경 히스토리가 읽힘
+
 ## Tips
 
 - **Check `git log --oneline` after** — if you can't parse the history at a glance, the messages need work
