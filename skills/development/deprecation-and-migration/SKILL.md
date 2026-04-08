@@ -29,8 +29,11 @@ metadata:
 # 제거할 심볼의 모든 사용처 찾기
 grep -rn "oldFunction\|OldClass\|OLD_CONSTANT" src/ --include="*.ts"
 
-# 외부 소비자 확인 (공개 API인 경우)
-grep -rn "from.*package-name" node_modules/ 2>/dev/null | head -20
+# 외부 소비자 확인 (공개 npm 패키지인 경우)
+# npm 레지스트리에서 역의존성 확인
+open https://www.npmjs.com/package/your-package-name?activeTab=dependents
+# 또는 GitHub에서 usage 검색
+gh search code "from 'your-package-name'" --limit 20
 ```
 
 ### 2. 3단계 Deprecation 프로세스

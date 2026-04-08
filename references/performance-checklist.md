@@ -77,6 +77,14 @@ npx webpack-bundle-analyzer stats.json
 ANALYZE=true next build
 ```
 
+```javascript
+// Web Vitals 라이브러리 (런타임 측정)
+import { onCLS, onINP, onLCP } from 'web-vitals';
+onCLS(console.log);
+onINP(console.log);
+onLCP(console.log);
+```
+
 ---
 
 ## 프로파일링 체크리스트

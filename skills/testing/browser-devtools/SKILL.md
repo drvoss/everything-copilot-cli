@@ -15,6 +15,11 @@ metadata:
 - 접근성 문제를 런타임에서 확인할 때
 - Playwright 테스트 작성 전 동작을 수동으로 탐색할 때
 
+## Prerequisites
+- 브라우저에서 접근 가능한 실행 중인 앱 (로컬 또는 스테이징)
+- Chrome 또는 Edge DevTools 접근 권한
+- 테스트하려는 기능 또는 버그 재현 방법 파악
+
 ## Workflow
 
 ### 1. DOM 상태 검증
@@ -57,12 +62,26 @@ window.fetch = function(...args) {
 ### 3. Performance 탭 — Core Web Vitals 측정
 
 ```javascript
-// Console에서 실시간 측정
+// CLS 측정 (layout-shift)
+new PerformanceObserver((list) => {
+  let cls = 0;
+  list.getEntries().forEach(entry => { if (!entry.hadRecentInput) cls += entry.value; });
+  console.log('CLS:', cls);
+}).observe({ entryTypes: ['layout-shift'] });
+
+// LCP 측정
+new PerformanceObserver((list) => {
+  const entries = list.getEntries();
+  const lcp = entries[entries.length - 1];
+  console.log('LCP:', lcp.startTime, 'ms');
+}).observe({ entryTypes: ['largest-contentful-paint'] });
+
+// Long Task 측정 (INP 프록시)
 new PerformanceObserver((list) => {
   list.getEntries().forEach(entry => {
-    console.log(entry.entryType, entry.name, entry.value || entry.duration);
+    console.log('Long task:', entry.duration, 'ms');
   });
-}).observe({ entryTypes: ['largest-contentful-paint', 'layout-shift', 'longtask'] });
+}).observe({ entryTypes: ['longtask'] }); // Chrome 지원; 다른 브라우저는 'long-animation-frame' 사용
 ```
 
 목표치:

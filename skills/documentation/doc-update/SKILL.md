@@ -125,23 +125,22 @@ grep -rn "utils" docs/ --include="*.md"
 
 | Rationalization | Reality |
 |----------------|---------|
-| "코드가 곧 문서다" | 코드는 '무엇'을 설명한다. 문서는 '왜'를 설명한다. 둘은 보완 관계다. |
-| "바빠서 나중에 문서 업데이트하겠다" | 다음 PR이 나오면 컨텍스트를 잃는다. 문서는 변경과 함께 업데이트한다. |
-| "내부 API라서 문서가 필요 없다" | 3개월 후의 자신도 내부 API 사용자다. |
-| "README는 이미 최신이다" | 마지막 README 업데이트와 마지막 코드 변경을 비교해봐라. |
+| "The code is the documentation" | Code explains *what*. Documentation explains *why*. They're complementary, not interchangeable. |
+| "Too busy, I'll update docs later" | Context is lost by the next PR. Update docs alongside the change. |
+| "It's an internal API, no docs needed" | Your future self in 3 months is also an internal API consumer. |
+| "The README is already up to date" | Compare the last README update timestamp to the last code change. |
 
 ## Red Flags
-- 코드 변경 PR에 문서 업데이트가 없음
-- README의 예시 코드가 현재 API와 불일치
-- CHANGELOG에 기록되지 않은 breaking change
-- 제거된 기능이 문서에 여전히 존재
+- Code change PRs with no documentation update
+- README examples that don't match the current API
+- Breaking changes not recorded in the CHANGELOG
+- Removed features still present in the documentation
 
 ## Verification
-- [ ] 변경된 public API에 대응하는 문서 업데이트 존재
-- [ ] README의 예시 코드가 현재 버전에서 실행 가능
-- [ ] Breaking change는 CHANGELOG에 기록됨
-- [ ] 새 환경 변수/설정 항목이 문서화됨
-
+- [ ] Documentation update exists for every changed public API
+- [ ] README code examples run successfully on the current version
+- [ ] Breaking changes are recorded in the CHANGELOG
+- [ ] New environment variables or configuration options are documented
 ## Tips
 - Update docs **in the same PR** as code changes — don't defer it
 - Write docs for your audience: READMEs for users, inline docs for developers
@@ -149,3 +148,4 @@ grep -rn "utils" docs/ --include="*.md"
 - Use `task` agent to run documented commands and verify they produce expected output
 - Keep a CHANGELOG.md updated with each release
 - If a doc is consistently wrong, consider generating it from code (e.g., API docs from schemas)
+

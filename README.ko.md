@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="53 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="58 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -103,12 +103,12 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (53개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (58개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (16개)
-│   ├── development/               #   개발 스킬 (9개)
-│   ├── documentation/             #   문서화 스킬 (4개)
+│   ├── development/               #   개발 스킬 (12개)
+│   ├── documentation/             #   문서화 스킬 (5개)
 │   ├── security/                  #   보안 스킬 (5개)
-│   ├── testing/                   #   테스팅 스킬 (3개)
+│   ├── testing/                   #   테스팅 스킬 (4개)
 │   ├── workflow/                  #   워크플로우 스킬 (8개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
@@ -135,6 +135,11 @@ everything-copilot-cli/
 │
 ├── contexts/                      # 컨텍스트 프리셋
 ├── schemas/                       # 검증 스키마
+├── references/                    # 체크리스트 & 패턴 레퍼런스
+│   ├── testing-patterns.md        # AAA 구조, mock 전략, 컴포넌트/API/E2E 패턴
+│   ├── security-checklist.md      # OWASP Top 10, 인증, 입력 검증, 보안 헤더
+│   ├── performance-checklist.md   # Core Web Vitals, 프론트/백엔드 최적화
+│   └── accessibility-checklist.md # WCAG 2.1 AA, 키보드 내비게이션, 스크린 리더
 ├── scripts/                       # 셋업 & 마이그레이션 도구
 └── tests/                         # 테스트 스위트
 ```
@@ -158,7 +163,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 53개 · 8개 카테고리)
+### 스킬 (총 58개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -188,7 +193,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>개발 스킬 (9개)</strong></summary>
+<summary><strong>개발 스킬 (12개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -198,6 +203,9 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `fix-build-errors` | 빌드 실패 진단 및 해결 |
 | `pr-multi-perspective-review` | 6가지 관점 PR 리뷰: PM/Dev/QA/Security/DevOps/UX |
 | `refactor-clean` | 동작 보존하며 데드 코드 제거 및 로직 단순화 |
+| `spec-driven-development` | 코드 작성 전 기술 스펙 작성 — 인터페이스와 경계를 먼저 확정 |
+| `context-engineering` | AI 에이전트 태스크를 위한 컨텍스트 최적화 — 노이즈 최소화, 시그널 극대화 |
+| `deprecation-and-migration` | 3단계 프로세스로 구 API를 안전하게 제거하고 새 패턴으로 마이그레이션 |
 
 **콤보 스킬** (두 기술을 함께 사용할 때 활성화):
 
@@ -209,7 +217,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>문서화 스킬 (4개)</strong></summary>
+<summary><strong>문서화 스킬 (5개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -217,6 +225,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `doc-update` | 구현 변경 시 문서 동기화 |
 | `api-documentation` | 소스 코드에서 API 문서 생성 및 유지 |
 | `code-tour` | 코드베이스 온보딩용 VS Code CodeTour `.tour` 파일 생성 |
+| `architecture-decisions` | 되돌리기 어려운 기술적 결정을 ADR로 문서화 |
 </details>
 
 <details>
@@ -242,7 +251,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `security-audit` | OWASP Top 10 + STRIDE 위협 모델링 |
 | `sprint-retro` | git 메트릭을 활용한 데이터 기반 회고 |
 | `cost-audit` | AI 토큰 비용 감사 및 모델/프롬프트 최적화 권고 |
-| `council` | 고위험 의사결정을 위한 4개 관점 적대적 토론 패널 |
+| `council` | 고위험 의사결정을 위한 네 가지 관점 적대적 토론 패널 |
 | `deep-research` | 체계적 멀티소스 리서치 및 구조화 합성 |
 </details>
 
@@ -259,13 +268,14 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>테스팅 스킬 (3개)</strong></summary>
+<summary><strong>테스팅 스킬 (4개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `test-coverage` | 커버리지 갭 식별 및 타겟 테스트 작성 |
 | `e2e-testing` | 핵심 사용자 경로 E2E 테스트 스캐폴딩 |
-| `eval-harness` | SQL 추적 테스트 케이스로 LLM 파이프라인 평가 하네스 구축 |
+| `eval-harness` | SQL 추적 테스트 케이스로 LLM 파이프라인 평가 스위트 구축 |
+| `browser-devtools` | 브라우저 DevTools로 런타임 DOM, 네트워크, 성능 검증 |
 </details>
 
 <details>

@@ -213,24 +213,23 @@ gh release create "v1.2.0" --generate-notes
 
 | Rationalization | Reality |
 |----------------|---------|
-| "CHANGELOG는 나중에 채우겠다" | 릴리즈 후 CHANGELOG 작성은 커밋 히스토리를 해석해야 한다. 릴리즈 전에 작성한다. |
-| "버전을 올릴 필요 없이 패치만 배포한다" | 버전 없이 배포하면 어떤 버전이 프로덕션에 있는지 알 수 없다. |
-| "테스트는 이미 다 통과했다" | 마지막 테스트 이후 머지된 변경사항이 있을 수 있다. 릴리즈 전 full test run을 실행한다. |
-| "Hotfix라서 프로세스를 생략한다" | Hotfix일수록 프로세스를 따른다. 패닉 상태의 변경이 더 많은 문제를 만든다. |
+| "I'll fill in the CHANGELOG after release" | Writing the CHANGELOG post-release requires interpreting commit history. Write it before releasing. |
+| "Just patch it without bumping the version" | Without a version bump, you can't tell which version is running in production. |
+| "Tests already passed" | There may be changes merged since the last test run. Execute a full test run immediately before release. |
+| "It's a hotfix, skip the process" | Especially for hotfixes, follow the process. Panicked changes create more problems. |
 
 ## Red Flags
-- 버전 태그 없이 main에 바로 배포
-- CHANGELOG가 "various fixes"처럼 모호한 내용으로만 채워짐
-- 릴리즈 전 smoke test 없음
-- Semantic versioning 규칙 위반 (breaking change인데 patch 버전 올림)
+- Deploying directly to main without a version tag
+- CHANGELOG filled only with vague entries like "various fixes"
+- No smoke test before release
+- Semantic versioning violations (bumping patch version for a breaking change)
 
 ## Verification
-- [ ] `npm test` (또는 CI) 전체 통과 확인
-- [ ] CHANGELOG에 이번 버전 변경사항 기록됨 (breaking change 명시)
-- [ ] git tag가 `v{version}` 형식으로 생성됨
-- [ ] GitHub Release 노트 작성 완료
-- [ ] npm/PyPI/Registry 배포 성공 확인
-
+- [ ] `npm test` (or CI) fully passes
+- [ ] CHANGELOG records this version's changes (breaking changes explicitly noted)
+- [ ] Git tag created in `v{version}` format
+- [ ] GitHub Release notes written
+- [ ] npm/PyPI/Registry publish confirmed successful
 ## Tips
 
 - **`--generate-notes` is your friend**: `gh release create` can auto-generate notes from merged PRs since the last tag — combine with CHANGELOG for best results
@@ -242,6 +241,7 @@ gh release create "v1.2.0" --generate-notes
 ## See Also
 
 - [`add-to-changelog`](../../documentation/add-to-changelog/SKILL.md) — prepare CHANGELOG before releasing
-- [`commit-workflow`](./commit-workflow/SKILL.md) — the start of the pipeline
+- [`commit-workflow`](../commit-workflow/SKILL.md) — the start of the pipeline
 - [Semantic Versioning](https://semver.org/)
 - [GitHub Releases docs](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
+

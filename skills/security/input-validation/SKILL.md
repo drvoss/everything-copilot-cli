@@ -162,25 +162,24 @@ export function validate(schema: ZodSchema) {
 
 | Rationalization | Reality |
 |----------------|---------|
-| "프론트에서 이미 검증했다" | HTTP 요청은 브라우저를 거치지 않고도 직접 보낼 수 있다. |
-| "내부 API라서 신뢰할 수 있다" | 내부 서비스도 침해될 수 있다. Zero trust 원칙을 적용한다. |
-| "TypeScript가 타입을 보장해준다" | TypeScript는 컴파일 타임 타입이다. 런타임 입력은 `unknown`으로 처리해야 한다. |
-| "Zod/joi/yup를 쓰니까 됐다" | 검증 라이브러리가 있어도 스키마가 잘못되면 의미없다. |
+| "Frontend already validated it" | HTTP requests can be sent directly without going through a browser. |
+| "It's an internal API, we can trust it" | Internal services can be compromised too. Apply zero trust principles. |
+| "TypeScript ensures type safety" | TypeScript types are compile-time only. Runtime input must be treated as `unknown`. |
+| "We use Zod/joi/yup, so we're covered" | Validation libraries are only as good as the schema. A wrong schema is still wrong. |
 
 ## Red Flags
-- 사용자 입력을 SQL 쿼리에 직접 사용
-- `JSON.parse()` 결과를 검증 없이 사용
-- 파일 경로에 사용자 입력 포함 (path traversal 가능)
-- `parseInt()`, `parseFloat()` 결과를 `NaN` 체크 없이 사용
-- 정규식이 ReDoS에 취약한 패턴 (`(a+)+`, `([a-zA-Z]+)*`)
+- User input used directly in SQL queries
+- `JSON.parse()` results used without validation
+- User input included in file paths (path traversal risk)
+- `parseInt()` or `parseFloat()` results used without `NaN` checks
+- Regex patterns vulnerable to ReDoS (`(a+)+`, `([a-zA-Z]+)*`)
 
 ## Verification
-- [ ] 모든 API 엔드포인트 입력에 서버 사이드 검증 존재
-- [ ] 파라미터화된 쿼리 또는 ORM 사용 (raw string interpolation 없음)
-- [ ] 파일 업로드 시 타입, 크기, 경로 모두 검증
-- [ ] 검증 실패 시 400 응답 (상세 내부 오류 노출 없음)
-- [ ] 입력 검증 테스트 (정상 케이스 + 악의적 입력 케이스) 존재
-
+- [ ] Server-side validation present for all API endpoint inputs
+- [ ] Parameterized queries or ORM used (no raw string interpolation)
+- [ ] File uploads validated for type, size, and path
+- [ ] Validation failures return 400 responses (no detailed internal error exposure)
+- [ ] Input validation tests cover both valid and malicious input cases
 ## Tips
 - **Validate at the boundary, trust internally** — validate once where input enters your system
 - Use allowlists over denylists — define what's allowed rather than what's blocked
@@ -189,3 +188,4 @@ export function validate(schema: ZodSchema) {
 - Set `Content-Security-Policy` headers to prevent XSS at the browser level
 - Never trust client-side validation alone — always validate server-side
 - Use `explore` agent to trace how user input flows through the application
+

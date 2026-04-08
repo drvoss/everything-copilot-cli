@@ -131,25 +131,24 @@ function process(input) {
 
 | Rationalization | Reality |
 |----------------|---------|
-| "이 코드가 뭔지 모르지만 안 쓰이는 것 같다" | 확실히 모른다면 제거하지 않는다. `git blame`으로 맥락을 파악한다. (Chesterton's Fence) |
-| "리팩터를 하면서 기능도 같이 추가하겠다" | 리팩터와 기능 추가를 분리한다. 두 개를 동시에 하면 디버깅이 불가능해진다. |
-| "테스트가 통과하니까 리팩터가 맞다" | 리팩터 전에 테스트가 있어야 의미있다. 테스트가 없다면 먼저 작성한다. |
-| "타입스크립트가 경고 안 하면 지워도 된다" | 동적 import, reflection, 외부 참조는 타입 시스템이 감지 못한다. |
+| "I'm not sure what this code does, but it looks unused" | If you're not sure, don't remove it. Use `git blame` to understand the context first. (Chesterton's Fence) |
+| "I'll add a feature while refactoring" | Separate refactoring from feature work. Mixing the two makes debugging impossible. |
+| "Tests still pass, so the refactor is correct" | Tests must exist before refactoring to have any meaning. If not, write them first. |
+| "TypeScript isn't warning, so it's safe to delete" | Dynamic imports, reflection, and external references are invisible to the type system. |
 
 ## Red Flags
-- 리팩터 커밋에 기능 변경이 포함됨
-- Dead code 제거 후 테스트 없음
-- `// @ts-ignore`나 `any` 타입으로 타입 오류 회피
-- 리팩터 전후 동일한 테스트를 통과하는지 확인 안 함
-- "나중에 정리하겠다"는 TODO 없이 복잡한 코드 방치
+- Refactoring commit contains feature changes
+- Dead code removed without any tests
+- Type errors suppressed with `// @ts-ignore` or `any` types
+- No verification that the same tests pass before and after refactoring
+- Complex code left with "clean up later" TODO and no action
 
 ## Verification
-- [ ] 리팩터 전후 `npm test` 동일하게 통과
-- [ ] 제거된 코드가 실제 미사용임을 확인 (`grep -rn` 또는 IDE 참조 검색)
-- [ ] 복잡도 지표 개선 (함수 길이, 중첩 깊이 감소)
-- [ ] 리팩터 커밋에 기능 변경 없음 (커밋 메시지: `refactor:`)
-- [ ] PR에 리팩터 동기 명시 (왜 이 코드를 정리했는가)
-
+- [ ] `npm test` passes identically before and after the refactor
+- [ ] Removed code confirmed as unused (`grep -rn` or IDE reference search)
+- [ ] Complexity metrics improved (reduced function length, nesting depth)
+- [ ] Refactor commit contains no feature changes (commit message: `refactor:`)
+- [ ] PR describes the motivation for the refactor (why this code was cleaned up)
 ## Tips
 - **Never refactor and add features in the same commit** — keep them separate
 - Use `explore` agent to understand call graphs before renaming or moving functions
@@ -157,3 +156,4 @@ function process(input) {
 - If tests are missing, write them first — refactoring without tests is gambling
 - Commit after every successful small refactoring — you can always squash later
 - The best refactoring is deleting code: look for dead code with `grep` and remove it
+

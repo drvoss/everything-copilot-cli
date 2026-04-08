@@ -20,6 +20,11 @@ metadata:
 - 일상적인 구현 결정 (어떤 변수명을 쓸지 등)
 - 명확히 옳은 선택이 있는 경우
 
+## Prerequisites
+- 결정해야 할 기술적 선택지가 2개 이상 있음
+- 팀에 결정 내용을 전달해야 하거나, 나중에 이 결정의 근거가 필요한 상황
+- `docs/decisions/` 디렉토리 (없으면 생성)
+
 ## Workflow
 
 ### 1. ADR 파일 생성
@@ -43,7 +48,7 @@ ls docs/decisions/*.md 2>/dev/null | wc -l
 **상태**: Proposed | Accepted | Deprecated | Superseded by ADR-NNN
 
 ## Context (배경)
-이 결정이 필요하게 된 상황, 제약 조건, 고려해야 할 힘들.
+이 결정이 필요하게 된 상황, 제약 조건, 고려해야 할 영향 요소들.
 
 ## Decision (결정)
 우리가 내린 결정과 그 이유. 능동태, 현재 시제 사용.
