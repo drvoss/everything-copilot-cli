@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="53 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="58 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -37,7 +37,7 @@ It started as a parallel to [everything-claude-code](https://github.com/affaan-m
 
 ## Why Copilot CLI?
 
-GitHub Copilot CLI has **11 structural advantages** over single-vendor coding agents:
+GitHub Copilot CLI offers **11 key strengths** that make it the ideal hub for AI-assisted development:
 
 | # | Advantage | Description |
 |---|-----------|-------------|
@@ -104,12 +104,12 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (53 total)
+├── skills/                        # Reusable workflow skills (58 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (16)
-│   ├── development/               #   Dev skills (9)
-│   ├── documentation/             #   Doc skills (4)
+│   ├── development/               #   Dev skills (12)
+│   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (5)
-│   ├── testing/                   #   Test skills (3)
+│   ├── testing/                   #   Test skills (4)
 │   ├── workflow/                  #   Workflow skills (8)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
@@ -136,6 +136,11 @@ everything-copilot-cli/
 │
 ├── contexts/                      # Context presets
 ├── schemas/                       # Validation schemas
+├── references/                    # Checklist & pattern references
+│   ├── testing-patterns.md        # AAA structure, mocking, component/API/E2E patterns
+│   ├── security-checklist.md      # OWASP Top 10, auth, input validation, security headers
+│   ├── performance-checklist.md   # Core Web Vitals, frontend/backend optimization
+│   └── accessibility-checklist.md # WCAG 2.1 AA, keyboard nav, screen reader, forms
 ├── scripts/                       # Setup & migration tools
 └── tests/                         # Test suite
 ```
@@ -159,7 +164,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (53 Total · 8 Categories)
+### Skills (58 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -189,7 +194,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Development Skills (9)</strong></summary>
+<summary><strong>Development Skills (12)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -199,6 +204,9 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `fix-build-errors` | Diagnose and resolve build failures |
 | `pr-multi-perspective-review` | 6-lens PR review: PM / Dev / QA / Security / DevOps / UX |
 | `refactor-clean` | Remove dead code, simplify logic safely |
+| `spec-driven-development` | Write a technical spec before coding — defines interface, structure, and boundaries first |
+| `context-engineering` | Optimize information delivery to AI agents — minimize noise, maximize signal |
+| `deprecation-and-migration` | Safely remove old APIs and migrate to new patterns with a 3-phase process |
 
 **Combo Skills** (activate when two technologies are used together):
 
@@ -210,7 +218,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Documentation Skills (4)</strong></summary>
+<summary><strong>Documentation Skills (5)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -218,6 +226,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `doc-update` | Sync docs when implementation changes |
 | `api-documentation` | Generate and maintain API docs from source |
 | `code-tour` | Generate VS Code CodeTour `.tour` files for codebase onboarding |
+| `architecture-decisions` | Document hard-to-reverse technical decisions as Architecture Decision Records (ADRs) |
 </details>
 
 <details>
@@ -260,13 +269,14 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Testing Skills (3)</strong></summary>
+<summary><strong>Testing Skills (4)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `test-coverage` | Identify gaps and write targeted tests |
 | `e2e-testing` | E2E test scaffolding for critical paths |
 | `eval-harness` | Build LLM pipeline evaluation suites with SQL-tracked test cases |
+| `browser-devtools` | Verify frontend behavior at runtime — DOM validation, network inspection, performance profiling |
 </details>
 
 <details>
@@ -302,8 +312,8 @@ The Multi-AI Orchestration system (see [dedicated section](#multi-ai-orchestrati
 | **Longform Guide** | Deep dive into every feature |
 | **Security Guide** | Security best practices and scanning |
 | **Copilot Exclusive Features** | Features only available in Copilot CLI |
-| **Copilot vs Claude Code** | Feature-by-feature comparison |
-| **Migration from Claude Code** | Step-by-step migration path with concept mapping |
+| **Tool Selection Guide** | Choosing the right AI tool for each task |
+| **Migration Guide** | Step-by-step migration path with concept mapping |
 | **Hooks to GitHub Actions** | Claude Code Hooks alternatives (Git Hooks / Actions / Prompt Guards) |
 | **Orchestration Guide** | Multi-AI orchestration patterns and setup |
 | **Skill Writing Best Practices** | Write trigger-first descriptions that actually fire |
@@ -356,16 +366,16 @@ No single AI is best at everything. Claude excels at reasoning, Codex at rapid i
 | **Iterative Refinement** | Self-correction loop with measurable exit criteria | Quality-sensitive generation |
 | **Review Trio** | 3-way review for non-PR artifacts (RFC, schema, architecture) | Pre-publish review |
 
-### Tool Strength Matrix
+### Tool Specialization
 
-| Capability | Copilot CLI | Claude Code | Codex CLI | Gemini CLI |
-|-----------|:-----------:|:-----------:|:---------:|:----------:|
-| GitHub Integration | ★★★ | ★☆☆ | ★★☆ | ★☆☆ |
-| Deep Reasoning | ★★☆ | ★★★ | ★★☆ | ★★☆ |
-| Rapid Implementation | ★★☆ | ★★☆ | ★★★ | ★★☆ |
-| Multi-Model Access | ★★★ | ★☆☆ | ★☆☆ | ★☆☆ |
-| Multimodal (Images) | ★★☆ | ★★☆ | ★☆☆ | ★★★ |
-| Orchestration | ★★★ | ★☆☆ | ★☆☆ | ★☆☆ |
+Each AI tool in the orchestration ecosystem has a distinct specialization. Copilot CLI acts as the coordinator that brings them together:
+
+| AI Tool | Specialization | Role in the Workflow |
+|---------|---------------|----------------------|
+| **Copilot CLI** | GitHub integration · multi-model flexibility · orchestration | Meta-hub / coordinator |
+| **Claude Code** | Deep reasoning · large-context analysis | Reasoning specialist |
+| **Codex CLI** | Rapid code generation · boilerplate | Implementation specialist |
+| **Gemini CLI** | Multimodal understanding · visual analysis | Vision / multimodal specialist |
 
 ### References & Proven Frameworks
 
@@ -381,32 +391,31 @@ The orchestration system is informed by real-world multi-agent frameworks:
 
 ---
 
-## Copilot CLI vs Claude Code
+## What Makes Copilot CLI Unique
 
-| Feature | Copilot CLI | Claude Code |
-|---------|:-----------:|:-----------:|
-| GitHub-native MCP (Issues, PRs, Actions) | ✅ | ❌ |
-| Multi-model (20+ models) | ✅ | ⚠️ Single vendor |
-| IDE ↔ CLI shared context | ✅ | ⚠️ Via VS Code extension |
-| Plan Mode with structured text planning | ✅ | ⚠️ Text-only |
-| Autopilot Mode _(Experimental)_ | ✅ | ⚠️ `--dangerously-skip-permissions` |
-| Background Agents | ✅ | ❌ |
-| Fleet Mode (parallel agents) | ✅ | ❌ |
-| Session SQL Database | ✅ | ❌ |
-| Cross-session Memory | ✅ | ⚠️ `CLAUDE.md` only |
-| LSP Integration | ✅ | ❌ |
-| Multi-AI Orchestration | ✅ | ❌ |
-| Deep Reasoning (single model) | ⚠️ Model-dependent | ✅ Opus |
-| Community & ecosystem maturity | ⚠️ Growing | ✅ Established |
-| Custom slash commands | ⚠️ Plugin-based | ✅ |
+Copilot CLI is purpose-built around your GitHub workflow. Here's what you get out of the box:
 
-> See the full [Comparison Guide](guides/) for detailed analysis.
+| Capability | Details |
+|-----------|---------|
+| **GitHub-Native MCP** | Issues, PRs, Actions, and code search — zero extra setup |
+| **20+ Model Selection** | Switch between GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro per task |
+| **IDE ↔ CLI Context Sharing** | Seamless switching between VS Code, JetBrains, and the terminal |
+| **Plan Mode** | Structured text planning with approval workflow before any code is written |
+| **Autopilot Mode** | Autonomous task execution with guardrails _(Experimental)_ |
+| **Background Agents** | Delegate to cloud agents via `&` / `/delegate`; resume with `/resume` |
+| **Fleet Mode** | Parallel agent execution — split work across multiple agents simultaneously |
+| **Session SQL Database** | Built-in SQLite per session for structured state and todo tracking |
+| **Cross-Session Memory** | Persist knowledge via `session_store` — learn and recall across sessions |
+| **LSP Integration** | Language Server Protocol for precise, symbol-aware code intelligence |
+| **Multi-AI Orchestration** | Coordinate Claude Code, Codex, Gemini CLI from a single hub |
+
+> See the [Copilot Exclusive Features guide](guides/) for a deep dive into each capability.
 
 ---
 
-## Migration from Claude Code
+## Migration from Another Tool
 
-Already using Claude Code or `everything-claude-code`? Migration is straightforward — the skill format is nearly identical:
+Coming from another AI coding tool? The skill format is nearly identical, so migration is straightforward:
 
 ```
 CLAUDE.md rules        →  .github/copilot-instructions.md

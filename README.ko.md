@@ -36,7 +36,7 @@
 
 ## 왜 Copilot CLI인가?
 
-GitHub Copilot CLI는 단일 벤더 코딩 에이전트 대비 **11가지 구조적 이점**을 가지고 있습니다:
+GitHub Copilot CLI는 AI 개발 허브로서 **11가지 핵심 강점**을 갖추고 있습니다:
 
 | # | 장점 | 설명 |
 |---|------|------|
@@ -301,8 +301,8 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | **롱폼 가이드** | 모든 기능에 대한 심층 안내 |
 | **보안 가이드** | 보안 모범 사례 및 스캐닝 |
 | **Copilot 전용 기능** | Copilot CLI에서만 가능한 기능 |
-| **Copilot vs Claude Code** | 기능별 상세 비교 |
-| **Claude Code에서 마이그레이션** | 개념 매핑과 단계별 마이그레이션 가이드 |
+| **도구 선택 가이드** | 각 작업에 맞는 AI 도구 선택법 |
+| **마이그레이션 가이드** | 개념 매핑과 단계별 마이그레이션 가이드 |
 | **Hooks to GitHub Actions** | Claude Code Hooks 대안 (Git Hooks / Actions / Prompt Guards) |
 | **오케스트레이션 가이드** | Multi-AI 오케스트레이션 패턴 및 설정 |
 | **스킬 작성 모범 사례** | 실제로 동작하는 트리거 우선 description 작성법 |
@@ -355,16 +355,16 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | **Iterative Refinement** | 측정 가능한 종료 기준 기반 자기 개선 루프 | 품질 민감한 생성 |
 | **Review Trio** | PR 외 아티팩트 (RFC, 스키마, 아키텍처) 3자 리뷰 | 배포 전 검토 |
 
-### 도구별 강점 매트릭스
+### 도구별 전문 영역
 
-| 역량 | Copilot CLI | Claude Code | Codex CLI | Gemini CLI |
-|------|:-----------:|:-----------:|:---------:|:----------:|
-| GitHub 통합 | ★★★ | ★☆☆ | ★★☆ | ★☆☆ |
-| 심층 추론 | ★★☆ | ★★★ | ★★☆ | ★★☆ |
-| 빠른 구현 | ★★☆ | ★★☆ | ★★★ | ★★☆ |
-| 멀티 모델 접근 | ★★★ | ★☆☆ | ★☆☆ | ★☆☆ |
-| 멀티모달 (이미지) | ★★☆ | ★★☆ | ★☆☆ | ★★★ |
-| 오케스트레이션 | ★★★ | ★☆☆ | ★☆☆ | ★☆☆ |
+오케스트레이션 생태계의 각 AI 도구는 고유한 전문 영역을 가집니다. Copilot CLI는 이들을 하나로 연결하는 조율자 역할을 합니다:
+
+| AI 도구 | 전문 영역 | 워크플로우에서의 역할 |
+|--------|----------|----------------------|
+| **Copilot CLI** | GitHub 통합 · 멀티 모델 유연성 · 오케스트레이션 | 메타 허브 / 조율자 |
+| **Claude Code** | 심층 추론 · 대규모 컨텍스트 분석 | 추론 전문가 |
+| **Codex CLI** | 빠른 코드 생성 · 보일러플레이트 | 구현 전문가 |
+| **Gemini CLI** | 멀티모달 이해 · 시각 분석 | 비전 / 멀티모달 전문가 |
 
 ### 참고 프레임워크
 
@@ -380,32 +380,31 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 
 ---
 
-## Copilot CLI vs Claude Code 비교
+## Copilot CLI의 고유 강점
 
-| 기능 | Copilot CLI | Claude Code |
-|------|:-----------:|:-----------:|
-| GitHub 네이티브 MCP (Issues, PR, Actions) | ✅ | ❌ |
-| 멀티 모델 (20개 이상) | ✅ | ⚠️ 단일 벤더 |
-| IDE ↔ CLI 공유 컨텍스트 | ✅ | ⚠️ VS Code 확장으로 가능 |
-| Plan Mode (구조화된 텍스트 플래닝) | ✅ | ⚠️ 텍스트 전용 |
-| Autopilot Mode _(실험적)_ | ✅ | ⚠️ `--dangerously-skip-permissions` |
-| Background Agents | ✅ | ❌ |
-| Fleet Mode (병렬 에이전트) | ✅ | ❌ |
-| Session SQL Database | ✅ | ❌ |
-| Cross-session Memory | ✅ | ⚠️ `CLAUDE.md`만 가능 |
-| LSP 통합 | ✅ | ❌ |
-| Multi-AI Orchestration | ✅ | ❌ |
-| 심층 추론 (단일 모델) | ⚠️ 모델 의존적 | ✅ Opus |
-| 커뮤니티 & 생태계 성숙도 | ⚠️ 성장 중 | ✅ 자리잡음 |
-| 커스텀 슬래시 명령 | ⚠️ 플러그인 기반 | ✅ |
+Copilot CLI는 GitHub 워크플로우를 중심으로 설계된 도구입니다. 기본 제공되는 기능들은 다음과 같습니다:
 
-> 상세 분석은 [비교 가이드](guides/)를 참고하세요.
+| 기능 | 설명 |
+|-----|------|
+| **GitHub 네이티브 MCP** | Issues, PR, Actions, 코드 검색 — 별도 설정 없이 바로 사용 |
+| **20개 이상 모델 선택** | 작업별로 GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro 전환 |
+| **IDE ↔ CLI 컨텍스트 공유** | VS Code, JetBrains, 터미널 간 원활한 전환 |
+| **Plan Mode** | 코드 작성 전 승인 워크플로우를 포함한 구조화된 텍스트 플래닝 |
+| **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 _(실험적 기능)_ |
+| **Background Agents** | `&` / `/delegate`로 클라우드 에이전트에 위임, `/resume`으로 재개 |
+| **Fleet Mode** | 병렬 에이전트 실행 — 여러 에이전트가 동시에 작업 분담 |
+| **Session SQL Database** | 세션별 내장 SQLite — 구조화된 상태 관리 및 할일 추적 |
+| **Cross-Session Memory** | `session_store`로 지식 영속화 — 세션 간 학습 및 기억 |
+| **LSP 통합** | 심볼 인식 기반의 정밀한 코드 인텔리전스 |
+| **Multi-AI Orchestration** | 단일 허브에서 Claude Code, Codex, Gemini CLI 통합 조율 |
+
+> 각 기능에 대한 심층 안내는 [Copilot 전용 기능 가이드](guides/)를 참고하세요.
 
 ---
 
-## Claude Code에서 마이그레이션
+## 다른 도구에서 마이그레이션
 
-이미 Claude Code나 `everything-claude-code`를 사용하고 계신가요? 마이그레이션은 간단합니다 — 스킬 형식이 거의 동일합니다:
+다른 AI 코딩 도구를 사용하고 계신가요? 스킬 형식이 거의 동일하므로 마이그레이션은 간단합니다:
 
 ```
 CLAUDE.md 규칙         →  .github/copilot-instructions.md
