@@ -9,7 +9,7 @@ agents:
 
 # Pattern: Review Trio
 
-> **Status: Superseded** — For PR review, use [`pr-multi-perspective-review`](../../skills/development/pr-multi-perspective-review/SKILL.md) (Fleet Option B), which provides the same multi-agent fan-out with a structured 6-lens output format.
+> **Status: Superseded for PR review** — For PR review, use [`pr-multi-perspective-review`](../../skills/development/pr-multi-perspective-review/SKILL.md) (Fleet Option B), which provides the same multi-agent fan-out with a structured 6-lens output format. For non-PR artifacts (RFCs, schema proposals, architecture documents), Review Trio remains the recommended pattern.
 
 The Review Trio pattern was designed to combine three AI perspectives (Copilot + Claude + Gemini) for a single PR or code change review. This is now subsumed by the pr-multi-perspective-review skill's Fleet option.
 

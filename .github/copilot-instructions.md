@@ -31,7 +31,6 @@ Content is Markdown and JSON configuration, not application code.
 | `orchestration/` | Multi-agent coordination (`patterns/`, `configs/`, `examples/`, `skills/`) |
 | `contexts/` | Execution context definitions |
 | `mcp-configs/` | MCP server configurations |
-| `schemas/` | JSON Schema validation files |
 | `examples/` | Complete example projects (`nextjs-app/`, `python-api/`, `dotnet-webapp/`, `monorepo/`) |
 
 ## Agent Type Selection

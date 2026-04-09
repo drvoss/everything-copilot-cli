@@ -173,22 +173,30 @@ Keep provider-specific commands and pitfalls in the respective files, and shared
 
 ---
 
-## 10) Linting Agent Configuration Files
+## 10) Validating Agent and Skill Files
 
-Use **[agnix](https://github.com/russellballestrini/agnix)** — an open-source agent configuration linter — to catch structural issues in agent and skill files before committing.
-
-Agnix checks for:
-- Missing or malformed YAML frontmatter fields
-- Required fields (`name`, `description`, `agent_type` / `category`) absent or empty
-- Frontmatter type mismatches (e.g., `tools` not an array)
-- Orphaned agent definition files with no corresponding task references
+Use the built-in validation scripts to catch structural issues before committing:
 
 ```powershell
-# Run agnix on agents/ and skills/
-npx agnix lint agents/
-npx agnix lint skills/
+npm run validate   # validates SKILL.md frontmatter and required fields across all agents, skills, rules, and MCP configs
+npm run lint:md    # markdownlint across all Markdown files
 ```
 
-**When to run:** Add agnix to your pre-commit hook or CI quality gate whenever agent or skill files change.
+Run both together as a pre-commit quality gate:
 
-> **Note:** agnix is a community tool. Verify compatibility with your Copilot CLI version and frontmatter conventions before adopting in CI.
+```powershell
+npm run validate && npm run lint:md
+```
+
+**What `npm run validate` checks:**
+
+- Required frontmatter fields present and non-empty (`name`, `description`, `metadata.category` for skills; `name`, `agent_type`, `model` for agents)
+- Frontmatter type correctness (e.g., `tools` is an array)
+- Counts and reports totals for skills, agents, rules, and MCP configs
+
+Add to your CI workflow to prevent broken agent/skill configs from being merged:
+
+```yaml
+- name: Validate configs
+  run: npm run validate && npm run lint:md
+```

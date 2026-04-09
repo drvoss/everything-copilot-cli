@@ -25,7 +25,6 @@ that projects can adopt. When working in this repo, Copilot CLI should treat con
 | `orchestration/` | Multi-agent coordination patterns |
 | `contexts/` | Context definitions for scoped execution |
 | `mcp-configs/` | Model Context Protocol server configurations |
-| `schemas/` | JSON Schema files for validation |
 | `guides/` | Documentation and usage guides |
 | `examples/` | Complete example projects (Next.js, Python, .NET, monorepo) |
 | `scripts/` | Validation, setup, and utility scripts |
@@ -454,7 +453,6 @@ npm test
 ### What Gets Validated
 
 - **Frontmatter**: Required fields present and correctly typed
-- **Schema compliance**: Files match their JSON Schema in `schemas/`
 - **Internal links**: All cross-references resolve to existing files
 - **Agent references**: Agents referenced in orchestration patterns exist in `agents/`
 - **Skill references**: Skills referenced by agents exist in `skills/`

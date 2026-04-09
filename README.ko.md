@@ -136,7 +136,6 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # 컨텍스트 프리셋
-├── schemas/                       # 검증 스키마
 ├── references/                    # 체크리스트 & 패턴 레퍼런스
 │   ├── testing-patterns.md        # AAA 구조, mock 전략, 컴포넌트/API/E2E 패턴
 │   ├── security-checklist.md      # OWASP Top 10, 인증, 입력 검증, 보안 헤더

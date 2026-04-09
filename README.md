@@ -137,7 +137,6 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # Context presets
-├── schemas/                       # Validation schemas
 ├── references/                    # Checklist & pattern references
 │   ├── testing-patterns.md        # AAA structure, mocking, component/API/E2E patterns
 │   ├── security-checklist.md      # OWASP Top 10, auth, input validation, security headers
