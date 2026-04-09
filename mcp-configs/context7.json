@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"],
+      "env": {},
+      "_description": "Context7 — injects up-to-date library documentation into the LLM context. Add 'use context7' to any prompt to activate. No API key required for basic use.",
+      "_usage": "In any Copilot CLI prompt, append 'use context7' to get current docs for the library you are using.",
+      "_example_prompt": "How do I set up a Next.js App Router with Prisma? use context7",
+      "_source": "https://github.com/upstash/context7"
+    }
+  }
+}

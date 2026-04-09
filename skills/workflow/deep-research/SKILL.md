@@ -137,6 +137,59 @@ Do not:
 2. ...
 ```
 
+### 7. Auto-Continuation (Long Research)
+
+For topics that require more than 5 sources or span multiple sub-questions, use
+continuation checkpoints to avoid context overflow:
+
+```sql
+-- Track research progress across continuation points
+CREATE TABLE IF NOT EXISTS research_progress (
+    checkpoint_id TEXT PRIMARY KEY,
+    sub_question TEXT,
+    status TEXT,  -- pending | in_progress | complete
+    sources_fetched INTEGER DEFAULT 0,
+    findings_summary TEXT,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+**Continuation workflow:**
+
+```text
+Checkpoint 1: Sub-question A (fetch 3-5 sources, synthesize)
+  → Write findings to research_progress
+  → Continue to checkpoint 2 (do not wait for human input)
+
+Checkpoint 2: Sub-question B (fetch 3-5 sources, synthesize)
+  → Write findings to research_progress
+  → Continue to checkpoint 3
+
+Checkpoint N: Final synthesis
+  → SELECT * FROM research_progress WHERE status = 'complete'
+  → Combine all checkpoint findings into the final brief
+```
+
+**When to split into sub-questions:**
+
+- The main question has multiple independent facets (e.g., "compare X and Y across
+  performance, cost, and ease of use" → 3 sub-questions)
+- Any sub-question requires > 5 sources to answer confidently
+- Different sub-questions require different source types
+
+**Continuation prompt template:**
+
+```text
+[Previous checkpoint summary]
+
+Continuing research on: [sub-question N]
+Sources already consulted: [list from research_sources table]
+Remaining sub-questions: [list]
+
+Next: fetch sources for sub-question N, extract findings, update research_progress.
+Then continue to the next sub-question without stopping.
+```
+
 ## Quality Standards
 
 | Check | Standard |

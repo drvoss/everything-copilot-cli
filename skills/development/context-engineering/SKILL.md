@@ -135,3 +135,78 @@ Copilot CLI의 모델 컨텍스트 예산 기준 (정확한 모델 선택은 `mu
 - `spec-driven-development` 스킬과 연계: 스펙이 곧 컨텍스트 템플릿이 된다
 - Copilot의 `multi-model-strategy` 스킬로 태스크 복잡도에 맞는 모델을 선택한다
 - 에이전트가 두 번 연속 틀리면 컨텍스트 구조 자체를 재검토한다
+
+## Advanced Techniques
+
+### Full-Repo Context Loading with rendergit
+
+[rendergit](https://github.com/karpathy/rendergit) renders an entire Git repository
+into a browser-based HTML view with an LLM-friendly text export. Useful when you need
+the AI to understand the whole codebase at once (e.g., cross-cutting refactors, architecture analysis).
+
+```powershell
+# Install (Python required)
+pip install git+https://github.com/karpathy/rendergit
+
+# Open browser view of the entire repo
+rendergit .
+# In the browser, switch to "LLM View" to copy the CXML-formatted codebase text.
+# Paste into your session context or save to a file to attach as context.
+```
+
+**When to use rendergit:**
+
+- Architecture analysis requiring understanding of all modules
+- Finding all usages of a pattern across the entire codebase
+- Onboarding a new AI agent to a large, unfamiliar project
+
+**When NOT to use:**
+
+- Single-file tasks (wasteful — just include the relevant files)
+- Repos > 200k tokens (exceeds most model limits; use selective inclusion instead)
+
+### KV-Cache Optimization
+
+LLMs recompute the KV-cache for every token in context. For repeated agent invocations
+on the same context (e.g., analyzing multiple files with the same system prompt),
+cache-aware context structuring reduces cost significantly.
+
+**Principle:** Place stable content (system prompt, shared context) **before** variable
+content (the specific task or file). This enables KV-cache reuse.
+
+```text
+✅ Cache-friendly structure (stable content first):
+[System prompt + project rules]           ← cached across requests
+[Shared context: types, interfaces]       ← cached if unchanged
+[Variable: specific file to analyze]      ← changes per request
+
+❌ Cache-unfriendly structure (variable content first):
+[Variable: today's date, run ID]          ← busts cache on every call
+[System prompt]
+[Context]
+```
+
+**Practical application in agent instructions:**
+
+```text
+## Context (stable — appears in every call)
+Project: everything-copilot-cli
+Rules: follow existing SKILL.md conventions
+Output format: Markdown with frontmatter
+
+## Task (variable — changes per call)
+Analyze: skills/development/tdd-workflow/SKILL.md
+Find: missing edge cases in the Verification checklist
+```
+
+**Token budget estimation:**
+
+| Context type | Typical size | Cache reuse potential |
+|-------------|-------------|----------------------|
+| System prompt | 500-2000 tokens | High (same across session) |
+| Project conventions | 1000-5000 tokens | High |
+| Specific file to analyze | 500-3000 tokens | Low (changes per task) |
+| Task instruction | 100-500 tokens | Low |
+
+For multi-model pipelines with the same shared context, pass context by reference
+(file path + MCP `view` tool) rather than inline copy-pasting.

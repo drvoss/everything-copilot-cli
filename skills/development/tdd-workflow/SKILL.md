@@ -119,12 +119,37 @@ npx jest --watch --testPathPattern="feature" # mode: async
 | "Copilot wrote it, so it must be right" | AI-generated code requires the same verification standards as human-written code. |
 | "Tests still pass after refactoring" | Tests must exist before refactoring — otherwise they provide no safety net. |
 
+## TDD Guardrail Enforcement
+
+Prevent implementation code from being committed without a corresponding failing test.
+Add this pre-commit check to your workflow:
+
+```powershell
+# Verify that implementation files have corresponding test files staged
+$stagedSrc = git diff --cached --name-only | Where-Object { $_ -match "^src/" -and $_ -notmatch "\.test\." }
+$stagedTests = git diff --cached --name-only | Where-Object { $_ -match "\.test\." }
+
+if ($stagedSrc -and -not $stagedTests) {
+    Write-Error "TDD violation: source files staged without corresponding test files."
+    Write-Error "Write a failing test first, then implement."
+    exit 1
+}
+```
+
+To enforce this automatically, add it as a Git pre-commit hook:
+
+```powershell
+# .git/hooks/pre-commit (chmod +x on Unix)
+# See rules/common/testing.md for the full hook content
+```
+
 ## Red Flags
 - Tests written after implementation with 100% pass rate (tests never saw a red state)
 - Test files committed after source files
 - Tests like `it('works')` with no meaningful assertions
 - Tests that call internal implementations directly (testing private methods instead of public API)
 - Tests written only to meet coverage numbers with no real assertions
+- AI-generated implementation code committed before a failing test was written
 
 ## Verification
 - [ ] Confirmed tests started in a Red state (via commit history or direct observation)

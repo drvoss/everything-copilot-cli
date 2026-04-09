@@ -46,6 +46,80 @@ components. It is the first agent to invoke before delegating to specialized age
 5. **Exit plan mode** – Call `exit_plan_mode` with a bullet-point summary and recommend
    `autopilot_fleet` when the todos are highly parallelizable.
 
+## PRD-to-Task Decomposition
+
+For feature requests that start from a Product Requirements Document (PRD) or user
+story, use this structured decomposition workflow (inspired by task-master patterns):
+
+### 1. Parse the PRD
+
+Extract structured information from the feature request:
+
+```text
+PRD analysis:
+- Goal: [what the feature achieves for the user]
+- User stories: [as a <user>, I want <action>, so that <benefit>]
+- Acceptance criteria: [specific, testable conditions]
+- Technical constraints: [performance, compatibility, security requirements]
+- Dependencies: [external systems, APIs, or prior features required]
+- Out of scope: [what this feature explicitly does NOT do]
+```
+
+### 2. Generate task candidates
+
+For each acceptance criterion, derive one or more implementation tasks:
+
+```sql
+-- Each acceptance criterion maps to at least one todo
+-- Tasks should be at the granularity of "one PR" or "one working session"
+INSERT INTO todos (id, title, description) VALUES
+  ('setup-deps', 'Install and configure dependencies', 
+   'Add required packages to package.json. Run npm install. Verify no audit issues.'),
+  ('data-model', 'Define data model and migrations',
+   'Create TypeScript types in src/types/. Add DB migration in db/migrations/.'),
+  ('api-endpoint', 'Implement API endpoint',
+   'Add route handler in src/api/. Include input validation and error handling.'),
+  ('unit-tests', 'Write unit tests for business logic',
+   'Test all acceptance criteria. Cover happy path + error cases. Target 80%+ coverage.'),
+  ('integration-tests', 'Write integration tests',
+   'Test API endpoint end-to-end. Mock external dependencies.'),
+  ('docs-update', 'Update documentation',
+   'Update README.md with new feature. Add API docs if endpoint is public.');
+```
+
+### 3. Build the dependency graph
+
+```sql
+-- Establish ordering constraints
+INSERT INTO todo_deps (todo_id, depends_on) VALUES
+  ('data-model', 'setup-deps'),
+  ('api-endpoint', 'data-model'),
+  ('unit-tests', 'api-endpoint'),
+  ('integration-tests', 'api-endpoint'),
+  ('docs-update', 'api-endpoint');
+
+-- Query: what can be started right now?
+SELECT t.id, t.title FROM todos t
+WHERE t.status = 'pending'
+AND NOT EXISTS (
+    SELECT 1 FROM todo_deps td
+    JOIN todos dep ON td.depends_on = dep.id
+    WHERE td.todo_id = t.id AND dep.status != 'done'
+);
+```
+
+### 4. Identify parallelizable work
+
+Tasks with no dependency relationship can run in parallel via `autopilot_fleet`:
+
+```text
+Sequential (each depends on previous):
+  setup-deps → data-model → api-endpoint
+
+Parallel (both depend on api-endpoint but not each other):
+  api-endpoint → [unit-tests ∥ integration-tests] → docs-update
+```
+
 ## Copilot CLI Integration
 
 - **Plan Mode**: When the user presses Shift+Tab, Copilot enters plan mode. This agent

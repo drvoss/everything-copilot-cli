@@ -96,6 +96,114 @@ See the other files in this directory for ready-to-use MCP configurations:
 | `filesystem.json` | Local filesystem operations |
 | `memory.json` | Persistent memory / knowledge graph |
 | `sequential-thinking.json` | Structured reasoning and problem-solving |
+| `context7.json` | Latest library docs injected on demand |
+| `codebase-memory.json` | Persistent codebase knowledge graph |
+
+## Context7 — Up-to-Date Library Docs
+
+[Context7](https://github.com/upstash/context7) solves a common problem: LLMs have
+a training cutoff, so they produce code using outdated APIs.
+
+**Setup (from `context7.json`):**
+
+```json
+{
+  "servers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    }
+  }
+}
+```
+
+**Usage:** Append `use context7` to any prompt.
+
+```text
+# Before: Copilot generates code using an outdated Next.js API
+"How do I set up a Next.js App Router with Prisma?"
+
+# After: Copilot fetches current docs first
+"How do I set up a Next.js App Router with Prisma? use context7"
+```
+
+Context7 works for any library in its index (React, Vue, Next.js, Prisma, FastAPI, etc.).
+No API key required for basic use.
+
+## Codebase Memory — Persistent Knowledge Graph
+
+[codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) converts your
+codebase into a persistent SQLite knowledge graph that survives across sessions.
+
+**Setup (from `codebase-memory.json`):**
+
+```json
+{
+  "servers": {
+    "codebase-memory": {
+      "command": "npx",
+      "args": ["-y", "@deusdata/codebase-memory-mcp@latest"],
+      "env": {
+        "CODEBASE_ROOT": "${workspaceFolder}",
+        "MEMORY_DB_PATH": "${userHome}/.copilot/codebase-memory.db"
+      }
+    }
+  }
+}
+```
+
+**Use when:** You want Copilot to remember relationships between files, symbols, and
+patterns across sessions — especially useful for large codebases.
+
+## Building Custom MCP Servers with fastmcp
+
+[fastmcp](https://github.com/jlowin/fastmcp) lets you build custom MCP servers with
+minimal Python code. Use it to expose internal tools, APIs, or databases to Copilot CLI.
+
+**Minimal custom server example:**
+
+```python
+# my_tools_server.py
+from fastmcp import FastMCP
+
+mcp = FastMCP("My Dev Tools")
+
+@mcp.tool()
+def get_feature_flags(environment: str) -> dict:
+    """Get feature flags for a given environment (dev/staging/prod)"""
+    # Connect to your feature flag service
+    return {"new_checkout": True, "dark_mode": False}
+
+@mcp.tool()  
+def search_internal_docs(query: str) -> list[str]:
+    """Search internal Confluence/Notion docs"""
+    # Connect to your docs system
+    return [f"Result: {query}"]
+
+if __name__ == "__main__":
+    mcp.run()
+```
+
+**Register in MCP config:**
+
+```json
+{
+  "servers": {
+    "my-dev-tools": {
+      "command": "python",
+      "args": ["my_tools_server.py"]
+    }
+  }
+}
+```
+
+**Good candidates for custom MCP servers:**
+
+- Internal API or database query tools
+- Feature flag or config management
+- Internal documentation search
+- CI/CD status and deployment tools
+- Ticket/issue system integration (Jira, Linear, etc.)
 
 ## Troubleshooting
 

@@ -1,0 +1,26 @@
+{
+  "servers": {
+    "codebase-memory": {
+      "command": "npx",
+      "args": ["-y", "@deusdata/codebase-memory-mcp@latest"],
+      "env": {
+        "CODEBASE_ROOT": "${workspaceFolder}",
+        "MEMORY_DB_PATH": "${userHome}/.copilot/codebase-memory.db"
+      },
+      "_description": "Codebase Memory — converts your codebase into a persistent knowledge graph stored in SQLite. Enables cross-session memory of file relationships, symbols, and architectural patterns.",
+      "_features": [
+        "Persistent knowledge graph across sessions",
+        "Symbol lookup and cross-reference",
+        "Architectural pattern recognition",
+        "Cross-file dependency tracking"
+      ],
+      "_usage": [
+        "1. Install: npm install -g @deusdata/codebase-memory-mcp",
+        "2. Index codebase: the server indexes on first connection",
+        "3. Query: ask Copilot about codebase structure and it will use the graph",
+        "4. The graph persists across Copilot CLI sessions"
+      ],
+      "_source": "https://github.com/DeusData/codebase-memory-mcp"
+    }
+  }
+}
