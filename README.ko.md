@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="58 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="61 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -105,11 +105,11 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (58개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (61개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (16개)
-│   ├── development/               #   개발 스킬 (12개)
+│   ├── development/               #   개발 스킬 (14개)
 │   ├── documentation/             #   문서화 스킬 (5개)
-│   ├── security/                  #   보안 스킬 (5개)
+│   ├── security/                  #   보안 스킬 (6개)
 │   ├── testing/                   #   테스팅 스킬 (4개)
 │   ├── workflow/                  #   워크플로우 스킬 (8개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
@@ -121,14 +121,14 @@ everything-copilot-cli/
 │   └── frameworks/                #   프레임워크 규칙 (7개)
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
-│   ├── patterns/                  #   10가지 오케스트레이션 패턴
+│   ├── patterns/                  #   11가지 오케스트레이션 패턴
 │   ├── configs/                   #   MCP 브릿지 설정
 │   ├── skills/                    #   오케스트레이션 스킬 (6개)
 │   ├── templates/                 #   재사용 가능한 오케스트레이터 템플릿
-│   └── examples/                  #   실전 예제 (5개)
+│   └── examples/                  #   실전 예제 (6개)
 │
 ├── guides/                        # 종합 가이드 (12개)
-├── mcp-configs/                   # MCP 서버 설정 (4개)
+├── mcp-configs/                   # MCP 서버 설정 (6개)
 ├── examples/                      # 프로젝트별 copilot-instructions 예제
 │   ├── nextjs-app/
 │   ├── python-api/
@@ -164,7 +164,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 58개 · 8개 카테고리)
+### 스킬 (총 61개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 

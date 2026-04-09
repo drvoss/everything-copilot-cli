@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="58 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="61 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -105,11 +105,11 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (58 total)
+├── skills/                        # Reusable workflow skills (61 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (16)
-│   ├── development/               #   Dev skills (12)
+│   ├── development/               #   Dev skills (14)
 │   ├── documentation/             #   Doc skills (5)
-│   ├── security/                  #   Security skills (5)
+│   ├── security/                  #   Security skills (6)
 │   ├── testing/                   #   Test skills (4)
 │   ├── workflow/                  #   Workflow skills (8)
 │   ├── product/                   #   Product skills (5)
@@ -121,14 +121,14 @@ everything-copilot-cli/
 │   └── frameworks/                #   Framework rules (7)
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
-│   ├── patterns/                  #   10 orchestration patterns
+│   ├── patterns/                  #   11 orchestration patterns
 │   ├── configs/                   #   MCP bridge configs
 │   ├── skills/                    #   Orchestration skills (6)
 │   ├── templates/                 #   Reusable orchestrator templates
-│   └── examples/                  #   Real-world examples (5)
+│   └── examples/                  #   Real-world examples (6)
 │
 ├── guides/                        # 12 comprehensive guides
-├── mcp-configs/                   # MCP server configurations (4)
+├── mcp-configs/                   # MCP server configurations (6)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
 │   ├── python-api/
@@ -164,7 +164,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計58・8カテゴリ）
+### スキル（合計61・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 

@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="58 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="61 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -106,11 +106,11 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (58 total)
+├── skills/                        # Reusable workflow skills (61 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (16)
-│   ├── development/               #   Dev skills (12)
+│   ├── development/               #   Dev skills (14)
 │   ├── documentation/             #   Doc skills (5)
-│   ├── security/                  #   Security skills (5)
+│   ├── security/                  #   Security skills (6)
 │   ├── testing/                   #   Test skills (4)
 │   ├── workflow/                  #   Workflow skills (8)
 │   ├── product/                   #   Product skills (5)
@@ -122,14 +122,14 @@ everything-copilot-cli/
 │   └── frameworks/                #   Framework rules (7)
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
-│   ├── patterns/                  #   10 orchestration patterns
+│   ├── patterns/                  #   11 orchestration patterns
 │   ├── configs/                   #   MCP bridge configs
 │   ├── skills/                    #   Orchestration skills (6)
 │   ├── templates/                 #   Reusable orchestrator templates
-│   └── examples/                  #   Real-world examples (5)
+│   └── examples/                  #   Real-world examples (6)
 │
 ├── guides/                        # 12 comprehensive guides
-├── mcp-configs/                   # MCP server configurations (4)
+├── mcp-configs/                   # MCP server configurations (6)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
 │   ├── python-api/
@@ -165,7 +165,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (58 Total · 8 Categories)
+### Skills (61 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -195,7 +195,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Development Skills (12)</strong></summary>
+<summary><strong>Development Skills (14)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -208,6 +208,8 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `spec-driven-development` | Write a technical spec before coding — defines interface, structure, and boundaries first |
 | `context-engineering` | Optimize information delivery to AI agents — minimize noise, maximize signal |
 | `deprecation-and-migration` | Safely remove old APIs and migrate to new patterns with a 3-phase process |
+| `skill-creator` | Describe a workflow → get a SKILL.md scaffolded in minutes |
+| `systematic-debugging` | 4-phase root cause analysis (reproduce → isolate → hypothesize → verify) before fixing |
 
 **Combo Skills** (activate when two technologies are used together):
 
@@ -231,7 +233,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Security Skills (5)</strong></summary>
+<summary><strong>Security Skills (6)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -240,6 +242,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `secret-detection` | Find hardcoded secrets in source and git history |
 | `input-validation` | Prevent injection attacks (SQL, XSS, CSRF) |
 | `security-bounty-hunter` | Bug-bounty-perspective vuln hunting with proof-of-concept steps |
+| `pr-security-review` | Automated PR security analysis — auth, injection, secrets, OWASP Top 10 |
 </details>
 
 <details>
