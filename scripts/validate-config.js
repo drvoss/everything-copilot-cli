@@ -118,8 +118,10 @@ function validateSkills() {
     }
     // Category can be at top-level OR nested under metadata: (agentskills.io spec)
     const category = fm.category || fm["  category"];
-    if (category && !validCategories.includes(category)) {
-      report("warn", file, `Unrecognized category "${category}". Known: ${validCategories.join(", ")}`);
+    if (!category) {
+      report("error", file, `Missing required field: metadata.category (known categories: ${validCategories.join(", ")})`);
+    } else if (!validCategories.includes(category)) {
+      report("error", file, `Unrecognized category "${category}". Known: ${validCategories.join(", ")}`);
     }
     if (fm.name) {
       if (names.has(fm.name)) report("error", file, `Duplicate skill name: "${fm.name}"`);

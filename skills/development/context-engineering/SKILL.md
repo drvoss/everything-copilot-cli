@@ -9,132 +9,141 @@ metadata:
 # Context Engineering
 
 ## When to Use
-- AI 에이전트에게 복잡한 태스크를 위임할 때
-- 에이전트가 잘못된 방향으로 반복 작업할 때
-- 긴 컨텍스트에서 에이전트 성능이 저하될 때
-- 여러 에이전트가 협업하는 파이프라인을 설계할 때
 
-> `context-prime` (Copilot 전용)과의 차이:
-> - `context-prime`: 세션 시작 시 프로젝트 컨텍스트 로딩
-> - `context-engineering`: 태스크 단위로 최적의 정보를 구조화하는 기법
+- Delegating a complex task to an AI agent
+- An agent keeps repeating the wrong approach
+- Agent quality drops as the context grows longer
+- Designing a pipeline where multiple agents collaborate
+
+> Difference from `context-prime` (Copilot-specific):
+>
+> - `context-prime`: loads live project context at session start
+> - `context-engineering`: structures the best possible information for a specific task
 
 ## Prerequisites
-- 위임할 태스크의 목표와 범위가 명확
-- 관련 파일 목록 또는 도메인 파악
+
+- The delegated task has a clear goal and scope
+- You know the relevant files or domain area
 
 ## Workflow
 
-### 1. 신호 대 잡음 분석
+### 1. Analyze signal vs. noise
 
-에이전트에게 전달할 정보를 분류:
+Classify the information you plan to give the agent:
 
-| 정보 유형 | 포함 여부 | 이유 |
-|----------|---------|------|
-| 직접 관련 코드 파일 | ✅ 포함 | 에이전트가 수정해야 할 대상 |
-| 인터페이스/타입 정의 | ✅ 포함 | 계약 이해에 필수 |
-| 관련 없는 파일 | ❌ 제외 | 토큰 낭비, 집중도 저하 |
-| 전체 README | ❌ 제외 (요약으로) | 길이 대비 정보량 낮음 |
-| 이미 알려진 정보 | ❌ 제외 | 중복 토큰 낭비 |
+| Information type | Include? | Why |
+|------------------|----------|-----|
+| Directly relevant code files | ✅ Yes | The agent must edit or reason about them |
+| Interface/type definitions | ✅ Yes | Essential for understanding contracts |
+| Unrelated files | ❌ No | Waste tokens and reduce focus |
+| Entire README | ❌ No (summarize instead) | Low information density for the size |
+| Information the agent already has | ❌ No | Duplicate token cost |
 
-### 2. Progressive Disclosure (단계적 정보 제공)
+### 2. Progressive Disclosure
 
-모든 정보를 한 번에 주지 않는다. 단계별로 필요한 정보만:
+Do not provide everything at once. Reveal only what each phase needs:
 
+```text
+Phase 1: Task definition + interface contract
+Phase 2: Implementation starts -> add relevant files
+Phase 3: Testing -> add test patterns and references
 ```
-Phase 1: 태스크 정의 + 인터페이스 계약
-Phase 2: 구현 시작 → 관련 파일 추가
-Phase 3: 테스트 → 테스트 패턴 참조 추가
-```
 
-### 3. 구조화된 컨텍스트 템플릿
+### 3. Use a structured context template
 
-에이전트 지시 시 다음 형식 사용:
+Use this shape when instructing an agent:
 
-```
+```text
 ## Task
-[단일 명확한 목표]
+[one clear objective]
 
-## Given (이미 알고 있는 것)
-- [파일 경로]: [역할]
-- [인터페이스 계약]
+## Given (what is already known)
+- [file path]: [role]
+- [interface contract]
 
-## Constraints (하지 말아야 할 것)
-- [금지 사항]
-- [수정하면 안 되는 파일]
+## Constraints (what must not happen)
+- [prohibited action]
+- [files that must not be changed]
 
-## Done When (완료 기준)
-- [ ] [구체적이고 검증 가능한 기준]
+## Done When
+- [ ] [specific, testable criterion]
 ```
 
-### 4. 컨텍스트 윈도우 예산 관리
+### 4. Manage the context-window budget
 
-Copilot CLI의 모델 컨텍스트 예산 기준 (정확한 모델 선택은 `multi-model-strategy` 스킬 참고):
+Use context size intentionally. For exact model choice, see `multi-model-strategy`:
 
-| 태스크 복잡도 | 컨텍스트 규모 | 예시 |
-|-------------|------------|------|
-| 짧은 태스크 (빠른 응답 우선) | 파일 2~3개, 명확한 목표 | 단순 버그 수정, 타입 추가 |
-| 중간 태스크 (균형) | 파일 5~10개, 인터페이스 계약 | 새 API 엔드포인트, 컴포넌트 추가 |
-| 긴 태스크 (심층 추론 우선) | 파일 10~20개, 전체 모듈 수준 | 아키텍처 리팩터, 복잡한 버그 |
+| Task complexity | Context size | Example |
+|-----------------|-------------|---------|
+| Short task (fast response first) | 2-3 files, clear goal | small bug fix, type addition |
+| Medium task (balanced) | 5-10 files, interface contract | new API endpoint, component addition |
+| Long task (deep reasoning first) | 10-20 files, module-level context | architecture refactor, complex bug |
 
-### 5. 결과 검증 루프
+### 5. Run a result-verification loop
 
-에이전트 결과가 기대와 다를 때:
-1. 컨텍스트에서 모호한 부분 찾기
-2. Constraints에 명시적 금지사항 추가
-3. Done When 기준을 더 구체화
-4. (반복) → 에이전트 재실행
+If the agent output is off-target:
+
+1. Find ambiguity in the supplied context
+2. Add explicit constraints
+3. Make the "Done When" criteria more concrete
+4. Repeat and rerun the agent
 
 ## Common Rationalizations
 
 | Rationalization | Reality |
 |----------------|---------|
-| "에이전트에게 많은 정보를 줄수록 좋다" | 관련 없는 정보는 에이전트를 산만하게 한다. 신호 대 잡음비가 중요하다. |
-| "전체 코드베이스를 컨텍스트로 주겠다" | 토큰 낭비이며 에이전트 성능을 저하시킨다. 관련 파일만 선택한다. |
-| "자연어로 설명하면 에이전트가 알아서 한다" | 구체적인 완료 기준 없이는 에이전트가 멈출 지점을 모른다. |
+| "More context is always better" | Irrelevant information distracts the agent. Signal-to-noise ratio matters more than volume. |
+| "I'll just give the whole codebase" | That wastes tokens and often lowers agent quality. Include only the files that matter. |
+| "Natural language is enough; the agent will figure it out" | Without explicit completion criteria, the agent does not know where to stop. |
 
 ## Red Flags
-- 에이전트가 같은 실수를 반복함
-- 에이전트 응답이 질문에서 많이 벗어남
-- 태스크 지시에 "Done When" 기준이 없음
-- 전체 README나 전체 파일을 컨텍스트로 붙여넣음
+
+- The agent repeats the same mistake
+- The response drifts far from the actual request
+- The task prompt has no "Done When" criteria
+- You pasted the entire README or whole directories into context
 
 ## Verification
-- [ ] 태스크 지시에 단일 명확한 목표 포함
-- [ ] 관련 없는 파일이 컨텍스트에서 제외됨
-- [ ] 완료 기준이 검증 가능하게 명시됨
-- [ ] 에이전트 결과가 완료 기준을 충족함
+
+- [ ] The task prompt contains one clear objective
+- [ ] Unrelated files were excluded from context
+- [ ] Completion criteria are explicit and testable
+- [ ] The agent output satisfies the stated completion criteria
 
 ## Examples
 
-### Before (나쁜 예)
-```
-"프로젝트를 보고 버그를 찾아서 고쳐줘"
+### Before (bad)
+
+```text
+"Look through the project, find a bug, and fix it."
 ```
 
-### After (좋은 예)
-```
+### After (good)
+
+```text
 ## Task
-`src/auth/token.ts`의 JWT 만료 시간 검증 버그를 수정한다.
+Fix the JWT expiry-validation bug in `src/auth/token.ts`.
 
 ## Given
-- `src/auth/token.ts`: 수정 대상 파일
-- `src/auth/token.test.ts`: 기존 테스트
-- 버그: `exp` 클레임이 Unix timestamp인데 ms로 비교함
+- `src/auth/token.ts`: target file to change
+- `src/auth/token.test.ts`: existing tests
+- Bug: the `exp` claim is a Unix timestamp, but the code compares it as milliseconds
 
 ## Constraints
-- `src/auth/` 외 파일 수정 금지
-- 기존 함수 시그니처 변경 금지
+- Do not modify files outside `src/auth/`
+- Do not change existing function signatures
 
 ## Done When
-- [ ] 기존 테스트 모두 통과
-- [ ] `exp` 비교가 초(seconds) 단위로 수정됨
-- [ ] 새 엣지 케이스 테스트 (만료 직전/직후) 추가됨
+- [ ] All existing tests pass
+- [ ] The `exp` comparison uses seconds
+- [ ] New edge-case tests cover just-before and just-after expiry
 ```
 
 ## Tips
-- `spec-driven-development` 스킬과 연계: 스펙이 곧 컨텍스트 템플릿이 된다
-- Copilot의 `multi-model-strategy` 스킬로 태스크 복잡도에 맞는 모델을 선택한다
-- 에이전트가 두 번 연속 틀리면 컨텍스트 구조 자체를 재검토한다
+
+- Pair this with `spec-driven-development`: a good spec becomes a reusable context template
+- Use `multi-model-strategy` to pick a model that matches task complexity
+- If the agent misses twice in a row, revisit the context structure instead of only rewording the ask
 
 ## Advanced Techniques
 

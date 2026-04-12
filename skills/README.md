@@ -83,7 +83,9 @@ Skills in this repository fall into three functional layers, based on the harnes
 | **Agent-Extending** | Adds domain expertise to an agent — loaded when the agent needs specialized knowledge | Most `development/`, `security/`, `testing/`, `documentation/` skills |
 | **External** | Integrates external services and tools beyond the built-in CLI toolset | `mcp-ecosystem`, `ai-visibility`, `github-pr-workflow` |
 
-**Why this matters:** When composing workflows, load Orchestrator skills into the coordinating agent and Agent-Extending skills into specialist sub-agents. External skills can live in either layer depending on context.
+**Why this matters:** When composing workflows, load Orchestrator skills into the
+coordinating agent and Agent-Extending skills into specialist sub-agents.
+External skills can live in either layer depending on context.
 
 ---
 
@@ -221,7 +223,7 @@ Product management and strategy skills.
 
 All skills follow the [agentskills.io](https://agentskills.io) spec:
 
-```
+```text
 skills/
 └── <category>/
     └── <skill-name>/
@@ -235,16 +237,20 @@ skills/
 name: skill-name
 description: What the skill does (shown in skill pickers)
 metadata:
-  category: <category>   # optional metadata
+  category: <category>
 ---
 ```
+
+Valid categories:
+`development`, `testing`, `security`, `documentation`, `copilot-exclusive`,
+`workflow`, `product`, `content`
 
 ---
 
 ## Contributing
 
 1. Create a directory: `skills/<category>/<your-skill>/`
-2. Add `SKILL.md` with required frontmatter (`name`, `description`)
+2. Add `SKILL.md` with required frontmatter (`name`, `description`, `metadata.category`)
 3. Follow the pattern of existing skills for content structure
 4. Add to this README's catalog table
-5. Run `npm run validate && npm test` before submitting a PR
+5. Run `npm run validate && npm run lint:md && npm test` before submitting a PR

@@ -19,12 +19,12 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/user/everything-copilot-cli"
+    "url": "https://github.com/drvoss/everything-copilot-cli"
   },
   "scripts": {
     "test": "node --test tests/*.test.js",
     "validate": "node scripts/validate-config.js",
-    "lint:md": "markdownlint '**/*.md' --ignore node_modules",
+    "lint:md": "markdownlint \"**/*.md\" --ignore node_modules --ignore _tmp",
     "setup": "node scripts/setup.js"
   },
   "devDependencies": {

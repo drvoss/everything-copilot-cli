@@ -43,7 +43,7 @@ A bug you cannot reproduce reliably cannot be debugged reliably.
 # 3. Write a failing test that captures the reproduction
 
 # Find the code path involved
-grep -rn "<error keyword>" src/ --include="*.ts" -n
+Select-String -Path "src\\**\\*.ts" -Pattern "<error keyword>"
 
 # Check recent changes
 git --no-pager log --oneline -20
@@ -69,7 +69,7 @@ Close that gap before guessing at solutions.
 # Follow data from entry point to crash point
 
 # Trace the call stack
-grep -rn "<function name>" src/ --include="*.ts" -n
+Select-String -Path "src\\**\\*.ts" -Pattern "<function name>"
 
 # Check state at each step — add temporary logs if needed
 # Never modify production behavior during debugging
@@ -86,14 +86,14 @@ grep -rn "<function name>" src/ --include="*.ts" -n
 
 ```powershell
 # Read the function signature and its callers
-grep -rn "functionName" src/ -n
+Select-String -Path "src\\**\\*.ts" -Pattern "functionName"
 
 # Check what data looks like going in
 # Add a temporary debug log (remember to remove before committing)
 # console.log('[DEBUG]', JSON.stringify(input, null, 2));
 
 # Check recent git changes to the file
-git --no-pager log --follow -p -- src/path/to/file.ts | head -80
+git --no-pager log --follow -p -- src/path/to/file.ts | Select-Object -First 80
 ```
 
 ### Phase 3 — Hypothesize and Verify
@@ -143,7 +143,7 @@ The root cause is confirmed. Now fix it properly and prevent it from returning.
 npm test
 
 # 5. Remove any temporary debug logs
-grep -rn "\[DEBUG\]" src/ --include="*.ts"
+Select-String -Path "src\\**\\*.ts" -Pattern "\\[DEBUG\\]"
 
 # 6. Write a clear commit message explaining root cause
 git commit -m "fix: <what was wrong and why>
@@ -180,6 +180,21 @@ Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
 - The same bug has been "fixed" before
 - No regression test was added after the fix
 
+## Escalation — The Rule of Three
+
+If you have made 3 or more hypothesis-driven fix attempts without resolution:
+
+1. **Stop making further fixes**
+2. **Collect the evidence** — record each hypothesis, the test you ran, and why it was falsified
+3. **Escalate to architectural review** using the `council` skill:
+   - Architect — is the design itself creating the failure?
+   - Skeptic — what assumption is everyone making without checking?
+   - Pragmatist — what is the fastest path back to a working system?
+   - Critic — would a redesign be cheaper than more incremental fixes?
+
+> The Rule of Three usually means the problem is architectural, not an implementation detail.
+> A fourth fix attempt without escalation is often just another symptom patch.
+
 ## Verification
 
 - [ ] Bug is reproducible with a specific test case
@@ -211,3 +226,4 @@ Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
 - [`fix-build-errors`](../fix-build-errors/SKILL.md) — compilation and build failures
 - [`tdd-workflow`](../tdd-workflow/SKILL.md) — write regression tests as part of the fix
 - [`security-scan`](../../security/security-scan/SKILL.md) — if the bug is security-related
+- [`council`](../../workflow/council/SKILL.md) — escalate persistent failures to a structured architectural review

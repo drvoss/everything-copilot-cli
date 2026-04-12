@@ -38,6 +38,9 @@ and this skill generates a complete, convention-compliant SKILL.md file ready to
   - `product/` — PRD, launch, roadmap
   - `workflow/` — process workflows (research, release, sprint)
   - `copilot-exclusive/` — GitHub Copilot CLI-specific features
+- Confirm the category already exists in this repository. There is currently **no**
+  separate `research/` category; research-oriented skills belong in an existing
+  category such as `workflow/` unless the repo conventions are updated first.
 
 ## Workflow
 
@@ -141,7 +144,7 @@ mkdir "skills/[category]/[skill-name]" -Force
 
 ```powershell
 # Run the full validation suite
-npm run validate && npm run lint:md
+npm run validate && npm run lint:md && npm test
 ```
 
 Fix any markdownlint errors before committing.
@@ -151,7 +154,7 @@ Fix any markdownlint errors before committing.
 Add a row to the skills catalog table:
 
 ```markdown
-| [`[skill-name]`](./[category]/[skill-name]/SKILL.md) | [One-line description] | `[agent_type]` |
+| [`[skill-name]`]([category]/[skill-name]/SKILL.md) | [One-line description] |
 ```
 
 ## Quality Checklist
@@ -164,7 +167,7 @@ After generating a new skill, verify:
 - [ ] "When NOT to Use" table directs to alternatives
 - [ ] Workflow has numbered steps with concrete commands or examples
 - [ ] "Verification" section has checkable (not vague) criteria
-- [ ] `npm run validate && npm run lint:md` passes
+- [ ] `npm run validate && npm run lint:md && npm test` passes
 
 ## Usage Examples
 
