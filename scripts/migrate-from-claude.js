@@ -24,6 +24,7 @@ import { join, resolve, extname, basename } from "node:path";
 
 const TARGET = process.argv[2] ? resolve(process.argv[2]) : process.cwd();
 const OUTPUT = join(TARGET, ".github", "copilot");
+const PROJECT_SKILLS_DIR = join(TARGET, ".github", "skills");
 
 const report = { converted: [], warnings: [], skipped: [] };
 
@@ -192,7 +193,7 @@ function migrateSkills() {
     if (!existsSync(dir) || !statSync(dir).isDirectory()) continue;
 
     const files = readdirSync(dir, { withFileTypes: true, recursive: true });
-    ensureDir(join(OUTPUT, "skills", "migrated"));
+    ensureDir(PROJECT_SKILLS_DIR);
 
     for (const file of files) {
       if (!file.isFile() || extname(file.name) !== ".md") continue;
@@ -206,9 +207,12 @@ function migrateSkills() {
         content = frontmatter + content;
       }
 
-      const dest = join(OUTPUT, "skills", "migrated", file.name);
+      const name = basename(file.name, ".md");
+      const destDir = join(PROJECT_SKILLS_DIR, name);
+      ensureDir(destDir);
+      const dest = join(destDir, "SKILL.md");
       writeFileSync(dest, content, "utf-8");
-      report.converted.push(`Skill: ${file.name} → .github/copilot/skills/migrated/${file.name}`);
+      report.converted.push(`Skill: ${file.name} → .github/skills/${name}/SKILL.md`);
     }
   }
 }

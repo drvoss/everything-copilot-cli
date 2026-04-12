@@ -47,7 +47,8 @@ All skills in this repository follow the **[agentskills.io](https://agentskills.
 
 ```bash
 # Install a single skill (project-level)
-# Copy skill directory to: .github/skills/<category>/<skill-name>/SKILL.md
+# Copy each skill directory to: .github/skills/<skill-name>/SKILL.md
+# Example: skills/development/fix-build-errors/ -> .github/skills/fix-build-errors/
 
 # Install user-level (available in all projects)
 # Copy to: ~/.copilot/skills/<category>/<skill-name>/SKILL.md

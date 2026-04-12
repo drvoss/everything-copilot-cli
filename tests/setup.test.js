@@ -40,7 +40,8 @@ describe("setup script", () => {
       assert.equal(result.status, 0, result.stderr);
       assert.ok(existsSync(join(target, ".github", "copilot-instructions.md")));
       assert.ok(!existsSync(join(target, "COPILOT-INSTRUCTIONS.md")));
-      assert.ok(!existsSync(join(target, ".github", "copilot", "agents")));
+      assert.ok(!existsSync(join(target, ".github", "agents")));
+      assert.ok(!existsSync(join(target, ".github", "skills")));
       assert.match(result.stdout, /Profile: minimal/);
     } finally {
       rmSync(target, { recursive: true, force: true });
@@ -58,8 +59,10 @@ describe("setup script", () => {
 
       assert.equal(result.status, 0, result.stderr);
       assert.ok(existsSync(join(target, ".github", "copilot-instructions.md")));
-      assert.ok(existsSync(join(target, ".github", "copilot", "agents")));
-      assert.ok(existsSync(join(target, ".github", "copilot", "skills")));
+      assert.ok(existsSync(join(target, ".github", "agents", "planner.md")));
+      assert.ok(existsSync(join(target, ".github", "skills", "fix-build-errors", "SKILL.md")));
+      assert.ok(!existsSync(join(target, ".github", "copilot", "agents")));
+      assert.ok(!existsSync(join(target, ".github", "copilot", "skills")));
       assert.ok(existsSync(join(target, ".github", "copilot", "rules")));
       assert.ok(!existsSync(join(target, ".github", "copilot", "contexts")));
       assert.match(result.stdout, /Profile: recommended/);
@@ -80,8 +83,8 @@ describe("setup script", () => {
 
       assert.equal(result.status, 0, result.stderr);
       assert.ok(existsSync(join(target, ".github", "copilot-instructions.md")));
-      assert.ok(existsSync(join(target, ".github", "copilot", "agents")));
-      assert.ok(existsSync(join(target, ".github", "copilot", "skills")));
+      assert.ok(existsSync(join(target, ".github", "agents", "planner.md")));
+      assert.ok(existsSync(join(target, ".github", "skills", "fix-build-errors", "SKILL.md")));
       assert.ok(existsSync(join(target, ".github", "copilot", "rules")));
       assert.ok(existsSync(join(target, ".github", "copilot", "contexts")));
       assert.match(result.stdout, /Profile: full/);

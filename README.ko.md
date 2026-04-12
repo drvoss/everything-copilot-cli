@@ -84,7 +84,7 @@ npm run setup -- --target /path/to/your-project
 | `full` | 고급 설정용 | contexts 포함 전체 설치 |
 | `custom` | 세부 제어가 필요할 때 | 각 구성 요소를 설명과 함께 직접 선택 |
 
-setup는 프로젝트 instructions를 `.github/copilot-instructions.md`에 쓰며, Copilot은 이 파일을 매 세션 자동으로 읽습니다.
+setup는 프로젝트 instructions를 `.github/copilot-instructions.md`에 쓰고, custom agents는 `.github/agents/`에, project skills는 `.github/skills/`에 설치합니다. Copilot CLI는 이 경로들을 현재 저장소에서 자동으로 찾습니다.
 
 이제 프로젝트에 설치한 에이전트, 스킬, 규칙과 함께 Copilot CLI를 사용해보세요:
 

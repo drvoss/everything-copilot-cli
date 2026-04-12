@@ -58,20 +58,20 @@ const COMPONENTS = [
     key: "agents",
     label: "agents",
     sourceDir: "agents",
-    destination: ".github/copilot/agents/",
+    destination: ".github/agents/",
     description: "8 specialist personas such as planner, architect, and code-reviewer.",
     recommended: true,
-    install: installDirectory,
+    install: installAgentFiles,
     summary: "Specialist agent definitions",
   },
   {
     key: "skills",
     label: "skills",
     sourceDir: "skills",
-    destination: ".github/copilot/skills/",
+    destination: ".github/skills/",
     description: "Reusable workflows for development, testing, security, docs, and GitHub tasks.",
     recommended: true,
-    install: installDirectory,
+    install: installSkillDirectories,
     summary: "Reusable workflow skills",
   },
   {
@@ -220,6 +220,65 @@ function installDirectory(component) {
   return {
     path: component.destination,
     detail: `${component.summary} (${countEntries(src)} entries)`,
+    state: "installed",
+  };
+}
+
+function installAgentFiles(component) {
+  const src = join(ROOT, component.sourceDir);
+  const dest = join(TARGET, ".github", "agents");
+
+  if (!existsSync(src)) {
+    throw new Error(`Source not found: ${src}`);
+  }
+
+  mkdirSync(dest, { recursive: true });
+
+  const files = readdirSync(src, { withFileTypes: true })
+    .filter((entry) => entry.isFile())
+    .map((entry) => entry.name);
+
+  for (const file of files) {
+    cpSync(join(src, file), join(dest, file), { force: true });
+  }
+
+  return {
+    path: component.destination,
+    detail: `${component.summary} (${files.length} files)`,
+    state: "installed",
+  };
+}
+
+function installSkillDirectories(component) {
+  const src = join(ROOT, component.sourceDir);
+  const dest = join(TARGET, ".github", "skills");
+
+  if (!existsSync(src)) {
+    throw new Error(`Source not found: ${src}`);
+  }
+
+  mkdirSync(dest, { recursive: true });
+
+  const installedSkills = [];
+  const categories = readdirSync(src, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && entry.name !== ".git");
+
+  for (const category of categories) {
+    const categoryPath = join(src, category.name);
+    const skills = readdirSync(categoryPath, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory());
+
+    for (const skill of skills) {
+      const sourcePath = join(categoryPath, skill.name);
+      const destPath = join(dest, skill.name);
+      cpSync(sourcePath, destPath, { recursive: true, force: true });
+      installedSkills.push(skill.name);
+    }
+  }
+
+  return {
+    path: component.destination,
+    detail: `${component.summary} (${installedSkills.length} skill directories)`,
     state: "installed",
   };
 }

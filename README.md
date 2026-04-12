@@ -85,7 +85,7 @@ During step 4, setup offers these profiles:
 | `full` | For advanced setups | Everything, including contexts |
 | `custom` | When you want full control | Lets you choose each component with explanations |
 
-Setup writes project instructions to `.github/copilot-instructions.md`, which Copilot reads automatically on every session.
+Setup writes project instructions to `.github/copilot-instructions.md`, installs custom agents to `.github/agents/`, and installs project skills to `.github/skills/`, which Copilot CLI can discover in the current repository.
 
 Then open a terminal and start using Copilot CLI with the installed agents, skills, and rules:
 
