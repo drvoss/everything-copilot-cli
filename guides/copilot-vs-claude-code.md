@@ -14,8 +14,8 @@ IDE integration with VS Code, and can act as a hub for multi-AI workflows via sh
 scripting and MCP (community pattern).
 
 **Claude Code** is Anthropic's terminal-based AI assistant, powered by Claude models.
-It features a mature skill library (65+ skills), a comprehensive hook system, and
-specialized agents (16 types) refined through extensive production use.
+It features a mature hook system, specialized agents (16 types), and a broader community
+ecosystem of reusable skills and patterns refined through production use.
 
 Both tools can read and edit files, run commands, search codebases, and autonomously
 implement features. The differences lie in their integrations, architectures, and
@@ -59,8 +59,8 @@ unique capabilities.
 | MCP Protocol | ✅ Client + server | ✅ Client + server | Both support MCP |
 | Agent Council | ✅ Multi-tool deliberation | ❌ Single-tool | Bring multiple AIs to decisions |
 | **Extensibility** | | | |
-| Skill Library | ⚠️ Growing (~23 skills) | ✅ 65+ battle-tested | Claude Code's library is more mature |
-| Hook System | ✅ `preToolUse` / `postToolUse` | ✅ Full lifecycle hooks | Both support lifecycle hooks (GA Feb 2026) |
+| Skill Library | ✅ 64 curated skills in this collection | ⚠️ Community libraries vary by source | This repository currently ships 64 Copilot skills; cross-tool counts are not normalized |
+| Hook System | ⚠️ No direct in-session equivalent | ✅ Full lifecycle hooks | Copilot relies on Git hooks, GitHub Actions, and prompt guards instead |
 | Custom Commands | ✅ Slash commands + plugins | ✅ Slash commands | Both support custom commands |
 | Security Scanning | ⚠️ Via skills | ⚠️ Via skills | Both rely on security skill workflows |
 | **Configuration** | | | |
@@ -145,10 +145,11 @@ Controlled autonomous execution with safety guardrails — more structured than 
 Code's permission-skipping approach. Currently an experimental feature; activate with
 `/experimental on` or the `--experimental` flag.
 
-### 12. Lifecycle Hooks (GA Feb 2026)
+### 12. Hook Alternatives Through Git Tooling
 
-`preToolUse` and `postToolUse` hooks enable custom validation, logging, and automation
-at every tool call — now on par with Claude Code's hook support.
+Copilot CLI does not expose Claude-style in-session lifecycle hooks. Instead, teams
+typically combine Git hooks, GitHub Actions, and prompt-level guardrails to enforce
+checks before or after AI-assisted changes.
 
 ---
 
@@ -159,15 +160,16 @@ at every tool call — now on par with Claude Code's hook support.
 Claude Code offers 16 specialized agent types compared to Copilot's 4. More granular
 specialization means agents are more focused and effective at their specific tasks.
 
-### 2. Battle-Tested Skill Library (65+)
+### 2. More Mature Community Skill Ecosystem
 
-Claude Code's skill library is more mature with 65+ skills refined through extensive
-production use. Copilot CLI's library is growing but currently has ~23 skills.
+This repository currently ships 64 Copilot skills. Claude Code's ecosystem may still
+feel more mature in some teams because its community has shared reusable skills and
+hook-based workflows for longer.
 
 ### 3. Full Lifecycle Hooks
 
-Both tools now support lifecycle hooks. Claude Code has a more mature and documented
-hook ecosystem with a larger library of community-contributed hooks.
+Claude Code offers native AI-session lifecycle hooks. In Copilot CLI, similar guardrails
+are typically built with Git hooks, GitHub Actions, or prompt-level instructions instead.
 
 ### 4. Security via Skills
 
@@ -229,7 +231,7 @@ See [Orchestration Patterns](../orchestration/README.md) for implementation deta
 |-----------|------------|------------|
 | Use GitHub heavily | Copilot CLI | Native GitHub integration saves setup time |
 | Need multiple AI models | Copilot CLI | 20+ models vs Claude-only |
-| Want mature skill library | Claude Code | 65+ battle-tested skills |
+| Want a more mature hook-centered ecosystem | Claude Code | Native lifecycle hooks and longer-running community patterns |
 | Need full lifecycle hooks | Claude Code | Richer hook system |
 | Work across IDEs | Copilot CLI | VS Code + JetBrains integration |
 | Need parallel execution | Copilot CLI | Native fleet mode |

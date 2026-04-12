@@ -252,7 +252,8 @@ Copilot CLI skills are Markdown files — install by copying to your project:
 # From everything-copilot-cli repository
 $skill = "commit-workflow"
 $category = "workflow"
-Copy-Item "skills/$category/$skill/SKILL.md" ".copilot/skills/$skill.md"
+New-Item -ItemType Directory -Force ".github/skills/$skill" | Out-Null
+Copy-Item "skills/$category/$skill/SKILL.md" ".github/skills/$skill/SKILL.md"
 ```
 
 Or reference the skill directly in a Copilot prompt:

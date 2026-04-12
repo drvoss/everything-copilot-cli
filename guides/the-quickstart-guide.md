@@ -45,7 +45,7 @@ brew install copilot-cli
 winget install GitHub.Copilot
 ```
 
-**All platforms — npm** _(requires Node.js 22+)_**:**
+**All platforms — npm** _(requires Node.js and npm)_:
 ```bash
 npm install -g @github/copilot
 ```

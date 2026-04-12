@@ -32,7 +32,7 @@ Copilot CLI is the ideal orchestrator for multi-AI workflows. Here's why:
 | **Background Agents** | Launch long-running tasks, check back later |
 | **Session SQL Database** | Track multi-step workflows with structured data |
 | **Fleet Mode** | Parallelize work across multiple agents |
-| **18 Built-in Models** | GPT-5, Claude Opus/Sonnet/Haiku, Gemini — switch instantly |
+| **20+ Built-in Models** | GPT-5, Claude Opus/Sonnet/Haiku, Gemini — switch instantly |
 | **MCP Ecosystem** | Extend capabilities with any MCP server |
 | **IDE Integration** | Switch between CLI and VS Code seamlessly |
 

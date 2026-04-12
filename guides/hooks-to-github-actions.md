@@ -1,60 +1,62 @@
 # Hooks to GitHub Actions (and Alternatives)
 
-> **Claude Code → Copilot CLI 마이그레이션 가이드: Hooks 편**
+> **Claude Code → Copilot CLI Migration Guide: Hooks Edition**
 
-Claude Code의 **Hooks**는 AI 세션 내 이벤트에 실행되는 스크립트입니다.
-Copilot CLI에는 동일한 세션 내 훅 시스템이 없지만, 목적에 따라 세 가지 대안이 있습니다.
+Claude Code **Hooks** are scripts that run on events within an AI session.
+Copilot CLI does not have the same in-session hook system, but depending on the purpose,
+there are three alternatives.
 
 ---
 
-## Claude Code Hooks 개요
+## Claude Code Hooks Overview
 
-Claude Code는 다음 이벤트에 훅을 지원합니다:
+Claude Code supports hooks for the following events:
 
-| 훅 타입 | 실행 시점 |
+| Hook type | When it runs |
 |---------|----------|
-| `PreToolUse` | AI가 도구(파일 수정, 명령 실행 등)를 사용하기 직전 |
-| `PostToolUse` | AI가 도구를 사용한 직후 |
-| `Notification` | AI 세션이 주의를 요청할 때 |
-| `Stop` | AI 세션이 완료될 때 |
-| `SubagentStop` | 서브에이전트가 완료될 때 |
+| `PreToolUse` | Right before the AI uses a tool (file edits, command execution, etc.) |
+| `PostToolUse` | Right after the AI uses a tool |
+| `Notification` | When the AI session requests attention |
+| `Stop` | When the AI session completes |
+| `SubagentStop` | When a subagent completes |
 
-**핵심 차이**: Claude Code Hooks는 *AI 세션 생명주기* 이벤트에 응답합니다.
-Copilot CLI에는 이에 직접 대응하는 메커니즘이 없습니다.
+**Key difference**: Claude Code Hooks respond to *AI session lifecycle* events.
+Copilot CLI does not have a direct equivalent mechanism.
 
 ---
 
-## 대안 매핑 (대응이 아닌 대안)
+## Alternative Mapping (Alternatives, Not Equivalents)
 
-아래 표는 Claude Code Hooks의 *목적*에 따라 Copilot 생태계에서 유사한 효과를 낼 수 있는 방법을 보여줍니다.
+The table below shows ways to achieve similar effects in the Copilot ecosystem based on the
+*purpose* of Claude Code Hooks.
 
-| Claude Code Hook | 주요 사용 사례 | Copilot 대안 1 | Copilot 대안 2 | Copilot 대안 3 |
+| Claude Code Hook | Main use case | Copilot alternative 1 | Copilot alternative 2 | Copilot alternative 3 |
 |-----------------|---------------|---------------|---------------|---------------|
-| `PreToolUse` | 변경 전 린트/검증 실행 | [Git Pre-commit Hook](#1-git-pre-commit-hooks) | [GitHub Actions (PR)](#2-github-actions) | [Pre-task Checklist in Prompt](#3-prompt-level-guards) |
-| `PostToolUse` | 변경 후 테스트/포맷 실행 | [Git Post-commit Hook](#1-git-pre-commit-hooks) | [GitHub Actions (push)](#2-github-actions) | — |
-| `Stop` | AI 세션 완료 후 요약 생성 | GitHub Actions (PR 생성 시) | Manual | — |
-| `Notification` | 알림 발송 | GitHub Actions (Slack/Email) | `gh` CLI notification | — |
-| `SubagentStop` | 서브에이전트 결과 집계 | [Fleet + GitHub Actions](#2-github-actions) | Orchestration pattern | — |
+| `PreToolUse` | Run lint/validation before changes | [Git Pre-commit Hook](#alternative-1-git-pre-commit-hooks) | [GitHub Actions (PR)](#alternative-2-github-actions) | [Pre-task Checklist in Prompt](#alternative-3-prompt-level-guards) |
+| `PostToolUse` | Run tests/formatting after changes | [Git Post-commit Hook](#alternative-1-git-pre-commit-hooks) | [GitHub Actions (push)](#alternative-2-github-actions) | — |
+| `Stop` | Generate a summary after the AI session ends | GitHub Actions (when PR is created) | Manual | — |
+| `Notification` | Send notifications | GitHub Actions (Slack/Email) | `gh` CLI notification | — |
+| `SubagentStop` | Aggregate subagent results | [Fleet + GitHub Actions](#alternative-2-github-actions) | Orchestration pattern | — |
 
 ---
 
-## 대안 1: Git Pre-commit Hooks
+## Alternative 1: Git Pre-commit Hooks
 
-**적합한 경우**: `PreToolUse`처럼 커밋 직전에 코드 품질을 강제하고 싶을 때
+**Best for**: enforcing code quality right before commits, similar to `PreToolUse`
 
 ### Husky + lint-staged (Node.js)
 
 ```powershell
-# 설치
+# Install
 npm install --save-dev husky lint-staged
 npx husky init
 
-# .husky/pre-commit 파일 생성
+# Create .husky/pre-commit
 @"
 npx lint-staged
 "@ | Set-Content .husky/pre-commit
 
-# package.json에 lint-staged 설정 추가
+# Add lint-staged settings to package.json
 # {
 #   "lint-staged": {
 #     "*.{ts,js}": ["eslint --fix", "prettier --write"],
@@ -63,13 +65,13 @@ npx lint-staged
 # }
 ```
 
-### pre-commit (Python/범용)
+### pre-commit (Python/general-purpose)
 
 ```powershell
-# 설치
+# Install
 pip install pre-commit
 
-# .pre-commit-config.yaml 생성
+# Create .pre-commit-config.yaml
 @"
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -88,16 +90,16 @@ repos:
 pre-commit install
 ```
 
-**장점**: 로컬에서 즉시 실행, 네트워크 불필요
-**단점**: 팀원이 훅을 설치해야 함 (`pre-commit install`)
+**Pros**: runs immediately locally, no network required  
+**Cons**: team members must install the hook (`pre-commit install`)
 
 ---
 
-## 대안 2: GitHub Actions
+## Alternative 2: GitHub Actions
 
-**적합한 경우**: PR 게이트, 배포 검증, 알림 발송처럼 CI/CD 수준의 자동화가 필요할 때
+**Best for**: CI/CD-level automation such as PR gates, deployment verification, and notifications
 
-### PR Gate (PreToolUse의 CI 대응물)
+### PR Gate (CI equivalent of PreToolUse)
 
 ```yaml
 # .github/workflows/quality-gate.yml
@@ -122,7 +124,7 @@ jobs:
       - run: npm test
 ```
 
-### Post-Merge Notification (Stop Hook의 CI 대응물)
+### Post-Merge Notification (CI equivalent of Stop Hook)
 
 ```yaml
 # .github/workflows/notify-on-merge.yml
@@ -147,7 +149,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 ```
 
-### Fleet Agent Results Aggregation (SubagentStop 대응물)
+### Fleet Agent Results Aggregation (equivalent to SubagentStop)
 
 ```yaml
 # .github/workflows/multi-agent-review.yml
@@ -195,16 +197,17 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-**장점**: 모든 팀원에게 자동 적용, 인프라로 관리
-**단점**: CI/CD 파이프라인 이벤트에만 반응 (AI 세션 이벤트 아님)
+**Pros**: automatically applies to all team members, managed as infrastructure  
+**Cons**: only responds to CI/CD pipeline events, not AI session events
 
 ---
 
-## 대안 3: Prompt-Level Guards
+## Alternative 3: Prompt-Level Guards
 
-**적합한 경우**: AI가 실행하기 전에 특정 검사를 수행하도록 지시할 때 (`PreToolUse`의 프롬프트 대응물)
+**Best for**: telling the AI to perform checks before executing work (`PreToolUse` equivalent
+at the prompt level)
 
-### `.github/copilot-instructions.md`에 규칙 추가
+### Add rules to `.github/copilot-instructions.md`
 
 ```markdown
 ## Before Making Changes
@@ -222,9 +225,9 @@ After any code changes:
 3. Update CHANGELOG.md if the change is user-visible
 ```
 
-### 세션 시작 시 체크리스트 프롬프트
+### Checklist prompt at session start
 
-```
+```text
 > Before we start today's work:
 > 1. Run npm run lint and show me any errors
 > 2. Run npm test and show me the pass/fail summary
@@ -232,26 +235,26 @@ After any code changes:
 > Then proceed with the task.
 ```
 
-**장점**: 별도 설치 불필요, 즉시 적용
-**단점**: AI가 지침을 무시할 수 있음 (강제성 없음)
+**Pros**: no extra installation required, applies immediately  
+**Cons**: the AI may ignore the instructions; there is no hard enforcement
 
 ---
 
-## 사용 사례별 권고 대안
+## Recommended Alternatives by Use Case
 
-| 목적 | 권고 대안 | 이유 |
+| Purpose | Recommended alternative | Reason |
 |-----|----------|------|
-| 커밋 전 린트 강제 | Git Pre-commit Hook (Husky) | 즉시 로컬 실행, 설정 간단 |
-| PR 머지 전 테스트 게이트 | GitHub Actions | 팀 전체 강제 적용 |
-| AI 작업 전 컨텍스트 체크 | Prompt-Level Guard | 별도 인프라 불필요 |
-| 배포 후 알림 | GitHub Actions | 안정적, 재사용 가능 |
-| 병렬 에이전트 결과 집계 | GitHub Actions + Fleet | Copilot Fleet + CI 결합 |
+| Enforce linting before commit | Git Pre-commit Hook (Husky) | Immediate local execution, simple setup |
+| Test gate before PR merge | GitHub Actions | Enforced for the whole team |
+| Context check before AI work | Prompt-Level Guard | No extra infrastructure needed |
+| Post-deployment notifications | GitHub Actions | Reliable and reusable |
+| Aggregate parallel agent results | GitHub Actions + Fleet | Combines Copilot Fleet with CI |
 
 ---
 
-## Claude Code Hooks에서의 마이그레이션 예시
+## Migration Example from Claude Code Hooks
 
-### 원본: Claude Code `Stop` Hook
+### Original: Claude Code `Stop` Hook
 
 ```json
 {
@@ -267,7 +270,7 @@ After any code changes:
 }
 ```
 
-### Copilot 대안 A: GitHub Actions (Push 시 Slack 알림)
+### Copilot alternative A: GitHub Actions (Slack notification on push)
 
 ```yaml
 on:
@@ -281,28 +284,30 @@ jobs:
       # Slack notification step here
 ```
 
-### Copilot 대안 B: Prompt Guard (세션 종료 전 체크리스트)
+### Copilot alternative B: Prompt Guard (pre-session checklist)
 
 ```markdown
 ## Session Wrap-Up (copilot-instructions.md)
 At the end of each task:
 1. Run the test suite
 2. Commit all changes with conventional commit format
-3. Update CHANGELOG.md [Unreleased] section
+3. Update the CHANGELOG.md [Unreleased] section
 ```
 
 ---
 
-## 대안 4: AST 기반 안전한 명령 자동 승인 (Dippy 패턴)
+## Alternative 4: AST-Based Safe Command Auto-Approval (Dippy Pattern)
 
-**적합한 경우**: `PreToolUse` 훅이 CLI 명령을 자동 승인/거부하던 패턴을 대체할 때
+**Best for**: replacing the pattern where `PreToolUse` hooks automatically approved or rejected
+CLI commands
 
-Claude Code의 hooks는 `bash` 명령을 실행 전에 가로채 AST 또는 패턴 분석으로 안전성을 판단할 수 있었습니다.
-Copilot CLI에는 동일한 메커니즘이 없지만, **허용 목록(allowlist) + 프롬프트 가드** 방식으로 유사한 효과를 낼 수 있습니다.
+Claude Code hooks could intercept `bash` commands before execution and judge safety using AST
+or pattern analysis. Copilot CLI does not have the same mechanism, but you can achieve a
+similar effect with an **allowlist + prompt guard** approach.
 
-### 허용 목록 기반 접근 방식
+### Allowlist-based approach
 
-안전하다고 알려진 명령 패턴을 `.github/copilot-instructions.md`에 명시합니다:
+Explicitly list command patterns known to be safe in `.github/copilot-instructions.md`:
 
 ```markdown
 ## Safe Commands (auto-proceed without asking)
@@ -322,12 +327,12 @@ Always ask before:
 - Database migrations or schema changes
 ```
 
-### 패턴 매칭 방식 (PowerShell Pre-commit Hook)
+### Pattern matching approach (PowerShell pre-commit hook)
 
-커밋 전에 위험한 패턴을 탐지하는 로컬 스크립트:
+A local script that detects dangerous patterns before committing:
 
 ```powershell
-# .husky/pre-commit (위험 패턴 탐지)
+# .husky/pre-commit (dangerous pattern detection)
 $dangerousPatterns = @(
     'rm -rf',
     '--force',
@@ -350,18 +355,20 @@ foreach ($file in $stagedFiles) {
 }
 ```
 
-**장점**: 명시적이고 버전 관리되며 팀 전체에 적용됨
-**단점**: 런타임 명령이 아닌 소스 코드만 검사 (Claude Code Hooks만큼 세밀하지 않음)
+**Pros**: explicit, version-controlled, and applies to the whole team  
+**Cons**: scans source code only, not runtime commands, so it is not as fine-grained as
+Claude Code Hooks
 
-> **참고:** [Dippy](https://github.com/dippyai/dippy)는 Claude Code용 AST 기반 안전 명령 자동 승인 패턴입니다.
-> Copilot CLI에서 유사한 보안 수준을 원한다면 위의 허용 목록 접근 방식이 현실적인 대안입니다.
+> **Note:** [Dippy](https://github.com/dippyai/dippy) is an AST-based safe command
+> auto-approval pattern for Claude Code. If you want a similar security level in Copilot CLI,
+> the allowlist approach above is a practical alternative.
 
 ---
 
-## 관련 가이드
+## Related Guides
 
-- [`migration-from-claude-code.md`](./migration-from-claude-code.md) — 전체 마이그레이션 개요
-- [`context-prime`](../skills/copilot-exclusive/context-prime/SKILL.md) — 세션 시작 시 컨텍스트 로딩
-- [`commit-workflow`](../skills/workflow/commit-workflow/SKILL.md) — 커밋 자동화
-- [GitHub Actions 공식 문서](https://docs.github.com/en/actions)
-- [Husky 공식 문서](https://typicode.github.io/husky/)
+- [`migration-from-claude-code.md`](./migration-from-claude-code.md) — overall migration overview
+- [`context-prime`](../skills/copilot-exclusive/context-prime/SKILL.md) — loading context at session start
+- [`commit-workflow`](../skills/workflow/commit-workflow/SKILL.md) — commit automation
+- [GitHub Actions official documentation](https://docs.github.com/en/actions)
+- [Husky official documentation](https://typicode.github.io/husky/)
