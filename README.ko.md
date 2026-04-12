@@ -92,7 +92,18 @@ setup는 프로젝트 instructions를 `.github/copilot-instructions.md`에 쓰�
 # 프로젝트 디렉토리에서 세션 시작
 cd your-project
 copilot
+```
 
+`copilot`이 시작되면 다음으로 설치가 정상 인식됐는지 빠르게 확인할 수 있습니다:
+
+```text
+- 시작 배너에 프로젝트 custom instruction이 보이고, project skills / agents 수가 함께 표시되어야 합니다.
+- `/skills list`를 실행했을 때 built-in 항목만이 아니라 project skills도 보여야 합니다.
+- `/agent`를 실행했을 때 `planner` 같은 custom agent가 보여야 합니다.
+- built-in skills만 보이고 project agents가 없다면, 이 저장소의 설치 내용이 아직 현재 프로젝트에서 인식되지 않은 것입니다.
+```
+
+```bash
 # planner 에이전트 사용 (세션 안에서)
 > 사용자 관리 REST API를 설계해줘 — plan mode 사용
 

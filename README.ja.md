@@ -92,7 +92,18 @@ setup はプロジェクトの instructions を `.github/copilot-instructions.md
 # Start a session in your project directory
 cd your-project
 copilot
+```
 
+`copilot` を起動したら、インストールが認識されているかを次の方法ですぐ確認できます:
+
+```text
+- 起動バナーに project の custom instruction が表示され、project skills / agents の数も増えているはずです。
+- `/skills list` で built-in だけでなく project skills も表示されるはずです。
+- `/agent` で `planner` などの custom agent が表示されるはずです。
+- built-in skills しか表示されず project agents もない場合は、このリポジトリのインストール内容がまだ現在の project で検出されていません。
+```
+
+```bash
 # Use the planner agent (inside the session)
 > Design a REST API for user management — use plan mode
 

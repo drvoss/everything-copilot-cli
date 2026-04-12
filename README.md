@@ -93,7 +93,18 @@ Then open a terminal and start using Copilot CLI with the installed agents, skil
 # Start a session in your project directory
 cd your-project
 copilot
+```
 
+After `copilot` starts, you can quickly check whether the installation was picked up:
+
+```text
+- The startup banner should mention your project custom instruction and show additional project skills and agents.
+- `/skills list` should show project skills, not just built-in ones.
+- `/agent` should show custom agents such as `planner`.
+- If you only see built-in skills and no project agents, the collection was not discovered in this repository yet.
+```
+
+```bash
 # Use the planner agent (inside the session)
 > Design a REST API for user management — use plan mode
 

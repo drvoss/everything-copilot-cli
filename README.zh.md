@@ -92,7 +92,18 @@ setup 会把项目 instructions 写入 `.github/copilot-instructions.md`，并�
 # Start a session in your project directory
 cd your-project
 copilot
+```
 
+启动 `copilot` 后，可以用下面的方法快速确认安装是否被识别：
+
+```text
+- 启动横幅应显示项目 custom instruction，并且 project skills / agents 数量会增加。
+- 运行 `/skills list` 时，除了 built-in 项目，还应看到 project skills。
+- 运行 `/agent` 时，应看到 `planner` 等 custom agents。
+- 如果只看到 built-in skills、看不到 project agents，说明当前仓库里还没有成功识别这套集合。
+```
+
+```bash
 # Use the planner agent (inside the session)
 > Design a REST API for user management — use plan mode
 
