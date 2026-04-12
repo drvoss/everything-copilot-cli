@@ -222,8 +222,8 @@ Return JSON:
 
 ## See Also
 
-- [tdd-workflow](../tdd-workflow/SKILL.md) — unit testing workflow for traditional code
-- [qa-agent-guide](../../guides/qa-agent-guide.md) — incremental QA with agent boundaries
+- [tdd-workflow](../../development/tdd-workflow/SKILL.md) — unit testing workflow for traditional code
+- [qa-agent-guide](../../../guides/qa-agent-guide.md) — incremental QA with agent boundaries
 - [multi-model-strategy](../../copilot-exclusive/multi-model-strategy/SKILL.md) — picking the right model per task
 
 ## AI Pipeline Evaluation with promptfoo

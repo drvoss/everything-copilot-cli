@@ -55,7 +55,7 @@ JWT_SECRET=your-256-bit-secret
 ### When Working with Copilot CLI
 - Copilot CLI never stores your secrets
 - Avoid pasting secrets directly into the chat — use environment variable references
-- Use the [Secret Detection skill](../skills/security/secret-detection.md) to scan for leaked secrets
+- Use the [Secret Detection skill](../skills/security/secret-detection/SKILL.md) to scan for leaked secrets
 
 ---
 
@@ -266,7 +266,7 @@ Copilot CLI has built-in security boundaries:
 
 - Never grant AI tools access to production environments
 - Review all generated code, especially security-critical paths
-- Use the [Security Scan skill](../skills/security/security-scan.md) after significant changes
+- Use the [Security Scan skill](../skills/security/security-scan/SKILL.md) after significant changes
 
 ---
 

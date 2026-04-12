@@ -74,8 +74,8 @@ Copilot CLI will:
 7. Suggest pushing the fix
 ```
 
-See [GitHub PR Workflow skill](../skills/copilot-exclusive/github-pr-workflow.md) and
-[Actions Debugging skill](../skills/copilot-exclusive/actions-debugging.md).
+See [GitHub PR Workflow skill](../skills/copilot-exclusive/github-pr-workflow/SKILL.md) and
+[Actions Debugging skill](../skills/copilot-exclusive/actions-debugging/SKILL.md).
 
 ---
 
@@ -139,7 +139,7 @@ Phase 4 — Review (standard):    claude-sonnet-4.6     → $$
 Phase 5 — Arch review (premium): claude-opus-4.6      → $$$  (only if needed)
 ```
 
-See [Multi-Model Strategy skill](../skills/copilot-exclusive/multi-model-strategy.md).
+See [Multi-Model Strategy skill](../skills/copilot-exclusive/multi-model-strategy/SKILL.md).
 
 ---
 
@@ -186,7 +186,7 @@ No other AI coding tool offers this integration depth.
 7. VS Code: Address review comments with inline Copilot
 ```
 
-See [IDE Switching skill](../skills/copilot-exclusive/ide-switching.md).
+See [IDE Switching skill](../skills/copilot-exclusive/ide-switching/SKILL.md).
 
 ---
 
@@ -260,7 +260,7 @@ Plan created:
 [Approve] [Approve + Autopilot] [Modify]
 ```
 
-See [Plan Mode Mastery skill](../skills/copilot-exclusive/plan-mode-mastery.md).
+See [Plan Mode Mastery skill](../skills/copilot-exclusive/plan-mode-mastery/SKILL.md).
 
 ---
 
@@ -312,7 +312,7 @@ Copilot autonomously:
 6. Reports completion with summary
 ```
 
-See [Autopilot Patterns skill](../skills/copilot-exclusive/autopilot-patterns.md).
+See [Autopilot Patterns skill](../skills/copilot-exclusive/autopilot-patterns/SKILL.md).
 
 ---
 
@@ -381,7 +381,7 @@ the draft PR:
 > Update the migration guide to reflect these changes
 ```
 
-See [Background Agent skill](../skills/copilot-exclusive/background-agent.md).
+See [Background Agent skill](../skills/copilot-exclusive/background-agent/SKILL.md).
 
 ---
 
@@ -438,7 +438,7 @@ Fleet decomposes into 6 independent agents:
 All 6 run simultaneously → completed in ~8 min instead of ~30 min
 ```
 
-See [Fleet Parallel skill](../skills/copilot-exclusive/fleet-parallel.md).
+See [Fleet Parallel skill](../skills/copilot-exclusive/fleet-parallel/SKILL.md).
 
 ---
 
@@ -547,7 +547,7 @@ of your work, productivity insights, and standup-ready reports:
 `/chronicle` reads from `~/.copilot/session-store.db`, which records prompts, responses,
 tools used, and files modified across all sessions. No manual logging required.
 
-See [Session Management skill](../skills/copilot-exclusive/session-management.md).
+See [Session Management skill](../skills/copilot-exclusive/session-management/SKILL.md).
 
 ---
 
@@ -594,7 +594,7 @@ Copilot searches session_store:
 > "Apply the same pattern to the payments service."
 ```
 
-See [Cross-Session Memory skill](../skills/copilot-exclusive/cross-session-memory.md).
+See [Cross-Session Memory skill](../skills/copilot-exclusive/cross-session-memory/SKILL.md).
 
 ---
 

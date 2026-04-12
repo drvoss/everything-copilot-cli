@@ -114,7 +114,7 @@ copilot
 > Claude가 아키텍처 추론, Codex가 구현, Copilot이 리뷰 — 적절히 위임해줘
 ```
 
-> 자세한 안내는 [빠른 시작 가이드](guides/)를 참고하세요.
+> 자세한 안내는 [빠른 시작 가이드](guides/the-quickstart-guide.md)를 참고하세요.
 > 그대로 따라 해보는 쉬운 실습은 [입문자용 스킬 실습 가이드](guides/the-beginner-skills-tutorial.ko.md)를 이용하세요.
 
 ---
@@ -421,7 +421,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 - [geekan/MetaGPT](https://github.com/geekan/MetaGPT) — MetaGPT 멀티 에이전트 SOP
 - [openai/swarm](https://github.com/openai/swarm) — OpenAI Swarm 패턴
 
-> 구현 세부 사항은 [오케스트레이션 가이드](guides/)를 참고하세요.
+> 구현 세부 사항은 [오케스트레이션 가이드](guides/the-orchestration-guide.md)를 참고하세요.
 
 ---
 
@@ -443,7 +443,7 @@ Copilot CLI는 GitHub 워크플로우를 중심으로 설계된 도구입니다.
 | **LSP 통합** | 심볼 인식 기반의 정밀한 코드 인텔리전스 |
 | **Multi-AI Orchestration** | 단일 허브에서 Claude Code, Codex, Gemini CLI 통합 조율 |
 
-> 각 기능에 대한 심층 안내는 [Copilot 전용 기능 가이드](guides/)를 참고하세요.
+> 각 기능에 대한 심층 안내는 [Copilot 전용 기능 가이드](guides/copilot-exclusive-features.md)를 참고하세요.
 
 ---
 

@@ -205,7 +205,7 @@ for artifacts that need to persist beyond the conversation:
 - Exported data or intermediate results
 - Plan files (`plan.md`) for structured planning
 
-See [Cross-Session Memory skill](../skills/copilot-exclusive/cross-session-memory.md)
+See [Cross-Session Memory skill](../skills/copilot-exclusive/cross-session-memory/SKILL.md)
 for detailed patterns.
 
 ---
@@ -273,7 +273,7 @@ For critical changes, chain multiple review perspectives:
 5. Manual spot-check → Verify key behaviors in the running application
 ```
 
-See [Code Review skill](../skills/development/code-review.md) and
+See [Code Review skill](../skills/development/code-review/SKILL.md) and
 [Agent Review Chain](../orchestration/skills/agent-review-chain.md).
 
 ---
@@ -310,7 +310,7 @@ windows. This is Copilot CLI's most powerful scaling feature.
 - Don't fleet tasks where order matters (migrations, sequential APIs)
 - Don't fleet tasks that need shared state (use SQL + sequential instead)
 
-See [Fleet Parallel skill](../skills/copilot-exclusive/fleet-parallel.md).
+See [Fleet Parallel skill](../skills/copilot-exclusive/fleet-parallel/SKILL.md).
 
 ### Background Agents (Background Delegation)
 
@@ -499,7 +499,7 @@ Both the VS Code extension and CLI read from the same configuration sources:
 5. Use CLI to create PR and run final review
 ```
 
-See [IDE Switching skill](../skills/copilot-exclusive/ide-switching.md).
+See [IDE Switching skill](../skills/copilot-exclusive/ide-switching/SKILL.md).
 
 ---
 
@@ -660,7 +660,7 @@ For projects using dev containers, configure MCP servers in `devcontainer.json`:
 }
 ```
 
-See [MCP Ecosystem skill](../skills/copilot-exclusive/mcp-ecosystem.md).
+See [MCP Ecosystem skill](../skills/copilot-exclusive/mcp-ecosystem/SKILL.md).
 
 ---
 

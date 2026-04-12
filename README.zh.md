@@ -114,7 +114,7 @@ copilot
 > Claude reasons architecture, Codex implements, Copilot reviews — delegate accordingly
 ```
 
-> 详细说明请参见[快速入门指南](guides/)。
+> 详细说明请参见[快速入门指南](guides/the-quickstart-guide.md)。
 > 如果你想直接复制粘贴完成一套入门实操，请参见 [Beginner Skills Tutorial](guides/the-beginner-skills-tutorial.zh.md)。
 
 ---
@@ -421,7 +421,7 @@ everything-copilot-cli/
 - [geekan/MetaGPT](https://github.com/geekan/MetaGPT) — MetaGPT multi-agent SOP
 - [openai/swarm](https://github.com/openai/swarm) — OpenAI Swarm patterns
 
-> 实施细节请见完整的[编排指南](guides/)。
+> 实施细节请见完整的[编排指南](guides/the-orchestration-guide.md)。
 
 ---
 
@@ -443,7 +443,7 @@ Copilot CLI 围绕你的 GitHub 工作流而构建。以下能力开箱即用：
 | **LSP Integration** | Language Server Protocol 提供精准、符号感知的代码智能 |
 | **Multi-AI Orchestration** | 从单一枢纽协调 Claude Code、Codex、Gemini CLI |
 
-> 详见 [Copilot Exclusive Features guide](guides/) 以深入了解每项能力。
+> 详见 [Copilot Exclusive Features guide](guides/copilot-exclusive-features.md) 以深入了解每项能力。
 
 ---
 

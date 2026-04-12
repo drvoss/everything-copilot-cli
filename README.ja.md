@@ -114,7 +114,7 @@ copilot
 > Claude reasons architecture, Codex implements, Copilot reviews — delegate accordingly
 ```
 
-> 詳細な手順は [Quick Start Guide](guides/) を参照してください。
+> 詳細な手順は [Quick Start Guide](guides/the-quickstart-guide.md) を参照してください。
 > コピペで試せるやさしい実習は [Beginner Skills Tutorial](guides/the-beginner-skills-tutorial.ja.md) を参照してください。
 
 ---
@@ -421,7 +421,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 - [geekan/MetaGPT](https://github.com/geekan/MetaGPT) — MetaGPT multi-agent SOP
 - [openai/swarm](https://github.com/openai/swarm) — OpenAI Swarm patterns
 
-> 実装の詳細は [Orchestration Guide](guides/) を参照してください。
+> 実装の詳細は [Orchestration Guide](guides/the-orchestration-guide.md) を参照してください。
 
 ---
 
@@ -443,7 +443,7 @@ Copilot CLI は GitHub workflow に最適化されて設計されています。
 | **LSP Integration** | Language Server Protocol により symbol-aware な高精度 code intelligence を提供します |
 | **Multi-AI Orchestration** | 単一ハブから Claude Code、Codex、Gemini CLI を連携します |
 
-> 各機能の詳細は [Copilot Exclusive Features guide](guides/) を参照してください。
+> 各機能の詳細は [Copilot Exclusive Features guide](guides/copilot-exclusive-features.md) を参照してください。
 
 ---
 

@@ -115,7 +115,7 @@ After `copilot` starts, you can quickly check whether the installation was picke
 > Claude reasons architecture, Codex implements, Copilot reviews — delegate accordingly
 ```
 
-> For detailed instructions, see the [Quick Start Guide](guides/).
+> For detailed instructions, see the [Quick Start Guide](guides/the-quickstart-guide.md).
 > Want a copy-paste beginner lab? Try the [Beginner Skills Tutorial](guides/the-beginner-skills-tutorial.md).
 
 ---
@@ -422,7 +422,7 @@ The orchestration system is informed by real-world multi-agent frameworks:
 - [geekan/MetaGPT](https://github.com/geekan/MetaGPT) — MetaGPT multi-agent SOP
 - [openai/swarm](https://github.com/openai/swarm) — OpenAI Swarm patterns
 
-> See the full [Orchestration Guide](guides/) for implementation details.
+> See the full [Orchestration Guide](guides/the-orchestration-guide.md) for implementation details.
 
 ---
 
@@ -444,7 +444,7 @@ Copilot CLI is purpose-built around your GitHub workflow. Here's what you get ou
 | **LSP Integration** | Language Server Protocol for precise, symbol-aware code intelligence |
 | **Multi-AI Orchestration** | Coordinate Claude Code, Codex, Gemini CLI from a single hub |
 
-> See the [Copilot Exclusive Features guide](guides/) for a deep dive into each capability.
+> See the [Copilot Exclusive Features guide](guides/copilot-exclusive-features.md) for a deep dive into each capability.
 
 ---
 
