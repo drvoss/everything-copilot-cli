@@ -61,7 +61,7 @@ Skills follow the [agentskills.io](https://agentskills.io) spec: each skill live
 `skill-name/SKILL.md` directory, not a flat `.md` file. This ensures compatibility with
 `gemini skills install`, Codex CLI, and other skill-compatible tools.
 
-See [`skills/README.md`](../skills/README.md) for the full catalog and installation instructions.
+See [`skills/README.md`](skills/README.md) for the full catalog and installation instructions.
 
 Each skill file should include a **"When to Use"** section describing trigger conditions.
 

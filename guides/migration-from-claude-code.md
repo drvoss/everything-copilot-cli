@@ -340,7 +340,7 @@ Be honest about what Claude Code does better:
 | # | Capability | Workaround in Copilot CLI |
 |---|-----------|--------------------------|
 | 1 | **16 Specialized Agents** | Use 4 types + model overrides + custom prompts |
-| 2 | **65+ Battle-Tested Skills** | Growing library (~23); port your custom skills |
+| 2 | **65+ Battle-Tested Skills** | 64 curated skills in this repo; port your custom skills |
 | 3 | **Full Lifecycle Hooks** | Use startup scripts + SQL logging |
 | 4 | **AgentShield Security** | Use security-reviewer agent + security skills |
 | 5 | **Claude-Optimized Integration** | Use Claude models via model override |
