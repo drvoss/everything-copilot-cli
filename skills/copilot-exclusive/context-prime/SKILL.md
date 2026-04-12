@@ -90,6 +90,21 @@ if (Test-Path package.json) {
 }
 ```
 
+## Context Degradation Signals
+
+Long sessions can slowly lose coherence. Re-prime when you notice:
+
+- Repeated questions about decisions that were already made
+- Reintroduction of bugs or patterns that were already corrected
+- New code drifting away from local conventions established earlier in the task
+- Responses that suddenly assume conflicting project facts
+
+**If degradation shows up:**
+
+1. Re-run this skill and reload live project state
+2. Save a short checkpoint of the goal, decisions, and open risks
+3. Start a fresh session if the context window is clearly fighting you
+
 ## Example Session Start Prompt
 
 ```

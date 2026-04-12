@@ -118,11 +118,13 @@ Core software development skills applicable to any project.
 
 | Skill | Description |
 |-------|-------------|
+| [`api-and-interface-design`](development/api-and-interface-design/SKILL.md) | Define public APIs, CLIs, webhooks, or SDK contracts first so compatibility and validation stay intentional |
 | [`code-review`](development/code-review/SKILL.md) | Structured code review for quality and correctness |
 | [`context-engineering`](development/context-engineering/SKILL.md) | Optimize information delivery to AI agents — minimize noise, maximize signal |
 | [`deprecation-and-migration`](development/deprecation-and-migration/SKILL.md) | Safely remove old APIs and migrate to new patterns with a 3-phase process |
 | [`fix-build-errors`](development/fix-build-errors/SKILL.md) | Diagnose and fix build failures fast |
 | [`fix-github-issue`](development/fix-github-issue/SKILL.md) | Resolve a GitHub Issue end-to-end: read → locate → fix → test → PR |
+| [`performance-optimization`](development/performance-optimization/SKILL.md) | Measure first, isolate bottlenecks, and prove that a performance change actually helps |
 | [`pr-multi-perspective-review`](development/pr-multi-perspective-review/SKILL.md) | Review PRs from 6 lenses: PM / Dev / QA / Security / DevOps / UX |
 | [`refactor-clean`](development/refactor-clean/SKILL.md) | Remove dead code and simplify complex logic |
 | [`spec-driven-development`](development/spec-driven-development/SKILL.md) | Write a technical spec before coding — defines interface, structure, and boundaries first |
@@ -185,6 +187,7 @@ End-to-end development workflow skills — from planning to shipping.
 | [`sprint-workflow`](workflow/sprint-workflow/SKILL.md) | Full sprint: Think → Plan → Build → Review → Test → Ship |
 | [`security-audit`](workflow/security-audit/SKILL.md) | OWASP Top 10 + STRIDE threat modeling audit |
 | [`sprint-retro`](workflow/sprint-retro/SKILL.md) | Data-driven retrospectives using `/chronicle` and git metrics |
+| [`using-git-worktrees`](workflow/using-git-worktrees/SKILL.md) | Create isolated working directories for parallel branch work without cloning the repo repeatedly |
 
 ### 📦 Product (`product/`)
 

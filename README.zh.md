@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="61 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="64 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -105,13 +105,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (61 total)
+├── skills/                        # Reusable workflow skills (64 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (16)
-│   ├── development/               #   Dev skills (14)
+│   ├── development/               #   Dev skills (16)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
 │   ├── testing/                   #   Test skills (4)
-│   ├── workflow/                  #   Workflow skills (8)
+│   ├── workflow/                  #   Workflow skills (9)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -164,7 +164,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 61 个 · 8 个类别）
+### 技能（Skill）（共 64 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -194,19 +194,23 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>开发技能（12）</strong></summary>
+<summary><strong>开发技能（16）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
+| `api-and-interface-design` | 在实现前先定义公开 API / CLI / webhook / SDK 的契约 |
 | `tdd-workflow` | Red → Green → Refactor 循环 |
 | `code-review` | 带严重级别的结构化评审 |
 | `fix-github-issue` | 读取 Issue → 定位 bug → 修复 → 测试 → PR |
 | `fix-build-errors` | 诊断并解决构建失败 |
+| `performance-optimization` | 基于测量定位瓶颈，并验证性能优化是否真实生效 |
 | `pr-multi-perspective-review` | 六视角 PR 评审：PM / Dev / QA / Security / DevOps / UX |
 | `refactor-clean` | 安全地移除死代码并简化逻辑 |
 | `spec-driven-development` | 先写技术规范再编码——先定义接口、结构与边界 |
 | `context-engineering` | 优化向 AI agent 传递信息——减少噪声、提升信号 |
 | `deprecation-and-migration` | 通过三阶段流程安全移除旧 API 并迁移到新模式 |
+| `skill-creator` | 根据工作流描述生成新的 SKILL.md 脚手架 |
+| `systematic-debugging` | 采用 reproduce → isolate → hypothesize → verify 的四阶段调试流程 |
 
 **组合技能**（当两种技术同时使用时启用）：
 
@@ -230,7 +234,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>安全技能（5）</strong></summary>
+<summary><strong>安全技能（6）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -239,10 +243,11 @@ everything-copilot-cli/
 | `secret-detection` | 在源码与 git 历史中查找硬编码密钥 |
 | `input-validation` | 防止注入攻击（SQL、XSS、CSRF） |
 | `security-bounty-hunter` | 以漏洞赏金视角进行漏洞挖掘，并提供 PoC 步骤 |
+| `pr-security-review` | 围绕认证、注入、密钥与 OWASP Top 10 的 PR 安全分析 |
 </details>
 
 <details>
-<summary><strong>工作流技能（8）</strong></summary>
+<summary><strong>工作流技能（9）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -254,6 +259,7 @@ everything-copilot-cli/
 | `cost-audit` | 审计 AI 推理 token 开销，并给出模型/prompt 优化建议 |
 | `council` | 为高风险决策召集四方对抗式决策 council |
 | `deep-research` | 系统化多源研究与结构化综合 |
+| `using-git-worktrees` | 无需重复克隆仓库即可为并行分支工作创建独立工作目录 |
 </details>
 
 <details>

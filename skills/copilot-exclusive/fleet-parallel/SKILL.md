@@ -61,7 +61,35 @@ INSERT INTO todos (id, title, description, status) VALUES
   ('migrate-cart', 'Migrate cart.ts', 'Convert class components to hooks in src/cart.ts', 'pending');
 ```
 
-### 4. Monitor and Collect Results
+### 4. Package Context per Agent
+
+Before launching the fleet, give each agent a compact brief:
+
+```markdown
+## Agent Brief: [Subtask]
+
+**Goal**: [one-sentence outcome]
+**Owned files or directories**: [exact paths]
+**Inputs**: [spec, issue, examples, or files]
+**Output**: [expected file or summary shape]
+**Do not touch**: [out-of-scope files or concerns]
+**Done when**: [clear completion criteria]
+```
+
+Context packaging rules:
+
+- Give each agent only the files and background it actually needs
+- Assign file ownership explicitly so two agents do not edit the same files
+- Specify the output shape up front (patch, summary, tests, docs, etc.)
+- If two subtasks need the same files, they do **not** belong in the same fleet batch
+
+### 5. Use Worktrees for Branch Isolation (Optional)
+
+If agents need separate long-lived branches or may touch overlapping tooling state, create one
+git worktree per task and include that path in the prompt. See
+[`using-git-worktrees`](../../workflow/using-git-worktrees/SKILL.md).
+
+### 6. Monitor and Collect Results
 
 While fleet agents run, you can:
 - Check progress via `list_agents`
@@ -111,5 +139,7 @@ Fleet assigns one agent per file. Each agent:
   need in the prompt. Don't assume they know what you discussed earlier.
 - **Combine with SQL tracking**: Use the session database to track which fleet
   tasks completed and which need retry.
+- **Right-size the batch**: 2-3 subtasks may be easier to do sequentially. Fleet is usually
+  most valuable once you have 4+ truly independent tasks.
 - **Cost awareness**: Fleet mode uses more API calls. Use it when parallelism
   provides clear value, not for trivially sequential tasks.

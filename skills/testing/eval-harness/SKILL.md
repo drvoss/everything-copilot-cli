@@ -162,6 +162,55 @@ On regression (previously passing, now failing):
 }
 ```
 
+## LLM-as-Judge Evaluation (Advanced)
+
+When exact-match scoring is too rigid but manual review is too slow, use an LLM judge with an
+explicit rubric.
+
+### Common judge patterns
+
+| Pattern | Use for |
+|---------|---------|
+| Single-output scoring | One answer scored 1-5 against a rubric |
+| Pairwise comparison | Picking the better output between two candidates |
+| Rubric-based grading | Multi-criteria scoring for accuracy, completeness, format, or tone |
+
+### Judge prompt structure
+
+Always include:
+
+- The scoring rubric and score scale
+- A clear instruction to explain **why** the score was assigned
+- Good and bad examples when available
+- Output-order randomization for pairwise evaluation to reduce position bias
+
+Example:
+
+```text
+You are grading an AI response.
+
+Rubric:
+1. Accuracy (0-5)
+2. Completeness (0-5)
+3. Format compliance (0-5)
+
+Return JSON:
+{
+  "accuracy": number,
+  "completeness": number,
+  "format": number,
+  "verdict": "pass" | "fail",
+  "reason": "short explanation"
+}
+```
+
+### Guardrails
+
+- Keep a small human-reviewed calibration set
+- Reuse the same judge prompt across comparable runs
+- Treat judge scores as evidence, not ground truth
+- If a judge verdict is surprising, sample manual review before acting on it
+
 ## Common Mistakes
 
 | Mistake | Fix |

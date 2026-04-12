@@ -137,7 +137,19 @@ Do not:
 2. ...
 ```
 
-### 7. Auto-Continuation (Long Research)
+### 7. Research Modes
+
+Choose the mode before gathering sources so depth matches the decision:
+
+| Mode | Expected time | Source target | Red-team critique | Best for |
+|------|---------------|---------------|-------------------|----------|
+| Quick | 2-5 minutes | 3-5 sources | No | directional checks and fast comparisons |
+| Standard | 5-10 minutes | 5-10 sources | Optional | ordinary product or technical decisions |
+| Deep | 10-20 minutes | 10-20 sources | Yes | consequential decisions and ambiguous topics |
+
+If the result will influence architecture, budget, or security posture, default to `Deep`.
+
+### 8. Auto-Continuation (Long Research)
 
 For topics that require more than 5 sources or span multiple sub-questions, use
 continuation checkpoints to avoid context overflow:
@@ -189,6 +201,19 @@ Remaining sub-questions: [list]
 Next: fetch sources for sub-question N, extract findings, update research_progress.
 Then continue to the next sub-question without stopping.
 ```
+
+### 9. Red-Team Critique (Deep Mode)
+
+Before finalizing a deep research brief, challenge it from three angles:
+
+| Role | Question |
+|------|----------|
+| Skeptic | What is the strongest counter-example or contradictory evidence? |
+| Adversarial reviewer | If this brief is wrong, where is it most likely wrong? |
+| Execution critic | What is the biggest obstacle when applying this conclusion in practice? |
+
+Fold the answers into **Conflicting Evidence** and **Limitations**. Do not leave critique as a
+detached appendix that the reader can ignore.
 
 ## Quality Standards
 
