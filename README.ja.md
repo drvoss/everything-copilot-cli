@@ -115,6 +115,7 @@ copilot
 ```
 
 > 詳細な手順は [Quick Start Guide](guides/) を参照してください。
+> コピペで試せるやさしい実習は [Beginner Skills Tutorial](guides/the-beginner-skills-tutorial.ja.md) を参照してください。
 
 ---
 

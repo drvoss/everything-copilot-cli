@@ -178,6 +178,7 @@ You're up and running! Here's where to go from here:
 |---|---|
 | Learn core concepts | [The Shortform Guide](the-shortform-guide.md) |
 | Explore skills & workflows | [Skills Directory](../skills/) |
+| Try a beginner-friendly hands-on lab | [The Beginner Skills Tutorial](the-beginner-skills-tutorial.md) |
 | Set up multi-AI orchestration | [The Orchestration Guide](the-orchestration-guide.md) |
 | Security best practices | [The Security Guide](the-security-guide.md) |
 | See agent definitions | [Agents Directory](../agents/) |

@@ -115,6 +115,7 @@ copilot
 ```
 
 > 详细说明请参见[快速入门指南](guides/)。
+> 如果你想直接复制粘贴完成一套入门实操，请参见 [Beginner Skills Tutorial](guides/the-beginner-skills-tutorial.zh.md)。
 
 ---
 

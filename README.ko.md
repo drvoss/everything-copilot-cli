@@ -115,6 +115,7 @@ copilot
 ```
 
 > 자세한 안내는 [빠른 시작 가이드](guides/)를 참고하세요.
+> 그대로 따라 해보는 쉬운 실습은 [입문자용 스킬 실습 가이드](guides/the-beginner-skills-tutorial.ko.md)를 이용하세요.
 
 ---
 

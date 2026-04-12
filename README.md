@@ -116,6 +116,7 @@ After `copilot` starts, you can quickly check whether the installation was picke
 ```
 
 > For detailed instructions, see the [Quick Start Guide](guides/).
+> Want a copy-paste beginner lab? Try the [Beginner Skills Tutorial](guides/the-beginner-skills-tutorial.md).
 
 ---
 
