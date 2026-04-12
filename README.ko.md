@@ -70,10 +70,21 @@ cd everything-copilot-cli
 npm install && npm run setup
 
 # 4. 내 프로젝트에 컬렉션 설치
-npm run setup -- --target ../your-project
+npm run setup -- --target /path/to/your-project
 ```
 
-첫 번째 명령은 README의 clone + setup 흐름이 정상인지 빠르게 검증합니다. 두 번째 명령도 계속 이 저장소 루트에서 실행하며, `--target`으로 지정한 내 프로젝트 경로에 컬렉션을 대화형으로 복사 설치합니다.
+첫 번째 명령은 README의 clone + setup 흐름이 정상인지 빠르게 검증합니다. 두 번째 명령도 계속 이 저장소 루트에서 실행하며, `--target`으로 지정한 내 프로젝트 경로에 컬렉션을 설치합니다.
+
+4단계에서는 다음 설치 프로필 중 하나를 고를 수 있습니다:
+
+| 프로필 | 추천 여부 | 설치 내용 |
+|---|---|---|
+| `minimal` | 가볍게 시작할 때 | `.github/copilot-instructions.md`만 설치 |
+| `recommended` | **예** | starter instructions, agents, skills, rules 설치 |
+| `full` | 고급 설정용 | contexts 포함 전체 설치 |
+| `custom` | 세부 제어가 필요할 때 | 각 구성 요소를 설명과 함께 직접 선택 |
+
+setup는 프로젝트 instructions를 `.github/copilot-instructions.md`에 쓰며, Copilot은 이 파일을 매 세션 자동으로 읽습니다.
 
 이제 프로젝트에 설치한 에이전트, 스킬, 규칙과 함께 Copilot CLI를 사용해보세요:
 

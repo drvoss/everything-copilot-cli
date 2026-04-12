@@ -71,10 +71,21 @@ cd everything-copilot-cli
 npm install && npm run setup
 
 # 4. Install the collection into your project
-npm run setup -- --target ../your-project
+npm run setup -- --target /path/to/your-project
 ```
 
-The first command runs a quick verification for the documented clone + setup flow. The second command is also run from this repository root and interactively copies the collection into the project path passed through `--target`.
+The first command runs a quick verification for the documented clone + setup flow. The second command is also run from this repository root and installs into the project path passed through `--target`.
+
+During step 4, setup offers these profiles:
+
+| Profile | Recommended? | Installs |
+|---|---|---|
+| `minimal` | For light touch onboarding | `.github/copilot-instructions.md` only |
+| `recommended` | **Yes** | Starter instructions, agents, skills, and rules |
+| `full` | For advanced setups | Everything, including contexts |
+| `custom` | When you want full control | Lets you choose each component with explanations |
+
+Setup writes project instructions to `.github/copilot-instructions.md`, which Copilot reads automatically on every session.
 
 Then open a terminal and start using Copilot CLI with the installed agents, skills, and rules:
 

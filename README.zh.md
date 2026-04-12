@@ -70,10 +70,21 @@ cd everything-copilot-cli
 npm install && npm run setup
 
 # 4. 将集合安装到你的项目中
-npm run setup -- --target ../your-project
+npm run setup -- --target /path/to/your-project
 ```
 
-第一条命令会快速验证 README 中的 clone + setup 流程。第二条命令也仍然在这个仓库根目录执行，并把这套集合以交互方式复制到 `--target` 指定的项目路径中。
+第一条命令会快速验证 README 中的 clone + setup 流程。第二条命令也仍然在这个仓库根目录执行，并把这套集合安装到 `--target` 指定的项目路径中。
+
+在第 4 步中，你可以选择以下安装配置：
+
+| 配置 | 是否推荐 | 安装内容 |
+|---|---|---|
+| `minimal` | 适合轻量开始 | 只安装 `.github/copilot-instructions.md` |
+| `recommended` | **是** | starter instructions、agents、skills、rules |
+| `full` | 适合高级场景 | 安装全部内容，包括 contexts |
+| `custom` | 需要精细控制时 | 带说明逐项选择每个组件 |
+
+setup 会把项目 instructions 写入 `.github/copilot-instructions.md`，Copilot 会在每次会话开始时自动读取它。
 
 随后打开终端，开始使用安装到项目中的 agent、skill 与规则：
 

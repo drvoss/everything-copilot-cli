@@ -4,7 +4,7 @@
  * Migration tool: converts a Claude Code project setup into Copilot CLI format.
  *
  * Reads:
- *   - CLAUDE.md → generates copilot-instructions.md
+ *   - CLAUDE.md → generates .github/copilot-instructions.md
  *   - .claude/ directory → scans for settings
  *   - Claude Code hooks → maps to Copilot equivalents
  *
@@ -41,7 +41,7 @@ function ensureDir(dir) {
 }
 
 // ---------------------------------------------------------------------------
-// CLAUDE.md → COPILOT-INSTRUCTIONS.md
+// CLAUDE.md → .github/copilot-instructions.md
 // ---------------------------------------------------------------------------
 
 function migrateInstructions() {
@@ -85,14 +85,15 @@ function migrateInstructions() {
   const header = `# Copilot Instructions\n\n> Migrated from ${sourcePath} by migrate-from-claude.js\n\n`;
   transformed = header + transformed;
 
-  const destPath = join(TARGET, "COPILOT-INSTRUCTIONS.md");
+  ensureDir(join(TARGET, ".github"));
+  const destPath = join(TARGET, ".github", "copilot-instructions.md");
   if (existsSync(destPath)) {
-    report.warnings.push("COPILOT-INSTRUCTIONS.md already exists — writing to COPILOT-INSTRUCTIONS.migrated.md instead.");
-    writeFileSync(join(TARGET, "COPILOT-INSTRUCTIONS.migrated.md"), transformed, "utf-8");
+    report.warnings.push(".github/copilot-instructions.md already exists — writing to .github/copilot-instructions.migrated.md instead.");
+    writeFileSync(join(TARGET, ".github", "copilot-instructions.migrated.md"), transformed, "utf-8");
   } else {
     writeFileSync(destPath, transformed, "utf-8");
   }
-  report.converted.push(`${sourcePath} → COPILOT-INSTRUCTIONS.md`);
+  report.converted.push(`${sourcePath} → .github/copilot-instructions.md`);
 }
 
 // ---------------------------------------------------------------------------
@@ -115,7 +116,7 @@ function migrateSettings() {
       const settings = JSON.parse(readFileSync(fullPath, "utf-8"));
       report.warnings.push(
         `Found .claude/settings.json with ${Object.keys(settings).length} key(s). ` +
-        "Review manually — Copilot CLI uses COPILOT-INSTRUCTIONS.md and agent files instead."
+         "Review manually — Copilot CLI uses .github/copilot-instructions.md and agent files instead."
       );
       continue;
     }

@@ -70,10 +70,21 @@ cd everything-copilot-cli
 npm install && npm run setup
 
 # 4. 自分のプロジェクトにコレクションをインストール
-npm run setup -- --target ../your-project
+npm run setup -- --target /path/to/your-project
 ```
 
-最初のコマンドは、README に記載された clone + setup フローを簡易検証します。2つ目のコマンドもこのリポジトリのルートで実行し、`--target` で指定したプロジェクトのパスへコレクションを対話的にコピーします。
+最初のコマンドは、README に記載された clone + setup フローを簡易検証します。2つ目のコマンドもこのリポジトリのルートで実行し、`--target` で指定したプロジェクトのパスへコレクションをインストールします。
+
+ステップ 4 では次のインストールプロファイルを選べます:
+
+| プロファイル | 推奨 | インストール内容 |
+|---|---|---|
+| `minimal` | 軽く始めたい場合 | `.github/copilot-instructions.md` のみ |
+| `recommended` | **はい** | starter instructions、agents、skills、rules |
+| `full` | 高度なセットアップ向け | contexts を含むすべて |
+| `custom` | 細かく選びたい場合 | 各コンポーネントを説明付きで個別選択 |
+
+setup はプロジェクトの instructions を `.github/copilot-instructions.md` に書き込み、Copilot はこのファイルを毎セッション自動で読み込みます。
 
 その後、project にインストールした agent・skill・rule を使って Copilot CLI を開始します。
 
