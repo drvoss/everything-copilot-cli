@@ -66,11 +66,16 @@ npm install -g @github/copilot
 git clone https://github.com/drvoss/everything-copilot-cli.git
 cd everything-copilot-cli
 
-# 3. 셋업 실행
+# 3. 클론한 저장소 검증
 npm install && npm run setup
+
+# 4. 내 프로젝트에 컬렉션 설치
+npm run setup -- --target ../your-project
 ```
 
-이제 터미널에서 포함된 에이전트, 스킬, 규칙과 함께 Copilot CLI를 사용해보세요:
+첫 번째 명령은 README의 clone + setup 흐름이 정상인지 빠르게 검증합니다. 두 번째 명령은 내 프로젝트로 컬렉션을 대화형으로 복사 설치합니다.
+
+이제 프로젝트에 설치한 에이전트, 스킬, 규칙과 함께 Copilot CLI를 사용해보세요:
 
 ```bash
 # 프로젝트 디렉토리에서 세션 시작

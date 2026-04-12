@@ -66,11 +66,16 @@ npm install -g @github/copilot
 git clone https://github.com/drvoss/everything-copilot-cli.git
 cd everything-copilot-cli
 
-# 3. Run setup
+# 3. Clone したリポジトリを検証
 npm install && npm run setup
+
+# 4. 自分のプロジェクトにコレクションをインストール
+npm run setup -- --target ../your-project
 ```
 
-その後、terminal を開き、同梱されている agent・skill・rule を使って Copilot CLI を開始します。
+最初のコマンドは、README に記載された clone + setup フローを簡易検証します。2つ目のコマンドは、コレクションを自分のプロジェクトへ対話的にコピーします。
+
+その後、project にインストールした agent・skill・rule を使って Copilot CLI を開始します。
 
 ```bash
 # Start a session in your project directory

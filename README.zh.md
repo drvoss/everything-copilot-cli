@@ -66,11 +66,16 @@ npm install -g @github/copilot
 git clone https://github.com/drvoss/everything-copilot-cli.git
 cd everything-copilot-cli
 
-# 3. Run setup
+# 3. 验证刚克隆的仓库
 npm install && npm run setup
+
+# 4. 将集合安装到你的项目中
+npm run setup -- --target ../your-project
 ```
 
-随后打开终端，开始使用内置的 agent、skill 与规则：
+第一条命令会快速验证 README 中的 clone + setup 流程。第二条命令会以交互方式把这套集合复制到你的项目中。
+
+随后打开终端，开始使用安装到项目中的 agent、skill 与规则：
 
 ```bash
 # Start a session in your project directory
