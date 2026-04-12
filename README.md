@@ -74,7 +74,7 @@ npm install && npm run setup
 npm run setup -- --target ../your-project
 ```
 
-The first command runs a quick verification for the documented clone + setup flow. The second command interactively copies the collection into your project.
+The first command runs a quick verification for the documented clone + setup flow. The second command is also run from this repository root and interactively copies the collection into the project path passed through `--target`.
 
 Then open a terminal and start using Copilot CLI with the installed agents, skills, and rules:
 

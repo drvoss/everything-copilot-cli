@@ -73,7 +73,7 @@ npm install && npm run setup
 npm run setup -- --target ../your-project
 ```
 
-첫 번째 명령은 README의 clone + setup 흐름이 정상인지 빠르게 검증합니다. 두 번째 명령은 내 프로젝트로 컬렉션을 대화형으로 복사 설치합니다.
+첫 번째 명령은 README의 clone + setup 흐름이 정상인지 빠르게 검증합니다. 두 번째 명령도 계속 이 저장소 루트에서 실행하며, `--target`으로 지정한 내 프로젝트 경로에 컬렉션을 대화형으로 복사 설치합니다.
 
 이제 프로젝트에 설치한 에이전트, 스킬, 규칙과 함께 Copilot CLI를 사용해보세요:
 

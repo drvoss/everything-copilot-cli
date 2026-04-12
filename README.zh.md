@@ -73,7 +73,7 @@ npm install && npm run setup
 npm run setup -- --target ../your-project
 ```
 
-第一条命令会快速验证 README 中的 clone + setup 流程。第二条命令会以交互方式把这套集合复制到你的项目中。
+第一条命令会快速验证 README 中的 clone + setup 流程。第二条命令也仍然在这个仓库根目录执行，并把这套集合以交互方式复制到 `--target` 指定的项目路径中。
 
 随后打开终端，开始使用安装到项目中的 agent、skill 与规则：
 

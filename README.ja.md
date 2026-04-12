@@ -73,7 +73,7 @@ npm install && npm run setup
 npm run setup -- --target ../your-project
 ```
 
-最初のコマンドは、README に記載された clone + setup フローを簡易検証します。2つ目のコマンドは、コレクションを自分のプロジェクトへ対話的にコピーします。
+最初のコマンドは、README に記載された clone + setup フローを簡易検証します。2つ目のコマンドもこのリポジトリのルートで実行し、`--target` で指定したプロジェクトのパスへコレクションを対話的にコピーします。
 
 その後、project にインストールした agent・skill・rule を使って Copilot CLI を開始します。
 
