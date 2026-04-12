@@ -127,7 +127,9 @@ Core software development skills applicable to any project.
 | [`performance-optimization`](development/performance-optimization/SKILL.md) | Measure first, isolate bottlenecks, and prove that a performance change actually helps |
 | [`pr-multi-perspective-review`](development/pr-multi-perspective-review/SKILL.md) | Review PRs from 6 lenses: PM / Dev / QA / Security / DevOps / UX |
 | [`refactor-clean`](development/refactor-clean/SKILL.md) | Remove dead code and simplify complex logic |
+| [`skill-creator`](development/skill-creator/SKILL.md) | Describe a workflow and get a properly structured SKILL.md scaffolded in minutes |
 | [`spec-driven-development`](development/spec-driven-development/SKILL.md) | Write a technical spec before coding — defines interface, structure, and boundaries first |
+| [`systematic-debugging`](development/systematic-debugging/SKILL.md) | 4-phase root cause analysis (reproduce → isolate → hypothesize → verify) before fixing |
 | [`tdd-workflow`](development/tdd-workflow/SKILL.md) | Test-driven development with red-green-refactor cycles |
 
 **Combo Skills** (activate when two technologies are used together):
@@ -158,6 +160,7 @@ Skills for identifying and fixing security issues.
 |-------|-------------|
 | [`evaluate-repository`](security/evaluate-repository/SKILL.md) | Score a repository 1-10 across 6 security dimensions with remediation plan |
 | [`input-validation`](security/input-validation/SKILL.md) | Validate and sanitize all user-supplied inputs |
+| [`pr-security-review`](security/pr-security-review/SKILL.md) | Review a pull request for security vulnerabilities — auth, injection, secrets, and OWASP Top 10 before merging |
 | [`secret-detection`](security/secret-detection/SKILL.md) | Find and remove hardcoded secrets |
 | [`security-bounty-hunter`](security/security-bounty-hunter/SKILL.md) | Use when the goal is practical vulnerability discovery for responsible disclosure or bounty submission — focuses on remotely reachable, exploitable issues |
 | [`security-scan`](security/security-scan/SKILL.md) | Run a security scan across the codebase |
