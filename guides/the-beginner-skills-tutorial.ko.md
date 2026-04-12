@@ -23,7 +23,7 @@ category: guide
 
 ## 무엇을 만들게 되나요?
 
-아주 작은 Node.js 연습 프로젝트를 하나 만들고, 일부러 고장 난 모듈을 넣습니다.
+아주 작은 Node.js 연습 프로젝트를 하나 만들고, 실습을 위해 일부러 버그를 심어 둔 모듈을 넣습니다.
 
 - `divide()`는 잘못된 값을 반환합니다
 - `total()`은 잘못된 필드 이름을 읽습니다
@@ -91,7 +91,7 @@ npm pkg set scripts.test="node --test"
 New-Item -ItemType Directory -Force src | Out-Null
 ```
 
-고장 난 구현 파일을 만듭니다.
+버그를 일부러 심어 둔 구현 파일을 만듭니다.
 
 ```powershell
 @'
