@@ -28,7 +28,7 @@
     "setup": "node scripts/setup.js"
   },
   "devDependencies": {
-    "markdownlint-cli": "^0.47.0"
+    "markdownlint-cli": "0.47.0"
   },
   "engines": {
     "node": ">=18"
