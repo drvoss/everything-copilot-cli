@@ -245,6 +245,9 @@ Valid categories:
 `development`, `testing`, `security`, `documentation`, `copilot-exclusive`,
 `workflow`, `product`, `content`
 
+If you add a new category, update the shared allowlist in
+`scripts/skill-metadata.js` and then update the catalog/docs in the same change.
+
 ---
 
 ## Contributing

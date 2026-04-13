@@ -7,6 +7,7 @@
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, resolve, extname } from "node:path";
+import { VALID_SKILL_CATEGORIES, getSkillCategory, parseFrontmatter } from "./skill-metadata.js";
 
 const ROOT = resolve(import.meta.dirname, "..");
 
@@ -26,21 +27,6 @@ function collectFiles(dir, ext = ".md") {
     }
   }
   return results;
-}
-
-function parseFrontmatter(content) {
-  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  if (!match) return null;
-  const fields = {};
-  for (const line of match[1].split(/\r?\n/)) {
-    const idx = line.indexOf(":");
-    if (idx > 0) {
-      const key = line.slice(0, idx).trim();
-      const value = line.slice(idx + 1).trim();
-      fields[key] = value;
-    }
-  }
-  return fields;
 }
 
 function report(level, file, message) {
@@ -100,10 +86,6 @@ function validateSkills() {
     return;
   }
 
-  const validCategories = [
-    "development", "testing", "security", "documentation", "copilot-exclusive",
-    "workflow", "product", "content",
-  ];
   const names = new Set();
 
   for (const file of files) {
@@ -116,12 +98,11 @@ function validateSkills() {
     for (const field of ["name", "description"]) {
       if (!fm[field]) report("error", file, `Missing required field: ${field}`);
     }
-    // Category can be at top-level OR nested under metadata: (agentskills.io spec)
-    const category = fm.category || fm["  category"];
+    const category = getSkillCategory(content);
     if (!category) {
-      report("error", file, `Missing required field: metadata.category (known categories: ${validCategories.join(", ")})`);
-    } else if (!validCategories.includes(category)) {
-      report("error", file, `Unrecognized category "${category}". Known: ${validCategories.join(", ")}`);
+      report("error", file, `Missing required field: metadata.category (known categories: ${VALID_SKILL_CATEGORIES.join(", ")})`);
+    } else if (!VALID_SKILL_CATEGORIES.includes(category)) {
+      report("error", file, `Unrecognized category "${category}". Known: ${VALID_SKILL_CATEGORIES.join(", ")}`);
     }
     if (fm.name) {
       if (names.has(fm.name)) report("error", file, `Duplicate skill name: "${fm.name}"`);

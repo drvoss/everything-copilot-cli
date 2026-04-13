@@ -2,33 +2,10 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, extname, resolve } from "node:path";
+import { VALID_SKILL_CATEGORIES, getSkillCategory, parseFrontmatter } from "../scripts/skill-metadata.js";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const SKILLS_DIR = join(ROOT, "skills");
-
-const VALID_CATEGORIES = [
-  "development",
-  "testing",
-  "security",
-  "documentation",
-  "copilot-exclusive",
-  "workflow",
-  "product",
-  "content",
-];
-
-function parseFrontmatter(content) {
-  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-  if (!match) return null;
-  const fields = {};
-  for (const line of match[1].split(/\r?\n/)) {
-    const idx = line.indexOf(":");
-    if (idx > 0) {
-      fields[line.slice(0, idx).trim()] = line.slice(idx + 1).trim();
-    }
-  }
-  return fields;
-}
 
 function collectMarkdownFiles(dir) {
   if (!statSync(dir, { throwIfNoEntry: false })?.isDirectory()) return [];
@@ -39,16 +16,6 @@ function collectMarkdownFiles(dir) {
     }
   }
   return results;
-}
-
-// Extract category from either top-level field or metadata.category (agentskills.io spec)
-function getCategory(content) {
-  const fm = parseFrontmatter(content);
-  if (!fm) return null;
-  if (fm.category) return fm.category;
-  // Check for indented metadata.category
-  const metaMatch = content.match(/^metadata:\s*\n(?:[ \t]+\S.*\n)*?[ \t]+category:\s*(\S+)/m);
-  return metaMatch ? metaMatch[1] : null;
 }
 
 const skillFiles = collectMarkdownFiles(SKILLS_DIR);
@@ -78,11 +45,11 @@ describe("skills/ validation", () => {
 
     it(`${filename} should have a valid category`, () => {
       const content = readFileSync(file, "utf-8");
-      const category = getCategory(content);
+      const category = getSkillCategory(content);
       assert.ok(category, "No category (set at top-level or under metadata.category)");
       assert.ok(
-        VALID_CATEGORIES.includes(category),
-        `Invalid category "${category}". Must be one of: ${VALID_CATEGORIES.join(", ")}`
+        VALID_SKILL_CATEGORIES.includes(category),
+        `Invalid category "${category}". Must be one of: ${VALID_SKILL_CATEGORIES.join(", ")}`
       );
     });
   }

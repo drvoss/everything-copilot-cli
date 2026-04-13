@@ -30,9 +30,11 @@ Conduct systematic multi-source research with traceable citations and structured
 ## Tooling
 
 **Native (always available):**
+
 - `web_fetch` — fetch a URL and read its content
 
 **Optional via MCP (if configured):**
+
 - Firecrawl — crawl entire sites, extract clean text at scale
 - Exa — semantic web search with real results
 
@@ -46,7 +48,7 @@ See `mcp-configs/` for MCP server configuration if you want Firecrawl or Exa.
 
 Be precise. Vague questions produce vague briefs.
 
-```
+```text
 Research question: [clear, specific question]
 Scope: [what to include / exclude]
 Output goal: [decision support / comparison / summary / literature review]
@@ -58,12 +60,20 @@ For each major claim or sub-question, identify target source types:
 
 | Source type | Examples |
 |-------------|---------|
-| Primary technical | official docs, RFCs, specification pages, academic papers |
+| Primary technical | official docs, RFCs, specification pages, arXiv preprints, academic papers |
 | Reference implementations | GitHub, codebase examples |
 | Industry commentary | credible blog posts, conference talks, case studies |
 | Counter-evidence | critiques, known limitations, alternative views |
 
 Minimum 3 independent sources per key claim.
+
+If you use arXiv, treat it as one input source class rather than a separate workflow:
+
+```text
+- Search recent arXiv preprints relevant to the question
+- Read the abstract page first
+- Corroborate any high-impact claim with at least one independent source
+```
 
 ### 3. Evidence gathering
 
@@ -82,6 +92,7 @@ CREATE TABLE IF NOT EXISTS research_sources (
 ```
 
 For each source:
+
 1. Fetch with `web_fetch`
 2. Extract key finding in ≤ 50 words
 3. Assess credibility
@@ -98,6 +109,7 @@ ORDER BY fetched_at;
 ```
 
 When sources conflict:
+
 - Prefer more recent, primary sources
 - Surface the conflict explicitly in the brief
 - Do not silently resolve it
@@ -107,6 +119,7 @@ When sources conflict:
 Synthesize with explicit attribution. Never present claims without tracing them to at least one source.
 
 Do not:
+
 - Fill gaps with plausible-sounding guesses
 - Omit dissenting evidence
 - Present synthesis as more certain than the underlying evidence
@@ -129,10 +142,12 @@ Do not:
 [Surface any disagreements between sources]
 
 **Limitations**
+
 - [What this research did not cover]
 - [What would require additional investigation]
 
 **Sources**
+
 1. [Title] — [URL]
 2. ...
 ```
