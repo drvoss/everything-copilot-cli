@@ -34,10 +34,10 @@ and this skill generates a complete, convention-compliant SKILL.md file ready to
   - `security/` — security scanning, review, hardening
   - `testing/` — test strategy, eval, coverage
   - `documentation/` — doc generation, update workflows
-- `content/` — copywriting, SEO, content strategy
-- `product/` — PRD, launch, roadmap
-- `workflow/` — process workflows (research, release, sprint)
-- `copilot-exclusive/` — GitHub Copilot CLI-specific features
+  - `content/` — copywriting, SEO, content strategy
+  - `product/` — PRD, launch, roadmap
+  - `workflow/` — process workflows (research, release, sprint)
+  - `copilot-exclusive/` — GitHub Copilot CLI-specific features
 - Confirm the category already exists in this repository. Research-focused skills
   currently live under `workflow/`; adding a new category requires updating the
   shared allowlist in `scripts/skill-metadata.js` before introducing new files.
