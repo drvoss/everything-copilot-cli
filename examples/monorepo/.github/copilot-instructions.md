@@ -24,7 +24,7 @@ TypeScript libraries, and a React Native mobile app.
 
 ### Workspace Structure
 
-```
+```text
 /
 ├── apps/
 │   ├── web/                  # @app/web — Next.js frontend
@@ -133,7 +133,7 @@ steps:
 
 When giving Copilot context, always specify which package you are working in:
 
-```
+```text
 # ✅ Good
 > In @app/api, add a POST /orders endpoint
 
@@ -175,7 +175,7 @@ $jobs | ForEach-Object {
 
 ### Common Workflows
 
-```
+```text
 # Add a shared type used by web and API:
 > In @app/shared/src/types/, add an Order type.
 > Then update @app/api to use it in the response schema.

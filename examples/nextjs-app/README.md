@@ -11,7 +11,7 @@ patterns, and Auth.js session handling.
 
 ## Project Structure (assumed)
 
-```
+```text
 nextjs-app/
 ├── .github/
 │   └── copilot-instructions.md   ← copy this to your project

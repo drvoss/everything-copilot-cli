@@ -9,6 +9,7 @@ metadata:
 # Input Validation
 
 ## When to Use
+
 - Building or reviewing API endpoints that accept user input
 - Working with database queries, HTML rendering, or form handling
 - Auditing an existing application for injection vulnerabilities
@@ -16,6 +17,7 @@ metadata:
 - Handling file uploads, URL parameters, or header values
 
 ## Prerequisites
+
 - Understanding of the application's input surfaces (APIs, forms, file uploads)
 - Access to the codebase's request handlers and data layer
 - A validation library available (zod, joi, express-validator, etc.)
@@ -23,7 +25,9 @@ metadata:
 ## Workflow
 
 ### 1. Map Input Surfaces
+
 Identify everywhere user input enters the application:
+
 ```powershell
 # Find route handlers / API endpoints
 grep -rn "app\.\(get\|post\|put\|delete\|patch\)\|router\." src/ --include="*.ts"
@@ -36,6 +40,7 @@ grep -rn "multer\|upload\|formidable\|busboy" src/ --include="*.ts"
 ```
 
 ### 2. SQL Injection Prevention
+
 ```powershell
 # Find raw SQL queries — these are high risk
 grep -rn "query\s*(\|execute\s*(\|raw\s*(" src/ --include="*.ts" -A 2
@@ -53,6 +58,7 @@ const user = await User.findOne({ where: { id: userId } });
 ```
 
 ### 3. XSS Prevention
+
 ```powershell
 # Find direct HTML rendering with user data
 grep -rn "innerHTML\|dangerouslySetInnerHTML\|document\.write\|v-html" src/ --include="*.ts" --include="*.tsx" --include="*.vue"
@@ -74,6 +80,7 @@ element.innerHTML = DOMPurify.sanitize(userComment);
 ```
 
 ### 4. CSRF Prevention
+
 ```powershell
 # Check for CSRF middleware
 grep -rn "csrf\|csurf\|csrfToken" src/ --include="*.ts"
@@ -94,6 +101,7 @@ app.get('/form', (req, res) => {
 ```
 
 ### 5. Schema Validation at the Boundary
+
 Validate all input at the entry point using a schema library:
 
 ```typescript
@@ -116,6 +124,7 @@ app.post('/users', (req, res) => {
 ```
 
 ### 6. Additional Validation Patterns
+
 ```typescript
 // Path traversal prevention
 import path from 'path';
@@ -139,12 +148,14 @@ function safeUrl(url: string): boolean {
 ## Examples
 
 ### Audit Existing Endpoints
+
 ```powershell
 # Find unvalidated endpoints — routes without validation middleware
 grep -rn "router\.\(post\|put\|patch\)" src/routes/ --include="*.ts" -A 5 | grep -v "validate\|schema\|zod\|joi"
 ```
 
 ### Add Validation to an Express Route
+
 ```typescript
 // middleware/validate.ts
 import { ZodSchema } from 'zod';
@@ -168,6 +179,7 @@ export function validate(schema: ZodSchema) {
 | "We use Zod/joi/yup, so we're covered" | Validation libraries are only as good as the schema. A wrong schema is still wrong. |
 
 ## Red Flags
+
 - User input used directly in SQL queries
 - `JSON.parse()` results used without validation
 - User input included in file paths (path traversal risk)
@@ -175,6 +187,7 @@ export function validate(schema: ZodSchema) {
 - Regex patterns vulnerable to ReDoS (`(a+)+`, `([a-zA-Z]+)*`)
 
 ## Verification
+
 - [ ] Server-side validation present for all API endpoint inputs
 - [ ] Parameterized queries or ORM used (no raw string interpolation)
 - [ ] File uploads validated for type, size, and path
@@ -182,6 +195,7 @@ export function validate(schema: ZodSchema) {
 - [ ] Input validation tests cover both valid and malicious input cases
 
 ## Tips
+
 - **Validate at the boundary, trust internally** — validate once where input enters your system
 - Use allowlists over denylists — define what's allowed rather than what's blocked
 - Always validate type, length, format, and range
@@ -189,4 +203,3 @@ export function validate(schema: ZodSchema) {
 - Set `Content-Security-Policy` headers to prevent XSS at the browser level
 - Never trust client-side validation alone — always validate server-side
 - Use `explore` agent to trace how user input flows through the application
-

@@ -6,7 +6,7 @@ The Pipeline pattern follows the Unix philosophy: each AI tool does one thing we
 
 ## How It Works
 
-```
+```text
 ┌──────────┐    stdout    ┌──────────┐    stdout    ┌──────────┐    stdout    ┌──────────┐
 │  Claude   │ ──────────► │  Codex   │ ──────────► │  Gemini  │ ──────────► │  Copilot │
 │  analyze  │    pipe     │  implement│    pipe     │  review  │    pipe     │  ship    │
@@ -14,6 +14,7 @@ The Pipeline pattern follows the Unix philosophy: each AI tool does one thing we
 ```
 
 Each stage:
+
 1. Receives input (from stdin, a file, or the previous stage)
 2. Processes it with a specialist AI
 3. Outputs structured results for the next stage

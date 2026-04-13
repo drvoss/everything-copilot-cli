@@ -26,9 +26,11 @@ Guidelines for consistent, clean version control practices.
 ## AI-Assisted Commits
 
 - Include the **Co-authored-by trailer** for AI-generated commits:
-  ```
+
+  ```text
   Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
   ```
+
 - Review AI-generated code before committing — you own the commit
 
 ## Branch Naming

@@ -28,7 +28,7 @@ whatsoever; debugging CI requires manually navigating the GitHub web UI or parsi
 
 ### 1. List Workflows in a Repository
 
-```
+```text
 Tool: github-mcp-server-actions_list
   method: "list_workflows"
   owner: "my-org"
@@ -37,7 +37,7 @@ Tool: github-mcp-server-actions_list
 
 ### 2. List Recent Runs for a Workflow
 
-```
+```text
 Tool: github-mcp-server-actions_list
   method: "list_workflow_runs"
   owner: "my-org"
@@ -50,7 +50,7 @@ Tool: github-mcp-server-actions_list
 
 This is the killer feature — pull logs directly for analysis:
 
-```
+```text
 Tool: github-mcp-server-get_job_logs
   owner: "my-org"
   repo: "my-app"
@@ -62,7 +62,7 @@ Tool: github-mcp-server-get_job_logs
 
 ### 4. Inspect a Specific Job
 
-```
+```text
 Tool: github-mcp-server-actions_get
   method: "get_workflow_job"
   owner: "my-org"
@@ -72,7 +72,7 @@ Tool: github-mcp-server-actions_get
 
 ### 5. Check Run Usage and Timing
 
-```
+```text
 Tool: github-mcp-server-actions_get
   method: "get_workflow_run_usage"
   owner: "my-org"
@@ -87,6 +87,7 @@ Tool: github-mcp-server-actions_get
 > "My latest push to feature/auth-refactor failed CI. Show me what went wrong."
 
 Copilot workflow:
+
 1. `list_workflow_runs` filtered by branch `feature/auth-refactor`
 2. Takes the most recent failed run
 3. `list_workflow_jobs` to find which job(s) failed
@@ -98,9 +99,9 @@ All in one conversational turn — no browser tabs needed.
 ### Flaky Test Investigation
 
 > "The 'integration-tests' workflow has been flaky on main this week.
->  Show me the failure pattern."
+> Show me the failure pattern."
 
-```
+```text
 Tool: github-mcp-server-actions_list
   method: "list_workflow_runs"
   owner: "my-org"
@@ -117,7 +118,7 @@ external service unavailability).
 ### Deployment Pipeline Audit
 
 > "Show me all production deployment runs this month and flag any that took
->  longer than 15 minutes."
+> longer than 15 minutes."
 
 Copilot lists runs, checks usage/timing for each, and highlights anomalies.
 

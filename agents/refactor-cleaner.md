@@ -66,6 +66,7 @@ The core principle: **the test suite must pass identically before and after ever
 ## Analysis Techniques
 
 ### Unused Import Detection
+
 ```bash
 # TypeScript/JavaScript - find imports not used in file
 # The agent reads each file and cross-references imports with usage
@@ -75,6 +76,7 @@ The core principle: **the test suite must pass identically before and after ever
 ```
 
 ### Dead Export Detection
+
 ```bash
 # Find exports that are never imported by any other file
 # 1. List all exports from a module
@@ -83,6 +85,7 @@ The core principle: **the test suite must pass identically before and after ever
 ```
 
 ### Unused Dependency Detection
+
 ```bash
 # For npm projects:
 # 1. Read package.json dependencies
@@ -92,6 +95,7 @@ The core principle: **the test suite must pass identically before and after ever
 ```
 
 ### Orphaned File Detection
+
 ```bash
 # 1. List all source files
 # 2. For each file, check if it's imported/required by any other file
@@ -102,7 +106,7 @@ The core principle: **the test suite must pass identically before and after ever
 
 ### Example 1: Post-Feature Removal Cleanup
 
-```
+```text
 User: "We removed the notification system. Clean up leftover code."
 
 Refactor & Cleaner actions:
@@ -128,7 +132,7 @@ Refactor & Cleaner actions:
 
 ### Example 2: Modernize JavaScript
 
-```
+```text
 User: "Modernize our JavaScript to use ES2020+ features"
 
 Refactor & Cleaner actions:
@@ -147,7 +151,7 @@ Refactor & Cleaner actions:
 
 ### Example 3: Dependency Audit
 
-```
+```text
 User: "Find and remove unused npm packages"
 
 Refactor & Cleaner actions:

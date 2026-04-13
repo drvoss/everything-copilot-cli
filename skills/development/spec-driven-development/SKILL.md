@@ -9,6 +9,7 @@ metadata:
 # Spec-Driven Development
 
 ## When to Use
+
 - 구현에 2시간 이상 걸리는 기능을 시작할 때
 - 요구사항이 불명확한 기능을 작업할 때
 - 다른 팀이 소비하는 인터페이스를 설계할 때
@@ -16,10 +17,12 @@ metadata:
 - Copilot의 Plan Mode에 진입하기 전 사전 정의가 필요할 때
 
 ## DO NOT use when
+
 - 범위가 명확한 단순 버그 수정
 - 복사 변경이나 사소한 UI 조정
 
 ## Prerequisites
+
 - 요구사항 또는 이슈 내용이 존재
 - 프로젝트 구조와 기술 스택 파악 완료
 
@@ -38,27 +41,34 @@ grep -rn "관련_키워드" src/
 **필수 6개 섹션:**
 
 #### Objective (목표)
+
 한 문장. 무엇이 왜 바뀌는가.
 
 #### Interface (인터페이스)
+
 계약 우선. CLI 플래그, API 엔드포인트, 함수 시그니처, 이벤트 이름.
 구현 전에 인터페이스를 확정한다.
 
 #### Project Structure (프로젝트 구조)
+
 변경될 파일, 새로 생성될 파일, 삭제될 파일 목록.
 
 #### Code Style (코드 스타일)
+
 이 기능에 특정하게 적용되는 컨벤션. 기존 `rules/` 파일을 참조.
 
 #### Testing Strategy (테스트 전략)
+
 테스트 종류, 커버리지 목표, mock 범위.
 
 #### Boundaries (범위 경계)
+
 이 스펙이 명시적으로 포함하지 않는 것. "~은 하지 않는다"를 명문화.
 
 ### 2. 스펙 리뷰 체크포인트
 
 코드 작성 전 각 섹션에 대해 확인:
+
 - 스펙만으로 구현 가능한가? (추가 질문 없이)
 - 인터페이스가 모호하지 않은가?
 - 테스트 케이스가 구체적으로 명시되었는가?
@@ -88,6 +98,7 @@ git commit -m "feat(feature-name): add spec and initial implementation"
 | "에이전트에게 맡기면 알아서 할 것이다" | 에이전트도 명확한 인터페이스와 경계가 없으면 잘못된 방향으로 구현한다. |
 
 ## Red Flags
+
 - 구현이 이슈 설명과 문서화된 이유 없이 다름
 - 구현 완료 후 처음 실행에 100% 통과하는 테스트 (실패를 본 적 없음)
 - "인터페이스는 만들면서 정하겠다"
@@ -95,6 +106,7 @@ git commit -m "feat(feature-name): add spec and initial implementation"
 - 스펙 없이 Plan Mode 진입
 
 ## Verification
+
 - [ ] 코드 첫 커밋 전에 `SPEC.md` 또는 동등한 문서 존재
 - [ ] 6개 섹션 모두 작성됨 (Interface와 Testing에 "TBD" 없음)
 - [ ] 구현이 스펙의 인터페이스와 일치
@@ -130,6 +142,7 @@ git commit -m "feat(feature-name): add spec and initial implementation"
 ```
 
 ## Tips
+
 - 스펙은 완벽할 필요가 없다 — 인터페이스와 경계가 명확하면 충분하다
 - `create-prd` 스킬로 제품 스펙을 먼저 만든 뒤 이 스킬로 기술 스펙을 작성한다
 - 스펙이 너무 길어진다면 범위가 너무 크다는 신호다 — 분리를 검토한다

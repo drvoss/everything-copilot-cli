@@ -6,7 +6,7 @@ The simplest orchestration pattern. Copilot CLI spawns other AI CLIs as child pr
 
 ## How It Works
 
-```
+```text
 ┌──────────────┐     shell exec      ┌──────────────┐
 │  Copilot CLI  │ ──────────────────► │  Codex CLI   │
 │  (orchestrator)│ ◄──────────────── │  (worker)     │
@@ -15,6 +15,7 @@ The simplest orchestration pattern. Copilot CLI spawns other AI CLIs as child pr
 ```
 
 Copilot CLI uses its `powershell` tool to:
+
 1. Execute another AI CLI with a specific prompt
 2. Capture stdout (the AI's response)
 3. Parse and use the result in its workflow
@@ -92,7 +93,7 @@ npx @anthropic-ai/claude-code --print \
 
 Within a Copilot CLI session, you can orchestrate other AIs naturally:
 
-```
+```text
 You: "Use Codex to generate a Redis caching layer, then have Claude review it"
 
 Copilot CLI will:
@@ -173,6 +174,7 @@ if ($completed) {
 ## When to Graduate
 
 Move to [Pattern 2: MCP Bridge](mcp-bridge.md) when you need:
+
 - Type-safe tool invocation
 - Persistent connections (no cold-start overhead)
 - Shared context between AI tools

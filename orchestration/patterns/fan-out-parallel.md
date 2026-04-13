@@ -16,7 +16,7 @@ The Fan-Out Parallel pattern distributes a single workload across multiple agent
 
 ## How It Works
 
-```
+```text
                     ┌──────────────────────────────┐
                     │      Copilot CLI              │
                     │   (Orchestrator / Splitter)   │
@@ -45,6 +45,7 @@ The Fan-Out Parallel pattern distributes a single workload across multiple agent
 - Batch processing: translating docs, scanning modules, auditing files
 
 **Do NOT use when:**
+
 - Subtasks depend on each other's output → use [Pipeline](pipeline.md)
 - You need a consensus decision → use [Agent Council](agent-council.md)
 
@@ -269,7 +270,7 @@ $jobs | Wait-Job | ForEach-Object {
 
 Each agent produces independent output. The aggregator collects them:
 
-```
+```text
 ## parallel-review-report.md
 
 ### auth-review (Claude)

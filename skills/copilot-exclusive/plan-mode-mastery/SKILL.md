@@ -32,7 +32,7 @@ Press **Shift+Tab** to toggle Plan Mode on. The mode indicator appears in your p
 
 ### 2. Describe Your Task
 
-```
+```text
 You: "Refactor the authentication system to use JWT tokens instead of sessions"
 ```
 
@@ -61,7 +61,7 @@ INSERT INTO todo_deps (todo_id, depends_on) VALUES
 
 Copilot calls `exit_plan_mode` to present the plan:
 
-```
+```text
 exit_plan_mode:
   summary: |
     - Install jsonwebtoken and create token service
@@ -74,6 +74,7 @@ exit_plan_mode:
 ```
 
 You see a clean menu:
+
 - **Autopilot** (recommended) — Copilot executes all todos autonomously
 - **Fleet** — Parallel agents for independent todos
 - **Interactive** — Step through each todo with your approval
@@ -117,7 +118,7 @@ dependencies are complete.
 
 If the plan doesn't look right, provide feedback:
 
-```
+```text
 You: "Split the 'update-tests' todo into unit tests and integration tests,
       and add a todo for updating the API documentation."
 ```
@@ -126,7 +127,7 @@ Copilot updates the plan and re-presents it for approval.
 
 ### Mode Transitions
 
-```
+```text
 Interactive → "This is taking too long, switch to autopilot"
 Autopilot → "Stop, I want to review the middleware changes"
 Plan Mode → "Actually, use fleet for the independent test files"

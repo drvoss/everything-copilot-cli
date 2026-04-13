@@ -53,7 +53,7 @@ pip-audit || safety check
 
 ## 보안 헤더
 
-```
+```text
 Content-Security-Policy: default-src 'self'; script-src 'self'
 Strict-Transport-Security: max-age=31536000; includeSubDomains
 X-Content-Type-Options: nosniff

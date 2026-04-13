@@ -7,6 +7,7 @@ Thank you for your interest in contributing! This project aims to be the definit
 ### Adding a New Agent
 
 1. Create a markdown file in `agents/` with YAML frontmatter:
+
    ```yaml
    ---
    name: my-agent
@@ -17,6 +18,7 @@ Thank you for your interest in contributing! This project aims to be the definit
      - list of tools
    ---
    ```
+
 2. Include sections: Purpose, When to Use, How It Works, Examples
 3. Run `npm test` to validate
 

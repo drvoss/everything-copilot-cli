@@ -30,7 +30,7 @@ every tool call (or use a limited "auto-accept" that lacks structured planning).
 
 Always begin in Plan Mode for autopilot tasks:
 
-```
+```text
 [Shift+Tab to enter Plan Mode]
 You: "Convert all React class components to functional components with hooks"
 ```
@@ -38,6 +38,7 @@ You: "Convert all React class components to functional components with hooks"
 ### 2. Review the Plan Carefully
 
 This is your guardrail moment. The plan should include:
+
 - Clear scope (which files, which patterns)
 - Defined completion criteria
 - Test verification steps
@@ -47,7 +48,7 @@ This is your guardrail moment. The plan should include:
 
 When presented with the approval menu, choose **Autopilot**:
 
-```
+```text
 exit_plan_mode:
   summary: "Convert 12 class components to functional components..."
   recommendedAction: "autopilot"
@@ -56,6 +57,7 @@ exit_plan_mode:
 ### 4. Monitor Progress
 
 Even in autopilot, you can:
+
 - Watch the output stream in real-time
 - Check todo status via SQL queries
 - Interrupt if something goes wrong (Ctrl+C)
@@ -89,7 +91,7 @@ Autopilot runs tests after each conversion — if tests fail, it stops and fixes
 
 Don't autopilot everything at once. Batch into phases:
 
-```
+```text
 Phase 1 (Autopilot): Convert simple components (no state, no lifecycle)
 Phase 2 (Interactive): Review Phase 1, then autopilot complex components
 Phase 3 (Interactive): Handle edge cases manually
@@ -97,7 +99,7 @@ Phase 3 (Interactive): Handle edge cases manually
 
 #### Pattern 4: Dry-Run First
 
-```
+```text
 You: "First, analyze all class components and list what would change.
       Don't modify any files yet."
 
@@ -131,7 +133,7 @@ INSERT INTO todo_deps (todo_id, depends_on) VALUES
 
 For independent todos, combine autopilot with fleet:
 
-```
+```text
 exit_plan_mode:
   summary: "3 independent migration tasks + verification + cleanup"
   recommendedAction: "autopilot_fleet"
@@ -144,7 +146,7 @@ handles `verify` and `cleanup` sequentially.
 
 Low-risk, high-volume — perfect for full autopilot:
 
-```
+```text
 You: "Add JSDoc to all exported functions in src/. Use autopilot, run
       the TypeScript compiler after each file to verify no errors."
 ```
@@ -153,7 +155,7 @@ You: "Add JSDoc to all exported functions in src/. Use autopilot, run
 
 An autonomous improvement cycle that repeats until an exit condition is met. Use for iterative quality improvement tasks where the number of passes is unknown upfront.
 
-```
+```text
 [Loop start]
 1. Execute task (run tests / lint / analyze)
 2. Collect failures or gaps
@@ -165,6 +167,7 @@ An autonomous improvement cycle that repeats until an exit condition is met. Use
 ```
 
 **Implementation with SQL state:**
+
 ```sql
 CREATE TABLE IF NOT EXISTS loop_state (
     iteration INTEGER DEFAULT 0,
@@ -175,6 +178,7 @@ INSERT INTO loop_state VALUES (0, 'running', -1);
 ```
 
 Each iteration:
+
 ```sql
 -- Before iteration
 UPDATE loop_state SET iteration = iteration + 1;
@@ -192,6 +196,7 @@ UPDATE loop_state SET
 **Best for:** Auto-fix lint cycles, test-fix-retest loops, retry-until-passing scenarios.
 
 **Guard rails:**
+
 - Always set a hard max iterations (5 is a good default)
 - Log each iteration's result before continuing
 - If `max_reached`: surface remaining failures for human review — do not silently skip them

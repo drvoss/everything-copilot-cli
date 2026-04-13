@@ -33,6 +33,7 @@ Improve search visibility through technical correctness, performance, and conten
 ## Technical SEO Checklist
 
 ### Crawlability
+
 - `robots.txt` allows important pages, blocks low-value surfaces
 - No important page is unintentionally `noindex`
 - Important pages reachable within shallow click depth
@@ -40,12 +41,14 @@ Improve search visibility through technical correctness, performance, and conten
 - Canonical tags are self-consistent and non-looping
 
 ### Indexability
+
 - Preferred URL format is consistent
 - Multilingual pages have correct `hreflang` if used
 - Sitemaps reflect the intended public surface
 - No duplicate URLs without canonical control
 
 ### Core Web Vitals targets
+
 | Metric | Target |
 |--------|--------|
 | LCP (Largest Contentful Paint) | < 2.5s |
@@ -57,16 +60,19 @@ Common fixes: preload hero assets · reduce render-blocking JS · reserve layout
 ## On-Page Rules
 
 ### Title tags
+
 - ~50–60 characters
 - Primary keyword/concept near the front
 - Legible to humans first
 
 ### Meta descriptions
+
 - ~120–160 characters
 - Honest description of the page
 - Include main topic naturally
 
 ### Heading structure
+
 - One clear `H1` per page
 - `H2`/`H3` reflect actual content hierarchy
 - Do not skip levels for visual styling
@@ -101,7 +107,7 @@ Common fixes: preload hero assets · reduce render-blocking JS · reserve layout
 
 ## Audit Output Format
 
-```
+```text
 [HIGH] Duplicate title tags on product pages
 Location: src/routes/products/[slug].tsx
 Issue: Dynamic titles collapse to the same default string.

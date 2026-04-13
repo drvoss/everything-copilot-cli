@@ -29,6 +29,7 @@ cross-provider optimization.
 ### Model Tiers and Strengths
 
 #### Premium Tier (Deep Reasoning)
+
 | Model                        | Best For                                    |
 |------------------------------|---------------------------------------------|
 | `claude-opus-4.6`            | Complex architecture, security analysis     |
@@ -36,6 +37,7 @@ cross-provider optimization.
 | `claude-opus-4.6`            | Deep reasoning, nuanced code review         |
 
 #### Standard Tier (General Purpose)
+
 | Model                        | Best For                                    |
 |------------------------------|---------------------------------------------|
 | `gpt-5.4`                    | Latest GPT, strong code generation          |
@@ -51,6 +53,7 @@ cross-provider optimization.
 | `gemini-3-pro-preview`       | Multimodal, large context                   |
 
 #### Fast/Cheap Tier (High Volume)
+
 | Model                        | Best For                                    |
 |------------------------------|---------------------------------------------|
 | `gpt-5.1-codex-mini`         | Fast code tasks                             |
@@ -59,7 +62,7 @@ cross-provider optimization.
 
 ### 1. Switch Your Main Model
 
-```
+```text
 /model claude-opus-4.6
 ```
 
@@ -69,7 +72,7 @@ Changes the model for your current interactive session.
 
 Assign different models to different sub-agents:
 
-```
+```text
 # Cheap model for exploration
 task(agent_type: "explore", model: "claude-haiku-4.5",
      prompt: "Find all files that import the UserService class")
@@ -85,7 +88,7 @@ task(agent_type: "general-purpose", model: "gpt-5.1-codex-mini",
 
 ### 3. Cost-Optimized Workflow
 
-```
+```text
 Phase 1 - Exploration (cheap):     claude-haiku-4.5
 Phase 2 - Planning (standard):     claude-sonnet-4.6
 Phase 3 - Implementation (code):   gpt-5.3-codex
@@ -97,7 +100,7 @@ Phase 5 - Test generation (fast):  gpt-5.1-codex-mini
 
 ### Security Audit with Premium Model
 
-```
+```text
 /model claude-opus-4.6
 You: "Perform a security audit of the authentication system in src/auth/.
       Check for injection attacks, token handling issues, and OWASP Top 10."
@@ -107,7 +110,7 @@ Use the most capable model for security-critical analysis.
 
 ### Bulk Documentation with Fast Model
 
-```
+```text
 # Launch fleet with cheap model for high-volume doc generation
 task(agent_type: "general-purpose", model: "gpt-5-mini",
      prompt: "Add JSDoc to all exports in src/utils/string.ts")
@@ -121,7 +124,7 @@ task(agent_type: "general-purpose", model: "gpt-5-mini",
 
 Test the same task on different models:
 
-```
+```text
 task(agent_type: "general-purpose", model: "gpt-5.4",
      prompt: "Implement a rate limiter middleware...")
 task(agent_type: "general-purpose", model: "claude-sonnet-4.6",

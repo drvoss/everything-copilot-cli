@@ -9,12 +9,14 @@ metadata:
 # TDD Workflow
 
 ## When to Use
+
 - Building new features where correctness is critical
 - Fixing bugs where a regression test should be written first
 - Refactoring code that lacks test coverage
 - Working on business logic, parsers, or data transformations
 
 ## Prerequisites
+
 - Test framework installed and configured (Jest, pytest, Go test, etc.)
 - Ability to run tests from the command line
 - Understanding of the feature requirements or bug to reproduce
@@ -22,12 +24,14 @@ metadata:
 ## Workflow
 
 ### 1. Red — Write a Failing Test
+
 Identify the behavior to implement, then write a test that asserts it.
 
 ```bash
 # Find existing test files to follow conventions
 ```
-```
+
+```text
 glob pattern="**/*.test.{ts,js,tsx}" # or **/*_test.go, **/test_*.py
 ```
 
@@ -49,6 +53,7 @@ npm test -- --testPathPattern="parse.test" 2>&1 | Select-Object -Last 20
 ```
 
 ### 2. Green — Write Minimal Code to Pass
+
 Implement only enough code to make the failing test pass. Resist the urge to add extras.
 
 ```typescript
@@ -65,6 +70,7 @@ npm test -- --testPathPattern="parse.test"
 ```
 
 ### 3. Refactor — Clean Up Without Changing Behavior
+
 Improve code structure, naming, and duplication while keeping all tests green.
 
 ```powershell
@@ -73,13 +79,16 @@ npm test 2>&1 | Select-Object -Last 30
 ```
 
 ### 4. Repeat the Cycle
+
 Add the next test case for edge cases or the next slice of behavior:
+
 - Null/undefined inputs
 - Boundary values
 - Error conditions
 - Integration with adjacent modules
 
 ### 5. Check Coverage
+
 ```powershell
 npm test -- --coverage --collectCoverageFrom="src/utils/parse.ts"
 ```
@@ -89,6 +98,7 @@ Aim for **≥80% line coverage** on new code, **100% branch coverage** on critic
 ## Examples
 
 ### Bug Fix TDD
+
 ```powershell
 # 1. Reproduce the bug as a test
 #    grep for the failing function, write a test with the exact input that causes the bug
@@ -103,6 +113,7 @@ npm test -- --testPathPattern="billing"
 ```
 
 ### Multi-file Feature
+
 ```powershell
 # Use the task agent to run tests continuously while you code
 # Start test watcher in async mode
@@ -144,6 +155,7 @@ To enforce this automatically, add it as a Git pre-commit hook:
 ```
 
 ## Red Flags
+
 - Tests written after implementation with 100% pass rate (tests never saw a red state)
 - Test files committed after source files
 - Tests like `it('works')` with no meaningful assertions
@@ -152,6 +164,7 @@ To enforce this automatically, add it as a Git pre-commit hook:
 - AI-generated implementation code committed before a failing test was written
 
 ## Verification
+
 - [ ] Confirmed tests started in a Red state (via commit history or direct observation)
 - [ ] `npm test` (or equivalent) exits with code 0
 - [ ] Line coverage ≥80% and branch coverage ≥90% on critical paths for new code
@@ -159,10 +172,10 @@ To enforce this automatically, add it as a Git pre-commit hook:
 - [ ] Tests exist for edge cases (null, empty values, boundary values)
 
 ## Tips
+
 - Write the **assertion first**, then work backward to the setup
 - Each test should verify **one behavior** — keep tests small and descriptive
 - Name tests as sentences: `it('rejects negative quantities')`
 - Use `task` agent to run tests so output stays clean in your main context
 - If you can't write a test easily, the code may need a better interface — that's valuable feedback
 - Commit after each Green phase so you can safely revert a failed refactor
-

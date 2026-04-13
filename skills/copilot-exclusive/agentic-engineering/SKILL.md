@@ -39,18 +39,21 @@ The patterns here are specific to Copilot CLI's agent execution model: `task()` 
 **Why:** Agents fail when context exceeds what fits in a single focused pass. Long tasks require the agent to hold too much state, make too many decisions, and produce outputs that are hard to verify.
 
 **Signs a task is too large:**
+
 - Description contains "and" more than twice
 - Requires reading more than 5 files to complete
 - Has more than one possible success state
 - Cannot be verified by a single test or check
 
 **Signs a task is too small:**
+
 - It is just a file read or a lookup
 - A single `edit` call handles it entirely
 - No judgment is required
 
 **Decomposition pattern:**
-```
+
+```text
 Large task: "Implement user authentication with JWT and refresh tokens"
 ↓ decompose
 T-01: Add User schema + bcrypt password field (DB layer only)
@@ -68,7 +71,7 @@ Each task has one clear output that can be verified independently.
 
 **Why:** Agents optimized toward a concrete pass/fail signal produce more correct output than agents working toward a vague goal. The verification criterion *is* the specification.
 
-```
+```text
 ❌ Vague:
 "Implement the export function and make sure it works."
 
@@ -80,6 +83,7 @@ Each task has one clear output that can be verified independently.
 ```
 
 **Pattern in SQL:**
+
 ```sql
 INSERT INTO todos (id, title, description) VALUES
   ('impl-export', 'Implement CSV export', 
@@ -93,16 +97,18 @@ INSERT INTO todos (id, title, description) VALUES
 **Why:** Background agents start with no conversation history. Fleet agents run in isolated contexts. Agents that assume they "remember" previous turns produce inconsistent results.
 
 **Input contract** — what the agent needs to start:
+
 - Exact file paths to read
 - Specific values to use (not "use the same approach as before")
 - SQL queries to run for current state
 
 **Output contract** — what the agent produces:
+
 - Files created or modified (exact paths)
 - SQL rows inserted or updated
 - Return value if used as a sub-agent
 
-```
+```text
 # Weak (implicit):
 "Continue implementing the auth system."
 
@@ -121,7 +127,8 @@ Verification: npm test -- auth.middleware.test.ts
 **Why:** An agent that guesses wrong halfway through a task produces partial, hard-to-revert changes. An agent that stops early saves time.
 
 Configure via prompt:
-```
+
+```text
 If you are uncertain about the expected behavior, stop and surface the question
 as a BLOCKER rather than making an assumption and continuing.
 Format: BLOCKER: [question] [what you would assume if forced to continue]

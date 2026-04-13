@@ -16,7 +16,7 @@ Guidelines for robust, user-friendly error handling.
 - Distinguish between operational errors (expected) and programmer errors (bugs)
 - Create an error hierarchy that maps to your domain
 
-```
+```text
 AppError
 ├── ValidationError
 ├── NotFoundError

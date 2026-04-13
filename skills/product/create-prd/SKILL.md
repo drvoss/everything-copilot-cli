@@ -50,7 +50,7 @@ Get-ChildItem -Recurse -Include "*.md" | Where-Object { $_.Name -match 'product|
 
 Before writing requirements, anchor in the user's actual goal:
 
-```
+```text
 When [situation/trigger],
 I want to [motivation],
 So that I can [expected outcome].
@@ -167,7 +167,7 @@ so that my git history is readable without manual effort.
 
 ### PRD from GitHub Issue
 
-```
+```text
 Issue #145: "Users can't tell which commits are breaking changes"
 
 JTBD: When I'm reviewing git log, I want breaking changes visually distinct,

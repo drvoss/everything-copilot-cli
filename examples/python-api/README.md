@@ -10,7 +10,7 @@ auth. The instructions prevent AI from generating synchronous SQLAlchemy pattern
 
 ## Project Structure (assumed)
 
-```
+```text
 python-api/
 ├── .github/
 │   └── copilot-instructions.md   ← copy this to your project

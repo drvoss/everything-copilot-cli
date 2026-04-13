@@ -10,7 +10,7 @@ Run multiple AI agents in parallel to maximize throughput. Copilot CLI can launc
 
 Copilot CLI's `task` tool supports background agents that run independently:
 
-```
+```text
 You: "I need to do three things at once:
       1. Generate unit tests for src/services/
       2. Review src/auth/ for security issues  
@@ -26,7 +26,7 @@ Results are collected when all agents complete.
 
 ### Using explore Agents in Parallel
 
-```
+```text
 # Copilot CLI can launch multiple explore agents simultaneously:
 # These are safe to parallelize and run on the fast Haiku model
 
@@ -39,7 +39,7 @@ Agent 3: "Identify all database models and their relationships"
 
 ### Using Fleet Mode
 
-```
+```text
 # For highly parallelizable implementation work, Copilot CLI offers
 # autopilot_fleet mode that distributes work across multiple agents:
 

@@ -35,6 +35,7 @@ A good tour is a narrative for a specific reader: what they are looking at, why 
 ### 1. Discover
 
 Explore the repo before writing anything:
+
 - README and entry points
 - Folder structure and key config files
 - Changed files if PR-focused
@@ -55,6 +56,7 @@ Do not start writing steps before understanding the code shape.
 ### 3. Verify anchors
 
 Every file path and line anchor must be real:
+
 - Confirm the file exists (`glob` / `grep`)
 - Confirm line numbers are in range (`view` with `view_range`)
 - Never guess line numbers

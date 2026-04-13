@@ -46,7 +46,7 @@ agents:
 
 ## Data Flow Diagram
 
-```
+```text
 Input
   ↓
 [ Orchestrator ]

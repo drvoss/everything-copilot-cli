@@ -14,13 +14,14 @@ agents:
 The Producer-Reviewer pattern is an **iterative feedback loop**: one agent produces an artifact, another evaluates it against clearly-defined criteria, and feedback is applied until it passes.
 
 This is distinct from:
+
 - [Fan-Out Parallel](fan-out-parallel.md): parallel subtasks, **no refinement loop**
 - [Pipeline](pipeline.md): sequential stages, **linear (no feedback)**
 - [Agent Council](agent-council.md): routing/consensus, **not artifact refinement**
 
 ## How It Works
 
-```
+```text
   ┌──────────────────────────────┐
   │        Copilot CLI            │
   │   (Orchestrator / Gate)       │

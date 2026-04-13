@@ -13,7 +13,7 @@ and a business outcome you care about.
 
 ## The Framework
 
-```
+```text
 Desired Outcome
 └── Opportunity 1 (user pain / unmet need)
 │   ├── Solution A
@@ -33,7 +33,7 @@ Desired Outcome
 
 ### Step 1: Define the Desired Outcome
 
-```
+```text
 > I'm building the OST for: [product/feature area]
 >
 > Help me define 1 crisp desired outcome. It should be:
@@ -46,7 +46,7 @@ Desired Outcome
 
 ### Step 2: Map the Opportunity Space
 
-```
+```text
 > Now let's map the opportunity space for this outcome.
 >
 > Based on [user research / support tickets / interview data / NPS feedback]:
@@ -62,7 +62,7 @@ Desired Outcome
 
 For each top opportunity:
 
-```
+```text
 > For the opportunity: "[opportunity statement]"
 >
 > Generate 5-7 possible solutions. Include:
@@ -77,7 +77,7 @@ For each top opportunity:
 
 For your top-priority solution:
 
-```
+```text
 > For solution: "[solution name]"
 >
 > Design 3 experiments to test the core assumption, ordered from least to most expensive:
@@ -93,7 +93,7 @@ For your top-priority solution:
 
 ### Step 5: Build the Tree Visualization
 
-```
+```text
 > Generate a Markdown-formatted OST for:
 >
 > Outcome: [outcome]
@@ -129,7 +129,7 @@ INSERT INTO ost_items VALUES
 
 ## Example: SaaS Conversion OST
 
-```
+```text
 Outcome: Increase trial-to-paid conversion rate from 12% to 18%
 
 Opportunity 1: Users don't reach the "aha moment" before trial ends

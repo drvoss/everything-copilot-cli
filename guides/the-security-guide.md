@@ -48,11 +48,13 @@ JWT_SECRET=your-256-bit-secret
 ```
 
 ### Secret Rotation
+
 - Rotate secrets on a schedule (90 days minimum)
 - Use a secret manager (GitHub Secrets, AWS Secrets Manager, Azure Key Vault)
 - Never share secrets via chat, email, or commit messages
 
 ### When Working with Copilot CLI
+
 - Copilot CLI never stores your secrets
 - Avoid pasting secrets directly into the chat — use environment variable references
 - Use the [Secret Detection skill](../skills/security/secret-detection/SKILL.md) to scan for leaked secrets
@@ -110,7 +112,7 @@ execFile('git', ['log', `--author=${userInput}`]);
 
 ### Ask Copilot CLI to Validate
 
-```
+```text
 > Review all API endpoints for input validation vulnerabilities
 > Check the user registration flow for injection risks
 ```
@@ -146,7 +148,7 @@ go list -m all | nancy sleuth
 
 ### When Adding Dependencies with Copilot CLI
 
-```
+```text
 # Ask Copilot to evaluate a dependency before adding it
 > What are the security implications of adding the xyz package?
 > Are there lighter alternatives to lodash for deep cloning?
@@ -253,7 +255,7 @@ Copilot CLI has built-in security boundaries:
 
 ### Safe AI-Assisted Development Practices
 
-```
+```text
 # ✅ Review generated code before committing
 > Show me a diff of all changes you made
 
@@ -293,7 +295,7 @@ updates:
 - Enable for private repos in repository settings
 - Copilot CLI can check for secrets before you commit:
 
-```
+```text
 > Scan all staged files for hardcoded secrets or API keys
 ```
 
@@ -318,7 +320,7 @@ jobs:
 
 ### Using Copilot CLI with GitHub Security
 
-```
+```text
 # Check Dependabot alerts
 > Show me open Dependabot alerts for this repository
 
@@ -378,7 +380,7 @@ Copilot CLI provides security features that enhance your development workflow:
 
 ### Recommended Security Workflow
 
-```
+```text
 # 1. Implement feature (Autopilot mode with fast model)
 /model gpt-5.1-codex
 > Implement the password reset flow

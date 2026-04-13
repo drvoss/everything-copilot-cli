@@ -45,6 +45,7 @@ PR). `github-issue-triage` is for *organizing and classifying* issues in bulk.
 ```
 
 Extract:
+
 - **Expected behavior** vs **actual behavior**
 - **Reproduction steps**
 - **Stack trace or error message** (if present)
@@ -136,13 +137,14 @@ Added early return with 404 response when user is not found.
 
 ### Bug: API Returns 500 Instead of 404
 
-```
+```text
 Issue #89: GET /api/posts/999 returns 500 Internal Server Error
 Expected: 404 Not Found
 Actual: TypeError: Cannot read property 'title' of null
 ```
 
 **Copilot workflow:**
+
 1. `issue_read` → get full issue context
 2. `grep -n "Cannot read property"` → find where null is accessed
 3. Create branch `fix/issue-89-null-post`
@@ -153,13 +155,14 @@ Actual: TypeError: Cannot read property 'title' of null
 
 ### Enhancement: Add Missing Field to API Response
 
-```
+```text
 Issue #102: Missing 'updatedAt' field in /api/users response
 Expected: response includes updatedAt timestamp
 Actual: field not present
 ```
 
 **Copilot workflow:**
+
 1. `issue_read` + `get_comments` → clarify which endpoint and format
 2. Search for the serializer/transformer function
 3. Add `updatedAt` field

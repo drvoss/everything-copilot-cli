@@ -38,7 +38,7 @@ Copilot CLI is the ideal orchestrator for multi-AI workflows. Here's why:
 
 ### The Hub-and-Spoke Model
 
-```
+```text
                     ┌─────────────┐
                     │  Copilot CLI │
                     │  (Meta-Hub)  │
@@ -129,7 +129,7 @@ codex --quiet "Based on this analysis, decouple the user service: $analysis"
 
 You don't even need to remember the commands. Just ask:
 
-```
+```text
 > Use Claude Code to analyze the architecture of src/services/
 > Then use Codex to implement the recommended changes
 > Finally, review the changes with the code-review agent
@@ -145,7 +145,7 @@ Copilot CLI translates your intent into the appropriate shell commands and orche
 
 **Scenario**: Add a user notification system with email and in-app channels.
 
-```
+```text
 Step 1: Architecture (Claude — deep reasoning)
 > Use Claude to design the notification system architecture.
 > It should support email and in-app channels with a plugin pattern.
@@ -222,7 +222,7 @@ Use the right tool at the right price point for each task:
 
 ### Cost-Effective Strategy
 
-```
+```text
 # ❌ Expensive: Using Opus for everything
 /model claude-opus-4.6
 > Fix the typo in the README
@@ -269,7 +269,7 @@ Pre-built orchestration skills are available in the repository:
 
 Reference these skills in your Copilot CLI sessions:
 
-```
+```text
 > Use the delegate-to-claude skill to get an architecture review
 > Then use delegate-to-codex to implement the recommended changes
 > Finally, run the agent-review-chain for quality checks
@@ -352,17 +352,20 @@ Complete worked examples are available in the repository:
 Multi-AI orchestration is evolving rapidly. Here's where it's heading:
 
 ### Near-Term (Now)
+
 - Shell invocation and MCP bridges work today
 - Manual orchestration via Copilot CLI natural language
 - Session database tracks workflow state
 
 ### Mid-Term (6-12 months)
+
 - Standardized MCP protocols between AI tools
 - Automated tool selection based on task characteristics
 - Shared context windows between orchestrated tools
 - Cost-aware automatic routing
 
 ### Long-Term (1-2 years)
+
 - Fully autonomous multi-AI pipelines
 - AI tools that negotiate and specialize dynamically
 - Unified billing and cost optimization across providers
@@ -399,7 +402,7 @@ copilot
 
 ### Choosing the Right Pattern
 
-```
+```text
 Do you need to delegate a single task?
   → Pattern 1: Shell Invocation
 

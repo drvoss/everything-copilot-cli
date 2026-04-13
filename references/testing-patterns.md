@@ -27,6 +27,7 @@ test('calculateTotal returns sum with tax', () => {
 ## Assertion 메서드
 
 ### 동등성
+
 ```typescript
 expect(result).toBe(42);              // 원시값 (===)
 expect(result).toEqual({ a: 1 });     // 객체 심층 비교
@@ -34,6 +35,7 @@ expect(result).toStrictEqual({ a: 1 }); // undefined 프로퍼티 포함
 ```
 
 ### 진위값
+
 ```typescript
 expect(value).toBeTruthy();
 expect(value).toBeFalsy();
@@ -43,6 +45,7 @@ expect(value).toBeDefined();
 ```
 
 ### 숫자
+
 ```typescript
 expect(result).toBeGreaterThan(0);
 expect(result).toBeLessThanOrEqual(100);
@@ -50,6 +53,7 @@ expect(result).toBeCloseTo(3.14159, 2);  // 소수점 2자리까지
 ```
 
 ### 문자열/배열
+
 ```typescript
 expect(str).toContain('expected');
 expect(str).toMatch(/pattern/);
@@ -59,6 +63,7 @@ expect(arr).toEqual(expect.arrayContaining([1, 2]));
 ```
 
 ### 오류
+
 ```typescript
 expect(() => fn()).toThrow();
 expect(() => fn()).toThrow(TypeError);
@@ -73,6 +78,7 @@ await expect(asyncFn()).rejects.toThrow('async error');
 ### 원칙: 외부 경계만 Mock
 
 **Mock 해야 하는 것:**
+
 - 외부 HTTP API 호출
 - 데이터베이스 쿼리 (통합 테스트 제외)
 - 파일 시스템 (외부 파일 읽기)
@@ -80,6 +86,7 @@ await expect(asyncFn()).rejects.toThrow('async error');
 - 환경 변수
 
 **Mock 하지 말아야 하는 것:**
+
 - 내부 비즈니스 로직 함수
 - 순수 함수 (부작용 없는 함수)
 - 테스트 중인 모듈의 내부 구현
@@ -126,6 +133,7 @@ test('form submits with correct data', async () => {
 ```
 
 ### 쿼리 우선순위 (Testing Library)
+
 1. `getByRole` — 접근성 역할로 (최우선)
 2. `getByLabelText` — 레이블과 연결된 입력
 3. `getByPlaceholderText` — placeholder 텍스트

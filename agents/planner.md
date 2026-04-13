@@ -135,7 +135,7 @@ Parallel (both depend on api-endpoint but not each other):
 
 ### Example 1: Adding OAuth to an Express API
 
-```
+```text
 User: "Add Google OAuth login to our Express API"
 
 Planner actions:
@@ -155,7 +155,7 @@ Planner actions:
 
 ### Example 2: Large Refactor
 
-```
+```text
 User: "Migrate from CommonJS to ESM across the whole project"
 
 Planner actions:

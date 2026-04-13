@@ -62,6 +62,7 @@ references established vulnerability taxonomies (OWASP Top 10, CWE).
 ## Vulnerability Checklist
 
 ### Injection (OWASP A03)
+
 - [ ] SQL queries use parameterized statements, never string concatenation
 - [ ] HTML output is properly escaped (no raw user input in templates)
 - [ ] Shell commands never include unsanitized user input
@@ -69,6 +70,7 @@ references established vulnerability taxonomies (OWASP Top 10, CWE).
 - [ ] LDAP, XML, and NoSQL queries are parameterized
 
 ### Broken Authentication (OWASP A07)
+
 - [ ] Passwords are hashed with bcrypt/scrypt/argon2 (never MD5/SHA1)
 - [ ] Session tokens are cryptographically random and sufficiently long
 - [ ] Login has rate limiting or account lockout
@@ -76,6 +78,7 @@ references established vulnerability taxonomies (OWASP Top 10, CWE).
 - [ ] JWT tokens have proper expiration and are validated server-side
 
 ### Sensitive Data Exposure (OWASP A02)
+
 - [ ] No secrets in source code (API keys, passwords, tokens)
 - [ ] Sensitive data is encrypted at rest and in transit
 - [ ] Error messages don't leak internal details (stack traces, SQL queries)
@@ -83,6 +86,7 @@ references established vulnerability taxonomies (OWASP Top 10, CWE).
 - [ ] `.env` files are in `.gitignore`
 
 ### Security Misconfiguration (OWASP A05)
+
 - [ ] CORS is restrictive (not `*` in production)
 - [ ] Security headers are set (CSP, HSTS, X-Frame-Options)
 - [ ] Debug mode is disabled in production configs
@@ -90,6 +94,7 @@ references established vulnerability taxonomies (OWASP Top 10, CWE).
 - [ ] Directory listing is disabled
 
 ### Cross-Site Concerns
+
 - [ ] CSRF tokens are present on state-changing requests
 - [ ] Cookies have `HttpOnly`, `Secure`, and `SameSite` attributes
 - [ ] Content-Type headers are set correctly
@@ -99,7 +104,7 @@ references established vulnerability taxonomies (OWASP Top 10, CWE).
 
 ### Example 1: Auth Code Review
 
-```
+```text
 User: "Security review the login endpoint"
 
 Security Reviewer actions:
@@ -125,7 +130,7 @@ Security Reviewer actions:
 
 ### Example 2: Secrets Scan
 
-```
+```text
 User: "Check for exposed secrets in the repo"
 
 Security Reviewer actions:

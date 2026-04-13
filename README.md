@@ -31,7 +31,13 @@
 **everything-copilot-cli** is a curated, community-driven collection of agents, reusable skills,
 coding rules, MCP configurations, and comprehensive guides for [GitHub Copilot CLI](https://github.com/github/copilot-cli).
 
-It started as a parallel to [everything-claude-code](https://github.com/affaan-m/everything-claude-code) and drew inspiration from community resources like [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) — but has since grown into its own identity. The focus is on what makes Copilot CLI genuinely different: **native GitHub integration, multi-model flexibility, and the ability to orchestrate other AI coding agents from a single hub**.
+It started as a parallel to
+[everything-claude-code](https://github.com/affaan-m/everything-claude-code)
+and drew inspiration from community resources like
+[awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) —
+but has since grown into its own identity. The focus is on what makes Copilot
+CLI genuinely different: **native GitHub integration, multi-model flexibility,
+and the ability to orchestrate other AI coding agents from a single hub**.
 
 > **Act as a Multi-AI Orchestrator** — coordinating Claude Code, Codex CLI, Gemini CLI, and more from a single command line. _(Community pattern — see [Multi-AI Orchestration](#multi-ai-orchestration-))_
 
@@ -122,7 +128,7 @@ After `copilot` starts, you can quickly check whether the installation was picke
 
 ## Repository Structure
 
-```
+```text
 everything-copilot-cli/
 ├── agents/                        # Agent definitions (8 core agents)
 │   ├── planner.md
@@ -220,6 +226,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `team-planner` | Assemble specialist agent teams via SQL roster + `/fleet` dispatch |
 | `agentic-engineering` | Design 15-min task units, eval-first loops, and explicit I/O contracts |
 | `stack-detector` | Scan project tech stack and recommend relevant skills and rules from this collection |
+
 </details>
 
 <details>
@@ -248,6 +255,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `nextjs-prisma` | Type-safe data fetching and Server Actions for Next.js App Router + Prisma projects |
 | `react-vitest` | Component testing setup and patterns for React + Vitest projects |
 | `nestjs-prisma` | PrismaService singleton, repository pattern, and unit testing for NestJS + Prisma |
+
 </details>
 
 <details>
@@ -260,6 +268,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `api-documentation` | Generate and maintain API docs from source |
 | `code-tour` | Generate VS Code CodeTour `.tour` files for codebase onboarding |
 | `architecture-decisions` | Document hard-to-reverse technical decisions as Architecture Decision Records (ADRs) |
+
 </details>
 
 <details>
@@ -273,6 +282,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `input-validation` | Prevent injection attacks (SQL, XSS, CSRF) |
 | `security-bounty-hunter` | Bug-bounty-perspective vuln hunting with proof-of-concept steps |
 | `pr-security-review` | Automated PR security analysis — auth, injection, secrets, OWASP Top 10 |
+
 </details>
 
 <details>
@@ -289,6 +299,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `council` | Convene a 4-voice adversarial decision council for high-stakes choices |
 | `deep-research` | Systematic multi-source research with structured synthesis |
 | `using-git-worktrees` | Create isolated working directories for parallel branch work without recloning the repo |
+
 </details>
 
 <details>
@@ -301,6 +312,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `opportunity-solution-tree` | Teresa Torres' OST framework |
 | `launch-strategy` | Alpha → Beta → GA launch checklist |
 | `product-capability` | Transform requirements into SRS-style capability specs with ACs and traceability |
+
 </details>
 
 <details>
@@ -312,6 +324,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `e2e-testing` | E2E test scaffolding for critical paths |
 | `eval-harness` | Build LLM pipeline evaluation suites with SQL-tracked test cases |
 | `browser-devtools` | Verify frontend behavior at runtime — DOM validation, network inspection, performance profiling |
+
 </details>
 
 <details>
@@ -322,6 +335,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `ai-visibility` | GEO optimization: llms.txt, AI crawler access |
 | `content-strategy` | Keyword research, topic clusters, content calendar |
 | `seo` | Technical SEO audit: Core Web Vitals, structured data, crawl issues |
+
 </details>
 
 ### Rules
@@ -367,7 +381,7 @@ All guides are in the [`guides/`](guides/) directory.
 
 No single AI is best at everything. Claude excels at reasoning, Codex at rapid implementation, Gemini at multimodal understanding, and Copilot at GitHub integration. What if you could use **all of them** from one place?
 
-```
+```text
 ┌──────────────────────────────────────────────────┐
 │                GitHub Copilot CLI                │
 │            (Orchestrator / Meta-Hub)             │
@@ -452,7 +466,7 @@ Copilot CLI is purpose-built around your GitHub workflow. Here's what you get ou
 
 Coming from another AI coding tool? The skill format is nearly identical, so migration is straightforward:
 
-```
+```text
 CLAUDE.md rules        →  .github/copilot-instructions.md
 .claude/commands/      →  skills/
 .claude/settings.json  →  mcp-configs/ & contexts/

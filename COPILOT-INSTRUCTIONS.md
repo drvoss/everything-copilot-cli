@@ -230,7 +230,7 @@ What this rule enforces and why.
 
 ```text
 // bad example
-```
+```text
 
 ## Exceptions
 

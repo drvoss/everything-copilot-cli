@@ -4,7 +4,7 @@
 
 There are four review options in this repo. Choose based on artifact size and depth needed:
 
-```
+```text
 Which review skill?
   ├─ Quick review, single session, cost-sensitive?
   │   → skills/development/code-review/SKILL.md
@@ -17,6 +17,7 @@ Which review skill?
 ```
 
 > **When to use this vs `pr-multi-perspective-review`:**
+>
 > - Use `pr-multi-perspective-review` for: quick reviews, single session, lower token cost
 > - Use Review Squad for: large PRs, when specialist depth matters, true parallel context isolation
 

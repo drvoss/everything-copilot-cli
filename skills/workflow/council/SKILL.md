@@ -42,6 +42,7 @@ Examples: monorepo vs polyrepo · ship now vs hold for polish · feature flag vs
 ### 1. Extract the real question
 
 Reduce to one explicit prompt:
+
 - What exactly are we deciding?
 - What constraints matter?
 - What counts as success?
@@ -51,6 +52,7 @@ If the question is vague, ask one clarifying question before convening.
 ### 2. Form the Architect position first
 
 Before reading other voices, write down:
+
 - Your initial position
 - The three strongest reasons for it
 - The main risk in your preferred path
@@ -61,7 +63,7 @@ This anchors the synthesis so it doesn't simply mirror external voices.
 
 Each subagent gets: the decision question + compact context + strict role. No full conversation history.
 
-```
+```text
 # Copilot CLI tool call — launch 3 background task agents
 
 task:

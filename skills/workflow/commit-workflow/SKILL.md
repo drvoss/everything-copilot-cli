@@ -62,6 +62,7 @@ git --no-pager diff --cached
 Ask: *Do these changes serve more than one logical purpose?*
 
 **Split when changes involve:**
+
 - Different concerns (e.g., new feature **and** bug fix)
 - Different file types (e.g., source code **and** documentation)
 - Different modules with no dependency between them
@@ -98,6 +99,7 @@ Format: `<emoji> <type>(<scope>): <imperative description>`
 | `deps` | ➖ | Remove dependency |
 
 **Rules:**
+
 - First line ≤ 72 characters
 - Imperative mood: "add feature" not "added feature"
 - Scope is optional: `feat(auth): add JWT refresh`
@@ -163,6 +165,7 @@ Update .env files and CI secrets before deploying."
 | "It's a small change, no type prefix needed" | Small changes are the easiest to classify. Without classification, changelogs become impossible. |
 
 ## Red Flags
+
 - Meaningless commit messages like `fix`, `update`, `changes`, `stuff`
 - Multiple unrelated changes bundled in one commit
 - No issue or PR reference in the commit message
@@ -170,6 +173,7 @@ Update .env files and CI secrets before deploying."
 - Tests and implementation in separate commits for the same feature
 
 ## Verification
+
 - [ ] Commit message follows Conventional Commits format (`type(scope): description`)
 - [ ] Each commit contains exactly one logical change
 - [ ] Breaking changes are marked with `BREAKING CHANGE:`
@@ -189,4 +193,3 @@ Update .env files and CI secrets before deploying."
 - [Conventional Commits spec](https://www.conventionalcommits.org/)
 - [gitmoji reference](https://gitmoji.dev/)
 - *Inspired by: [awesome-claude-code/resources/slash-commands/commit](https://github.com/hesreallyhim/awesome-claude-code)*
-

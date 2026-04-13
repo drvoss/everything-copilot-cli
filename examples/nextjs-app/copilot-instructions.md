@@ -25,7 +25,7 @@ Components are the default rendering strategy.
 
 ### Directory Structure
 
-```
+```text
 src/
 ├── app/              # App Router pages and layouts
 │   ├── (auth)/       # Auth route group

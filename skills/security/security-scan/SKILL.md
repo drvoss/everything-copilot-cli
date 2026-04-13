@@ -9,6 +9,7 @@ metadata:
 # Security Scan
 
 ## When to Use
+
 - Before releasing a new version or deploying to production
 - After adding new dependencies
 - During periodic security reviews
@@ -16,6 +17,7 @@ metadata:
 - After a security incident to check for similar vulnerabilities
 
 ## Prerequisites
+
 - Access to the project source code and dependency manifests
 - Package manager CLI available (npm, pip, go, etc.)
 - Understanding of the application's architecture (web, API, CLI, etc.)
@@ -23,6 +25,7 @@ metadata:
 ## Workflow
 
 ### 1. Dependency Vulnerability Audit
+
 ```powershell
 # Node.js
 npm audit 2>&1
@@ -35,6 +38,7 @@ go vuln check ./... 2>&1
 ```
 
 Review findings by severity and fix critical/high issues:
+
 ```powershell
 # Auto-fix where possible
 npm audit fix
@@ -44,6 +48,7 @@ npm audit fix --force --dry-run
 ```
 
 ### 2. OWASP Top 10 Code Review
+
 Search for common vulnerability patterns in the codebase:
 
 ```powershell
@@ -64,6 +69,7 @@ grep -rn "console\.log\|logger\.\(info\|debug\)" src/ --include="*.ts" | grep -i
 ```
 
 ### 3. Secret Detection
+
 ```powershell
 # Find potential secrets (API keys, tokens, passwords)
 grep -rni "AKIA[0-9A-Z]\{16\}\|ghp_[a-zA-Z0-9]\{36\}\|sk-[a-zA-Z0-9]\{48\}" src/
@@ -73,6 +79,7 @@ git --no-pager ls-files | Select-String "\.env$|\.env\." | Select-String -NotMat
 ```
 
 ### 4. Configuration Security
+
 ```powershell
 # Check for debug mode or dev settings in production configs
 grep -rni "debug.*true\|NODE_ENV.*development" src/ --include="*.ts" | grep -v "test\|spec"
@@ -85,6 +92,7 @@ grep -rni "helmet\|csrf\|xss\|sanitize" src/ --include="*.ts"
 ```
 
 ### 5. Generate Report
+
 Document findings with severity, location, and remediation:
 
 ```markdown
@@ -106,6 +114,7 @@ Document findings with severity, location, and remediation:
 ## Examples
 
 ### Full Scan Pipeline
+
 ```powershell
 # Run all checks in sequence
 npm audit --json 2>&1 | Select-Object -First 50
@@ -114,7 +123,8 @@ grep -rni "password\|secret\|api.key" src/ --include="*.ts" | grep -v "test\|\.d
 ```
 
 ### Using explore Agent for Deep Analysis
-```
+
+```text
 task agent_type: "explore"
 prompt: "Find all database query functions and check if they use parameterized queries or string concatenation. List each file, line, and whether it's safe or vulnerable."
 ```
@@ -123,7 +133,7 @@ prompt: "Find all database query functions and check if they use parameterized q
 
 For new features or significant changes, apply STRIDE before scanning:
 
-```
+```text
 > Apply STRIDE threat modeling to the [feature/module]:
 >
 > S — Spoofing: Can an attacker impersonate a user or service?
@@ -156,6 +166,7 @@ For new features or significant changes, apply STRIDE before scanning:
 | "We use an ORM, so SQL injection isn't a concern" | Raw queries, dynamic queries, and ORM misuse are still vulnerable. |
 
 ## Red Flags
+
 - Use of `eval()`, `exec()`, `subprocess(shell=True)`
 - String concatenation in SQL queries (f-strings, `+` operator)
 - API keys or passwords hardcoded in source files
@@ -163,6 +174,7 @@ For new features or significant changes, apply STRIDE before scanning:
 - Wildcard `*` in CORS configuration
 
 ## Verification
+
 - [ ] `npm audit --audit-level=high` or `pip-audit` returns 0 findings
 - [ ] No secrets in source code (`secret-detection` skill executed)
 - [ ] OWASP Top 10 checklist completed
@@ -184,4 +196,3 @@ For new features or significant changes, apply STRIDE before scanning:
 - [`secret-detection`](../secret-detection/SKILL.md) — Dedicated secret and credential scanning
 - [`pr-multi-perspective-review`](../../development/pr-multi-perspective-review/SKILL.md) — Security Lens in PR review
 - [`input-validation`](../input-validation/SKILL.md) — Dedicated input sanitization patterns
-

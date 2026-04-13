@@ -45,7 +45,7 @@ Then work through each perspective in the same session using the prompts below.
 
 Use fleet mode to run all 6 perspectives simultaneously:
 
-```
+```text
 > /fleet Run a 6-perspective review of PR #123 in owner/repo.
 > Launch 6 parallel agents, each with a different lens:
 >   1. PM lens: business value, scope, requirements alignment
@@ -65,6 +65,7 @@ Use fleet mode to run all 6 perspectives simultaneously:
 #### 1. 📋 PM Lens — Business & Requirements
 
 **Questions to answer:**
+
 - Does this PR deliver what the linked issue/ticket describes?
 - Are there scope creep additions not in the original requirement?
 - Is the change reversible if it needs to be rolled back?
@@ -77,7 +78,8 @@ gh pr view $pr --json labels
 ```
 
 **Output format:**
-```
+
+```text
 [PM] STATUS: PASS / CONCERN / BLOCK
 - Finding 1
 - Finding 2
@@ -86,6 +88,7 @@ gh pr view $pr --json labels
 #### 2. 🛠️ Dev Lens — Code Quality & Architecture
 
 **Questions to answer:**
+
 - Are there logic errors, off-by-one bugs, or null-pointer risks?
 - Does the abstraction level match the rest of the codebase?
 - Is there duplication that should be extracted?
@@ -101,7 +104,8 @@ gh pr view $pr --json files | ConvertFrom-Json | Select-Object -ExpandProperty f
 ```
 
 **Output format:**
-```
+
+```text
 [DEV] STATUS: PASS / CONCERN / BLOCK
 - Finding 1
 - Finding 2
@@ -110,6 +114,7 @@ gh pr view $pr --json files | ConvertFrom-Json | Select-Object -ExpandProperty f
 #### 3. 🧪 QA Lens — Test Coverage & Edge Cases
 
 **Questions to answer:**
+
 - Are new code paths covered by tests?
 - Are happy path + error path + edge cases all represented?
 - Do existing tests still cover the changed behavior?
@@ -128,7 +133,8 @@ Write-Host "Test:Source ratio = $testLines : $srcLines"
 ```
 
 **Output format:**
-```
+
+```text
 [QA] STATUS: PASS / CONCERN / BLOCK
 - Finding 1
 - Finding 2
@@ -137,6 +143,7 @@ Write-Host "Test:Source ratio = $testLines : $srcLines"
 #### 4. 🔒 Security Lens — Vulnerabilities & Trust Boundaries
 
 **Questions to answer:**
+
 - Is user input validated before use?
 - Are auth/authorization checks present on new endpoints?
 - Could any change leak secrets, PII, or internal details?
@@ -152,7 +159,8 @@ gh pr view $pr --json files | ConvertFrom-Json | Select-Object -ExpandProperty f
 ```
 
 **Output format:**
-```
+
+```text
 [SECURITY] STATUS: PASS / CONCERN / BLOCK
 - Finding 1
 - Finding 2
@@ -161,6 +169,7 @@ gh pr view $pr --json files | ConvertFrom-Json | Select-Object -ExpandProperty f
 #### 5. 🚀 DevOps Lens — Operations & Reliability
 
 **Questions to answer:**
+
 - Will CI pass? Are there environment-specific assumptions?
 - Are there performance implications (N+1 queries, large allocations)?
 - Is the change observable? Are new log lines / metrics / traces added?
@@ -178,7 +187,8 @@ gh pr view $pr --json files | ConvertFrom-Json | Select-Object -ExpandProperty f
 ```
 
 **Output format:**
-```
+
+```text
 [DEVOPS] STATUS: PASS / CONCERN / BLOCK
 - Finding 1
 - Finding 2
@@ -189,6 +199,7 @@ gh pr view $pr --json files | ConvertFrom-Json | Select-Object -ExpandProperty f
 *Only relevant when the PR touches UI, API responses, error messages, or CLI output.*
 
 **Questions to answer:**
+
 - Are error messages clear and actionable for end users?
 - Are breaking changes to public APIs or CLI flags documented?
 - Is accessibility considered for UI changes?
@@ -201,7 +212,8 @@ gh pr view $pr --json files | ConvertFrom-Json | Select-Object -ExpandProperty f
 ```
 
 **Output format:**
-```
+
+```text
 [UX] STATUS: PASS / CONCERN / BLOCK
 - Finding 1 (or "N/A — no user-facing changes")
 ```

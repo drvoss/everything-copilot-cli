@@ -9,6 +9,7 @@ metadata:
 # Secret Detection
 
 ## When to Use
+
 - Auditing a codebase for accidentally committed credentials
 - Before open-sourcing a private repository
 - After a developer reports a potential secret leak
@@ -16,6 +17,7 @@ metadata:
 - Setting up pre-commit hooks for secret prevention
 
 ## Prerequisites
+
 - Access to the repository source code and git history
 - Ability to rotate compromised credentials
 - Access to a secrets manager or environment variable configuration
@@ -23,6 +25,7 @@ metadata:
 ## Workflow
 
 ### 1. Scan Source Code for Secret Patterns
+
 ```powershell
 # AWS Access Keys
 grep -rn "AKIA[0-9A-Z]{16}" . --include="*.ts" --include="*.js" --include="*.py" --include="*.json"
@@ -44,6 +47,7 @@ grep -rni "jwt[_]?secret\|signing[_]?key" src/ --include="*.ts" | grep -v "proce
 ```
 
 ### 2. Check for Secret Files
+
 ```powershell
 # Find committed secret files
 git --no-pager ls-files | Select-String "\.pem$|\.key$|\.p12$|\.pfx$|id_rsa|\.env$"
@@ -53,7 +57,9 @@ Get-Content .gitignore 2>$null | Select-String "\.env|\.pem|\.key|secret"
 ```
 
 ### 3. Scan Git History
+
 Secrets removed from code may still exist in git history:
+
 ```powershell
 # Search recent commits for secret patterns
 git --no-pager log --all -p --since="6 months ago" -S "AKIA" --oneline | Select-Object -First 20
@@ -68,6 +74,7 @@ git --no-pager log --all -p -S "api_key" --oneline | Select-Object -First 20
 Any secret found in source code should be considered compromised.
 
 **Step 2: Replace with environment variables**
+
 ```typescript
 // BEFORE — hardcoded secret
 const apiKey = 'sk-abc123def456';
@@ -78,6 +85,7 @@ if (!apiKey) throw new Error('API_KEY environment variable is required');
 ```
 
 **Step 3: Add to .env.example (without values)**
+
 ```bash
 # .env.example
 API_KEY=
@@ -86,6 +94,7 @@ JWT_SECRET=
 ```
 
 **Step 4: Update .gitignore**
+
 ```powershell
 # Ensure .env is ignored
 echo ".env" >> .gitignore
@@ -95,6 +104,7 @@ echo "*.key" >> .gitignore
 ```
 
 ### 5. Prevent Future Leaks
+
 ```powershell
 # Add a pre-commit check (example with grep)
 # Create a simple pre-commit hook
@@ -112,6 +122,7 @@ fi
 ## Examples
 
 ### Comprehensive Scan Script
+
 ```powershell
 # Run all pattern checks and summarize
 $patterns = @(
@@ -127,6 +138,7 @@ foreach ($p in $patterns) {
 ```
 
 ### Migrating Secrets to Environment Variables
+
 ```powershell
 # 1. Find all hardcoded values
 grep -rn "const.*secret\|const.*key\|const.*password" src/ --include="*.ts" | grep -v "process.env"
@@ -137,6 +149,7 @@ grep -rn "const.*secret\|const.*key\|const.*password" src/ --include="*.ts" | gr
 ```
 
 ## Tips
+
 - **Rotate first, clean up second** — assume any committed secret is already compromised
 - Use `explore` agent to trace how a secret is used before replacing it with env vars
 - Common false positives: test fixtures, example configs, documentation — but always verify

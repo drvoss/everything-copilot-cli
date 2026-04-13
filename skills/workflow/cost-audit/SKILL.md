@@ -33,6 +33,7 @@ Use the most capable model necessary — not the most capable model available.
 ### 1. Identify high-cost call sites
 
 Scan for:
+
 - Long system prompts that repeat across calls
 - Premium models used for simple transforms
 - Entire file contents passed when only relevant sections are needed
@@ -50,27 +51,32 @@ Scan for:
 ### 3. Apply reduction patterns
 
 **Model downgrade**
+
 - Does this task require premium reasoning? If not, drop a tier.
 - Classification, routing, simple edits → use fast/cheap tier
 - Reserve premium for tasks that demonstrably need it
 
 **Context pruning**
+
 - Pass a summary instead of the full history when prior turns are less relevant
 - Slice file ranges with `view_range` instead of full-file reads
 - Remove redundant boilerplate from system prompts
 
 **Prompt deduplication**
+
 - Repeated instructions in every call → move to a system prompt / shared prefix
 - Static context that never changes → candidate for caching (if platform supports it)
 
 **Task batching**
+
 - Small independent tasks → batch into one call instead of N separate calls
 - Fan-out agents → assign right tier per task, not fleet-wide premium
 
 ### 4. Estimate savings
 
 For each change:
-```
+
+```text
 Change: Replace claude-opus on doc-summary with claude-haiku
 Before: ~4,000 tokens × $0.015/1K = $0.06/call
 After:  ~4,000 tokens × $0.00025/1K = $0.001/call

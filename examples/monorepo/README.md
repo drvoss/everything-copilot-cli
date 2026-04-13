@@ -11,7 +11,7 @@ boundaries, Turborepo task dependency ordering, and matrix CI build patterns.
 
 ## Project Structure (assumed)
 
-```
+```text
 monorepo/
 ├── .github/
 │   ├── copilot-instructions.md   ← copy this to your project

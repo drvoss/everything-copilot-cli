@@ -21,7 +21,7 @@ your site's structure and find your most important content.
 
 ### Generate your llms.txt
 
-```
+```text
 > Generate an llms.txt file for my product: [product name]
 >
 > Product description: [what it does]
@@ -64,7 +64,7 @@ Place at: `https://yoursite.com/llms.txt`
 
 Check that AI crawlers aren't blocked in your `robots.txt`:
 
-```
+```text
 > Review my robots.txt for AI crawler access:
 > [paste robots.txt content]
 >
@@ -95,7 +95,7 @@ Allow: /
 
 ### What AI Systems Prioritize
 
-```
+```text
 > Analyze this piece of content for AI citation potential:
 > [paste content]
 >
@@ -112,7 +112,7 @@ Allow: /
 
 Content structures that get cited more often:
 
-```
+```text
 > Rewrite this content using AI-citation-optimized patterns:
 > [paste content]
 >
@@ -126,7 +126,7 @@ Content structures that get cited more often:
 
 ### Structured Data for AI
 
-```
+```text
 > Generate JSON-LD structured data for this page:
 > Page type: [FAQ / Article / Product / How-to]
 > Content: [paste content]
@@ -136,7 +136,7 @@ Content structures that get cited more often:
 
 ## Testing AI Visibility
 
-```
+```text
 > Test my product's AI visibility for these queries:
 > [list of queries your target users would ask]
 >
@@ -147,13 +147,14 @@ Content structures that get cited more often:
 ```
 
 Test manually:
+
 - Ask ChatGPT, Claude, Perplexity, and Gemini about your product category
 - Check if you're cited, how you're described, and what competitors appear
 - Note which content pieces get referenced
 
 ## GEO Content Audit
 
-```
+```text
 > Perform a GEO audit of our content:
 > [list of key pages / paste sitemap]
 >
@@ -171,7 +172,7 @@ Test manually:
 
 Track AI-driven traffic:
 
-```
+```text
 > Help me set up monitoring for AI-driven traffic:
 > - What UTM parameters to use for AI referral tracking
 > - How to identify "dark social" / AI referral traffic in analytics

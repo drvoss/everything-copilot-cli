@@ -6,7 +6,7 @@ The Agent Council is the most sophisticated orchestration pattern. A dispatcher 
 
 ## How It Works
 
-```
+```text
                          ┌──────────────────────┐
                          │    Copilot CLI        │
                          │    (Dispatcher)       │
@@ -48,6 +48,7 @@ npx @anthropic-ai/claude-code --print `
 ```
 
 **Route to Claude when:**
+
 - Task requires understanding the full codebase (200K context)
 - Architecture or design decisions needed
 - Security audit or threat modeling
@@ -70,6 +71,7 @@ codex --quiet --approval-mode full-auto `
 ```
 
 **Route to Codex when:**
+
 - Need fast code generation (speed is priority)
 - Boilerplate or repetitive code patterns
 - Implementing well-defined specifications
@@ -91,6 +93,7 @@ gemini --prompt `
 ```
 
 **Route to Gemini when:**
+
 - Analyzing images, diagrams, or screenshots
 - Performance profiling and optimization
 - Processing very large codebases
@@ -111,6 +114,7 @@ gemini --prompt `
 ```
 
 **Route to Copilot when:**
+
 - Creating/updating Pull Requests
 - Managing GitHub Issues
 - Triggering and monitoring CI/CD

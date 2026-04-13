@@ -4,7 +4,7 @@
 
 ## The Workflow
 
-```
+```text
 ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
 │ Copilot  │ ─► │  Claude  │ ─► │  Codex   │ ─► │  Claude  │ ─► │ Copilot  │
 │  PLAN    │    │  DESIGN  │    │ IMPLEMENT│    │  REVIEW  │    │   SHIP   │
@@ -19,7 +19,7 @@
 
 Copilot CLI enters Plan Mode to break down the feature request into actionable todos.
 
-```
+```text
 You: "Build a real-time notification system that supports WebSocket push, 
       email digest, and in-app notifications. Use Plan Mode."
 
@@ -116,11 +116,12 @@ Write-Host "✅ Phase 2 complete: Architecture designed by Claude Code"
 
 ### Claude's Architecture Output (Summary)
 
-```markdown
+````markdown
 # Notification System Architecture
 
 ## System Diagram
-```
+```text
+
                      ┌─────────────────────────────┐
                      │       Event Publishers       │
                      │  (any service can publish)    │
@@ -138,6 +139,7 @@ Write-Host "✅ Phase 2 complete: Architecture designed by Claude Code"
               │ Channel     │ │ Channel   │ │ Channel     │
               │ (immediate) │ │ (batched) │ │ (stored)    │
               └─────────────┘ └───────────┘ └─────────────┘
+
 ```
 
 ## Data Models (Prisma)
@@ -169,6 +171,7 @@ model NotificationPreference {
 ```
 
 ## File Structure
+
 - src/services/notificationService.ts (core router)
 - src/services/channels/websocketChannel.ts
 - src/services/channels/emailChannel.ts
@@ -177,7 +180,8 @@ model NotificationPreference {
 - src/ws/notificationServer.ts (WebSocket server)
 - src/types/notification.ts (TypeScript types)
 - src/jobs/emailDigest.ts (cron job)
-```
+
+````
 
 ## Phase 3: Implementation (Codex CLI)
 
@@ -214,7 +218,7 @@ Write-Host "✅ TypeScript compilation passed"
 
 ### Codex Creates These Files
 
-```
+```text
 src/
 ├── types/notification.ts              (TypeScript interfaces)
 ├── services/

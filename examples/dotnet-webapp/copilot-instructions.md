@@ -26,7 +26,7 @@ boundaries and a CQRS pattern for request handling.
 
 ### Solution Structure (Clean Architecture)
 
-```
+```text
 src/
 ├── Domain/                  # Enterprise business rules
 │   ├── Entities/            # Domain entities (anemic or rich)

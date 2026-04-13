@@ -6,7 +6,7 @@ The Message IPC pattern uses inter-process communication to let multiple AI agen
 
 ## How It Works
 
-```
+```text
 Terminal 1              Terminal 2              Terminal 3
 ┌──────────────┐       ┌──────────────┐       ┌──────────────┐
 │  Copilot CLI  │       │  Claude Code  │       │  Codex CLI   │
@@ -112,7 +112,7 @@ hcom publish --channel reviews --message '{
 
 ### Flow 1: Implement → Review → Fix
 
-```
+```text
 Time  Channel    From      Message
 ─────────────────────────────────────────────────────────
 t0    #tasks     copilot   {type: "implement", task: "auth middleware"}
@@ -126,7 +126,7 @@ t6    #results   copilot   {status: "merged", pr: "#42"}
 
 ### Flow 2: Parallel Analysis
 
-```
+```text
 Time  Channel        From      Message
 ─────────────────────────────────────────────────────────
 t0    #tasks         copilot   {type: "analyze", files: ["src/"]}

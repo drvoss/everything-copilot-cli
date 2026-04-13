@@ -30,13 +30,13 @@ which still uses `mode: "async"` in the powershell tool.
 
 Prefix any prompt with `&` to push the task to the cloud Copilot coding agent:
 
-```
+```text
 & "Add pagination to all REST endpoints and write integration tests"
 ```
 
 Equivalently, use the slash command:
 
-```
+```text
 /delegate Add pagination to all REST endpoints and write integration tests
 ```
 
@@ -57,7 +57,7 @@ request review, iterate, or merge as usual.
 Use `/resume` to bring a cloud agent session into your local CLI, preserving the full
 accumulated context:
 
-```
+```text
 /resume
 # → Select from list of recent sessions
 
@@ -74,7 +74,7 @@ accumulated context:
 For local processes (builds, dev servers, test watchers) that don't need cloud delegation,
 use async PowerShell:
 
-```
+```text
 # Start dev server (persists in background)
 Tool: powershell
   command: "npm run dev"
@@ -97,7 +97,7 @@ Tool: read_powershell
 
 ### Delegate a Large Migration
 
-```
+```text
 # Hand off to cloud agent — terminal is immediately free
 & "Migrate all class components in src/ to React hooks"
 # → Draft PR opens when done
@@ -108,7 +108,7 @@ Tool: read_powershell
 
 ### Parallel Delegations
 
-```
+```text
 # Delegate two independent tasks simultaneously
 & "Add comprehensive error handling to all API endpoints"
 # → Draft PR #1 will open
@@ -121,7 +121,7 @@ Tool: read_powershell
 
 ### Multi-Turn Refinement
 
-```
+```text
 # Initial delegation
 & "Analyze the auth system and refactor weak points"
 

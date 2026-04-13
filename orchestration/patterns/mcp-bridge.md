@@ -6,7 +6,7 @@ The MCP (Model Context Protocol) Bridge pattern wraps other AI CLIs as MCP tool 
 
 ## How It Works
 
-```
+```text
 ┌──────────────┐    MCP Protocol     ┌──────────────┐    shell exec    ┌──────────────┐
 │  Copilot CLI  │ ◄════════════════► │  MCP Bridge   │ ──────────────► │  Codex CLI   │
 │  (MCP client) │   JSON-RPC/stdio  │  Server       │ ◄────────────── │  (AI worker)  │
@@ -14,6 +14,7 @@ The MCP (Model Context Protocol) Bridge pattern wraps other AI CLIs as MCP tool 
 ```
 
 Instead of raw shell commands, Copilot CLI calls typed MCP tools like:
+
 - `codex_generate(prompt, language, outputFormat)`
 - `claude_review(filePath, reviewType)`
 - `gemini_analyze(imagePath, question)`
@@ -267,7 +268,7 @@ This exposes Claude Code's tools directly to Copilot CLI — no bridge code need
 
 Once configured, Copilot CLI discovers the tools automatically:
 
-```
+```text
 You: "Use Codex to generate a rate limiter middleware"
 
 Copilot CLI internally calls:

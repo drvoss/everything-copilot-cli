@@ -5,6 +5,7 @@
 ## The Setup
 
 You have a monolithic Node.js API at `src/` with:
+
 - 15 route files
 - 8 service files
 - 5 database models

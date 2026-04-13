@@ -63,7 +63,8 @@ command execution with minimal output on success and full diagnostics on failure
 ## Language-Specific Patterns
 
 ### TypeScript / JavaScript
-```
+
+```text
 Error patterns:
   TS2307: Cannot find module 'X'        → Install package or fix import path
   TS2345: Argument of type 'X' is not   → Fix type or add assertion
@@ -77,7 +78,8 @@ Commands: tsc --noEmit, npm run build, npx eslint .
 ```
 
 ### Python
-```
+
+```text
 Error patterns:
   ModuleNotFoundError: No module 'X'    → pip install or fix import
   ImportError: cannot import name 'X'   → Check export, fix circular import
@@ -88,7 +90,8 @@ Commands: python -m py_compile, mypy, pyright, python -m pytest --co
 ```
 
 ### Go
-```
+
+```text
 Error patterns:
   undefined: X                           → Add import or fix reference
   cannot use X as type Y                 → Fix type conversion
@@ -99,7 +102,8 @@ Commands: go build ./..., go vet ./...
 ```
 
 ### C# / .NET
-```
+
+```text
 Error patterns:
   CS1061: 'X' does not contain 'Y'      → Fix member name or add using
   CS0246: type or namespace not found    → Add using directive or NuGet package
@@ -109,7 +113,8 @@ Commands: dotnet build, dotnet restore
 ```
 
 ### Java
-```
+
+```text
 Error patterns:
   cannot find symbol                     → Fix import or spelling
   incompatible types                     → Fix type or add cast
@@ -122,7 +127,7 @@ Commands: mvn compile, gradle build
 
 ### Example 1: TypeScript Build Errors
 
-```
+```text
 User: "Fix the build errors" (after running tsc)
 
 Build Error Resolver actions:
@@ -145,7 +150,7 @@ Build Error Resolver actions:
 
 ### Example 2: Cascading Dependency Error
 
-```
+```text
 User: "npm install broke everything"
 
 Build Error Resolver actions:

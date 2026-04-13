@@ -6,7 +6,7 @@
 
 The Agent Review Chain passes code through a series of specialist AI agents, each adding their expertise. Like a code review gauntlet, the output of one agent feeds into the next.
 
-```
+```text
 ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐
 │  Codex   │ ──► │  Claude  │ ──► │  Gemini  │ ──► │ Copilot  │
 │ Implement│     │ Review   │     │ Perf     │     │ Ship     │

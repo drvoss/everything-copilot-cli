@@ -121,7 +121,7 @@ copilot
 
 ## 저장소 구조
 
-```
+```text
 everything-copilot-cli/
 ├── agents/                        # 에이전트 정의 (8개 코어 에이전트)
 │   ├── planner.md
@@ -219,6 +219,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `team-planner` | SQL 로스터 + `/fleet` 디스패치로 전문가 팀 구성 |
 | `agentic-engineering` | 15분 단위 작업 설계, eval-first 루프, 명시적 I/O 계약 |
 | `stack-detector` | 프로젝트 기술 스택 감지 후 컬렉션 내 관련 스킬·룰셋 추천 |
+
 </details>
 
 <details>
@@ -247,6 +248,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `nextjs-prisma` | Next.js App Router + Prisma 프로젝트의 타입 안전 데이터 페칭 및 Server Actions |
 | `react-vitest` | React + Vitest 프로젝트의 컴포넌트 테스트 설정 및 패턴 |
 | `nestjs-prisma` | NestJS + Prisma의 PrismaService 싱글톤, 레포지토리 패턴 및 단위 테스트 |
+
 </details>
 
 <details>
@@ -259,6 +261,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `api-documentation` | 소스 코드에서 API 문서 생성 및 유지 |
 | `code-tour` | 코드베이스 온보딩용 VS Code CodeTour `.tour` 파일 생성 |
 | `architecture-decisions` | 되돌리기 어려운 기술적 결정을 ADR로 문서화 |
+
 </details>
 
 <details>
@@ -272,6 +275,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `input-validation` | SQL/XSS/CSRF 인젝션 공격 방어 |
 | `security-bounty-hunter` | 버그 바운티 관점 취약점 탐색 및 개념 증명 |
 | `pr-security-review` | 인증, 인젝션, 시크릿, OWASP Top 10 중심의 PR 보안 분석 |
+
 </details>
 
 <details>
@@ -288,6 +292,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `council` | 고위험 의사결정을 위한 네 가지 관점 적대적 토론 패널 |
 | `deep-research` | 체계적 멀티소스 리서치 및 구조화 합성 |
 | `using-git-worktrees` | 저장소를 다시 클론하지 않고 병렬 브랜치 작업용 별도 작업 디렉터리 생성 |
+
 </details>
 
 <details>
@@ -300,6 +305,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `opportunity-solution-tree` | Teresa Torres의 OST 프레임워크 |
 | `launch-strategy` | Alpha → Beta → GA 런치 체크리스트 |
 | `product-capability` | 요구사항을 AC 및 추적 행렬이 포함된 SRS 스타일 명세로 변환 |
+
 </details>
 
 <details>
@@ -311,6 +317,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `e2e-testing` | 핵심 사용자 경로 E2E 테스트 스캐폴딩 |
 | `eval-harness` | SQL 추적 테스트 케이스로 LLM 파이프라인 평가 스위트 구축 |
 | `browser-devtools` | 브라우저 DevTools로 런타임 DOM, 네트워크, 성능 검증 |
+
 </details>
 
 <details>
@@ -321,6 +328,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `ai-visibility` | GEO 최적화: llms.txt, AI 크롤러 접근 최적화 |
 | `content-strategy` | 키워드 리서치, 토픽 클러스터, 콘텐츠 캘린더 |
 | `seo` | 기술적 SEO 감사: Core Web Vitals, 구조화 데이터, 크롤링 이슈 |
+
 </details>
 
 ### 규칙
@@ -366,7 +374,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 
 모든 일을 가장 잘하는 단일 AI는 없습니다. Claude는 추론에, Codex는 빠른 구현에, Gemini는 멀티모달 이해에, Copilot은 GitHub 통합에 강합니다. 이 모든 것을 **한 곳에서** 쓸 수 있다면 어떨까요?
 
-```
+```text
 ┌──────────────────────────────────────────────────┐
 │                GitHub Copilot CLI                │
 │            (Orchestrator / 메타 허브)            │
@@ -451,7 +459,7 @@ Copilot CLI는 GitHub 워크플로우를 중심으로 설계된 도구입니다.
 
 다른 AI 코딩 도구를 사용하고 계신가요? 스킬 형식이 거의 동일하므로 마이그레이션은 간단합니다:
 
-```
+```text
 CLAUDE.md 규칙         →  .github/copilot-instructions.md
 .claude/commands/      →  skills/
 .claude/settings.json  →  mcp-configs/ & contexts/

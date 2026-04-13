@@ -27,7 +27,7 @@ threat modeling, not just code-level checks.
 
 Copilot will systematically check each OWASP category:
 
-```
+```text
 > Perform an OWASP Top 10 audit on this codebase. For each category:
 > 1. Check if the application is potentially vulnerable
 > 2. Find specific code locations if vulnerable
@@ -36,6 +36,7 @@ Copilot will systematically check each OWASP category:
 ```
 
 OWASP categories to cover:
+
 - **A01 Broken Access Control** — authorization bypasses, privilege escalation
 - **A02 Cryptographic Failures** — weak encryption, hardcoded secrets, cleartext data
 - **A03 Injection** — SQL, NoSQL, OS command, LDAP injection
@@ -51,7 +52,7 @@ OWASP categories to cover:
 
 For each major component (API endpoint, service, data store):
 
-```
+```text
 > Apply STRIDE threat modeling to the [component]. For each threat type,
 > describe the attack vector, assess likelihood (1-5), assess impact (1-5),
 > and recommend a mitigation.
@@ -68,12 +69,13 @@ For each major component (API endpoint, service, data store):
 
 ### Secrets Scan
 
-```
+```text
 > Scan the codebase for hardcoded secrets, API keys, passwords, and tokens.
 > Include config files, environment examples, and test fixtures.
 ```
 
 Check these patterns:
+
 - Hardcoded API keys, tokens, passwords
 - `.env.example` files with real values
 - Comments containing credentials
@@ -82,14 +84,14 @@ Check these patterns:
 
 ### Dependency Audit
 
-```
+```text
 > Audit our dependencies for known CVEs. Run npm audit / pip audit / 
 > bundler-audit and summarize critical and high severity issues.
 ```
 
 ### Auth & Session Review
 
-```
+```text
 > Review the authentication and session management implementation:
 > - Token expiration and refresh logic
 > - Password hashing (bcrypt/argon2, not MD5/SHA1)
@@ -100,7 +102,7 @@ Check these patterns:
 
 ## Full Audit Workflow
 
-```
+```text
 # 1. Get the lay of the land
 > Map the attack surface: list all public API endpoints, auth endpoints,
 > file upload handlers, and external service integrations.
@@ -130,7 +132,7 @@ npm audit --audit-level=high
 
 Request a structured report:
 
-```
+```text
 > Format the audit findings as a Markdown table:
 > | Finding | Category | Severity | Location | Recommended Fix |
 ```

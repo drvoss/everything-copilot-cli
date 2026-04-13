@@ -12,6 +12,7 @@ metadata:
 Transform a product requirement or feature request into a **capability specification**: a structured technical document that bridges product intent and engineering implementation.
 
 > **Distinct from [`create-prd`](../create-prd/SKILL.md):**
+>
 > - `create-prd` → *what* and *why* (Jobs-to-be-Done, personas, scope). Audience: PMs, stakeholders.
 > - `product-capability` → *what + how* (acceptance criteria, task breakdown, traceability). Audience: engineers building it.
 
@@ -39,7 +40,7 @@ A capability spec consists of five parts:
 
 One sentence: what the system must be able to do.
 
-```
+```text
 The system must allow authenticated users to export their activity history
 as a CSV file filtered by date range.
 ```
@@ -55,6 +56,7 @@ Write as **system capability**, not user story. Avoid "As a user, I want…" —
 ### 3. Acceptance Criteria
 
 Each criterion must be:
+
 - **Testable**: a QA engineer can write a test case for it without ambiguity
 - **Specific**: names exact behavior, not intent
 - **Binary**: pass or fail — no "should generally work"
@@ -77,6 +79,7 @@ Each criterion must be:
 ### 4. Implementation Task Breakdown
 
 Decompose into discrete, estimable engineering tasks. Each task:
+
 - Belongs to one team/component boundary
 - Is completable in ≤ 1 day
 - Has a clear definition of done

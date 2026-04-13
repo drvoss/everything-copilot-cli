@@ -15,7 +15,7 @@ Iterative Refinement is a **quality-criteria-driven loop** where the *same* agen
 
 ## How It Works
 
-```
+```text
 Generate → Measure → ┌───────────────┐
                     │ Pass?          │
                     ├───────┬───────┤
@@ -29,6 +29,7 @@ Generate → Measure → ┌───────────────┐
 ## Implementation
 
 Use a bounded loop with explicit exit criteria. Each round:
+
 1) generate an updated artifact, 2) measure it with a tool/metric, 3) feed back failures to the same agent.
 
 ```powershell
@@ -109,6 +110,7 @@ Write exit criteria that are **measurable, stable, and hard to game**:
 - **Linter clean**: `npm run lint` (no errors/warnings, depending on policy)
 
 Tips:
+
 - Prefer *binary* gates (PASS/FAIL) when possible.
 - Keep criteria small (1–3 checks) to avoid slow churn.
 - Ensure the measurement output is captured and fed back verbatim (or truncated to the relevant section).

@@ -9,6 +9,7 @@ metadata:
 # Browser DevTools Testing
 
 ## When to Use
+
 - E2E 테스트 실패의 근본 원인을 찾을 때
 - API 호출이 예상대로 이루어지는지 검증할 때
 - Core Web Vitals와 성능 지표를 측정할 때
@@ -16,6 +17,7 @@ metadata:
 - Playwright 테스트 작성 전 동작을 수동으로 탐색할 때
 
 ## Prerequisites
+
 - 브라우저에서 접근 가능한 실행 중인 앱 (로컬 또는 스테이징)
 - Chrome 또는 Edge DevTools 접근 권한
 - 테스트하려는 기능 또는 버그 재현 방법 파악
@@ -44,6 +46,7 @@ new FormData(document.querySelector('form')).entries().next()
 ### 2. 네트워크 탭으로 API 검증
 
 확인 항목:
+
 - 요청 URL과 메서드 (GET/POST/PUT)
 - 요청 헤더 (Authorization, Content-Type)
 - 요청 바디 (정확한 payload 형식)
@@ -85,6 +88,7 @@ new PerformanceObserver((list) => {
 ```
 
 목표치:
+
 - LCP ≤ 2.5s
 - INP ≤ 200ms
 - CLS ≤ 0.1
@@ -126,17 +130,20 @@ test('submit button is accessible', async ({ page }) => {
 | "스크린샷으로 충분하다" | 스크린샷은 DOM 상태, 접근성, 성능을 보여주지 않는다. |
 
 ## Red Flags
+
 - 네트워크 탭을 열지 않고 API 통합 버그를 수정하려 함
 - Core Web Vitals를 측정하지 않고 "빠르다"고 주장
 - 접근성 오류를 브라우저에서 확인 안 함
 
 ## Verification
+
 - [ ] 핵심 사용자 플로우에서 Network 탭으로 API 호출 확인
 - [ ] Lighthouse 점수: Performance ≥80, Accessibility ≥90
 - [ ] Console에 오류 없음
 - [ ] `e2e-testing` 스킬로 검증된 플로우를 자동화 테스트로 전환
 
 ## Tips
+
 - `e2e-testing` 스킬 이전 단계로 사용: DevTools로 먼저 탐색한 후 Playwright로 자동화한다
 - `references/performance-checklist.md`와 `references/accessibility-checklist.md`를 함께 참조한다
 - Chrome DevTools의 Recorder 기능으로 인터랙션을 기록하면 Playwright 코드 생성이 쉬워진다

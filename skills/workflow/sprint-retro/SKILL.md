@@ -23,7 +23,7 @@ retrospective. Go beyond "what went well / what didn't" — anchor the discussio
 
 > ⚠️ Experimental feature — enable with `/experimental on` before using.
 
-```
+```text
 /experimental on
 /chronicle
 ```
@@ -32,13 +32,14 @@ retrospective. Go beyond "what went well / what didn't" — anchor the discussio
 session durations, tool usage patterns, and key decisions made.
 
 Use this to answer:
+
 - What did we actually build this sprint?
 - How much time did each major task take?
 - Which tasks got re-opened or took multiple sessions?
 
 ### Git Metrics
 
-```
+```text
 > Analyze the git log for the last 2 weeks:
 > - Number of commits
 > - Files most frequently changed
@@ -62,7 +63,7 @@ gh pr list --state merged --json createdAt,mergedAt --limit 20
 
 ### What We Shipped
 
-```
+```text
 > Based on /chronicle and git log, summarize what we shipped this sprint.
 > Group by feature area. Include: PR links, key decisions, and anything
 > that surprised you about how it came together.
@@ -70,7 +71,7 @@ gh pr list --state merged --json createdAt,mergedAt --limit 20
 
 ### Velocity Analysis
 
-```
+```text
 > Compare planned scope vs. actual scope:
 > - What was planned but not shipped? (Why?)
 > - What was shipped but not planned? (Unplanned work or scope creep?)
@@ -79,7 +80,7 @@ gh pr list --state merged --json createdAt,mergedAt --limit 20
 
 ### Friction Points
 
-```
+```text
 > Identify the top 3 friction points from this sprint:
 > - Where did I spend time on tooling/process rather than building?
 > - Any tasks that required multiple attempts or restarts?
@@ -88,7 +89,7 @@ gh pr list --state merged --json createdAt,mergedAt --limit 20
 
 ### What Worked Well
 
-```
+```text
 > What patterns from this sprint accelerated delivery?
 > - Which Copilot CLI features saved the most time?
 > - Any workflows we should standardize?
@@ -99,7 +100,7 @@ gh pr list --state merged --json createdAt,mergedAt --limit 20
 
 Generate concrete, owner-assigned improvements:
 
-```
+```text
 > Based on the retro analysis, generate 3-5 concrete action items for next sprint.
 > Each action item should be:
 > - Specific and measurable
@@ -140,7 +141,7 @@ gh pr list --state merged --json number,title,createdAt,mergedAt --limit 20 |
 
 ### Step 3: Generate Retro Summary
 
-```
+```text
 > Using the /chronicle data and git metrics above, create a sprint retrospective report.
 > Include: (1) shipped features, (2) velocity vs. plan, (3) top 3 friction points,
 > (4) what worked well. Cite specific commits or PRs where possible.
@@ -148,7 +149,7 @@ gh pr list --state merged --json number,title,createdAt,mergedAt --limit 20 |
 
 ### Step 4: Generate Action Items
 
-```
+```text
 > Based on the retro analysis, generate exactly 3 concrete action items for next sprint.
 > Each must be specific, measurable, and completable in one sprint.
 > Format as a table: | Action | Owner | Success Metric |

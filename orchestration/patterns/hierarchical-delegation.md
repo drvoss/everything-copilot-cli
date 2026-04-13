@@ -15,6 +15,7 @@ agents:
 Hierarchical Delegation is a **nested orchestration** pattern: instead of one orchestrator fanning out directly to many workers, the top-level orchestrator delegates to **domain orchestrators**, which then delegate to **specialist workers**. Think of it as a tree: work flows *down* as delegation, and results flow *up* as summaries.
 
 This is distinct from:
+
 - **[Fan-Out Parallel](fan-out-parallel.md)** (flat, single-level dispatch)
 - **[Pipeline](pipeline.md)** (linear stages)
 - **[Agent Council](agent-council.md)** (peer routing / consensus)
@@ -23,7 +24,7 @@ This is distinct from:
 
 A three-level hierarchy (root → domain orchestrators → specialists):
 
-```
+```text
 Root Orchestrator (Copilot)
 ├─ Security Domain Orchestrator
 │  ├─ Specialist: threat-model + auth review

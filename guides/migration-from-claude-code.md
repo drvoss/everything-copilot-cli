@@ -145,6 +145,7 @@ requires_tools:
 ```
 
 **Key differences:**
+
 - Root key changes from `mcpServers` to `servers`
 - Environment variables use `${env:VAR_NAME}` syntax
 - File location changes from `.mcp.json` to `.vscode/mcp.json` or `devcontainer.json`
@@ -170,7 +171,7 @@ overrides:
 **For tasks that need Claude Code's deeper specialization,** use Copilot CLI's
 orchestration to delegate to Claude Code:
 
-```
+```text
 # In Copilot CLI, delegate complex analysis to Claude Code
 See orchestration/skills/delegate-to-claude.md
 ```
@@ -207,6 +208,7 @@ npm run lint && npm run test -- --passWithNoTests
 **Example: Prompt Guard (replaces PreToolUse check)**
 
 Add to `.github/copilot-instructions.md`:
+
 ```markdown
 ## Before Making Changes
 1. Run `npm run lint` — fix any existing errors before adding new code
@@ -258,7 +260,7 @@ Copy-Item "skills/$category/$skill/SKILL.md" ".github/skills/$skill/SKILL.md"
 
 Or reference the skill directly in a Copilot prompt:
 
-```
+```text
 > Use the commit-workflow skill from everything-copilot-cli to commit these changes
 > with a conventional commit message and appropriate emoji.
 ```
@@ -304,7 +306,7 @@ Copy-Item .ref/awesome-claude-code/.claude/commands/commit.md skills/workflow/co
 
 For teams running both Claude Code and Copilot CLI simultaneously, use Copilot CLI as the hub:
 
-```
+```text
 Copilot CLI (GitHub integration, orchestration)
     ├── delegates deep analysis → Claude Code (200K context)
     ├── delegates fast codegen  → Codex CLI
@@ -326,7 +328,7 @@ Migrating to Copilot CLI unlocks 11 capabilities not available in Claude Code:
 | 5 | **Background Agents** | Async agents with completion notifications |
 | 6 | **SQL Session Database** | Structured state that survives compaction |
 | 7 | **Plan Mode** | Structured text planning with autopilot transition |
-| 8 | **Autopilot Mode** | Safer autonomous execution _(Experimental)_ |
+| 8 | **Autopilot Mode** | Safer autonomous execution *(Experimental)* |
 | 9 | **Multi-AI Orchestration** | Use Claude Code, Codex, Hermes, Gemini as workers |
 | 10 | **Cross-Session Search** | FTS5 search across previous sessions |
 | 11 | **LSP Support** | Language-aware code navigation |
@@ -356,7 +358,7 @@ orchestration — you can still invoke Claude Code for tasks where it excels.
 
 The recommended approach for teams in transition: **use both, with Copilot CLI as hub.**
 
-```
+```text
 ┌─────────────────────────────────────────────────────┐
 │                  Copilot CLI (Hub)                    │
 │                                                      │
@@ -389,9 +391,9 @@ The recommended approach for teams in transition: **use both, with Copilot CLI a
 }
 ```
 
-2. Use orchestration patterns to delegate:
+1. Use orchestration patterns to delegate:
 
-```
+```text
 "Delegate architecture review to Claude Code using the
  delegate-to-claude skill, then synthesize results here."
 ```
@@ -426,6 +428,7 @@ Claude Code harnesses often rely on session lifecycle hooks (`PreToolUse`, `Post
 4. **Replace `SubagentStop` aggregation** with `read_agent` polling after `task(mode: "background")` calls
 
 Example: a harness that ran lint on every file save (PreToolUse) becomes:
+
 ```markdown
 <!-- In copilot-instructions.md -->
 After editing any source file, run `npm run lint -- <file>` before proceeding to the next step.
@@ -465,6 +468,7 @@ node scripts/migrate-from-claude.js --verify
 ```
 
 The script handles:
+
 - Copying and transforming `CLAUDE.md` → `.github/copilot-instructions.md`
 - Converting `.mcp.json` → `.vscode/mcp.json`
 - Porting skills with category detection

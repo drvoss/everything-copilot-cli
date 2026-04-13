@@ -5,6 +5,7 @@
 ## The Setup
 
 Your project uses:
+
 - Express.js with TypeScript
 - Prisma ORM
 - Zod for validation
@@ -86,6 +87,7 @@ Follow existing code style, import patterns, and error handling conventions.
 Codex generates all 5 files. Here's a summary of what gets created:
 
 ### `src/models/product.ts`
+
 ```typescript
 export interface Product {
   id: string;
@@ -113,6 +115,7 @@ export interface CreateProductInput {
 ```
 
 ### `src/validators/product.ts`
+
 ```typescript
 import { z } from 'zod';
 
@@ -128,6 +131,7 @@ export const createProductSchema = z.object({
 ```
 
 ### `src/routes/products.ts`
+
 ```typescript
 import { Router, Request, Response, NextFunction } from 'express';
 import { productService } from '../services/productService';

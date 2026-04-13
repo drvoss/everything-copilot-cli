@@ -30,7 +30,7 @@ workflow. Claude Code sessions are ephemeral — when a session ends, its contex
 
 Use the `/resume` command to pick up where you left off:
 
-```
+```text
 /resume
 ```
 
@@ -54,7 +54,7 @@ across all your historical sessions.
 
 Files created during sessions are stored in the session's `files/` directory:
 
-```
+```text
 ~/.copilot/session-state/<session-id>/files/
 ```
 
@@ -76,7 +76,7 @@ SELECT * FROM todos WHERE status = 'in_progress';
 
 #### Pattern: Evolving Architecture Documents
 
-```
+```text
 Session 1: "Analyze the codebase architecture and create a summary"
            → Produces architecture analysis in session artifacts
 
@@ -90,7 +90,7 @@ Session 3: /resume → "Add the performance benchmarks we ran yesterday"
 
 #### Pattern: Progressive Refactoring
 
-```
+```text
 Session 1: Plan the refactoring (todos created in SQL)
 Session 2: /resume → Execute Phase 1 (update todo statuses)
 Session 3: /resume → Execute Phase 2 (pick up from SQL state)
@@ -101,7 +101,7 @@ Session 4: /resume → Final verification and cleanup
 
 ### Multi-Day Feature Development
 
-```
+```text
 # Day 1 - Monday
 You: "Plan the new notification system"
 Copilot: Creates plan, SQL todos, architecture notes
@@ -119,7 +119,7 @@ Copilot: Picks up from Phase 2 completion, writes tests
 
 ### Finding Past Solutions
 
-```
+```text
 You: "Last month I set up a Redis caching layer for something.
       Search my past sessions for how I configured it."
 
@@ -131,7 +131,7 @@ Copilot finds the relevant session and extracts the configuration approach.
 
 ### Reusing Analysis
 
-```
+```text
 You: "I did a security audit of the auth module a few weeks ago.
       Find that analysis and check if the issues were fixed."
 
@@ -143,7 +143,7 @@ You: "I did a security audit of the auth module a few weeks ago.
 
 ### Session Artifact Workflow
 
-```
+```text
 # Session 1: Generate a report
 You: "Analyze test coverage gaps and create a report"
 → Report saved to session files/

@@ -20,6 +20,7 @@ escalation: <what triggers escalation — e.g., "security finding with CVSS > 7"
 ## Purpose
 
 Describe the agent's specific responsibility in 2–4 sentences. Be explicit about:
+
 - What domain or sub-problem it owns
 - What it **does not** handle (scope boundaries)
 - What it produces (its output artifact)
@@ -27,6 +28,7 @@ Describe the agent's specific responsibility in 2–4 sentences. Be explicit abo
 ## Input
 
 What this agent expects to receive:
+
 - Files or paths to read
 - SQL table rows from the parent orchestrator
 - Context variables (e.g., `$TARGET_DIR`, `$SCOPE`)
@@ -34,6 +36,7 @@ What this agent expects to receive:
 ## Output
 
 What this agent produces:
+
 - Files written (path and format)
 - SQL updates (`UPDATE assignments SET result_summary = '...' WHERE id = '...'`)
 - Structured report / JSON / Markdown
@@ -44,7 +47,7 @@ What this agent produces:
 
 Describe what the agent does in this step. Include tool calls if applicable.
 
-```
+```text
 # Example tool call (Copilot CLI tool invocation, not shell syntax)
 task:
   agent_type: "explore"
@@ -96,7 +99,7 @@ INSERT INTO assignments (id, agent_id, task, input_context, status) VALUES
 
 Then dispatch with:
 
-```
+```text
 task:
   agent_type: "general-purpose"
   name: "<agent-name>"
@@ -107,6 +110,7 @@ task:
 ---
 
 > **See also:**
+>
 > - [Orchestrator Template](orchestrator-template.md) — the parent orchestrator that coordinates agents like this one
 > - [Team Planner](../../skills/copilot-exclusive/team-planner/SKILL.md) — full workflow for multi-agent teams
 > - [QA Agent Guide](../../guides/qa-agent-guide.md) — if this agent performs quality verification

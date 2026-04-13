@@ -65,7 +65,7 @@ $gemini | Receive-Job; $gemini | Remove-Job
 
 ## For PR Review → Use the Skill Instead
 
-```
+```text
 # Preferred: structured 6-lens review with Pass/Concern/Block output
 # See: skills/development/pr-multi-perspective-review/SKILL.md
 

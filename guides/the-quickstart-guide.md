@@ -31,21 +31,25 @@ Before you start, make sure you have:
 Choose the installation method for your platform:
 
 **macOS / Linux — install script (recommended, auto-updates):**
+
 ```bash
 curl -fsSL https://gh.io/copilot-install | bash
 ```
 
 **macOS / Linux — Homebrew (auto-updates):**
+
 ```bash
 brew install copilot-cli
 ```
 
 **Windows — WinGet (auto-updates):**
+
 ```powershell
 winget install GitHub.Copilot
 ```
 
 **All platforms — npm** _(requires Node.js and npm)_:
+
 ```bash
 npm install -g @github/copilot
 ```
@@ -68,7 +72,7 @@ copilot
 
 Once inside, run the login command:
 
-```
+```text
 /login
 ```
 
@@ -87,7 +91,7 @@ copilot
 
 Try these basic commands:
 
-```
+```text
 # Ask a question about your codebase
 > Explain how authentication works in this project
 
@@ -112,7 +116,7 @@ Copilot CLI has three modes. Switch between them with **Shift+Tab**:
 
 Try it now:
 
-```
+```text
 # Start in Interactive mode (default)
 > Refactor the user service to use dependency injection
 
@@ -147,7 +151,7 @@ Copilot CLI reads this file automatically and tailors its behavior to your proje
 
 These commands work inside any Copilot CLI session:
 
-```
+```text
 /model              # Switch between 20+ available models
 /skills             # List available skills and workflows
 /add-dir ./src      # Add directories to context
@@ -162,7 +166,7 @@ These commands work inside any Copilot CLI session:
 
 Quick model switching examples:
 
-```
+```text
 /model claude-sonnet-4.6    # Balanced reasoning (default)
 /model gpt-5-mini           # Fast code generation
 /model claude-opus-4.6      # Deep analysis (premium)

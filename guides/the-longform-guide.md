@@ -31,7 +31,7 @@ effectively is the single biggest lever for quality output.
 
 ### How the Context Window Works
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │                 Context Window                  │
 ├─────────────────────────────────────────────────┤
@@ -108,7 +108,7 @@ Each agent type has a different cost profile based on its default model and capa
 
 **Cost optimization strategy:**
 
-```
+```text
 Exploration (cheap)  →  Planning (standard)  →  Implementation (standard)  →  Review (standard)
     explore agent          main context            general-purpose             code-review
     claude-haiku           default model           claude-sonnet               claude-sonnet
@@ -119,7 +119,7 @@ Exploration (cheap)  →  Planning (standard)  →  Implementation (standard)  �
 Every conversational turn has overhead (system prompt, history, tool negotiation). Reduce
 turns by batching:
 
-```
+```text
 ❌ Slow: 5 separate explore calls, one question each (5 turns × overhead)
 ✅ Fast: 1 explore call with 5 questions batched (1 turn × overhead)
 
@@ -216,7 +216,7 @@ for detailed patterns.
 
 The strongest verification pattern is writing tests before implementation:
 
-```
+```text
 1. Write failing test     →  Confirms you understand the requirement
 2. Run test (RED)         →  Confirms the test actually tests something
 3. Write implementation   →  Focused on making the test pass
@@ -265,7 +265,7 @@ npm run lint
 
 For critical changes, chain multiple review perspectives:
 
-```
+```text
 1. Self-review     →  Re-read your own changes with fresh eyes
 2. code-review     →  Automated review for bugs and logic errors
 3. security-review →  Check for vulnerabilities (if security-relevant)
@@ -296,7 +296,7 @@ windows. This is Copilot CLI's most powerful scaling feature.
 
 **Task decomposition strategy:**
 
-```
+```text
 1. Identify independent units of work (no shared state)
 2. Write clear, self-contained prompts for each unit
 3. Include all necessary context in each prompt (agents are stateless)
@@ -317,7 +317,7 @@ See [Fleet Parallel skill](../skills/copilot-exclusive/fleet-parallel/SKILL.md).
 **Background Delegation** frees your terminal immediately. Prefix any prompt with `&`
 to hand off work to a cloud-based Copilot coding agent:
 
-```
+```text
 1. Delegate:    & "Migrate all service tests to the new test framework"
 2. Terminal is immediately free — continue your main work
 3. Agent works on GitHub, opens a draft PR when complete
@@ -330,6 +330,7 @@ to hand off work to a cloud-based Copilot coding agent:
 > by polling with `/resume`.
 
 **Use cases:**
+
 - Large-scale refactors spanning many files
 - Full test suite additions or migrations
 - Documentation generation
@@ -339,7 +340,7 @@ to hand off work to a cloud-based Copilot coding agent:
 
 Combine agent types for complex workflows:
 
-```
+```text
 ┌──────────┐    ┌──────────┐    ┌────────────────┐    ┌─────────────┐
 │ explore  │ →  │ planner  │ →  │ general-purpose│ →  │ code-review │
 │ (search) │    │ (plan)   │    │ (implement)    │    │ (verify)    │
@@ -358,7 +359,7 @@ The most effective workflows compose agents in a pipeline, each handling what it
 
 **Pattern: Explore → Plan → Implement → Review**
 
-```
+```text
 Step 1: explore agent (parallel, cheap)
   - "What authentication libraries does this project use?"
   - "Where are the API route definitions?"
@@ -383,7 +384,7 @@ Step 4: code-review agent
 After a cloud delegation completes and opens a draft PR, bring the session local with
 `/resume` to continue the conversation with full accumulated context:
 
-```
+```text
 1. Delegate:        & "Analyze auth system and refactor weak points"
 2. Continue locally, agent works on GitHub
 3. Draft PR opens:  review changes on GitHub
@@ -408,7 +409,7 @@ When background agents are running, Copilot CLI provides four tools to manage th
 
 **Typical lifecycle:**
 
-```
+```text
 1. task(..., mode="background")  → get agent_id
 2. [continue other work]         → notified automatically on completion
 3. read_agent(agent_id)          → retrieve full results
@@ -449,7 +450,7 @@ AND json_each.value IN (SELECT value FROM json_each(b.files_changed));
 
 The VS Code Copilot extension and CLI are complementary, not competing:
 
-```
+```text
 ┌─────────────────────────────┐    ┌─────────────────────────────┐
 │      VS Code Extension      │    │        Copilot CLI          │
 ├─────────────────────────────┤    ├─────────────────────────────┤
@@ -491,7 +492,7 @@ Both the VS Code extension and CLI read from the same configuration sources:
 
 **Workflow: IDE for exploration, CLI for execution:**
 
-```
+```text
 1. Use VS Code Copilot chat to explore and understand a codebase
 2. Identify the changes needed
 3. Switch to CLI for autonomous multi-file implementation
@@ -621,7 +622,7 @@ server.tool("search_docs", { query: z.string() }, async ({ query }) => {
 
 MCP bridges enable Copilot CLI to invoke other AI tools as if they were native tools:
 
-```
+```text
 ┌──────────────┐     MCP      ┌──────────────┐
 │  Copilot CLI │ ──────────── │  Claude Code  │
 │  (hub)       │   bridge     │  (worker)     │
@@ -670,7 +671,7 @@ See [MCP Ecosystem skill](../skills/copilot-exclusive/mcp-ecosystem/SKILL.md).
 
 The Agent Council brings multiple AI perspectives to complex decisions:
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                    Agent Council                         │
 ├──────────┬──────────┬───────────┬───────────────────────┤
@@ -699,7 +700,7 @@ See [Agent Council pattern](../orchestration/patterns/agent-council.md).
 
 Route tasks to the cheapest model that can handle them:
 
-```
+```text
 ┌──────────────────────────────────────────────────────┐
 │                 Cost-Aware Router                     │
 ├──────────────────────────────────────────────────────┤
@@ -792,7 +793,8 @@ See [Pipeline pattern](../orchestration/patterns/pipeline.md) for structured han
 **Cause:** Context window is saturated with irrelevant information.
 
 **Solution:**
-```
+
+```text
 1. Use /clear to reset the conversation
 2. Re-state your current goal concisely
 3. Point to specific files rather than asking for broad searches
@@ -803,7 +805,8 @@ See [Pipeline pattern](../orchestration/patterns/pipeline.md) for structured han
 **Cause:** The agent lost context about what it already read (compaction or long conversation).
 
 **Solution:**
-```
+
+```text
 1. Store key findings in the SQL database
 2. Reference stored data instead of re-reading files
 3. Use more specific prompts to avoid redundant exploration
@@ -814,7 +817,8 @@ See [Pipeline pattern](../orchestration/patterns/pipeline.md) for structured han
 **Cause:** Multiple fleet agents modified the same files.
 
 **Solution:**
-```
+
+```text
 1. Decompose tasks so each agent works on different files
 2. Use a shared SQL table to coordinate file assignments
 3. Run a post-fleet merge step to resolve any conflicts
@@ -825,6 +829,7 @@ See [Pipeline pattern](../orchestration/patterns/pipeline.md) for structured han
 **Cause:** Server binary not found, wrong path, or missing environment variables.
 
 **Solution:**
+
 ```powershell
 # Verify the server binary exists
 Get-Command github-mcp-server
@@ -841,7 +846,8 @@ node path/to/server.js --help
 **Cause:** The task is too broad or the agent is stuck in a loop.
 
 **Solution:**
-```
+
+```text
 1. Use /resume to check current status and partial output
 2. If stuck, refine the prompt and re-delegate with &
 3. Break large tasks into smaller, well-defined chunks
@@ -852,6 +858,7 @@ node path/to/server.js --help
 **Cause:** Tables were not created or data was inserted in a different session.
 
 **Solution:**
+
 ```sql
 -- Check what tables exist
 SELECT name FROM sqlite_master WHERE type='table';
@@ -865,7 +872,8 @@ SELECT COUNT(*) FROM todos;
 **Cause:** The question was too broad or asked without enough context.
 
 **Solution:**
-```
+
+```text
 1. Be specific: "Find all Express route handlers in src/routes/"
    instead of "Find API endpoints"
 2. Batch related questions into one call
@@ -877,6 +885,7 @@ SELECT COUNT(*) FROM todos;
 **Cause:** The agent made changes that don't compile or pass tests.
 
 **Solution:**
+
 ```powershell
 # Check what changed
 git --no-pager diff --stat

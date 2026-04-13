@@ -26,7 +26,7 @@ boundaries and a CQRS pattern for request handling.
 
 ### Solution Structure (Clean Architecture)
 
-```
+```text
 src/
 ├── Domain/                  # Enterprise business rules
 │   ├── Entities/            # Domain entities (anemic or rich)
@@ -129,7 +129,7 @@ src/
 
 Always follow this sequence to maintain Clean Architecture:
 
-```
+```text
 1. Domain: Add entity or value object
 2. Application: Create Command/Query record + Handler + Validator
 3. Infrastructure: Add repository method (EF Core)
@@ -137,7 +137,7 @@ Always follow this sequence to maintain Clean Architecture:
 5. Tests: Unit (handler + validator) → Integration (Testcontainers)
 ```
 
-```
+```text
 # Prompt example:
 > Add a CreateOrder feature following Clean Architecture:
 > 1. Domain: Order entity with OrderItem value objects
@@ -149,7 +149,7 @@ Always follow this sequence to maintain Clean Architecture:
 
 ### Common Workflows
 
-```
+```text
 # Debug MediatR pipeline behaviour:
 > Trace a CreateUserCommand through the MediatR pipeline.
 > Show which behaviours fire (validation, logging, transaction) and in what order.

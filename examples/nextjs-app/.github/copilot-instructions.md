@@ -25,7 +25,7 @@ Components are the default rendering strategy.
 
 ### Directory Structure
 
-```
+```text
 src/
 ├── app/              # App Router pages and layouts
 │   ├── (auth)/       # Auth route group
@@ -109,7 +109,7 @@ Apply these skills from `everything-copilot-cli` to common tasks:
 
 ### Common Workflows
 
-```
+```text
 # Add a new page with data fetching:
 > In Plan Mode: design a new /dashboard/analytics page that fetches aggregated
 > user stats from Prisma. Include Server Component data fetching and a loading.tsx.

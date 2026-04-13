@@ -25,7 +25,7 @@ services, and repositories.
 
 ### Directory Structure
 
-```
+```text
 src/
 ├── api/
 │   ├── v1/

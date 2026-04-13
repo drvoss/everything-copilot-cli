@@ -44,11 +44,13 @@ Below are short `description:`-only edits. Keep changes small and situation-focu
 **Evaluation:** ⚠️ Needs improvement — it states what it does, but the trigger is implied (“at the start of a session”) rather than expressed as a condition the model can match.
 
 **Before**
+
 ```yaml
 description: Load project context at the start of a session so the AI understands the codebase before making changes
 ```
 
 **After (pushier trigger)**
+
 ```yaml
 description: Invoke when starting a session (or resuming after a break) on a repo before making changes, to load live project context (structure, recent commits, test status)
 ```
@@ -58,11 +60,13 @@ description: Invoke when starting a session (or resuming after a break) on a rep
 **Evaluation:** ✅ Good — strongly action-oriented and end-to-end. It can be even better by anchoring to the typical input (an issue number/link), but it’s already likely to trigger.
 
 **Before**
+
 ```yaml
 description: Resolve a GitHub Issue end-to-end — read the issue, locate the bug, fix it, test it, and open a PR, all from the terminal
 ```
 
 **After (optional tightening)**
+
 ```yaml
 description: Use when the user provides a GitHub Issue (number/link) and asks to fix it end-to-end: reproduce, patch, add tests, and open a PR from the terminal
 ```
@@ -72,11 +76,13 @@ description: Use when the user provides a GitHub Issue (number/link) and asks to
 **Evaluation:** ⚠️ Needs improvement — feature list (emoji/auto-stage/split) is clear, but it doesn’t clearly state the *moment* to invoke (e.g., “about to commit” or “diff mixes concerns”).
 
 **Before**
+
 ```yaml
 description: Craft conventional commits with emoji, auto-stage, and split atomic commits from a mixed diff
 ```
 
 **After (trigger-first)**
+
 ```yaml
 description: Use when you’re about to commit (especially with a mixed diff) to stage changes, split into atomic commits, and write Conventional Commit messages (optionally with emoji)
 ```
@@ -86,11 +92,13 @@ description: Use when you’re about to commit (especially with a mixed diff) to
 **Evaluation:** ✅ Good — clear trigger (review a PR) and unique mechanism (6 perspectives). Consider adding a “before merge” clause if you see false negatives.
 
 **Before**
+
 ```yaml
 description: Review a pull request from 6 perspectives (PM, Dev, QA, Security, DevOps, UX) for comprehensive, bias-free feedback
 ```
 
 **After (optional trigger anchor)**
+
 ```yaml
 description: Use when reviewing a pull request (ideally pre-merge) to run a 6-perspective review (PM/Dev/QA/Security/DevOps/UX) and synthesize actionable feedback
 ```
@@ -104,6 +112,7 @@ Add a short exclusion clause when a skill is commonly confused with another:
 - `… NOT when the task is only triage/labeling; use the triage skill instead.`
 
 Pattern:
+
 ```yaml
 description: Use when …; NOT when …
 ```
@@ -124,11 +133,13 @@ description: Use when …; NOT when …
 Prefer explaining *why* over writing ALWAYS/NEVER imperatives. Imperatives are brittle — they don't transfer well to edge cases, unusual repos, or novel tooling. When the model understands the reason, it applies correct judgment even when the literal instruction would be wrong.
 
 **Bad (imperative, no rationale):**
+
 ```yaml
 description: ALWAYS run every test suite before making any change. NEVER edit configuration files.
 ```
 
 **Good (reasoning-based, preserves intent):**
+
 ```yaml
 description: |
   Prioritize correctness: run the smallest relevant tests first (unit/lint), then broaden
@@ -140,9 +151,10 @@ description: |
 ---
 
 ## 8) 500-Line Limit + `references/` Split
+
 Keep the main skill body under ~500 lines. If it grows beyond that, split extended platform or domain material into a `references/` subdirectory — the core skill stays scannable, and the model loads detail only when needed.
 
-```
+```text
 skills/<category>/<skill-name>/
   SKILL.md            ← under 500 lines
   references/
@@ -159,7 +171,8 @@ skills/<category>/<skill-name>/
 If a skill spans multiple platforms or environments, split references by domain so only the relevant content is loaded — this reduces noise, token waste, and cross-platform confusion.
 
 **Example for a hypothetical `cloud-deploy` skill:**
-```
+
+```text
 skills/development/cloud-deploy/
   SKILL.md
   references/

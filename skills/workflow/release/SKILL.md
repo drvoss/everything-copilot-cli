@@ -142,7 +142,7 @@ gh release create $tag `
 
 **Via GitHub MCP (Copilot-native):**
 
-```
+```text
 > Create a GitHub Release for tag v1.3.0 on drvoss/my-app.
 > Use the following release notes from CHANGELOG.md:
 > [paste the version section content]
@@ -219,12 +219,14 @@ gh release create "v1.2.0" --generate-notes
 | "It's a hotfix, skip the process" | Especially for hotfixes, follow the process. Panicked changes create more problems. |
 
 ## Red Flags
+
 - Deploying directly to main without a version tag
 - CHANGELOG filled only with vague entries like "various fixes"
 - No smoke test before release
 - Semantic versioning violations (bumping patch version for a breaking change)
 
 ## Verification
+
 - [ ] `npm test` (or CI) fully passes
 - [ ] CHANGELOG records this version's changes (breaking changes explicitly noted)
 - [ ] Git tag created in `v{version}` format
@@ -245,4 +247,3 @@ gh release create "v1.2.0" --generate-notes
 - [`commit-workflow`](../commit-workflow/SKILL.md) — the start of the pipeline
 - [Semantic Versioning](https://semver.org/)
 - [GitHub Releases docs](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
-

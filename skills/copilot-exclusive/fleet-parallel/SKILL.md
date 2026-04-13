@@ -29,7 +29,7 @@ with their own tool access.
 
 The simplest way to trigger fleet mode is the `/fleet` command:
 
-```
+```text
 /fleet Generate unit tests for all 8 utility files in src/utils/
 ```
 
@@ -40,7 +40,7 @@ Copilot automatically decomposes the task and spawns parallel sub-agents.
 For tasks requiring explicit decomposition, enter Plan Mode (Shift+Tab), define the plan,
 then select `autopilot_fleet`:
 
-```
+```text
 exit_plan_mode:
   summary: "Migrate 4 component files from class to hooks pattern"
   actions: ["autopilot_fleet", "autopilot", "exit_only"]
@@ -92,6 +92,7 @@ git worktree per task and include that path in the prompt. See
 ### 6. Monitor and Collect Results
 
 While fleet agents run, you can:
+
 - Check progress via `list_agents`
 - Read individual agent results via `read_agent`
 - Continue working on other tasks yourself
@@ -100,11 +101,12 @@ While fleet agents run, you can:
 
 ### Multi-File Test Generation
 
-```
+```text
 /fleet Generate unit tests for all 8 utility files in src/utils/
 ```
 
 Fleet assigns one agent per file. Each agent:
+
 1. Reads the source file
 2. Identifies exported functions
 3. Generates comprehensive tests
@@ -115,13 +117,13 @@ Fleet assigns one agent per file. Each agent:
 
 ### Parallel PR Review
 
-```
+```text
 /fleet Review open PRs #101, #102, #103, #104, #105 and summarize each
 ```
 
 ### Codebase-Wide Documentation
 
-```
+```text
 /fleet Add JSDoc comments to all exported functions in src/services/
 ```
 

@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS test_cases (
 
 ### Example 1: Building a Utility Function
 
-```
+```text
 User: "Build a URL slug generator using TDD"
 
 TDD Guide actions:
@@ -119,7 +119,7 @@ TDD Guide actions:
 
 ### Example 2: Adding Tests to Existing Code
 
-```
+```text
 User: "Add TDD coverage to the user service"
 
 TDD Guide actions:

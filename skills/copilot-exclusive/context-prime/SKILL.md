@@ -107,7 +107,7 @@ Long sessions can slowly lose coherence. Re-prime when you notice:
 
 ## Example Session Start Prompt
 
-```
+```text
 > Prime context for this session:
 > 1. Read README.md (first 50 lines)
 > 2. List all tracked source files
@@ -120,7 +120,7 @@ Copilot will run these steps and give you a compact project brief before you sta
 
 ## Quick Variant (One-liner prompt)
 
-```
+```text
 > Read README.md, list git ls-files output, and show me the last 3 commits.
 > Then tell me: what does this project do, what stack is it using, and what was last worked on?
 ```

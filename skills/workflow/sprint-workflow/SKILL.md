@@ -24,9 +24,11 @@ Inspired by Garry Tan's gstack approach — each step feeds the next, nothing fa
 - Copilot CLI authenticated (`gh auth status`)
 - For the **Review step**: standard mode (no extra setup)
 - For the **sprint-retro** skill after this sprint: enable experimental features first:
-  ```
+
+  ```text
   /experimental on
   ```
+
   > ⚠️ `/chronicle` (used in `sprint-retro`) requires `/experimental on` to be run in the **same session**.
 
 ## The Sprint
@@ -35,11 +37,12 @@ Inspired by Garry Tan's gstack approach — each step feeds the next, nothing fa
 
 Before writing a line, challenge the premise:
 
-```
+```text
 > I want to build [X]. What am I actually trying to solve?
 ```
 
 Push back on your own framing. Identify:
+
 - The real user pain (not the feature request)
 - Assumptions that could be wrong
 - The simplest possible version that delivers value
@@ -48,7 +51,7 @@ Push back on your own framing. Identify:
 
 Switch to **Plan Mode** (`Shift+Tab`) and describe the task:
 
-```
+```text
 [Plan Mode]
 > Implement paginated results for the /api/users endpoint
 ```
@@ -58,7 +61,7 @@ Approve with `exit_plan_mode` when ready.
 
 For complex tasks, prompt for explicit sections:
 
-```
+```text
 [Plan Mode]
 > Design the pagination feature. Include:
 > 1. Data flow and API contract
@@ -71,7 +74,7 @@ For complex tasks, prompt for explicit sections:
 
 After plan approval, switch to **Autopilot Mode** (`Shift+Tab`) and let Copilot execute:
 
-```
+```text
 [Autopilot Mode]
 > Implement the plan
 ```
@@ -79,7 +82,7 @@ After plan approval, switch to **Autopilot Mode** (`Shift+Tab`) and let Copilot 
 Copilot works autonomously. You can monitor progress or continue other work.
 For parallelizable tasks (multiple independent files), use:
 
-```
+```text
 /fleet Implement the pagination plan across all affected service files
 ```
 
@@ -87,7 +90,7 @@ For parallelizable tasks (multiple independent files), use:
 
 Run the `/review` command to trigger a systematic code review:
 
-```
+```text
 /review
 ```
 
@@ -96,7 +99,7 @@ logic errors. Address blockers before testing.
 
 You can also check the diff:
 
-```
+```text
 /diff
 ```
 
@@ -104,13 +107,13 @@ You can also check the diff:
 
 Run the test suite and verify new tests were added:
 
-```
+```text
 > Run the test suite and confirm all tests pass including the new pagination tests
 ```
 
 For comprehensive E2E verification:
 
-```
+```text
 > Run the full test suite. If any tests fail, analyze and fix them before continuing.
 ```
 
@@ -118,13 +121,13 @@ For comprehensive E2E verification:
 
 **Option A: Delegate the PR creation to the cloud agent:**
 
-```
+```text
 & "Create a PR for the pagination feature with a clear description and review checklist"
 ```
 
 **Option B: Create a PR locally:**
 
-```
+```text
 > Create a pull request for the pagination feature. Include:
 > - Summary of changes
 > - Testing approach
@@ -133,7 +136,7 @@ For comprehensive E2E verification:
 
 ## Full Example
 
-```
+```text
 # Step 1: Think
 > We have slow API responses. I want to add caching.
 > [Challenge: is caching the right fix, or is the query slow?]
@@ -172,7 +175,7 @@ Each step produces verifiable output:
 
 ### `/review` Output Interpretation
 
-```
+```text
 ✅ PASS    — No issues in this category
 ⚠️ CONCERN — Advisory; fix if feasible, document if not
 🚫 BLOCK   — Must fix before merging
@@ -182,7 +185,7 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 
 ### `/diff` Output Interpretation
 
-```
+```text
 # Confirm scope is correct:
 # - Only files in the plan should appear
 # - No unintended deletions
@@ -199,6 +202,7 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 | "Deadline approaching, lower the quality bar" | Low-quality 'done' features return as bugs in the next sprint. |
 
 ## Red Flags
+
 - Sprint started without a definition of done
 - Features merged within the sprint without tests
 - Next sprint started immediately without a retrospective
@@ -206,6 +210,7 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 - PRs merged directly to main without review
 
 ## Verification
+
 - [ ] Sprint goal defined in 1–3 clear sentences
 - [ ] Every task has explicit acceptance criteria
 - [ ] All PRs merged by sprint end passed code review
@@ -226,4 +231,3 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 - [`commit-workflow`](../commit-workflow/SKILL.md) — Conventional commit + emoji for the Ship step
 - [`pr-multi-perspective-review`](../../development/pr-multi-perspective-review/SKILL.md) — Deeper 6-lens review for the Review step
 - [`sprint-retro`](../sprint-retro/SKILL.md) — Retrospective after the sprint completes
-

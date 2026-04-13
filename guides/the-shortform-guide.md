@@ -21,6 +21,7 @@ Three modes control how Copilot CLI behaves. Switch with **Shift+Tab**.
 | **Autopilot** | High — acts autonomously | Trusted tasks, bulk operations, well-defined work |
 
 **When to use which:**
+
 - Start in **Interactive** when you're unsure what the right approach is
 - Use **Plan** for anything touching more than 3 files
 - Use **Autopilot** for tasks you'd trust a senior developer to do unsupervised
@@ -32,29 +33,33 @@ Three modes control how Copilot CLI behaves. Switch with **Shift+Tab**.
 Copilot CLI can spawn specialized sub-agents via the `task` tool:
 
 ### explore
+
 - **Model**: Claude Haiku (fast, cheap)
 - **Tools**: grep, glob, view, bash/powershell
 - **Use for**: Finding files, searching code, answering codebase questions
 - **Safe to parallelize**: ✅ Yes — launch multiple explore agents simultaneously
 
-```
+```text
 # Internally, Copilot uses explore agents like this:
 task(agent_type="explore", prompt="Find all API endpoints in src/")
 ```
 
 ### task
+
 - **Model**: Claude Haiku
 - **Tools**: All CLI tools
 - **Use for**: Running builds, tests, linting, dependency installs
 - **Returns**: Brief summary on success, full output on failure
 
 ### general-purpose
+
 - **Model**: Claude Sonnet (full reasoning)
 - **Tools**: All CLI tools
 - **Use for**: Complex multi-step work — refactoring, feature implementation
 - **Runs in**: Separate context window to keep main conversation clean
 
 ### code-review
+
 - **Model**: Claude Sonnet
 - **Tools**: All CLI tools (read-only behavior)
 - **Use for**: Reviewing staged/unstaged changes, branch diffs
@@ -102,7 +107,7 @@ agent_type: general-purpose
 
 ### Essential Slash Commands
 
-```
+```text
 /model [name]       # Switch AI model (20+ available)
 /skills             # List available skills
 /add-dir <path>     # Add directory to context
@@ -132,6 +137,7 @@ Rules define coding standards that Copilot follows automatically.
 | Project rules | `.github/copilot-instructions.md` | Your project's specific conventions |
 
 ### How Rules Load
+
 1. Copilot reads `.github/copilot-instructions.md` from your project root
 2. Repository rules from `rules/` are available as context
 3. Rules are applied automatically — no manual activation needed
@@ -143,7 +149,9 @@ Rules define coding standards that Copilot follows automatically.
 The Model Context Protocol (MCP) extends Copilot CLI with external tools.
 
 ### Built-in: GitHub MCP Server
+
 Copilot CLI ships with the GitHub MCP server, providing:
+
 - Issue and PR management
 - Repository search and file access
 - GitHub Actions workflow inspection
@@ -174,6 +182,7 @@ See [MCP Configs](../mcp-configs/) for pre-built configurations.
 ## Session Management
 
 ### SQL Database
+
 Every session includes a SQLite database for structured data:
 
 ```sql
@@ -185,19 +194,22 @@ CREATE TABLE test_results (id TEXT, passed BOOLEAN, duration_ms INTEGER);
 ```
 
 ### Session Resume
+
 Sessions persist across restarts. Your conversation history, SQL data, and context carry over.
 
 ### /chronicle — Standup Reports & History _(Experimental)_
+
 Automatically summarizes your work from the session database.
 Requires `/experimental on` to activate:
 
-```
+```text
 /experimental on         # Enable experimental features
 /chronicle standup       # What did I work on today?
 /chronicle tips          # Tips based on session patterns
 ```
 
 ### Cross-Session Memory
+
 The `session_store` database provides read-only access to history from previous sessions.
 
 ---
@@ -218,7 +230,7 @@ The `session_store` database provides read-only access to history from previous 
 
 Switch models mid-session:
 
-```
+```text
 /model gpt-5-mini          # Switch to fast model for simple tasks
 /model claude-opus-4.6   # Switch to deep model for architecture decisions
 ```
@@ -244,19 +256,21 @@ Copilot CLI works alongside VS Code with Copilot Chat:
 ## Fleet & Background Agents
 
 ### Fleet Mode (autopilot_fleet)
+
 Launches multiple agents in parallel for highly parallelizable work:
 
-```
+```text
 # Copilot automatically uses fleet mode for independent tasks:
 > Update all 12 API endpoint tests to use the new auth middleware
 # Fleet spawns parallel agents, each handling a subset of files
 ```
 
 ### Background Agents (Background Delegation)
+
 Delegate tasks to a cloud Copilot coding agent with `&` — terminal is immediately free.
 The agent works on GitHub and opens a **draft PR** with results:
 
-```
+```text
 # Delegate to cloud agent
 & "Add comprehensive error handling to all API endpoints"
 # → Agent creates a draft PR on GitHub when done

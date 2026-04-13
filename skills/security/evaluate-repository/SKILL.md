@@ -51,6 +51,7 @@ Get-Content .gitignore | Select-String "\.env|\.pem|\.key|secret"
 ```
 
 **Red flags (score → 1–3):**
+
 - Hardcoded passwords, API keys, tokens in source
 - `.env` or `.pem` files committed (not in .gitignore)
 - AWS/GCP/Azure credentials in any file
@@ -69,6 +70,7 @@ npm outdated 2>&1 | Select-Object -First 20
 ```
 
 **Red flags (score → 1–3):**
+
 - Known CVEs in direct dependencies (high/critical severity)
 - Dependencies last updated >2 years ago with no security patch history
 - No lock file (package-lock.json, poetry.lock, go.sum)
@@ -88,6 +90,7 @@ git --no-pager grep -n '\$\{.*req\.' -- "*.ts" "*.js"
 ```
 
 **Red flags (score → 1–3):**
+
 - String concatenation in SQL queries
 - User input passed directly to `exec()`, `eval()`, or `shell`
 - No input validation library (joi, zod, pydantic, etc.) despite user-facing API
@@ -106,6 +109,7 @@ git --no-pager grep -n "expiresIn\|exp\s*:" -- "*.ts" "*.js"
 ```
 
 **Red flags (score → 1–3):**
+
 - JWTs without expiration (`expiresIn` missing)
 - Auth middleware not applied to sensitive routes
 - Admin endpoints without role checks
@@ -124,6 +128,7 @@ git --no-pager grep -n "console\.log.*password\|console\.log.*token\|console\.lo
 ```
 
 **Red flags (score → 1–3):**
+
 - Stack traces returned in HTTP responses in production
 - Internal database errors exposed to API consumers
 - Credentials logged (even debug logs)
@@ -144,13 +149,14 @@ Test-Path .github/SECURITY.md
 ```
 
 **Red flags (score → 1–3):**
+
 - No `SECURITY.md` or security disclosure policy
 - Unpinned wildcard versions (`"*"` or `"latest"`) for production deps
 - Secrets echoed in CI logs
 
 ### 3. Generate Scorecard
 
-```
+```text
 ╔══════════════════════════╦═══════╦══════════════════════════════════════════╗
 ║ Dimension                ║ Score ║ Key Finding                              ║
 ╠══════════════════════════╬═══════╬══════════════════════════════════════════╣
@@ -168,13 +174,16 @@ Test-Path .github/SECURITY.md
 ### 4. Prioritize Remediation
 
 **P0 (Block deployment):**
+
 - Any score ≤ 3 in Secrets & Credentials, Auth & Authorization, or Input Validation
 
 **P1 (Fix before next release):**
+
 - Any score ≤ 5 in any dimension
 - Known CVEs in direct dependencies (high/critical)
 
 **P2 (Fix in next sprint):**
+
 - Missing SECURITY.md
 - Unpinned dependency versions
 - Stale dependencies (>18 months)

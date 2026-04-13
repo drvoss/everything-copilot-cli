@@ -46,7 +46,7 @@ CREATE TABLE features (
 
 ### Step 1: List and Describe Features
 
-```
+```text
 > I have the following feature requests for [product area]:
 > [paste feature list or backlog items]
 >
@@ -56,7 +56,7 @@ CREATE TABLE features (
 
 ### Step 2: Score Each Feature
 
-```
+```text
 > Let's score each feature against our prioritization matrix.
 >
 > For [Feature X]:
@@ -91,7 +91,7 @@ ORDER BY score DESC;
 
 ### Step 5: Sense-Check with Copilot
 
-```
+```text
 > Here's our prioritized feature list:
 > [paste SQL output]
 >
@@ -132,14 +132,14 @@ Query: mandatory items always come first, then by score.
 
 For high-impact, low-confidence, high-effort features (score is low but strategically important):
 
-```
+```text
 > Feature [X] scores low because confidence is low. But strategically it could be
 > a major differentiator. What's the cheapest experiment to raise confidence?
 ```
 
 ## Example Run
 
-```
+```text
 > Score these 5 features from our Q2 roadmap:
 > 1. Audit logs (compliance requirement, requested by 3 enterprise prospects)
 > 2. Mobile app (requested by community, no revenue signal yet)

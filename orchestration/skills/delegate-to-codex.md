@@ -90,7 +90,7 @@ Add to your MCP configuration:
 
 ### Usage
 
-```
+```text
 You: "Use Codex to generate the API endpoints from our OpenAPI spec"
 
 Copilot CLI calls codex_generate through MCP with type-safe parameters.
@@ -100,7 +100,7 @@ Copilot CLI calls codex_generate through MCP with type-safe parameters.
 
 ### CRUD API Generation
 
-```
+```text
 Generate a complete CRUD API for [resource name] with:
 - TypeScript types/interfaces
 - Express/Fastify routes (GET list, GET by ID, POST, PUT, DELETE)
@@ -114,7 +114,7 @@ Follow the existing patterns in src/routes/ for consistency.
 
 ### Test Generation
 
-```
+```text
 Generate comprehensive unit tests for [file path] using [Jest/Vitest]:
 - Test all public methods/functions
 - Include happy path and error cases
@@ -127,7 +127,7 @@ Follow the test patterns in tests/ for consistency.
 
 ### Boilerplate Scaffolding
 
-```
+```text
 Scaffold a new [microservice/module/component] named [name]:
 - Directory structure following project conventions
 - Configuration files (tsconfig, package.json if needed)
@@ -141,7 +141,7 @@ Match the patterns used in [reference directory].
 
 ### Migration Generation
 
-```
+```text
 Generate database migrations for these schema changes:
 [describe changes]
 

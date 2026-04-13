@@ -19,7 +19,7 @@ Examples of boundary-crossing comparisons:
 | Spec ↔ Implementation | Does the function signature match the spec written in the PRD? |
 | Test ↔ Behaviour | Does the test assertion match the actual edge-case behaviour described in the ticket? |
 
-```
+```text
 ❌ Weak QA: "Does file src/api/users.ts exist?"   → existence check
 ✅ Strong QA: "Does GET /users return { id, name, email } matching the UserProfile TS interface?"  → shape comparison
 ```
@@ -36,7 +36,7 @@ QA agents **must** use `agent_type: "general-purpose"`. Do **not** use `explore`
 | `task` | Output-only, no multi-step reasoning for comparing structures |
 | `general-purpose` | ✅ Full tools: read files, run scripts, write findings, compare shapes |
 
-```
+```text
 # ✅ Correct
 task:
   agent_type: "general-purpose"
@@ -57,13 +57,14 @@ task:
 Run QA **immediately after each module or phase completes**, not once at the very end.
 
 **Why:**
+
 - Bugs found in module 2 are 5× cheaper to fix than bugs found after module 5 completes
 - Incremental QA surfaces integration issues before they compound
 - Each QA run is smaller, faster, and more actionable
 
 **Pattern:**
 
-```
+```text
 Phase 1: Implement auth module       →  QA-1: boundary check auth ↔ session
 Phase 2: Implement user API          →  QA-2: boundary check API ↔ types ↔ DB schema
 Phase 3: Implement frontend hooks    →  QA-3: boundary check hooks ↔ API response
@@ -98,7 +99,7 @@ A QA agent prompt should always specify:
 2. **What constitutes a pass** (explicit success criteria)
 3. **Output format** (structured findings, not free-form prose)
 
-```
+```text
 # QA Agent prompt template
 You are a QA specialist for [PHASE_NAME].
 

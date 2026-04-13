@@ -6,11 +6,12 @@ How to configure Model Context Protocol (MCP) servers for GitHub Copilot CLI.
 
 The [Model Context Protocol](https://modelcontextprotocol.io/) is an open standard that lets AI assistants connect to external tools and data sources. MCP servers expose capabilities — like searching code, querying databases, or managing files — that the AI can invoke during conversations.
 
-## GitHub MCP — Built In!
+## GitHub MCP — Built In
 
 **The GitHub MCP server is built into Copilot CLI — no configuration needed.**
 
 Out of the box, Copilot CLI can:
+
 - Search code, repositories, issues, and pull requests
 - Read file contents and commits from any accessible repository
 - List and inspect GitHub Actions workflows, runs, and jobs
@@ -28,6 +29,7 @@ You can extend Copilot CLI with additional MCP servers for specialized tools.
 MCP servers are configured in `devcontainer.json`, `settings.json` or dedicated MCP config files:
 
 **VS Code workspace (`.vscode/mcp.json`):**
+
 ```json
 {
   "servers": {
@@ -43,6 +45,7 @@ MCP servers are configured in `devcontainer.json`, `settings.json` or dedicated 
 ```
 
 **User-level config (`~/.copilot/mcp-config.json`):**
+
 ```json
 {
   "servers": {

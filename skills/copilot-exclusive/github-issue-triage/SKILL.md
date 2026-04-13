@@ -27,7 +27,7 @@ has no built-in GitHub integration and must rely on `gh issue list` with fragile
 
 ### 1. List Open Issues with Filters
 
-```
+```text
 Tool: github-mcp-server-list_issues
   owner: "my-org"
   repo: "my-app"
@@ -42,7 +42,7 @@ Tool: github-mcp-server-list_issues
 
 Find issues matching a keyword across your entire org:
 
-```
+```text
 Tool: github-mcp-server-search_issues
   query: "memory leak is:open"
   owner: "my-org"
@@ -50,7 +50,7 @@ Tool: github-mcp-server-search_issues
 
 ### 3. Read Issue Details and Comments
 
-```
+```text
 Tool: github-mcp-server-issue_read
   method: "get"
   owner: "my-org"
@@ -68,7 +68,7 @@ Tool: github-mcp-server-issue_read
 
 For tracking epics and parent/child relationships:
 
-```
+```text
 Tool: github-mcp-server-issue_read
   method: "get_sub_issues"
   owner: "my-org"
@@ -78,7 +78,7 @@ Tool: github-mcp-server-issue_read
 
 ### 5. Get Labels for Classification
 
-```
+```text
 Tool: github-mcp-server-issue_read
   method: "get_labels"
   owner: "my-org"
@@ -91,8 +91,8 @@ Tool: github-mcp-server-issue_read
 ### Weekly Issue Triage Session
 
 > "Show me all open issues in my-org/api-service created in the last 7 days,
->  grouped by label. For unlabeled issues, suggest a category based on the title
->  and body."
+> grouped by label. For unlabeled issues, suggest a category based on the title
+> and body."
 
 Copilot calls `list_issues` with a `since` filter, reads each issue's labels,
 groups them, and uses the issue body to suggest labels for uncategorized ones.
@@ -100,9 +100,9 @@ groups them, and uses the issue body to suggest labels for uncategorized ones.
 ### Duplicate Detection
 
 > "Before I file a bug about 'WebSocket disconnects on idle timeout', check
->  if there's already an issue about this."
+> if there's already an issue about this."
 
-```
+```text
 Tool: github-mcp-server-search_issues
   query: "WebSocket disconnect idle timeout"
   owner: "my-org"
@@ -115,7 +115,7 @@ comment on an existing issue.
 ### Sprint Planning Report
 
 > "List all issues labeled 'sprint-12' in my-org/frontend, show their status,
->  assignee, and whether they have linked PRs."
+> assignee, and whether they have linked PRs."
 
 Copilot lists the issues, checks each for linked PRs via comments and cross-references,
 and produces a sprint board summary right in the terminal.

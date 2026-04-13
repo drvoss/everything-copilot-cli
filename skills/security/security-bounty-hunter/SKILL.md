@@ -90,6 +90,7 @@ Then manually filter: drop tests, demos, fixtures, vendored code, non-reachable 
 ## Quality Gate
 
 Before submitting, confirm all of:
+
 - [ ] Code path is reachable from a real user or network boundary
 - [ ] Input is genuinely user-controlled
 - [ ] Sink is meaningful and exploitable

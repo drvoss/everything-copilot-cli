@@ -95,7 +95,7 @@ Add to your MCP configuration (`.copilot/mcp.json` or `.vscode/mcp.json`):
 
 Once configured, Claude Code's tools are available natively in Copilot CLI. Simply describe what you need:
 
-```
+```text
 You: "Use Claude to review our authentication architecture for security issues"
 
 Copilot CLI automatically invokes Claude's tools through the MCP bridge.
@@ -105,7 +105,7 @@ Copilot CLI automatically invokes Claude's tools through the MCP bridge.
 
 ### Architecture Review
 
-```
+```text
 Review the architecture of [directory/project]. Analyze:
 1. Component boundaries and coupling
 2. Data flow between services
@@ -118,7 +118,7 @@ Provide specific recommendations with file paths and priority levels.
 
 ### Security Audit
 
-```
+```text
 Perform a security audit of [files/directory]. Check for:
 1. Authentication/authorization bypasses
 2. Injection vulnerabilities (SQL, XSS, command)
@@ -132,7 +132,7 @@ Include remediation steps for each finding.
 
 ### Refactoring Plan
 
-```
+```text
 Create a refactoring plan for [files/directory]. Goal: [describe goal].
 
 For each change:
@@ -147,7 +147,7 @@ Output as a numbered, actionable plan.
 
 ### Design Decision
 
-```
+```text
 I need to decide between [option A] and [option B] for [feature/component].
 
 Context: [current architecture, constraints, requirements]
@@ -169,6 +169,7 @@ Provide a clear recommendation with justification.
 After Claude returns its analysis, Copilot CLI can:
 
 1. **Create Issues** from findings:
+
 ```powershell
 # Parse Claude's security findings and create GitHub Issues
 $findings | ForEach-Object {
@@ -176,14 +177,16 @@ $findings | ForEach-Object {
 }
 ```
 
-2. **Feed to Codex** for implementation:
+1. **Feed to Codex** for implementation:
+
 ```powershell
 # Claude designs, Codex implements
 $design = npx @anthropic-ai/claude-code --print "Design a caching layer for src/api/"
 $implementation = codex --quiet "Implement this design: $design"
 ```
 
-3. **Create a PR** with Claude's review as context:
+1. **Create a PR** with Claude's review as context:
+
 ```powershell
 # Include Claude's analysis in the PR description
 gh pr create --title "refactor: improve auth architecture" `

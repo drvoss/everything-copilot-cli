@@ -31,24 +31,29 @@ configuration workflow.
 These tools work immediately — no setup required:
 
 **Repository & Code:**
+
 - `get_file_contents` — Read files from any GitHub repo
 - `search_code` — Search code across all of GitHub
 - `search_repositories` — Find repos by topic, language, etc.
 - `list_branches`, `list_commits`, `get_commit` — Git history
 
 **Issues:**
+
 - `list_issues`, `search_issues` — Find and filter issues
 - `issue_read` — Get details, comments, sub-issues, labels
 
 **Pull Requests:**
+
 - `list_pull_requests`, `search_pull_requests` — Find PRs
 - `pull_request_read` — Diffs, reviews, check runs, files
 
 **Actions:**
+
 - `actions_list`, `actions_get` — Workflow and run details
 - `get_job_logs` — CI/CD log analysis
 
 **Users:**
+
 - `search_users` — Find GitHub users
 
 ### 2. Add Custom MCP Servers
@@ -97,7 +102,7 @@ Create `.vscode/mcp.json` in your repo (shared with VS Code):
 
 Before loading, check for errors:
 
-```
+```text
 Tool: mcp_validate
   path: "C:\\Users\\dev\\.copilot\\mcp-config.json"
 ```
@@ -106,7 +111,7 @@ Tool: mcp_validate
 
 After editing your config, reload without restarting the CLI:
 
-```
+```text
 Tool: mcp_reload
 ```
 
@@ -137,7 +142,7 @@ Copilot automatically discovers and can use all registered MCP tools.
 Now Copilot can query your database directly:
 
 > "Show me the schema for the users table and write a migration to add
->  an email_verified column"
+> an email_verified column"
 
 ### Multi-Service Architecture
 

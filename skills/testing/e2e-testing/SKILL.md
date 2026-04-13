@@ -9,6 +9,7 @@ metadata:
 # End-to-End Testing
 
 ## When to Use
+
 - Validating critical user journeys work from start to finish
 - After major refactors that may break integration between components
 - Before releases to verify the full system works together
@@ -16,6 +17,7 @@ metadata:
 - Setting up regression tests for frequently broken features
 
 ## Prerequisites
+
 - Application can be started in a test/dev environment
 - E2E test framework installed (Playwright, Cypress, Selenium, etc.)
 - Test data and fixtures available or can be seeded
@@ -24,6 +26,7 @@ metadata:
 ## Workflow
 
 ### 1. Identify Critical User Paths
+
 Map the workflows that must always work:
 
 ```powershell
@@ -35,6 +38,7 @@ glob pattern="**/playwright/**/*.{ts,js}"
 ```
 
 Prioritize paths by business impact:
+
 | Priority | Path | Example |
 |----------|------|---------|
 | 🔴 P0 | Revenue-critical | Signup → Purchase → Confirmation |
@@ -44,6 +48,7 @@ Prioritize paths by business impact:
 | 🟢 P2 | Secondary flows | Settings → Profile update |
 
 ### 2. Set Up the Test Environment
+
 ```powershell
 # Start the application in test mode
 $env:NODE_ENV="test"
@@ -59,6 +64,7 @@ curl -s http://localhost:3000/health
 ### 3. Write E2E Tests
 
 **Playwright example:**
+
 ```typescript
 // e2e/auth.spec.ts
 import { test, expect } from '@playwright/test';
@@ -91,6 +97,7 @@ test.describe('Authentication Flow', () => {
 ```
 
 **API E2E example:**
+
 ```typescript
 // e2e/api-workflow.spec.ts
 import { test, expect } from '@playwright/test';
@@ -130,6 +137,7 @@ test.describe('API CRUD Workflow', () => {
 ```
 
 ### 4. Run E2E Tests
+
 ```powershell
 # Playwright
 npx playwright test 2>&1
@@ -143,12 +151,13 @@ npx playwright test e2e/auth.spec.ts 2>&1
 # Use task agent for clean output
 ```
 
-```
+```text
 task agent_type: "task"
 prompt: "Run 'npx playwright test' and report results. Show full output for any failures."
 ```
 
 ### 5. Debug Failures
+
 ```powershell
 # Run with headed browser for visual debugging
 npx playwright test --headed --debug e2e/auth.spec.ts
@@ -160,6 +169,7 @@ npx playwright show-trace test-results/auth-trace.zip
 ```
 
 ### 6. Maintain Tests
+
 ```powershell
 # Find flaky tests (tests that sometimes pass, sometimes fail)
 # Run tests multiple times to detect flakiness
@@ -172,12 +182,14 @@ npx playwright test --reporter=list 2>&1 | Sort-Object { [int]($_ -split '\s+')[
 ## Examples
 
 ### Setting Up Playwright from Scratch
+
 ```powershell
 npm init playwright@latest 2>&1
 # Generates: playwright.config.ts, e2e/ directory, package.json scripts
 ```
 
 ### CI Configuration
+
 ```yaml
 # .github/workflows/e2e.yml
 - name: Run E2E tests
@@ -189,6 +201,7 @@ npm init playwright@latest 2>&1
 ```
 
 ## Tips
+
 - **Keep E2E tests focused** — test user journeys, not implementation details
 - Use **page objects** or **fixtures** to reduce duplication across tests
 - Run E2E tests in CI but not on every commit — they're slower than unit tests

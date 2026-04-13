@@ -121,7 +121,7 @@ copilot
 
 ## リポジトリ構造
 
-```
+```text
 everything-copilot-cli/
 ├── agents/                        # Agent definitions (8 core agents)
 │   ├── planner.md
@@ -219,6 +219,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `team-planner` | SQL roster + `/fleet` dispatch で専門 agent チームを編成します |
 | `agentic-engineering` | 15分単位の task、eval-first ループ、明示的 I/O 契約を設計します |
 | `stack-detector` | project tech stack をスキャンし、このコレクションの関連 skill と rule を推奨します |
+
 </details>
 
 <details>
@@ -247,6 +248,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `nextjs-prisma` | Next.js App Router + Prisma project 向けの type-safe data fetching と Server Actions |
 | `react-vitest` | React + Vitest project 向けの component testing 設定とパターン |
 | `nestjs-prisma` | NestJS + Prisma 向けの PrismaService singleton、repository pattern、unit testing |
+
 </details>
 
 <details>
@@ -259,6 +261,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `api-documentation` | source から API docs を生成・保守します |
 | `code-tour` | codebase onboarding 用の VS Code CodeTour `.tour` file を生成します |
 | `architecture-decisions` | 取り消しづらい技術判断を Architecture Decision Records（ADR）として記録します |
+
 </details>
 
 <details>
@@ -272,6 +275,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `input-validation` | injection 攻撃（SQL、XSS、CSRF）を防止します |
 | `security-bounty-hunter` | bug bounty 観点で vuln を探索し、proof-of-concept 手順を示します |
 | `pr-security-review` | auth、injection、secret、OWASP Top 10 を中心に PR を security review します |
+
 </details>
 
 <details>
@@ -288,6 +292,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `council` | 高リスク判断向けの 4者 adversarial decision council を開催します |
 | `deep-research` | 構造化 synthesis を伴う体系的な複数ソース調査を行います |
 | `using-git-worktrees` | repository を再 clone せずに並列 branch 作業用の分離ディレクトリを作成します |
+
 </details>
 
 <details>
@@ -300,6 +305,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `opportunity-solution-tree` | Teresa Torres の OST フレームワーク |
 | `launch-strategy` | Alpha → Beta → GA の launch checklist |
 | `product-capability` | 要件を AC と traceability を備えた SRS 形式の capability spec に変換します |
+
 </details>
 
 <details>
@@ -311,6 +317,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `e2e-testing` | 重要経路向け E2E test scaffolding |
 | `eval-harness` | SQL 追跡 test case 付きで LLM pipeline 評価スイートを構築します |
 | `browser-devtools` | 実行時 frontend 挙動を検証します（DOM 検証、network 検査、performance profiling） |
+
 </details>
 
 <details>
@@ -321,6 +328,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `ai-visibility` | GEO 最適化：llms.txt、AI crawler access |
 | `content-strategy` | keyword 調査、topic cluster、content calendar |
 | `seo` | technical SEO 監査：Core Web Vitals、structured data、crawl 問題 |
+
 </details>
 
 ### ルール
@@ -366,7 +374,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 
 1つの AI がすべてに最適とは限りません。Claude は推論、Codex は高速実装、Gemini はマルチモーダル理解、Copilot は GitHub 統合に強みがあります。これら **すべて** を1か所から使えたらどうでしょうか。
 
-```
+```text
 ┌──────────────────────────────────────────────────┐
 │                GitHub Copilot CLI                │
 │            (Orchestrator / Meta-Hub)             │
@@ -451,7 +459,7 @@ Copilot CLI は GitHub workflow に最適化されて設計されています。
 
 別の AI coding tool から移行しますか？ skill 形式はほぼ同じため、移行は容易です。
 
-```
+```text
 CLAUDE.md rules        →  .github/copilot-instructions.md
 .claude/commands/      →  skills/
 .claude/settings.json  →  mcp-configs/ & contexts/

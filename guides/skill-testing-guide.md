@@ -66,7 +66,7 @@ Focus regression testing on:
 
 Use this per-skill sandbox to store test prompts, before/after outputs, and evaluator notes.
 
-```
+```text
 skills/<category>/<skill-name>/
   SKILL.md
   _workspace/          ← gitignored test sandbox
@@ -82,7 +82,7 @@ Add `_workspace/` to `.gitignore` (already present in repo).
 
 For repeatable evaluation, use a “Grader” agent prompt to score outputs consistently. This is inspired by a Grader/Comparator/Analyzer style pattern, but kept pragmatic for day-to-day work.
 
-```
+```text
 You are evaluating whether a Copilot CLI skill output is high quality.
 
 Skill name: [skill-name]
@@ -123,6 +123,7 @@ Notes:
 A near-miss is a query that *sounds like* it should trigger the skill but shouldn't — because a simpler or more specific skill is the right choice.
 
 **How to design near-misses:**
+
 1. Take a valid trigger query and weaken/reframe it: change scope ("just one file" vs "the whole repo"), reduce specificity ("check for issues" vs "run a full security scan"), or shift to a different skill's domain.
 2. Verify the near-miss does NOT trigger the skill (if it does, tighten the `NOT when…` clause in the description).
 

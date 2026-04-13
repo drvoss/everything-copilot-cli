@@ -9,6 +9,7 @@ metadata:
 # Refactor & Clean Code
 
 ## When to Use
+
 - Code is correct but hard to read, modify, or extend
 - Duplicated logic exists across multiple files
 - Functions or classes have grown too large
@@ -16,6 +17,7 @@ metadata:
 - After a rapid prototype that needs production-quality cleanup
 
 ## Prerequisites
+
 - Existing tests that cover the code to refactor (add tests first if missing)
 - All tests passing before starting
 - Code committed so you can revert if needed
@@ -23,6 +25,7 @@ metadata:
 ## Workflow
 
 ### 1. Identify Code Smells
+
 ```powershell
 # Find long files (likely doing too much)
 Get-ChildItem -Recurse -Include *.ts,*.js,*.py,*.go | Where-Object { (Get-Content $_.FullName | Measure-Object -Line).Lines -gt 300 } | Select-Object FullName, @{N='Lines';E={(Get-Content $_.FullName | Measure-Object -Line).Lines}}
@@ -35,6 +38,7 @@ grep -n "function.*,.*,.*,.*," src/**/*.ts
 ```
 
 Common smells to look for:
+
 - **Long functions** (>40 lines) — extract smaller functions
 - **Duplicate code** — extract shared utility
 - **Deep nesting** (>3 levels) — use early returns or extract
@@ -43,6 +47,7 @@ Common smells to look for:
 - **Feature envy** — move logic to the class that owns the data
 
 ### 2. Establish a Safety Net
+
 ```powershell
 # Run existing tests and record baseline
 npm test 2>&1 | Tee-Object -Variable baseline
@@ -53,7 +58,9 @@ npm test -- --coverage --collectCoverageFrom="src/module-to-refactor.ts"
 ```
 
 ### 3. Plan the Refactoring
+
 Before touching code, decide on the transformation:
+
 - **Extract Function** — pull a block into a named function
 - **Extract Module** — move related functions to a new file
 - **Rename** — improve names for clarity
@@ -62,7 +69,9 @@ Before touching code, decide on the transformation:
 - **Introduce Parameter Object** — group related parameters
 
 ### 4. Make Small, Incremental Changes
+
 Each change should be:
+
 1. A single refactoring operation
 2. Followed by running tests
 3. Committed if tests pass
@@ -76,6 +85,7 @@ git checkout -- src/module-to-refactor.ts
 ```
 
 ### 5. Verify Behavior is Preserved
+
 ```powershell
 # Full test suite must still pass
 npm test
@@ -87,6 +97,7 @@ npm test -- --coverage
 ## Examples
 
 ### Extract Repeated Logic
+
 ```typescript
 // BEFORE: duplicated validation in multiple handlers
 function createUser(data) {
@@ -107,6 +118,7 @@ function updateUser(data) { validateEmail(data.email); /* ... */ }
 ```
 
 ### Flatten Deep Nesting with Early Returns
+
 ```typescript
 // BEFORE
 function process(input) {
@@ -137,6 +149,7 @@ function process(input) {
 | "TypeScript isn't warning, so it's safe to delete" | Dynamic imports, reflection, and external references are invisible to the type system. |
 
 ## Red Flags
+
 - Refactoring commit contains feature changes
 - Dead code removed without any tests
 - Type errors suppressed with `// @ts-ignore` or `any` types
@@ -144,6 +157,7 @@ function process(input) {
 - Complex code left with "clean up later" TODO and no action
 
 ## Verification
+
 - [ ] `npm test` passes identically before and after the refactor
 - [ ] Removed code confirmed as unused (`grep -rn` or IDE reference search)
 - [ ] Complexity metrics improved (reduced function length, nesting depth)
@@ -151,10 +165,10 @@ function process(input) {
 - [ ] PR describes the motivation for the refactor (why this code was cleaned up)
 
 ## Tips
+
 - **Never refactor and add features in the same commit** — keep them separate
 - Use `explore` agent to understand call graphs before renaming or moving functions
 - Use `grep` to find all callers before changing a function signature
 - If tests are missing, write them first — refactoring without tests is gambling
 - Commit after every successful small refactoring — you can always squash later
 - The best refactoring is deleting code: look for dead code with `grep` and remove it
-

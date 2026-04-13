@@ -64,7 +64,7 @@ performance, security, or maintainability.
 
 ### Example 1: PR Review
 
-```
+```text
 User: "Review PR #42"
 
 Code Reviewer actions:
@@ -88,7 +88,7 @@ Code Reviewer actions:
 
 ### Example 2: Pre-Commit Review
 
-```
+```text
 User: "Review my staged changes"
 
 Code Reviewer actions:
@@ -100,7 +100,7 @@ Code Reviewer actions:
 
 ### Example 3: Module Audit
 
-```
+```text
 User: "Audit the payment processing module"
 
 Code Reviewer actions:

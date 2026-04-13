@@ -25,7 +25,7 @@ services, and repositories.
 
 ### Directory Structure
 
-```
+```text
 src/
 ├── api/
 │   ├── v1/
@@ -132,7 +132,7 @@ python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['proj
 
 ### Common Workflows
 
-```
+```text
 # Add a new endpoint:
 > Use sprint-workflow: new endpoint POST /api/v1/orders
 > Create: OrderCreate schema → OrderService.create() → OrderRepository.save() → route

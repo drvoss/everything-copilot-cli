@@ -30,7 +30,7 @@ manual token management.
 
 Use `list_pull_requests` to see what needs attention:
 
-```
+```text
 Tool: github-mcp-server-list_pull_requests
   owner: "my-org"
   repo: "my-app"
@@ -44,7 +44,7 @@ Tool: github-mcp-server-list_pull_requests
 
 Dive into the code changes with `pull_request_read`:
 
-```
+```text
 Tool: github-mcp-server-pull_request_read
   method: "get_diff"
   owner: "my-org"
@@ -56,7 +56,7 @@ Tool: github-mcp-server-pull_request_read
 
 See if all checks are passing before you review:
 
-```
+```text
 Tool: github-mcp-server-pull_request_read
   method: "get_check_runs"
   owner: "my-org"
@@ -68,7 +68,7 @@ Tool: github-mcp-server-pull_request_read
 
 Pull up the review conversation:
 
-```
+```text
 Tool: github-mcp-server-pull_request_read
   method: "get_review_comments"
   owner: "my-org"
@@ -80,7 +80,7 @@ Tool: github-mcp-server-pull_request_read
 
 Find PRs from a specific contributor:
 
-```
+```text
 Tool: github-mcp-server-search_pull_requests
   query: "author:octocat is:open"
   owner: "my-org"
@@ -92,7 +92,7 @@ Tool: github-mcp-server-search_pull_requests
 ### Morning PR Triage
 
 > "List all open PRs in my-org/api-service sorted by most recently updated,
->  then for each one show me the CI status and a one-line summary of changes."
+> then for each one show me the CI status and a one-line summary of changes."
 
 Copilot calls `list_pull_requests`, iterates results, calls `get_check_runs` and
 `get_files` on each, and returns a concise triage report.
@@ -115,7 +115,7 @@ to open it — all without you writing a single line of markdown.
 
 > "Find all open PRs across my-org that mention 'database migration' in the title"
 
-```
+```text
 Tool: github-mcp-server-search_pull_requests
   query: "database migration in:title is:open org:my-org"
 ```

@@ -8,7 +8,7 @@ No single AI tool excels at everything. Claude Code has 200K context and deep re
 
 Instead of choosing one tool, orchestrate them:
 
-```
+```text
 ┌─────────────────────────────────────────────────────┐
 │                  Copilot CLI (Hub)                   │
 │         GitHub Issues • PRs • Actions • MCP         │
@@ -58,7 +58,7 @@ Instead of choosing one tool, orchestrate them:
 
 ### Pattern Selection Guide
 
-```
+```text
 Need it simple and fast?
   → Pattern 1: Shell Invocation
 
@@ -133,6 +133,7 @@ These open-source projects pioneered multi-agent orchestration patterns:
 ## System Status
 
 > **Current Environment:**
+>
 > - Codex CLI: Latest stable (installed globally via `npm i -g @openai/codex`)
 > - Claude Code: Available via `npx @anthropic-ai/claude-code`
 > - Gemini CLI: Available via `npx @anthropic-ai/gemini-cli` or direct install
@@ -154,7 +155,7 @@ codex "Generate a TypeScript function that validates email addresses"
 
 ## Directory Structure
 
-```
+```text
 orchestration/
 ├── README.md                          # This file
 ├── patterns/

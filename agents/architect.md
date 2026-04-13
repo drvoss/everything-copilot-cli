@@ -60,7 +60,7 @@ evaluating technology trade-offs (e.g., choosing a database, message broker, or 
 
 ### Example 1: Database Selection
 
-```
+```text
 User: "We need to add real-time notifications. Should we use WebSockets, SSE, or polling?"
 
 Architect actions:
@@ -76,7 +76,7 @@ Architect actions:
 
 ### Example 2: Monolith to Services
 
-```
+```text
 User: "Our Express app is getting too large. How should we split it?"
 
 Architect actions:
@@ -89,7 +89,7 @@ Architect actions:
 
 ### Example 3: API Design Review
 
-```
+```text
 User: "Review our API design before we ship v2"
 
 Architect actions:

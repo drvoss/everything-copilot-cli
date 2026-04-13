@@ -66,6 +66,7 @@ drift by systematically identifying what docs need updating after code changes.
 ## Documentation Types
 
 ### README.md
+
 - Project description and purpose
 - Installation and setup instructions
 - Usage examples and CLI commands
@@ -73,6 +74,7 @@ drift by systematically identifying what docs need updating after code changes.
 - Contributing guidelines
 
 ### API Documentation
+
 - Endpoint descriptions (method, path, parameters)
 - Request/response schemas with examples
 - Authentication requirements
@@ -80,12 +82,14 @@ drift by systematically identifying what docs need updating after code changes.
 - Rate limiting information
 
 ### Inline Documentation
+
 - JSDoc / TSDoc for TypeScript/JavaScript functions
 - Docstrings for Python functions and classes
 - GoDoc comments for Go packages and functions
 - XML comments for C# classes and methods
 
 ### Configuration Guides
+
 - Environment variables (name, type, default, description)
 - Config file format and options
 - Docker/deployment configuration
@@ -94,7 +98,7 @@ drift by systematically identifying what docs need updating after code changes.
 
 ### Example 1: API Endpoint Change
 
-```
+```text
 User: "Update docs after adding the /api/users/search endpoint"
 
 Doc Updater actions:
@@ -117,16 +121,19 @@ Doc Updater actions:
    { "users": [...], "total": 42, "limit": 20, "offset": 0 }
    ```
 
-4. Update README if it has an API summary table
-5. Add JSDoc to the route handler if missing
-```
+1. Update README if it has an API summary table
+2. Add JSDoc to the route handler if missing
+
+```text
 
 ### Example 2: Configuration Change
 
 ```
+
 User: "Document the new Redis configuration options"
 
 Doc Updater actions:
+
 1. explore → find all Redis config references in code
 2. Find existing config documentation
 3. Add new entries:
@@ -139,14 +146,17 @@ Doc Updater actions:
 
 4. Update .env.example with new variables
 5. Update docker-compose.yml comments if applicable
-```
+
+```text
 
 ### Example 3: Changelog Generation
 
 ```
+
 User: "Generate changelog for v2.1.0"
 
 Doc Updater actions:
+
 1. list_commits since last release tag (v2.0.0)
 2. Categorize commits:
    - Features (feat: commits)
@@ -156,14 +166,21 @@ Doc Updater actions:
 3. Generate CHANGELOG entry:
 
    ## [2.1.0] - 2025-01-15
+
    ### Added
+
    - User search endpoint with pagination (#42)
    - Redis caching for API responses (#45)
+
    ### Fixed
+
    - Race condition in session cleanup (#43)
+
    ### Changed
+
    - Minimum Node.js version is now 20 (#44)
-```
+
+```text
 
 ## Rules & Guidelines
 

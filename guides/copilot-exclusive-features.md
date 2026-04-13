@@ -39,7 +39,7 @@ setup time and eliminating configuration drift.
 
 The GitHub tools are automatically available. Just ask:
 
-```
+```text
 "List open PRs with failing CI checks"
 "Create a PR from my current branch with a summary of changes"
 "Find the issue that reported this bug"
@@ -61,7 +61,7 @@ The GitHub tools are automatically available. Just ask:
 
 ### Example
 
-```
+```text
 > "The CI is failing on PR #87. Diagnose and fix it."
 
 Copilot CLI will:
@@ -97,7 +97,7 @@ for every task.
 
 Override the default model for any agent with the `model` parameter:
 
-```
+```text
 task(agent_type="explore", model="claude-haiku-4.5", prompt="Find all test files")
 task(agent_type="general-purpose", model="claude-opus-4.6", prompt="Redesign auth")
 ```
@@ -131,7 +131,7 @@ task(agent_type="general-purpose", model="claude-opus-4.6", prompt="Redesign aut
 
 ### Example: Cost-Aware Routing
 
-```
+```text
 Phase 1 — Explore (cheap):     claude-haiku-4.5      → $
 Phase 2 — Plan (standard):     default model          → $$
 Phase 3 — Implement (standard): claude-sonnet-4.6     → $$
@@ -159,16 +159,19 @@ No other AI coding tool offers this integration depth.
 ### How to Use It
 
 **Shared configuration (both tools read these):**
+
 - `.github/copilot-instructions.md` — project instructions
 - `AGENTS.md` — agent definitions
 - `.vscode/mcp.json` — MCP server configurations
 
 **IDE-first workflow:**
+
 1. Use VS Code Copilot chat to explore and understand code
 2. Use inline completions for quick single-file edits
 3. Switch to CLI for multi-file batch operations or autonomous execution
 
 **CLI-first workflow:**
+
 1. Use CLI to plan and implement changes autonomously
 2. Switch to VS Code to review diffs visually
 3. Use IDE debugger to verify behavior
@@ -176,7 +179,7 @@ No other AI coding tool offers this integration depth.
 
 ### Example: Full-Cycle Development
 
-```
+```text
 1. VS Code: Explore codebase with Copilot chat, understand the auth module
 2. CLI:     "Implement OAuth2 login — plan mode" → approve plan
 3. CLI:     Autopilot executes the plan across 8 files
@@ -208,7 +211,7 @@ early and ensures alignment before any code is written.
 
 **Plan Mode workflow:**
 
-```
+```text
 1. Request enters plan mode    → Copilot analyzes the task
 2. Plan created (plan.md)      → Structured breakdown with todos
 3. Plan presented in terminal    → You review and approve/modify
@@ -240,6 +243,7 @@ AND NOT EXISTS (
 ```
 
 **Approval options:**
+
 - **Accept** — proceed with the plan
 - **Accept + Autopilot** — execute autonomously
 - **Accept + Fleet** — parallelize independent tasks
@@ -247,7 +251,7 @@ AND NOT EXISTS (
 
 ### Example
 
-```
+```text
 > "Add comprehensive error handling to the API. Use plan mode."
 
 Plan created:
@@ -281,18 +285,21 @@ while Copilot works.
 ### How to Use It
 
 **When to use autopilot:**
+
 - Task is well-defined with clear scope
 - You've reviewed the plan in plan mode
 - Changes are reversible (git tracked)
 - Tests exist to validate the result
 
 **When NOT to use autopilot:**
+
 - Exploratory tasks with unclear requirements
 - Security-sensitive changes (credentials, permissions)
 - Database migrations or destructive operations
 - First time working in an unfamiliar codebase
 
 **Safety guardrails:**
+
 - Changes are git-tracked — easy to revert
 - Copilot follows existing project conventions
 - Tool permissions are still enforced
@@ -300,7 +307,7 @@ while Copilot works.
 
 ### Example
 
-```
+```text
 > "Add input validation to all API endpoints. Autopilot."
 
 Copilot autonomously:
@@ -335,7 +342,7 @@ agent's draft PR on GitHub when it's ready.
 
 Prefix any prompt with `&` (or use `/delegate [PROMPT]`) to hand off to the cloud agent:
 
-```
+```text
 # Delegate to cloud Copilot coding agent — terminal is immediately free
 & "Add pagination to the /api/users endpoint and write integration tests"
 
@@ -353,7 +360,7 @@ Prefix any prompt with `&` (or use `/delegate [PROMPT]`) to hand off to the clou
 delegation results. Use it when you want to continue the conversation after reviewing
 the draft PR:
 
-```
+```text
 # List recent sessions
 /resume
 
@@ -366,7 +373,7 @@ the draft PR:
 
 ### Example
 
-```
+```text
 # Delegate a long-running task to the cloud agent
 & "Migrate all REST endpoints to use the new auth middleware"
 
@@ -402,7 +409,7 @@ these tasks with no manual coordination.
 
 **Task decomposition strategy:**
 
-```
+```text
 1. Identify independent units (no shared state, no file overlap)
 2. Write self-contained prompts (agents are stateless)
 3. Include all context each agent needs
@@ -411,6 +418,7 @@ these tasks with no manual coordination.
 ```
 
 **Good fleet candidates:**
+
 - Adding tests for independent modules
 - Updating configuration files
 - Reviewing multiple PRs
@@ -418,13 +426,14 @@ these tasks with no manual coordination.
 - Generating documentation for separate components
 
 **Bad fleet candidates:**
+
 - Tasks that modify the same files (merge conflicts)
 - Sequential operations (migrations, ordered deployments)
 - Tasks requiring shared state (use SQL + sequential instead)
 
 ### Example
 
-```
+```text
 > "Add unit tests for all 6 service modules. Use fleet."
 
 Fleet decomposes into 6 independent agents:
@@ -530,7 +539,7 @@ SELECT status, COUNT(*) as count FROM test_cases GROUP BY status;
 The `/chronicle` command leverages the session database to generate automatic summaries
 of your work, productivity insights, and standup-ready reports:
 
-```
+```text
 # Enable experimental features first
 /experimental on
 
@@ -583,7 +592,7 @@ with full conversation history and context.
 
 ### Example
 
-```
+```text
 > "I fixed a similar caching bug last week. Find what I did."
 
 Copilot searches session_store:
@@ -640,7 +649,7 @@ Orchestration lets you leverage all of them from a single interface.
 
 ### Example: Full Workflow Orchestration
 
-```
+```text
 1. Copilot CLI: Gather requirements from GitHub issues
 2. Claude Code: Design architecture (deep reasoning, 200K context)
 3. Codex CLI:   Rapid prototype implementation (fast, sandboxed)

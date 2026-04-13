@@ -10,6 +10,7 @@ metadata:
 # Eval Harness
 
 Build a reproducible evaluation harness for LLM pipelines, AI features, or agent workflows. The harness consists of:
+
 - **Eval definitions** — test cases with inputs, expected outputs, and scoring rubrics
 - **Runner** — executes the pipeline against all test cases
 - **Scorer** — applies rubrics and records results
@@ -32,7 +33,7 @@ Build a reproducible evaluation harness for LLM pipelines, AI features, or agent
 
 ## Eval Directory Layout
 
-```
+```text
 .evals/
   <harness-name>/
     config.json          # harness metadata
@@ -50,7 +51,7 @@ Build a reproducible evaluation harness for LLM pipelines, AI features, or agent
 
 ### 1. Define the eval scope
 
-```
+```text
 What pipeline or feature are you evaluating?
 What does "good" output look like?
 What are the critical failure modes?
@@ -123,6 +124,7 @@ CREATE TABLE IF NOT EXISTS eval_results (
 ### 5. Run and record
 
 For each test case:
+
 1. Submit input to the pipeline
 2. Compare output to rubric
 3. Record `pass` / `fail` and score
@@ -137,12 +139,14 @@ INSERT INTO eval_runs VALUES ('run_001', 'summarizer', '2024-01-15', 10, 8, 2, '
 ### 6. Analyze and act
 
 Interpret results:
+
 - < 60% pass rate → pipeline needs rework before shipping
 - 60–80% → document known failures, consider mitigations
 - 80–95% → acceptable for beta / early access
 - > 95% → confidence for general availability
 
 On regression (previously passing, now failing):
+
 - Compare pipeline changes since last green run
 - Identify if the test case itself needs updating or if the regression is real
 

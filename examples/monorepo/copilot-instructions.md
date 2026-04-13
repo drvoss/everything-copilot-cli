@@ -24,7 +24,7 @@ TypeScript libraries, and a React Native mobile app.
 
 ### Workspace Structure
 
-```
+```text
 /
 ├── apps/
 │   ├── web/                  # @app/web — Next.js frontend

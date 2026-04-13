@@ -42,6 +42,7 @@ Before designing the team, verify all of the following:
 Copilot CLI reads the request, identifies the domains involved, and decomposes work into parallelizable units.
 
 Outputs to produce in this phase:
+
 - Domain list (e.g., security / performance / architecture / docs / testing)
 - Rough effort estimate
 - Risks and coordination points (shared files, ordering constraints)
@@ -112,7 +113,7 @@ Dispatch each assignment using either:
 
 Run each assignment as a **background** agent so you can keep working while they run:
 
-```
+```text
 task:
   agent_type: "code-review"
   name: "security-review"
@@ -134,7 +135,7 @@ task:
 
 #### Option B: Dispatch with `/fleet` (automatic fan-out)
 
-```
+```text
 /fleet Audit our API for security, performance, and architecture issues. Split the work into parallel specialists and report back with prioritized findings.
 ```
 
@@ -199,7 +200,7 @@ Use a `general-purpose` agent as the “editor-in-chief”:
 - Resolves conflicts between findings
 - Produces one consolidated deliverable: prioritized issues, owners, and next actions
 
-```
+```text
 task:
   agent_type: "general-purpose"
   name: "synthesizer"
@@ -232,6 +233,7 @@ Goal: **“Audit our API for security, performance, and architecture issues.”*
    - A `general-purpose` synthesizer merges findings into a single prioritized remediation plan.
 
 Deliverable format (recommended):
+
 - 🔴 Critical (must fix)
 - 🟡 Important (should fix)
 - 🟢 Opportunistic (nice-to-have)

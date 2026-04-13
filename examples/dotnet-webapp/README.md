@@ -11,7 +11,7 @@ test patterns that AI assistants routinely violate.
 
 ## Project Structure (assumed)
 
-```
+```text
 dotnet-webapp/
 ├── .github/
 │   └── copilot-instructions.md   ← copy this to your project

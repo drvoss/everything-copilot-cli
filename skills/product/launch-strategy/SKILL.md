@@ -24,7 +24,7 @@ ensuring nothing falls through the cracks.
 
 ### Product Readiness
 
-```
+```text
 > Evaluate our launch readiness against these criteria:
 > - Core use case works end-to-end without errors
 > - Onboarding is < 5 minutes to first value
@@ -35,7 +35,7 @@ ensuring nothing falls through the cracks.
 
 ### Positioning and Messaging
 
-```
+```text
 > Help me write the positioning for [product/feature]:
 >
 > 1. One-liner: "[Product] is the [category] for [target customer] who [key need]"
@@ -47,7 +47,7 @@ ensuring nothing falls through the cracks.
 
 ### Distribution Channels
 
-```
+```text
 > For [product type], help me identify the best launch channels:
 >
 > Our target users: [describe ICP]
@@ -58,6 +58,7 @@ ensuring nothing falls through the cracks.
 ```
 
 Common channels to evaluate:
+
 - Product Hunt (best for developer tools, B2C, SaaS)
 - Hacker News: Show HN (best for technical audiences)
 - Twitter/X product announcement thread
@@ -68,7 +69,7 @@ Common channels to evaluate:
 
 ### Success Metrics
 
-```
+```text
 > Define success metrics for our [tier] launch:
 >
 > Primary: [the one number that matters most]
@@ -80,7 +81,7 @@ Common channels to evaluate:
 
 ## Launch Plan Template
 
-```
+```text
 > Create a launch plan document for [product/feature]:
 >
 > Launch date: [date]
@@ -124,7 +125,7 @@ ORDER BY phase, category;
 
 ## Post-Launch Review
 
-```
+```text
 > We launched [X] on [date]. Here are our results:
 > [metrics]
 >

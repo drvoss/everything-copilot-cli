@@ -13,13 +13,13 @@ helps you build a data-driven content plan — not a random blog schedule.
 
 ## Core Framework
 
-```
+```text
 Business Goal → Target Audience → Keyword Research → Topic Clusters → Content Calendar
 ```
 
 ## Step 1: Define Your Content Goals
 
-```
+```text
 > Help me define a content strategy for [product/company]:
 >
 > Product: [what you sell]
@@ -31,6 +31,7 @@ Business Goal → Target Audience → Keyword Research → Topic Clusters → Co
 ```
 
 Content strategy types:
+
 - **SEO-led**: Target high-volume keywords; build organic traffic at scale
 - **Authority-led**: Publish original research, opinions, and deep expertise
 - **Product-led**: Content that drives product usage (tutorials, use cases)
@@ -40,7 +41,7 @@ Content strategy types:
 
 ### Seed Keywords
 
-```
+```text
 > I'm building a content strategy for [product/niche].
 >
 > Generate 20 seed keywords organized by intent:
@@ -54,7 +55,7 @@ Content strategy types:
 
 ### Long-tail Expansion
 
-```
+```text
 > For the seed keyword "[main keyword]":
 > Generate 15 long-tail variations that:
 > - Have lower competition
@@ -66,7 +67,7 @@ Content strategy types:
 
 ### Content Gap Analysis
 
-```
+```text
 > Our top competitors in this space are: [Competitor A, B, C]
 >
 > Based on what I know about their content strategies, what topic areas
@@ -80,7 +81,7 @@ Content strategy types:
 
 Build content clusters to establish authority in a topic area:
 
-```
+```text
 > Design a topic cluster for the pillar keyword: "[main topic]"
 >
 > Include:
@@ -97,12 +98,13 @@ Build content clusters to establish authority in a topic area:
 ```
 
 Example cluster for "product analytics":
+
 - Pillar: "The Complete Guide to Product Analytics"
 - Cluster: "How to Set Up Funnel Analysis", "Product Analytics vs. Web Analytics", "Best Product Analytics Tools", etc.
 
 ## Step 4: Content Calendar
 
-```
+```text
 > Create a 12-week content calendar based on this strategy:
 >
 > Publishing cadence: [2x per week / 1x per week / 2x per month]
@@ -141,7 +143,7 @@ ORDER BY priority_score DESC;
 
 For each content piece, generate a brief:
 
-```
+```text
 > Write a content brief for: "[article title]"
 >
 > Target keyword: [keyword]
@@ -159,7 +161,7 @@ For each content piece, generate a brief:
 
 ## Content Performance Review
 
-```
+```text
 > Analyze this content's performance:
 >
 > URL: [URL]

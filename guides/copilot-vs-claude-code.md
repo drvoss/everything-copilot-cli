@@ -78,7 +78,7 @@ Copilot CLI has **built-in access** to GitHub's entire platform — PRs, issues,
 code search, repository management — without any MCP setup. This is its strongest
 advantage for teams using GitHub.
 
-```
+```text
 "List failing CI jobs for PR #142" → instant, no config needed
 "Create a PR with these changes"  → one command
 "Search code across all our repos" → GitHub's code search engine
@@ -192,7 +192,7 @@ users sharing configurations, skills, and patterns.
 
 This is where Copilot CLI fundamentally differs from Claude Code:
 
-```
+```text
                     ┌─────────────────┐
                     │   Copilot CLI   │
                     │   (Meta-Hub)    │

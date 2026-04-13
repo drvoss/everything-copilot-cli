@@ -121,7 +121,7 @@ copilot
 
 ## 仓库结构
 
-```
+```text
 everything-copilot-cli/
 ├── agents/                        # Agent definitions (8 core agents)
 │   ├── planner.md
@@ -219,6 +219,7 @@ everything-copilot-cli/
 | `team-planner` | 通过 SQL roster + `/fleet` 分发，组建专家 agent 团队 |
 | `agentic-engineering` | 设计 15 分钟任务单元、eval-first 循环与显式 I/O 契约 |
 | `stack-detector` | 扫描项目技术栈并推荐本集合中的相关 skills 与规则 |
+
 </details>
 
 <details>
@@ -247,6 +248,7 @@ everything-copilot-cli/
 | `nextjs-prisma` | 面向 Next.js App Router + Prisma 项目的类型安全数据获取与 Server Actions |
 | `react-vitest` | 面向 React + Vitest 项目的组件测试配置与模式 |
 | `nestjs-prisma` | 面向 NestJS + Prisma 的 PrismaService 单例、仓储模式与单元测试 |
+
 </details>
 
 <details>
@@ -259,6 +261,7 @@ everything-copilot-cli/
 | `api-documentation` | 从源码生成并维护 API 文档 |
 | `code-tour` | 生成用于代码库入门的 VS Code CodeTour `.tour` 文件 |
 | `architecture-decisions` | 以 Architecture Decision Records（ADR）记录难以逆转的技术决策 |
+
 </details>
 
 <details>
@@ -272,6 +275,7 @@ everything-copilot-cli/
 | `input-validation` | 防止注入攻击（SQL、XSS、CSRF） |
 | `security-bounty-hunter` | 以漏洞赏金视角进行漏洞挖掘，并提供 PoC 步骤 |
 | `pr-security-review` | 围绕认证、注入、密钥与 OWASP Top 10 的 PR 安全分析 |
+
 </details>
 
 <details>
@@ -288,6 +292,7 @@ everything-copilot-cli/
 | `council` | 为高风险决策召集四方对抗式决策 council |
 | `deep-research` | 系统化多源研究与结构化综合 |
 | `using-git-worktrees` | 无需重复克隆仓库即可为并行分支工作创建独立工作目录 |
+
 </details>
 
 <details>
@@ -300,6 +305,7 @@ everything-copilot-cli/
 | `opportunity-solution-tree` | Teresa Torres 的 OST 框架 |
 | `launch-strategy` | Alpha → Beta → GA 发布清单 |
 | `product-capability` | 将需求转化为 SRS 风格 capability 规范，包含 AC 与可追踪性 |
+
 </details>
 
 <details>
@@ -311,6 +317,7 @@ everything-copilot-cli/
 | `e2e-testing` | 为关键路径搭建 E2E 测试脚手架 |
 | `eval-harness` | 构建带 SQL 跟踪测试用例的 LLM pipeline 评估套件 |
 | `browser-devtools` | 在运行时验证前端行为——DOM 校验、网络检查、性能分析 |
+
 </details>
 
 <details>
@@ -321,6 +328,7 @@ everything-copilot-cli/
 | `ai-visibility` | GEO 优化：llms.txt、AI 爬虫访问 |
 | `content-strategy` | 关键词研究、主题集群、内容日历 |
 | `seo` | 技术 SEO 审计：Core Web Vitals、结构化数据、抓取问题 |
+
 </details>
 
 ### 规则
@@ -366,7 +374,7 @@ everything-copilot-cli/
 
 没有任何单一 AI 在所有场景都最优。Claude 擅长推理，Codex 擅长快速实现，Gemini 擅长多模态理解，而 Copilot 擅长 GitHub 集成。那如果你能在一个地方使用**它们全部**呢？
 
-```
+```text
 ┌──────────────────────────────────────────────────┐
 │                GitHub Copilot CLI                │
 │            (Orchestrator / Meta-Hub)             │
@@ -451,7 +459,7 @@ Copilot CLI 围绕你的 GitHub 工作流而构建。以下能力开箱即用：
 
 从其他 AI 编码工具迁移而来？skill 格式几乎一致，因此迁移非常直接：
 
-```
+```text
 CLAUDE.md rules        →  .github/copilot-instructions.md
 .claude/commands/      →  skills/
 .claude/settings.json  →  mcp-configs/ & contexts/

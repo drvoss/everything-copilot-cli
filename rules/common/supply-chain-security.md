@@ -28,12 +28,14 @@ Apply these whenever adding, upgrading, or auditing third-party packages.
 ## Installation Scripts
 
 - **Disable install scripts** where possible:
+
   ```bash
   # npm / pnpm
   npm install --ignore-scripts
   # or set in .npmrc:
   ignore-scripts=true
   ```
+
 - Audit `postinstall`, `preinstall` scripts in `node_modules` for suspicious behavior
 - Use tools like `socket.dev` or `npm audit` to flag packages with install-time side effects
 
@@ -46,18 +48,21 @@ Apply these whenever adding, upgrading, or auditing third-party packages.
 ## CI/CD Hardening
 
 - Pin GitHub Actions to a specific commit SHA, not a tag:
+
   ```yaml
   # Bad
   uses: actions/checkout@v4
   # Good
   uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
   ```
+
 - Restrict workflow permissions to the minimum required (`contents: read`, etc.)
 - Use `CODEOWNERS` to require review of workflow file changes
 
 ## AI Agent-Specific Rules
 
 When an AI agent (Copilot, Codex, Claude, etc.) suggests installing a package:
+
 - Do **not** run the install command without human review
 - Verify the package name carefully — AI agents can hallucinate package names
 - Cross-check suggested packages against known registries before accepting
