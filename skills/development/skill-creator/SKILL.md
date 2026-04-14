@@ -175,7 +175,7 @@ npm run validate && npm run lint:md && npm test
 
 Fix any markdownlint errors before committing.
 
-### 5. Register in skills/README.md
+### 6. Register in skills/README.md
 
 Add a row to the skills catalog table:
 

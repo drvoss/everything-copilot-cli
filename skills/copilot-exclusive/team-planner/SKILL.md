@@ -4,6 +4,7 @@ description: Use when a task is too large or multi-domain for a single agent —
 metadata:
   category: copilot-exclusive
   agent_type: general-purpose
+  copilot_feature: "task tool, /fleet, session SQL database, read_agent/write_agent"
 ---
 
 # Team Planner (Copilot-Native)
