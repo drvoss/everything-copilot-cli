@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="66 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="67 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -133,8 +133,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (66 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (17)
+├── skills/                        # Reusable workflow skills (67 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (18)
 │   ├── development/               #   Dev skills (16)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
@@ -192,12 +192,12 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 66 个 · 8 个类别）
+### 技能（Skill）（共 67 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
 <details>
-<summary><strong>★ Copilot 专属技能（17）</strong></summary>
+<summary><strong>★ Copilot 专属技能（18）</strong></summary>
 
 利用 GitHub Copilot CLI 独有能力的 skills：
 
@@ -220,6 +220,7 @@ everything-copilot-cli/
 | `agentic-engineering` | 设计 15 分钟任务单元、eval-first 循环与显式 I/O 契约 |
 | `stack-detector` | 扫描项目技术栈并推荐本集合中的相关 skills 与规则 |
 | `task-intake-router` | 将传入任务路由到合适的模式、agent type、模型与委托路径 |
+| `ecosystem-intake` | 将精选生态来源转成 adopt/adapt/reject 待办候选 |
 
 </details>
 

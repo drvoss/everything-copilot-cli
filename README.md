@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="66 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="67 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -140,8 +140,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (66 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (17)
+├── skills/                        # Reusable workflow skills (67 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (18)
 │   ├── development/               #   Dev skills (16)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
@@ -199,12 +199,12 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (66 Total · 8 Categories)
+### Skills (67 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>★ Copilot-Exclusive Skills (17)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (18)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
@@ -227,6 +227,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `agentic-engineering` | Design 15-min task units, eval-first loops, and explicit I/O contracts |
 | `stack-detector` | Scan project tech stack and recommend relevant skills and rules from this collection |
 | `task-intake-router` | Route incoming work to the right mode, agent type, model, and delegation path |
+| `ecosystem-intake` | Convert curated ecosystem sources into adopt/adapt/reject backlog candidates |
 
 </details>
 

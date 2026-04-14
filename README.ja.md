@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="66 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="67 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -133,8 +133,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (66 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (17)
+├── skills/                        # Reusable workflow skills (67 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (18)
 │   ├── development/               #   Dev skills (16)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
@@ -192,12 +192,12 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計66・8カテゴリ）
+### スキル（合計67・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
 <details>
-<summary><strong>★ Copilot 専用 Skills（17）</strong></summary>
+<summary><strong>★ Copilot 専用 Skills（18）</strong></summary>
 
 GitHub Copilot CLI 固有の機能を活用する skill です。
 
@@ -220,6 +220,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `agentic-engineering` | 15分単位の task、eval-first ループ、明示的 I/O 契約を設計します |
 | `stack-detector` | project tech stack をスキャンし、このコレクションの関連 skill と rule を推奨します |
 | `task-intake-router` | 受け取った依頼を適切な mode、agent type、model、委任経路へルーティングします |
+| `ecosystem-intake` | キュレーション済み ecosystem source を adopt/adapt/reject の backlog 候補へ変換します |
 
 </details>
 
