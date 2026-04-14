@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="64 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="66 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -133,13 +133,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (64개)
-│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (16개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (66개)
+│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (17개)
 │   ├── development/               #   개발 스킬 (16개)
 │   ├── documentation/             #   문서화 스킬 (5개)
 │   ├── security/                  #   보안 스킬 (6개)
 │   ├── testing/                   #   테스팅 스킬 (4개)
-│   ├── workflow/                  #   워크플로우 스킬 (9개)
+│   ├── workflow/                  #   워크플로우 스킬 (10개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │
@@ -192,12 +192,12 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 64개 · 8개 카테고리)
+### 스킬 (총 66개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
 <details>
-<summary><strong>★ Copilot 전용 스킬 (16개)</strong></summary>
+<summary><strong>★ Copilot 전용 스킬 (17개)</strong></summary>
 
 GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
@@ -219,6 +219,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `team-planner` | SQL 로스터 + `/fleet` 디스패치로 전문가 팀 구성 |
 | `agentic-engineering` | 15분 단위 작업 설계, eval-first 루프, 명시적 I/O 계약 |
 | `stack-detector` | 프로젝트 기술 스택 감지 후 컬렉션 내 관련 스킬·룰셋 추천 |
+| `task-intake-router` | 들어온 작업을 적절한 모드, agent type, 모델, 위임 경로로 라우팅 |
 
 </details>
 
@@ -279,13 +280,14 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (9개)</strong></summary>
+<summary><strong>워크플로우 스킬 (10개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `commit-workflow` | 컨벤셔널 커밋 + 이모지, 원자적 분할 가이드 |
 | `release` | 태그 → GitHub Release → 배포 (npm/PyPI/Docker) |
-| `sprint-workflow` | 전체 스프린트: 구상 → 계획 → 구축 → 리뷰 → 출시 |
+| `sprint-workflow` | 전체 스프린트: 구상 → 계획 → 구축 → 리뷰 → 테스트 → 출시 → 모니터링 |
+| `deployment-canary` | 출시 후 카나리 점검, 롤백 기준, promote/hold 판단 |
 | `security-audit` | OWASP Top 10 + STRIDE 위협 모델링 |
 | `sprint-retro` | git 메트릭을 활용한 데이터 기반 회고 |
 | `cost-audit` | AI 토큰 비용 감사 및 모델/프롬프트 최적화 권고 |

@@ -107,6 +107,34 @@ You: "First, analyze all class components and list what would change.
 # Then: "OK, now execute the conversions in autopilot mode"
 ```
 
+#### Pattern 5: Careful Scope Lock
+
+When a task is safe to automate but the blast radius must stay narrow, tell Copilot exactly
+what is frozen:
+
+```text
+You: "Use autopilot, but be careful:
+      - Only touch files under src/auth/
+      - Do not change config, CI, or lockfiles
+      - Stop and report if the plan requires out-of-scope edits"
+```
+
+This is the practical equivalent of a **careful** mode: autonomous execution with hard scope
+boundaries and an explicit stop condition.
+
+#### Pattern 6: Freeze Approved Files
+
+After review, keep the approved surface stable while autopilot finishes the remaining work:
+
+```text
+You: "Freeze these files unless a blocker forces a change:
+      - src/contracts/*
+      - docs/api.md
+      Continue autopilot only on the implementation files."
+```
+
+Use this when some outputs are already reviewed, signed off, or shared with another team.
+
 ## Examples
 
 ### Safe Autopilot for Code Migration
@@ -151,7 +179,7 @@ You: "Add JSDoc to all exported functions in src/. Use autopilot, run
       the TypeScript compiler after each file to verify no errors."
 ```
 
-#### Pattern 5: Ralph Wiggum Autonomous Loop
+#### Pattern 7: Ralph Wiggum Autonomous Loop
 
 An autonomous improvement cycle that repeats until an exit condition is met. Use for iterative quality improvement tasks where the number of passes is unknown upfront.
 
@@ -209,6 +237,8 @@ UPDATE loop_state SET
   safety net. Worst case, you delete the branch.
 - **Include tests in every todo**: The single best guardrail for autopilot
   is automated test verification at each step.
+- **Use careful/freeze language explicitly**: if scope must stay narrow, say what is
+  locked and when autopilot must stop rather than assuming it will infer the boundary.
 - **Start small**: First time using autopilot? Try it on a 3-todo task.
   Build confidence before running 20-todo autopilot sessions.
 - **Know when NOT to autopilot**: Security-critical code, database migrations,

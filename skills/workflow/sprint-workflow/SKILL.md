@@ -1,6 +1,6 @@
 ---
 name: sprint-workflow
-description: Use when starting a new feature, refactor, or multi-step dev task — runs the full sprint cycle (Think → Plan → Build → Review → Test → Ship) using Copilot CLI's plan/autopilot modes.
+description: Use when starting a new feature, refactor, or multi-step dev task — runs the full sprint cycle (Think → Plan → Build → Review → Test → Ship → Monitor) using Copilot CLI's plan/autopilot modes.
 metadata:
   category: workflow
 ---
@@ -10,7 +10,7 @@ metadata:
 A structured end-to-end development sprint using Copilot CLI's full capability stack.
 Inspired by Garry Tan's gstack approach — each step feeds the next, nothing falls through.
 
-**Think → Plan → Build → Review → Test → Ship**
+**Think → Plan → Build → Review → Test → Ship → Monitor**
 
 ## When to Use
 
@@ -134,6 +134,19 @@ For comprehensive E2E verification:
 > - Screenshots or examples if applicable
 ```
 
+### Step 7: Monitor — Validate the Release in a Safe Blast Radius
+
+Shipping code is not the end of the sprint. For runtime systems, add an observation gate:
+
+```text
+> Start a post-ship canary for this release.
+> Define the watch window, health signals, rollback triggers, and promotion criteria.
+```
+
+Use [`deployment-canary`](../deployment-canary/SKILL.md) when the release touches production
+traffic, feature flags, or customer-facing flows. If the release is package-only, replace the
+canary with a smoke verification step.
+
 ## Full Example
 
 ```text
@@ -158,6 +171,9 @@ For comprehensive E2E verification:
 
 # Step 6: Ship
 & "Create a PR: Fix slow product queries — add DB index + query optimization"
+
+# Step 7: Monitor
+> Run a canary for the release candidate. Hold or roll back if p95 latency or error rate regress.
 ```
 
 ## Output Format
@@ -172,6 +188,7 @@ Each step produces verifiable output:
 | Review | `[PASS]`/`[CONCERN]`/`[BLOCK]` per category | Address all BLOCKs before continuing |
 | Test | Test run output (pass count, coverage delta) | Zero regressions; new tests for new behaviour |
 | Ship | PR URL + description | PR description references the plan |
+| Monitor | Canary or smoke verification result | Explicitly record PROMOTE / HOLD / ROLLBACK |
 
 ### `/review` Output Interpretation
 
@@ -205,6 +222,7 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 
 - Sprint started without a definition of done
 - Features merged within the sprint without tests
+- Production-impacting releases shipped with no observation window
 - Next sprint started immediately without a retrospective
 - Sprint goal is missing or has too many objectives (5+)
 - PRs merged directly to main without review
@@ -214,6 +232,7 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 - [ ] Sprint goal defined in 1–3 clear sentences
 - [ ] Every task has explicit acceptance criteria
 - [ ] All PRs merged by sprint end passed code review
+- [ ] Runtime releases included a canary or smoke-monitoring step
 - [ ] `sprint-retro` skill used for a data-driven retrospective
 - [ ] Next sprint backlog prepared
 
@@ -223,6 +242,7 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 - **Autopilot with full permissions** (`--yolo`) speeds up execution but review the plan carefully first.
 - **`/review` before every PR** — the signal-to-noise is high, it surfaces real issues.
 - **Use `/diff` to sanity-check** scope before shipping — did Copilot change more than planned?
+- **Do not skip the watch window**: if the change reaches users, the sprint includes monitoring, not only PR creation.
 - **Reference the plan in the PR description** — use `/session plan` to surface it.
 
 ## See Also
@@ -230,4 +250,5 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 - [`fix-github-issue`](../../development/fix-github-issue/SKILL.md) — Issue-driven variant of this sprint workflow
 - [`commit-workflow`](../commit-workflow/SKILL.md) — Conventional commit + emoji for the Ship step
 - [`pr-multi-perspective-review`](../../development/pr-multi-perspective-review/SKILL.md) — Deeper 6-lens review for the Review step
+- [`deployment-canary`](../deployment-canary/SKILL.md) — post-ship rollout monitoring and rollback gates
 - [`sprint-retro`](../sprint-retro/SKILL.md) — Retrospective after the sprint completes

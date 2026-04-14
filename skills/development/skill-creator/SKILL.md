@@ -16,6 +16,7 @@ and this skill generates a complete, convention-compliant SKILL.md file ready to
 - You want to add a new skill but are unsure of the required structure
 - You have a workflow in mind and want to formalize it as a skill
 - You are migrating a skill from another source and need to adapt it to this repo's format
+- You need to translate an external slash-command or Claude-oriented pattern into Copilot-native primitives
 - Bootstrapping multiple skills quickly for a new domain
 
 ## When NOT to Use
@@ -69,6 +70,9 @@ description: Use when [trigger condition] — [one-line description of output]
 metadata:
   category: [category]
   agent_type: general-purpose
+  # Optional when clearly useful:
+  # copilot_feature: "[Copilot CLI feature or primitive]"
+  # origin: "ported and adapted from [source]"
 ---
 
 # [Title Case Name]
@@ -140,7 +144,29 @@ mkdir "skills/[category]/[skill-name]" -Force
 # skills/[category]/[skill-name]/SKILL.md
 ```
 
-### 4. Validate
+### 4. Port External Skills Intentionally
+
+If the source came from Claude Code, an awesome list, or another skill collection,
+**adapt the concept instead of copying source-specific primitives verbatim**.
+
+Use this translation rubric:
+
+| External concept | Copilot-native target |
+|------------------|-----------------------|
+| Slash command | skill or workflow section |
+| Claude hook / event primitive | guidance, checklist, or repo-maintenance note |
+| Subagent naming / mentions | `task` agent types, `/fleet`, or `team-planner` roles |
+| Team/task registry | SQL tables |
+| Model recommendation | `multi-model-strategy` or per-agent `model` override |
+
+Before finalizing the skill, answer:
+
+1. What user problem is worth preserving from the source?
+2. Which source primitives do **not** exist in Copilot CLI?
+3. What is the nearest Copilot-native equivalent?
+4. Should the result be a new skill, or an update to an existing one?
+
+### 5. Validate
 
 ```powershell
 # Run the full validation suite
@@ -163,6 +189,7 @@ After generating a new skill, verify:
 
 - [ ] Frontmatter has `name`, `description`, and `metadata.category`
 - [ ] File name is kebab-case and matches `name` in frontmatter
+- [ ] Source-specific concepts were translated into Copilot-native primitives instead of copied blindly
 - [ ] "When to Use" section has ≥ 3 concrete trigger scenarios
 - [ ] "When NOT to Use" table directs to alternatives
 - [ ] Workflow has numbered steps with concrete commands or examples
@@ -199,6 +226,8 @@ metadata:
   actually reach for this skill. Make triggers concrete and scenario-specific.
 - **Verification criteria drive quality**: vague verifications like "it works" are useless.
   Write criteria an agent can check with a command or an observable outcome.
+- **Port the job, not the syntax**: preserve the workflow value from upstream sources,
+  but translate slash commands, hooks, and agent primitives into Copilot CLI equivalents.
 - **Link related skills**: skills are more powerful when chained. Cross-reference skills
   in "See Also" or "Tips" sections.
 - **Use this skill first**: before creating any new skill in this repository, run

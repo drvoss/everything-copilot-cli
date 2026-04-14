@@ -18,6 +18,9 @@ Copilot CLI’s actual primitives:
 - SQL **session database** for tracking (`sql` tool)
 - `read_agent` / `write_agent` for monitoring and follow-ups
 
+The lead planner acts as the **conductor**: it assigns ownership, coordinates sequencing,
+and decides when a second model should challenge or review another agent's output.
+
 ## When to Use
 
 - Task spans **3+ domains** (e.g., security + performance + architecture)
@@ -102,6 +105,37 @@ INSERT INTO assignments (id, agent_id, task, input_context, status) VALUES
   ('a-arch-1','arch', 'Evaluate architecture risks and suggest refactors',               'Focus on boundaries, coupling, module ownership, API contracts',            'pending');
 ```
 
+#### Conductor Pattern
+
+For medium and large efforts, make one agent the explicit coordinator:
+
+- **Conductor** — decomposes, dispatches, resolves overlap, and synthesizes
+- **Implementers** — own the edits or generation tasks
+- **Reviewers** — validate outputs from a different lens or model
+
+The conductor should own:
+
+1. Shared file boundaries
+2. Dependency ordering
+3. Review handoffs
+4. Final merge or synthesis criteria
+
+#### Pair-Agent Review Loop
+
+When quality matters more than raw speed, pair two agents on the same subproblem with
+different roles:
+
+1. **Builder** — implements or drafts the output
+2. **Checker** — reviews, challenges assumptions, or red-teams the result
+
+Good pairings:
+
+- `general-purpose` builder + `code-review` checker
+- `gpt-5.3-codex` implementer + `claude-sonnet-4.6` reviewer
+- `explore` researcher + `general-purpose` synthesizer
+
+If both agents need to edit the same files, do it sequentially rather than concurrently.
+
 ### Phase 4: Dispatch
 
 Dispatch each assignment using either:
@@ -168,6 +202,9 @@ $assignments | ForEach-Object {
 ```
 
 > Tip: after each `task` call returns an `agent_id` (run id), store it back into `assignments.agent_run_id`.
+
+Use [`multi-model-strategy`](../multi-model-strategy/SKILL.md) to assign stronger review
+models to the checker role without spending premium tokens on every agent in the batch.
 
 ### Phase 5: Monitor
 
@@ -244,3 +281,5 @@ Each item includes: evidence (paths), impact, and a concrete fix.
 - `orchestration/patterns/hierarchical-delegation.md`
 - `orchestration/patterns/fan-out-parallel.md`
 - `orchestration/skills/multi-ai-handoff.md`
+- [`multi-model-strategy`](../multi-model-strategy/SKILL.md)
+- [`task-intake-router`](../task-intake-router/SKILL.md)

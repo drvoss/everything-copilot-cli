@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="64 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="66 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -133,13 +133,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (64 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (16)
+├── skills/                        # Reusable workflow skills (66 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (17)
 │   ├── development/               #   Dev skills (16)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
 │   ├── testing/                   #   Test skills (4)
-│   ├── workflow/                  #   Workflow skills (9)
+│   ├── workflow/                  #   Workflow skills (10)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -192,12 +192,12 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計64・8カテゴリ）
+### スキル（合計66・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
 <details>
-<summary><strong>★ Copilot 専用 Skills（16）</strong></summary>
+<summary><strong>★ Copilot 専用 Skills（17）</strong></summary>
 
 GitHub Copilot CLI 固有の機能を活用する skill です。
 
@@ -219,6 +219,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `team-planner` | SQL roster + `/fleet` dispatch で専門 agent チームを編成します |
 | `agentic-engineering` | 15分単位の task、eval-first ループ、明示的 I/O 契約を設計します |
 | `stack-detector` | project tech stack をスキャンし、このコレクションの関連 skill と rule を推奨します |
+| `task-intake-router` | 受け取った依頼を適切な mode、agent type、model、委任経路へルーティングします |
 
 </details>
 
@@ -279,13 +280,14 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（9）</strong></summary>
+<summary><strong>ワークフロー Skills（10）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
 | `commit-workflow` | Conventional commit + emoji、atomic split ガイダンス |
 | `release` | tag → GitHub Release → publish（npm/PyPI/Docker） |
-| `sprint-workflow` | sprint 全体：Think → Plan → Build → Review → Ship |
+| `sprint-workflow` | sprint 全体：Think → Plan → Build → Review → Test → Ship → Monitor |
+| `deployment-canary` | release 後の canary 監視、rollback 閾値、promote/hold 判断を定義します |
 | `security-audit` | OWASP Top 10 + STRIDE threat modeling |
 | `sprint-retro` | git metrics に基づくデータ駆動 retro |
 | `cost-audit` | AI inference token コストを監査し、model/prompt 最適化を提案します |

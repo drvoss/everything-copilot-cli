@@ -23,6 +23,7 @@ cross-provider optimization.
 - Using premium models for security-critical or architecturally complex work
 - Running different models for different sub-agents in the same session
 - A/B testing model quality on the same task
+- Pairing implementation and review models on the same workflow
 
 ## Workflow
 
@@ -96,6 +97,22 @@ Phase 4 - Review (premium):        claude-opus-4.6
 Phase 5 - Test generation (fast):  gpt-5.1-codex-mini
 ```
 
+### 4. Pair-Model Workflow
+
+Do not think only in terms of one "best" model. Many tasks are safer when split into
+specialized roles:
+
+| Role | Recommended model | Why |
+|------|-------------------|-----|
+| Builder | `gpt-5.3-codex` | Strong code transformation and implementation speed |
+| Planner / synthesizer | `gpt-5.4` or `claude-sonnet-4.6` | Balanced reasoning and summarization |
+| Security / architecture reviewer | `claude-opus-4.6` or `gpt-5.4` | Stronger high-risk judgment |
+| Scout / file search | `claude-haiku-4.5` | Fast, cheap exploration |
+
+This works especially well with [`task-intake-router`](../task-intake-router/SKILL.md)
+and [`team-planner`](../team-planner/SKILL.md), where the route and agent roster are
+decided before implementation begins.
+
 ## Examples
 
 ### Security Audit with Premium Model
@@ -133,12 +150,24 @@ task(agent_type: "general-purpose", model: "claude-sonnet-4.6",
 
 Compare outputs to find which model produces better code for your use case.
 
+### Builder + Reviewer Pairing
+
+```text
+task(agent_type: "general-purpose", model: "gpt-5.3-codex",
+     prompt: "Implement the pagination changes described in plan.md")
+
+task(agent_type: "code-review", model: "claude-sonnet-4.6",
+     prompt: "Review the pagination changes for correctness, test gaps, and API regressions")
+```
+
 ## Tips
 
 - **Default to standard tier**: Models like `claude-sonnet-4.6` or `gpt-5.3-codex`
   handle 90% of tasks well. Only switch for specific reasons.
 - **Use Haiku for exploration**: The `explore` agent defaults to Haiku for a reason —
   it's fast, cheap, and great for codebase navigation.
+- **Route first, then choose models**: decide the execution path with `task-intake-router`
+  before spending premium tokens.
 - **Premium for high-stakes**: Reserve Opus for security reviews, architecture
   decisions, and complex debugging. The cost is worth it for critical code.
 - **Codex variants for code**: GPT Codex models are specifically fine-tuned for code

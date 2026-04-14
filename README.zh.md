@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="64 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="66 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -133,13 +133,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (64 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (16)
+├── skills/                        # Reusable workflow skills (66 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (17)
 │   ├── development/               #   Dev skills (16)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
 │   ├── testing/                   #   Test skills (4)
-│   ├── workflow/                  #   Workflow skills (9)
+│   ├── workflow/                  #   Workflow skills (10)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -192,12 +192,12 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 64 个 · 8 个类别）
+### 技能（Skill）（共 66 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
 <details>
-<summary><strong>★ Copilot 专属技能（16）</strong></summary>
+<summary><strong>★ Copilot 专属技能（17）</strong></summary>
 
 利用 GitHub Copilot CLI 独有能力的 skills：
 
@@ -219,6 +219,7 @@ everything-copilot-cli/
 | `team-planner` | 通过 SQL roster + `/fleet` 分发，组建专家 agent 团队 |
 | `agentic-engineering` | 设计 15 分钟任务单元、eval-first 循环与显式 I/O 契约 |
 | `stack-detector` | 扫描项目技术栈并推荐本集合中的相关 skills 与规则 |
+| `task-intake-router` | 将传入任务路由到合适的模式、agent type、模型与委托路径 |
 
 </details>
 
@@ -279,13 +280,14 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>工作流技能（9）</strong></summary>
+<summary><strong>工作流技能（10）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
 | `commit-workflow` | Conventional commits + emoji，以及原子化拆分指导 |
 | `release` | tag → GitHub Release → 发布（npm/PyPI/Docker） |
-| `sprint-workflow` | 完整冲刺流程：Think → Plan → Build → Review → Ship |
+| `sprint-workflow` | 完整冲刺流程：Think → Plan → Build → Review → Test → Ship → Monitor |
+| `deployment-canary` | 发布后 canary 检查、回滚阈值，以及 promote/hold 决策 |
 | `security-audit` | OWASP Top 10 + STRIDE 威胁建模 |
 | `sprint-retro` | 基于 git 指标的数据驱动复盘 |
 | `cost-audit` | 审计 AI 推理 token 开销，并给出模型/prompt 优化建议 |

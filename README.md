@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="64 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="66 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -140,13 +140,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (64 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (16)
+├── skills/                        # Reusable workflow skills (66 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (17)
 │   ├── development/               #   Dev skills (16)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
 │   ├── testing/                   #   Test skills (4)
-│   ├── workflow/                  #   Workflow skills (9)
+│   ├── workflow/                  #   Workflow skills (10)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -199,12 +199,12 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (64 Total · 8 Categories)
+### Skills (66 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>★ Copilot-Exclusive Skills (16)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (17)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
@@ -226,6 +226,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `team-planner` | Assemble specialist agent teams via SQL roster + `/fleet` dispatch |
 | `agentic-engineering` | Design 15-min task units, eval-first loops, and explicit I/O contracts |
 | `stack-detector` | Scan project tech stack and recommend relevant skills and rules from this collection |
+| `task-intake-router` | Route incoming work to the right mode, agent type, model, and delegation path |
 
 </details>
 
@@ -286,13 +287,14 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Workflow Skills (9)</strong></summary>
+<summary><strong>Workflow Skills (10)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `commit-workflow` | Conventional commits + emoji, atomic split guidance |
 | `release` | tag → GitHub Release → publish (npm/PyPI/Docker) |
-| `sprint-workflow` | Full sprint: Think → Plan → Build → Review → Ship |
+| `sprint-workflow` | Full sprint: Think → Plan → Build → Review → Test → Ship → Monitor |
+| `deployment-canary` | Post-release canary checks, rollback thresholds, and promote/hold decisions |
 | `security-audit` | OWASP Top 10 + STRIDE threat modeling |
 | `sprint-retro` | Data-driven retros using git metrics |
 | `cost-audit` | Audit AI inference token spend and recommend model/prompt optimizations |

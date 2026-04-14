@@ -1,6 +1,6 @@
 ---
 name: release
-description: Use when a sprint or feature is complete and ready to ship — tags the version, generates GitHub Release notes, and publishes to npm/PyPI/Docker registries.
+description: Use when a sprint or feature is complete and ready to ship — tags the version, generates GitHub Release notes, runs rollout or smoke verification, and publishes to npm/PyPI/Docker registries.
 metadata:
   category: workflow
   agent_type: general-purpose
@@ -148,7 +148,39 @@ gh release create $tag `
 > [paste the version section content]
 ```
 
-### 7. Publish Package (If Applicable)
+### 7. Run Rollout or Smoke Verification
+
+After the tag and GitHub Release exist, verify the release in the smallest safe blast radius.
+
+**For deployed services or apps:**
+
+Use [`deployment-canary`](../deployment-canary/SKILL.md) before broad rollout:
+
+```text
+> Start a canary for release [version].
+> Define the watch window, primary signals, and rollback thresholds.
+> Tell me whether to PROMOTE, HOLD, or ROLLBACK.
+```
+
+**For libraries and CLIs with no runtime rollout:**
+
+Run the narrowest possible smoke verification before public publish:
+
+```powershell
+# Example: install the package tarball in a clean temp folder
+npm pack
+$tarball = Get-ChildItem -Filter "*.tgz" | Select-Object -First 1
+
+New-Item -ItemType Directory -Force -Path ".release-smoke" | Out-Null
+Push-Location ".release-smoke"
+npm init -y
+npm install "..\$($tarball.Name)"
+Pop-Location
+```
+
+If the verification fails, fix the issue before public promotion.
+
+### 8. Publish Package (If Applicable)
 
 **npm:**
 
@@ -222,7 +254,7 @@ gh release create "v1.2.0" --generate-notes
 
 - Deploying directly to main without a version tag
 - CHANGELOG filled only with vague entries like "various fixes"
-- No smoke test before release
+- No canary or smoke verification before wider rollout
 - Semantic versioning violations (bumping patch version for a breaking change)
 
 ## Verification
@@ -231,6 +263,7 @@ gh release create "v1.2.0" --generate-notes
 - [ ] CHANGELOG records this version's changes (breaking changes explicitly noted)
 - [ ] Git tag created in `v{version}` format
 - [ ] GitHub Release notes written
+- [ ] Canary or smoke verification completed for the release type
 - [ ] npm/PyPI/Registry publish confirmed successful
 
 ## Tips
@@ -239,11 +272,13 @@ gh release create "v1.2.0" --generate-notes
 - **Annotated tags > lightweight tags**: annotated tags appear in GitHub Releases and `git describe`
 - **Tag before publishing**: always push the tag before publishing to npm/PyPI — the tag is the source of truth for the version
 - **Check CI first**: confirm the branch is green before tagging (`gh pr view` or check Actions)
+- **Release is not the end**: for runtime systems, promotion should be gated by a canary, not by hope
 - **Hotfix releases**: for patch fixes, create from a release branch, not main — `git checkout -b release/1.2.x v1.2.0`
 
 ## See Also
 
 - [`add-to-changelog`](../../documentation/add-to-changelog/SKILL.md) — prepare CHANGELOG before releasing
 - [`commit-workflow`](../commit-workflow/SKILL.md) — the start of the pipeline
+- [`deployment-canary`](../deployment-canary/SKILL.md) — monitor the release before broad rollout
 - [Semantic Versioning](https://semver.org/)
 - [GitHub Releases docs](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository)
