@@ -114,6 +114,28 @@ git worktree prune
 - [ ] `git worktree list` shows the expected layout
 - [ ] Finished worktrees are removed and pruned
 
+## Runtime Notes
+
+### Claude Code: Enter an Existing Worktree
+
+Claude Code v2.1.105+ exposes `EnterWorktree(path)` for switching into an
+existing worktree of the current repository.
+
+Use it after the orchestrator or human has already created the worktree with
+`git worktree add`. Keep worktree creation and cleanup Git-native; use
+`EnterWorktree` only to place a Claude subagent inside the correct checkout.
+
+```text
+EnterWorktree(path: "/path/to/existing-worktree")
+```
+
+Pattern:
+
+1. Create the worktree with `git worktree add`
+2. Pass the exact worktree path to the subagent
+3. Enter that checkout with `EnterWorktree`
+4. Keep one subagent per worktree
+
 ## See Also
 
 - [`fleet-parallel`](../../copilot-exclusive/fleet-parallel/SKILL.md) — distribute independent work in parallel

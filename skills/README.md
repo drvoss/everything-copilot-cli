@@ -178,6 +178,7 @@ Skills for improving test coverage and quality.
 | [`e2e-testing`](testing/e2e-testing/SKILL.md) | Write and run end-to-end tests |
 | [`eval-harness`](testing/eval-harness/SKILL.md) | Use when you need to evaluate an LLM pipeline or AI feature systematically — sets up test cases, scoring rubrics, and pass/fail tracking |
 | [`test-coverage`](testing/test-coverage/SKILL.md) | Analyze and improve test coverage |
+| [`ux-audit`](testing/ux-audit/SKILL.md) | Use when a page or component feels confusing and you need a structured UX audit — applies 6 Krug-inspired usability checks and returns prioritized findings |
 
 ### 🔄 Workflow (`workflow/`)
 
