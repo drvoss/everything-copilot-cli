@@ -103,7 +103,9 @@ fleet mode, plan mode, and GitHub integration.
 | [`autopilot-patterns`](copilot-exclusive/autopilot-patterns/SKILL.md) | Use when you're ready to let Copilot execute a multi-step plan autonomously — configures guardrails and handles plan-to-autopilot transitions |
 | [`background-agent`](copilot-exclusive/background-agent/SKILL.md) | Use when a task is too long to block the current session — delegates to a cloud background agent via `&` or `/delegate` and opens a draft PR |
 | [`context-prime`](copilot-exclusive/context-prime/SKILL.md) | Invoke when starting a session (or resuming after a break) on a repo before making changes, to load live project context |
-| [`cross-session-memory`](copilot-exclusive/cross-session-memory/SKILL.md) | Use when you need to remember context, decisions, or artifacts across multiple sessions — writes to session store and resumes via /resume |
+| [`cross-session-memory`](copilot-exclusive/cross-session-memory/SKILL.md) | Use when you need to recover prior context, decisions, or artifacts across sessions — search history and resume with the right state |
+| [`knowledge-curator`](copilot-exclusive/knowledge-curator/SKILL.md) | Use when recurring project lessons should be promoted from session context into durable instructions, docs, or decision records |
+| [`scope-guard`](copilot-exclusive/scope-guard/SKILL.md) | Use when a task must stay inside a narrow writable boundary or when risky commands need an explicit stop rule |
 | [`fleet-parallel`](copilot-exclusive/fleet-parallel/SKILL.md) | Use when you need to run the same task across many files or contexts in parallel — triggers /fleet mode for batch operations |
 | [`github-issue-triage`](copilot-exclusive/github-issue-triage/SKILL.md) | Use when you have a backlog of unorganized GitHub Issues — bulk-labels, prioritizes, and assigns at scale |
 | [`github-pr-workflow`](copilot-exclusive/github-pr-workflow/SKILL.md) | Use when creating, reviewing, or merging a PR — runs the full PR lifecycle through Copilot's built-in GitHub MCP |

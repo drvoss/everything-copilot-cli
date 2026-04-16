@@ -19,6 +19,7 @@ Claude Code supports hooks for the following events:
 | `Notification` | When the AI session requests attention |
 | `Stop` | When the AI session completes |
 | `SubagentStop` | When a subagent completes |
+| `PreCompact` | Right before Claude Code compacts a long-running session |
 
 **Key difference**: Claude Code Hooks respond to *AI session lifecycle* events.
 Copilot CLI does not have a direct equivalent mechanism.
@@ -37,6 +38,33 @@ The table below shows ways to achieve similar effects in the Copilot ecosystem b
 | `Stop` | Generate a summary after the AI session ends | GitHub Actions (when PR is created) | Manual | — |
 | `Notification` | Send notifications | GitHub Actions (Slack/Email) | `gh` CLI notification | — |
 | `SubagentStop` | Aggregate subagent results | [Fleet + GitHub Actions](#alternative-2-github-actions) | Orchestration pattern | — |
+| `PreCompact` | Save state before context resets | Session artifacts or session SQL notes | [Prompt-Level Guard](#alternative-3-prompt-level-guards) | — |
+
+---
+
+## PreCompact Pattern: Save State Before Context Resets
+
+Claude Code's `PreCompact` hook runs right before a long session is compacted. Copilot CLI does
+not have a lifecycle hook for that moment, so treat it as a **manual checkpointing pattern**
+instead of a direct equivalent.
+
+Useful Copilot equivalents:
+
+- Save the current plan or working summary to a session artifact file
+- Update SQL todo state before a long context-heavy phase
+- Add a short prompt checkpoint before continuing a long-running task
+
+Example prompt:
+
+```text
+Before we continue, summarize the current plan, completed steps, open blockers, and pending
+decisions. Save that summary to the session workspace so we can resume accurately if context is
+trimmed or the session restarts.
+```
+
+This pairs well with
+[`cross-session-memory`](../skills/copilot-exclusive/cross-session-memory/SKILL.md),
+which helps you find and resume prior session context later.
 
 ---
 

@@ -91,6 +91,27 @@ git worktree remove --force ..\repo-feature-api
 git worktree prune
 ```
 
+## For Copilot Orchestrators: Direct Agents into the Right Worktree
+
+Copilot CLI does not expose a dedicated `EnterWorktree` tool. The safe equivalent is to put
+the agent in the correct checkout up front and restate that boundary in the brief.
+
+Use a prompt that names the exact worktree path and forbids edits in the main checkout:
+
+```text
+Work only in C:\work\repo-feature-api.
+Treat that worktree as your writable surface.
+Read the main checkout for reference if needed, but do not edit, create, or delete files there.
+```
+
+Operational rules:
+
+- Launch each background or delegated agent from the intended worktree, or give it commands that
+  explicitly `Set-Location` into that path before it edits anything.
+- Keep one active branch and one primary owner per worktree.
+- If multiple agents need different branches, create multiple worktrees rather than sharing one.
+- Pair this with a narrow file brief when the worktree still contains too much writable surface.
+
 ## Windows Tips
 
 - Prefer relative sibling paths like `..\repo-feature-api`
@@ -139,5 +160,6 @@ Pattern:
 ## See Also
 
 - [`fleet-parallel`](../../copilot-exclusive/fleet-parallel/SKILL.md) — distribute independent work in parallel
+- [`scope-guard`](../../copilot-exclusive/scope-guard/SKILL.md) — narrow writable scope inside a checkout or worktree
 - [`github-pr-workflow`](../../copilot-exclusive/github-pr-workflow/SKILL.md) — move isolated branch work into PR flow
 - [`commit-workflow`](../commit-workflow/SKILL.md) — keep each branch's commits clean and atomic

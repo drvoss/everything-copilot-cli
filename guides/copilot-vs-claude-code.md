@@ -41,11 +41,14 @@ unique capabilities.
 | Background Agents | ✅ Native async (`&`/`/delegate` + `/resume`) | ❌ No support | Cloud delegation with resumable sessions |
 | Fleet Parallel Execution | ✅ Native fleet mode (`/fleet`) | ⚠️ Git worktrees | Copilot's fleet is more integrated |
 | Agent Multi-Turn | ✅ Background conversations | ⚠️ Limited | Send follow-ups to running agents |
+| Human-in-the-loop gate | ✅ Plan Mode approval | ✅ `defer` permission (v2.1.89) | Both gate risky work, but Claude does it with hook permissions and Copilot does it with plan approval |
 | **Planning & Execution** | | | |
 | Plan Mode | ✅ Structured text planning (Shift+Tab) | ⚠️ Basic `/plan` | Both are terminal text-based; Copilot builds a full implementation plan before coding |
 | Autopilot Mode _(Experimental)_ | ✅ Native mode | ⚠️ `--dangerously-skip-permissions` / `--autoaccept` | Copilot's approach is more controlled; both require explicit activation |
 | SQL Task Tracking | ✅ Built-in SQLite | ❌ File-based | Query todos, track state with SQL |
 | Todo Dependencies | ✅ SQL dependency graph | ❌ Manual tracking | Automatically find "ready" tasks |
+| Context compression hook | ⚠️ No direct hook; use manual checkpoints | ✅ `PreCompact` hook (v2.1.105) | Claude exposes a lifecycle primitive; Copilot relies on prompt discipline, session files, and `/resume` |
+| Existing worktree entry | ⚠️ Use the chosen checkout or prompt boundary | ✅ `EnterWorktree` (v2.1.105) | Claude has a first-class tool; Copilot uses normal Git worktree selection |
 | **Memory & State** | | | |
 | Session Database | ✅ SQL built-in | ❌ None | Structured state that survives compaction |
 | Cross-Session Memory | ✅ `session_store` read-only DB (experimental) | ⚠️ `CLAUDE.md` + hooks + memory files | Both approaches are evolving; Claude Code has more options |
@@ -59,7 +62,7 @@ unique capabilities.
 | MCP Protocol | ✅ Client + server | ✅ Client + server | Both support MCP |
 | Agent Council | ✅ Multi-tool deliberation | ❌ Single-tool | Bring multiple AIs to decisions |
 | **Extensibility** | | | |
-| Skill Library | ✅ 64 curated skills in this collection | ⚠️ Community libraries vary by source | This repository currently ships 64 Copilot skills; cross-tool counts are not normalized |
+| Skill Library | ✅ 70 curated skills in this collection | ⚠️ Community libraries vary by source | This repository currently ships 70 Copilot skills; cross-tool counts are not normalized |
 | Hook System | ⚠️ No direct in-session equivalent | ✅ Full lifecycle hooks | Copilot relies on Git hooks, GitHub Actions, and prompt guards instead |
 | Custom Commands | ✅ Slash commands + plugins | ✅ Slash commands | Both support custom commands |
 | Security Scanning | ⚠️ Via skills | ⚠️ Via skills | Both rely on security skill workflows |
@@ -162,7 +165,7 @@ specialization means agents are more focused and effective at their specific tas
 
 ### 2. More Mature Community Skill Ecosystem
 
-This repository currently ships 64 Copilot skills. Claude Code's ecosystem may still
+This repository currently ships 70 Copilot skills. Claude Code's ecosystem may still
 feel more mature in some teams because its community has shared reusable skills and
 hook-based workflows for longer.
 

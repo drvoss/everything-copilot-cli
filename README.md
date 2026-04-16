@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="67 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="70 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -57,7 +57,7 @@ GitHub Copilot CLI offers **11 key strengths** that make it the ideal hub for AI
 | 6 | **Background Agents** | Delegate to cloud Copilot agents via `&` or `/delegate`; resume anytime with `/resume`. |
 | 7 | **Fleet Mode** | Parallel agent execution — split work across multiple agents simultaneously. |
 | 8 | **Session SQL Database** | Built-in SQLite per session for structured data, todo tracking, and state. |
-| 9 | **Cross-Session Memory** | Persistent knowledge via `session_store` — learn across sessions. |
+| 9 | **Cross-Session Memory** | Search and reuse prior session history via `session_store`. |
 | 10 | **LSP First-Class Support** | Language Server Protocol integration for precise code intelligence. |
 | 11 | **Multi-AI Orchestrator** | Orchestrate Claude Code, Codex, Gemini CLI from Copilot as the meta-hub. |
 
@@ -140,8 +140,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (67 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (18)
+├── skills/                        # Reusable workflow skills (70 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (20)
 │   ├── development/               #   Dev skills (16)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
@@ -199,12 +199,12 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (67 Total · 8 Categories)
+### Skills (70 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>★ Copilot-Exclusive Skills (18)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (20)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
@@ -219,10 +219,12 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `github-pr-workflow` | Full PR lifecycle via built-in GitHub MCP |
 | `github-issue-triage` | Bulk issue classification and triage |
 | `actions-debugging` | Debug CI failures with native Actions access |
-| `cross-session-memory` | Persist knowledge across sessions |
+| `cross-session-memory` | Search and resume prior session context |
+| `knowledge-curator` | Promote repeated lessons into durable project guidance |
 | `multi-model-strategy` | Pick the right model per task |
 | `mcp-ecosystem` | Extend with custom MCP servers |
 | `ide-switching` | Seamless VS Code ↔ CLI context sharing |
+| `scope-guard` | Lock a task to a narrow writable surface and add explicit stop rules for risky work |
 | `team-planner` | Assemble specialist agent teams via SQL roster + `/fleet` dispatch |
 | `agentic-engineering` | Design 15-min task units, eval-first loops, and explicit I/O contracts |
 | `stack-detector` | Scan project tech stack and recommend relevant skills and rules from this collection |
@@ -457,7 +459,7 @@ Copilot CLI is purpose-built around your GitHub workflow. Here's what you get ou
 | **Background Agents** | Delegate to cloud agents via `&` / `/delegate`; resume with `/resume` |
 | **Fleet Mode** | Parallel agent execution — split work across multiple agents simultaneously |
 | **Session SQL Database** | Built-in SQLite per session for structured state and todo tracking |
-| **Cross-Session Memory** | Persist knowledge via `session_store` — learn and recall across sessions |
+| **Cross-Session Memory** | Search prior session history with `session_store` and `/resume` |
 | **LSP Integration** | Language Server Protocol for precise, symbol-aware code intelligence |
 | **Multi-AI Orchestration** | Coordinate Claude Code, Codex, Gemini CLI from a single hub |
 

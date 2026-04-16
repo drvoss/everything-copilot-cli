@@ -1,6 +1,6 @@
 ---
 name: cross-session-memory
-description: Use when you need to remember context, decisions, or artifacts across multiple Copilot CLI sessions — writes persistent knowledge to session store and resumes with full context via /resume.
+description: Use when you need to recover context, decisions, or artifacts across multiple Copilot CLI sessions — search prior session history and resume with the right files, notes, and state.
 metadata:
   category: copilot-exclusive
   copilot_feature: "Session resume (/resume), session store (session_store database), session artifacts"
