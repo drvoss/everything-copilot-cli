@@ -1,7 +1,8 @@
 ---
 name: sprint-workflow
-description: Use when starting a new feature, refactor, or multi-step dev task — runs the full sprint cycle (Think → Plan → Build → Review → Test → Ship → Monitor) using Copilot CLI's plan/autopilot modes.
+description: "Runs a structured end-to-end development sprint — frames the problem, generates an implementation plan, builds via autopilot, reviews code, runs tests, creates a PR, and monitors the release. Use when starting a new feature, implementing a refactor, building a multi-step dev task, or running an end-to-end development workflow with Copilot CLI's plan and autopilot modes."
 metadata:
+  version: 1.0.0
   category: workflow
 ---
 
@@ -209,23 +210,12 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 # - No debug code or temporary files
 ```
 
-## Common Rationalizations
-
-| Rationalization | Reality |
-|----------------|---------|
-| "Skip planning, start coding now" | Sprints without a plan lose direction mid-way. An hour in Plan Mode saves three hours of rework. |
-| "Reviews can wait until next sprint" | Features merged without review accumulate technical debt. Review must be part of the definition of done. |
-| "Tests after the feature stabilizes" | Stabilization never comes. Once shipped, there's no time to add tests. |
-| "Deadline approaching, lower the quality bar" | Low-quality 'done' features return as bugs in the next sprint. |
-
 ## Red Flags
 
-- Sprint started without a definition of done
-- Features merged within the sprint without tests
+- Sprint started without a definition of done or has too many objectives (5+)
+- Features merged without tests or code review
 - Production-impacting releases shipped with no observation window
 - Next sprint started immediately without a retrospective
-- Sprint goal is missing or has too many objectives (5+)
-- PRs merged directly to main without review
 
 ## Verification
 
@@ -235,15 +225,6 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 - [ ] Runtime releases included a canary or smoke-monitoring step
 - [ ] `sprint-retro` skill used for a data-driven retrospective
 - [ ] Next sprint backlog prepared
-
-## Tips
-
-- **Plan Mode is not optional** for features > 1 file. It prevents costly mid-build corrections.
-- **Autopilot with full permissions** (`--yolo`) speeds up execution but review the plan carefully first.
-- **`/review` before every PR** — the signal-to-noise is high, it surfaces real issues.
-- **Use `/diff` to sanity-check** scope before shipping — did Copilot change more than planned?
-- **Do not skip the watch window**: if the change reaches users, the sprint includes monitoring, not only PR creation.
-- **Reference the plan in the PR description** — use `/session plan` to surface it.
 
 ## See Also
 

@@ -1,7 +1,8 @@
 ---
 name: api-documentation
-description: Use when source code has changed and API docs are stale, or a new endpoint lacks documentation — generates accurate docs from implementation, not guesswork.
+description: "Parses endpoint handlers, extracts request/response schemas, and generates accurate API reference documentation from implementation. Use when source code has changed and API docs are stale, a new endpoint lacks documentation, generating OpenAPI/Swagger specs, creating REST API references, or synchronizing docs with code."
 metadata:
+  version: 1.0.0
   category: documentation
   agent_type: general-purpose
 ---
@@ -15,12 +16,6 @@ metadata:
 - Preparing API reference docs for external consumers
 - Ensuring API docs stay synchronized with implementation
 - Creating OpenAPI/Swagger specifications from existing code
-
-## Prerequisites
-
-- API source code with route definitions
-- Understanding of the API framework (Express, FastAPI, Gin, etc.)
-- Knowledge of request/response formats and authentication requirements
 
 ## Workflow
 
@@ -43,6 +38,8 @@ Use `explore` agent for a comprehensive map:
 task agent_type: "explore"
 prompt: "Map all API endpoints in this project. For each endpoint list: HTTP method, path, handler function name, file location, and any middleware applied."
 ```
+
+**Checkpoint**: Cross-reference discovered routes against route registration files to confirm all endpoints are captured before proceeding.
 
 ### 2. Document Each Endpoint
 
@@ -165,12 +162,10 @@ grep -rn "export.*function\|export.*const.*=" src/controllers/users.ts -A 15
 | DELETE | /api/users/:id | Delete user | Admin |
 ```
 
-## Tips
+## Verification
 
-- **Generate from code** when possible — manually written docs drift from reality
-- Include `curl` examples for every endpoint — they're the most portable format
-- Document error responses, not just success cases
-- Add rate limiting and pagination details if applicable
-- Version your API docs alongside API code (same branch, same PR)
-- Use `task` agent to verify documented curl commands actually work against the API
-- Include a Postman collection or similar importable format for API consumers
+- [ ] All discovered endpoints have corresponding documentation
+- [ ] Each documented endpoint includes request/response schemas and error codes
+- [ ] curl examples have been tested against a running server
+- [ ] Generated OpenAPI spec (if applicable) validates without errors
+- [ ] Documentation matches the current implementation, not stale behavior

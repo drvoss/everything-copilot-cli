@@ -1,7 +1,8 @@
 ---
 name: test-coverage
-description: Use when test coverage falls below target or a new module has no tests — identifies untested code paths and writes targeted unit or integration tests to close the coverage gap.
+description: "Identifies untested code paths via coverage analysis and writes targeted unit or integration tests to close the gap. Use when test coverage falls below target, a new module has no tests, preparing for a release, or adding a safety net before refactoring. Covers coverage reports, missing tests, uncovered branches, and test gaps."
 metadata:
+  version: 1.0.0
   category: testing
   agent_type: general-purpose
 ---
@@ -15,12 +16,6 @@ metadata:
 - Preparing for a release and need confidence in code correctness
 - Refactoring requires a safety net of comprehensive tests
 - Team has set a coverage target that needs to be met
-
-## Prerequisites
-
-- Test framework configured with coverage reporting
-- Baseline coverage report available or generatable
-- Understanding of which code is critical vs. low-risk
 
 ## Workflow
 
@@ -157,21 +152,11 @@ task agent_type: "task"
 prompt: "Run 'npm test -- --coverage' and report the coverage summary. List any files below 80% line coverage."
 ```
 
-## Common Rationalizations
-
-| Rationalization | Reality |
-|----------------|---------|
-| "80% coverage is good enough" | 80% is the minimum. What matters more is which 20% isn't covered. |
-| "100% coverage is impractical" | Core business logic and security-critical code should target 100% branch coverage. |
-| "High coverage means high quality" | Coverage measures lines executed, not assertion quality. |
-| "This file is hard to test" | Hard-to-test code is a signal of poor design. Improve the interface. |
-
 ## Red Flags
 
-- High coverage numbers but tests with no assertions (`expect(true).toBe(true)`)
+- Tests with no meaningful assertions (`expect(true).toBe(true)`)
 - No tests for error paths (catch blocks, failure cases)
 - Coverage drops when new features are added
-- Far fewer test files than source files
 - Only happy path tested, no edge cases
 
 ## Verification
@@ -184,10 +169,5 @@ prompt: "Run 'npm test -- --coverage' and report the coverage summary. List any 
 
 ## Tips
 
-- **Don't chase 100%** — aim for 80%+ overall, 90%+ on critical paths
 - Cover **branches**, not just lines — branch coverage catches more bugs
-- Test behavior, not implementation — tests should survive refactoring
-- Use `explore` agent to understand complex functions before writing tests
-- Write the test name first as a sentence describing expected behavior
-- If code is hard to test, it may need refactoring (dependency injection, smaller functions)
 - Add coverage thresholds to CI so coverage can't silently regress

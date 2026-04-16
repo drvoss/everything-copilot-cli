@@ -1,7 +1,8 @@
 ---
 name: security-scan
-description: Use when you want a quick security pass on code changes or dependencies — checks OWASP Top 10 patterns, runs dependency audits, and surfaces critical vulnerabilities with targeted fixes.
+description: "Performs a quick security pass on code changes or dependencies — checks OWASP Top 10 patterns, runs dependency audits (npm audit, pip audit, go vuln), detects hardcoded secrets, and surfaces critical vulnerabilities with targeted fixes. Use when reviewing code for security issues, checking for CVEs, running a security review, auditing supply chain dependencies, or preparing for a release."
 metadata:
+  version: 1.0.0
   category: security
   agent_type: general-purpose
 ---
@@ -15,12 +16,6 @@ metadata:
 - During periodic security reviews
 - When onboarding to an unfamiliar codebase
 - After a security incident to check for similar vulnerabilities
-
-## Prerequisites
-
-- Access to the project source code and dependency manifests
-- Package manager CLI available (npm, pip, go, etc.)
-- Understanding of the application's architecture (web, API, CLI, etc.)
 
 ## Workflow
 
@@ -37,7 +32,7 @@ pip audit 2>&1
 go vuln check ./... 2>&1
 ```
 
-Review findings by severity and fix critical/high issues:
+**Checkpoint**: If critical/high findings exist, resolve them before proceeding to code review.
 
 ```powershell
 # Auto-fix where possible
@@ -156,15 +151,6 @@ For new features or significant changes, apply STRIDE before scanning:
 | 🟡 **Medium** | 4.0–6.9 | Missing rate limiting, weak crypto | Fix next sprint |
 | 🔵 **Low** | 0.1–3.9 | Verbose error messages, info disclosure | Backlog |
 
-## Common Rationalizations
-
-| Rationalization | Reality |
-|----------------|---------|
-| "It's an internal tool, security matters less" | A compromised internal tool grants access to all internal systems. |
-| "Our dependencies are well-vetted" | Supply chain attacks on npm/PyPI packages happen continuously. |
-| "Frontend already validates input" | Frontend validation is for UX. Backend validation is for security. |
-| "We use an ORM, so SQL injection isn't a concern" | Raw queries, dynamic queries, and ORM misuse are still vulnerable. |
-
 ## Red Flags
 
 - Use of `eval()`, `exec()`, `subprocess(shell=True)`
@@ -180,15 +166,6 @@ For new features or significant changes, apply STRIDE before scanning:
 - [ ] OWASP Top 10 checklist completed
 - [ ] Server-side validation present for all user inputs
 - [ ] Security headers verified (CSP, HSTS, X-Frame-Options)
-
-## Tips
-
-- Run `npm audit` in CI to catch new vulnerabilities automatically
-- Use `.gitignore` to prevent secrets from being committed — but also verify with `git ls-files`
-- Focus on **input boundaries** — anywhere user data enters the system
-- Check both direct dependencies and transitive dependencies
-- Security is a spectrum: prioritize by exploitability and impact, not just severity score
-- Schedule regular scans, not just one-time reviews
 
 ## See Also
 

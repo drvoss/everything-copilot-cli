@@ -1,7 +1,8 @@
 ---
 name: systematic-debugging
-description: Use when a bug is non-obvious or has resisted quick fixes — applies a 4-phase root cause analysis to find and permanently resolve the issue rather than patching symptoms
+description: "Applies a 4-phase root cause analysis — reproduces the issue, traces execution, identifies the root cause, and applies a verified fix with regression tests. Use when a bug is non-obvious, has resisted quick fixes, appears intermittently, or keeps recurring after previous patches. Covers debugging, errors, crashes, failing tests, broken builds, exceptions, and troubleshooting."
 metadata:
+  version: 1.0.0
   category: development
   agent_type: general-purpose
 ---
@@ -60,9 +61,6 @@ If you cannot reproduce it in < 15 minutes, move to Phase 2 anyway — understan
 the system often reveals the trigger.
 
 ### Phase 2 — Understand the System
-
-Bugs live in the gap between what you think the code does and what it actually does.
-Close that gap before guessing at solutions.
 
 ```powershell
 # Read the code path end-to-end, not just the error location
@@ -162,23 +160,13 @@ Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
 - [ ] Related code paths are checked for the same pattern
 - [ ] If the bug was a class of error (e.g., "timestamp unit mismatch"), check for other instances
 
-## Common Rationalizations
-
-| Rationalization | Reality |
-|----------------|---------|
-| "I'll just try a few things and see what sticks" | Shotgun debugging wastes hours and leaves you without understanding. A methodical approach finds the bug faster. |
-| "It's probably a framework/library bug" | It's almost never a framework bug. Blame your code first; verify framework behavior before blaming it. |
-| "I can't reproduce it, so I'll just add more logging" | Logging without a hypothesis produces noise. Reproduce first, then verify a specific hypothesis. |
-| "I understand the code well enough" | Write down what you think the code does before reading it. The gap between your mental model and reality is where the bug lives. |
-| "The fix is obvious, I don't need a regression test" | Obvious fixes regress. The regression test is how the next engineer (or future you) learns the lesson without re-debugging. |
-
 ## Red Flags
 
-- You've made more than 3 changes without a confirmed hypothesis
-- The bug "disappeared" without a clear explanation
-- Your fix makes the test pass but you don't understand why
-- The same bug has been "fixed" before
-- No regression test was added after the fix
+- More than 3 changes attempted without a confirmed hypothesis
+- Bug "disappeared" without a clear explanation
+- Fix makes the test pass but the reason is unclear
+- Same bug has been "fixed" before
+- No regression test added after the fix
 
 ## Escalation — The Rule of Three
 
