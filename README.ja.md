@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="67 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="70 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -50,7 +50,7 @@ GitHub Copilot CLI には、AI 支援開発の理想的なハブとなる **11 �
 | 6 | **Background Agents** | `&` または `/delegate` で cloud Copilot agent に委任し、`/resume` でいつでも再開できます。 |
 | 7 | **Fleet Mode** | 複数 agent を同時並列で実行し、作業を分割できます。 |
 | 8 | **Session SQL Database** | session ごとに組み込み SQLite を利用でき、構造化データ、todo 追跡、状態管理が可能です。 |
-| 9 | **Cross-Session Memory** | `session_store` により永続知識を活用し、session をまたいで学習できます。 |
+| 9 | **Cross-Session Memory** | `session_store` で以前の session 履歴を検索し、再利用できます。 |
 | 10 | **LSP のファーストクラスサポート** | Language Server Protocol 統合により、高精度な code intelligence を実現します。 |
 | 11 | **Multi-AI Orchestrator** | Copilot をメタハブとして Claude Code、Codex、Gemini CLI をオーケストレーションできます。 |
 
@@ -133,8 +133,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (67 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (18)
+├── skills/                        # Reusable workflow skills (70 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (20)
 │   ├── development/               #   Dev skills (16)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
@@ -192,12 +192,12 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計67・8カテゴリ）
+### スキル（合計70・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
 <details>
-<summary><strong>★ Copilot 専用 Skills（18）</strong></summary>
+<summary><strong>★ Copilot 専用 Skills（20）</strong></summary>
 
 GitHub Copilot CLI 固有の機能を活用する skill です。
 
@@ -212,10 +212,12 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `github-pr-workflow` | 組み込み GitHub MCP で PR ライフサイクル全体を扱います |
 | `github-issue-triage` | Issue を一括分類・トリアージします |
 | `actions-debugging` | native Actions アクセスで CI failure をデバッグします |
-| `cross-session-memory` | session 間で知識を永続化します |
+| `cross-session-memory` | 以前の session context を検索して再開します |
+| `knowledge-curator` | 繰り返し現れる学びを永続的な project guidance に昇格します |
 | `multi-model-strategy` | task ごとに最適な model を選択します |
 | `mcp-ecosystem` | カスタム MCP server で拡張します |
 | `ide-switching` | VS Code ↔ CLI の context 共有をシームレスにします |
+| `scope-guard` | task を狭い writable surface に固定し、危険な変更前に明示的な stop rule を追加します |
 | `team-planner` | SQL roster + `/fleet` dispatch で専門 agent チームを編成します |
 | `agentic-engineering` | 15分単位の task、eval-first ループ、明示的 I/O 契約を設計します |
 | `stack-detector` | project tech stack をスキャンし、このコレクションの関連 skill と rule を推奨します |
@@ -450,7 +452,7 @@ Copilot CLI は GitHub workflow に最適化されて設計されています。
 | **Background Agents** | `&` / `/delegate` で cloud agent に委任し、`/resume` で再開します |
 | **Fleet Mode** | 複数 agent を同時並列で実行し、作業を分割します |
 | **Session SQL Database** | session ごとの組み込み SQLite で構造化状態と todo を管理します |
-| **Cross-Session Memory** | `session_store` で知識を永続化し、session をまたいで活用します |
+| **Cross-Session Memory** | `session_store` と `/resume` で以前の session 履歴を検索し、再利用します |
 | **LSP Integration** | Language Server Protocol により symbol-aware な高精度 code intelligence を提供します |
 | **Multi-AI Orchestration** | 単一ハブから Claude Code、Codex、Gemini CLI を連携します |
 

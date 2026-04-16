@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="67 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="70 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -50,7 +50,7 @@ GitHub Copilot CLI 提供 **11 项关键优势**，使其成为 AI 辅助开发�
 | 6 | **Background Agents** | 通过 `&` 或 `/delegate` 委托云端 Copilot agents；可随时用 `/resume` 恢复。 |
 | 7 | **Fleet Mode** | 并行 agent 执行——将工作同时分配给多个 agents。 |
 | 8 | **Session SQL Database** | 内置每会话 SQLite，用于结构化数据、todo 跟踪与状态管理。 |
-| 9 | **Cross-Session Memory** | 通过 `session_store` 持久化知识，实现跨会话学习。 |
+| 9 | **Cross-Session Memory** | 通过 `session_store` 检索并复用过往会话历史。 |
 | 10 | **LSP First-Class Support** | 集成 Language Server Protocol，提供精准代码智能。 |
 | 11 | **Multi-AI Orchestrator** | 以 Copilot 为元枢纽，编排 Claude Code、Codex、Gemini CLI。 |
 
@@ -133,8 +133,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (67 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (18)
+├── skills/                        # Reusable workflow skills (70 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (20)
 │   ├── development/               #   Dev skills (16)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
@@ -192,12 +192,12 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 67 个 · 8 个类别）
+### 技能（Skill）（共 70 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
 <details>
-<summary><strong>★ Copilot 专属技能（18）</strong></summary>
+<summary><strong>★ Copilot 专属技能（20）</strong></summary>
 
 利用 GitHub Copilot CLI 独有能力的 skills：
 
@@ -212,10 +212,12 @@ everything-copilot-cli/
 | `github-pr-workflow` | 通过内置 GitHub MCP 完成完整 PR 生命周期 |
 | `github-issue-triage` | 批量 Issue 分类与分诊 |
 | `actions-debugging` | 利用原生 Actions 访问能力调试 CI 失败 |
-| `cross-session-memory` | 在会话间持久化知识 |
+| `cross-session-memory` | 检索并恢复先前的会话上下文 |
+| `knowledge-curator` | 将反复出现的经验沉淀为持久的项目指引 |
 | `multi-model-strategy` | 按任务选择合适模型 |
 | `mcp-ecosystem` | 通过自定义 MCP server 扩展能力 |
 | `ide-switching` | VS Code ↔ CLI 无缝上下文切换 |
+| `scope-guard` | 将任务锁定在狭窄的可写范围内，并为高风险变更加上显式停止规则 |
 | `team-planner` | 通过 SQL roster + `/fleet` 分发，组建专家 agent 团队 |
 | `agentic-engineering` | 设计 15 分钟任务单元、eval-first 循环与显式 I/O 契约 |
 | `stack-detector` | 扫描项目技术栈并推荐本集合中的相关 skills 与规则 |
@@ -450,7 +452,7 @@ Copilot CLI 围绕你的 GitHub 工作流而构建。以下能力开箱即用：
 | **Background Agents** | 通过 `&` / `/delegate` 委托云端 agents；用 `/resume` 恢复 |
 | **Fleet Mode** | 并行 agent 执行——同时将任务分配给多个 agents |
 | **Session SQL Database** | 每会话内置 SQLite，用于结构化状态与 todo 跟踪 |
-| **Cross-Session Memory** | 通过 `session_store` 持久化知识——跨会话学习与召回 |
+| **Cross-Session Memory** | 通过 `session_store` 与 `/resume` 检索并复用过往会话历史 |
 | **LSP Integration** | Language Server Protocol 提供精准、符号感知的代码智能 |
 | **Multi-AI Orchestration** | 从单一枢纽协调 Claude Code、Codex、Gemini CLI |
 

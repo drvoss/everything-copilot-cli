@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="67 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="70 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -50,7 +50,7 @@ GitHub Copilot CLI는 AI 개발 허브로서 **11가지 핵심 강점**을 갖�
 | 6 | **Background Agents** | `&` 또는 `/delegate`로 클라우드 에이전트에 위임, `/resume`으로 재개 |
 | 7 | **Fleet Mode** | 병렬 에이전트 실행 — 여러 에이전트가 동시에 작업 분담 |
 | 8 | **Session SQL Database** | 세션별 내장 SQLite — 구조화된 데이터, 할일 추적, 상태 관리 |
-| 9 | **Cross-Session Memory** | `session_store`를 통한 영속적 지식 — 세션 간 학습 |
+| 9 | **Cross-Session Memory** | `session_store`로 이전 세션 기록을 검색하고 재사용 |
 | 10 | **LSP 퍼스트클래스 지원** | Language Server Protocol 통합으로 정밀한 코드 인텔리전스 |
 | 11 | **Multi-AI Orchestrator** | Copilot을 메타 허브로 삼아 Claude Code, Codex, Gemini CLI를 통합 조율 |
 
@@ -133,8 +133,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (67개)
-│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (18개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (70개)
+│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (20개)
 │   ├── development/               #   개발 스킬 (16개)
 │   ├── documentation/             #   문서화 스킬 (5개)
 │   ├── security/                  #   보안 스킬 (6개)
@@ -192,12 +192,12 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 67개 · 8개 카테고리)
+### 스킬 (총 70개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
 <details>
-<summary><strong>★ Copilot 전용 스킬 (18개)</strong></summary>
+<summary><strong>★ Copilot 전용 스킬 (20개)</strong></summary>
 
 GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
@@ -212,10 +212,12 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `github-pr-workflow` | 내장 GitHub MCP를 통한 전체 PR 라이프사이클 |
 | `github-issue-triage` | 이슈 대량 분류 및 트리아지 |
 | `actions-debugging` | 네이티브 Actions 접근으로 CI 실패 디버깅 |
-| `cross-session-memory` | 세션 간 지식 영속화 |
+| `cross-session-memory` | 이전 세션 컨텍스트를 검색하고 재개 |
+| `knowledge-curator` | 반복되는 교훈을 영구적인 프로젝트 가이드로 승격 |
 | `multi-model-strategy` | 작업별 최적 모델 선택 |
 | `mcp-ecosystem` | 커스텀 MCP 서버로 기능 확장 |
 | `ide-switching` | VS Code ↔ CLI 원활한 컨텍스트 공유 |
+| `scope-guard` | 작업을 좁은 쓰기 범위에 고정하고 위험한 변경 전 명시적 중단 규칙 추가 |
 | `team-planner` | SQL 로스터 + `/fleet` 디스패치로 전문가 팀 구성 |
 | `agentic-engineering` | 15분 단위 작업 설계, eval-first 루프, 명시적 I/O 계약 |
 | `stack-detector` | 프로젝트 기술 스택 감지 후 컬렉션 내 관련 스킬·룰셋 추천 |
@@ -450,7 +452,7 @@ Copilot CLI는 GitHub 워크플로우를 중심으로 설계된 도구입니다.
 | **Background Agents** | `&` / `/delegate`로 클라우드 에이전트에 위임, `/resume`으로 재개 |
 | **Fleet Mode** | 병렬 에이전트 실행 — 여러 에이전트가 동시에 작업 분담 |
 | **Session SQL Database** | 세션별 내장 SQLite — 구조화된 상태 관리 및 할일 추적 |
-| **Cross-Session Memory** | `session_store`로 지식 영속화 — 세션 간 학습 및 기억 |
+| **Cross-Session Memory** | `session_store`와 `/resume`으로 이전 세션 기록 검색 및 재사용 |
 | **LSP 통합** | 심볼 인식 기반의 정밀한 코드 인텔리전스 |
 | **Multi-AI Orchestration** | 단일 허브에서 Claude Code, Codex, Gemini CLI 통합 조율 |
 
