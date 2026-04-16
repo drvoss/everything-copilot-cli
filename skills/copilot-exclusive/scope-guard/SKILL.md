@@ -38,7 +38,7 @@ scoped work.
 |------------------------|-----|
 | You need full branch- or filesystem-level isolation | `workflow/using-git-worktrees` |
 | You want broad autonomous execution after the plan is approved | `copilot-exclusive/autopilot-patterns` |
-| The task is read-only research with no file edits | `copilot-exclusive/fleet-parallel` or a normal explore pass |
+| The task is read-only research with no file edits | Do a normal explore pass or use `context-prime` to load the relevant files first |
 
 ## Prerequisites
 

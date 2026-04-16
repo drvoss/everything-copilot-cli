@@ -104,18 +104,18 @@ fleet mode, plan mode, and GitHub integration.
 | [`background-agent`](copilot-exclusive/background-agent/SKILL.md) | Use when a task is too long to block the current session — delegates to a cloud background agent via `&` or `/delegate` and opens a draft PR |
 | [`context-prime`](copilot-exclusive/context-prime/SKILL.md) | Invoke when starting a session (or resuming after a break) on a repo before making changes, to load live project context |
 | [`cross-session-memory`](copilot-exclusive/cross-session-memory/SKILL.md) | Use when you need to recover prior context, decisions, or artifacts across sessions — search history and resume with the right state |
-| [`knowledge-curator`](copilot-exclusive/knowledge-curator/SKILL.md) | Use when recurring project lessons should be promoted from session context into durable instructions, docs, or decision records |
-| [`scope-guard`](copilot-exclusive/scope-guard/SKILL.md) | Use when a task must stay inside a narrow writable boundary or when risky commands need an explicit stop rule |
 | [`fleet-parallel`](copilot-exclusive/fleet-parallel/SKILL.md) | Use when you need to run the same task across many files or contexts in parallel — triggers /fleet mode for batch operations |
 | [`github-issue-triage`](copilot-exclusive/github-issue-triage/SKILL.md) | Use when you have a backlog of unorganized GitHub Issues — bulk-labels, prioritizes, and assigns at scale |
 | [`github-pr-workflow`](copilot-exclusive/github-pr-workflow/SKILL.md) | Use when creating, reviewing, or merging a PR — runs the full PR lifecycle through Copilot's built-in GitHub MCP |
 | [`ide-switching`](copilot-exclusive/ide-switching/SKILL.md) | Use when moving between VS Code and Copilot CLI — transfers context so you don't lose state when switching environments |
+| [`knowledge-curator`](copilot-exclusive/knowledge-curator/SKILL.md) | Use when recurring project lessons should be promoted from session context into durable instructions, docs, or decision records |
 | [`mcp-ecosystem`](copilot-exclusive/mcp-ecosystem/SKILL.md) | Use when built-in tools don't cover a service you need — add a custom MCP server to extend Copilot CLI's capabilities |
 | [`multi-model-strategy`](copilot-exclusive/multi-model-strategy/SKILL.md) | Use when choosing which model to use for a task — routes to the best model based on task type and cost trade-offs |
 | [`plan-mode-mastery`](copilot-exclusive/plan-mode-mastery/SKILL.md) | Use when you want structured, approval-gated planning before execution — switches to Plan Mode for complex multi-step tasks |
+| [`scope-guard`](copilot-exclusive/scope-guard/SKILL.md) | Use when a task must stay inside a narrow writable boundary or when risky commands need an explicit stop rule |
 | [`session-management`](copilot-exclusive/session-management/SKILL.md) | Use when a task spans multiple steps or sessions and needs structured state tracking via the built-in SQLite session database |
-| [`team-planner`](copilot-exclusive/team-planner/SKILL.md) | Use when a task is too large or multi-domain for a single agent — assemble a specialist team with SQL tracking and /fleet dispatch |
 | [`stack-detector`](copilot-exclusive/stack-detector/SKILL.md) | Scan the project tech stack (package.json, config files, lockfiles) and recommend the most relevant skills and rules from this collection |
+| [`team-planner`](copilot-exclusive/team-planner/SKILL.md) | Use when a task is too large or multi-domain for a single agent — assemble a specialist team with SQL tracking and /fleet dispatch |
 
 ### 🛠 Development (`development/`)
 
