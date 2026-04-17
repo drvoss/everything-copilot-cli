@@ -192,12 +192,12 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計70・8カテゴリ）
+### スキル（合計73・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
 <details>
-<summary><strong>★ Copilot 専用 Skills（20）</strong></summary>
+<summary><strong>★ Copilot 専用 Skills（21）</strong></summary>
 
 GitHub Copilot CLI 固有の機能を活用する skill です。
 
@@ -227,7 +227,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>開発 Skills（16）</strong></summary>
+<summary><strong>開発 Skills（17）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -283,7 +283,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（10）</strong></summary>
+<summary><strong>ワークフロー Skills（11）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -314,7 +314,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>テスト Skills（4）</strong></summary>
+<summary><strong>テスト Skills（5）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|

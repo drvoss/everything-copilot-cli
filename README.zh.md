@@ -192,12 +192,12 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 70 个 · 8 个类别）
+### 技能（Skill）（共 73 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
 <details>
-<summary><strong>★ Copilot 专属技能（20）</strong></summary>
+<summary><strong>★ Copilot 专属技能（21）</strong></summary>
 
 利用 GitHub Copilot CLI 独有能力的 skills：
 
@@ -227,7 +227,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>开发技能（16）</strong></summary>
+<summary><strong>开发技能（17）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -283,7 +283,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>工作流技能（10）</strong></summary>
+<summary><strong>工作流技能（11）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -314,7 +314,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>测试技能（4）</strong></summary>
+<summary><strong>测试技能（5）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|

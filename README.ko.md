@@ -192,12 +192,12 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 70개 · 8개 카테고리)
+### 스킬 (총 73개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
 <details>
-<summary><strong>★ Copilot 전용 스킬 (20개)</strong></summary>
+<summary><strong>★ Copilot 전용 스킬 (21개)</strong></summary>
 
 GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
@@ -227,7 +227,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>개발 스킬 (16개)</strong></summary>
+<summary><strong>개발 스킬 (17개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -283,7 +283,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (10개)</strong></summary>
+<summary><strong>워크플로우 스킬 (11개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -314,7 +314,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>테스팅 스킬 (4개)</strong></summary>
+<summary><strong>테스팅 스킬 (5개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
