@@ -122,6 +122,41 @@ All MCP servers restart with the new configuration.
 After reload, your new tools appear alongside the built-in ones.
 Copilot automatically discovers and can use all registered MCP tools.
 
+### 6. Use Context7 for Live Documentation
+
+When you need current, version-aware framework or library docs, Context7 is one of the
+highest-value MCP servers to add.
+
+Use the two-stage lookup pattern:
+
+#### Stage 1: Resolve the library ID
+
+```text
+use context7
+resolve the library ID for: next.js
+```
+
+#### Stage 2: Fetch targeted docs
+
+```text
+use context7
+get current docs for /vercel/next.js
+focus on: App Router middleware, route handlers
+```
+
+If you already know the library ID or only need one focused answer, you can combine the
+lookup into a single prompt:
+
+```text
+How do I configure middleware in Next.js 15 App Router? use context7
+```
+
+This pattern is especially useful when:
+
+- the installed library version may differ from model training data
+- a framework recently changed APIs
+- you need official docs instead of secondary tutorials
+
 ## Examples
 
 ### Database-Aware Development

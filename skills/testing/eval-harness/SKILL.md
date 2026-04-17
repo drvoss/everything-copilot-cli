@@ -171,6 +171,26 @@ On regression (previously passing, now failing):
 When exact-match scoring is too rigid but manual review is too slow, use an LLM judge with an
 explicit rubric.
 
+### Judge / Worker model separation
+
+Do not use the same model for both generation and evaluation when you can avoid it.
+
+| Role | Recommendation | Why |
+|------|----------------|-----|
+| Worker | faster, cheaper model | generate candidate outputs at scale |
+| Judge | stronger, more reliable model | score quality with less self-consistency bias |
+
+Example split:
+
+- Worker: generate 100 candidate responses
+- Judge: evaluate those responses against a fixed rubric
+
+Benefits:
+
+- reduces model self-grading bias
+- improves cost efficiency
+- makes scoring behavior easier to reason about
+
 ### Common judge patterns
 
 | Pattern | Use for |
@@ -214,6 +234,29 @@ Return JSON:
 - Reuse the same judge prompt across comparable runs
 - Treat judge scores as evidence, not ground truth
 - If a judge verdict is surprising, sample manual review before acting on it
+
+## Trajectory Evaluation
+
+For agent workflows, do not score only the final answer. Score the path taken as well.
+
+Trajectory dimensions:
+
+1. final output quality
+2. tool-call efficiency
+3. reasoning-chain soundness
+4. resource usage (cost, time, tokens)
+
+Example rubric:
+
+| Rating | Meaning |
+|--------|---------|
+| OPTIMAL | correct outcome with an efficient path |
+| ACCEPTABLE | correct outcome, but inefficient or noisy path |
+| INCORRECT | wrong answer or failed completion |
+| UNSAFE | violated guardrails or produced harmful behavior |
+
+Use trajectory evaluation when the workflow itself matters — especially multi-step agent
+systems, tool-using assistants, or retry-heavy pipelines.
 
 ## Common Mistakes
 

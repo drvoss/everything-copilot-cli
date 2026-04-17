@@ -21,9 +21,32 @@ metadata:
 - Ability to run tests from the command line
 - Understanding of the feature requirements or bug to reproduce
 
+| Language | Common frameworks | Example commands |
+|----------|-------------------|------------------|
+| JavaScript / TypeScript | Jest, Vitest | `npm test`, `npx vitest` |
+| Python | pytest | `pytest` |
+| Go | go test | `go test ./...` |
+| Ruby | RSpec, Minitest | `bundle exec rspec`, `ruby -Itest` |
+| PHP | PHPUnit | `./vendor/bin/phpunit` |
+| Rust | cargo test | `cargo test` |
+
 ## Workflow
 
-### 1. Red — Write a Failing Test
+### 1. Pre-Check — Does a Test Already Exist?
+
+Before writing a new test, verify you are not duplicating existing coverage.
+
+```text
+glob pattern="**/*.{test,spec}.{js,jsx,ts,tsx}"
+glob pattern="**/{test_*,*_test}.py"
+glob pattern="**/*_test.go"
+rg pattern="<function-or-behavior-name>" path="."
+```
+
+If an equivalent test already exists, extend or correct it instead of creating a
+duplicate. If not, proceed to write the failing test.
+
+### 2. Red — Write a Failing Test
 
 Identify the behavior to implement, then write a test that asserts it.
 
@@ -52,7 +75,7 @@ Run the test and confirm it **fails**:
 npm test -- --testPathPattern="parse.test" 2>&1 | Select-Object -Last 20
 ```
 
-### 2. Green — Write Minimal Code to Pass
+### 3. Green — Write Minimal Code to Pass
 
 Implement only enough code to make the failing test pass. Resist the urge to add extras.
 
@@ -69,7 +92,7 @@ Run the test again and confirm it **passes**:
 npm test -- --testPathPattern="parse.test"
 ```
 
-### 3. Refactor — Clean Up Without Changing Behavior
+### 4. Refactor — Clean Up Without Changing Behavior
 
 Improve code structure, naming, and duplication while keeping all tests green.
 
@@ -78,7 +101,7 @@ Improve code structure, naming, and duplication while keeping all tests green.
 npm test 2>&1 | Select-Object -Last 30
 ```
 
-### 4. Repeat the Cycle
+### 5. Repeat the Cycle
 
 Add the next test case for edge cases or the next slice of behavior:
 
@@ -87,7 +110,7 @@ Add the next test case for edge cases or the next slice of behavior:
 - Error conditions
 - Integration with adjacent modules
 
-### 5. Check Coverage
+### 6. Check Coverage
 
 ```powershell
 npm test -- --coverage --collectCoverageFrom="src/utils/parse.ts"
@@ -179,3 +202,5 @@ To enforce this automatically, add it as a Git pre-commit hook:
 - Use `task` agent to run tests so output stays clean in your main context
 - If you can't write a test easily, the code may need a better interface — that's valuable feedback
 - Commit after each Green phase so you can safely revert a failed refactor
+- Claude Code users can also study
+  [tdd-guard](https://github.com/nizos/tdd-guard) for hook-based TDD enforcement

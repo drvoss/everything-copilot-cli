@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="70 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="73 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -133,13 +133,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (70개)
-│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (20개)
-│   ├── development/               #   개발 스킬 (16개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (73개)
+│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (21개)
+│   ├── development/               #   개발 스킬 (17개)
 │   ├── documentation/             #   문서화 스킬 (5개)
 │   ├── security/                  #   보안 스킬 (6개)
-│   ├── testing/                   #   테스팅 스킬 (4개)
-│   ├── workflow/                  #   워크플로우 스킬 (10개)
+│   ├── testing/                   #   테스팅 스킬 (5개)
+│   ├── workflow/                  #   워크플로우 스킬 (11개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │

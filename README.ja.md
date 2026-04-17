@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="70 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="73 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -133,13 +133,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (70 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (20)
-│   ├── development/               #   Dev skills (16)
+├── skills/                        # Reusable workflow skills (73 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (21)
+│   ├── development/               #   Dev skills (17)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
-│   ├── testing/                   #   Test skills (4)
-│   ├── workflow/                  #   Workflow skills (10)
+│   ├── testing/                   #   Test skills (5)
+│   ├── workflow/                  #   Workflow skills (11)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │

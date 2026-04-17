@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="70 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="73 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -140,13 +140,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (70 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (20)
-│   ├── development/               #   Dev skills (16)
+├── skills/                        # Reusable workflow skills (73 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (21)
+│   ├── development/               #   Dev skills (17)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (6)
-│   ├── testing/                   #   Test skills (4)
-│   ├── workflow/                  #   Workflow skills (10)
+│   ├── testing/                   #   Test skills (5)
+│   ├── workflow/                  #   Workflow skills (11)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -199,12 +199,12 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (70 Total · 8 Categories)
+### Skills (73 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>★ Copilot-Exclusive Skills (20)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (21)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
@@ -221,6 +221,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `actions-debugging` | Debug CI failures with native Actions access |
 | `cross-session-memory` | Search and resume prior session context |
 | `knowledge-curator` | Promote repeated lessons into durable project guidance |
+| `mcp-builder` | Build a new MCP server with config validation and hot-reload |
 | `multi-model-strategy` | Pick the right model per task |
 | `mcp-ecosystem` | Extend with custom MCP servers |
 | `ide-switching` | Seamless VS Code ↔ CLI context sharing |
@@ -234,7 +235,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Development Skills (16)</strong></summary>
+<summary><strong>Development Skills (17)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -246,6 +247,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `performance-optimization` | Measure first, isolate bottlenecks, and prove performance improvements |
 | `pr-multi-perspective-review` | 6-lens PR review: PM / Dev / QA / Security / DevOps / UX |
 | `refactor-clean` | Remove dead code, simplify logic safely |
+| `source-driven-development` | Verify framework and library APIs against current official docs before implementing |
 | `spec-driven-development` | Write a technical spec before coding — defines interface, structure, and boundaries first |
 | `context-engineering` | Optimize information delivery to AI agents — minimize noise, maximize signal |
 | `deprecation-and-migration` | Safely remove old APIs and migrate to new patterns with a 3-phase process |
@@ -290,12 +292,13 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Workflow Skills (10)</strong></summary>
+<summary><strong>Workflow Skills (11)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `commit-workflow` | Conventional commits + emoji, atomic split guidance |
 | `release` | tag → GitHub Release → publish (npm/PyPI/Docker) |
+| `verification-before-completion` | Prove a task is done with fresh command output before claiming success |
 | `sprint-workflow` | Full sprint: Think → Plan → Build → Review → Test → Ship → Monitor |
 | `deployment-canary` | Post-release canary checks, rollback thresholds, and promote/hold decisions |
 | `security-audit` | OWASP Top 10 + STRIDE threat modeling |

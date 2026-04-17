@@ -109,6 +109,7 @@ fleet mode, plan mode, and GitHub integration.
 | [`github-pr-workflow`](copilot-exclusive/github-pr-workflow/SKILL.md) | Use when creating, reviewing, or merging a PR — runs the full PR lifecycle through Copilot's built-in GitHub MCP |
 | [`ide-switching`](copilot-exclusive/ide-switching/SKILL.md) | Use when moving between VS Code and Copilot CLI — transfers context so you don't lose state when switching environments |
 | [`knowledge-curator`](copilot-exclusive/knowledge-curator/SKILL.md) | Use when recurring project lessons should be promoted from session context into durable instructions, docs, or decision records |
+| [`mcp-builder`](copilot-exclusive/mcp-builder/SKILL.md) | Use when you need to build a new MCP server — plan, implement, validate, reload, and test it end to end |
 | [`mcp-ecosystem`](copilot-exclusive/mcp-ecosystem/SKILL.md) | Use when built-in tools don't cover a service you need — add a custom MCP server to extend Copilot CLI's capabilities |
 | [`multi-model-strategy`](copilot-exclusive/multi-model-strategy/SKILL.md) | Use when choosing which model to use for a task — routes to the best model based on task type and cost trade-offs |
 | [`plan-mode-mastery`](copilot-exclusive/plan-mode-mastery/SKILL.md) | Use when you want structured, approval-gated planning before execution — switches to Plan Mode for complex multi-step tasks |
@@ -133,6 +134,7 @@ Core software development skills applicable to any project.
 | [`pr-multi-perspective-review`](development/pr-multi-perspective-review/SKILL.md) | Review PRs from 6 lenses: PM / Dev / QA / Security / DevOps / UX |
 | [`refactor-clean`](development/refactor-clean/SKILL.md) | Remove dead code and simplify complex logic |
 | [`skill-creator`](development/skill-creator/SKILL.md) | Describe a workflow and get a properly structured SKILL.md scaffolded in minutes |
+| [`source-driven-development`](development/source-driven-development/SKILL.md) | Verify framework and library APIs against current official docs before implementing |
 | [`spec-driven-development`](development/spec-driven-development/SKILL.md) | Write a technical spec before coding — defines interface, structure, and boundaries first |
 | [`systematic-debugging`](development/systematic-debugging/SKILL.md) | 4-phase root cause analysis (reproduce → isolate → hypothesize → verify) before fixing |
 | [`tdd-workflow`](development/tdd-workflow/SKILL.md) | Test-driven development with red-green-refactor cycles |
@@ -193,6 +195,7 @@ End-to-end development workflow skills — from planning to shipping.
 | [`council`](workflow/council/SKILL.md) | Use when a decision has multiple credible paths and no obvious winner — convene a four-voice council (Architect, Skeptic, Pragmatist, Critic) for adversarial deliberation |
 | [`deep-research`](workflow/deep-research/SKILL.md) | Use when a question requires comprehensive evidence gathering from multiple sources, systematic synthesis, and traceable citations |
 | [`release`](workflow/release/SKILL.md) | Cut a versioned release: tag → GitHub Release → publish (npm/PyPI/Docker) |
+| [`verification-before-completion`](workflow/verification-before-completion/SKILL.md) | Prove a task is done with fresh command output before claiming success |
 | [`sprint-workflow`](workflow/sprint-workflow/SKILL.md) | Full sprint: Think → Plan → Build → Review → Test → Ship |
 | [`security-audit`](workflow/security-audit/SKILL.md) | OWASP Top 10 + STRIDE threat modeling audit |
 | [`sprint-retro`](workflow/sprint-retro/SKILL.md) | Data-driven retrospectives using `/chronicle` and git metrics |

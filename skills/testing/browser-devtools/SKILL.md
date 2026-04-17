@@ -117,8 +117,45 @@ test('submit button is accessible', async ({ page }) => {
   const btn = page.getByRole('button', { name: 'Submit' });
   await expect(btn).toBeVisible();
   await expect(btn).toBeEnabled();
-  await expect(btn).toHaveAttribute('type', 'submit');
+await expect(btn).toHaveAttribute('type', 'submit');
 });
+```
+
+## With Chrome DevTools MCP (Automated)
+
+Chrome DevTools MCP가 설정되어 있다면, Copilot이 브라우저 런타임 상태를
+직접 조사하도록 지시할 수 있다. 이 모드는 다음과 같은 작업에 특히 유용하다:
+
+- DOM 상태 점검
+- 네트워크 요청 및 응답 확인
+- Console 오류 수집
+- 렌더링/성능 병목 조사
+
+예시 프롬프트:
+
+```text
+Use Chrome DevTools MCP to inspect the network requests for /api/users
+and report any 4xx or 5xx responses.
+```
+
+```text
+Use Chrome DevTools MCP to inspect the checkout form DOM state,
+verify the submit button accessibility attributes, and summarize any issues.
+```
+
+자동화 모드가 있다면 수동 DevTools 절차를 대체하는 것이 아니라,
+문제 재현과 증거 수집을 빠르게 만드는 가속기로 사용한다.
+
+추가 팁:
+
+- 성능 문제는 `Performance` 패널 정보와 `references/performance-checklist.md`
+  를 함께 본다
+- 접근성 점검은 `Accessibility` 정보와
+  `references/accessibility-checklist.md`를 함께 본다
+- 최신 DevTools 사용법이 헷갈리면 Context7로 현재 문서를 조회한다
+
+```text
+How do I use Chrome DevTools to profile React rendering bottlenecks? use context7
 ```
 
 ## Common Rationalizations
