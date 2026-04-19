@@ -161,11 +161,11 @@ task(agent_type: "code-review", model: "claude-sonnet-4.6",
 ```text
 # Step 1: classify the upstream signal
 task(agent_type: "general-purpose", model: "gpt-5.4",
-     prompt: "Review the latest upstream changes and classify them into adopt/adapt/reject for this repository")
+     prompt: "Use ecosystem-intake and the ecosystem monitoring playbook to review the latest upstream changes and classify them into adopt/adapt/reject for this repository")
 
 # Step 2: only after approval, translate the approved doc change into precise edits
 task(agent_type: "general-purpose", model: "gpt-5.3-codex",
-     prompt: "Update our monitoring playbook and related skill docs to reflect the approved changes")
+     prompt: "Update our ecosystem monitoring playbook and related skill docs to reflect the approved changes")
 ```
 
 This pattern works well for recurring ecosystem monitoring: use a stronger synthesizer first,

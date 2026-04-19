@@ -193,6 +193,9 @@ Recommended flow:
 3. use Codex only after the change is approved and scoped
 4. run a reviewer pass before committing if the change adds new guidance
 
+Model availability changes over time. Re-check `/model` or current Copilot docs before treating any
+specific model name here as a stable default.
+
 ---
 
 ## 7. Hand-off boundaries

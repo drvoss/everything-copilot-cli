@@ -223,7 +223,7 @@ Use this especially with rejected issues or stale PRs from curated-list ecosyste
 > Reject anything already covered by our current skills.
 ```
 
-### Recurring watchlist review
+### Recurring watchlist review (changelog source, Type B)
 
 ```text
 > Use ecosystem-intake with the monitoring playbook reference.
