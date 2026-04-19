@@ -51,6 +51,19 @@ Each candidate should end in exactly one bucket:
 
 ## Workflow
 
+### 0. Load the recurring-monitoring playbook when needed
+
+If you are setting up or revisiting an ongoing watchlist, load the reference playbook first:
+
+> [`references/ecosystem-monitoring-playbook.md`](../../../references/ecosystem-monitoring-playbook.md)
+
+Use it to choose:
+
+- the review cadence (daily / weekly / monthly / on-demand)
+- the source record fields you will track
+- the correct prompt archetype for the source (`Type A` through `Type D`)
+- the point where a multi-model handoff is justified
+
 ### 1. Define the Intake Source
 
 Start with a single explicit source and a narrow question:
@@ -66,6 +79,13 @@ Good examples:
 - `hesreallyhim/awesome-claude-code` README changes from the last week
 - merged PRs in a monitored repo
 - one section of a curated list, such as Agent Skills or Hooks
+
+If the source is part of a recurring watchlist, record the prompt archetype explicitly:
+
+- **Type A** — direct comparison against another skill collection
+- **Type B** — changelog or release analysis
+- **Type C** — curated-list filtering
+- **Type D** — framework/reference pattern extraction
 
 ### 2. Read the Source as Structured Inputs
 
@@ -203,6 +223,14 @@ Use this especially with rejected issues or stale PRs from curated-list ecosyste
 > Reject anything already covered by our current skills.
 ```
 
+### Recurring watchlist review
+
+```text
+> Use ecosystem-intake with the monitoring playbook reference.
+> Treat this source as Type B (changelog analysis).
+> Review only changes since the last pass and end in adopt/adapt/reject.
+```
+
 ## Common Rationalizations
 
 | Rationalization | Reality |
@@ -234,6 +262,7 @@ Use this especially with rejected issues or stale PRs from curated-list ecosyste
 - **Prefer section-level intake**: "Hooks" or "Agent Skills" is easier to score than an entire giant README
 - **Reject aggressively**: a smaller, sharper catalog is more useful than a large noisy one
 - **Use SQL as the decision log**: it is easier to compare successive intake passes when the state is queryable
+- **Commit the playbook, not the snapshot**: durable cadence rules and prompt shapes belong in the repo; volatile rankings and live metrics usually do not
 
 ## See Also
 
@@ -241,3 +270,4 @@ Use this especially with rejected issues or stale PRs from curated-list ecosyste
 - [`task-intake-router`](../task-intake-router/SKILL.md) — route approved work to the right execution path
 - [`skill-creator`](../../development/skill-creator/SKILL.md) — turn an adopted candidate into a real SKILL.md
 - [`github-issue-triage`](../github-issue-triage/SKILL.md) — triage large GitHub backlogs with built-in MCP tools
+- [`references/ecosystem-monitoring-playbook.md`](../../../references/ecosystem-monitoring-playbook.md) — recurring watchlist cadence, prompt archetypes, and multi-model handoff rules

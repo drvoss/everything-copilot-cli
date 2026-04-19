@@ -156,6 +156,21 @@ task(agent_type: "code-review", model: "claude-sonnet-4.6",
      prompt: "Review the pagination changes for correctness, test gaps, and API regressions")
 ```
 
+### Ecosystem Monitoring Split
+
+```text
+# Step 1: classify the upstream signal
+task(agent_type: "general-purpose", model: "gpt-5.4",
+     prompt: "Review the latest upstream changes and classify them into adopt/adapt/reject for this repository")
+
+# Step 2: only after approval, translate the approved doc change into precise edits
+task(agent_type: "general-purpose", model: "gpt-5.3-codex",
+     prompt: "Update our monitoring playbook and related skill docs to reflect the approved changes")
+```
+
+This pattern works well for recurring ecosystem monitoring: use a stronger synthesizer first,
+then a code-focused model for the actual repository edits.
+
 ## Tips
 
 - **Default to standard tier**: Models like `claude-sonnet-4.6` or `gpt-5.3-codex`
