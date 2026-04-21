@@ -32,7 +32,7 @@ hook behavior literally.
 
 Related but separate primitive: Claude Code v2.1.105+ also added a top-level `monitors:` manifest
 key. Unlike `hooks:`, which reacts to session events, `monitors:` declares background monitoring
-that auto-arms at session start or on skill invoke. Copilot CLI does not have a direct in-session
+that auto-arms when the session starts. Copilot CLI does not have a direct in-session
 equivalent; the closest match is an external automation or recurring check such as GitHub Actions
 with `on: schedule`, or an explicit session-start checklist like
 [`context-prime`](../skills/copilot-exclusive/context-prime/SKILL.md).
