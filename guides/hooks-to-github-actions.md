@@ -24,6 +24,12 @@ Claude Code supports hooks for the following events:
 **Key difference**: Claude Code Hooks respond to *AI session lifecycle* events.
 Copilot CLI does not have a direct equivalent mechanism.
 
+If you are migrating from a current Claude Code setup, note that newer Claude Code releases also
+apply `hooks:` frontmatter in `--agent` main-thread runs, not only in interactive sessions. That
+changes where Claude-side hook policies fire, but the migration rule here stays the same: carry
+over the hook's purpose into Git, GitHub Actions, or prompt-level guardrails rather than copying
+hook behavior literally.
+
 ---
 
 ## Alternative Mapping (Alternatives, Not Equivalents)

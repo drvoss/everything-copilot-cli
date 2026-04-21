@@ -76,6 +76,11 @@ Work across the approved files normally, but stop and ask before any destructive
 dependency change, schema migration, force push, or file deletion.
 ```
 
+Treat wrapper-prefixed commands as the same risk as the underlying command. `env ...`,
+`sudo ...`, `watch ...`, `ionice ...`, and `setsid ...` do not make a risky action safe.
+Likewise, treat `find -exec` and `find -delete` as explicit stop-and-review cases, not routine
+discovery commands.
+
 **Freeze** when the path boundary matters more than the command type:
 
 ```text
@@ -130,6 +135,9 @@ Do not rely on the agent to infer that the boundary changed.
 - Tell the agent what to do on a scope violation: **stop and report**
 - Pair large or destructive tasks with a branch or worktree
 - Review the diff before merging, even when the guard held
+- Write risky-command rules in terms of the real action, not only the first token. For example,
+  `sudo rm -rf`, `env NODE_ENV=prod npm run migrate`, and `find . -delete` should all follow the
+  same pause rules as their underlying destructive command
 
 ## Related Skills
 

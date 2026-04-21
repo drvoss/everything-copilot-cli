@@ -117,6 +117,14 @@ Classify each meaningful change as:
 Name the exact local file path for any adapt recommendation.
 ```
 
+**High-signal checklist for CLI changelogs**
+
+- permission model changes, especially deny matching that now applies through wrapper commands
+- shell-safety changes around previously tolerated forms such as `find -exec` or `find -delete`
+- hook or frontmatter scope changes that alter where a feature works
+- new built-ins or primitives that overlap with an existing local skill
+- new composition patterns that should become an adapt note rather than a new file
+
 ### Type C — Curated list filtering
 
 Use when the source is a discovery layer that links outward.

@@ -24,6 +24,15 @@ metadata:
 
 ## Workflow
 
+### 0. Keep the scan itself safe
+
+Start with read-only discovery commands. Do not treat destructive shell forms as harmless
+inspection:
+
+- `find -exec` and `find -delete` require explicit approval
+- wrapper-prefixed commands such as `env ...`, `sudo ...`, `watch ...`, `ionice ...`, and
+  `setsid ...` inherit the risk of the underlying command
+
 ### 1. Dependency Vulnerability Audit
 
 ```powershell
@@ -172,6 +181,8 @@ For new features or significant changes, apply STRIDE before scanning:
 - API keys or passwords hardcoded in source files
 - Critical vulnerabilities in `npm audit` output being ignored
 - Wildcard `*` in CORS configuration
+- `find -exec` or `find -delete` used during "inspection" without an explicit safety review
+- Wrapper-prefixed commands used to hide risky actions (`env`, `sudo`, `watch`, `ionice`, `setsid`)
 
 ## Verification
 
