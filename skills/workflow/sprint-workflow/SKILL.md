@@ -97,6 +97,11 @@ Run the `/review` command to trigger a systematic code review:
 Copilot's code-review agent surfaces only genuine issues — bugs, security holes,
 logic errors. Address blockers before testing.
 
+If you are translating this workflow back into a Claude Code or hybrid setup, Claude Code
+v2.1.108+ can discover and invoke built-in review commands through its `Skill` tool instead of
+relying on a human to type them manually. In Copilot CLI, keep the same intent explicit by
+invoking `/review` directly or dispatching the equivalent review agent as a planned handoff.
+
 You can also check the diff:
 
 ```text

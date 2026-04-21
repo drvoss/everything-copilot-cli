@@ -177,9 +177,13 @@ Every monitoring pass should end in one of three repository actions:
 |--------|---------|-----------------|
 | **Adopt** | create a new artifact because the gap is real | proposed path + why existing assets are insufficient |
 | **Adapt** | strengthen an existing artifact | exact local file path + what changes |
-| **Reject** | do not add it now | concrete reason: duplicate, vendor-specific, low fit, or stale |
+| **Reject** | do not add it now | concrete reason plus a re-review trigger so the next pass knows what would change the answer |
 
 Do not stop at "interesting." If there is no action, it is browsing, not intake.
+
+Record reject decisions somewhere durable enough to survive the session, even when the item is not
+worth promoting into a committed skill or guide yet. The point is not to preserve every transient
+ranking; it is to preserve the reason the repository said "not now."
 
 ---
 

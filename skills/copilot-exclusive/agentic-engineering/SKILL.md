@@ -120,7 +120,34 @@ Output: src/auth/middleware.ts created; exports verifyToken middleware function.
 Verification: npm test -- auth.middleware.test.ts
 ```
 
-### 4. Fail Fast, Surface Errors Early
+### 4. Prefer Built-In Composition Over Wrapper Skills
+
+**Rule:** When the platform can programmatically call an existing built-in workflow, reuse that
+primitive instead of inventing a thin wrapper file around it.
+
+**Why:** Built-ins already carry user expectations, maintenance, and platform-native behavior.
+Duplicating them as near-identical local artifacts adds drift without adding capability.
+
+Design handoffs around the real primitive:
+
+```text
+Goal: review the finished change before merge
+
+Weak:
+"After implementation, use our custom review wrapper and then summarize it."
+
+Stronger:
+"After implementation, trigger the platform's built-in review step, then return BLOCKER /
+CONCERN / PASS findings plus the next action."
+```
+
+When translating upstream patterns, this is often an **adapt** rather than an **adopt** signal.
+For example, Claude Code v2.1.108+ can chain built-in commands such as `/review`,
+`/security-review`, or `/init` through its `Skill` tool. In Copilot CLI, preserve that
+composition intent by calling the existing built-in command explicitly or routing to the closest
+existing skill or agent flow rather than creating a redundant new skill.
+
+### 5. Fail Fast, Surface Errors Early
 
 **Rule:** Agents should stop and surface uncertainty rather than guess and continue.
 
@@ -134,7 +161,7 @@ as a BLOCKER rather than making an assumption and continuing.
 Format: BLOCKER: [question] [what you would assume if forced to continue]
 ```
 
-### 5. State via SQL, Not Session Memory
+### 6. State via SQL, Not Session Memory
 
 **Rule:** Workflow state must live in SQL, not the agent's conversation memory.
 

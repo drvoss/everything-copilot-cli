@@ -186,11 +186,13 @@ Typical patterns:
 Do not stop at observations. Produce an execution-ready backlog:
 
 ```markdown
-| Candidate | Source | Action | Target | Why |
-|-----------|--------|--------|--------|-----|
-| deployment-canary | gstack | adopt | skills/workflow/deployment-canary/ | release monitoring gap |
-| /review | gstack | adapt | skills/development/code-review/ | existing review skill already present |
-| PreCompact hook helper | claude-code | reject | n/a | Claude-specific primitive, not user-facing in Copilot |
+| Candidate | Source | Action | Target | Why | Re-review trigger |
+|-----------|--------|--------|--------|-----|-------------------|
+| deployment-canary | gstack | adopt | skills/workflow/deployment-canary/ | release monitoring gap | n/a |
+| built-in review chaining | claude-code | adapt | skills/workflow/sprint-workflow/ | review step already exists locally, but upstream added a stronger composition pattern | if Copilot adds comparable programmatic built-in chaining |
+| make-pdf | gstack | reject | n/a | heavy renderer/runtime dependency for a markdown-first repo | if a markdown-first or low-dependency variant becomes reusable here |
+| prompt-injection-defense | gstack | reject | n/a | upstream approach depends on a local model stack we do not ship | if a rules-first or lightweight variant emerges |
+| PreCompact hook helper | claude-code | reject | n/a | Claude-specific primitive, not user-facing in Copilot | if Copilot exposes an equivalent lifecycle hook |
 ```
 
 If there are enough concrete items, add SQL todos for the top actions.
@@ -202,6 +204,7 @@ Rejected candidates still have value:
 - they reveal what quality threshold the ecosystem expects
 - they surface upstream concepts that should remain notes rather than user-facing skills
 - they help prevent duplicate or low-value additions later
+- they should carry a re-review trigger so the next monitoring pass does not restart from zero
 
 Use this especially with rejected issues or stale PRs from curated-list ecosystems.
 
