@@ -84,7 +84,7 @@ npm run setup -- --target /path/to/your-project
 | `full` | 高度なセットアップ向け | contexts を含むすべて |
 | `custom` | 細かく選びたい場合 | 各コンポーネントを説明付きで個別選択 |
 
-setup はプロジェクトの instructions を `.github/copilot-instructions.md` に書き込み、custom agents を `.github/agents/` に、project skills を `.github/skills/` にインストールします。Copilot CLI はこれらの場所を現在のリポジトリで自動検出します。
+setup はプロジェクトの instructions を `.github/copilot-instructions.md` に書き込み、custom agents を `.github/agents/` に、project skills を `.github/skills/` に、rules を `.github/copilot/rules/` にインストールします。`full` profile では contexts も `.github/copilot/contexts/` に配置されます。
 
 その後、project にインストールした agent・skill・rule を使って Copilot CLI を開始します。
 
@@ -98,7 +98,8 @@ copilot
 
 ```text
 - 起動バナーに project の custom instruction が表示され、project skills / agents の数も増えているはずです。
-- `/skills list` で built-in だけでなく project skills も表示されるはずです。
+- `/instructions` でインストール済みの project instructions が表示されるはずです。
+- `/skills` で built-in だけでなく project skills も表示されるはずです。
 - `/agent` で `planner` などの custom agent が表示されるはずです。
 - built-in skills しか表示されず project agents もない場合は、このリポジトリのインストール内容がまだ現在の project で検出されていません。
 ```
@@ -155,8 +156,8 @@ everything-copilot-cli/
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 12 comprehensive guides
-├── mcp-configs/                   # MCP server configurations (6)
+├── guides/                        # 16 comprehensive guides
+├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
 │   ├── python-api/
@@ -164,11 +165,12 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # Context presets
-├── references/                    # Checklist & pattern references
+├── references/                    # Checklist & pattern references (5)
 │   ├── testing-patterns.md        # AAA structure, mocking, component/API/E2E patterns
 │   ├── security-checklist.md      # OWASP Top 10, auth, input validation, security headers
 │   ├── performance-checklist.md   # Core Web Vitals, frontend/backend optimization
-│   └── accessibility-checklist.md # WCAG 2.1 AA, keyboard nav, screen reader, forms
+│   ├── accessibility-checklist.md # WCAG 2.1 AA, keyboard nav, screen reader, forms
+│   └── ecosystem-monitoring-playbook.md # Monitoring cadence, prompt archetypes, adopt/adapt/reject contract
 ├── scripts/                       # Setup & migration tools
 └── tests/                         # Test suite
 ```
@@ -214,6 +216,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `actions-debugging` | native Actions アクセスで CI failure をデバッグします |
 | `cross-session-memory` | 以前の session context を検索して再開します |
 | `knowledge-curator` | 繰り返し現れる学びを永続的な project guidance に昇格します |
+| `mcp-builder` | 新しい MCP server を設計・実装し、検証・reload・test まで通します |
 | `multi-model-strategy` | task ごとに最適な model を選択します |
 | `mcp-ecosystem` | カスタム MCP server で拡張します |
 | `ide-switching` | VS Code ↔ CLI の context 共有をシームレスにします |
@@ -239,6 +242,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `performance-optimization` | 計測ベースで bottleneck を特定し、改善を実証します |
 | `pr-multi-perspective-review` | 6視点 PR review：PM / Dev / QA / Security / DevOps / UX |
 | `refactor-clean` | dead code を削除し、ロジックを安全に簡素化します |
+| `source-driven-development` | 実装前に公式 doc を確認してから進める source-first 開発です |
 | `spec-driven-development` | coding 前に technical spec を作成し、interface・構造・境界を先に定義します |
 | `context-engineering` | AI agent への情報伝達を最適化し、noise を最小化、signal を最大化します |
 | `deprecation-and-migration` | 3フェーズで旧 API を安全に廃止し、新パターンへ移行します |
@@ -289,6 +293,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 |-------|-------------|
 | `commit-workflow` | Conventional commit + emoji、atomic split ガイダンス |
 | `release` | tag → GitHub Release → publish（npm/PyPI/Docker） |
+| `verification-before-completion` | 完了を主張する前に新しい command 出力で本当に終わったことを証明します |
 | `sprint-workflow` | sprint 全体：Think → Plan → Build → Review → Test → Ship → Monitor |
 | `deployment-canary` | release 後の canary 監視、rollback 閾値、promote/hold 判断を定義します |
 | `security-audit` | OWASP Top 10 + STRIDE threat modeling |
@@ -322,6 +327,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `e2e-testing` | 重要経路向け E2E test scaffolding |
 | `eval-harness` | SQL 追跡 test case 付きで LLM pipeline 評価スイートを構築します |
 | `browser-devtools` | 実行時 frontend 挙動を検証します（DOM 検証、network 検査、performance profiling） |
+| `ux-audit` | Krug 系ヒューリスティクスで usability を点検し、優先度付きの課題を返します |
 
 </details>
 
@@ -359,13 +365,17 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | **Longform Guide** | 全機能を深掘りしたガイドです |
 | **Security Guide** | security のベストプラクティスとスキャン方法です |
 | **Copilot Exclusive Features** | Copilot CLI でのみ利用できる機能です |
-| **Tool Selection Guide** | task ごとに適切な AI tool を選ぶ方法です |
-| **Migration Guide** | 概念対応表付きの段階的 migration パスです |
+| **Copilot vs Claude Code** | 両ツールの強み・制約・併用方針を比較します |
+| **Migration from Claude Code** | 概念対応表付きの段階的 migration パスです |
 | **Hooks to GitHub Actions** | Claude Code Hooks の代替（Git Hooks / Actions / Prompt Guards）です |
 | **Orchestration Guide** | マルチAIオーケストレーションのパターンと設定方法です |
 | **Skill Writing Best Practices** | 実際に発火する trigger-first 記述の書き方です |
 | **Skill Testing Guide** | promptware 向けに trigger 精度と出力品質を検証する方法です |
 | **QA Agent Guide** | 境界横断比較により実バグを捕捉する QA agent 設計です |
+| **Beginner Skills Tutorial (EN)** | 通常 prompt と skill 指定 prompt の違いを体感するコピペ実習です |
+| **Beginner Skills Tutorial (KO)** | 韓国語版の入門実習ガイドです |
+| **Beginner Skills Tutorial (JA)** | 日本語版の入門実習ガイドです |
+| **Beginner Skills Tutorial (ZH)** | 中国語版の入門実習ガイドです |
 
 すべてのガイドは [`guides/`](guides/) ディレクトリにあります。
 
@@ -403,7 +413,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | **Pipeline** | agent を順次連結し、前段の出力を次段に渡します | 多段 workflow |
 | **Agent Council** | 複数 agent が議論し、判断を投票します | 重要な意思決定 |
 
-### 追加の5パターン（チーム内オーケストレーション）
+### 追加の6パターン（チーム内オーケストレーション、Pattern 6〜11）
 
 | Pattern | 仕組み | 最適な用途 |
 |---------|-------------|----------|
@@ -412,6 +422,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | **Hierarchical Delegation** | 入れ子の orchestrator（root→domain→specialists）です | 大規模・複数ドメイン task |
 | **Iterative Refinement** | 計測可能な終了条件を持つ自己修正ループです | 品質重視の生成 |
 | **Review Trio** | PR 以外の成果物（RFC、schema、architecture）向け 3者 review です | 公開前 review |
+| **Sub-Agent Sandboxing** | worktree・scope・権限境界で委任 agent を隔離します | 安全性重視の委任 |
 
 ### tool の専門性
 

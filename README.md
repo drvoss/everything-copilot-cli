@@ -91,7 +91,7 @@ During step 4, setup offers these profiles:
 | `full` | For advanced setups | Everything, including contexts |
 | `custom` | When you want full control | Lets you choose each component with explanations |
 
-Setup writes project instructions to `.github/copilot-instructions.md`, installs custom agents to `.github/agents/`, and installs project skills to `.github/skills/`, which Copilot CLI can discover in the current repository.
+Setup writes project instructions to `.github/copilot-instructions.md`, installs custom agents to `.github/agents/`, project skills to `.github/skills/`, and rules to `.github/copilot/rules/`. The `full` profile also installs contexts to `.github/copilot/contexts/`.
 
 Then open a terminal and start using Copilot CLI with the installed agents, skills, and rules:
 
@@ -105,7 +105,8 @@ After `copilot` starts, you can quickly check whether the installation was picke
 
 ```text
 - The startup banner should mention your project custom instruction and show additional project skills and agents.
-- `/skills list` should show project skills, not just built-in ones.
+- `/instructions` should show the installed project instructions.
+- `/skills` should show project skills, not just built-in ones.
 - `/agent` should show custom agents such as `planner`.
 - If you only see built-in skills and no project agents, the collection was not discovered in this repository yet.
 ```
@@ -162,8 +163,8 @@ everything-copilot-cli/
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 12 comprehensive guides
-├── mcp-configs/                   # MCP server configurations (6)
+├── guides/                        # 16 comprehensive guides
+├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
 │   ├── python-api/
@@ -171,11 +172,12 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # Context presets
-├── references/                    # Checklist & pattern references
+├── references/                    # Checklist & pattern references (5)
 │   ├── testing-patterns.md        # AAA structure, mocking, component/API/E2E patterns
 │   ├── security-checklist.md      # OWASP Top 10, auth, input validation, security headers
 │   ├── performance-checklist.md   # Core Web Vitals, frontend/backend optimization
-│   └── accessibility-checklist.md # WCAG 2.1 AA, keyboard nav, screen reader, forms
+│   ├── accessibility-checklist.md # WCAG 2.1 AA, keyboard nav, screen reader, forms
+│   └── ecosystem-monitoring-playbook.md # Monitoring cadence, prompt archetypes, adopt/adapt/reject output contract
 ├── scripts/                       # Setup & migration tools
 └── tests/                         # Test suite
 ```
@@ -324,7 +326,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Testing Skills (4)</strong></summary>
+<summary><strong>Testing Skills (5)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -332,6 +334,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `e2e-testing` | E2E test scaffolding for critical paths |
 | `eval-harness` | Build LLM pipeline evaluation suites with SQL-tracked test cases |
 | `browser-devtools` | Verify frontend behavior at runtime — DOM validation, network inspection, performance profiling |
+| `ux-audit` | Structured usability review with Krug-inspired heuristics and prioritized findings |
 
 </details>
 
@@ -369,13 +372,17 @@ The Multi-AI Orchestration system (see [dedicated section](#multi-ai-orchestrati
 | **Longform Guide** | Deep dive into every feature |
 | **Security Guide** | Security best practices and scanning |
 | **Copilot Exclusive Features** | Features only available in Copilot CLI |
-| **Tool Selection Guide** | Choosing the right AI tool for each task |
-| **Migration Guide** | Step-by-step migration path with concept mapping |
+| **Copilot vs Claude Code** | Compare strengths, tradeoffs, and when to use each tool |
+| **Migration from Claude Code** | Step-by-step migration path with concept mapping |
 | **Hooks to GitHub Actions** | Claude Code Hooks alternatives (Git Hooks / Actions / Prompt Guards) |
 | **Orchestration Guide** | Multi-AI orchestration patterns and setup |
 | **Skill Writing Best Practices** | Write trigger-first descriptions that actually fire |
 | **Skill Testing Guide** | Test trigger accuracy and output quality for promptware |
 | **QA Agent Guide** | Design QA agents that catch real bugs via boundary-crossing comparison |
+| **Beginner Skills Tutorial (EN)** | Copy-paste lab to feel the difference between plain and skill-guided prompting |
+| **Beginner Skills Tutorial (KO)** | Korean version of the beginner hands-on skills lab |
+| **Beginner Skills Tutorial (JA)** | Japanese version of the beginner hands-on skills lab |
+| **Beginner Skills Tutorial (ZH)** | Chinese version of the beginner hands-on skills lab |
 
 All guides are in the [`guides/`](guides/) directory.
 
@@ -413,7 +420,7 @@ No single AI is best at everything. Claude excels at reasoning, Codex at rapid i
 | **Pipeline** | Chain agents sequentially — output of one feeds the next | Multi-stage workflows |
 | **Agent Council** | Multiple agents deliberate and vote on decisions | Critical decisions |
 
-### 5 Additional Patterns (Intra-team orchestration)
+### 6 Additional Patterns (Intra-team orchestration, Patterns 6–11)
 
 | Pattern | How It Works | Best For |
 |---------|-------------|----------|
@@ -422,6 +429,7 @@ No single AI is best at everything. Claude excels at reasoning, Codex at rapid i
 | **Hierarchical Delegation** | Nested orchestrators (root→domain→specialists) | Large multi-domain tasks |
 | **Iterative Refinement** | Self-correction loop with measurable exit criteria | Quality-sensitive generation |
 | **Review Trio** | 3-way review for non-PR artifacts (RFC, schema, architecture) | Pre-publish review |
+| **Sub-Agent Sandboxing** | Constrain delegated agents with worktree, scope, and permission boundaries | High-safety delegation |
 
 ### Tool Specialization
 

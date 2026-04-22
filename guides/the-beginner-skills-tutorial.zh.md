@@ -77,6 +77,9 @@ npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile rec
 - `.github/copilot-instructions.md`
 - `.github/agents/`
 - `.github/skills/`
+- `.github/copilot/rules/`
+
+`recommended` 配置会同时安装 instructions、agents、skills 和 rules。`full` 配置还会额外安装 `.github/copilot/contexts/`。
 
 ---
 
@@ -147,13 +150,13 @@ copilot
 在 Copilot 内运行：
 
 ```text
-/skills list
+/skills
 /agent
 ```
 
 如果出现下面这些内容，就说明准备好了：
 
-- `/skills list` 中能看到 `systematic-debugging`、`tdd-workflow` 这类 project skill
+- `/skills` 中能看到 `systematic-debugging`、`tdd-workflow` 这类 project skill
 - `/agent` 中能看到 `planner`
 
 检查完后退出 Copilot。
@@ -319,7 +322,7 @@ Use the planner agent and plan mode. Break this work into tasks with dependencie
 
 如果 Copilot 看起来没有识别到你安装的 collection：
 
-1. 运行 `/skills list`
+1. 运行 `/skills`
 2. 运行 `/agent`
 3. 确认项目里存在：
    - `.github/copilot-instructions.md`

@@ -85,7 +85,7 @@ Copilot CLI delegates tasks to specialized tools, collects results, and coordina
 
 ## Pattern Overview
 
-Copilot CLI supports five orchestration patterns, from simple to complex:
+This guide starts with five cross-AI orchestration patterns, from simple to complex:
 
 | # | Pattern | Complexity | Setup | Use Case |
 |---|---|---|---|---|
@@ -95,7 +95,7 @@ Copilot CLI supports five orchestration patterns, from simple to complex:
 | 4 | [Pipeline](../orchestration/patterns/pipeline.md) | High | Script setup | Sequential multi-stage workflows |
 | 5 | [Agent Council](../orchestration/patterns/agent-council.md) | High | Multi-tool setup | Multi-agent consensus and debate |
 
-**Start with Pattern 1.** Graduate to higher patterns only when you need the extra capability.
+**Start with Pattern 1.** Graduate to higher patterns only when you need the extra capability. For the full 11-pattern catalog, see `orchestration/README.md`.
 
 ---
 
@@ -105,10 +105,10 @@ Copilot CLI supports five orchestration patterns, from simple to complex:
 
 ```powershell
 # Check what's available on your system
-copilot --version         # GitHub Copilot CLI
-codex --version           # OpenAI Codex CLI
-npx claude --version      # Anthropic Claude Code
-gemini --version          # Google Gemini CLI
+copilot --version                      # GitHub Copilot CLI
+codex --version                        # OpenAI Codex CLI
+npx @anthropic-ai/claude-code --version # Anthropic Claude Code
+gemini --version                       # Google Gemini CLI
 ```
 
 You don't need all of them — start with whichever tools you already have installed.
@@ -119,7 +119,7 @@ From inside a Copilot CLI session, you can invoke any other tool directly:
 
 ```powershell
 # Ask Claude to analyze architecture, capture the result
-$analysis = npx claude --print "Analyze the architecture of src/ and identify coupling issues"
+$analysis = npx @anthropic-ai/claude-code --print "Analyze the architecture of src/ and identify coupling issues"
 
 # Ask Codex to implement a fix based on the analysis
 codex --quiet "Based on this analysis, decouple the user service: $analysis"
@@ -174,7 +174,7 @@ Implement, review, and merge with multi-AI coverage:
 # (Use Copilot CLI in Autopilot mode)
 
 # Step 2: AI code review for logic
-npx claude --print "Review these changes for logic errors and edge cases: $(git diff)"
+npx @anthropic-ai/claude-code --print "Review these changes for logic errors and edge cases: $(git diff)"
 
 # Step 3: Security review
 # (Use Copilot CLI's code-review agent)
@@ -188,7 +188,7 @@ npx claude --print "Review these changes for logic errors and edge cases: $(git 
 
 ```powershell
 # Phase 1: Get architectural recommendation from Claude
-$recommendation = npx claude --print @"
+$recommendation = npx @anthropic-ai/claude-code --print @"
 Analyze our current codebase and recommend whether we should:
 A) Refactor the monolithic API into microservices
 B) Keep the monolith but add a service layer
@@ -389,7 +389,7 @@ GitHub Copilot CLI is uniquely positioned as the orchestration hub because:
 
 ```powershell
 # 1. Check your tools
-copilot --version && codex --version && npx claude --version
+copilot --version && codex --version && npx @anthropic-ai/claude-code --version
 
 # 2. Start a Copilot CLI session in your project
 cd C:\your-project

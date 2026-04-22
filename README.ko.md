@@ -84,7 +84,7 @@ npm run setup -- --target /path/to/your-project
 | `full` | 고급 설정용 | contexts 포함 전체 설치 |
 | `custom` | 세부 제어가 필요할 때 | 각 구성 요소를 설명과 함께 직접 선택 |
 
-setup는 프로젝트 instructions를 `.github/copilot-instructions.md`에 쓰고, custom agents는 `.github/agents/`에, project skills는 `.github/skills/`에 설치합니다. Copilot CLI는 이 경로들을 현재 저장소에서 자동으로 찾습니다.
+setup는 프로젝트 instructions를 `.github/copilot-instructions.md`에 쓰고, custom agents는 `.github/agents/`에, project skills는 `.github/skills/`에, rules는 `.github/copilot/rules/`에 설치합니다. `full` 프로필은 contexts도 `.github/copilot/contexts/`에 설치합니다.
 
 이제 프로젝트에 설치한 에이전트, 스킬, 규칙과 함께 Copilot CLI를 사용해보세요:
 
@@ -98,7 +98,8 @@ copilot
 
 ```text
 - 시작 배너에 프로젝트 custom instruction이 보이고, project skills / agents 수가 함께 표시되어야 합니다.
-- `/skills list`를 실행했을 때 built-in 항목만이 아니라 project skills도 보여야 합니다.
+- `/instructions`를 실행했을 때 설치된 project instructions가 보여야 합니다.
+- `/skills`를 실행했을 때 built-in 항목만이 아니라 project skills도 보여야 합니다.
 - `/agent`를 실행했을 때 `planner` 같은 custom agent가 보여야 합니다.
 - built-in skills만 보이고 project agents가 없다면, 이 저장소의 설치 내용이 아직 현재 프로젝트에서 인식되지 않은 것입니다.
 ```
@@ -155,8 +156,8 @@ everything-copilot-cli/
 │   ├── templates/                 #   재사용 가능한 오케스트레이터 템플릿
 │   └── examples/                  #   실전 예제 (6개)
 │
-├── guides/                        # 종합 가이드 (12개)
-├── mcp-configs/                   # MCP 서버 설정 (6개)
+├── guides/                        # 종합 가이드 (16개)
+├── mcp-configs/                   # MCP 서버 설정 (7개 파일; 설정 6개 + README)
 ├── examples/                      # 프로젝트별 copilot-instructions 예제
 │   ├── nextjs-app/
 │   ├── python-api/
@@ -164,11 +165,12 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # 컨텍스트 프리셋
-├── references/                    # 체크리스트 & 패턴 레퍼런스
+├── references/                    # 체크리스트 & 패턴 레퍼런스 (5개)
 │   ├── testing-patterns.md        # AAA 구조, mock 전략, 컴포넌트/API/E2E 패턴
 │   ├── security-checklist.md      # OWASP Top 10, 인증, 입력 검증, 보안 헤더
 │   ├── performance-checklist.md   # Core Web Vitals, 프론트/백엔드 최적화
-│   └── accessibility-checklist.md # WCAG 2.1 AA, 키보드 내비게이션, 스크린 리더
+│   ├── accessibility-checklist.md # WCAG 2.1 AA, 키보드 내비게이션, 스크린 리더
+│   └── ecosystem-monitoring-playbook.md # 모니터링 주기, 프롬프트 유형, adopt/adapt/reject 결정 기준
 ├── scripts/                       # 셋업 & 마이그레이션 도구
 └── tests/                         # 테스트 스위트
 ```
@@ -214,6 +216,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `actions-debugging` | 네이티브 Actions 접근으로 CI 실패 디버깅 |
 | `cross-session-memory` | 이전 세션 컨텍스트를 검색하고 재개 |
 | `knowledge-curator` | 반복되는 교훈을 영구적인 프로젝트 가이드로 승격 |
+| `mcp-builder` | 새 MCP 서버를 설계하고 구현한 뒤 검증, 리로드, 테스트까지 수행 |
 | `multi-model-strategy` | 작업별 최적 모델 선택 |
 | `mcp-ecosystem` | 커스텀 MCP 서버로 기능 확장 |
 | `ide-switching` | VS Code ↔ CLI 원활한 컨텍스트 공유 |
@@ -239,6 +242,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `performance-optimization` | 측정 기반으로 병목을 찾고 성능 개선을 검증 |
 | `pr-multi-perspective-review` | 6가지 관점 PR 리뷰: PM/Dev/QA/Security/DevOps/UX |
 | `refactor-clean` | 동작 보존하며 데드 코드 제거 및 로직 단순화 |
+| `source-driven-development` | 공식 문서를 먼저 검증한 뒤 구현하는 소스 우선 개발 |
 | `spec-driven-development` | 코드 작성 전 기술 스펙 작성 — 인터페이스와 경계를 먼저 확정 |
 | `context-engineering` | AI 에이전트 태스크를 위한 컨텍스트 최적화 — 노이즈 최소화, 시그널 극대화 |
 | `deprecation-and-migration` | 3단계 프로세스로 구 API를 안전하게 제거하고 새 패턴으로 마이그레이션 |
@@ -289,6 +293,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 |------|------|
 | `commit-workflow` | 컨벤셔널 커밋 + 이모지, 원자적 분할 가이드 |
 | `release` | 태그 → GitHub Release → 배포 (npm/PyPI/Docker) |
+| `verification-before-completion` | 완료 주장 전에 새 명령 출력으로 작업 완료를 증명 |
 | `sprint-workflow` | 전체 스프린트: 구상 → 계획 → 구축 → 리뷰 → 테스트 → 출시 → 모니터링 |
 | `deployment-canary` | 출시 후 카나리 점검, 롤백 기준, promote/hold 판단 |
 | `security-audit` | OWASP Top 10 + STRIDE 위협 모델링 |
@@ -322,6 +327,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `e2e-testing` | 핵심 사용자 경로 E2E 테스트 스캐폴딩 |
 | `eval-harness` | SQL 추적 테스트 케이스로 LLM 파이프라인 평가 스위트 구축 |
 | `browser-devtools` | 브라우저 DevTools로 런타임 DOM, 네트워크, 성능 검증 |
+| `ux-audit` | Krug 계열 휴리스틱으로 사용성을 점검하고 우선순위 이슈를 정리 |
 
 </details>
 
@@ -359,13 +365,17 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | **롱폼 가이드** | 모든 기능에 대한 심층 안내 |
 | **보안 가이드** | 보안 모범 사례 및 스캐닝 |
 | **Copilot 전용 기능** | Copilot CLI에서만 가능한 기능 |
-| **도구 선택 가이드** | 각 작업에 맞는 AI 도구 선택법 |
-| **마이그레이션 가이드** | 개념 매핑과 단계별 마이그레이션 가이드 |
+| **Copilot vs Claude Code** | 두 도구의 강점, 한계, 함께 쓰는 방법 비교 |
+| **Claude Code에서 마이그레이션** | 개념 매핑이 포함된 단계별 전환 가이드 |
 | **Hooks to GitHub Actions** | Claude Code Hooks 대안 (Git Hooks / Actions / Prompt Guards) |
 | **오케스트레이션 가이드** | Multi-AI 오케스트레이션 패턴 및 설정 |
 | **스킬 작성 모범 사례** | 실제로 동작하는 트리거 우선 description 작성법 |
 | **스킬 테스팅 가이드** | 프롬프트웨어의 트리거 정확도 및 출력 품질 테스트 |
 | **QA 에이전트 가이드** | 경계면 교차 비교 기반의 실질적인 QA 에이전트 설계 |
+| **입문자용 스킬 실습 가이드 (EN)** | 일반 프롬프트와 스킬 기반 프롬프트 차이를 체감하는 복붙 실습 |
+| **입문자용 스킬 실습 가이드 (KO)** | 한국어 버전 입문자 실습 가이드 |
+| **입문자용 스킬 실습 가이드 (JA)** | 일본어 버전 입문자 실습 가이드 |
+| **입문자용 스킬 실습 가이드 (ZH)** | 중국어 버전 입문자 실습 가이드 |
 
 모든 가이드는 [`guides/`](guides/) 디렉토리에 있습니다.
 
@@ -403,7 +413,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | **Pipeline** | 에이전트를 순차 연결 — 이전 출력이 다음 입력으로 | 다단계 워크플로우 |
 | **Agent Council** | 여러 에이전트가 토론하고 결정에 투표 | 중요한 의사결정 |
 
-### 5가지 팀 내부 오케스트레이션 패턴
+### 6가지 팀 내부 오케스트레이션 패턴 (Patterns 6–11)
 
 | 패턴 | 동작 방식 | 적합한 상황 |
 |------|-----------|-------------|
@@ -412,6 +422,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | **Hierarchical Delegation** | 중첩 오케스트레이터 (루트→도메인→전문가) | 대규모 멀티도메인 작업 |
 | **Iterative Refinement** | 측정 가능한 종료 기준 기반 자기 개선 루프 | 품질 민감한 생성 |
 | **Review Trio** | PR 외 아티팩트 (RFC, 스키마, 아키텍처) 3자 리뷰 | 배포 전 검토 |
+| **Sub-Agent Sandboxing** | 워크트리·범위·권한 경계로 위임 에이전트를 격리 | 안전성이 중요한 위임 |
 
 ### 도구별 전문 영역
 

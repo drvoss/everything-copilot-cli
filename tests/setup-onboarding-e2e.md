@@ -33,6 +33,7 @@ Verify that a fresh project can be bootstrapped from this repository and that Gi
    - `.github/copilot-instructions.md`
    - `.github/agents/`
    - `.github/skills/`
+   - `.github/copilot/rules/`
 
 4. Start Copilot in the target directory:
 
@@ -43,13 +44,13 @@ Verify that a fresh project can be bootstrapped from this repository and that Gi
 
 5. Verify the banner reports:
    - `1 custom instruction`
-   - `65 skills`
+   - `73 skills`
    - `8 agents`
 
 6. Run:
 
    ```text
-   /skills list
+   /skills
    ```
 
 7. Confirm project skills such as `fix-build-errors` appear in the list.
@@ -69,8 +70,7 @@ Use this only when debugging loader behavior.
 1. Create `.github/skills/fix-build-errors/SKILL.md` in an empty target directory.
 2. Add `.github/copilot-instructions.md`.
 3. Launch `copilot`.
-4. Confirm the banner reports `2 skills` (`fix-build-errors` + built-in `customize-cloud-agent`).
-5. Run `/skills list` and confirm `fix-build-errors` is listed under `Project`.
+4. Run `/skills` and confirm `fix-build-errors` is listed under `Project`.
 
 ## Case 3 — Manual flat agent layout
 
@@ -85,7 +85,7 @@ Use this only when debugging loader behavior.
 ## Pass criteria
 
 - The README install flow loads project instructions, project skills, and custom agents in Copilot CLI.
-- `/skills list` shows project skills from `.github/skills/`.
+- `/skills` shows project skills from `.github/skills/`.
 - `/agent` shows custom agents from `.github/agents/`.
 - The installer never places project skills under `.github/copilot/skills/`.
 

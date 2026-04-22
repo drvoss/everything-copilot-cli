@@ -77,6 +77,9 @@ npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile rec
 - `.github/copilot-instructions.md`
 - `.github/agents/`
 - `.github/skills/`
+- `.github/copilot/rules/`
+
+`recommended` profile では instructions・agents・skills に加えて rules も入ります。`full` profile では `.github/copilot/contexts/` も追加されます。
 
 ---
 
@@ -147,13 +150,13 @@ copilot
 Copilot の中で次を実行します。
 
 ```text
-/skills list
+/skills
 /agent
 ```
 
 次が見えれば準備完了です。
 
-- `/skills list` に `systematic-debugging` や `tdd-workflow` などの project skill がある
+- `/skills` に `systematic-debugging` や `tdd-workflow` などの project skill がある
 - `/agent` に `planner` がある
 
 確認したら Copilot を終了してください。
@@ -319,7 +322,7 @@ Use the planner agent and plan mode. Break this work into tasks with dependencie
 
 Copilot がインストールした collection を認識していないようなら:
 
-1. `/skills list` を実行
+1. `/skills` を実行
 2. `/agent` を実行
 3. project に次があるか確認
    - `.github/copilot-instructions.md`

@@ -77,6 +77,9 @@ npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile rec
 - `.github/copilot-instructions.md`
 - `.github/agents/`
 - `.github/skills/`
+- `.github/copilot/rules/`
+
+`recommended` 프로필은 instructions, agents, skills와 함께 rules도 설치합니다. `full` 프로필은 `.github/copilot/contexts/`도 추가합니다.
 
 ---
 
@@ -147,13 +150,13 @@ copilot
 Copilot 안에서 다음을 실행하세요.
 
 ```text
-/skills list
+/skills
 /agent
 ```
 
 다음이 보이면 준비 완료입니다.
 
-- `/skills list`에 `systematic-debugging`, `tdd-workflow` 같은 project skill이 보임
+- `/skills`에 `systematic-debugging`, `tdd-workflow` 같은 project skill이 보임
 - `/agent`에 `planner`가 보임
 
 확인 후 Copilot을 종료하세요.
@@ -321,7 +324,7 @@ Use the planner agent and plan mode. Break this work into tasks with dependencie
 
 Copilot이 설치한 컬렉션을 못 읽는 것 같다면:
 
-1. `/skills list` 실행
+1. `/skills` 실행
 2. `/agent` 실행
 3. 프로젝트에 다음이 있는지 확인
    - `.github/copilot-instructions.md`

@@ -71,13 +71,13 @@ Verify that the beginner tutorial in `guides/the-beginner-skills-tutorial*.md` i
 10. Inside Copilot, run:
 
     ```text
-    /skills list
+    /skills
     /agent
     ```
 
 11. Confirm:
-    - the startup environment includes `1 custom instruction`, `65 skills`, and `8 agents`
-    - `/skills list` includes `systematic-debugging` and `tdd-workflow`
+    - the startup environment includes `1 custom instruction`, `73 skills`, and `8 agents`
+    - `/skills` includes `systematic-debugging` and `tdd-workflow`
     - `/agent` includes `planner`
 
 ## Pass criteria

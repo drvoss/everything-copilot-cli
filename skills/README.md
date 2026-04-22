@@ -194,6 +194,7 @@ End-to-end development workflow skills — from planning to shipping.
 | [`cost-audit`](workflow/cost-audit/SKILL.md) | Use when AI inference costs are growing unexpectedly or when comparing model choices by cost/quality ratio — produces an actionable cost reduction plan |
 | [`council`](workflow/council/SKILL.md) | Use when a decision has multiple credible paths and no obvious winner — convene a four-voice council (Architect, Skeptic, Pragmatist, Critic) for adversarial deliberation |
 | [`deep-research`](workflow/deep-research/SKILL.md) | Use when a question requires comprehensive evidence gathering from multiple sources, systematic synthesis, and traceable citations |
+| [`deployment-canary`](workflow/deployment-canary/SKILL.md) | Use when a release needs staged rollout checks, rollback thresholds, and explicit promote/hold decisions |
 | [`release`](workflow/release/SKILL.md) | Cut a versioned release: tag → GitHub Release → publish (npm/PyPI/Docker) |
 | [`verification-before-completion`](workflow/verification-before-completion/SKILL.md) | Prove a task is done with fresh command output before claiming success |
 | [`sprint-workflow`](workflow/sprint-workflow/SKILL.md) | Full sprint: Think → Plan → Build → Review → Test → Ship |

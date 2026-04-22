@@ -34,7 +34,7 @@ Instead of choosing one tool, orchestrate them:
 | Autonomous Execution   | ★★★★★      | ★★★★★      | ★★★★★    | ★★★★☆     |
 | PR/Issue Management    | ★★★★★      | ★★☆☆☆      | ★★☆☆☆    | ★★☆☆☆     |
 
-## Ten Orchestration Patterns
+## Eleven Orchestration Patterns
 
 ### Cross-AI Patterns (1–5)
 
@@ -46,7 +46,7 @@ Instead of choosing one tool, orchestrate them:
 | 4 | [Pipeline](patterns/pipeline.md) | Medium | Sequential processing, Unix philosophy |
 | 5 | [Agent Council](patterns/agent-council.md) | High | Complex tasks needing multiple perspectives |
 
-### Intra-Team Patterns (6–10)
+### Intra-Team Patterns (6–11)
 
 | # | Pattern | Complexity | Best For |
 |---|---------|:----------:|----------|
@@ -55,6 +55,7 @@ Instead of choosing one tool, orchestrate them:
 | 8 | [Hierarchical Delegation](patterns/hierarchical-delegation.md) | High | Large multi-domain tasks with nested orchestrators |
 | 9 | [Iterative Refinement](patterns/iterative-refinement.md) | Medium | Quality-sensitive generation with measurable exit criteria |
 | 10 | [Review Trio](patterns/review-trio.md) | Low | 3-way review for non-PR artifacts (RFC, schema, architecture) |
+| 11 | [Sub-Agent Sandboxing](patterns/sub-agent-sandboxing.md) | High | Constrain delegated agents with worktree, scope, and permission boundaries |
 
 ### Pattern Selection Guide
 
@@ -88,6 +89,9 @@ Need self-correcting generation with measurable criteria?
 
 Need a lightweight 3-way review for documents or designs?
   → Pattern 10: Review Trio
+
+Need strong isolation and explicit boundaries for delegated agents?
+  → Pattern 11: Sub-Agent Sandboxing
 ```
 
 ## Skills (Reusable Recipes)
@@ -116,6 +120,7 @@ Orchestration skills fall into the **Orchestrator** tier of the [three-layer ski
 - [Full Multi-AI Workflow](examples/full-workflow.md) — Plan → Design → Implement → Review → Ship
 - [Code Review Team](examples/code-review-team.md) — 5-specialist parallel PR review with diff filtering
 - [Migration Supervisor](examples/migration-supervisor.md) — SQL-tracked incremental migration with test gate/rollback
+- [Virtual Team](examples/virtual-team.md) — Team roster handoff across Copilot, Claude, and Codex
 
 ## Reference Projects
 
@@ -130,14 +135,14 @@ These open-source projects pioneered multi-agent orchestration patterns:
 | [agent-council](https://github.com/cagostino/agent-council) | 115⭐ | Multi-agent council decision-making |
 | [agentpipe](https://github.com/agentpipe/agentpipe) | 97⭐ | Unix-pipe-style agent chaining |
 
-## System Status
+## Tool Entry Points
 
-> **Current Environment:**
+> **Example verification commands:**
 >
-> - Codex CLI: Latest stable (installed globally via `npm i -g @openai/codex`)
-> - Claude Code: Available via `npx @anthropic-ai/claude-code`
-> - Gemini CLI: Available via `npx @anthropic-ai/gemini-cli` or direct install
-> - Copilot CLI: You're using it right now
+> - Codex CLI: `codex --version`
+> - Claude Code: `npx @anthropic-ai/claude-code --version`
+> - Gemini CLI: use your locally installed `gemini --version` or vendor entry point
+> - Copilot CLI: `copilot --version`
 
 ## Quick Start
 
@@ -168,7 +173,8 @@ orchestration/
 │   ├── producer-reviewer.md           # Pattern 7: Iterative produce→review loop
 │   ├── hierarchical-delegation.md     # Pattern 8: Nested orchestrators
 │   ├── iterative-refinement.md        # Pattern 9: Self-correction loop
-│   └── review-trio.md                 # Pattern 10: 3-way artifact review
+│   ├── review-trio.md                 # Pattern 10: 3-way artifact review
+│   └── sub-agent-sandboxing.md        # Pattern 11: Scoped delegated execution
 ├── configs/
 │   ├── codex-mcp-bridge.json         # MCP config for Codex CLI
 │   ├── claude-mcp-bridge.json        # MCP config for Claude Code
@@ -180,12 +186,13 @@ orchestration/
 │   ├── agent-review-chain.md         # Multi-agent review pipeline
 │   ├── multi-ai-handoff.md           # JSON handoff protocol
 │   └── review-squad.md              # 5-specialist parallel review
-└── examples/
-    ├── architecture-review.md         # E2E: Architecture review with Claude
-    ├── fast-implementation.md         # E2E: Rapid implementation with Codex
-    ├── full-workflow.md               # E2E: Complete multi-AI workflow
-    ├── code-review-team.md            # E2E: 5-specialist parallel PR review
-    └── migration-supervisor.md        # E2E: Supervised incremental migration
+├── examples/
+│   ├── architecture-review.md         # E2E: Architecture review with Claude
+│   ├── fast-implementation.md         # E2E: Rapid implementation with Codex
+│   ├── full-workflow.md               # E2E: Complete multi-AI workflow
+│   ├── code-review-team.md            # E2E: 5-specialist parallel PR review
+│   ├── migration-supervisor.md        # E2E: Supervised incremental migration
+│   └── virtual-team.md                # E2E: Cross-tool virtual team handoff
 └── templates/
     ├── orchestrator-template.md       # Reusable template for new orchestration skills
     └── agent-template.md              # Reusable template for specialist agent definitions

@@ -628,7 +628,7 @@ Orchestration lets you leverage all of them from a single interface.
 
 ### How to Use It
 
-**Five orchestration patterns (increasing complexity):**
+**Five cross-AI orchestration patterns (increasing complexity):**
 
 | Pattern | Complexity | Description |
 |---------|-----------|-------------|

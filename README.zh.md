@@ -84,7 +84,7 @@ npm run setup -- --target /path/to/your-project
 | `full` | 适合高级场景 | 安装全部内容，包括 contexts |
 | `custom` | 需要精细控制时 | 带说明逐项选择每个组件 |
 
-setup 会把项目 instructions 写入 `.github/copilot-instructions.md`，并把 custom agents 安装到 `.github/agents/`、project skills 安装到 `.github/skills/`。Copilot CLI 会在当前仓库中自动发现这些位置。
+setup 会把项目 instructions 写入 `.github/copilot-instructions.md`，并把 custom agents 安装到 `.github/agents/`、project skills 安装到 `.github/skills/`、rules 安装到 `.github/copilot/rules/`。`full` 配置还会把 contexts 安装到 `.github/copilot/contexts/`。
 
 随后打开终端，开始使用安装到项目中的 agent、skill 与规则：
 
@@ -98,7 +98,8 @@ copilot
 
 ```text
 - 启动横幅应显示项目 custom instruction，并且 project skills / agents 数量会增加。
-- 运行 `/skills list` 时，除了 built-in 项目，还应看到 project skills。
+- 运行 `/instructions` 时，应看到已安装的 project instructions。
+- 运行 `/skills` 时，除了 built-in 项目，还应看到 project skills。
 - 运行 `/agent` 时，应看到 `planner` 等 custom agents。
 - 如果只看到 built-in skills、看不到 project agents，说明当前仓库里还没有成功识别这套集合。
 ```
@@ -155,8 +156,8 @@ everything-copilot-cli/
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 12 comprehensive guides
-├── mcp-configs/                   # MCP server configurations (6)
+├── guides/                        # 16 comprehensive guides
+├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
 │   ├── python-api/
@@ -164,11 +165,12 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # Context presets
-├── references/                    # Checklist & pattern references
+├── references/                    # Checklist & pattern references (5)
 │   ├── testing-patterns.md        # AAA structure, mocking, component/API/E2E patterns
 │   ├── security-checklist.md      # OWASP Top 10, auth, input validation, security headers
 │   ├── performance-checklist.md   # Core Web Vitals, frontend/backend optimization
-│   └── accessibility-checklist.md # WCAG 2.1 AA, keyboard nav, screen reader, forms
+│   ├── accessibility-checklist.md # WCAG 2.1 AA, keyboard nav, screen reader, forms
+│   └── ecosystem-monitoring-playbook.md # 监控节奏、提示模板与 adopt/adapt/reject 输出约定
 ├── scripts/                       # Setup & migration tools
 └── tests/                         # Test suite
 ```
@@ -214,6 +216,7 @@ everything-copilot-cli/
 | `actions-debugging` | 利用原生 Actions 访问能力调试 CI 失败 |
 | `cross-session-memory` | 检索并恢复先前的会话上下文 |
 | `knowledge-curator` | 将反复出现的经验沉淀为持久的项目指引 |
+| `mcp-builder` | 构建新的 MCP server，并完成校验、热重载与端到端测试 |
 | `multi-model-strategy` | 按任务选择合适模型 |
 | `mcp-ecosystem` | 通过自定义 MCP server 扩展能力 |
 | `ide-switching` | VS Code ↔ CLI 无缝上下文切换 |
@@ -239,6 +242,7 @@ everything-copilot-cli/
 | `performance-optimization` | 基于测量定位瓶颈，并验证性能优化是否真实生效 |
 | `pr-multi-perspective-review` | 六视角 PR 评审：PM / Dev / QA / Security / DevOps / UX |
 | `refactor-clean` | 安全地移除死代码并简化逻辑 |
+| `source-driven-development` | 先核对官方文档与 API，再开始实现的 source-first 开发方式 |
 | `spec-driven-development` | 先写技术规范再编码——先定义接口、结构与边界 |
 | `context-engineering` | 优化向 AI agent 传递信息——减少噪声、提升信号 |
 | `deprecation-and-migration` | 通过三阶段流程安全移除旧 API 并迁移到新模式 |
@@ -289,6 +293,7 @@ everything-copilot-cli/
 |-------|------|
 | `commit-workflow` | Conventional commits + emoji，以及原子化拆分指导 |
 | `release` | tag → GitHub Release → 发布（npm/PyPI/Docker） |
+| `verification-before-completion` | 在宣称完成前，用最新命令输出证明任务确实完成 |
 | `sprint-workflow` | 完整冲刺流程：Think → Plan → Build → Review → Test → Ship → Monitor |
 | `deployment-canary` | 发布后 canary 检查、回滚阈值，以及 promote/hold 决策 |
 | `security-audit` | OWASP Top 10 + STRIDE 威胁建模 |
@@ -322,6 +327,7 @@ everything-copilot-cli/
 | `e2e-testing` | 为关键路径搭建 E2E 测试脚手架 |
 | `eval-harness` | 构建带 SQL 跟踪测试用例的 LLM pipeline 评估套件 |
 | `browser-devtools` | 在运行时验证前端行为——DOM 校验、网络检查、性能分析 |
+| `ux-audit` | 用 Krug 风格可用性启发式检查界面，并输出带优先级的问题列表 |
 
 </details>
 
@@ -359,13 +365,17 @@ everything-copilot-cli/
 | **Longform Guide** | 对全部功能的深入讲解 |
 | **Security Guide** | 安全最佳实践与扫描方法 |
 | **Copilot Exclusive Features** | 仅在 Copilot CLI 中提供的功能 |
-| **Tool Selection Guide** | 为每项任务选择合适的 AI 工具 |
-| **Migration Guide** | 含概念映射的分步迁移路径 |
+| **Copilot vs Claude Code** | 比较两种工具的优势、取舍与协作方式 |
+| **Migration from Claude Code** | 含概念映射的分步迁移路径 |
 | **Hooks to GitHub Actions** | Claude Code Hooks 替代方案（Git Hooks / Actions / Prompt Guards） |
 | **Orchestration Guide** | 多AI协同编排模式与配置 |
 | **Skill Writing Best Practices** | 编写真正能触发的 trigger-first 描述 |
 | **Skill Testing Guide** | 为 promptware 测试触发准确性与输出质量 |
 | **QA Agent Guide** | 设计可通过跨边界比较捕捉真实缺陷的 QA agent |
+| **Beginner Skills Tutorial (EN)** | 用复制粘贴实验感受普通 prompt 与 skill 引导的差异 |
+| **Beginner Skills Tutorial (KO)** | 韩文版入门技能实操教程 |
+| **Beginner Skills Tutorial (JA)** | 日文版入门技能实操教程 |
+| **Beginner Skills Tutorial (ZH)** | 中文版入门技能实操教程 |
 
 所有指南均位于 [`guides/`](guides/) 目录。
 
@@ -403,7 +413,7 @@ everything-copilot-cli/
 | **Pipeline** | 按顺序串联 agents——前一者输出成为后一者输入 | 多阶段工作流 |
 | **Agent Council** | 多个 agents 共同讨论并投票决策 | 关键决策 |
 
-### 另外 5 种模式（团队内编排）
+### 另外 6 种模式（团队内编排，模式 6–11）
 
 | 模式 | 工作方式 | 适用场景 |
 |------|----------|----------|
@@ -412,6 +422,7 @@ everything-copilot-cli/
 | **Hierarchical Delegation** | 嵌套式 orchestrator（root→domain→specialists） | 大型跨领域任务 |
 | **Iterative Refinement** | 带可衡量退出标准的自纠正循环 | 对质量敏感的生成任务 |
 | **Review Trio** | 面向非 PR 产物的三方评审（RFC、schema、architecture） | 发布前评审 |
+| **Sub-Agent Sandboxing** | 用 worktree、范围与权限边界隔离被委派 agent | 高安全要求的委派 |
 
 ### 工具专长分工
 

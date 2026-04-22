@@ -76,7 +76,7 @@ Rules define behavioral constraints and coding standards:
 
 Orchestration defines how multiple agents collaborate:
 
-- `orchestration/patterns/` — Reusable coordination patterns (pipeline, fan-out, review-chain)
+- `orchestration/patterns/` — Reusable coordination patterns (pipeline, fan-out, review-chain, sub-agent-sandboxing)
 - `orchestration/configs/` — Configuration for specific orchestration setups
 - `orchestration/examples/` — Worked examples of multi-agent workflows
 - `orchestration/skills/` — Orchestration-specific skill combinations

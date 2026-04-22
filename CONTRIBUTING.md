@@ -20,20 +20,20 @@ Thank you for your interest in contributing! This project aims to be the definit
    ```
 
 2. Include sections: Purpose, When to Use, How It Works, Examples
-3. Run `npm test` to validate
+3. Run `npm run validate && npm run lint:md && npm test` to validate
 
 ### Adding a New Skill
 
 1. Create a markdown file in the appropriate `skills/` subdirectory
-2. Include YAML frontmatter with `name`, `description`, `category`
-3. Valid categories: `development`, `security`, `documentation`, `testing`, `copilot-exclusive`
-4. Run `npm test` to validate
+2. Include YAML frontmatter with `name`, `description`, and `metadata.category`
+3. Valid categories: `development`, `testing`, `security`, `documentation`, `copilot-exclusive`, `workflow`, `product`, `content`
+4. Run `npm run validate && npm run lint:md && npm test` to validate
 
 ### Adding a New Rule
 
 1. Create a markdown file in `rules/common/` (universal) or `rules/languages/` (language-specific)
 2. Keep rules concise and actionable (40-80 lines)
-3. Run `npm test` to validate
+3. Run `npm run validate && npm run lint:md && npm test` to validate
 
 ### Adding an Orchestration Pattern
 

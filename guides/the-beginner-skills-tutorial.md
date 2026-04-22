@@ -77,6 +77,9 @@ You should see an install summary that includes:
 - `.github/copilot-instructions.md`
 - `.github/agents/`
 - `.github/skills/`
+- `.github/copilot/rules/`
+
+`recommended` installs rules along with instructions, agents, and skills. The `full` profile also adds `.github/copilot/contexts/`.
 
 ---
 
@@ -147,13 +150,13 @@ copilot
 Inside Copilot, run:
 
 ```text
-/skills list
+/skills
 /agent
 ```
 
 You are ready if:
 
-- `/skills list` shows project skills such as `systematic-debugging` and `tdd-workflow`
+- `/skills` shows project skills such as `systematic-debugging` and `tdd-workflow`
 - `/agent` shows `planner`
 
 Exit Copilot after the check.
@@ -320,7 +323,7 @@ After each exercise, write a quick note like this:
 
 If Copilot does not seem to see the installed collection:
 
-1. run `/skills list`
+1. run `/skills`
 2. run `/agent`
 3. confirm the project contains:
    - `.github/copilot-instructions.md`
