@@ -156,6 +156,15 @@ Score each item before deciding:
 | Is the concept reusable across repos? | Not tied to one private toolchain |
 | Is it distinct enough to maintain? | Not just a slight wording variant of an existing skill |
 
+Before deciding, run a **coverage-first gate**:
+
+- search the current repository for an existing skill, guide, or reference that already captures the
+  upstream delta
+- if coverage already exists, classify the candidate as **Reject** with rationale `covered locally`
+  instead of creating duplicate edits
+- cite the existing local path and add a re-review trigger describing what upstream change would
+  make the item worth revisiting
+
 Use `fit_score` as a forcing function:
 
 - **5** — obvious gap, strong candidate to adopt
@@ -179,7 +188,8 @@ Typical patterns:
 
 - **Adopt** → new gap like `deployment-canary`
 - **Adapt** → existing skill already covers the user problem with room for a stronger workflow
-- **Reject** → upstream concept depends on Claude-only hooks, or duplicates what we already ship
+- **Reject** → upstream concept depends on Claude-only hooks, duplicates what we already ship, or
+  is already covered locally in a committed file
 
 ### 6. Create a Backlog-Ready Output
 
@@ -193,6 +203,7 @@ Do not stop at observations. Produce an execution-ready backlog:
 | make-pdf | gstack | reject | n/a | heavy renderer/runtime dependency for a markdown-first repo | if a markdown-first or low-dependency variant becomes reusable here |
 | prompt-injection-defense | gstack | reject | n/a | upstream approach depends on a local model stack we do not ship | if a rules-first or lightweight variant emerges |
 | PreCompact hook helper | claude-code | reject | n/a | Claude-specific primitive, not user-facing in Copilot | if Copilot exposes an equivalent lifecycle hook |
+| hooks parity in `--agent` | claude-code | reject | n/a | already covered locally in `guides/hooks-to-github-actions.md`; no repo edit needed this pass | if Copilot adds session hook equivalents or Claude expands parity beyond the current guidance |
 ```
 
 If there are enough concrete items, add SQL todos for the top actions.

@@ -150,6 +150,11 @@ requires_tools:
 - Environment variables use `${env:VAR_NAME}` syntax
 - File location changes from `.mcp.json` to `.vscode/mcp.json` or `devcontainer.json`
 
+Newer Claude Code releases also load agent frontmatter `mcpServers` during `--agent`
+main-thread runs. Treat that as a Claude-side interoperability detail, not as a reason to move
+Copilot MCP setup into agent frontmatter — Copilot CLI still expects MCP configuration in
+`.vscode/mcp.json`, `devcontainer.json`, or the global Copilot config directory.
+
 **Note:** Copilot CLI already includes GitHub MCP tools natively — you may not need a
 separate GitHub MCP server at all.
 

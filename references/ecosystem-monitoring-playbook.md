@@ -181,6 +181,10 @@ Every monitoring pass should end in one of three repository actions:
 
 Do not stop at "interesting." If there is no action, it is browsing, not intake.
 
+If the upstream delta is already reflected in a committed local file, classify it as
+**Reject (covered locally)** rather than forcing a duplicate edit. In that case, cite the
+existing local path and name the trigger that would justify reopening the decision.
+
 Record reject decisions somewhere durable enough to survive the session, even when the item is not
 worth promoting into a committed skill or guide yet. The point is not to preserve every transient
 ranking; it is to preserve the reason the repository said "not now."
