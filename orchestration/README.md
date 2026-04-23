@@ -108,6 +108,7 @@ Orchestration skills fall into the **Orchestrator** tier of the [three-layer ski
 
 - [Delegate to Claude Code](skills/delegate-to-claude.md) — Deep reasoning, architecture, security
 - [Delegate to Codex CLI](skills/delegate-to-codex.md) — Fast generation, boilerplate, multi-file
+- [Delegate to Gemini CLI](skills/delegate-to-gemini.md) — Multimodal analysis, large document digestion, and screenshot-driven discovery
 - [Parallel Agents](skills/parallel-agents.md) — Run multiple AIs simultaneously
 - [Agent Review Chain](skills/agent-review-chain.md) — Multi-agent code review pipeline
 - [Multi-AI Handoff](skills/multi-ai-handoff.md) — Standardized JSON handoff protocol between AI tools
@@ -182,10 +183,11 @@ orchestration/
 ├── skills/
 │   ├── delegate-to-claude.md         # Delegation skill: Claude Code
 │   ├── delegate-to-codex.md          # Delegation skill: Codex CLI
+│   ├── delegate-to-gemini.md         # Delegation skill: Gemini CLI
 │   ├── parallel-agents.md            # Parallel agent execution
 │   ├── agent-review-chain.md         # Multi-agent review pipeline
 │   ├── multi-ai-handoff.md           # JSON handoff protocol
-│   └── review-squad.md              # 5-specialist parallel review
+│   └── review-squad.md               # 5-specialist parallel review
 ├── examples/
 │   ├── architecture-review.md         # E2E: Architecture review with Claude
 │   ├── fast-implementation.md         # E2E: Rapid implementation with Codex

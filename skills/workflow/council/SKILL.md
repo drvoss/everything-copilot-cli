@@ -102,6 +102,12 @@ task:
     [same structure — surface downside risk, edge cases, failure modes]
 ```
 
+**Copilot CLI tip — diversify the council:** When practical, assign different model
+families or providers to different voices via per-agent `model` overrides. The goal is
+not novelty for its own sake, but reducing the chance that all four voices inherit the
+same model bias. See [`multi-model-strategy`](../../copilot-exclusive/multi-model-strategy/SKILL.md)
+for concrete pairing guidance.
+
 Then `read_agent` each result.
 
 ### 4. Synthesize with bias guardrails

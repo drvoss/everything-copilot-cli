@@ -229,3 +229,7 @@ Register it in `.vscode/mcp.json` and Copilot can query feature flags natively.
   catch syntax errors early.
 - **Hot-reload is your friend**: Edit configs and reload without losing your
   session context. Iterate quickly on MCP setups.
+
+## See Also
+
+- [`github-code-search`](../github-code-search/SKILL.md) — use the built-in GitHub code index as grounded implementation context

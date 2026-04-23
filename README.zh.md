@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="73 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="75 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -134,8 +134,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (74 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (21)
+├── skills/                        # Reusable workflow skills (75 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (22)
 │   ├── development/               #   Dev skills (17)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
@@ -152,7 +152,7 @@ everything-copilot-cli/
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   11 orchestration patterns
 │   ├── configs/                   #   MCP bridge configs
-│   ├── skills/                    #   Orchestration skills (6)
+│   ├── skills/                    #   Orchestration skills (7)
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
@@ -194,12 +194,12 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 74 个 · 8 个类别）
+### 技能（Skill）（共 75 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
 <details>
-<summary><strong>★ Copilot 专属技能（21）</strong></summary>
+<summary><strong>★ Copilot 专属技能（22）</strong></summary>
 
 利用 GitHub Copilot CLI 独有能力的 skills：
 
@@ -211,6 +211,7 @@ everything-copilot-cli/
 | `autopilot-patterns` | 带护栏的自主执行模式 |
 | `background-agent` | 通过 `&` / `/delegate` 委托云端 agents |
 | `fleet-parallel` | 使用 `/fleet` 进行并行 agent 执行 |
+| `github-code-search` | 使用 GitHub 全局代码搜索查找真实实现示例，并将结果注入为上下文 |
 | `github-pr-workflow` | 通过内置 GitHub MCP 完成完整 PR 生命周期 |
 | `github-issue-triage` | 批量 Issue 分类与分诊 |
 | `actions-debugging` | 利用原生 Actions 访问能力调试 CI 失败 |

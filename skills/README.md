@@ -89,6 +89,20 @@ External skills can live in either layer depending on context.
 
 ---
 
+## Orchestration Hub
+
+Some of this repository's strongest multi-AI capabilities live outside `skills/` in the
+dedicated orchestration layer.
+
+| If you want to... | Start here |
+|-------------------|------------|
+| Delegate work to external AI tools | [`orchestration/skills/`](../orchestration/skills/) |
+| Learn the core cross-AI patterns | [`orchestration/README.md`](../orchestration/README.md) |
+| Fan out work across independent agents | [`fleet-parallel`](copilot-exclusive/fleet-parallel/SKILL.md) |
+| Coordinate a specialist team from Copilot CLI | [`team-planner`](copilot-exclusive/team-planner/SKILL.md) |
+
+---
+
 ## Skill Categories
 
 ### 🔵 Copilot-Exclusive (`copilot-exclusive/`)
@@ -105,6 +119,7 @@ fleet mode, plan mode, and GitHub integration.
 | [`context-prime`](copilot-exclusive/context-prime/SKILL.md) | Invoke when starting a session (or resuming after a break) on a repo before making changes, to load live project context |
 | [`cross-session-memory`](copilot-exclusive/cross-session-memory/SKILL.md) | Use when you need to recover prior context, decisions, or artifacts across sessions — search history and resume with the right state |
 | [`fleet-parallel`](copilot-exclusive/fleet-parallel/SKILL.md) | Use when you need to run the same task across many files or contexts in parallel — triggers /fleet mode for batch operations |
+| [`github-code-search`](copilot-exclusive/github-code-search/SKILL.md) | Use when you need real-world implementation examples or cross-repository context — search GitHub's global code index and reuse the results as grounded context |
 | [`github-issue-triage`](copilot-exclusive/github-issue-triage/SKILL.md) | Use when you have a backlog of unorganized GitHub Issues — bulk-labels, prioritizes, and assigns at scale |
 | [`github-pr-workflow`](copilot-exclusive/github-pr-workflow/SKILL.md) | Use when creating, reviewing, or merging a PR — runs the full PR lifecycle through Copilot's built-in GitHub MCP |
 | [`ide-switching`](copilot-exclusive/ide-switching/SKILL.md) | Use when moving between VS Code and Copilot CLI — transfers context so you don't lose state when switching environments |
@@ -116,6 +131,8 @@ fleet mode, plan mode, and GitHub integration.
 | [`scope-guard`](copilot-exclusive/scope-guard/SKILL.md) | Use when a task must stay inside a narrow writable boundary or when risky commands need an explicit stop rule |
 | [`session-management`](copilot-exclusive/session-management/SKILL.md) | Use when a task spans multiple steps or sessions and needs structured state tracking via the built-in SQLite session database |
 | [`stack-detector`](copilot-exclusive/stack-detector/SKILL.md) | Scan the project tech stack (package.json, config files, lockfiles) and recommend the most relevant skills and rules from this collection |
+| [`task-intake-router`](copilot-exclusive/task-intake-router/SKILL.md) | Use when a request arrives and the right execution path is unclear — routes work to the correct mode, agent type, model tier, and delegation pattern before implementation starts |
+| [`ecosystem-intake`](copilot-exclusive/ecosystem-intake/SKILL.md) | Use when evaluating an external repository, tool, or framework for adoption — applies the Adopt/Adapt/Reject filter and produces a structured intake report |
 | [`team-planner`](copilot-exclusive/team-planner/SKILL.md) | Use when a task is too large or multi-domain for a single agent — assemble a specialist team with SQL tracking and /fleet dispatch |
 
 ### 🛠 Development (`development/`)

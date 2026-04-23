@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="73 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="75 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -134,8 +134,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (74개)
-│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (21개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (75개)
+│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (22개)
 │   ├── development/               #   개발 스킬 (17개)
 │   ├── documentation/             #   문서화 스킬 (5개)
 │   ├── security/                  #   보안 스킬 (7개)
@@ -152,7 +152,7 @@ everything-copilot-cli/
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   11가지 오케스트레이션 패턴
 │   ├── configs/                   #   MCP 브릿지 설정
-│   ├── skills/                    #   오케스트레이션 스킬 (6개)
+│   ├── skills/                    #   오케스트레이션 스킬 (7개)
 │   ├── templates/                 #   재사용 가능한 오케스트레이터 템플릿
 │   └── examples/                  #   실전 예제 (6개)
 │
@@ -194,12 +194,12 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 74개 · 8개 카테고리)
+### 스킬 (총 75개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
 <details>
-<summary><strong>★ Copilot 전용 스킬 (21개)</strong></summary>
+<summary><strong>★ Copilot 전용 스킬 (22개)</strong></summary>
 
 GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
@@ -211,6 +211,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `autopilot-patterns` | 가드레일이 있는 자율 실행 |
 | `background-agent` | `&` / `/delegate`로 클라우드 에이전트에 위임 |
 | `fleet-parallel` | `/fleet`으로 병렬 에이전트 실행 |
+| `github-code-search` | GitHub 전체 코드 검색을 활용해 실제 구현 예시를 찾고 컨텍스트로 주입 |
 | `github-pr-workflow` | 내장 GitHub MCP를 통한 전체 PR 라이프사이클 |
 | `github-issue-triage` | 이슈 대량 분류 및 트리아지 |
 | `actions-debugging` | 네이티브 Actions 접근으로 CI 실패 디버깅 |

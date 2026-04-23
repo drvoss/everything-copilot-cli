@@ -204,3 +204,4 @@ WHERE id = 'auth-refactor';
 - [Pattern: Agent Council](../patterns/agent-council.md) — Multi-AI consensus
 - [Skill: delegate-to-claude](delegate-to-claude.md) — Claude Code delegation wrapper
 - [Skill: delegate-to-codex](delegate-to-codex.md) — Codex CLI delegation wrapper
+- [Skill: delegate-to-gemini](delegate-to-gemini.md) — Gemini CLI delegation wrapper

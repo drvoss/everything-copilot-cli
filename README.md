@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="73 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="75 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -141,8 +141,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (74 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (21)
+├── skills/                        # Reusable workflow skills (75 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (22)
 │   ├── development/               #   Dev skills (17)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
@@ -159,7 +159,7 @@ everything-copilot-cli/
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   11 orchestration patterns
 │   ├── configs/                   #   MCP bridge configs
-│   ├── skills/                    #   Orchestration skills (6)
+│   ├── skills/                    #   Orchestration skills (7)
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
@@ -201,12 +201,12 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (74 Total · 8 Categories)
+### Skills (75 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>★ Copilot-Exclusive Skills (21)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (22)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
@@ -218,6 +218,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `autopilot-patterns` | Autonomous execution with guardrails |
 | `background-agent` | Delegate to cloud agents via `&` / `/delegate` |
 | `fleet-parallel` | Parallel agent execution with `/fleet` |
+| `github-code-search` | Search GitHub's global code index for real implementation examples and use the results as grounded context |
 | `github-pr-workflow` | Full PR lifecycle via built-in GitHub MCP |
 | `github-issue-triage` | Bulk issue classification and triage |
 | `actions-debugging` | Debug CI failures with native Actions access |
