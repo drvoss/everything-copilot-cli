@@ -185,6 +185,11 @@ Example split:
 - Worker: generate 100 candidate responses
 - Judge: evaluate those responses against a fixed rubric
 
+**Copilot CLI tip:** When practical, run the Worker and Judge on different model
+families or providers so one model's bias does not dominate both generation and
+evaluation. Prefer a faster/cheaper worker lane and a stronger judge lane, using
+`/model` or per-agent model overrides when the workflow allows it.
+
 Benefits:
 
 - reduces model self-grading bias

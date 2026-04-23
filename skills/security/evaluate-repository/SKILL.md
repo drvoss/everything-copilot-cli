@@ -158,7 +158,7 @@ Test-Path .github/SECURITY.md
 
 ```powershell
 # Check whether this repository actually exposes agent / LLM surfaces
-git ls-files | Where-Object { $_ -match 'agent|llm|mcp|openai|anthropic|langchain' }
+git ls-files | Where-Object { $_ -match 'agent|llm|mcp|openai|anthropic|claude|langchain|gpt|gemini|codex|vertex|bedrock|ollama|litellm' }
 
 # Look for resource limits and execution bounds
 git --no-pager grep -n "maxTokens\|max_tokens\|timeout\|rate_limit\|maxRetries" -- "*.ts" "*.js" "*.py"

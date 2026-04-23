@@ -310,6 +310,13 @@ HALF-OPEN (single trial)
 | 3rd open | 120 s |
 | 4th open+ | 120 s + human escalation |
 
+**Optional reroute policy:**
+
+- If an approved alternate provider or model family exists in a different failure domain,
+  the orchestrator may attempt **one** bounded reroute for the same sub-task
+- Only reroute when data-classification policy allows it and the retry is idempotent
+- If no safe alternate lane exists, keep the failing lane OPEN and let it cool down
+
 Use the circuit breaker in the orchestrator layer so failures are visible and other
 subtasks can continue while one lane cools down.
 

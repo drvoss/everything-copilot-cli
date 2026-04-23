@@ -38,7 +38,7 @@ scorecard.
 ### 1. Confirm the agent surface exists
 
 ```powershell
-git ls-files | Where-Object { $_ -match 'agent|llm|mcp|openai|anthropic|langchain' }
+git ls-files | Where-Object { $_ -match 'agent|llm|mcp|openai|anthropic|claude|langchain|gpt|gemini|codex|vertex|bedrock|ollama|litellm' }
 ```
 
 If nothing relevant is present, stop and use a broader repository audit instead.
