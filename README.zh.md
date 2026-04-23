@@ -134,11 +134,11 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (73 total)
+├── skills/                        # Reusable workflow skills (74 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (21)
 │   ├── development/               #   Dev skills (17)
 │   ├── documentation/             #   Doc skills (5)
-│   ├── security/                  #   Security skills (6)
+│   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
 │   ├── workflow/                  #   Workflow skills (11)
 │   ├── product/                   #   Product skills (5)
@@ -194,7 +194,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 73 个 · 8 个类别）
+### 技能（Skill）（共 74 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -273,11 +273,12 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>安全技能（6）</strong></summary>
+<summary><strong>安全技能（7）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
-| `evaluate-repository` | 六维评分卡（1–10）与修复计划 |
+| `agent-owasp-check` | 按 OWASP Agentic Security Initiative Top 10 审计 AI agent 系统 |
+| `evaluate-repository` | 含 AI agent 治理维度的七维评分卡（1–10）与修复计划 |
 | `security-scan` | OWASP Top 10 + 依赖审计 |
 | `secret-detection` | 在源码与 git 历史中查找硬编码密钥 |
 | `input-validation` | 防止注入攻击（SQL、XSS、CSRF） |

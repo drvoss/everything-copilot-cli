@@ -134,11 +134,11 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (73개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (74개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (21개)
 │   ├── development/               #   개발 스킬 (17개)
 │   ├── documentation/             #   문서화 스킬 (5개)
-│   ├── security/                  #   보안 스킬 (6개)
+│   ├── security/                  #   보안 스킬 (7개)
 │   ├── testing/                   #   테스팅 스킬 (5개)
 │   ├── workflow/                  #   워크플로우 스킬 (11개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
@@ -194,7 +194,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 73개 · 8개 카테고리)
+### 스킬 (총 74개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -273,11 +273,12 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>보안 스킬 (6개)</strong></summary>
+<summary><strong>보안 스킬 (7개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
-| `evaluate-repository` | 6개 차원 1~10점 보안 스코어카드 + 개선 계획 |
+| `agent-owasp-check` | AI 에이전트 시스템을 OWASP Agentic Security Initiative Top 10 기준으로 점검 |
+| `evaluate-repository` | AI 에이전트 거버넌스를 포함한 7개 차원 1~10점 보안 스코어카드 + 개선 계획 |
 | `security-scan` | OWASP Top 10 + 의존성 감사 |
 | `secret-detection` | 소스 및 git 히스토리에서 하드코딩된 시크릿 탐지 |
 | `input-validation` | SQL/XSS/CSRF 인젝션 공격 방어 |

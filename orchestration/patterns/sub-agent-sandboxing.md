@@ -252,6 +252,67 @@ Before accepting sandboxed agent output, verify:
 | ✅ Auditable: all changes visible before applying | ❌ More complex than direct agent invocation |
 | ✅ Composable: chain multiple sandboxed stages | ❌ Worktree approach requires disk space |
 
+## Loop Detection
+
+Sandboxed sub-agents can still get stuck in useless retry loops. Detect repetition at
+the orchestrator boundary rather than inside the agent itself.
+
+**Detection rules:**
+
+| Condition | Action |
+|-----------|--------|
+| Same tool + same arguments appears 3 times in the last 10 calls | Emit a warning |
+| Same tool + same arguments appears 5 times in the last 10 calls | Stop the sub-agent and escalate |
+| A single tool appears more than 20 times in one session | Treat as suspicious even if args vary |
+
+```powershell
+$callHistory = [System.Collections.Generic.Queue[string]]::new()
+
+function Add-TrackedCall {
+    param($toolName, $toolArgs)
+    $key = "$toolName|$(ConvertTo-Json $toolArgs -Compress)"
+    $callHistory.Enqueue($key)
+    if ($callHistory.Count -gt 10) { $callHistory.Dequeue() | Out-Null }
+
+    $duplicates = ($callHistory | Where-Object { $_ -eq $key }).Count
+    if ($duplicates -ge 5) {
+        throw "Loop detected: $toolName repeated $duplicates times with identical arguments"
+    }
+    if ($duplicates -ge 3) {
+        Write-Warning "Potential loop: $toolName repeated $duplicates times"
+    }
+}
+```
+
+## LLM Circuit Breaker
+
+When a sub-agent repeatedly fails with timeouts, empty results, or validation errors,
+pause calls instead of hammering the same path.
+
+**State machine:**
+
+```text
+CLOSED (normal)
+  -> repeated failures
+OPEN (calls blocked)
+  -> wait expires, allow one probe
+HALF-OPEN (single trial)
+  -> success => CLOSED
+  -> failure => OPEN
+```
+
+**Backoff schedule:**
+
+| Failure count | Wait before retry |
+|---------------|-------------------|
+| 1st open | 30 s |
+| 2nd open | 60 s |
+| 3rd open | 120 s |
+| 4th open+ | 120 s + human escalation |
+
+Use the circuit breaker in the orchestrator layer so failures are visible and other
+subtasks can continue while one lane cools down.
+
 ## See Also
 
 - [Pattern: Fan-Out Parallel](fan-out-parallel.md) — Parallel sub-agents for read-only tasks

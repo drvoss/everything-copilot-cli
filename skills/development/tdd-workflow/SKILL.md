@@ -96,6 +96,11 @@ npm test -- --testPathPattern="parse.test"
 
 Improve code structure, naming, and duplication while keeping all tests green.
 
+**Exception — type-only edits**: Adding type annotations, cleaning up imports, or
+renaming for clarity without changing behavior does not require a prior failing test.
+Restrict this exception to structural changes only; any logic change must still go
+through Red → Green first.
+
 ```powershell
 # Run full test suite to ensure nothing else broke
 npm test 2>&1 | Select-Object -Last 30

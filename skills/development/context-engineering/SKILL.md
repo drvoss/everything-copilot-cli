@@ -219,3 +219,44 @@ Find: missing edge cases in the Verification checklist
 
 For multi-model pipelines with the same shared context, pass context by reference
 (file path + MCP `view` tool) rather than inline copy-pasting.
+
+### Latent Briefing
+
+When work spans multiple agent turns or session boundaries, preserve only the durable
+state the next agent actually needs. Treat the handoff as a compact briefing, not a
+full transcript dump.
+
+**Pattern:**
+
+1. Capture findings, decisions, and open questions at the end of an agent step
+2. Store them in a durable medium the next step can actually read (`sql`, task notes,
+   or a checked-in doc when appropriate)
+3. Inject only that briefing into the next agent's context, then add fresh task-specific
+   files or constraints
+
+**When to use:**
+
+| Scenario | Use latent briefing? |
+|----------|----------------------|
+| Parallel agents analyze different subsystems, then a synthesizer combines the results | ✅ Yes |
+| A later session resumes a partially completed task | ✅ Yes |
+| One agent keeps iterating inside the same short-lived context window | ❌ No — keep the live context focused instead |
+
+**Briefing shape (minimal):**
+
+```text
+Task: [current objective]
+Done so far:
+- [finding]
+- [decision]
+
+Open questions:
+- [question]
+
+Next constraints:
+- [what must not change]
+```
+
+For Copilot CLI specifically, pair this with
+[`cross-session-memory`](../../copilot-exclusive/cross-session-memory/SKILL.md) when
+the handoff must survive across sessions rather than just across turns.

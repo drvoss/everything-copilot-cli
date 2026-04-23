@@ -1,6 +1,6 @@
 ---
 name: evaluate-repository
-description: Use when you need a comprehensive health scorecard of a codebase — scores security, code quality, test coverage, and documentation across 6 dimensions with a prioritized remediation plan.
+description: Use when you need a comprehensive health scorecard of a codebase — scores security, code quality, test coverage, documentation, and AI agent governance across 7 dimensions with a prioritized remediation plan.
 metadata:
   category: security
   agent_type: code-review
@@ -154,6 +154,29 @@ Test-Path .github/SECURITY.md
 - Unpinned wildcard versions (`"*"` or `"latest"`) for production deps
 - Secrets echoed in CI logs
 
+#### Dimension 7: AI Agent Governance *(apply only when the repository includes agent or LLM features)*
+
+```powershell
+# Check whether this repository actually exposes agent / LLM surfaces
+git ls-files | Where-Object { $_ -match 'agent|llm|mcp|openai|anthropic|langchain' }
+
+# Look for resource limits and execution bounds
+git --no-pager grep -n "maxTokens\|max_tokens\|timeout\|rate_limit\|maxRetries" -- "*.ts" "*.js" "*.py"
+
+# Look for tool access controls or allowlists
+git --no-pager grep -n "allowedTools\|toolWhitelist\|allowlist\|tool_guard" -- "*.ts" "*.js" "*.py"
+```
+
+Use this dimension only when the repo actually contains agentic behavior. If no such
+surface exists, mark the dimension `N/A` and exclude it from the average.
+
+**Red flags (score → 1–3):**
+
+- Agents can invoke arbitrary tools with no allowlist or scope control
+- No resource caps exist for agent runs (tokens, retries, time)
+- Untrusted external content is injected directly into prompts or memory
+- No audit trail exists for agent actions or tool calls
+
 ### 3. Generate Scorecard
 
 ```text
@@ -166,8 +189,9 @@ Test-Path .github/SECURITY.md
 ║ Auth & Authorization     ║  6/10 ║ JWT has no expiration set                ║
 ║ Error Handling           ║  9/10 ║ Custom error handler hides stack traces  ║
 ║ Supply Chain & Config    ║  7/10 ║ No SECURITY.md present                   ║
+║ AI Agent Governance      ║  N/A  ║ No agent or LLM execution surface found  ║
 ╠══════════════════════════╬═══════╬══════════════════════════════════════════╣
-║ OVERALL                  ║ 7/10  ║                                          ║
+║ OVERALL                  ║ 7/10  ║ Exclude N/A dimensions from the average  ║
 ╚══════════════════════════╩═══════╩══════════════════════════════════════════╝
 ```
 

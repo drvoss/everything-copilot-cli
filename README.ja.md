@@ -134,11 +134,11 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (73 total)
+├── skills/                        # Reusable workflow skills (74 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (21)
 │   ├── development/               #   Dev skills (17)
 │   ├── documentation/             #   Doc skills (5)
-│   ├── security/                  #   Security skills (6)
+│   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
 │   ├── workflow/                  #   Workflow skills (11)
 │   ├── product/                   #   Product skills (5)
@@ -194,7 +194,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計73・8カテゴリ）
+### スキル（合計74・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
@@ -273,11 +273,12 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>セキュリティ Skills（6）</strong></summary>
+<summary><strong>セキュリティ Skills（7）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
-| `evaluate-repository` | 6次元 scorecard（1〜10）と remediation plan を作成します |
+| `agent-owasp-check` | AI agent システムを OWASP Agentic Security Initiative Top 10 に沿って監査します |
+| `evaluate-repository` | AI agent governance を含む 7次元 scorecard（1〜10）と remediation plan を作成します |
 | `security-scan` | OWASP Top 10 + dependency audit を実施します |
 | `secret-detection` | source と git history 内のハードコードされた secret を検出します |
 | `input-validation` | injection 攻撃（SQL、XSS、CSRF）を防止します |

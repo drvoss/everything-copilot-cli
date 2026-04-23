@@ -165,7 +165,8 @@ Skills for identifying and fixing security issues.
 
 | Skill | Description |
 |-------|-------------|
-| [`evaluate-repository`](security/evaluate-repository/SKILL.md) | Score a repository 1-10 across 6 security dimensions with remediation plan |
+| [`agent-owasp-check`](security/agent-owasp-check/SKILL.md) | Audit an AI agent system against the OWASP Agentic Security Initiative Top 10 |
+| [`evaluate-repository`](security/evaluate-repository/SKILL.md) | Score a repository 1-10 across 7 dimensions, including AI agent governance |
 | [`input-validation`](security/input-validation/SKILL.md) | Validate and sanitize all user-supplied inputs |
 | [`pr-security-review`](security/pr-security-review/SKILL.md) | Review a pull request for security vulnerabilities — auth, injection, secrets, and OWASP Top 10 before merging |
 | [`secret-detection`](security/secret-detection/SKILL.md) | Find and remove hardcoded secrets |

@@ -273,6 +273,20 @@ systems, tool-using assistants, or retry-heavy pipelines.
 - [qa-agent-guide](../../../guides/qa-agent-guide.md) — incremental QA with agent boundaries
 - [multi-model-strategy](../../copilot-exclusive/multi-model-strategy/SKILL.md) — picking the right model per task
 
+## Security Framework Mapping
+
+When evaluating AI pipelines for security properties, map test cases to established
+frameworks so findings stay traceable to recognized standards.
+
+| Framework | Focus | How to apply in evals |
+|-----------|-------|-----------------------|
+| OWASP LLM Top 10 | LLM application security risks | Add adversarial cases for relevant LLM-01 through LLM-10 items |
+| NIST AI RMF | Lifecycle-oriented AI risk management | Map pass/fail evidence to MAP, MEASURE, and MANAGE activities |
+| MITRE ATLAS | Real-world AI attack tactics and techniques | Source red-team scenarios from ATLAS techniques where applicable |
+
+Cross-reference framework IDs in eval notes so a failed case carries a durable label
+such as `LLM-01`, `ATLAS`, or a named AI RMF activity.
+
 ## AI Pipeline Evaluation with promptfoo
 
 For AI-powered features, use [promptfoo](https://github.com/promptfoo/promptfoo) to

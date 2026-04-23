@@ -141,11 +141,11 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (73 total)
+├── skills/                        # Reusable workflow skills (74 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (21)
 │   ├── development/               #   Dev skills (17)
 │   ├── documentation/             #   Doc skills (5)
-│   ├── security/                  #   Security skills (6)
+│   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
 │   ├── workflow/                  #   Workflow skills (11)
 │   ├── product/                   #   Product skills (5)
@@ -201,7 +201,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (73 Total · 8 Categories)
+### Skills (74 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -280,11 +280,12 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Security Skills (6)</strong></summary>
+<summary><strong>Security Skills (7)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
-| `evaluate-repository` | 6-dimension scorecard (1–10) with remediation plan |
+| `agent-owasp-check` | Audit an AI agent system against the OWASP Agentic Security Initiative Top 10 |
+| `evaluate-repository` | 7-dimension scorecard (1–10) with remediation plan |
 | `security-scan` | OWASP Top 10 + dependency audit |
 | `secret-detection` | Find hardcoded secrets in source and git history |
 | `input-validation` | Prevent injection attacks (SQL, XSS, CSRF) |

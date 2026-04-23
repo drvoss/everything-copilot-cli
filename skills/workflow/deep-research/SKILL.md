@@ -33,6 +33,11 @@ Conduct systematic multi-source research with traceable citations and structured
 
 - `web_fetch` — fetch a URL and read its content
 
+**Optional local tools (if installed):**
+
+- Search CLI or repo-specific web search helpers — use them for initial discovery only
+  when they are already available in your environment
+
 **Optional via MCP (if configured):**
 
 - Firecrawl — crawl entire sites, extract clean text at scale
@@ -89,7 +94,20 @@ CREATE TABLE IF NOT EXISTS research_sources (
     key_finding TEXT,
     credibility TEXT  -- high | medium | low
 );
+
+CREATE TABLE IF NOT EXISTS research_claims (
+    claim_id TEXT PRIMARY KEY,
+    claim_text TEXT,
+    claim_type TEXT,       -- factual | analytical | predictive
+    source_ids TEXT,       -- JSON array referencing research_sources.id
+    support_level TEXT,    -- strong | moderate | weak | unsupported
+    verified_at TEXT
+);
 ```
+
+After fetching sources, break findings into atomic claims and track them in
+`research_claims`. Claim-level tracking makes contradiction checks more precise than
+comparing whole sources.
 
 For each source:
 
