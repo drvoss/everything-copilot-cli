@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="75 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="76 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -134,13 +134,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (75개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (76개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (22개)
 │   ├── development/               #   개발 스킬 (17개)
 │   ├── documentation/             #   문서화 스킬 (5개)
 │   ├── security/                  #   보안 스킬 (7개)
 │   ├── testing/                   #   테스팅 스킬 (5개)
-│   ├── workflow/                  #   워크플로우 스킬 (11개)
+│   ├── workflow/                  #   워크플로우 스킬 (12개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │
@@ -194,7 +194,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 75개 · 8개 카테고리)
+### 스킬 (총 76개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -289,7 +289,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (11개)</strong></summary>
+<summary><strong>워크플로우 스킬 (12개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -303,6 +303,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `cost-audit` | AI 토큰 비용 감사 및 모델/프롬프트 최적화 권고 |
 | `council` | 고위험 의사결정을 위한 네 가지 관점 적대적 토론 패널 |
 | `deep-research` | 체계적 멀티소스 리서치 및 구조화 합성 |
+| `implementation-review` | 구현 결과 diff를 원래 작업 지시와 대조해 수정 지시가 가능한 피드백을 작성 |
 | `using-git-worktrees` | 저장소를 다시 클론하지 않고 병렬 브랜치 작업용 별도 작업 디렉터리 생성 |
 
 </details>

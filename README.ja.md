@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="75 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="76 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -134,13 +134,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (75 total)
+├── skills/                        # Reusable workflow skills (76 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (22)
 │   ├── development/               #   Dev skills (17)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (11)
+│   ├── workflow/                  #   Workflow skills (12)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -194,7 +194,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計75・8カテゴリ）
+### スキル（合計76・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
@@ -289,7 +289,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（11）</strong></summary>
+<summary><strong>ワークフロー Skills（12）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -303,6 +303,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `cost-audit` | AI inference token コストを監査し、model/prompt 最適化を提案します |
 | `council` | 高リスク判断向けの 4者 adversarial decision council を開催します |
 | `deep-research` | 構造化 synthesis を伴う体系的な複数ソース調査を行います |
+| `implementation-review` | 実装結果の diff を元の task spec と照合し、実行可能な修正フィードバックを作成します |
 | `using-git-worktrees` | repository を再 clone せずに並列 branch 作業用の分離ディレクトリを作成します |
 
 </details>

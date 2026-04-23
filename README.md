@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="75 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="76 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -141,13 +141,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (75 total)
+├── skills/                        # Reusable workflow skills (76 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (22)
 │   ├── development/               #   Dev skills (17)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (11)
+│   ├── workflow/                  #   Workflow skills (12)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -201,7 +201,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (75 Total · 8 Categories)
+### Skills (76 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -296,7 +296,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Workflow Skills (11)</strong></summary>
+<summary><strong>Workflow Skills (12)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -310,6 +310,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `cost-audit` | Audit AI inference token spend and recommend model/prompt optimizations |
 | `council` | Convene a 4-voice adversarial decision council for high-stakes choices |
 | `deep-research` | Systematic multi-source research with structured synthesis |
+| `implementation-review` | Compare a delivered diff against the original task spec and produce actionable follow-up feedback |
 | `using-git-worktrees` | Create isolated working directories for parallel branch work without recloning the repo |
 
 </details>

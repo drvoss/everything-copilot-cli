@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="75 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="76 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -134,13 +134,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (75 total)
+├── skills/                        # Reusable workflow skills (76 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (22)
 │   ├── development/               #   Dev skills (17)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (11)
+│   ├── workflow/                  #   Workflow skills (12)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -194,7 +194,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 75 个 · 8 个类别）
+### 技能（Skill）（共 76 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -289,7 +289,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>工作流技能（11）</strong></summary>
+<summary><strong>工作流技能（12）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -303,6 +303,7 @@ everything-copilot-cli/
 | `cost-audit` | 审计 AI 推理 token 开销，并给出模型/prompt 优化建议 |
 | `council` | 为高风险决策召集四方对抗式决策 council |
 | `deep-research` | 系统化多源研究与结构化综合 |
+| `implementation-review` | 将实现结果 diff 与原始任务说明逐项比对，并产出可直接执行的修正反馈 |
 | `using-git-worktrees` | 无需重复克隆仓库即可为并行分支工作创建独立工作目录 |
 
 </details>
