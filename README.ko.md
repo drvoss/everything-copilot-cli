@@ -5,7 +5,7 @@
 <h1 align="center">everything-copilot-cli</h1>
 
 <p align="center">
-  <strong>GitHub Copilot CLI를 위한 궁극의 가이드 &amp; 설정 시스템</strong><br/>
+  <strong>GitHub Copilot CLI를 위한 Copilot-first 가이드 &amp; 설정 시스템</strong><br/>
   Agents · Skills · Rules · Multi-AI Orchestration
 </p>
 
@@ -28,17 +28,43 @@
 
 ## 이게 뭔가요?
 
-**everything-copilot-cli**는 [GitHub Copilot CLI](https://github.com/github/copilot-cli)를 위한 에이전트, 재사용 가능한 스킬, 코딩 규칙, MCP 설정, 종합 가이드를 체계적으로 모아둔 커뮤니티 기반 컬렉션입니다.
+**everything-copilot-cli**는 GitHub 위에서 AI 기반 소프트웨어 개발을 운영하기 위한 Copilot-first 운영 키트입니다.
 
-처음에는 [everything-claude-code](https://github.com/affaan-m/everything-claude-code)와 [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) 같은 커뮤니티 리소스에서 영감을 받아 시작했지만, 이제는 독자적인 정체성을 갖추게 되었습니다. Copilot CLI만의 강점 — **네이티브 GitHub 통합, 멀티 모델 유연성, 다른 AI 에이전트를 허브에서 조율하는 능력** — 에 집중합니다.
+이 저장소는 세 가지 아이디어를 중심으로 구성됩니다:
 
-> **Multi-AI Orchestrator로 동작** — Claude Code, Codex CLI, Gemini CLI 등을 하나의 커맨드 라인에서 통합 조율합니다. _(커뮤니티 패턴 — [Multi-AI Orchestration](#multi-ai-orchestration-) 참고)_
+- **GitHub를 시스템의 기준점으로** — 이슈, PR, Actions, 코드 검색을 부가 기능이 아니라 1급 입력으로 다룹니다
+- **Copilot CLI를 오케스트레이션 허브로** — 작업을 적절한 모델이나 에이전트로 라우팅하고, 결과를 다시 GitHub 흐름으로 수렴시키는 조율 레이어로 봅니다
+- **모델 선택을 라우팅 결정으로** — Copilot 내부에서는 GPT, Claude, Gemini 계열을 작업별로 고르고, 별도 specialist tool이 더 적합할 때는 Codex CLI 같은 외부 도구를 조율합니다
+
+결과적으로 이 저장소는 에이전트, 스킬, 규칙, MCP 설정, 오케스트레이션 패턴을 함께 제공하는 컬렉션이 됩니다. 가능한 곳에서는 portable하게, 핵심 강점이 걸린 곳에서는 Copilot-native하게 설계합니다.
+
+> Copilot CLI가 Claude Code, Codex CLI, Gemini CLI 같은 specialist agent를 어떻게 조율하는지는 [Multi-AI Orchestration](#multi-ai-orchestration-) 섹션을 참고하세요.
+
+---
+
+## 설계 원칙
+
+| 원칙 | 실제 의미 |
+|------|----------|
+| **GitHub를 시스템 기준점으로** | 모든 워크플로우는 GitHub에서 시작하고 끝납니다. 이슈는 task 입력이고, PR은 에이전트 출력이며, Actions는 관찰 계층입니다. |
+| **Copilot CLI를 오케스트레이션 허브로** | Copilot은 단순히 코드를 생성하는 도구가 아니라 전문가를 조율하는 허브입니다. Claude는 깊이 추론하고, Codex는 빠르게 생성하며, Gemini는 시각 자료를 분석합니다. Copilot은 이를 라우팅하고 합성합니다. |
+| **모델 선택은 라우팅이지 충성도가 아니다** | 모든 task를 가장 잘 처리하는 단일 모델은 없습니다. 이 저장소의 스킬과 패턴은 각 subtask를 가장 적합한 모델로 라우팅하도록 설계되었습니다. |
+| **포터블 코어, Copilot-native 레이어** | 대부분의 스킬은 agentskills.io 호환 런타임 어디서나 작동합니다. Copilot 전용 기능은 `skills/copilot-exclusive/`에 분리되어 있어 native Copilot 의존 여부를 명확히 알 수 있습니다. |
 
 ---
 
 ## 왜 Copilot CLI인가?
 
-GitHub Copilot CLI는 AI 개발 허브로서 **11가지 핵심 강점**을 갖추고 있습니다:
+Copilot CLI가 multi-AI 개발 워크플로우의 허브로 강한 이유는 세 가지 역량에 있습니다:
+
+**GitHub-native access** — Copilot CLI는 GitHub MCP 서버를 기본으로 제공합니다. 이슈, PR, Actions 로그, 코드 검색을 스크랩된 텍스트가 아니라 구조화된 도구 호출로 다룹니다. 별도 GitHub 통합 계층이 필요 없습니다.
+
+**멀티모델 라우팅** — 같은 세션 안에서 `/model`이나 에이전트별 override로 GPT, Claude, Gemini 계열을 바꿔 쓸 수 있습니다. 아키텍처에는 고성능 추론 모델, 보일러플레이트에는 빠른 모델, 트리아지에는 저비용 모델을 고르는 식입니다.
+
+**오케스트레이션 프리미티브** — Plan Mode, Autopilot, Fleet, Background Delegation, 내장 SQLite 세션 DB가 복잡한 multi-agent 워크플로우의 빌딩 블록을 제공합니다. 별도 specialist tool이 더 맞는 경우에는 이 저장소의 오케스트레이션 패턴으로 Codex CLI, Claude Code, Gemini CLI에 위임하고 결과를 다시 GitHub로 연결할 수 있습니다.
+
+<details>
+<summary>전체 기능 레퍼런스 (11개)</summary>
 
 | # | 장점 | 설명 |
 |---|------|------|
@@ -53,6 +79,8 @@ GitHub Copilot CLI는 AI 개발 허브로서 **11가지 핵심 강점**을 갖�
 | 9 | **Cross-Session Memory** | `session_store`로 이전 세션 기록을 검색하고 재사용 |
 | 10 | **LSP 퍼스트클래스 지원** | Language Server Protocol 통합으로 정밀한 코드 인텔리전스 |
 | 11 | **Multi-AI Orchestrator** | Copilot을 메타 허브로 삼아 Claude Code, Codex, Gemini CLI를 통합 조율 |
+
+</details>
 
 ---
 
@@ -410,7 +438,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 
 | 패턴 | 동작 방식 | 적합한 상황 |
 |------|-----------|-------------|
-| **Shell Execution** | Copilot이 셸 명령으로 다른 CLI를 생성 | 단순한 작업 위임 |
+| **Shell Invocation** | Copilot이 셸 명령으로 다른 CLI를 호출 | 단순한 작업 위임 |
 | **MCP Bridge** | Model Context Protocol 서버를 통해 에이전트 연결 | 구조화된 도구 공유 |
 | **Message IPC** | 파일/파이프를 통한 프로세스 간 통신 | 실시간 협업 |
 | **Pipeline** | 에이전트를 순차 연결 — 이전 출력이 다음 입력으로 | 다단계 워크플로우 |
@@ -533,5 +561,9 @@ PR을 제출하기 전에 기존 가이드를 읽고 확립된 패턴을 따라�
 ---
 
 <p align="center">
-  <sub>GitHub Copilot CLI 커뮤니티를 위해 제작 · <a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a>와 <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a>에서 영감을 받아</sub>
+  <sub>GitHub Copilot CLI 커뮤니티를 위해 만들어졌습니다</sub>
+</p>
+
+<p align="center">
+  <sub><a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a>와 <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a>의 선구적인 작업에 감사드립니다</sub>
 </p>

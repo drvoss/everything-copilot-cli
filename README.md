@@ -5,7 +5,7 @@
 <h1 align="center">everything-copilot-cli</h1>
 
 <p align="center">
-  <strong>The definitive guide &amp; configuration system for GitHub Copilot CLI</strong><br/>
+  <strong>A Copilot-first guide &amp; configuration system for GitHub Copilot CLI</strong><br/>
   Agents · Skills · Rules · Multi-AI Orchestration
 </p>
 
@@ -28,24 +28,43 @@
 
 ## What is this?
 
-**everything-copilot-cli** is a curated, community-driven collection of agents, reusable skills,
-coding rules, MCP configurations, and comprehensive guides for [GitHub Copilot CLI](https://github.com/github/copilot-cli).
+**everything-copilot-cli** is a Copilot-first operating kit for AI-assisted software delivery on GitHub.
 
-It started as a parallel to
-[everything-claude-code](https://github.com/affaan-m/everything-claude-code)
-and drew inspiration from community resources like
-[awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) —
-but has since grown into its own identity. The focus is on what makes Copilot
-CLI genuinely different: **native GitHub integration, multi-model flexibility,
-and the ability to orchestrate other AI coding agents from a single hub**.
+This repository is built around three ideas:
 
-> **Act as a Multi-AI Orchestrator** — coordinating Claude Code, Codex CLI, Gemini CLI, and more from a single command line. _(Community pattern — see [Multi-AI Orchestration](#multi-ai-orchestration-))_
+- **GitHub as the system of record** — Issues, PRs, Actions, and code search are first-class inputs, not afterthoughts
+- **Copilot CLI as the orchestration hub** — the coordination layer that routes tasks to the right model or agent and synthesizes results back through GitHub
+- **Model choice as a routing decision** — GPT, Claude, and Gemini each have strengths inside Copilot; external specialists like Codex CLI can be orchestrated when a separate tool is the better fit
+
+The result is a curated collection of agents, skills, rules, MCP configurations, and orchestration patterns — portable where possible, Copilot-native where it matters.
+
+> See [Multi-AI Orchestration](#multi-ai-orchestration-) for how Copilot CLI coordinates Claude Code, Codex CLI, and Gemini CLI as specialist agents.
+
+---
+
+## Design Principles
+
+| Principle | What it means in practice |
+|-----------|--------------------------|
+| **GitHub as system of record** | Every workflow starts and ends in GitHub. Issues are task inputs. PRs are agent outputs. Actions are the observability layer. |
+| **Copilot CLI as orchestration hub** | Copilot does not just generate code — it coordinates specialists. Claude reasons deeply, Codex generates fast, Gemini analyzes visuals; Copilot routes and synthesizes. |
+| **Model choice is routing, not loyalty** | No single model wins every task. Skills and patterns in this repo are designed to route work to the strongest model for each subtask. |
+| **Portable core, Copilot-native layer** | Most skills work in any agentskills.io-compatible runtime. Copilot-exclusive capabilities are clearly separated in `skills/copilot-exclusive/` so you always know what depends on native Copilot features. |
 
 ---
 
 ## Why Copilot CLI?
 
-GitHub Copilot CLI offers **11 key strengths** that make it the ideal hub for AI-assisted development:
+Three capabilities make Copilot CLI a strong hub for multi-AI development workflows:
+
+**GitHub-native access** — Copilot CLI ships with a built-in GitHub MCP server. Issues, PRs, Actions logs, and code search are structured tool calls, not scraped text. No extra GitHub integration layer is required.
+
+**Multi-model routing** — Within Copilot CLI you can switch between model families such as GPT, Claude, and Gemini with `/model` or per-agent overrides in the same session. Use a premium reasoning model for architecture, a fast model for boilerplate, and a cheaper model for triage.
+
+**Orchestration primitives** — Plan Mode, Autopilot, Fleet, Background Delegation, and the built-in SQLite session database give you building blocks for complex multi-agent workflows. When a separate specialist tool is the better fit, this repository's orchestration patterns show how to delegate to Codex CLI, Claude Code, or Gemini CLI and bring the result back through GitHub.
+
+<details>
+<summary>Full capability reference (11 features)</summary>
 
 | # | Advantage | Description |
 |---|-----------|-------------|
@@ -60,6 +79,8 @@ GitHub Copilot CLI offers **11 key strengths** that make it the ideal hub for AI
 | 9 | **Cross-Session Memory** | Search and reuse prior session history via `session_store`. |
 | 10 | **LSP First-Class Support** | Language Server Protocol integration for precise code intelligence. |
 | 11 | **Multi-AI Orchestrator** | Orchestrate Claude Code, Codex, Gemini CLI from Copilot as the meta-hub. |
+
+</details>
 
 ---
 
@@ -417,7 +438,7 @@ No single AI is best at everything. Claude excels at reasoning, Codex at rapid i
 
 | Pattern | How It Works | Best For |
 |---------|-------------|----------|
-| **Shell Execution** | Copilot spawns other CLIs via shell commands | Simple delegation |
+| **Shell Invocation** | Copilot spawns other CLIs via shell commands | Simple delegation |
 | **MCP Bridge** | Connect agents via Model Context Protocol servers | Structured tool sharing |
 | **Message IPC** | Inter-process communication via files/pipes | Real-time collaboration |
 | **Pipeline** | Chain agents sequentially — output of one feeds the next | Multi-stage workflows |
@@ -540,5 +561,9 @@ Please read the existing guides and follow the established patterns before submi
 ---
 
 <p align="center">
-  <sub>Built for the GitHub Copilot CLI community · Inspired by <a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a> and <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a></sub>
+  <sub>Built for the GitHub Copilot CLI community</sub>
+</p>
+
+<p align="center">
+  <sub>Acknowledges the pioneering work of <a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a> and <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a></sub>
 </p>

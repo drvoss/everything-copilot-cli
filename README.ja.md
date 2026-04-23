@@ -5,7 +5,7 @@
 <h1 align="center">everything-copilot-cli</h1>
 
 <p align="center">
-  <strong>GitHub Copilot CLI のための決定版ガイド＆設定システム</strong><br/>
+  <strong>GitHub Copilot CLI のための Copilot-first ガイド＆設定システム</strong><br/>
   Agents · Skills · Rules · Multi-AI Orchestration
 </p>
 
@@ -28,17 +28,43 @@
 
 ## これは何ですか？
 
-**everything-copilot-cli** は、[GitHub Copilot CLI](https://github.com/github/copilot-cli) 向けの、厳選されたコミュニティ主導の agent、再利用可能な skill、コーディングルール、MCP 設定、そして包括的なガイド集です。
+**everything-copilot-cli** は、GitHub 上で AI 支援ソフトウェア開発を運用するための Copilot-first な運用キットです。
 
-このプロジェクトは [everything-claude-code](https://github.com/affaan-m/everything-claude-code) の並行プロジェクトとして始まり、[awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) などのコミュニティリソースから着想を得ました。現在は独自のアイデンティティへと成長しています。焦点は、Copilot CLI を本当にユニークにする要素、すなわち **GitHub とのネイティブ統合、マルチモデルの柔軟性、そして単一ハブから他の AI coding agent をオーケストレーションできること** にあります。
+このリポジトリは次の三つの考え方を軸にしています:
 
-> **マルチAIオーケストレーションの実行者として振る舞う** — 1つのコマンドラインから Claude Code、Codex CLI、Gemini CLI などを連携できます。_（コミュニティパターン。詳しくは [Multi-AI Orchestration](#multi-ai-orchestration-) を参照してください）_
+- **GitHub を system of record として扱う** — Issue、PR、Actions、code search を補助情報ではなく第一級の入力として扱います
+- **Copilot CLI を orchestration hub として扱う** — task を適切な model や agent にルーティングし、その結果を GitHub の流れへ戻す調整レイヤーとして捉えます
+- **model 選択は loyalty ではなく routing** — Copilot 内では GPT、Claude、Gemini を task ごとに使い分け、別の specialist tool が適切なら Codex CLI のような外部ツールもオーケストレーションします
+
+その結果、このリポジトリは agent、skill、rule、MCP 設定、orchestration pattern をまとめて提供します。可能なものは portable に、Copilot の強みが重要な部分は Copilot-native に設計しています。
+
+> Copilot CLI が Claude Code、Codex CLI、Gemini CLI のような specialist agent をどう連携させるかは [Multi-AI Orchestration](#multi-ai-orchestration-) を参照してください。
+
+---
+
+## 設計原則
+
+| 原則 | 実際の意味 |
+|------|------------|
+| **GitHub を system of record にする** | すべての workflow は GitHub で始まり GitHub で終わります。Issue は task 入力、PR は agent 出力、Actions は observability layer です。 |
+| **Copilot CLI を orchestration hub にする** | Copilot は単に code を生成するだけでなく specialist を調整します。Claude は深い reasoning、Codex は高速生成、Gemini は visual analysis を担当し、Copilot はそれを routing・synthesis します。 |
+| **model choice は loyalty ではなく routing** | すべての task に最適な単一 model はありません。このリポジトリの skill と pattern は subtask ごとに最適な model へルーティングする前提で設計されています。 |
+| **Portable core, Copilot-native layer** | 多くの skill は agentskills.io 互換 runtime ならどこでも動作します。Copilot 専用機能は `skills/copilot-exclusive/` に分離され、native Copilot 依存が明確です。 |
 
 ---
 
 ## なぜ Copilot CLI なのか？
 
-GitHub Copilot CLI には、AI 支援開発の理想的なハブとなる **11 の強み** があります。
+Copilot CLI が multi-AI 開発 workflow のハブとして強い理由は、次の三つの能力にあります。
+
+**GitHub-native access** — Copilot CLI は GitHub MCP server を標準で備えています。Issue、PR、Actions log、code search をスクレイピングされた text ではなく、構造化された tool call として扱えます。追加の GitHub integration layer は不要です。
+
+**Multi-model routing** — 同じ session の中で `/model` や agent ごとの override を使い、GPT、Claude、Gemini 系 model を切り替えられます。architecture には高性能 reasoning model、boilerplate には高速 model、triage には低コスト model を選ぶ、といった運用が可能です。
+
+**Orchestration primitives** — Plan Mode、Autopilot、Fleet、Background Delegation、組み込み SQLite session DB が、複雑な multi-agent workflow の building block になります。別の specialist tool が適切なら、このリポジトリの orchestration pattern で Codex CLI、Claude Code、Gemini CLI に委任し、結果を GitHub に戻せます。
+
+<details>
+<summary>フル機能リファレンス（11項目）</summary>
 
 | # | 強み | 説明 |
 |---|-----------|-------------|
@@ -53,6 +79,8 @@ GitHub Copilot CLI には、AI 支援開発の理想的なハブとなる **11 �
 | 9 | **Cross-Session Memory** | `session_store` で以前の session 履歴を検索し、再利用できます。 |
 | 10 | **LSP のファーストクラスサポート** | Language Server Protocol 統合により、高精度な code intelligence を実現します。 |
 | 11 | **Multi-AI Orchestrator** | Copilot をメタハブとして Claude Code、Codex、Gemini CLI をオーケストレーションできます。 |
+
+</details>
 
 ---
 
@@ -410,7 +438,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 
 | Pattern | 仕組み | 最適な用途 |
 |---------|-------------|----------|
-| **Shell Execution** | Copilot が shell command で他 CLI を起動します | シンプルな委任 |
+| **Shell Invocation** | Copilot が shell command で他 CLI を起動します | シンプルな委任 |
 | **MCP Bridge** | Model Context Protocol server を介して agent を接続します | 構造化された tool 共有 |
 | **Message IPC** | file/pipe を使ったプロセス間通信です | リアルタイム連携 |
 | **Pipeline** | agent を順次連結し、前段の出力を次段に渡します | 多段 workflow |
@@ -533,5 +561,9 @@ PR を送る前に、既存ガイドを読み、確立されたパターンに�
 ---
 
 <p align="center">
-  <sub>GitHub Copilot CLI community のために構築 · <a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a> と <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a> に着想を得ています</sub>
+  <sub>GitHub Copilot CLI community のために構築しています</sub>
+</p>
+
+<p align="center">
+  <sub><a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a> と <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a> の先駆的な仕事に敬意を表します</sub>
 </p>

@@ -1,9 +1,13 @@
 # Skills Catalog
 
-Composable skill modules for GitHub Copilot CLI, Codex CLI, and Gemini CLI.
-Each skill follows the [agentskills.io](https://agentskills.io) spec — skills are
-subdirectories containing a `SKILL.md` file that can be installed directly into
-any compatible AI coding tool.
+A Copilot-first skill system with a portable core and a Copilot-exclusive orchestration layer.
+
+Skills are organized in two tiers:
+
+- **Portable core** — standard [agentskills.io](https://agentskills.io) skills that work in Copilot CLI, Claude Code, Codex CLI, Hermes Agent, and any compatible runtime
+- **Copilot-exclusive layer** — skills that use Copilot CLI's native GitHub MCP, Fleet mode, Background Delegation, and model routing — capabilities that depend on native Copilot features
+
+Each skill is a subdirectory containing a `SKILL.md` file and can be installed directly into any compatible AI coding tool.
 
 ## Cross-Platform Compatibility (agentskills.io)
 

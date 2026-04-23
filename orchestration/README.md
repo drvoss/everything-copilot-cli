@@ -1,6 +1,6 @@
 # Multi-AI Orchestration with Copilot CLI
 
-> **Copilot CLI as the Meta Hub** — GitHub is where all code converges. Copilot CLI is the only AI tool with native access to Issues, PRs, Actions, and the full GitHub ecosystem. This makes it the natural orchestrator for all other AI coding tools.
+> **Copilot CLI as the Meta Hub** — GitHub is where all code converges. Copilot CLI is purpose-built around GitHub: access to Issues, PRs, Actions, and the broader ecosystem is built in, not bolted on. That makes it a strong orchestration layer for other AI coding tools.
 
 ## Why Multi-AI Orchestration Matters
 

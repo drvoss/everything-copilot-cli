@@ -5,7 +5,7 @@
 <h1 align="center">everything-copilot-cli</h1>
 
 <p align="center">
-  <strong>GitHub Copilot CLI 的权威指南与配置系统</strong><br/>
+  <strong>面向 GitHub Copilot CLI 的 Copilot-first 指南与配置系统</strong><br/>
   Agents · Skills · Rules · 多AI协同编排
 </p>
 
@@ -28,17 +28,43 @@
 
 ## 这是什么？
 
-**everything-copilot-cli** 是一个经过整理、由社区驱动的资源集合，包含适用于 [GitHub Copilot CLI](https://github.com/github/copilot-cli) 的 agent、可复用 skill、编码规则、MCP 配置以及完整指南。
+**everything-copilot-cli** 是一个用于在 GitHub 上运营 AI 辅助软件交付的 Copilot-first 操作套件。
 
-它最初是 [everything-claude-code](https://github.com/affaan-m/everything-claude-code) 的平行项目，并借鉴了 [awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) 等社区资源——但如今已发展出独立定位。其核心关注点是 Copilot CLI 的真正差异化能力：**原生 GitHub 集成、多模型灵活性，以及从单一枢纽编排其他 AI 编码 agent 的能力**。
+这个仓库围绕三个理念构建：
 
-> **Act as a Multi-AI Orchestrator** —— 通过单一命令行协调 Claude Code、Codex CLI、Gemini CLI 等。_（社区模式——见 [多AI协同编排](#多ai协同编排-)）_
+- **GitHub 作为 system of record** —— Issue、PR、Actions 与代码搜索不是附属信息，而是一等输入
+- **Copilot CLI 作为 orchestration hub** —— 将任务路由给合适的模型或 agent，并把结果重新汇入 GitHub 流程的协调层
+- **模型选择是 routing，而不是 loyalty** —— 在 Copilot 内按任务选择 GPT、Claude、Gemini；当外部 specialist tool 更合适时，再编排 Codex CLI 之类的工具
+
+因此，这个仓库提供的是一整套 agents、skills、rules、MCP 配置与 orchestration patterns：能 portable 的部分保持 portable，需要原生能力的部分则明确采用 Copilot-native 方式。
+
+> 若想了解 Copilot CLI 如何协调 Claude Code、Codex CLI、Gemini CLI 等 specialist agents，请参见 [多AI协同编排](#多ai协同编排-)。
+
+---
+
+## 设计原则
+
+| 原则 | 实际含义 |
+|------|----------|
+| **GitHub 作为 system of record** | 所有 workflow 都从 GitHub 开始并回到 GitHub。Issue 是任务输入，PR 是 agent 输出，Actions 是观测层。 |
+| **Copilot CLI 作为 orchestration hub** | Copilot 不只是生成代码，而是协调 specialist。Claude 擅长深度推理，Codex 擅长快速生成，Gemini 擅长视觉分析；Copilot 负责路由与综合。 |
+| **模型选择是 routing，不是 loyalty** | 没有一个单一模型能赢下所有任务。本仓库中的 skills 与 patterns 都围绕“把子任务路由给最合适的模型”来设计。 |
+| **Portable core, Copilot-native layer** | 大多数 skills 都可运行在 agentskills.io 兼容 runtime 中。Copilot 专属能力被明确隔离在 `skills/copilot-exclusive/` 下，因此你始终知道哪些部分依赖原生 Copilot 能力。 |
 
 ---
 
 ## 为什么选择 Copilot CLI？
 
-GitHub Copilot CLI 提供 **11 项关键优势**，使其成为 AI 辅助开发的理想枢纽：
+让 Copilot CLI 成为 multi-AI 开发 workflow 强力枢纽的，主要是三项能力：
+
+**GitHub-native access** —— Copilot CLI 内置 GitHub MCP server。Issue、PR、Actions 日志与代码搜索都是结构化工具调用，不是抓取来的文本，也不需要额外的 GitHub 集成层。
+
+**多模型路由** —— 在同一会话里，可以通过 `/model` 或按 agent 覆盖来切换 GPT、Claude、Gemini 等模型家族。架构任务用高阶推理模型，样板代码用快速模型，分诊用低成本模型。
+
+**编排原语** —— Plan Mode、Autopilot、Fleet、Background Delegation 以及内置 SQLite session DB，提供了构建复杂 multi-agent workflow 的基础部件。当外部 specialist tool 更适合时，本仓库的 orchestration patterns 也说明了如何把任务委派给 Codex CLI、Claude Code 或 Gemini CLI，并把结果重新带回 GitHub。
+
+<details>
+<summary>完整能力参考（11 项）</summary>
 
 | # | 优势 | 说明 |
 |---|------|------|
@@ -53,6 +79,8 @@ GitHub Copilot CLI 提供 **11 项关键优势**，使其成为 AI 辅助开发�
 | 9 | **Cross-Session Memory** | 通过 `session_store` 检索并复用过往会话历史。 |
 | 10 | **LSP First-Class Support** | 集成 Language Server Protocol，提供精准代码智能。 |
 | 11 | **Multi-AI Orchestrator** | 以 Copilot 为元枢纽，编排 Claude Code、Codex、Gemini CLI。 |
+
+</details>
 
 ---
 
@@ -410,7 +438,7 @@ everything-copilot-cli/
 
 | 模式 | 工作方式 | 适用场景 |
 |------|----------|----------|
-| **Shell Execution** | Copilot 通过 shell 命令拉起其他 CLI | 简单委派 |
+| **Shell Invocation** | Copilot 通过 shell 命令调用其他 CLI | 简单委派 |
 | **MCP Bridge** | 通过 Model Context Protocol servers 连接 agents | 结构化工具共享 |
 | **Message IPC** | 通过文件/管道进行进程间通信 | 实时协作 |
 | **Pipeline** | 按顺序串联 agents——前一者输出成为后一者输入 | 多阶段工作流 |
@@ -533,5 +561,9 @@ npm run lint:md
 ---
 
 <p align="center">
-  <sub>Built for the GitHub Copilot CLI community · Inspired by <a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a> and <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a></sub>
+  <sub>为 GitHub Copilot CLI 社区而构建</sub>
+</p>
+
+<p align="center">
+  <sub>谨向 <a href="https://github.com/affaan-m/everything-claude-code">everything-claude-code</a> 与 <a href="https://github.com/hesreallyhim/awesome-claude-code">awesome-claude-code</a> 的先行工作致意</sub>
 </p>
