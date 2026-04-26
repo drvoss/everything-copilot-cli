@@ -125,7 +125,7 @@ Use `multi-model-strategy` for detailed guidance, but the default routing rule i
 | broad exploration, low stakes | `claude-haiku-4.5` or `gpt-5-mini` |
 | implementation, code transformation | `gpt-5.3-codex` |
 | balanced planning or synthesis | `gpt-5.4` or `claude-sonnet-4.6` |
-| security, architecture, high-risk review | `claude-opus-4.6` or `gpt-5.4` |
+| security, architecture, high-risk review | `claude-opus-4.7` or `gpt-5.4` |
 
 Use model **pairs** when that reduces risk:
 
@@ -229,7 +229,7 @@ Request: "Review this auth PR before merge"
 Route:
 - Mode: task delegation
 - Agent type: code-review
-- Model: claude-opus-4.6
+- Model: claude-opus-4.7
 - Next skill: pr-multi-perspective-review
 - Why: high-risk review deserves a specialized pass
 ```

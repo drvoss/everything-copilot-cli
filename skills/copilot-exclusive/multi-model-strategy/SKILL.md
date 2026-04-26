@@ -32,6 +32,7 @@ instead of forcing every step through the same model family.
 
 | Model                        | Best For                                    |
 |------------------------------|---------------------------------------------|
+| `claude-opus-4.7`            | Frontier reasoning, most capable Claude     |
 | `claude-opus-4.6`            | Complex architecture, security analysis     |
 | `claude-opus-4.5`            | Deep reasoning, nuanced code review         |
 
@@ -60,7 +61,7 @@ instead of forcing every step through the same model family.
 ### 1. Switch Your Main Model
 
 ```text
-/model claude-opus-4.6
+/model claude-opus-4.7
 ```
 
 Changes the model for your current interactive session.
@@ -75,7 +76,7 @@ task(agent_type: "explore", model: "claude-haiku-4.5",
      prompt: "Find all files that import the UserService class")
 
 # Premium model for security review
-task(agent_type: "code-review", model: "claude-opus-4.6",
+task(agent_type: "code-review", model: "claude-opus-4.7",
      prompt: "Review these auth changes for security vulnerabilities")
 
 # Fast model for test generation
@@ -89,7 +90,7 @@ task(agent_type: "general-purpose", model: "gpt-5.4-mini",
 Phase 1 - Exploration (cheap):     claude-haiku-4.5
 Phase 2 - Planning (standard):     claude-sonnet-4.6
 Phase 3 - Implementation (code):   gpt-5.3-codex
-Phase 4 - Review (premium):        claude-opus-4.6
+Phase 4 - Review (premium):        claude-opus-4.7
 Phase 5 - Test generation (fast):  gpt-5.4-mini
 ```
 
@@ -102,7 +103,7 @@ specialized roles:
 |------|-------------------|-----|
 | Builder | `gpt-5.3-codex` | Strong code transformation and implementation speed |
 | Planner / synthesizer | `gpt-5.4` or `claude-sonnet-4.6` | Balanced reasoning and summarization |
-| Security / architecture reviewer | `claude-opus-4.6` or `gpt-5.4` | Stronger high-risk judgment |
+| Security / architecture reviewer | `claude-opus-4.7` or `claude-opus-4.6` | Stronger high-risk judgment |
 | Scout / file search | `claude-haiku-4.5` | Fast, cheap exploration |
 
 This works especially well with [`task-intake-router`](../task-intake-router/SKILL.md)
@@ -114,7 +115,7 @@ decided before implementation begins.
 ### Security Audit with Premium Model
 
 ```text
-/model claude-opus-4.6
+/model claude-opus-4.7
 You: "Perform a security audit of the authentication system in src/auth/.
       Check for injection attacks, token handling issues, and OWASP Top 10."
 ```

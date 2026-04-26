@@ -24,7 +24,7 @@ Use the most capable model necessary — not the most capable model available.
 
 | Tier | Models | Best for |
 |------|--------|----------|
-| **Premium** | `claude-opus-4.6`, `claude-opus-4.5` | Architecture decisions, complex multi-file reasoning, security audits |
+| **Premium** | `claude-opus-4.7`, `claude-opus-4.6`, `claude-opus-4.5` | Architecture decisions, complex multi-file reasoning, security audits |
 | **Standard** | `claude-sonnet-4.6`, `claude-sonnet-4.5`, `gpt-5.2` | Most coding tasks, code review, test generation, documentation |
 | **Fast / Cheap** | `claude-haiku-4.5`, `gpt-5-mini`, `gpt-4.1` | File edits, boilerplate, classification, triage, simple summaries |
 
@@ -77,7 +77,7 @@ Scan for:
 For each change:
 
 ```text
-Change: Replace claude-opus on doc-summary with claude-haiku
+Change: Replace claude-opus-4.7 on doc-summary with claude-haiku
 Before: ~4,000 tokens × $0.015/1K = $0.06/call
 After:  ~4,000 tokens × $0.00025/1K = $0.001/call
 Savings: ~$0.059/call, ~$590/10K calls
@@ -108,7 +108,7 @@ Top three opportunities: [list]
 
 #### [HIGH] Premium model for boilerplate generation
 Location: [file or workflow name]
-Issue: `claude-opus-4.6` used for all code generation including templates and stubs.
+Issue: `claude-opus-4.7` used for all code generation including templates and stubs.
 Recommendation: Use `claude-haiku-4.5` for boilerplate; reserve opus for complex tasks.
 Estimated savings: ~80% cost reduction on boilerplate tasks.
 

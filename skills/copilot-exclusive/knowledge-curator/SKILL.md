@@ -120,6 +120,33 @@ Create a short project-knowledge summary for this sprint:
 
 Use that summary as review input before changing permanent instructions.
 
+### 6. Sync durable artifacts across machines
+
+When work moves between personal machines or between planning and implementation sessions,
+sync the **durable output**, not the session database itself:
+
+```text
+Export the artifacts worth keeping:
+- project instructions updates
+- architecture notes
+- migration checklists
+- retro summaries
+- reusable implementation review reports
+
+Store them in a private repository or internal docs location after removing secrets or
+machine-local details.
+```
+
+On the receiving machine:
+
+1. pull the durable artifacts
+2. load them as context for the new session
+3. use `/resume` only for local session continuity, not as a cross-machine sync mechanism
+
+`session_store` remains a read-only local history layer. Cross-machine continuity should
+come from intentionally curated docs and artifacts, not from treating session memory as a
+shared database.
+
 ## Promotion Heuristics
 
 Promote an insight when it is:
