@@ -229,6 +229,8 @@ Register it in `.vscode/mcp.json` and Copilot can query feature flags natively.
   catch syntax errors early.
 - **Hot-reload is your friend**: Edit configs and reload without losing your
   session context. Iterate quickly on MCP setups.
+- **Re-check fast-moving MCP tools**: Context7 evolves quickly, so confirm its latest
+  CLI and MCP behavior against upstream docs before standardizing new team workflows.
 
 ## See Also
 

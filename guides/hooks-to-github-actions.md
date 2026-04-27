@@ -22,7 +22,7 @@ Claude Code supports hooks for the following events:
 | `PreCompact` | Right before Claude Code compacts a long-running session |
 
 **Key difference**: Claude Code Hooks respond to *AI session lifecycle* events.
-Copilot CLI does not have a direct equivalent mechanism.
+Copilot CLI does not have a direct equivalent mechanism in its currently documented feature set.
 
 If you are migrating from a current Claude Code setup, note that newer Claude Code releases also
 apply `hooks:` frontmatter in `--agent` main-thread runs, not only in interactive sessions. That

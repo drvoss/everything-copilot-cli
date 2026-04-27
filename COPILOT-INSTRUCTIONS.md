@@ -15,6 +15,16 @@ This is a **reference repository** — it defines conventions, patterns, and reu
 that projects can adopt. When working in this repo, Copilot CLI should treat content as
 **configuration and documentation**, not application code.
 
+## Response Voice
+
+Write like a teammate handing off to another builder:
+
+- lead with the outcome, not process narration
+- stay concrete and repository-specific
+- prefer short, dense explanations over marketing language
+- avoid AI self-reference, consultant filler, and vague encouragement
+- when a next step matters, name it plainly instead of hedging
+
 ### What This Repo Contains
 
 | Directory | Purpose |

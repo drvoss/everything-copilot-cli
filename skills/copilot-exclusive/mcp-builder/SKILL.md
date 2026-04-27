@@ -106,7 +106,21 @@ server.tool(
 }
 ```
 
-### 5. Validate, reload, and test
+### 5. Centralize transport concerns
+
+If your server talks to remote HTTP or SSE backends, keep request-scoped concerns in one
+place instead of rebuilding them inside every tool:
+
+- auth header injection
+- OAuth token refresh
+- trace or correlation IDs
+- tenant or user context propagation
+
+Whether your stack calls these **interceptors**, **middleware**, or **request wrappers**,
+the rule is the same: tool handlers should focus on business logic, while transport policy
+stays in a reusable layer.
+
+### 6. Validate, reload, and test
 
 Use Copilot CLI's built-in loop:
 
@@ -117,7 +131,7 @@ Use Copilot CLI's built-in loop:
 4. Call the new tool with a real test input
 ```
 
-### 6. Add lightweight evaluations
+### 7. Add lightweight evaluations
 
 Before sharing the server, prepare realistic prompts that prove:
 
@@ -131,6 +145,7 @@ Before sharing the server, prepare realistic prompts that prove:
 - [ ] All parameters have descriptions
 - [ ] Output shape is predictable
 - [ ] Errors tell the caller what to fix next
+- [ ] Auth, header, or request-context propagation is centralized instead of duplicated per tool
 - [ ] Config validates before reload
 - [ ] At least one end-to-end tool invocation succeeds after reload
 
@@ -142,12 +157,14 @@ Before sharing the server, prepare realistic prompts that prove:
 | "The schema is obvious" | LLMs rely on explicit parameter descriptions and output shape. |
 | "I can skip validation and just reload" | Bad config slows iteration and creates avoidable confusion. |
 | "A generic wrapper is enough" | Workflow-specific tools often serve agents better than raw API mirrors. |
+| "I'll copy the auth headers in each tool" | Request policy belongs in one interceptor or middleware layer so it stays correct everywhere. |
 
 ## Red Flags
 
 - Tool names describe implementation details instead of user tasks
 - Inputs are under-specified or ambiguous
 - The server requires hidden setup not captured in config or docs
+- Every tool reconstructs auth or trace headers manually
 - You have not tested the tool from Copilot after reload
 
 ## Verification
