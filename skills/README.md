@@ -138,6 +138,7 @@ fleet mode, plan mode, and GitHub integration.
 | [`task-intake-router`](copilot-exclusive/task-intake-router/SKILL.md) | Use when a request arrives and the right execution path is unclear — routes work to the correct mode, agent type, model tier, and delegation pattern before implementation starts |
 | [`ecosystem-intake`](copilot-exclusive/ecosystem-intake/SKILL.md) | Use when evaluating an external repository, tool, or framework for adoption — applies the Adopt/Adapt/Reject filter and produces a structured intake report |
 | [`team-planner`](copilot-exclusive/team-planner/SKILL.md) | Use when a task is too large or multi-domain for a single agent — assemble a specialist team with SQL tracking and /fleet dispatch |
+| [`sub-agent-sandboxing`](copilot-exclusive/sub-agent-sandboxing/SKILL.md) | Use when delegated work needs runtime guardrails — constrain sub-agents with loop detection, circuit breakers, and escalating sandbox levels before accepting their output |
 
 ### 🛠 Development (`development/`)
 
@@ -154,11 +155,13 @@ Core software development skills applicable to any project.
 | [`performance-optimization`](development/performance-optimization/SKILL.md) | Measure first, isolate bottlenecks, and prove that a performance change actually helps |
 | [`pr-multi-perspective-review`](development/pr-multi-perspective-review/SKILL.md) | Review PRs from 6 lenses: PM / Dev / QA / Security / DevOps / UX |
 | [`refactor-clean`](development/refactor-clean/SKILL.md) | Remove dead code and simplify complex logic |
+| [`diagnose`](development/diagnose/SKILL.md) | Use when a bug or performance issue is still fuzzy — build the fastest feedback loop first, rank hypotheses, and instrument only what narrows the search |
 | [`skill-creator`](development/skill-creator/SKILL.md) | Describe a workflow and get a properly structured SKILL.md scaffolded in minutes |
 | [`source-driven-development`](development/source-driven-development/SKILL.md) | Verify framework and library APIs against current official docs before implementing |
 | [`spec-driven-development`](development/spec-driven-development/SKILL.md) | Write a technical spec before coding — defines interface, structure, and boundaries first |
 | [`systematic-debugging`](development/systematic-debugging/SKILL.md) | 4-phase root cause analysis (reproduce → isolate → hypothesize → verify) before fixing |
 | [`tdd-workflow`](development/tdd-workflow/SKILL.md) | Test-driven development with red-green-refactor cycles |
+| [`zoom-out`](development/zoom-out/SKILL.md) | Use when you are lost in local code details — step one abstraction level up, map the owning modules and callers, and restate the system in project vocabulary |
 
 **Combo Skills** (activate when two technologies are used together):
 
@@ -218,6 +221,7 @@ End-to-end development workflow skills — from planning to shipping.
 | [`deep-research`](workflow/deep-research/SKILL.md) | Use when a question requires comprehensive evidence gathering from multiple sources, systematic synthesis, and traceable citations |
 | [`implementation-review`](workflow/implementation-review/SKILL.md) | Use after a delegated implementation pass lands — compare the delivered diff against the original task spec and produce an actionable follow-up review |
 | [`deployment-canary`](workflow/deployment-canary/SKILL.md) | Use when a release needs staged rollout checks, rollback thresholds, and explicit promote/hold decisions |
+| [`outside-voice`](workflow/outside-voice/SKILL.md) | Use when you need an independent second opinion before, during, or after implementation — run challenge, consult, or review mode in a direct builder-to-builder voice |
 | [`release`](workflow/release/SKILL.md) | Cut a versioned release: tag → GitHub Release → publish (npm/PyPI/Docker) |
 | [`verification-before-completion`](workflow/verification-before-completion/SKILL.md) | Prove a task is done with fresh command output before claiming success |
 | [`sprint-workflow`](workflow/sprint-workflow/SKILL.md) | Full sprint: Think → Plan → Build → Review → Test → Ship |

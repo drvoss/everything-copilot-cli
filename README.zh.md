@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (76 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (22)
-│   ├── development/               #   Dev skills (17)
+├── skills/                        # Reusable workflow skills (80 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (23)
+│   ├── development/               #   Dev skills (19)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (12)
+│   ├── workflow/                  #   Workflow skills (13)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -222,12 +222,12 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 76 个 · 8 个类别）
+### 技能（Skill）（共 80 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
 <details>
-<summary><strong>★ Copilot 专属技能（22）</strong></summary>
+<summary><strong>★ Copilot 专属技能（23）</strong></summary>
 
 利用 GitHub Copilot CLI 独有能力的 skills：
 
@@ -255,11 +255,12 @@ everything-copilot-cli/
 | `stack-detector` | 扫描项目技术栈并推荐本集合中的相关 skills 与规则 |
 | `task-intake-router` | 将传入任务路由到合适的模式、agent type、模型与委托路径 |
 | `ecosystem-intake` | 将精选生态来源转成 adopt/adapt/reject 待办候选 |
+| `sub-agent-sandboxing` | 为委托任务增加循环检测、熔断器与沙箱升级规则，在接受输出前先加上运行时护栏 |
 
 </details>
 
 <details>
-<summary><strong>开发技能（17）</strong></summary>
+<summary><strong>开发技能（19）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -271,12 +272,14 @@ everything-copilot-cli/
 | `performance-optimization` | 基于测量定位瓶颈，并验证性能优化是否真实生效 |
 | `pr-multi-perspective-review` | 六视角 PR 评审：PM / Dev / QA / Security / DevOps / UX |
 | `refactor-clean` | 安全地移除死代码并简化逻辑 |
+| `diagnose` | 先构建最快的反馈回路，再给主要假设排序，并只添加能缩小搜索范围的定向观测 |
 | `source-driven-development` | 先核对官方文档与 API，再开始实现的 source-first 开发方式 |
 | `spec-driven-development` | 先写技术规范再编码——先定义接口、结构与边界 |
 | `context-engineering` | 优化向 AI agent 传递信息——减少噪声、提升信号 |
 | `deprecation-and-migration` | 通过三阶段流程安全移除旧 API 并迁移到新模式 |
 | `skill-creator` | 根据工作流描述生成新的 SKILL.md 脚手架 |
 | `systematic-debugging` | 采用 reproduce → isolate → hypothesize → verify 的四阶段调试流程 |
+| `zoom-out` | 从局部代码细节上移一个抽象层级，梳理所属模块、调用方，并用项目术语重述系统作用 |
 
 **组合技能**（当两种技术同时使用时启用）：
 
@@ -317,7 +320,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>工作流技能（12）</strong></summary>
+<summary><strong>工作流技能（13）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -332,6 +335,7 @@ everything-copilot-cli/
 | `council` | 为高风险决策召集四方对抗式决策 council |
 | `deep-research` | 系统化多源研究与结构化综合 |
 | `implementation-review` | 将实现结果 diff 与原始任务说明逐项比对，并产出可直接执行的修正反馈 |
+| `outside-voice` | 在实现前、中、后分别以 challenge / consult / review 模式获取独立的第二意见 |
 | `using-git-worktrees` | 无需重复克隆仓库即可为并行分支工作创建独立工作目录 |
 
 </details>

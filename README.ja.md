@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (76 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (22)
-│   ├── development/               #   Dev skills (17)
+├── skills/                        # Reusable workflow skills (80 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (23)
+│   ├── development/               #   Dev skills (19)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (12)
+│   ├── workflow/                  #   Workflow skills (13)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -222,12 +222,12 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計76・8カテゴリ）
+### スキル（合計80・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
 <details>
-<summary><strong>★ Copilot 専用 Skills（22）</strong></summary>
+<summary><strong>★ Copilot 専用 Skills（23）</strong></summary>
 
 GitHub Copilot CLI 固有の機能を活用する skill です。
 
@@ -255,11 +255,12 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `stack-detector` | project tech stack をスキャンし、このコレクションの関連 skill と rule を推奨します |
 | `task-intake-router` | 受け取った依頼を適切な mode、agent type、model、委任経路へルーティングします |
 | `ecosystem-intake` | キュレーション済み ecosystem source を adopt/adapt/reject の backlog 候補へ変換します |
+| `sub-agent-sandboxing` | 委任した作業に loop 検知、circuit breaker、sandbox 昇格を適用し、結果受け入れ前の実行ガードを追加します |
 
 </details>
 
 <details>
-<summary><strong>開発 Skills（17）</strong></summary>
+<summary><strong>開発 Skills（19）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -271,12 +272,14 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `performance-optimization` | 計測ベースで bottleneck を特定し、改善を実証します |
 | `pr-multi-perspective-review` | 6視点 PR review：PM / Dev / QA / Security / DevOps / UX |
 | `refactor-clean` | dead code を削除し、ロジックを安全に簡素化します |
+| `diagnose` | 最速の feedback loop を先に作り、有力な仮説を順位付けし、探索を狭める計測だけを追加します |
 | `source-driven-development` | 実装前に公式 doc を確認してから進める source-first 開発です |
 | `spec-driven-development` | coding 前に technical spec を作成し、interface・構造・境界を先に定義します |
 | `context-engineering` | AI agent への情報伝達を最適化し、noise を最小化、signal を最大化します |
 | `deprecation-and-migration` | 3フェーズで旧 API を安全に廃止し、新パターンへ移行します |
 | `skill-creator` | workflow の説明から新しい SKILL.md の雛形を作成します |
 | `systematic-debugging` | reproduce → isolate → hypothesize → verify の 4段階でデバッグします |
+| `zoom-out` | ローカルな code detail から 1 段階抽象度を上げ、owner module と caller を把握して project 用語で再説明します |
 
 **Combo Skills**（2つの技術を併用する場合に有効化）:
 
@@ -317,7 +320,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（12）</strong></summary>
+<summary><strong>ワークフロー Skills（13）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -332,6 +335,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `council` | 高リスク判断向けの 4者 adversarial decision council を開催します |
 | `deep-research` | 構造化 synthesis を伴う体系的な複数ソース調査を行います |
 | `implementation-review` | 実装結果の diff を元の task spec と照合し、実行可能な修正フィードバックを作成します |
+| `outside-voice` | 実装の前・途中・後で、challenge / consult / review の各 mode による独立した second opinion を得ます |
 | `using-git-worktrees` | repository を再 clone せずに並列 branch 作業用の分離ディレクトリを作成します |
 
 </details>

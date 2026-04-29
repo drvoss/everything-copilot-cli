@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (76개)
-│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (22개)
-│   ├── development/               #   개발 스킬 (17개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (80개)
+│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (23개)
+│   ├── development/               #   개발 스킬 (19개)
 │   ├── documentation/             #   문서화 스킬 (5개)
 │   ├── security/                  #   보안 스킬 (7개)
 │   ├── testing/                   #   테스팅 스킬 (5개)
-│   ├── workflow/                  #   워크플로우 스킬 (12개)
+│   ├── workflow/                  #   워크플로우 스킬 (13개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │
@@ -222,12 +222,12 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 76개 · 8개 카테고리)
+### 스킬 (총 80개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
 <details>
-<summary><strong>★ Copilot 전용 스킬 (22개)</strong></summary>
+<summary><strong>★ Copilot 전용 스킬 (23개)</strong></summary>
 
 GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
@@ -255,11 +255,12 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `stack-detector` | 프로젝트 기술 스택 감지 후 컬렉션 내 관련 스킬·룰셋 추천 |
 | `task-intake-router` | 들어온 작업을 적절한 모드, agent type, 모델, 위임 경로로 라우팅 |
 | `ecosystem-intake` | 큐레이션된 생태계 소스를 adopt/adapt/reject 백로그 후보로 변환 |
+| `sub-agent-sandboxing` | 위임 작업에 루프 감지, 서킷 브레이커, 샌드박스 승격 규칙을 걸어 결과 수용 전 런타임 안전장치를 추가 |
 
 </details>
 
 <details>
-<summary><strong>개발 스킬 (17개)</strong></summary>
+<summary><strong>개발 스킬 (19개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -271,12 +272,14 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `performance-optimization` | 측정 기반으로 병목을 찾고 성능 개선을 검증 |
 | `pr-multi-perspective-review` | 6가지 관점 PR 리뷰: PM/Dev/QA/Security/DevOps/UX |
 | `refactor-clean` | 동작 보존하며 데드 코드 제거 및 로직 단순화 |
+| `diagnose` | 가장 빠른 피드백 루프를 먼저 만들고, 가설 우선순위를 매긴 뒤 필요한 계측만 추가 |
 | `source-driven-development` | 공식 문서를 먼저 검증한 뒤 구현하는 소스 우선 개발 |
 | `spec-driven-development` | 코드 작성 전 기술 스펙 작성 — 인터페이스와 경계를 먼저 확정 |
 | `context-engineering` | AI 에이전트 태스크를 위한 컨텍스트 최적화 — 노이즈 최소화, 시그널 극대화 |
 | `deprecation-and-migration` | 3단계 프로세스로 구 API를 안전하게 제거하고 새 패턴으로 마이그레이션 |
 | `skill-creator` | 워크플로우 설명에서 새 SKILL.md 초안 생성 |
 | `systematic-debugging` | 재현 → 격리 → 가설 → 검증의 4단계 디버깅 |
+| `zoom-out` | 로컬 코드 디테일에서 한 단계 추상화 수준을 올려 소유 모듈, 호출자, 도메인 의미를 다시 맵핑 |
 
 **콤보 스킬** (두 기술을 함께 사용할 때 활성화):
 
@@ -317,7 +320,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (12개)</strong></summary>
+<summary><strong>워크플로우 스킬 (13개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -332,6 +335,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `council` | 고위험 의사결정을 위한 네 가지 관점 적대적 토론 패널 |
 | `deep-research` | 체계적 멀티소스 리서치 및 구조화 합성 |
 | `implementation-review` | 구현 결과 diff를 원래 작업 지시와 대조해 수정 지시가 가능한 피드백을 작성 |
+| `outside-voice` | 구현 전·중·후에 challenge/consult/review 모드로 독립적인 세컨드 오피니언을 받음 |
 | `using-git-worktrees` | 저장소를 다시 클론하지 않고 병렬 브랜치 작업용 별도 작업 디렉터리 생성 |
 
 </details>

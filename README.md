@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (76 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (22)
-│   ├── development/               #   Dev skills (17)
+├── skills/                        # Reusable workflow skills (80 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (23)
+│   ├── development/               #   Dev skills (19)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (12)
+│   ├── workflow/                  #   Workflow skills (13)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -222,12 +222,12 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (76 Total · 8 Categories)
+### Skills (80 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>★ Copilot-Exclusive Skills (22)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (23)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
@@ -255,11 +255,12 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `stack-detector` | Scan project tech stack and recommend relevant skills and rules from this collection |
 | `task-intake-router` | Route incoming work to the right mode, agent type, model, and delegation path |
 | `ecosystem-intake` | Convert curated ecosystem sources into adopt/adapt/reject backlog candidates |
+| `sub-agent-sandboxing` | Constrain delegated work with loop thresholds, circuit breakers, and sandbox escalation before accepting output |
 
 </details>
 
 <details>
-<summary><strong>Development Skills (17)</strong></summary>
+<summary><strong>Development Skills (19)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -271,12 +272,14 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `performance-optimization` | Measure first, isolate bottlenecks, and prove performance improvements |
 | `pr-multi-perspective-review` | 6-lens PR review: PM / Dev / QA / Security / DevOps / UX |
 | `refactor-clean` | Remove dead code, simplify logic safely |
+| `diagnose` | Build the fastest feedback loop first, rank the leading hypotheses, and instrument only what narrows the search |
 | `source-driven-development` | Verify framework and library APIs against current official docs before implementing |
 | `spec-driven-development` | Write a technical spec before coding — defines interface, structure, and boundaries first |
 | `context-engineering` | Optimize information delivery to AI agents — minimize noise, maximize signal |
 | `deprecation-and-migration` | Safely remove old APIs and migrate to new patterns with a 3-phase process |
 | `skill-creator` | Describe a workflow → get a SKILL.md scaffolded in minutes |
 | `systematic-debugging` | 4-phase root cause analysis (reproduce → isolate → hypothesize → verify) before fixing |
+| `zoom-out` | Step one abstraction level up from a local code detail, map owners and callers, and restate the system in project vocabulary |
 
 **Combo Skills** (activate when two technologies are used together):
 
@@ -317,7 +320,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Workflow Skills (12)</strong></summary>
+<summary><strong>Workflow Skills (13)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -332,6 +335,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `council` | Convene a 4-voice adversarial decision council for high-stakes choices |
 | `deep-research` | Systematic multi-source research with structured synthesis |
 | `implementation-review` | Compare a delivered diff against the original task spec and produce actionable follow-up feedback |
+| `outside-voice` | Get an independent second opinion before, during, or after implementation with challenge, consult, and review modes |
 | `using-git-worktrees` | Create isolated working directories for parallel branch work without recloning the repo |
 
 </details>
