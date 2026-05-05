@@ -23,7 +23,7 @@ that can be combined in one session:
 - **Autopilot** for execution after approval
 - **`task` agents** for typed delegation (`explore`, `task`, `general-purpose`, `code-review`)
 - **`/fleet`** for parallel fan-out
-- **Background delegation** for cloud execution and draft PR creation
+- **Background delegation** for cloud execution on GitHub
 - **Per-agent model overrides** for cost/quality optimization
 
 ## When to Use
@@ -60,7 +60,7 @@ Every request should be classified on five dimensions:
 | Many independent subtasks | `/fleet` or multiple background agents | Parallelism pays off |
 | Build/test/lint failure | `task` agent of type `task` | Fast execution, low-context output |
 | Security-sensitive review | `code-review` agent + premium model | Higher reasoning quality for high-risk analysis |
-| Long-running implementation you do not need locally | Background delegation (`&` or `/delegate`) | GitHub draft PR becomes the output |
+| Long-running implementation you do not need locally | Background delegation (`&` or `/delegate`) | GitHub branch diff or PR becomes the output |
 | Runtime rollout / post-ship observation | `deployment-canary` | Shipping is not the end of the workflow |
 
 ## Workflow
@@ -191,7 +191,7 @@ A routing decision is only useful if it hands off to a concrete next move:
 - **Autopilot** → execute the approved plan
 - **`task` agent** → launch the right typed agent
 - **`/fleet`** → define task boundaries and ownership
-- **Background delegation** → prepare the prompt for a draft PR workflow
+- **Background delegation** → prepare the prompt for a GitHub branch or PR workflow
 
 ## Examples
 

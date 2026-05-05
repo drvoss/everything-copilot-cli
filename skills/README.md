@@ -119,7 +119,7 @@ fleet mode, plan mode, and GitHub integration.
 | [`actions-debugging`](copilot-exclusive/actions-debugging/SKILL.md) | Use when a GitHub Actions workflow fails — diagnose the run log, identify the root cause, and apply a targeted fix |
 | [`agentic-engineering`](copilot-exclusive/agentic-engineering/SKILL.md) | Use when designing or decomposing a task for agent execution — applies 15-minute task units, eval-first loops, and explicit input/output contracts |
 | [`autopilot-patterns`](copilot-exclusive/autopilot-patterns/SKILL.md) | Use when you're ready to let Copilot execute a multi-step plan autonomously — configures guardrails and handles plan-to-autopilot transitions |
-| [`background-agent`](copilot-exclusive/background-agent/SKILL.md) | Use when a task is too long to block the current session — delegates to a cloud background agent via `&` or `/delegate` and opens a draft PR |
+| [`background-agent`](copilot-exclusive/background-agent/SKILL.md) | Use when a task is too long to block the current session — delegates to a cloud background agent via `&` or `/delegate` and returns the result on GitHub |
 | [`context-prime`](copilot-exclusive/context-prime/SKILL.md) | Invoke when starting a session (or resuming after a break) on a repo before making changes, to load live project context |
 | [`cross-session-memory`](copilot-exclusive/cross-session-memory/SKILL.md) | Use when you need to recover prior context, decisions, or artifacts across sessions — search history and resume with the right state |
 | [`fleet-parallel`](copilot-exclusive/fleet-parallel/SKILL.md) | Use when you need to run the same task across many files or contexts in parallel — triggers /fleet mode for batch operations |
