@@ -329,14 +329,14 @@ See [Autopilot Patterns skill](../skills/copilot-exclusive/autopilot-patterns/SK
 
 **Background Delegation** hands off tasks to a cloud-based Copilot coding agent that
 runs autonomously on GitHub. Your terminal is immediately freed. The agent works on a
-new branch and opens a **draft PR** — results are reviewed on GitHub, not polled from
+branch on GitHub, and you review the result there as a diff or PR — not by polling from
 the terminal.
 
 ### Why It Matters
 
 Long-running tasks (large refactors, multi-file migrations, full test suite additions)
 no longer block your workflow. Delegate with `&`, keep coding locally, and review the
-agent's draft PR on GitHub when it's ready.
+agent's GitHub output when it's ready.
 
 ### How to Use It
 
@@ -349,16 +349,16 @@ Prefix any prompt with `&` (or use `/delegate [PROMPT]`) to hand off to the clou
 # The agent:
 #   1. Commits current state to a new branch
 #   2. Works autonomously on GitHub
-#   3. Opens a draft PR with the completed changes
+#   3. Leaves the work on GitHub for diff review or PR creation
 
-# → Review the draft PR on GitHub for results
+# → Review the branch diff or PR on GitHub for results
 ```
 
 **`/resume` — continuing a cloud session locally:**
 
 `/resume` brings a cloud agent session into your local CLI — it is not for polling
 delegation results. Use it when you want to continue the conversation after reviewing
-the draft PR:
+the GitHub result:
 
 ```text
 # List recent sessions
@@ -380,8 +380,8 @@ the draft PR:
 # Terminal is free — continue local work while the agent runs on GitHub
 # ...coding a new feature locally...
 
-# GitHub notifies you when the draft PR is ready
-# → Open the PR on GitHub to review changes, leave comments, or approve
+# GitHub notifies you when the branch diff or PR is ready
+# → Open GitHub to review changes, leave comments, or create/approve a PR
 
 # Optionally: bring the session local to continue in the CLI
 /resume abc123
@@ -396,8 +396,8 @@ See [Background Agent skill](../skills/copilot-exclusive/background-agent/SKILL.
 
 ### What It Is
 
-Fleet mode decomposes a task into independent units and executes them in parallel across
-multiple autonomous agents, each with its own context window.
+Fleet mode decomposes a task into mostly independent units and executes parallel-safe work
+across multiple autonomous agents, each with its own context window.
 
 ### Why It Matters
 
@@ -410,7 +410,7 @@ these tasks with no manual coordination.
 **Task decomposition strategy:**
 
 ```text
-1. Identify independent units (no shared state, no file overlap)
+1. Identify independent units first and make follow-up dependencies explicit
 2. Write self-contained prompts (agents are stateless)
 3. Include all context each agent needs
 4. Launch fleet
@@ -428,7 +428,7 @@ these tasks with no manual coordination.
 **Bad fleet candidates:**
 
 - Tasks that modify the same files (merge conflicts)
-- Sequential operations (migrations, ordered deployments)
+- Heavily sequential operations where each step depends on the previous one
 - Tasks requiring shared state (use SQL + sequential instead)
 
 ### Example

@@ -3,7 +3,7 @@ name: autopilot-patterns
 description: Use when you're ready to let Copilot execute a multi-step plan autonomously — configures appropriate guardrails, handles plan-to-autopilot transitions, and sets safety boundaries.
 metadata:
   category: copilot-exclusive
-  copilot_feature: "Autopilot mode, autonomous execution, plan-to-autopilot transitions"
+  copilot_feature: "Autopilot mode, autonomous execution, --max-autopilot-continues, /allow-all"
 ---
 
 # Autopilot Mode Patterns
@@ -61,6 +61,41 @@ Even in autopilot, you can:
 - Watch the output stream in real-time
 - Check todo status via SQL queries
 - Interrupt if something goes wrong (Ctrl+C)
+
+## Continuation Boundaries and Permissions
+
+Autopilot keeps working until the task completes, you interrupt it, a blocker stops progress,
+or a configured continuation limit is reached.
+
+### Set explicit checkpoints when you want them
+
+If you want autopilot to pause after a bounded number of autonomous steps, set a continuation
+limit up front:
+
+```text
+copilot --max-autopilot-continues 3
+```
+
+Use this when you want a review checkpoint after a risky phase instead of letting the run continue
+indefinitely.
+
+### `/allow-all` changes permissions, not task structure
+
+`/allow-all` (or starting with `--allow-all`) grants Copilot permission to use tools, paths, and
+URLs without stopping for approval. It does **not** replace good planning and it does not create
+task checkpoints by itself.
+
+```text
+/allow-all
+[Shift+Tab to enter Plan Mode]
+You: "Refactor the auth module in autopilot, but stop if changes extend beyond src/auth/"
+```
+
+### If autopilot pauses or stops mid-task
+
+1. Check which todo is still `in_progress`
+2. Inspect the current diff before continuing
+3. Continue with a corrective instruction if the next step needs tighter guidance
 
 ### Safety Patterns
 
@@ -239,6 +274,8 @@ UPDATE loop_state SET
   is automated test verification at each step.
 - **Use careful/freeze language explicitly**: if scope must stay narrow, say what is
   locked and when autopilot must stop rather than assuming it will infer the boundary.
+- **Set a continuation limit for risky runs**: use `--max-autopilot-continues` when you want
+  an explicit review checkpoint after a fixed number of autonomous steps.
 - **Start small**: First time using autopilot? Try it on a 3-todo task.
   Build confidence before running 20-todo autopilot sessions.
 - **Know when NOT to autopilot**: Security-critical code, database migrations,

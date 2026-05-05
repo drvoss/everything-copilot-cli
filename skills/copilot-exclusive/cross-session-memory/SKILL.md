@@ -3,7 +3,7 @@ name: cross-session-memory
 description: Use when you need to recover context, decisions, or artifacts across multiple Copilot CLI sessions — search prior session history and resume with the right files, notes, and state.
 metadata:
   category: copilot-exclusive
-  copilot_feature: "Session resume (/resume), session store (session_store database), session artifacts"
+  copilot_feature: "Session resume (/resume), /chronicle, session store (session_store database), session artifacts"
 ---
 
 # Cross-Session Memory & Continuity
@@ -38,6 +38,23 @@ This lists your recent sessions. Select one to continue with full context restor
 including conversation history, file state, and session database.
 
 ### 2. Search Across Sessions
+
+#### Option A: `/chronicle` for fast discovery
+
+Start broad with natural-language history lookup:
+
+```text
+/experimental on
+/chronicle "authentication work from last week"
+/chronicle "Redis caching setup"
+/chronicle "what did we decide about the payment module architecture?"
+```
+
+If `/chronicle` is unavailable in your current build, enable experimental commands first.
+Use `/chronicle` to find the most relevant sessions, decisions, or artifacts quickly. Once you
+know which session matters, switch to SQL when you need exact filtering or reproducible queries.
+
+#### Option B: SQL via `session_store`
 
 Query the `session_store` database to find past work:
 
@@ -199,6 +216,8 @@ Guardrails:
 
 - **Use /resume for continuity**: Don't re-explain context. Resume picks up
   your full conversation and state.
+- **Start with /chronicle, drill with SQL**: use `/chronicle` for fast discovery, then query
+  `search_index` or session tables when you need precision.
 - **Name your sessions**: Use descriptive first messages so sessions are easy
   to find later. "Set up payment processing" is better than "help me code."
 - **SQL todos survive sessions**: Your `todos` table persists when you resume.

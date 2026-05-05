@@ -260,20 +260,20 @@ Copilot CLI works alongside VS Code with Copilot Chat:
 Launches multiple agents in parallel for highly parallelizable work:
 
 ```text
-# Copilot automatically uses fleet mode for independent tasks:
+# Copilot works best with fleet mode on mostly independent tasks:
 > Update all 12 API endpoint tests to use the new auth middleware
-# Fleet spawns parallel agents, each handling a subset of files
+# Fleet parallelizes safe subtasks and may serialize follow-up dependencies
 ```
 
 ### Background Agents (Background Delegation)
 
 Delegate tasks to a cloud Copilot coding agent with `&` — terminal is immediately free.
-The agent works on GitHub and opens a **draft PR** with results:
+The agent works on GitHub and returns the result there as a branch diff or PR:
 
 ```text
 # Delegate to cloud agent
 & "Add comprehensive error handling to all API endpoints"
-# → Agent creates a draft PR on GitHub when done
+# → Agent leaves the result on GitHub for review
 
 # /resume brings a cloud session into your local CLI (not for polling results)
 /resume abc123

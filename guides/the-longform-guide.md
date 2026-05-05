@@ -297,7 +297,7 @@ windows. This is Copilot CLI's most powerful scaling feature.
 **Task decomposition strategy:**
 
 ```text
-1. Identify independent units of work (no shared state)
+1. Identify independent units of work first and call out any follow-up dependencies
 2. Write clear, self-contained prompts for each unit
 3. Include all necessary context in each prompt (agents are stateless)
 4. Launch fleet with decomposed tasks
@@ -307,7 +307,7 @@ windows. This is Copilot CLI's most powerful scaling feature.
 **Anti-patterns to avoid:**
 
 - Don't fleet tasks that modify the same files (merge conflicts)
-- Don't fleet tasks where order matters (migrations, sequential APIs)
+- Don't fleet work that is mostly sequential or that rewrites the same files in phases
 - Don't fleet tasks that need shared state (use SQL + sequential instead)
 
 See [Fleet Parallel skill](../skills/copilot-exclusive/fleet-parallel/SKILL.md).
@@ -320,13 +320,13 @@ to hand off work to a cloud-based Copilot coding agent:
 ```text
 1. Delegate:    & "Migrate all service tests to the new test framework"
 2. Terminal is immediately free — continue your main work
-3. Agent works on GitHub, opens a draft PR when complete
-4. Review results on GitHub via the draft PR
+3. Agent works on GitHub and leaves the result as a branch diff or PR
+4. Review results on GitHub
 5. Optionally bring the session local:  /resume [SESSION-ID]
 ```
 
 > **Note:** `/resume` brings a cloud agent session into your local CLI for continued
-> conversation. Results from delegation are surfaced via the draft PR on GitHub, not
+> conversation. Results from delegation are surfaced on GitHub, not
 > by polling with `/resume`.
 
 **Use cases:**
@@ -381,13 +381,13 @@ Step 4: code-review agent
 
 ### Background Agent Multi-Turn Conversations
 
-After a cloud delegation completes and opens a draft PR, bring the session local with
+After a cloud delegation completes and the result is ready on GitHub, bring the session local with
 `/resume` to continue the conversation with full accumulated context:
 
 ```text
 1. Delegate:        & "Analyze auth system and refactor weak points"
 2. Continue locally, agent works on GitHub
-3. Draft PR opens:  review changes on GitHub
+3. Review on GitHub:  inspect the branch diff or PR
 4. Bring local:     /resume abc123
 5. Follow-up:       > Also check the session management — same issues?
 6. Agent continues with accumulated context from the original run
@@ -771,7 +771,7 @@ See [Pipeline pattern](../orchestration/patterns/pipeline.md) for structured han
 8. **Track todos in SQL, not in chat** — `INSERT INTO todos` instead of "remember to do X"
 9. **Use plan mode for complex tasks** — Structured approval prevents wasted work
 10. **Switch to autopilot** for well-defined tasks — Skip per-step approval
-11. **Use fleet mode for independent tasks** — 3-4x speedup on parallelizable work
+11. **Use fleet mode for mostly independent tasks** — 3-4x speedup on parallelizable work
 12. **Choose the right model** — Don't use Opus for file searches (use Haiku)
 13. **Use `/clear` between unrelated tasks** — Fresh context = better results
 14. **Be specific in prompts** — "Fix bug in src/auth/login.ts:42" beats "fix auth"

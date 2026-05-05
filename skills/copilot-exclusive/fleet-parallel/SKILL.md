@@ -83,6 +83,44 @@ Context packaging rules:
 - Specify the output shape up front (patch, summary, tests, docs, etc.)
 - If two subtasks need the same files, they do **not** belong in the same fleet batch
 
+## How Fleet Handles Dependencies
+
+Fleet is not just a flat batch runner. Copilot first analyzes whether the work can be broken into
+independent subtasks, then orchestrates dependencies between them.
+
+```text
+Task A (no deps)  ──┐
+Task B (no deps)  ──┤──► may run in parallel
+Task C (no deps)  ──┘
+
+Task D (depends on A) ──► waits for A
+Task E (depends on A, B) ──► waits for A and B
+```
+
+Where possible, Copilot parallelizes the independent work and keeps dependent follow-up tasks
+behind the orchestrator.
+
+### Writing dependency-aware fleet briefs
+
+```text
+/fleet "
+1. Add TypeScript types to user.ts — no dependencies
+2. Add TypeScript types to product.ts — no dependencies
+3. Add TypeScript types to order.ts — no dependencies
+4. Update the API layer to use the new types from 1, 2, and 3
+5. Update tests after the API layer changes
+"
+```
+
+The clearer the dependency edges are in your prompt, the easier it is for Copilot to parallelize
+the safe parts and serialize the rest.
+
+### When Fleet serializes unexpectedly
+
+If work runs sequentially when you expected parallel execution, assume there is shared state or an
+implicit dependency. Split overlapping writes into separate batches, or move the follow-up phase
+into a later fleet invocation.
+
 ### 5. Use Worktrees for Branch Isolation (Optional)
 
 If agents need separate long-lived branches or may touch overlapping tooling state, create one
