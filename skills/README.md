@@ -219,6 +219,8 @@ End-to-end development workflow skills — from planning to shipping.
 | [`cost-audit`](workflow/cost-audit/SKILL.md) | Use when AI inference costs are growing unexpectedly or when comparing model choices by cost/quality ratio — produces an actionable cost reduction plan |
 | [`council`](workflow/council/SKILL.md) | Use when a decision has multiple credible paths and no obvious winner — convene a four-voice council (Architect, Skeptic, Pragmatist, Critic) for adversarial deliberation |
 | [`deep-research`](workflow/deep-research/SKILL.md) | Use when a question requires comprehensive evidence gathering from multiple sources, systematic synthesis, and traceable citations |
+| [`grill-me`](workflow/grill-me/SKILL.md) | Use when a plan still has hidden assumptions — run a one-question-at-a-time grilling session until dependencies, risks, and decisions are explicit before implementation starts |
+| [`grill-with-docs`](workflow/grill-with-docs/SKILL.md) | Use when a plan must be stress-tested against the codebase's existing language and decisions — grill it against current docs, glossary terms, and ADRs before implementation begins |
 | [`implementation-review`](workflow/implementation-review/SKILL.md) | Use after a delegated implementation pass lands — compare the delivered diff against the original task spec and produce an actionable follow-up review |
 | [`deployment-canary`](workflow/deployment-canary/SKILL.md) | Use when a release needs staged rollout checks, rollback thresholds, and explicit promote/hold decisions |
 | [`outside-voice`](workflow/outside-voice/SKILL.md) | Use when you need an independent second opinion before, during, or after implementation — run challenge, consult, or review mode in a direct builder-to-builder voice |
@@ -227,6 +229,7 @@ End-to-end development workflow skills — from planning to shipping.
 | [`sprint-workflow`](workflow/sprint-workflow/SKILL.md) | Full sprint: Think → Plan → Build → Review → Test → Ship |
 | [`security-audit`](workflow/security-audit/SKILL.md) | OWASP Top 10 + STRIDE threat modeling audit |
 | [`sprint-retro`](workflow/sprint-retro/SKILL.md) | Data-driven retrospectives using `/chronicle` and git metrics |
+| [`to-issues`](workflow/to-issues/SKILL.md) | Use when a plan, spec, or PRD must become an actionable backlog — break it into thin dependency-aware issues that each deliver a verifiable vertical slice |
 | [`using-git-worktrees`](workflow/using-git-worktrees/SKILL.md) | Create isolated working directories for parallel branch work without cloning the repo repeatedly |
 
 ### 📦 Product (`product/`)

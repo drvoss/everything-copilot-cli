@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (80 total)
+├── skills/                        # Reusable workflow skills (83 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (23)
 │   ├── development/               #   Dev skills (19)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (13)
+│   ├── workflow/                  #   Workflow skills (16)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計80・8カテゴリ）
+### スキル（合計83・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
@@ -320,7 +320,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（13）</strong></summary>
+<summary><strong>ワークフロー Skills（16）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -334,8 +334,11 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `cost-audit` | AI inference token コストを監査し、model/prompt 最適化を提案します |
 | `council` | 高リスク判断向けの 4者 adversarial decision council を開催します |
 | `deep-research` | 構造化 synthesis を伴う体系的な複数ソース調査を行います |
+| `grill-me` | 前提、依存関係、リスクが明示されるまで 1 問ずつ plan を厳しく掘り下げます |
+| `grill-with-docs` | 既存 docs、用語、ADR に照らして implementation 前の plan を厳しく検証します |
 | `implementation-review` | 実装結果の diff を元の task spec と照合し、実行可能な修正フィードバックを作成します |
 | `outside-voice` | 実装の前・途中・後で、challenge / consult / review の各 mode による独立した second opinion を得ます |
+| `to-issues` | plan、spec、PRD を検証可能な薄い vertical slice issue に分解します |
 | `using-git-worktrees` | repository を再 clone せずに並列 branch 作業用の分離ディレクトリを作成します |
 
 </details>

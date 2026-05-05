@@ -91,6 +91,20 @@ git worktree remove --force ..\repo-feature-api
 git worktree prune
 ```
 
+Before any forced cleanup, verify that the target path is a real worktree path from
+`git worktree list`. Do not pass an unchecked or hand-typed path straight into force removal.
+
+```powershell
+$target = Resolve-Path ..\repo-feature-api
+$known = git worktree list --porcelain |
+  Select-String '^worktree ' |
+  ForEach-Object { $_.ToString().Substring(9) }
+
+if ($target.Path -notin $known) {
+    throw "Refusing cleanup: path is not a registered git worktree"
+}
+```
+
 ## For Copilot Orchestrators: Direct Agents into the Right Worktree
 
 Copilot CLI does not expose a dedicated `EnterWorktree` tool. The safe equivalent is to put
@@ -111,6 +125,7 @@ Operational rules:
 - Keep one active branch and one primary owner per worktree.
 - If multiple agents need different branches, create multiple worktrees rather than sharing one.
 - Pair this with a narrow file brief when the worktree still contains too much writable surface.
+- Verify the branch and path pairing before destructive cleanup or recreation.
 
 ## Windows Tips
 
@@ -118,6 +133,7 @@ Operational rules:
 - Keep names short enough to avoid deep path problems
 - If tooling caches absolute paths, run setup once per worktree
 - Each worktree needs its own untracked build artifacts and environment state
+- If a worktree stores shared notes or copied logs, scrub secrets and tokens before committing them
 
 ## Common Mistakes
 
@@ -127,6 +143,7 @@ Operational rules:
 | Forgetting which directory maps to which task | Name folders after the branch or task |
 | Leaving stale worktree references behind | Run `git worktree prune` regularly |
 | Treating worktrees like fully separate repositories | Remember git history and object storage are shared |
+| Forcing cleanup on the wrong path | Check `git worktree list` and resolve the path before removal |
 
 ## Verification
 
@@ -134,6 +151,7 @@ Operational rules:
 - [ ] No two active tasks are editing through the same worktree
 - [ ] `git worktree list` shows the expected layout
 - [ ] Finished worktrees are removed and pruned
+- [ ] Any forced cleanup path was verified against the registered worktree list
 
 ## Runtime Notes
 

@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (80 total)
+├── skills/                        # Reusable workflow skills (83 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (23)
 │   ├── development/               #   Dev skills (19)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (13)
+│   ├── workflow/                  #   Workflow skills (16)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -222,7 +222,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (80 Total · 8 Categories)
+### Skills (83 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -320,7 +320,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Workflow Skills (13)</strong></summary>
+<summary><strong>Workflow Skills (16)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -334,8 +334,11 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `cost-audit` | Audit AI inference token spend and recommend model/prompt optimizations |
 | `council` | Convene a 4-voice adversarial decision council for high-stakes choices |
 | `deep-research` | Systematic multi-source research with structured synthesis |
+| `grill-me` | Stress-test a plan with one-question-at-a-time interrogation until assumptions, dependencies, and risks are explicit |
+| `grill-with-docs` | Stress-test a plan against existing docs, glossary terms, and ADRs before implementation begins |
 | `implementation-review` | Compare a delivered diff against the original task spec and produce actionable follow-up feedback |
 | `outside-voice` | Get an independent second opinion before, during, or after implementation with challenge, consult, and review modes |
+| `to-issues` | Break a plan, spec, or PRD into thin dependency-aware issues that each deliver a verifiable vertical slice |
 | `using-git-worktrees` | Create isolated working directories for parallel branch work without recloning the repo |
 
 </details>

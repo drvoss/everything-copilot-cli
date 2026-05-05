@@ -42,13 +42,29 @@ including conversation history, file state, and session database.
 Query the `session_store` database to find past work:
 
 ```sql
--- Search for sessions where you worked on authentication
+-- Prefer the search index for text lookup, then join back to sessions
 sql(database: "session_store",
-    query: "SELECT * FROM sessions WHERE content MATCH 'authentication'")
+    query: "
+      SELECT s.id, s.summary, si.source_type
+      FROM search_index si
+      JOIN sessions s ON s.id = si.session_id
+      WHERE search_index MATCH 'authentication OR auth OR login'
+      ORDER BY s.updated_at DESC
+      LIMIT 10
+    ")
 ```
 
 The `session_store` includes FTS5 (full-text search) for fast, fuzzy searching
 across all your historical sessions.
+
+Start broad, then narrow:
+
+1. search `search_index` with expanded keywords
+2. identify the relevant session IDs
+3. read the corresponding turns, checkpoints, or files in that session
+
+If you query `sessions` directly, use it for structured metadata such as repository, branch, or
+date range — not as your primary full-text search surface.
 
 ### 3. Access Session Artifacts
 
@@ -124,7 +140,14 @@ You: "Last month I set up a Redis caching layer for something.
       Search my past sessions for how I configured it."
 
 sql(database: "session_store",
-    query: "SELECT * FROM sessions WHERE content MATCH 'redis cache config'")
+    query: "
+      SELECT s.id, s.summary
+      FROM search_index si
+      JOIN sessions s ON s.id = si.session_id
+      WHERE search_index MATCH 'redis OR cache OR redis-cache OR caching'
+      ORDER BY s.updated_at DESC
+      LIMIT 5
+    ")
 ```
 
 Copilot finds the relevant session and extracts the configuration approach.
@@ -154,6 +177,24 @@ You: "Now implement the missing tests from our coverage analysis"
 → Reads the report from session artifacts, generates tests
 ```
 
+### Durable Knowledge in a Worktree
+
+For research notes or reference material that should outlive a single session but stay isolated from
+active code edits, keep them in a dedicated docs or notes worktree instead of mixing them into the
+main checkout.
+
+Good uses:
+
+- durable architecture summaries
+- long-lived comparison notes
+- reproducible research snapshots
+
+Guardrails:
+
+- treat that worktree as a read-mostly knowledge store
+- verify the expected remote or target path before writing into it
+- redact credentials, tokens, or connection URLs before saving logs or copied config
+
 ## Tips
 
 - **Use /resume for continuity**: Don't re-explain context. Resume picks up
@@ -166,5 +207,9 @@ You: "Now implement the missing tests from our coverage analysis"
   to it. It's automatically populated from your session history.
 - **Artifacts for important outputs**: When Copilot generates something you'll
   need later (reports, configs, plans), it can save to session files.
+- **Use worktrees for durable reference sets**: If the material should persist beyond one session
+  and stay separate from product code edits, keep it in a dedicated worktree.
+- **Prefer structured retrieval over memory**: search `search_index`, then inspect matching turns
+  or checkpoints instead of guessing from titles alone.
 - **Search before you start**: Before tackling a problem, search past sessions
   to see if you've solved something similar. Build on past work, don't repeat it.

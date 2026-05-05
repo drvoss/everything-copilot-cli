@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (80 total)
+├── skills/                        # Reusable workflow skills (83 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (23)
 │   ├── development/               #   Dev skills (19)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (13)
+│   ├── workflow/                  #   Workflow skills (16)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 80 个 · 8 个类别）
+### 技能（Skill）（共 83 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -320,7 +320,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>工作流技能（13）</strong></summary>
+<summary><strong>工作流技能（16）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -334,8 +334,11 @@ everything-copilot-cli/
 | `cost-audit` | 审计 AI 推理 token 开销，并给出模型/prompt 优化建议 |
 | `council` | 为高风险决策召集四方对抗式决策 council |
 | `deep-research` | 系统化多源研究与结构化综合 |
+| `grill-me` | 以一次一个问题的方式拷问方案，直到假设、依赖和风险都被说清 |
+| `grill-with-docs` | 对照现有文档、术语和 ADR，在实现前拷问并校正方案 |
 | `implementation-review` | 将实现结果 diff 与原始任务说明逐项比对，并产出可直接执行的修正反馈 |
 | `outside-voice` | 在实现前、中、后分别以 challenge / consult / review 模式获取独立的第二意见 |
+| `to-issues` | 将计划、规范或 PRD 拆成可验证的薄垂直切片 issue |
 | `using-git-worktrees` | 无需重复克隆仓库即可为并行分支工作创建独立工作目录 |
 
 </details>
