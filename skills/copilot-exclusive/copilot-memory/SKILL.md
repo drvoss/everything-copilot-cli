@@ -127,6 +127,14 @@ Those belong in secure systems, ephemeral notes, or not in Copilot context at al
 - Temporary migration artifacts are being treated as durable project conventions
 - Owners never review memories even after major refactors or policy changes
 
+## Team Considerations
+
+- Admins control availability under **Repository Settings > Copilot > Memory**
+- Memory is repository-scoped, not user-scoped — all Copilot surfaces for the same repo share the
+  same memory layer
+- To seed shared patterns explicitly, keep authoritative conventions in repo docs and instructions;
+  Copilot learns from those as the canonical source
+
 ## Verification
 
 - [ ] The team can explain the difference between Copilot Memory and local session history

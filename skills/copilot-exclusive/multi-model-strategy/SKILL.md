@@ -3,6 +3,7 @@ name: multi-model-strategy
 description: Use when choosing which AI model to use for a task — pick the right model family and tier based on cost, speed, context needs, and reasoning depth
 metadata:
   category: copilot-exclusive
+  agent_type: general-purpose
   copilot_feature: "Model selection (/model command), Auto model selection, per-agent model override, tier-based routing"
 ---
 
