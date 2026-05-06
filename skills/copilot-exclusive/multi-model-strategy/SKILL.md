@@ -3,7 +3,7 @@ name: multi-model-strategy
 description: Use when choosing which AI model to use for a task — pick the right model family and tier based on cost, speed, context needs, and reasoning depth
 metadata:
   category: copilot-exclusive
-  copilot_feature: "Model selection (/model command), per-agent model override, tier-based routing"
+  copilot_feature: "Model selection (/model command), Auto model selection, per-agent model override, tier-based routing"
 ---
 
 # Multi-Model Strategy
@@ -17,6 +17,7 @@ instead of forcing every step through the same model family.
 
 ## When to Use
 
+- Deciding whether Copilot Auto should handle model choice or whether to override it manually
 - Matching model strengths to task requirements
 - Optimizing cost for high-volume operations (use cheaper models for exploration)
 - Using premium models for security-critical or architecturally complex work
@@ -25,6 +26,31 @@ instead of forcing every step through the same model family.
 - Pairing implementation and review models on the same workflow
 
 ## Workflow
+
+### Auto Model Selection
+
+Auto model selection is available in Copilot CLI. When you choose **Auto**, Copilot selects an
+appropriate supported model based on your plan and policies, and shows which model was used for each
+response in the terminal.
+
+```text
+/model
+# Select Auto
+```
+
+Use Auto when:
+
+- the task mix is broad and you do not want to hand-tune each step
+- you want lower mental overhead for everyday work
+- the session may shift between exploration, implementation, and review
+
+Prefer a manual override when:
+
+| Scenario | Why override Auto | Suggested path |
+|----------|-------------------|----------------|
+| High-stakes security or architecture work | You want a guaranteed premium model | choose a premium model explicitly |
+| Strict reproducibility matters | Auto can route to different supported models over time | lock a specific model |
+| You are comparing two models intentionally | A/B testing requires a stable choice | pick exact model names |
 
 ### Model Tiers and Strengths
 
@@ -174,6 +200,8 @@ then a code-focused model for the actual repository edits.
 
 ## Tips
 
+- **Default to Auto for mixed workloads**: it lowers model-picking overhead and keeps routing
+  flexible when a session spans exploration, implementation, and review.
 - **Default to standard tier**: Models like `claude-sonnet-4.6` or `gpt-5.3-codex`
   handle 90% of tasks well. Only switch for specific reasons.
 - **Use Haiku for exploration**: The `explore` agent defaults to Haiku for a reason —
@@ -188,3 +216,5 @@ then a code-focused model for the actual repository edits.
   or current Copilot docs when updating this playbook.
 - **Track model performance**: Note which models work best for your specific codebase
   and task types. Build your own playbook over time.
+- **Cost tuning is a routing problem**: if spend matters, pair Auto and explicit overrides with
+  [`token-cost-optimizer`](../token-cost-optimizer/SKILL.md) instead of picking one model blindly.

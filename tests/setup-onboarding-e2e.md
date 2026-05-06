@@ -44,7 +44,7 @@ Verify that a fresh project can be bootstrapped from this repository and that Gi
 
 5. Verify the banner reports:
    - `1 custom instruction`
-   - `83 skills`
+   - `85 skills`
    - `8 agents`
 
 6. Run:

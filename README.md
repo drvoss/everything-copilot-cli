@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="76 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="85 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,8 +162,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (83 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (23)
+├── skills/                        # Reusable workflow skills (85 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
 │   ├── development/               #   Dev skills (19)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
@@ -222,12 +222,12 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (83 Total · 8 Categories)
+### Skills (85 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>★ Copilot-Exclusive Skills (23)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (25)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
@@ -244,6 +244,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `github-issue-triage` | Bulk issue classification and triage |
 | `actions-debugging` | Debug CI failures with native Actions access |
 | `cross-session-memory` | Search and resume prior session context |
+| `copilot-memory` | Review and curate repository-level Copilot memory shared across CLI, cloud agent, and code review |
 | `knowledge-curator` | Promote repeated lessons into durable project guidance |
 | `mcp-builder` | Build a new MCP server with config validation and hot-reload |
 | `multi-model-strategy` | Pick the right model per task |
@@ -256,6 +257,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `task-intake-router` | Route incoming work to the right mode, agent type, model, and delegation path |
 | `ecosystem-intake` | Convert curated ecosystem sources into adopt/adapt/reject backlog candidates |
 | `sub-agent-sandboxing` | Constrain delegated work with loop thresholds, circuit breakers, and sandbox escalation before accepting output |
+| `token-cost-optimizer` | Proactively reduce Copilot usage cost before large autonomous or parallel tasks |
 
 </details>
 

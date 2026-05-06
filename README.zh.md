@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="76 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="85 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,8 +162,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (83 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (23)
+├── skills/                        # Reusable workflow skills (85 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
 │   ├── development/               #   Dev skills (19)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
@@ -222,12 +222,12 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 83 个 · 8 个类别）
+### 技能（Skill）（共 85 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
 <details>
-<summary><strong>★ Copilot 专属技能（23）</strong></summary>
+<summary><strong>★ Copilot 专属技能（25）</strong></summary>
 
 利用 GitHub Copilot CLI 独有能力的 skills：
 
@@ -244,6 +244,7 @@ everything-copilot-cli/
 | `github-issue-triage` | 批量 Issue 分类与分诊 |
 | `actions-debugging` | 利用原生 Actions 访问能力调试 CI 失败 |
 | `cross-session-memory` | 检索并恢复先前的会话上下文 |
+| `copilot-memory` | 审查并整理 CLI、云代理与代码评审共享的仓库级 Copilot Memory |
 | `knowledge-curator` | 将反复出现的经验沉淀为持久的项目指引 |
 | `mcp-builder` | 构建新的 MCP server，并完成校验、热重载与端到端测试 |
 | `multi-model-strategy` | 按任务选择合适模型 |
@@ -256,6 +257,7 @@ everything-copilot-cli/
 | `task-intake-router` | 将传入任务路由到合适的模式、agent type、模型与委托路径 |
 | `ecosystem-intake` | 将精选生态来源转成 adopt/adapt/reject 待办候选 |
 | `sub-agent-sandboxing` | 为委托任务增加循环检测、熔断器与沙箱升级规则，在接受输出前先加上运行时护栏 |
+| `token-cost-optimizer` | 在大型 Copilot 任务前主动压低模型、上下文与并行带来的计费压力 |
 
 </details>
 

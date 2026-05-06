@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="76 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="85 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,8 +162,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (83개)
-│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (23개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (85개)
+│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (25개)
 │   ├── development/               #   개발 스킬 (19개)
 │   ├── documentation/             #   문서화 스킬 (5개)
 │   ├── security/                  #   보안 스킬 (7개)
@@ -222,12 +222,12 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 83개 · 8개 카테고리)
+### 스킬 (총 85개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
 <details>
-<summary><strong>★ Copilot 전용 스킬 (23개)</strong></summary>
+<summary><strong>★ Copilot 전용 스킬 (25개)</strong></summary>
 
 GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
@@ -244,6 +244,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `github-issue-triage` | 이슈 대량 분류 및 트리아지 |
 | `actions-debugging` | 네이티브 Actions 접근으로 CI 실패 디버깅 |
 | `cross-session-memory` | 이전 세션 컨텍스트를 검색하고 재개 |
+| `copilot-memory` | CLI, 클라우드 에이전트, 코드 리뷰가 공유하는 저장소 수준 Copilot 메모리를 검토하고 정리 |
 | `knowledge-curator` | 반복되는 교훈을 영구적인 프로젝트 가이드로 승격 |
 | `mcp-builder` | 새 MCP 서버를 설계하고 구현한 뒤 검증, 리로드, 테스트까지 수행 |
 | `multi-model-strategy` | 작업별 최적 모델 선택 |
@@ -256,6 +257,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `task-intake-router` | 들어온 작업을 적절한 모드, agent type, 모델, 위임 경로로 라우팅 |
 | `ecosystem-intake` | 큐레이션된 생태계 소스를 adopt/adapt/reject 백로그 후보로 변환 |
 | `sub-agent-sandboxing` | 위임 작업에 루프 감지, 서킷 브레이커, 샌드박스 승격 규칙을 걸어 결과 수용 전 런타임 안전장치를 추가 |
+| `token-cost-optimizer` | 대규모 Copilot 작업 전에 모델, 컨텍스트, 병렬성으로 인한 비용 상승을 선제적으로 줄임 |
 
 </details>
 

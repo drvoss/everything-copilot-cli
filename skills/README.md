@@ -122,6 +122,7 @@ fleet mode, plan mode, and GitHub integration.
 | [`background-agent`](copilot-exclusive/background-agent/SKILL.md) | Use when a task is too long to block the current session — delegates to a cloud background agent via `&` or `/delegate` and returns the result on GitHub |
 | [`context-prime`](copilot-exclusive/context-prime/SKILL.md) | Invoke when starting a session (or resuming after a break) on a repo before making changes, to load live project context |
 | [`cross-session-memory`](copilot-exclusive/cross-session-memory/SKILL.md) | Use when you need to recover prior context, decisions, or artifacts across sessions — search history and resume with the right state |
+| [`copilot-memory`](copilot-exclusive/copilot-memory/SKILL.md) | Use when you need to understand, review, or curate GitHub Copilot's repository-level memory across CLI, cloud agent, and code review |
 | [`fleet-parallel`](copilot-exclusive/fleet-parallel/SKILL.md) | Use when you need to run the same task across many files or contexts in parallel — triggers /fleet mode for batch operations |
 | [`github-code-search`](copilot-exclusive/github-code-search/SKILL.md) | Use when you need real-world implementation examples or cross-repository context — search GitHub's global code index and reuse the results as grounded context |
 | [`github-issue-triage`](copilot-exclusive/github-issue-triage/SKILL.md) | Use when you have a backlog of unorganized GitHub Issues — bulk-labels, prioritizes, and assigns at scale |
@@ -139,6 +140,7 @@ fleet mode, plan mode, and GitHub integration.
 | [`ecosystem-intake`](copilot-exclusive/ecosystem-intake/SKILL.md) | Use when evaluating an external repository, tool, or framework for adoption — applies the Adopt/Adapt/Reject filter and produces a structured intake report |
 | [`team-planner`](copilot-exclusive/team-planner/SKILL.md) | Use when a task is too large or multi-domain for a single agent — assemble a specialist team with SQL tracking and /fleet dispatch |
 | [`sub-agent-sandboxing`](copilot-exclusive/sub-agent-sandboxing/SKILL.md) | Use when delegated work needs runtime guardrails — constrain sub-agents with loop detection, circuit breakers, and escalating sandbox levels before accepting their output |
+| [`token-cost-optimizer`](copilot-exclusive/token-cost-optimizer/SKILL.md) | Use before a large Copilot task when model choice, context size, or parallelism could drive up billed usage |
 
 ### 🛠 Development (`development/`)
 

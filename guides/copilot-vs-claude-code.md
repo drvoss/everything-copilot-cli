@@ -62,7 +62,7 @@ unique capabilities.
 | MCP Protocol | ✅ Client + server | ✅ Client + server | Both support MCP |
 | Agent Council | ✅ Multi-tool deliberation | ❌ Single-tool | Bring multiple AIs to decisions |
 | **Extensibility** | | | |
-| Skill Library | ✅ 83 curated skills in this collection | ⚠️ Community libraries vary by source | This repository currently ships 83 Copilot skills; cross-tool counts are not normalized |
+| Skill Library | ✅ 85 curated skills in this collection | ⚠️ Community libraries vary by source | This repository currently ships 85 Copilot skills; cross-tool counts are not normalized |
 | Hook System | ⚠️ No direct in-session equivalent | ✅ Full lifecycle hooks | Copilot relies on Git hooks, GitHub Actions, and prompt guards instead |
 | Custom Commands | ✅ Slash commands + plugins | ✅ Slash commands | Both support custom commands |
 | Security Scanning | ⚠️ Via skills | ⚠️ Via skills | Both rely on security skill workflows |

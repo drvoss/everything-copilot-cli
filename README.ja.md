@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="76 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="85 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,8 +162,8 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (83 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (23)
+├── skills/                        # Reusable workflow skills (85 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
 │   ├── development/               #   Dev skills (19)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
@@ -222,12 +222,12 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計83・8カテゴリ）
+### スキル（合計85・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
 <details>
-<summary><strong>★ Copilot 専用 Skills（23）</strong></summary>
+<summary><strong>★ Copilot 専用 Skills（25）</strong></summary>
 
 GitHub Copilot CLI 固有の機能を活用する skill です。
 
@@ -244,6 +244,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `github-issue-triage` | Issue を一括分類・トリアージします |
 | `actions-debugging` | native Actions アクセスで CI failure をデバッグします |
 | `cross-session-memory` | 以前の session context を検索して再開します |
+| `copilot-memory` | CLI、cloud agent、code review で共有される repository-level Copilot memory を確認・整理します |
 | `knowledge-curator` | 繰り返し現れる学びを永続的な project guidance に昇格します |
 | `mcp-builder` | 新しい MCP server を設計・実装し、検証・reload・test まで通します |
 | `multi-model-strategy` | task ごとに最適な model を選択します |
@@ -256,6 +257,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `task-intake-router` | 受け取った依頼を適切な mode、agent type、model、委任経路へルーティングします |
 | `ecosystem-intake` | キュレーション済み ecosystem source を adopt/adapt/reject の backlog 候補へ変換します |
 | `sub-agent-sandboxing` | 委任した作業に loop 検知、circuit breaker、sandbox 昇格を適用し、結果受け入れ前の実行ガードを追加します |
+| `token-cost-optimizer` | 大きな Copilot task の前に、model・context・parallelism によるコスト増を先回りで抑えます |
 
 </details>
 
