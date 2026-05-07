@@ -269,7 +269,7 @@ everything-copilot-cli/
 | `api-and-interface-design` | 在实现前先定义公开 API / CLI / webhook / SDK 的契约 |
 | `tdd-workflow` | Red → Green → Refactor 循环 |
 | `code-review` | 带严重级别的结构化评审 |
-| `cpp-debugging` | 使用符号、sanitizer 与调试器优先流程，追查 C++ 原生崩溃、生命周期错误与未定义行为 |
+| `cpp-debugging` | 当 C++ 故障涉及对象生命周期、未定义行为、原生崩溃或仅在调试器中显现的状态时，先用符号、sanitizer 与平台原生调试器定位根因，再避免症状式修补 |
 | `fix-github-issue` | 读取 Issue → 定位 bug → 修复 → 测试 → PR |
 | `fix-build-errors` | 诊断并解决构建失败 |
 | `performance-optimization` | 基于测量定位瓶颈，并验证性能优化是否真实生效 |
@@ -340,7 +340,7 @@ everything-copilot-cli/
 | `grill-me` | 以一次一个问题的方式拷问方案，直到假设、依赖和风险都被说清 |
 | `grill-with-docs` | 对照现有文档、术语和 ADR，在实现前拷问并校正方案 |
 | `implementation-review` | 将实现结果 diff 与原始任务说明逐项比对，并产出可直接执行的修正反馈 |
-| `llm-wiki` | 维护一个补充性的 markdown wiki，在不替代 GitHub 或已提交项目指引的前提下累积跨会话领域知识 |
+| `llm-wiki` | 当研究或领域知识在不同会话里反复被重新整理时，使用补充性的 markdown wiki 累积合成知识，同时不替代 GitHub 或已提交的项目指引 |
 | `outside-voice` | 在实现前、中、后分别以 challenge / consult / review 模式获取独立的第二意见 |
 | `to-issues` | 将计划、规范或 PRD 拆成可验证的薄垂直切片 issue |
 | `using-git-worktrees` | 无需重复克隆仓库即可为并行分支工作创建独立工作目录 |

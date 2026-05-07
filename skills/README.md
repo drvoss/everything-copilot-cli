@@ -151,7 +151,7 @@ Core software development skills applicable to any project.
 | [`api-and-interface-design`](development/api-and-interface-design/SKILL.md) | Define public APIs, CLIs, webhooks, or SDK contracts first so compatibility and validation stay intentional |
 | [`code-review`](development/code-review/SKILL.md) | Structured code review for quality and correctness |
 | [`context-engineering`](development/context-engineering/SKILL.md) | Optimize information delivery to AI agents — minimize noise, maximize signal |
-| [`cpp-debugging`](development/cpp-debugging/SKILL.md) | Use when a native C++ failure depends on lifetime, undefined behavior, or crash-state analysis — debug with symbols, sanitizers, and platform-native debuggers before patching symptoms |
+| [`cpp-debugging`](development/cpp-debugging/SKILL.md) | Use when a C++ failure involves memory lifetime, undefined behavior, native crashes, or debugger-only state — debug with symbols, sanitizers, and platform-native debuggers before patching symptoms |
 | [`deprecation-and-migration`](development/deprecation-and-migration/SKILL.md) | Safely remove old APIs and migrate to new patterns with a 3-phase process |
 | [`fix-build-errors`](development/fix-build-errors/SKILL.md) | Diagnose and fix build failures fast |
 | [`fix-github-issue`](development/fix-github-issue/SKILL.md) | Resolve a GitHub Issue end-to-end: read → locate → fix → test → PR |
@@ -225,7 +225,7 @@ End-to-end development workflow skills — from planning to shipping.
 | [`grill-me`](workflow/grill-me/SKILL.md) | Use when a plan still has hidden assumptions — run a one-question-at-a-time grilling session until dependencies, risks, and decisions are explicit before implementation starts |
 | [`grill-with-docs`](workflow/grill-with-docs/SKILL.md) | Use when a plan must be stress-tested against the codebase's existing language and decisions — grill it against current docs, glossary terms, and ADRs before implementation begins |
 | [`implementation-review`](workflow/implementation-review/SKILL.md) | Use after a delegated implementation pass lands — compare the delivered diff against the original task spec and produce an actionable follow-up review |
-| [`llm-wiki`](workflow/llm-wiki/SKILL.md) | Use when research or domain knowledge keeps getting rediscovered across sessions — build a supplementary markdown wiki that compounds synthesized knowledge without replacing committed project guidance |
+| [`llm-wiki`](workflow/llm-wiki/SKILL.md) | Use when research or domain knowledge keeps getting rediscovered across sessions — build a supplementary markdown wiki that compounds synthesized knowledge without replacing GitHub or committed project guidance |
 | [`deployment-canary`](workflow/deployment-canary/SKILL.md) | Use when a release needs staged rollout checks, rollback thresholds, and explicit promote/hold decisions |
 | [`outside-voice`](workflow/outside-voice/SKILL.md) | Use when you need an independent second opinion before, during, or after implementation — run challenge, consult, or review mode in a direct builder-to-builder voice |
 | [`release`](workflow/release/SKILL.md) | Cut a versioned release: tag → GitHub Release → publish (npm/PyPI/Docker) |

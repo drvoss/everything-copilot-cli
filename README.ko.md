@@ -269,7 +269,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `api-and-interface-design` | 공개 API/CLI/webhook/SDK 계약을 구현 전에 먼저 정의 |
 | `tdd-workflow` | Red → Green → Refactor 사이클 |
 | `code-review` | 심각도 수준이 포함된 구조화된 코드 리뷰 |
-| `cpp-debugging` | 심볼, sanitizer, 디버거 중심 워크플로우로 C++ 네이티브 크래시, 수명 버그, 정의되지 않은 동작을 추적 |
+| `cpp-debugging` | C++ 오류가 객체 수명, 정의되지 않은 동작, 네이티브 크래시, 디버거에서만 드러나는 상태를 포함할 때 심볼, sanitizer, 플랫폼별 디버거로 증상을 패치하기 전에 원인을 추적 |
 | `fix-github-issue` | 이슈 읽기 → 버그 위치 → 수정 → 테스트 → PR |
 | `fix-build-errors` | 빌드 실패 진단 및 해결 |
 | `performance-optimization` | 측정 기반으로 병목을 찾고 성능 개선을 검증 |
@@ -340,7 +340,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `grill-me` | 계획의 숨은 가정, 의존성, 위험이 드러날 때까지 한 번에 한 질문씩 압박 검증 |
 | `grill-with-docs` | 기존 문서, 용어집, ADR과 대조하며 구현 전 계획을 압박 검증 |
 | `implementation-review` | 구현 결과 diff를 원래 작업 지시와 대조해 수정 지시가 가능한 피드백을 작성 |
-| `llm-wiki` | GitHub나 커밋된 프로젝트 가이드를 대체하지 않으면서 세션 간 도메인 지식을 누적하는 보조 마크다운 위키를 운영 |
+| `llm-wiki` | 리서치나 도메인 지식이 세션마다 반복될 때 GitHub나 커밋된 프로젝트 가이드를 대체하지 않는 보조 마크다운 위키로 합성 지식을 누적 |
 | `outside-voice` | 구현 전·중·후에 challenge/consult/review 모드로 독립적인 세컨드 오피니언을 받음 |
 | `to-issues` | 계획, 스펙, PRD를 검증 가능한 얇은 수직 슬라이스 이슈들로 분해 |
 | `using-git-worktrees` | 저장소를 다시 클론하지 않고 병렬 브랜치 작업용 별도 작업 디렉터리 생성 |

@@ -269,7 +269,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `api-and-interface-design` | Define public APIs, CLIs, webhooks, or SDK contracts before implementation |
 | `tdd-workflow` | Red → Green → Refactor cycle |
 | `code-review` | Structured review with severity levels |
-| `cpp-debugging` | Debug native C++ crashes, lifetime bugs, and undefined behavior with symbols, sanitizers, and debugger-first workflows |
+| `cpp-debugging` | Use when a C++ failure involves memory lifetime, undefined behavior, native crashes, or debugger-only state — debug with symbols, sanitizers, and platform-native debuggers before patching symptoms |
 | `fix-github-issue` | Read issue → locate bug → fix → test → PR |
 | `fix-build-errors` | Diagnose and resolve build failures |
 | `performance-optimization` | Measure first, isolate bottlenecks, and prove performance improvements |
@@ -340,7 +340,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `grill-me` | Stress-test a plan with one-question-at-a-time interrogation until assumptions, dependencies, and risks are explicit |
 | `grill-with-docs` | Stress-test a plan against existing docs, glossary terms, and ADRs before implementation begins |
 | `implementation-review` | Compare a delivered diff against the original task spec and produce actionable follow-up feedback |
-| `llm-wiki` | Build a supplementary markdown wiki for compounding domain knowledge across sessions without replacing GitHub or committed project guidance |
+| `llm-wiki` | Use when research or domain knowledge keeps getting rediscovered across sessions — build a supplementary markdown wiki that compounds synthesized knowledge without replacing GitHub or committed project guidance |
 | `outside-voice` | Get an independent second opinion before, during, or after implementation with challenge, consult, and review modes |
 | `to-issues` | Break a plan, spec, or PRD into thin dependency-aware issues that each deliver a verifiable vertical slice |
 | `using-git-worktrees` | Create isolated working directories for parallel branch work without recloning the repo |

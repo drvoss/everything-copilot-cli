@@ -269,7 +269,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `api-and-interface-design` | 公開 API / CLI / webhook / SDK の契約を実装前に定義します |
 | `tdd-workflow` | Red → Green → Refactor サイクル |
 | `code-review` | 重大度レベル付きの構造化 review |
-| `cpp-debugging` | symbol、sanitizer、debugger を使って C++ の native crash、寿命バグ、未定義動作を追跡します |
+| `cpp-debugging` | C++ の失敗が寿命、未定義動作、native crash、debugger でしか見えない状態を含むときに、symbol、sanitizer、platform-native debugger で症状パッチ前に原因を追跡します |
 | `fix-github-issue` | issue を読む → bug 特定 → 修正 → test → PR |
 | `fix-build-errors` | build failure を診断して解決します |
 | `performance-optimization` | 計測ベースで bottleneck を特定し、改善を実証します |
@@ -340,7 +340,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `grill-me` | 前提、依存関係、リスクが明示されるまで 1 問ずつ plan を厳しく掘り下げます |
 | `grill-with-docs` | 既存 docs、用語、ADR に照らして implementation 前の plan を厳しく検証します |
 | `implementation-review` | 実装結果の diff を元の task spec と照合し、実行可能な修正フィードバックを作成します |
-| `llm-wiki` | GitHub や commit 済み project guidance を置き換えずに、session をまたぐ domain knowledge を蓄積する補助 markdown wiki を運用します |
+| `llm-wiki` | research や domain knowledge が session ごとに再発明されるときに、GitHub や commit 済み project guidance を置き換えない補助 markdown wiki へ合成知識を蓄積します |
 | `outside-voice` | 実装の前・途中・後で、challenge / consult / review の各 mode による独立した second opinion を得ます |
 | `to-issues` | plan、spec、PRD を検証可能な薄い vertical slice issue に分解します |
 | `using-git-worktrees` | repository を再 clone せずに並列 branch 作業用の分離ディレクトリを作成します |

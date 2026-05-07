@@ -1,6 +1,6 @@
 ---
 name: cpp-debugging
-description: Use when a C++ failure involves memory lifetime, undefined behavior, native crashes, or debugger-only state — rebuild with symbols, use sanitizers, and inspect the real runtime state before patching symptoms
+description: Use when a C++ failure involves memory lifetime, undefined behavior, native crashes, or debugger-only state — debug with symbols, sanitizers, and platform-native debuggers before patching symptoms
 metadata:
   category: development
   agent_type: general-purpose
