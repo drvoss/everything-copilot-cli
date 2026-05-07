@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="85 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="87 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,19 +162,19 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (85 total)
+├── skills/                        # Reusable workflow skills (87 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
-│   ├── development/               #   Dev skills (19)
+│   ├── development/               #   Dev skills (20)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (16)
+│   ├── workflow/                  #   Workflow skills (17)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
 ├── rules/                         # Coding rules & guidelines
 │   ├── common/                    #   Universal rules (6)
-│   ├── languages/                 #   Language-specific: TS, Python, Go, C#, Java
+│   ├── languages/                 #   Language-specific: TS, Python, Go, C#, Java, C++
 │   └── frameworks/                #   Framework rules (7)
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 85 个 · 8 个类别）
+### 技能（Skill）（共 87 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -262,13 +262,14 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>开发技能（19）</strong></summary>
+<summary><strong>开发技能（20）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
 | `api-and-interface-design` | 在实现前先定义公开 API / CLI / webhook / SDK 的契约 |
 | `tdd-workflow` | Red → Green → Refactor 循环 |
 | `code-review` | 带严重级别的结构化评审 |
+| `cpp-debugging` | 使用符号、sanitizer 与调试器优先流程，追查 C++ 原生崩溃、生命周期错误与未定义行为 |
 | `fix-github-issue` | 读取 Issue → 定位 bug → 修复 → 测试 → PR |
 | `fix-build-errors` | 诊断并解决构建失败 |
 | `performance-optimization` | 基于测量定位瓶颈，并验证性能优化是否真实生效 |
@@ -322,7 +323,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>工作流技能（16）</strong></summary>
+<summary><strong>工作流技能（17）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -339,6 +340,7 @@ everything-copilot-cli/
 | `grill-me` | 以一次一个问题的方式拷问方案，直到假设、依赖和风险都被说清 |
 | `grill-with-docs` | 对照现有文档、术语和 ADR，在实现前拷问并校正方案 |
 | `implementation-review` | 将实现结果 diff 与原始任务说明逐项比对，并产出可直接执行的修正反馈 |
+| `llm-wiki` | 维护一个补充性的 markdown wiki，在不替代 GitHub 或已提交项目指引的前提下累积跨会话领域知识 |
 | `outside-voice` | 在实现前、中、后分别以 challenge / consult / review 模式获取独立的第二意见 |
 | `to-issues` | 将计划、规范或 PRD 拆成可验证的薄垂直切片 issue |
 | `using-git-worktrees` | 无需重复克隆仓库即可为并行分支工作创建独立工作目录 |

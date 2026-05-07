@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="85 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="87 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,19 +162,19 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (85 total)
+├── skills/                        # Reusable workflow skills (87 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
-│   ├── development/               #   Dev skills (19)
+│   ├── development/               #   Dev skills (20)
 │   ├── documentation/             #   Doc skills (5)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (16)
+│   ├── workflow/                  #   Workflow skills (17)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
 ├── rules/                         # Coding rules & guidelines
 │   ├── common/                    #   Universal rules (6)
-│   ├── languages/                 #   Language-specific: TS, Python, Go, C#, Java
+│   ├── languages/                 #   Language-specific: TS, Python, Go, C#, Java, C++
 │   └── frameworks/                #   Framework rules (7)
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計85・8カテゴリ）
+### スキル（合計87・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
@@ -262,13 +262,14 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>開発 Skills（19）</strong></summary>
+<summary><strong>開発 Skills（20）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
 | `api-and-interface-design` | 公開 API / CLI / webhook / SDK の契約を実装前に定義します |
 | `tdd-workflow` | Red → Green → Refactor サイクル |
 | `code-review` | 重大度レベル付きの構造化 review |
+| `cpp-debugging` | symbol、sanitizer、debugger を使って C++ の native crash、寿命バグ、未定義動作を追跡します |
 | `fix-github-issue` | issue を読む → bug 特定 → 修正 → test → PR |
 | `fix-build-errors` | build failure を診断して解決します |
 | `performance-optimization` | 計測ベースで bottleneck を特定し、改善を実証します |
@@ -322,7 +323,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（16）</strong></summary>
+<summary><strong>ワークフロー Skills（17）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -339,6 +340,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `grill-me` | 前提、依存関係、リスクが明示されるまで 1 問ずつ plan を厳しく掘り下げます |
 | `grill-with-docs` | 既存 docs、用語、ADR に照らして implementation 前の plan を厳しく検証します |
 | `implementation-review` | 実装結果の diff を元の task spec と照合し、実行可能な修正フィードバックを作成します |
+| `llm-wiki` | GitHub や commit 済み project guidance を置き換えずに、session をまたぐ domain knowledge を蓄積する補助 markdown wiki を運用します |
 | `outside-voice` | 実装の前・途中・後で、challenge / consult / review の各 mode による独立した second opinion を得ます |
 | `to-issues` | plan、spec、PRD を検証可能な薄い vertical slice issue に分解します |
 | `using-git-worktrees` | repository を再 clone せずに並列 branch 作業用の分離ディレクトリを作成します |

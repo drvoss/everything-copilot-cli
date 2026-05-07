@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="85 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="87 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,19 +162,19 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (85개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (87개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (25개)
-│   ├── development/               #   개발 스킬 (19개)
+│   ├── development/               #   개발 스킬 (20개)
 │   ├── documentation/             #   문서화 스킬 (5개)
 │   ├── security/                  #   보안 스킬 (7개)
 │   ├── testing/                   #   테스팅 스킬 (5개)
-│   ├── workflow/                  #   워크플로우 스킬 (16개)
+│   ├── workflow/                  #   워크플로우 스킬 (17개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │
 ├── rules/                         # 코딩 규칙 & 가이드라인
 │   ├── common/                    #   범용 규칙 (6개)
-│   ├── languages/                 #   언어별 규칙: TS, Python, Go, C#, Java
+│   ├── languages/                 #   언어별 규칙: TS, Python, Go, C#, Java, C++
 │   └── frameworks/                #   프레임워크 규칙 (7개)
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 85개 · 8개 카테고리)
+### 스킬 (총 87개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -262,13 +262,14 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>개발 스킬 (19개)</strong></summary>
+<summary><strong>개발 스킬 (20개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `api-and-interface-design` | 공개 API/CLI/webhook/SDK 계약을 구현 전에 먼저 정의 |
 | `tdd-workflow` | Red → Green → Refactor 사이클 |
 | `code-review` | 심각도 수준이 포함된 구조화된 코드 리뷰 |
+| `cpp-debugging` | 심볼, sanitizer, 디버거 중심 워크플로우로 C++ 네이티브 크래시, 수명 버그, 정의되지 않은 동작을 추적 |
 | `fix-github-issue` | 이슈 읽기 → 버그 위치 → 수정 → 테스트 → PR |
 | `fix-build-errors` | 빌드 실패 진단 및 해결 |
 | `performance-optimization` | 측정 기반으로 병목을 찾고 성능 개선을 검증 |
@@ -322,7 +323,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (16개)</strong></summary>
+<summary><strong>워크플로우 스킬 (17개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -339,6 +340,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `grill-me` | 계획의 숨은 가정, 의존성, 위험이 드러날 때까지 한 번에 한 질문씩 압박 검증 |
 | `grill-with-docs` | 기존 문서, 용어집, ADR과 대조하며 구현 전 계획을 압박 검증 |
 | `implementation-review` | 구현 결과 diff를 원래 작업 지시와 대조해 수정 지시가 가능한 피드백을 작성 |
+| `llm-wiki` | GitHub나 커밋된 프로젝트 가이드를 대체하지 않으면서 세션 간 도메인 지식을 누적하는 보조 마크다운 위키를 운영 |
 | `outside-voice` | 구현 전·중·후에 challenge/consult/review 모드로 독립적인 세컨드 오피니언을 받음 |
 | `to-issues` | 계획, 스펙, PRD를 검증 가능한 얇은 수직 슬라이스 이슈들로 분해 |
 | `using-git-worktrees` | 저장소를 다시 클론하지 않고 병렬 브랜치 작업용 별도 작업 디렉터리 생성 |
