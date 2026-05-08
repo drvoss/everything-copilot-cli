@@ -175,6 +175,31 @@ Pattern:
 3. Enter that checkout with `EnterWorktree`
 4. Keep one subagent per worktree
 
+### Claude Code only: `worktree.baseRef` when Claude creates the worktree
+
+Claude Code v2.1.133+ also supports a `worktree.baseRef` setting that affects
+**Claude-created** worktrees. This setting matters only when Claude is creating
+the worktree for a subagent; it does **not** change the recommended flow in this
+skill, where you create the worktree yourself with `git worktree add` and then
+enter it explicitly.
+
+```json
+{
+  "worktree": {
+    "baseRef": "fresh"
+  }
+}
+```
+
+| Value | Effect |
+|-------|--------|
+| `"fresh"` (default) | Start from the remote default branch baseline, so unpublished local commits are not carried into the new worktree |
+| `"head"` | Start from the current local HEAD, so unpublished local commits are carried into the new worktree |
+
+Use `"head"` only when the subagent must inherit local, unpushed commits.
+For the Git-native workflow in this skill (`git worktree add` first), this
+setting is usually not needed.
+
 ## See Also
 
 - [`fleet-parallel`](../../copilot-exclusive/fleet-parallel/SKILL.md) — distribute independent work in parallel
