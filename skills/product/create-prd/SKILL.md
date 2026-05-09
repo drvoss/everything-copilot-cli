@@ -14,6 +14,7 @@ metadata:
 - When a GitHub Issue or Slack request needs formal requirements before implementation
 - When writing a PRD from scratch for a feature you're about to build solo
 - As a handoff document: from discovery → design → implementation
+- When the current conversation already contains enough context to synthesize a first PRD draft
 
 **Note**: This skill works best for well-scoped, single-feature PRDs. For large epics with
 many sub-features, use this per sub-feature and link them together.
@@ -26,6 +27,10 @@ many sub-features, use this per sub-feature and link them together.
 ## Workflow
 
 ### 1. Gather Context
+
+If the current conversation, issue, or spec thread already contains enough information,
+draft from that context first. Do **not** restart discovery from zero unless the missing
+gaps would materially change scope.
 
 Before writing, collect:
 
@@ -138,6 +143,9 @@ $prdPath = "docs/prd-$featureName.md"
 # gh issue comment 123 --body "PRD: docs/prd-$featureName.md"
 ```
 
+If your workflow uses GitHub Issues as the system of record, link the PRD from the issue
+or publish the summary there so implementation and triage can find it later.
+
 ## Examples
 
 ### Minimal PRD (Solo Developer)
@@ -182,6 +190,8 @@ Requirements:
 ## Tips
 
 - **Start with JTBD, not features**: features are solutions; jobs are the problems worth solving
+- **Synthesize before interviewing again**: if the conversation already answers the key questions,
+  produce the first draft and ask only targeted follow-ups for true unknowns
 - **Non-goals are as important as goals**: they prevent scope creep during implementation
 - **Acceptance criteria are testable**: "users can X" is not; "clicking Save triggers validation and shows error within 200ms" is
 - **PRD ≠ design spec**: leave implementation details out; focus on *what*, not *how*

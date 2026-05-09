@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="87 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="90 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 87개 · 8개 카테고리)
+### 스킬 (총 90개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -262,7 +262,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>개발 스킬 (20개)</strong></summary>
+<summary><strong>개발 스킬 (22개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -272,8 +272,10 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `cpp-debugging` | C++ 오류가 객체 수명, 정의되지 않은 동작, 네이티브 크래시, 디버거에서만 드러나는 상태를 포함할 때 심볼, sanitizer, 플랫폼별 디버거로 증상을 패치하기 전에 원인을 추적 |
 | `fix-github-issue` | 이슈 읽기 → 버그 위치 → 수정 → 테스트 → PR |
 | `fix-build-errors` | 빌드 실패 진단 및 해결 |
+| `improve-codebase-architecture` | 코드베이스가 바꾸기, 테스트하기, 탐색하기 어렵게 느껴질 때 아키텍처 마찰을 드러내고 더 깊은 모듈 후보 하나를 구체적 리팩터링 방향까지 좁힘 |
 | `performance-optimization` | 측정 기반으로 병목을 찾고 성능 개선을 검증 |
 | `pr-multi-perspective-review` | 6가지 관점 PR 리뷰: PM/Dev/QA/Security/DevOps/UX |
+| `prototype` | 설계 질문이 아직 흐릴 때 하나의 질문에 답하는 로직/UI 폐기형 프로토타입을 빠르게 만들고, 이후 삭제하거나 흡수하도록 유도 |
 | `refactor-clean` | 동작 보존하며 데드 코드 제거 및 로직 단순화 |
 | `diagnose` | 가장 빠른 피드백 루프를 먼저 만들고, 가설 우선순위를 매긴 뒤 필요한 계측만 추가 |
 | `source-driven-development` | 공식 문서를 먼저 검증한 뒤 구현하는 소스 우선 개발 |
@@ -323,7 +325,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (17개)</strong></summary>
+<summary><strong>워크플로우 스킬 (18개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -343,6 +345,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `llm-wiki` | 리서치나 도메인 지식이 세션마다 반복될 때 GitHub나 커밋된 프로젝트 가이드를 대체하지 않는 보조 마크다운 위키로 합성 지식을 누적 |
 | `outside-voice` | 구현 전·중·후에 challenge/consult/review 모드로 독립적인 세컨드 오피니언을 받음 |
 | `to-issues` | 계획, 스펙, PRD를 검증 가능한 얇은 수직 슬라이스 이슈들로 분해 |
+| `triage` | 단일 이슈에 구조화된 트리아지가 필요할 때 분류, 재현, 추가 정보 요청, 후속 에이전트/종결 메모까지 이슈 트래커에 남김 |
 | `using-git-worktrees` | 저장소를 다시 클론하지 않고 병렬 브랜치 작업용 별도 작업 디렉터리 생성 |
 
 </details>

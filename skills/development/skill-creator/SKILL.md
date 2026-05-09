@@ -58,6 +58,10 @@ Ask (or determine from context):
 6. Are there any anti-patterns or common mistakes to warn about?
 ```
 
+**Important:** the description is the first routing clue an AI sees when deciding whether
+to load a skill. If it is vague, the skill may be correct but still fail to trigger when
+the user actually needs it.
+
 ### 2. Generate the SKILL.md
 
 Use this template as a base and fill in the gathered information.
@@ -224,6 +228,8 @@ metadata:
 
 - **Start with triggers**: the "When to Use" section determines whether agents will
   actually reach for this skill. Make triggers concrete and scenario-specific.
+- **Treat the description like routing metadata**: it is short, but it carries the most
+  leverage. If it does not clearly beat adjacent skills on specificity, rewrite it.
 - **Verification criteria drive quality**: vague verifications like "it works" are useless.
   Write criteria an agent can check with a command or an observable outcome.
 - **Port the job, not the syntax**: preserve the workflow value from upstream sources,

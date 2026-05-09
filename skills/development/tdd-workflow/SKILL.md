@@ -26,9 +26,13 @@ metadata:
 | JavaScript / TypeScript | Jest, Vitest | `npm test`, `npx vitest` |
 | Python | pytest | `pytest` |
 | Go | go test | `go test ./...` |
-| Ruby | RSpec, Minitest | `bundle exec rspec`, `ruby -Itest` |
+| Ruby | RSpec, Minitest | `bundle exec rspec`, `ruby -Itest test/` |
 | PHP | PHPUnit | `./vendor/bin/phpunit` |
 | Rust | cargo test | `cargo test` |
+
+> **tdd-guard users**: v1.6.8 adds Minitest reporter support and ignores ERB files by
+> default. After `bundle add tdd-guard`, re-check its framework detection before relying
+> on automatic enforcement.
 
 ## Workflow
 

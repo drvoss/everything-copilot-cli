@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="87 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="90 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計87・8カテゴリ）
+### スキル（合計90・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
@@ -262,7 +262,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>開発 Skills（20）</strong></summary>
+<summary><strong>開発 Skills（22）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -272,8 +272,10 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `cpp-debugging` | C++ の失敗が寿命、未定義動作、native crash、debugger でしか見えない状態を含むときに、symbol、sanitizer、platform-native debugger で症状パッチ前に原因を追跡します |
 | `fix-github-issue` | issue を読む → bug 特定 → 修正 → test → PR |
 | `fix-build-errors` | build failure を診断して解決します |
+| `improve-codebase-architecture` | codebase が変更しづらく、テストしづらく、読み解きにくいときに、設計上の摩擦を洗い出し、より深い module 候補を具体的な refactoring 方向まで絞り込みます |
 | `performance-optimization` | 計測ベースで bottleneck を特定し、改善を実証します |
 | `pr-multi-perspective-review` | 6視点 PR review：PM / Dev / QA / Security / DevOps / UX |
+| `prototype` | 設計の問いがまだ曖昧なときに、1つの問いへ素早く答える throwaway な logic/UI prototype を作り、後で削除または吸収できる形にします |
 | `refactor-clean` | dead code を削除し、ロジックを安全に簡素化します |
 | `diagnose` | 最速の feedback loop を先に作り、有力な仮説を順位付けし、探索を狭める計測だけを追加します |
 | `source-driven-development` | 実装前に公式 doc を確認してから進める source-first 開発です |
@@ -323,7 +325,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（17）</strong></summary>
+<summary><strong>ワークフロー Skills（18）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -343,6 +345,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `llm-wiki` | research や domain knowledge が session ごとに再発明されるときに、GitHub や commit 済み project guidance を置き換えない補助 markdown wiki へ合成知識を蓄積します |
 | `outside-voice` | 実装の前・途中・後で、challenge / consult / review の各 mode による独立した second opinion を得ます |
 | `to-issues` | plan、spec、PRD を検証可能な薄い vertical slice issue に分解します |
+| `triage` | 単一 issue の構造化 triage が必要なときに、分類、再現、追加情報の依頼、次の担当者向け brief または close-out note を issue tracker に残します |
 | `using-git-worktrees` | repository を再 clone せずに並列 branch 作業用の分離ディレクトリを作成します |
 
 </details>

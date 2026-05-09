@@ -155,8 +155,10 @@ Core software development skills applicable to any project.
 | [`deprecation-and-migration`](development/deprecation-and-migration/SKILL.md) | Safely remove old APIs and migrate to new patterns with a 3-phase process |
 | [`fix-build-errors`](development/fix-build-errors/SKILL.md) | Diagnose and fix build failures fast |
 | [`fix-github-issue`](development/fix-github-issue/SKILL.md) | Resolve a GitHub Issue end-to-end: read → locate → fix → test → PR |
+| [`improve-codebase-architecture`](development/improve-codebase-architecture/SKILL.md) | Use when a codebase feels hard to change, test, or navigate — surface architectural friction and walk one deeper-module candidate into a concrete refactoring direction |
 | [`performance-optimization`](development/performance-optimization/SKILL.md) | Measure first, isolate bottlenecks, and prove that a performance change actually helps |
 | [`pr-multi-perspective-review`](development/pr-multi-perspective-review/SKILL.md) | Review PRs from 6 lenses: PM / Dev / QA / Security / DevOps / UX |
+| [`prototype`](development/prototype/SKILL.md) | Use when a design question is still fuzzy — build a throwaway logic or UI prototype that answers one question fast and is meant to be deleted or absorbed |
 | [`refactor-clean`](development/refactor-clean/SKILL.md) | Remove dead code and simplify complex logic |
 | [`diagnose`](development/diagnose/SKILL.md) | Use when a bug or performance issue is still fuzzy — build the fastest feedback loop first, rank hypotheses, and instrument only what narrows the search |
 | [`skill-creator`](development/skill-creator/SKILL.md) | Describe a workflow and get a properly structured SKILL.md scaffolded in minutes |
@@ -234,6 +236,7 @@ End-to-end development workflow skills — from planning to shipping.
 | [`security-audit`](workflow/security-audit/SKILL.md) | OWASP Top 10 + STRIDE threat modeling audit |
 | [`sprint-retro`](workflow/sprint-retro/SKILL.md) | Data-driven retrospectives using `/chronicle` and git metrics |
 | [`to-issues`](workflow/to-issues/SKILL.md) | Use when a plan, spec, or PRD must become an actionable backlog — break it into thin dependency-aware issues that each deliver a verifiable vertical slice |
+| [`triage`](workflow/triage/SKILL.md) | Use when a single issue needs structured triage — classify it, reproduce if needed, request missing information, and leave a durable brief or close-out note in the tracker |
 | [`using-git-worktrees`](workflow/using-git-worktrees/SKILL.md) | Create isolated working directories for parallel branch work without cloning the repo repeatedly |
 
 ### 📦 Product (`product/`)

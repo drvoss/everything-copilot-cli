@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="87 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="90 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 87 个 · 8 个类别）
+### 技能（Skill）（共 90 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -262,7 +262,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>开发技能（20）</strong></summary>
+<summary><strong>开发技能（22）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -272,8 +272,10 @@ everything-copilot-cli/
 | `cpp-debugging` | 当 C++ 故障涉及对象生命周期、未定义行为、原生崩溃或仅在调试器中显现的状态时，先用符号、sanitizer 与平台原生调试器定位根因，再避免症状式修补 |
 | `fix-github-issue` | 读取 Issue → 定位 bug → 修复 → 测试 → PR |
 | `fix-build-errors` | 诊断并解决构建失败 |
+| `improve-codebase-architecture` | 当代码库变得难以修改、测试或理解时，梳理架构摩擦点，并把一个更深的模块候选收敛为可执行的重构方向 |
 | `performance-optimization` | 基于测量定位瓶颈，并验证性能优化是否真实生效 |
 | `pr-multi-perspective-review` | 六视角 PR 评审：PM / Dev / QA / Security / DevOps / UX |
+| `prototype` | 当设计问题仍然模糊时，快速构建只为回答一个问题的临时 logic/UI 原型，并预期后续删除或吸收 |
 | `refactor-clean` | 安全地移除死代码并简化逻辑 |
 | `diagnose` | 先构建最快的反馈回路，再给主要假设排序，并只添加能缩小搜索范围的定向观测 |
 | `source-driven-development` | 先核对官方文档与 API，再开始实现的 source-first 开发方式 |
@@ -323,7 +325,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>工作流技能（17）</strong></summary>
+<summary><strong>工作流技能（18）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -343,6 +345,7 @@ everything-copilot-cli/
 | `llm-wiki` | 当研究或领域知识在不同会话里反复被重新整理时，使用补充性的 markdown wiki 累积合成知识，同时不替代 GitHub 或已提交的项目指引 |
 | `outside-voice` | 在实现前、中、后分别以 challenge / consult / review 模式获取独立的第二意见 |
 | `to-issues` | 将计划、规范或 PRD 拆成可验证的薄垂直切片 issue |
+| `triage` | 当单个 issue 需要结构化分诊时，完成分类、复现、补充信息请求，并把后续 brief 或关闭说明沉淀到 issue tracker 中 |
 | `using-git-worktrees` | 无需重复克隆仓库即可为并行分支工作创建独立工作目录 |
 
 </details>
