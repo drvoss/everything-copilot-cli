@@ -159,7 +159,7 @@ Copilot CLI ships with the GitHub MCP server, providing:
 
 ### Adding Custom MCP Servers
 
-Create `.vscode/mcp.json` or `~/.copilot/mcp-config.json`:
+Create workspace `.mcp.json` or `~/.copilot/mcp-config.json`:
 
 ```json
 {

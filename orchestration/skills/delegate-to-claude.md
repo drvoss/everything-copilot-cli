@@ -75,11 +75,11 @@ $plan.migrations | Where-Object { $_.risk -eq "high" } | Format-Table
 
 ### Setup
 
-Add to your MCP configuration (`.copilot/mcp.json` or `.vscode/mcp.json`):
+Add to your MCP configuration (`.mcp.json` in the workspace root or `~/.copilot/mcp-config.json` for user scope):
 
 ```json
 {
-  "mcpServers": {
+  "servers": {
     "claude-code": {
       "command": "npx",
       "args": ["@anthropic-ai/claude-code", "--mcp"],

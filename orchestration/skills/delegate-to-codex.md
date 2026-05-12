@@ -76,12 +76,12 @@ Add to your MCP configuration:
 
 ```json
 {
-  "mcpServers": {
+  "servers": {
     "codex-bridge": {
       "command": "node",
       "args": ["orchestration/scripts/codex-bridge.js"],
       "env": {
-        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+        "OPENAI_API_KEY": "${env:OPENAI_API_KEY}"
       }
     }
   }

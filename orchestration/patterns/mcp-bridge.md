@@ -204,41 +204,37 @@ if __name__ == "__main__":
 
 ## Registration
 
-### In `.copilot/mcp.json` (User-level)
+### In `~/.copilot/mcp-config.json` (User-level)
 
 ```json
 {
-  "mcpServers": {
+  "servers": {
     "codex-bridge": {
       "command": "python",
       "args": ["orchestration/scripts/codex-bridge.py"],
       "env": {
-        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+        "OPENAI_API_KEY": "${env:OPENAI_API_KEY}"
       }
     },
     "claude-bridge": {
       "command": "npx",
       "args": ["@anthropic-ai/claude-code", "--mcp"],
       "env": {
-        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+        "ANTHROPIC_API_KEY": "${env:ANTHROPIC_API_KEY}"
       }
     }
   }
 }
 ```
 
-### In `.devcontainer/devcontainer.json` (Project-level)
+### In `.mcp.json` (Project-level)
 
 ```json
 {
-  "customizations": {
-    "copilot": {
-      "mcpServers": {
-        "codex-bridge": {
-          "command": "python",
-          "args": ["orchestration/scripts/codex-bridge.py"]
-        }
-      }
+  "servers": {
+    "codex-bridge": {
+      "command": "python",
+      "args": ["orchestration/scripts/codex-bridge.py"]
     }
   }
 }
@@ -250,12 +246,12 @@ Claude Code has **native MCP server support**, making it the easiest to bridge:
 
 ```json
 {
-  "mcpServers": {
+  "servers": {
     "claude-code": {
       "command": "npx",
       "args": ["@anthropic-ai/claude-code", "--mcp"],
       "env": {
-        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
+        "ANTHROPIC_API_KEY": "${env:ANTHROPIC_API_KEY}"
       }
     }
   }

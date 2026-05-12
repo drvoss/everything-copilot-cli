@@ -483,11 +483,11 @@ The VS Code Copilot extension and CLI are complementary, not competing:
 
 ### Sharing Context Between Them
 
-Both the VS Code extension and CLI read from the same configuration sources:
+Keep these configuration sources aligned across VS Code and CLI workflows:
 
 - `.github/copilot-instructions.md` — shared instructions
 - `AGENTS.md` — agent definitions
-- `.vscode/mcp.json` or `devcontainer.json` — MCP server configs
+- `.mcp.json` — workspace MCP server config for Copilot CLI
 - Git history — both can see commits, branches, diffs
 
 **Workflow: IDE for exploration, CLI for execution:**
@@ -636,26 +636,20 @@ MCP bridges enable Copilot CLI to invoke other AI tools as if they were native t
 See [MCP Bridge pattern](../orchestration/patterns/mcp-bridge.md) and
 bridge configs in [orchestration/configs/](../orchestration/configs/).
 
-### devcontainer.json Configuration
+### Workspace `.mcp.json` Configuration
 
-For projects using dev containers, configure MCP servers in `devcontainer.json`:
+For Copilot CLI, configure workspace MCP servers in `.mcp.json`:
 
 ```json
 {
-  "customizations": {
-    "vscode": {
-      "settings": {
-        "github.copilot.chat.mcpServers": {
-          "github": {
-            "command": "github-mcp-server",
-            "args": ["--tools=all"]
-          },
-          "custom-tools": {
-            "command": "node",
-            "args": ["tools/mcp-server.js"]
-          }
-        }
-      }
+  "servers": {
+    "github": {
+      "command": "github-mcp-server",
+      "args": ["--tools=all"]
+    },
+    "custom-tools": {
+      "command": "node",
+      "args": ["tools/mcp-server.js"]
     }
   }
 }

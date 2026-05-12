@@ -19,7 +19,7 @@ Copilot CLI equivalent:
 | Hooks (pre-tool, post-tool) | Git Hooks / GitHub Actions / Prompt Guards | **No direct equivalent** — use [alternatives](./hooks-to-github-actions.md) depending on purpose |
 | Skills (`.claude/skills/`) | Skills (`skills/` directory) | Nearly identical format! Markdown + YAML frontmatter |
 | Slash commands (`/help`, `/clear`) | Slash commands (`/help`, `/clear`) | Direct mapping for most commands |
-| MCP config (`.mcp.json`) | `devcontainer.json` / `.vscode/mcp.json` | Format change, same concept |
+| MCP config (`.mcp.json`) | workspace `.mcp.json` / user `~/.copilot/mcp-config.json` | Similar file name, different schema and optional user-level config |
 | `/compact` | `/clear` | Similar purpose — manage context window |
 | Git worktrees (parallel) | Fleet mode | Better in Copilot — native fleet orchestration |
 | `--dangerously-skip-permissions` | Autopilot mode | Better in Copilot — safer, more structured |
@@ -130,7 +130,7 @@ requires_tools:
 }
 ```
 
-**To:** `.vscode/mcp.json` (Copilot CLI format)
+**To:** workspace `.mcp.json` (Copilot CLI format)
 
 ```json
 {
@@ -148,12 +148,13 @@ requires_tools:
 
 - Root key changes from `mcpServers` to `servers`
 - Environment variables use `${env:VAR_NAME}` syntax
-- File location changes from `.mcp.json` to `.vscode/mcp.json` or `devcontainer.json`
+- Root-level workspace config stays `.mcp.json`; user-specific config can move to `~/.copilot/mcp-config.json`
 
 Claude Code v2.1.117 notes that **agent** frontmatter `mcpServers` can load during `--agent`
 main-thread runs. That is separate from repository-specific plugin or skill frontmatter rules,
-which some upstream repos treat differently. In either case, Copilot CLI still expects MCP
-configuration in `.vscode/mcp.json`, `devcontainer.json`, or the global Copilot config directory.
+which some upstream repos treat differently. In either case, Copilot CLI expects MCP
+configuration in workspace `.mcp.json`, user `~/.copilot/mcp-config.json`, or plugin-provided MCP
+servers.
 
 **Note:** Copilot CLI already includes GitHub MCP tools natively — you may not need a
 separate GitHub MCP server at all.
@@ -382,7 +383,7 @@ The recommended approach for teams in transition: **use both, with Copilot CLI a
 1. Configure Claude Code as an MCP server:
 
 ```json
-// .vscode/mcp.json
+// .mcp.json
 {
   "servers": {
     "claude-code": {
@@ -475,7 +476,7 @@ node scripts/migrate-from-claude.js --verify
 The script handles:
 
 - Copying and transforming `CLAUDE.md` → `.github/copilot-instructions.md`
-- Converting `.mcp.json` → `.vscode/mcp.json`
+- Converting Claude-style `.mcp.json` schema → Copilot CLI workspace `.mcp.json` schema
 - Porting skills with category detection
 - Generating a migration report
 
@@ -487,7 +488,7 @@ Use this checklist to track your migration progress:
 
 - [ ] Copy and adapt `CLAUDE.md` → `.github/copilot-instructions.md`
 - [ ] Port custom skills to `skills/<category>/` with updated frontmatter
-- [ ] Convert MCP configs to `.vscode/mcp.json` or `devcontainer.json`
+- [ ] Convert MCP configs to workspace `.mcp.json` or user `~/.copilot/mcp-config.json`
 - [ ] Map agent invocations to Copilot CLI's 4 agent types
 - [ ] Replace hooks with Git Pre-commit Hooks, GitHub Actions, or Prompt Guards (see [hooks guide](./hooks-to-github-actions.md))
 - [ ] Set up Claude Code as MCP bridge (if keeping both tools)

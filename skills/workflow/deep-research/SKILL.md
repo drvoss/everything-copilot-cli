@@ -35,8 +35,9 @@ Conduct systematic multi-source research with traceable citations and structured
 
 **Optional local tools (if installed):**
 
-- Search CLI or repo-specific web search helpers — use them for initial discovery only
-  when they are already available in your environment
+- Search CLI or repo-specific web search helpers — use them as the preferred discovery layer when
+  they are already available in your environment, then fetch the final URLs with `web_fetch` for
+  evidence capture and citations
 
 **Optional via MCP (if configured):**
 
@@ -108,6 +109,10 @@ CREATE TABLE IF NOT EXISTS research_claims (
 After fetching sources, break findings into atomic claims and track them in
 `research_claims`. Claim-level tracking makes contradiction checks more precise than
 comparing whole sources.
+
+Treat factual claims as gated deliverables: if a factual claim remains `unsupported`, either gather
+more evidence, downgrade the claim, or remove it from the final brief instead of publishing it as
+settled fact.
 
 For each source:
 

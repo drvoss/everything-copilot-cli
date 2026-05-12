@@ -135,6 +135,12 @@ While fleet agents run, you can:
 - Read individual agent results via `read_agent`
 - Continue working on other tasks yourself
 
+### 7. Observe Fleet Runs with OTel (Optional)
+
+If Copilot CLI OpenTelemetry is enabled, subagent invocations are linked into the same trace via
+context propagation. That makes it easier to attribute latency, token usage, and failures across a
+fleet run without inventing your own correlation IDs.
+
 ## Examples
 
 ### Multi-File Test Generation
@@ -179,6 +185,8 @@ Fleet assigns one agent per file. Each agent:
   need in the prompt. Don't assume they know what you discussed earlier.
 - **Combine with SQL tracking**: Use the session database to track which fleet
   tasks completed and which need retry.
+- **Use OTel when the batch is opaque**: with monitoring enabled, fleet subagents stay connected
+  to the same trace tree, which helps you debug slow or expensive runs.
 - **Right-size the batch**: 2-3 subtasks may be easier to do sequentially. Fleet is usually
   most valuable once you have 4+ truly independent tasks.
 - **Cost awareness**: Fleet mode uses more API calls. Use it when parallelism

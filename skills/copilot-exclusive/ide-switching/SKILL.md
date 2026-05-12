@@ -59,11 +59,13 @@ IDE counterpart; switching contexts means losing your AI assistant entirely.
 4. CLI makes the edits, runs the tests, confirms the fix
 5. Back to VS Code for continued development
 
-#### Pattern 3: Shared MCP Configuration
+#### Pattern 3: Aligned MCP Configuration
 
-Both VS Code and CLI can read from `.vscode/mcp.json`:
+Keep the CLI workspace config in `.mcp.json`, and mirror the same server definitions into any
+editor-specific config you standardize on:
 
 ```json
+// .mcp.json
 {
   "servers": {
     "my-api": {
@@ -75,7 +77,8 @@ Both VS Code and CLI can read from `.vscode/mcp.json`:
 }
 ```
 
-Configure once, use in both environments.
+Treat the workspace config as the CLI-facing source of truth, then keep editor integrations aligned
+with the same server definitions.
 
 ## Examples
 
@@ -110,8 +113,8 @@ code src/feature.ts
 
 ## Tips
 
-- **MCP config sharing**: Place MCP configs in `.vscode/mcp.json` so both VS Code
-  Copilot and CLI can use the same external tools.
+- **MCP config sharing**: Keep workspace MCP configs in `.mcp.json`, then mirror the
+  same server definitions into any editor-specific config your team uses.
 - **Use CLI for what VS Code can't do**: Fleet mode, background agents, session SQL,
   and Actions debugging are CLI-exclusive features.
 - **Quick switch**: Keep a terminal open alongside VS Code. Use `code <file>` from CLI

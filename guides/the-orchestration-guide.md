@@ -299,7 +299,7 @@ Any tool that reads stdin/stdout or exposes an MCP server can be orchestrated fr
 Get-Content src\api.ts | codex --quiet "Add error handling" | Set-Content src\api-improved.ts
 
 # MCP integration
-# Add any MCP server to .vscode/mcp.json and it becomes available in Copilot CLI
+# Add any MCP server to workspace .mcp.json and Copilot CLI can load it
 
 # Custom scripts
 # Write orchestration scripts in scripts/ and invoke them from Copilot CLI

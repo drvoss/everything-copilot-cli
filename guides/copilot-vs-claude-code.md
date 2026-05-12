@@ -69,7 +69,7 @@ unique capabilities.
 | **Configuration** | | | |
 | Instructions File | ✅ `.github/copilot-instructions.md` | ✅ `CLAUDE.md` | Same purpose, different locations |
 | Agent Config | ✅ `AGENTS.md` + frontmatter | ✅ `AGENTS.md` + frontmatter | Nearly identical format |
-| MCP Config Location | ✅ `devcontainer.json` / `.vscode/mcp.json` | ✅ `.mcp.json` / `settings.json` | Different config files |
+| MCP Config Location | ✅ workspace `.mcp.json` / user `~/.copilot/mcp-config.json` | ✅ `.mcp.json` / `settings.json` | Similar concept, different config surfaces |
 
 ---
 

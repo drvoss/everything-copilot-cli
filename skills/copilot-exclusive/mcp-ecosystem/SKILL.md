@@ -3,7 +3,7 @@ name: mcp-ecosystem
 description: Use when Copilot CLI's built-in tools don't cover a service you need (database, custom API, internal tool) — add an MCP server to extend capabilities beyond the default GitHub MCP. NOT when the built-in tools already cover the task.
 metadata:
   category: copilot-exclusive
-  copilot_feature: "Built-in GitHub MCP, MCP config system, mcp_reload/mcp_validate tools"
+  copilot_feature: "Built-in GitHub MCP, copilot mcp commands, workspace .mcp.json, plugin MCP servers"
 ---
 
 # MCP Server Ecosystem
@@ -12,9 +12,10 @@ metadata:
 
 Copilot CLI ships with a **built-in GitHub MCP server** providing 20+ tools for Issues, PRs,
 Actions, code search, and repository management — zero configuration required. Beyond that, it
-has a robust MCP extension system with config files, hot-reload (`mcp_reload`), and validation
-(`mcp_validate`). Claude Code supports MCP but has no built-in servers and a less mature
-configuration workflow.
+has a practical MCP management flow through `copilot mcp add`, `copilot mcp list`,
+`copilot mcp get`, user config at `~/.copilot/mcp-config.json`, workspace config in `.mcp.json`,
+and plugin-provided MCP servers. Claude Code supports MCP but has no built-in GitHub server and a
+different configuration workflow.
 
 ## When to Use
 
@@ -60,7 +61,14 @@ These tools work immediately — no setup required:
 
 #### Global Configuration
 
-Edit `~/.copilot/mcp-config.json`:
+Use `copilot mcp add` for user-level installs, or edit `~/.copilot/mcp-config.json` directly:
+
+```text
+copilot mcp add context7 -- npx -y @upstash/context7-mcp
+copilot mcp add --transport http notion https://mcp.notion.com/mcp
+```
+
+Equivalent JSON:
 
 ```json
 {
@@ -82,7 +90,7 @@ Edit `~/.copilot/mcp-config.json`:
 
 #### Project-Level Configuration
 
-Create `.vscode/mcp.json` in your repo (shared with VS Code):
+Create `.mcp.json` in your repo:
 
 ```json
 {
@@ -98,29 +106,32 @@ Create `.vscode/mcp.json` in your repo (shared with VS Code):
 }
 ```
 
-### 3. Validate Configuration
+### 3. Inspect Configured Servers
 
-Before loading, check for errors:
-
-```text
-Tool: mcp_validate
-  path: "C:\\Users\\dev\\.copilot\\mcp-config.json"
-```
-
-### 4. Hot-Reload Without Restart
-
-After editing your config, reload without restarting the CLI:
+Use the CLI to inspect what Copilot currently sees:
 
 ```text
-Tool: mcp_reload
+copilot mcp list
+copilot mcp get my-api
 ```
 
-All MCP servers restart with the new configuration.
+### 4. Load Servers into a Session
+
+Copilot loads MCP servers from three sources:
+
+- user config: `~/.copilot/mcp-config.json`
+- workspace config: `.mcp.json`
+- installed plugins that expose MCP servers
+
+Inside a running session, use `/env` to inspect which MCP servers were loaded for that session.
 
 ### 5. Verify Available Tools
 
-After reload, your new tools appear alongside the built-in ones.
+Once the session has loaded your config, new tools appear alongside the built-in ones.
 Copilot automatically discovers and can use all registered MCP tools.
+
+If a configured server is missing, check `copilot mcp list`, then inspect the specific entry with
+`copilot mcp get <name>`.
 
 ### 6. Use Context7 for Live Documentation
 
@@ -162,7 +173,7 @@ This pattern is especially useful when:
 ### Database-Aware Development
 
 ```json
-// .vscode/mcp.json
+// .mcp.json
 {
   "servers": {
     "postgres": {
@@ -213,22 +224,37 @@ server.tool("get_feature_flags", { env: z.string() }, async ({ env }) => {
 server.run();
 ```
 
-Register it in `.vscode/mcp.json` and Copilot can query feature flags natively.
+Register it in `.mcp.json` and Copilot can query feature flags natively.
+
+## Troubleshooting
+
+### Inspect the active configuration
+
+```text
+copilot mcp list
+copilot mcp get <name>
+/env
+```
+
+| Symptom | Likely cause | What to check |
+|---------|--------------|---------------|
+| Server missing from `copilot mcp list` | Wrong config path or invalid JSON | Confirm the file is `.mcp.json` in the workspace root or `~/.copilot/mcp-config.json` for user config |
+| Server is listed but tools are unavailable in-session | Session loaded a different config state | Use `/env` to inspect loaded MCP servers for the current session |
+| Remote server fails to respond | URL, auth header, or timeout issue | Re-check the remote endpoint and any `--header` values |
+| Local stdio server fails | Command path or dependencies are missing | Run the command manually and inspect its stderr outside Copilot |
 
 ## Tips
 
 - **Start with built-in GitHub MCP**: It covers 90% of GitHub workflows. Only
   add custom servers when you need tools beyond GitHub.
-- **Use `.vscode/mcp.json` for team tools**: Project-level configs are committed
-  to the repo and shared across the team.
+- **Use `.mcp.json` for team tools**: Project-level configs live at the workspace root
+  and can be committed to the repo for team use.
 - **Use `~/.copilot/mcp-config.json` for personal tools**: Global configs for
   tools only you use (personal databases, API keys).
 - **Environment variables**: Use `${env:VAR_NAME}` syntax to keep secrets out
   of config files.
-- **Validate before reload**: Always run `mcp_validate` before `mcp_reload` to
-  catch syntax errors early.
-- **Hot-reload is your friend**: Edit configs and reload without losing your
-  session context. Iterate quickly on MCP setups.
+- **Inspect before you trust**: `copilot mcp list` and `copilot mcp get` are the
+  fastest way to verify that Copilot is seeing the server definition you expect.
 - **Re-check fast-moving MCP tools**: Context7 evolves quickly, so confirm its latest
   CLI and MCP behavior against upstream docs before standardizing new team workflows.
 

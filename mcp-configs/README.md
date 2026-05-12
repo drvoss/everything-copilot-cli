@@ -26,9 +26,13 @@ You can extend Copilot CLI with additional MCP servers for specialized tools.
 
 ### Configuration Locations
 
-MCP servers are configured in `devcontainer.json`, `settings.json` or dedicated MCP config files:
+Copilot CLI reads MCP servers from:
 
-**VS Code workspace (`.vscode/mcp.json`):**
+- workspace `.mcp.json`
+- user config `~/.copilot/mcp-config.json`
+- installed plugins that expose MCP servers
+
+**Workspace config (`.mcp.json`):**
 
 ```json
 {
@@ -213,4 +217,4 @@ if __name__ == "__main__":
 - **Server not starting?** Check that the command is installed and in your PATH
 - **Auth errors?** Verify environment variables are set correctly
 - **Slow responses?** The MCP server may be doing heavy work — check its logs
-- **Tools not appearing?** Reload the config with `mcp_reload` in Copilot CLI
+- **Tools not appearing?** Check `copilot mcp list`, then inspect the specific server with `copilot mcp get <name>`

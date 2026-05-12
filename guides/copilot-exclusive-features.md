@@ -158,11 +158,11 @@ No other AI coding tool offers this integration depth.
 
 ### How to Use It
 
-**Shared configuration (both tools read these):**
+**Shared workflow artifacts (keep these aligned across both tools):**
 
 - `.github/copilot-instructions.md` — project instructions
 - `AGENTS.md` — agent definitions
-- `.vscode/mcp.json` — MCP server configurations
+- `.mcp.json` — workspace MCP server configuration for Copilot CLI
 
 **IDE-first workflow:**
 
