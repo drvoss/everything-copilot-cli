@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="95 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="96 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,9 +162,9 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (95 total)
+├── skills/                        # Reusable workflow skills (96 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
-│   ├── development/               #   Dev skills (22)
+│   ├── development/               #   Dev skills (23)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
@@ -222,7 +222,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (95 Total · 8 Categories)
+### Skills (96 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -262,7 +262,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Development Skills (22)</strong></summary>
+<summary><strong>Development Skills (23)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -275,6 +275,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `improve-codebase-architecture` | Use when a codebase feels hard to change, test, or navigate — surface architectural friction and walk one deeper-module candidate into a concrete refactoring direction |
 | `performance-optimization` | Measure first, isolate bottlenecks, and prove performance improvements |
 | `pr-multi-perspective-review` | 6-lens PR review: PM / Dev / QA / Security / DevOps / UX |
+| `review` | Compare changes against a pinned git reference on two separate axes: repository standards and originating spec |
 | `prototype` | Use when a design question is still fuzzy — build a throwaway logic or UI prototype that answers one question fast and is meant to be deleted or absorbed |
 | `refactor-clean` | Remove dead code, simplify logic safely |
 | `diagnose` | Build the fastest feedback loop first, rank the leading hypotheses, and instrument only what narrows the search |

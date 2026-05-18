@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="95 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="96 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,9 +162,9 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (95 total)
+├── skills/                        # Reusable workflow skills (96 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
-│   ├── development/               #   Dev skills (22)
+│   ├── development/               #   Dev skills (23)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計95・8カテゴリ）
+### スキル（合計96・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
@@ -262,7 +262,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>開発 Skills（22）</strong></summary>
+<summary><strong>開発 Skills（23）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -275,6 +275,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `improve-codebase-architecture` | codebase が変更しづらく、テストしづらく、読み解きにくいときに、設計上の摩擦を洗い出し、より深い module 候補を具体的な refactoring 方向まで絞り込みます |
 | `performance-optimization` | 計測ベースで bottleneck を特定し、改善を実証します |
 | `pr-multi-perspective-review` | 6視点 PR review：PM / Dev / QA / Security / DevOps / UX |
+| `review` | 固定した git 基準点との差分を、repository 規約と元の spec の 2 軸で分離して review します |
 | `prototype` | 設計の問いがまだ曖昧なときに、1つの問いへ素早く答える throwaway な logic/UI prototype を作り、後で削除または吸収できる形にします |
 | `refactor-clean` | dead code を削除し、ロジックを安全に簡素化します |
 | `diagnose` | 最速の feedback loop を先に作り、有力な仮説を順位付けし、探索を狭める計測だけを追加します |

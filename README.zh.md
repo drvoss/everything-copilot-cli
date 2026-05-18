@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="95 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="96 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,9 +162,9 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (95 total)
+├── skills/                        # Reusable workflow skills (96 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
-│   ├── development/               #   Dev skills (22)
+│   ├── development/               #   Dev skills (23)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 95 个 · 8 个类别）
+### 技能（Skill）（共 96 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -262,7 +262,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>开发技能（22）</strong></summary>
+<summary><strong>开发技能（23）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -275,6 +275,7 @@ everything-copilot-cli/
 | `improve-codebase-architecture` | 当代码库变得难以修改、测试或理解时，梳理架构摩擦点，并把一个更深的模块候选收敛为可执行的重构方向 |
 | `performance-optimization` | 基于测量定位瓶颈，并验证性能优化是否真实生效 |
 | `pr-multi-perspective-review` | 六视角 PR 评审：PM / Dev / QA / Security / DevOps / UX |
+| `review` | 以固定 git 基准点为参照，从仓库规范与原始规格两个独立维度审查变更 |
 | `prototype` | 当设计问题仍然模糊时，快速构建只为回答一个问题的临时 logic/UI 原型，并预期后续删除或吸收 |
 | `refactor-clean` | 安全地移除死代码并简化逻辑 |
 | `diagnose` | 先构建最快的反馈回路，再给主要假设排序，并只添加能缩小搜索范围的定向观测 |

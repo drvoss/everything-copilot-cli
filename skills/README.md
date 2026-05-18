@@ -158,6 +158,7 @@ Core software development skills applicable to any project.
 | [`improve-codebase-architecture`](development/improve-codebase-architecture/SKILL.md) | Use when a codebase feels hard to change, test, or navigate — surface architectural friction and walk one deeper-module candidate into a concrete refactoring direction |
 | [`performance-optimization`](development/performance-optimization/SKILL.md) | Measure first, isolate bottlenecks, and prove that a performance change actually helps |
 | [`pr-multi-perspective-review`](development/pr-multi-perspective-review/SKILL.md) | Review PRs from 6 lenses: PM / Dev / QA / Security / DevOps / UX |
+| [`review`](development/review/SKILL.md) | Compare changes against a pinned git reference on two separate axes: repository standards and originating spec |
 | [`prototype`](development/prototype/SKILL.md) | Use when a design question is still fuzzy — build a throwaway logic or UI prototype that answers one question fast and is meant to be deleted or absorbed |
 | [`refactor-clean`](development/refactor-clean/SKILL.md) | Remove dead code and simplify complex logic |
 | [`diagnose`](development/diagnose/SKILL.md) | Use when a bug or performance issue is still fuzzy — build the fastest feedback loop first, rank hypotheses, and instrument only what narrows the search |
