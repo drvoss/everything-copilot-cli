@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="90 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="95 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (87개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (95개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (25개)
-│   ├── development/               #   개발 스킬 (20개)
-│   ├── documentation/             #   문서화 스킬 (5개)
+│   ├── development/               #   개발 스킬 (22개)
+│   ├── documentation/             #   문서화 스킬 (6개)
 │   ├── security/                  #   보안 스킬 (7개)
 │   ├── testing/                   #   테스팅 스킬 (5개)
-│   ├── workflow/                  #   워크플로우 스킬 (17개)
+│   ├── workflow/                  #   워크플로우 스킬 (22개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 90개 · 8개 카테고리)
+### 스킬 (총 95개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -297,12 +297,13 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>문서화 스킬 (5개)</strong></summary>
+<summary><strong>문서화 스킬 (6개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `add-to-changelog` | Keep a Changelog 형식, semver 버전 동기화 |
 | `doc-update` | 구현 변경 시 문서 동기화 |
+| `document-generate` | 기능, 모듈, 프로젝트용 Diataxis 문서를 소스에서 신규 생성 |
 | `api-documentation` | 소스 코드에서 API 문서 생성 및 유지 |
 | `code-tour` | 코드베이스 온보딩용 VS Code CodeTour `.tour` 파일 생성 |
 | `architecture-decisions` | 되돌리기 어려운 기술적 결정을 ADR로 문서화 |
@@ -325,11 +326,12 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (18개)</strong></summary>
+<summary><strong>워크플로우 스킬 (22개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `commit-workflow` | 컨벤셔널 커밋 + 이모지, 원자적 분할 가이드 |
+| `doubt-driven-development` | 비사소한 결정을 굳히기 전에 fresh-context 적대적 리뷰로 검증 |
 | `release` | 태그 → GitHub Release → 배포 (npm/PyPI/Docker) |
 | `verification-before-completion` | 완료 주장 전에 새 명령 출력으로 작업 완료를 증명 |
 | `sprint-workflow` | 전체 스프린트: 구상 → 계획 → 구축 → 리뷰 → 테스트 → 출시 → 모니터링 |
@@ -341,9 +343,12 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `deep-research` | 체계적 멀티소스 리서치 및 구조화 합성 |
 | `grill-me` | 계획의 숨은 가정, 의존성, 위험이 드러날 때까지 한 번에 한 질문씩 압박 검증 |
 | `grill-with-docs` | 기존 문서, 용어집, ADR과 대조하며 구현 전 계획을 압박 검증 |
+| `handoff` | 기존 아티팩트를 중복하지 않고 다음 세션, 에이전트, 머신을 위한 인계 문서 생성 |
 | `implementation-review` | 구현 결과 diff를 원래 작업 지시와 대조해 수정 지시가 가능한 피드백을 작성 |
+| `interview-me` | 계획, 스펙, 코드를 쓰기 전에 사용자가 실제로 원하는 것을 먼저 발굴 |
 | `llm-wiki` | 리서치나 도메인 지식이 세션마다 반복될 때 GitHub나 커밋된 프로젝트 가이드를 대체하지 않는 보조 마크다운 위키로 합성 지식을 누적 |
 | `outside-voice` | 구현 전·중·후에 challenge/consult/review 모드로 독립적인 세컨드 오피니언을 받음 |
+| `prompt-optimizer` | 거친 프롬프트 초안을 플레이스홀더 없는 완성형 채팅 프롬프트로 재작성 |
 | `to-issues` | 계획, 스펙, PRD를 검증 가능한 얇은 수직 슬라이스 이슈들로 분해 |
 | `triage` | 단일 이슈에 구조화된 트리아지가 필요할 때 분류, 재현, 추가 정보 요청, 후속 에이전트/종결 메모까지 이슈 트래커에 남김 |
 | `using-git-worktrees` | 저장소를 다시 클론하지 않고 병렬 브랜치 작업용 별도 작업 디렉터리 생성 |

@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="90 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="95 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (87 total)
+├── skills/                        # Reusable workflow skills (95 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
-│   ├── development/               #   Dev skills (20)
-│   ├── documentation/             #   Doc skills (5)
+│   ├── development/               #   Dev skills (22)
+│   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (17)
+│   ├── workflow/                  #   Workflow skills (22)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計90・8カテゴリ）
+### スキル（合計95・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
@@ -297,12 +297,13 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>ドキュメント Skills（5）</strong></summary>
+<summary><strong>ドキュメント Skills（6）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
 | `add-to-changelog` | Keep a Changelog 形式と semver version 同期を維持します |
 | `doc-update` | 実装変更時に docs を同期します |
+| `document-generate` | feature、module、project 向けに Diataxis docs を source から新規生成します |
 | `api-documentation` | source から API docs を生成・保守します |
 | `code-tour` | codebase onboarding 用の VS Code CodeTour `.tour` file を生成します |
 | `architecture-decisions` | 取り消しづらい技術判断を Architecture Decision Records（ADR）として記録します |
@@ -325,11 +326,12 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（18）</strong></summary>
+<summary><strong>ワークフロー Skills（22）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
 | `commit-workflow` | Conventional commit + emoji、atomic split ガイダンス |
+| `doubt-driven-development` | 非自明な判断を確定させる前に fresh-context の adversarial review で揺さぶります |
 | `release` | tag → GitHub Release → publish（npm/PyPI/Docker） |
 | `verification-before-completion` | 完了を主張する前に新しい command 出力で本当に終わったことを証明します |
 | `sprint-workflow` | sprint 全体：Think → Plan → Build → Review → Test → Ship → Monitor |
@@ -341,9 +343,12 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `deep-research` | 構造化 synthesis を伴う体系的な複数ソース調査を行います |
 | `grill-me` | 前提、依存関係、リスクが明示されるまで 1 問ずつ plan を厳しく掘り下げます |
 | `grill-with-docs` | 既存 docs、用語、ADR に照らして implementation 前の plan を厳しく検証します |
+| `handoff` | 既存 artifact を重複させず、次の session、agent、machine 向けの handoff 文書を作成します |
 | `implementation-review` | 実装結果の diff を元の task spec と照合し、実行可能な修正フィードバックを作成します |
+| `interview-me` | plan、spec、code の前にユーザーが本当に欲しいものを引き出します |
 | `llm-wiki` | research や domain knowledge が session ごとに再発明されるときに、GitHub や commit 済み project guidance を置き換えない補助 markdown wiki へ合成知識を蓄積します |
 | `outside-voice` | 実装の前・途中・後で、challenge / consult / review の各 mode による独立した second opinion を得ます |
+| `prompt-optimizer` | 粗い prompt を placeholders なしの完成済み chat prompt に磨き上げます |
 | `to-issues` | plan、spec、PRD を検証可能な薄い vertical slice issue に分解します |
 | `triage` | 単一 issue の構造化 triage が必要なときに、分類、再現、追加情報の依頼、次の担当者向け brief または close-out note を issue tracker に残します |
 | `using-git-worktrees` | repository を再 clone せずに並列 branch 作業用の分離ディレクトリを作成します |

@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="90 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="95 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (87 total)
+├── skills/                        # Reusable workflow skills (95 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
-│   ├── development/               #   Dev skills (20)
-│   ├── documentation/             #   Doc skills (5)
+│   ├── development/               #   Dev skills (22)
+│   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (17)
+│   ├── workflow/                  #   Workflow skills (22)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -222,7 +222,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 90 个 · 8 个类别）
+### 技能（Skill）（共 95 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -297,12 +297,13 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>文档技能（5）</strong></summary>
+<summary><strong>文档技能（6）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
 | `add-to-changelog` | Keep a Changelog 格式与 semver 版本同步 |
 | `doc-update` | 在实现变更时同步更新文档 |
+| `document-generate` | 为功能、模块或项目从源码新建 Diataxis 文档覆盖 |
 | `api-documentation` | 从源码生成并维护 API 文档 |
 | `code-tour` | 生成用于代码库入门的 VS Code CodeTour `.tour` 文件 |
 | `architecture-decisions` | 以 Architecture Decision Records（ADR）记录难以逆转的技术决策 |
@@ -325,11 +326,12 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>工作流技能（18）</strong></summary>
+<summary><strong>工作流技能（22）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
 | `commit-workflow` | Conventional commits + emoji，以及原子化拆分指导 |
+| `doubt-driven-development` | 在非平凡决策落定前，用 fresh-context 对抗式审查先尝试证伪 |
 | `release` | tag → GitHub Release → 发布（npm/PyPI/Docker） |
 | `verification-before-completion` | 在宣称完成前，用最新命令输出证明任务确实完成 |
 | `sprint-workflow` | 完整冲刺流程：Think → Plan → Build → Review → Test → Ship → Monitor |
@@ -341,9 +343,12 @@ everything-copilot-cli/
 | `deep-research` | 系统化多源研究与结构化综合 |
 | `grill-me` | 以一次一个问题的方式拷问方案，直到假设、依赖和风险都被说清 |
 | `grill-with-docs` | 对照现有文档、术语和 ADR，在实现前拷问并校正方案 |
+| `handoff` | 不重复已有 artifact，为下一个 session、agent 或机器生成可移植交接文档 |
 | `implementation-review` | 将实现结果 diff 与原始任务说明逐项比对，并产出可直接执行的修正反馈 |
+| `interview-me` | 在写计划、规格或代码前，先挖出用户真正想要的结果 |
 | `llm-wiki` | 当研究或领域知识在不同会话里反复被重新整理时，使用补充性的 markdown wiki 累积合成知识，同时不替代 GitHub 或已提交的项目指引 |
 | `outside-voice` | 在实现前、中、后分别以 challenge / consult / review 模式获取独立的第二意见 |
+| `prompt-optimizer` | 把粗糙 prompt 重写成没有占位符、可直接发送的聊天 prompt |
 | `to-issues` | 将计划、规范或 PRD 拆成可验证的薄垂直切片 issue |
 | `triage` | 当单个 issue 需要结构化分诊时，完成分类、复现、补充信息请求，并把后续 brief 或关闭说明沉淀到 issue tracker 中 |
 | `using-git-worktrees` | 无需重复克隆仓库即可为并行分支工作创建独立工作目录 |

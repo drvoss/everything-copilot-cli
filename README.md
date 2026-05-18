@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="90 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="95 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (87 total)
+├── skills/                        # Reusable workflow skills (95 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
-│   ├── development/               #   Dev skills (20)
-│   ├── documentation/             #   Doc skills (5)
+│   ├── development/               #   Dev skills (22)
+│   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (7)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (17)
+│   ├── workflow/                  #   Workflow skills (22)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -222,7 +222,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (90 Total · 8 Categories)
+### Skills (95 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -297,12 +297,13 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Documentation Skills (5)</strong></summary>
+<summary><strong>Documentation Skills (6)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `add-to-changelog` | Keep a Changelog format, semver version sync |
 | `doc-update` | Sync docs when implementation changes |
+| `document-generate` | Create missing Diataxis documentation from scratch for a feature, module, or project |
 | `api-documentation` | Generate and maintain API docs from source |
 | `code-tour` | Generate VS Code CodeTour `.tour` files for codebase onboarding |
 | `architecture-decisions` | Document hard-to-reverse technical decisions as Architecture Decision Records (ADRs) |
@@ -325,11 +326,12 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Workflow Skills (18)</strong></summary>
+<summary><strong>Workflow Skills (22)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `commit-workflow` | Conventional commits + emoji, atomic split guidance |
+| `doubt-driven-development` | Challenge a non-trivial decision with a fresh-context adversarial review before it stands |
 | `release` | tag → GitHub Release → publish (npm/PyPI/Docker) |
 | `verification-before-completion` | Prove a task is done with fresh command output before claiming success |
 | `sprint-workflow` | Full sprint: Think → Plan → Build → Review → Test → Ship → Monitor |
@@ -341,9 +343,12 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `deep-research` | Systematic multi-source research with structured synthesis |
 | `grill-me` | Stress-test a plan with one-question-at-a-time interrogation until assumptions, dependencies, and risks are explicit |
 | `grill-with-docs` | Stress-test a plan against existing docs, glossary terms, and ADRs before implementation begins |
+| `handoff` | Create a portable markdown handoff for the next session, agent, or machine without duplicating existing artifacts |
 | `implementation-review` | Compare a delivered diff against the original task spec and produce actionable follow-up feedback |
+| `interview-me` | Discover what the user actually wants before writing a plan, spec, or code |
 | `llm-wiki` | Use when research or domain knowledge keeps getting rediscovered across sessions — build a supplementary markdown wiki that compounds synthesized knowledge without replacing GitHub or committed project guidance |
 | `outside-voice` | Get an independent second opinion before, during, or after implementation with challenge, consult, and review modes |
+| `prompt-optimizer` | Rewrite rough prompts into a finished, copy-pasteable prompt for chat-based LLMs with no placeholders |
 | `to-issues` | Break a plan, spec, or PRD into thin dependency-aware issues that each deliver a verifiable vertical slice |
 | `triage` | Use when a single issue needs structured triage — classify it, reproduce if needed, request missing information, and leave a durable brief or close-out note in the tracker |
 | `using-git-worktrees` | Create isolated working directories for parallel branch work without recloning the repo |
