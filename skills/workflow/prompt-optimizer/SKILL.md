@@ -15,7 +15,8 @@ metadata:
 Prompt Optimizer turns rough prompting intent into a single reusable prompt that the
 user can paste directly into a chat interface.
 
-This is for **chat prompts**, not API parameter tuning or full agent design.
+This is for **chat-interface prompts only** - not API parameter tuning, system prompts,
+agent files, or full promptware design.
 
 ## When to Use
 
@@ -42,7 +43,8 @@ Do not output blanks like:
 - `{topic}`
 - `<your input here>`
 
-The result must be ready to send as-is.
+The result must be ready to send as-is. No brackets, braces, fill-in-the-blank tokens,
+or other placeholder syntax should survive in the final prompt.
 
 ### 2. Always ship a finished prompt
 

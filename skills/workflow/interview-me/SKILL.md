@@ -29,8 +29,8 @@ goal.
 | Instead of interview-me | Use |
 |-------------------------|-----|
 | The request is already clear and self-contained | do the task |
-| A plan exists and now needs its assumptions pressure-tested | `grill-me` |
-| The work is really about routing to the right Copilot execution mode | `task-intake-router` |
+| The user's intent is already clear, but an existing plan or spec now needs its assumptions pressure-tested | `grill-me` |
+| The work is really about choosing Copilot mode, tools, or delegation path rather than discovering the user's desired outcome | `task-intake-router` |
 | The user asked a factual or explanatory question | answer directly |
 
 ## Loading Constraint

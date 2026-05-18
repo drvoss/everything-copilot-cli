@@ -35,7 +35,7 @@ The organizing frame is Diataxis:
 | Instead of document-generate | Use |
 |------------------------------|-----|
 | Updating docs after a code change | `doc-update` |
-| Writing API-only reference material | `api-documentation` |
+| Generating only deep API or interface reference docs, with no tutorial/how-to/explanation coverage | `api-documentation` |
 | Creating VS Code CodeTour onboarding files | `code-tour` |
 
 ## Workflow
@@ -188,6 +188,7 @@ Check:
 - [ ] The source code and tests were read before drafting
 - [ ] Each generated doc has a clear Diataxis role
 - [ ] `document-generate` is not being used for a small incremental doc sync
+- [ ] `document-generate` is not being used for API-only reference work that belongs in `api-documentation`
 - [ ] Cross-links and index or README discoverability were updated
 
 ## See Also
