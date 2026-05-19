@@ -38,7 +38,7 @@
 
 その結果、このリポジトリは agent、skill、rule、MCP 設定、orchestration pattern をまとめて提供します。可能なものは portable に、Copilot の強みが重要な部分は Copilot-native に設計しています。
 
-> Copilot CLI が Claude Code、Codex CLI、Gemini CLI のような specialist agent をどう連携させるかは [Multi-AI Orchestration](#multi-ai-orchestration-) を参照してください。
+> このリポジトリの community pattern が Claude Code、Codex CLI、Gemini CLI のような外部 specialist worker をどう連携させるかは [Multi-AI Orchestration](#multi-ai-orchestration-) を参照してください。
 
 ---
 
@@ -78,7 +78,7 @@ Copilot CLI が multi-AI 開発 workflow のハブとして強い理由は、次
 | 8 | **Session SQL Database** | session ごとに組み込み SQLite を利用でき、構造化データ、todo 追跡、状態管理が可能です。 |
 | 9 | **Cross-Session Memory** | `session_store` で以前の session 履歴を検索し、再利用できます。 |
 | 10 | **LSP のファーストクラスサポート** | Language Server Protocol 統合により、高精度な code intelligence を実現します。 |
-| 11 | **Multi-AI Orchestrator** | Copilot をメタハブとして Claude Code、Codex、Gemini CLI をオーケストレーションできます。 |
+| 11 | **Multi-AI Orchestrator** | Copilot をメタハブとして Claude Code、Codex、Gemini CLI をオーケストレーションできます。_(community pattern)_ |
 
 </details>
 
@@ -184,7 +184,7 @@ everything-copilot-cli/
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 16 comprehensive guides
+├── guides/                        # 17 comprehensive guides
 ├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
@@ -422,6 +422,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | **Orchestration Guide** | マルチAIオーケストレーションのパターンと設定方法です |
 | **Skill Writing Best Practices** | 実際に発火する trigger-first 記述の書き方です |
 | **Skill Testing Guide** | promptware 向けに trigger 精度と出力品質を検証する方法です |
+| **Skill Testing & Waza Evaluation** | skill の trigger 精度、token budget、eval coverage を測定します |
 | **QA Agent Guide** | 境界横断比較により実バグを捕捉する QA agent 設計です |
 | **Beginner Skills Tutorial (EN)** | 通常 prompt と skill 指定 prompt の違いを体感するコピペ実習です |
 | **Beginner Skills Tutorial (KO)** | 韓国語版の入門実習ガイドです |
@@ -434,7 +435,11 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 
 ## マルチAIオーケストレーション ★
 
-> **コミュニティパターン。** これは GitHub Copilot CLI の公式組み込み機能ではありません。shell scripting、MCP、pipeline を使って複数 AI tool を組み合わせる、コミュニティ提案の workflow パターンです。Copilot CLI は GitHub 統合とマルチモデル対応により、便利なハブとして機能します。
+> **二つのレイヤー — 区別が重要です。**
+>
+> **Copilot-native**: GitHub MCP、`/model` 切り替え、Plan Mode、Autopilot、Fleet、Background Agents、Session SQL database は Copilot CLI に組み込まれています。
+>
+> **Community pattern**: Claude Code、Codex CLI、Gemini CLI との cross-tool orchestration は、このリポジトリが shell/MCP/pipeline ベースの workflow pattern として文書化したものです。外部 CLI の導入に依存し、Copilot の公式組み込み機能ではありません。
 
 ### アイデア
 
@@ -516,7 +521,7 @@ Copilot CLI は GitHub workflow に最適化されて設計されています。
 | **Session SQL Database** | session ごとの組み込み SQLite で構造化状態と todo を管理します |
 | **Cross-Session Memory** | `session_store` と `/resume` で以前の session 履歴を検索し、再利用します |
 | **LSP Integration** | Language Server Protocol により symbol-aware な高精度 code intelligence を提供します |
-| **Multi-AI Orchestration** | 単一ハブから Claude Code、Codex、Gemini CLI を連携します |
+| **Multi-AI Orchestration** | 単一ハブから Claude Code、Codex、Gemini CLI を連携します _(community pattern)_ |
 
 > 各機能の詳細は [Copilot Exclusive Features guide](guides/copilot-exclusive-features.md) を参照してください。
 
@@ -528,7 +533,7 @@ Copilot CLI は GitHub workflow に最適化されて設計されています。
 
 ```text
 CLAUDE.md rules        →  .github/copilot-instructions.md
-.claude/commands/      →  skills/
+.claude/commands/      →  .github/skills/
 .claude/settings.json  →  mcp-configs/ & contexts/
 Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 ```
@@ -536,7 +541,7 @@ Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 migration script により、多くの作業を自動化できます。
 
 ```bash
-node scripts/migrate-from-claude.js --source /path/to/your/project
+node scripts/migrate-from-claude.js /path/to/your/project
 ```
 
 > 詳細は [Migration Guide](guides/migration-from-claude-code.md) と [Hooks Alternatives Guide](guides/hooks-to-github-actions.md) を参照してください。

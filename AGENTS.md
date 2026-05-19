@@ -356,7 +356,7 @@ CREATE TABLE test_cases (
 | Agent catalog | `AGENTS.md` | Markdown with frontmatter |
 | Usage guides | `guides/` | Markdown |
 | API docs | Inline or `docs/` | JSDoc / docstrings |
-| Copilot instructions | `COPILOT-INSTRUCTIONS.md`, `.github/copilot-instructions.md` | Markdown |
+| Copilot instructions | `.github/copilot-instructions.md` (runtime) and `COPILOT-INSTRUCTIONS.md` (full reference) | Markdown |
 
 ### Model Recommendation
 

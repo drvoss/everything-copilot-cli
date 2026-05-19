@@ -1,7 +1,7 @@
 # GitHub Copilot Instructions
 
-> Concise project instructions for GitHub Copilot.
-> For the full guide, see [`COPILOT-INSTRUCTIONS.md`](../COPILOT-INSTRUCTIONS.md) in the repository root.
+> Concise runtime instructions for GitHub Copilot.
+> For the fuller human-facing reference guide, see [`COPILOT-INSTRUCTIONS.md`](../COPILOT-INSTRUCTIONS.md) in the repository root.
 
 ---
 
@@ -25,10 +25,13 @@ Content is Markdown and JSON configuration, not application code.
 | Directory | Contents |
 |-----------|----------|
 | `agents/` | Agent definitions with persona, tools, model, behavior |
-| `skills/` | Composable skill modules by domain (`development/`, `security/`, `testing/`, `documentation/`, `copilot-exclusive/`) |
+| `skills/` | Source skill library. Each skill lives at `skills/<category>/<skill-name>/SKILL.md` |
+| `skills/copilot-exclusive/` | Copilot-only capabilities such as plan mode, fleet, background agents, and session memory |
+| `skills/development/`, `skills/workflow/`, `skills/security/`, `skills/testing/`, `skills/documentation/`, `skills/product/`, `skills/content/` | Portable domain skills grouped by category |
 | `rules/common/` | Universal behavioral rules |
 | `rules/languages/` | Language-specific coding standards |
-| `orchestration/` | Multi-agent coordination (`patterns/`, `configs/`, `examples/`, `skills/`) |
+| `rules/frameworks/` | Framework-specific guidance |
+| `orchestration/` | Multi-agent coordination (`patterns/`, `configs/`, `examples/`, `skills/`, `templates/`) |
 | `contexts/` | Execution context definitions |
 | `mcp-configs/` | MCP server configurations |
 | `examples/` | Complete example projects (`nextjs-app/`, `python-api/`, `dotnet-webapp/`, `monorepo/`) |
@@ -49,23 +52,24 @@ Use the right Copilot agent type for each task:
 
 ### Agent files (`agents/*.md`)
 
-Required frontmatter: `name`, `description`, `agent_type`, `model`, `tools`, `escalation`
+Required frontmatter: `name`, `description`, `agent_type`
+Recommended frontmatter: `model`, `tools`, `escalation`
 
-### Skill files (`skills/<category>/*.md`)
+### Skill files (`skills/<category>/<skill-name>/SKILL.md`)
 
-Required frontmatter: `name`, `category`, `triggers`, `requires_tools`
+Required frontmatter: `name`, `description`, `metadata.category`
+Recommended frontmatter: `metadata.agent_type`
+Optional frontmatter: `keep-coding-instructions: true`, `disable-model-invocation: true`
 Must include a "When to Use" section.
 
 ### Rule files (`rules/**/*.md`)
 
-Required frontmatter: `name`, `scope`, `severity`
-Language-specific rules also need: `language`
-Must include ✅ Correct and ❌ Incorrect examples.
+Current validator requirement: non-empty Markdown content.
+Repository convention: keep rules concise, actionable, and include clear ✅ Correct / ❌ Incorrect examples when relevant.
 
 ### Orchestration patterns (`orchestration/patterns/*.md`)
 
-Required frontmatter: `name`, `type`, `agents`
-Types: `pipeline`, `fan-out`, `review-chain`, `iterative`
+Current repository convention: document the pattern, setup, examples, tradeoffs, and references in plain Markdown.
 
 ## Multi-AI Delegation
 

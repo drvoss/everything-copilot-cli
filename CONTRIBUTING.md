@@ -24,10 +24,12 @@ Thank you for your interest in contributing! This project aims to be the definit
 
 ### Adding a New Skill
 
-1. Create a markdown file in the appropriate `skills/` subdirectory
+1. Create `skills/<category>/<skill-name>/SKILL.md` (each skill gets its own directory)
 2. Include YAML frontmatter with `name`, `description`, and `metadata.category`
-3. Valid categories: `development`, `testing`, `security`, `documentation`, `copilot-exclusive`, `workflow`, `product`, `content`
-4. Run `npm run validate && npm run lint:md && npm test` to validate
+3. Recommended: add `metadata.agent_type` for agent-specific skills
+4. Valid categories: `development`, `testing`, `security`, `documentation`, `copilot-exclusive`, `workflow`, `product`, `content`
+5. For development-category skills, consider `keep-coding-instructions: true` when the skill should keep applying during implementation
+6. Run `npm run validate && npm run lint:md && npm test` to validate
 
 ### Adding a New Rule
 

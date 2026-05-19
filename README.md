@@ -38,7 +38,7 @@ This repository is built around three ideas:
 
 The result is a curated collection of agents, skills, rules, MCP configurations, and orchestration patterns — portable where possible, Copilot-native where it matters.
 
-> See [Multi-AI Orchestration](#multi-ai-orchestration-) for how Copilot CLI coordinates Claude Code, Codex CLI, and Gemini CLI as specialist agents.
+> See [Multi-AI Orchestration](#multi-ai-orchestration-) for how this repo's community patterns coordinate Claude Code, Codex CLI, and Gemini CLI as external specialist workers.
 
 ---
 
@@ -78,7 +78,7 @@ Three capabilities make Copilot CLI a strong hub for multi-AI development workfl
 | 8 | **Session SQL Database** | Built-in SQLite per session for structured data, todo tracking, and state. |
 | 9 | **Cross-Session Memory** | Search and reuse prior session history via `session_store`. |
 | 10 | **LSP First-Class Support** | Language Server Protocol integration for precise code intelligence. |
-| 11 | **Multi-AI Orchestrator** | Orchestrate Claude Code, Codex, Gemini CLI from Copilot as the meta-hub. |
+| 11 | **Multi-AI Orchestrator** | Orchestrate Claude Code, Codex, Gemini CLI from Copilot as the meta-hub _(community pattern)_. |
 
 </details>
 
@@ -184,7 +184,7 @@ everything-copilot-cli/
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 16 comprehensive guides
+├── guides/                        # 17 comprehensive guides
 ├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
@@ -422,6 +422,7 @@ The Multi-AI Orchestration system (see [dedicated section](#multi-ai-orchestrati
 | **Orchestration Guide** | Multi-AI orchestration patterns and setup |
 | **Skill Writing Best Practices** | Write trigger-first descriptions that actually fire |
 | **Skill Testing Guide** | Test trigger accuracy and output quality for promptware |
+| **Skill Testing & Waza Evaluation** | Test trigger accuracy, token budget, and eval coverage for skills |
 | **QA Agent Guide** | Design QA agents that catch real bugs via boundary-crossing comparison |
 | **Beginner Skills Tutorial (EN)** | Copy-paste lab to feel the difference between plain and skill-guided prompting |
 | **Beginner Skills Tutorial (KO)** | Korean version of the beginner hands-on skills lab |
@@ -434,7 +435,11 @@ All guides are in the [`guides/`](guides/) directory.
 
 ## Multi-AI Orchestration ★
 
-> **Community pattern.** This is not an official built-in feature of GitHub Copilot CLI — it is a community-proposed workflow pattern that uses shell scripting, MCP, and pipelines to combine multiple AI tools. Copilot CLI serves as a convenient hub because of its GitHub integration and multi-model support.
+> **Two layers — the distinction matters.**
+>
+> **Copilot-native**: GitHub MCP, `/model` switching, Plan Mode, Autopilot, Fleet, Background Agents, and the session SQL database are built into Copilot CLI.
+>
+> **Community pattern**: cross-tool orchestration with Claude Code, Codex CLI, and Gemini CLI is documented in this repository as a shell/MCP/pipeline workflow pattern. It depends on those external CLIs being installed and is not an official built-in Copilot feature.
 
 ### The Idea
 
@@ -516,7 +521,7 @@ Copilot CLI is purpose-built around your GitHub workflow. Here's what you get ou
 | **Session SQL Database** | Built-in SQLite per session for structured state and todo tracking |
 | **Cross-Session Memory** | Search prior session history with `session_store` and `/resume` |
 | **LSP Integration** | Language Server Protocol for precise, symbol-aware code intelligence |
-| **Multi-AI Orchestration** | Coordinate Claude Code, Codex, Gemini CLI from a single hub |
+| **Multi-AI Orchestration** | Coordinate Claude Code, Codex, Gemini CLI from a single hub _(community pattern)_ |
 
 > See the [Copilot Exclusive Features guide](guides/copilot-exclusive-features.md) for a deep dive into each capability.
 
@@ -528,7 +533,7 @@ Coming from another AI coding tool? The skill format is nearly identical, so mig
 
 ```text
 CLAUDE.md rules        →  .github/copilot-instructions.md
-.claude/commands/      →  skills/
+.claude/commands/      →  .github/skills/
 .claude/settings.json  →  mcp-configs/ & contexts/
 Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 ```
@@ -536,7 +541,7 @@ Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 The migration script automates most of the work:
 
 ```bash
-node scripts/migrate-from-claude.js --source /path/to/your/project
+node scripts/migrate-from-claude.js /path/to/your/project
 ```
 
 > See the full [Migration Guide](guides/migration-from-claude-code.md) and [Hooks Alternatives Guide](guides/hooks-to-github-actions.md).

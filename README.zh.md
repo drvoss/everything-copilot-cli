@@ -38,7 +38,7 @@
 
 因此，这个仓库提供的是一整套 agents、skills、rules、MCP 配置与 orchestration patterns：能 portable 的部分保持 portable，需要原生能力的部分则明确采用 Copilot-native 方式。
 
-> 若想了解 Copilot CLI 如何协调 Claude Code、Codex CLI、Gemini CLI 等 specialist agents，请参见 [多AI协同编排](#多ai协同编排-)。
+> 若想了解本仓库的 community patterns 如何协调 Claude Code、Codex CLI、Gemini CLI 等外部 specialist workers，请参见 [多AI协同编排](#多ai协同编排-)。
 
 ---
 
@@ -78,7 +78,7 @@
 | 8 | **Session SQL Database** | 内置每会话 SQLite，用于结构化数据、todo 跟踪与状态管理。 |
 | 9 | **Cross-Session Memory** | 通过 `session_store` 检索并复用过往会话历史。 |
 | 10 | **LSP First-Class Support** | 集成 Language Server Protocol，提供精准代码智能。 |
-| 11 | **Multi-AI Orchestrator** | 以 Copilot 为元枢纽，编排 Claude Code、Codex、Gemini CLI。 |
+| 11 | **Multi-AI Orchestrator** | 以 Copilot 为元枢纽，编排 Claude Code、Codex、Gemini CLI。_(community pattern)_ |
 
 </details>
 
@@ -184,7 +184,7 @@ everything-copilot-cli/
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 16 comprehensive guides
+├── guides/                        # 17 comprehensive guides
 ├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
@@ -422,6 +422,7 @@ everything-copilot-cli/
 | **Orchestration Guide** | 多AI协同编排模式与配置 |
 | **Skill Writing Best Practices** | 编写真正能触发的 trigger-first 描述 |
 | **Skill Testing Guide** | 为 promptware 测试触发准确性与输出质量 |
+| **Skill Testing & Waza Evaluation** | 测量 skill 的触发准确性、token budget 与 eval coverage |
 | **QA Agent Guide** | 设计可通过跨边界比较捕捉真实缺陷的 QA agent |
 | **Beginner Skills Tutorial (EN)** | 用复制粘贴实验感受普通 prompt 与 skill 引导的差异 |
 | **Beginner Skills Tutorial (KO)** | 韩文版入门技能实操教程 |
@@ -434,7 +435,11 @@ everything-copilot-cli/
 
 ## 多AI协同编排 ★
 
-> **社区模式。** 这不是 GitHub Copilot CLI 的官方内置功能，而是一种由社区提出的工作流模式：通过 shell scripting、MCP 与 pipeline 组合多个 AI 工具。由于具备 GitHub 集成与多模型支持，Copilot CLI 可作为便利的统一枢纽。
+> **两层能力 —— 需要明确区分。**
+>
+> **Copilot-native**：GitHub MCP、`/model` 切换、Plan Mode、Autopilot、Fleet、Background Agents 与 Session SQL database 都是 Copilot CLI 内建能力。
+>
+> **Community pattern**：与 Claude Code、Codex CLI、Gemini CLI 的跨工具协同，是本仓库记录的 shell/MCP/pipeline 工作流模式。它依赖外部 CLI 已安装，并不是 Copilot 的官方内置能力。
 
 ### 核心思路
 
@@ -516,7 +521,7 @@ Copilot CLI 围绕你的 GitHub 工作流而构建。以下能力开箱即用：
 | **Session SQL Database** | 每会话内置 SQLite，用于结构化状态与 todo 跟踪 |
 | **Cross-Session Memory** | 通过 `session_store` 与 `/resume` 检索并复用过往会话历史 |
 | **LSP Integration** | Language Server Protocol 提供精准、符号感知的代码智能 |
-| **Multi-AI Orchestration** | 从单一枢纽协调 Claude Code、Codex、Gemini CLI |
+| **Multi-AI Orchestration** | 从单一枢纽协调 Claude Code、Codex、Gemini CLI _(community pattern)_ |
 
 > 详见 [Copilot Exclusive Features guide](guides/copilot-exclusive-features.md) 以深入了解每项能力。
 
@@ -528,7 +533,7 @@ Copilot CLI 围绕你的 GitHub 工作流而构建。以下能力开箱即用：
 
 ```text
 CLAUDE.md rules        →  .github/copilot-instructions.md
-.claude/commands/      →  skills/
+.claude/commands/      →  .github/skills/
 .claude/settings.json  →  mcp-configs/ & contexts/
 Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 ```
@@ -536,7 +541,7 @@ Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 迁移脚本可自动完成大部分工作：
 
 ```bash
-node scripts/migrate-from-claude.js --source /path/to/your/project
+node scripts/migrate-from-claude.js /path/to/your/project
 ```
 
 > 请参阅完整的[迁移指南](guides/migration-from-claude-code.md)与[Hooks Alternatives Guide](guides/hooks-to-github-actions.md)。

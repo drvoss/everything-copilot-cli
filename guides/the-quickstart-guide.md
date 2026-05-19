@@ -106,7 +106,14 @@ Try these basic commands:
 
 ## Step 4: Try Agent Modes
 
-Copilot CLI has three modes. Switch between them with **Shift+Tab**:
+Copilot CLI always includes Interactive and Plan modes. Autopilot is currently an
+experimental mode, so enable experimental features first if you want to try it:
+
+```text
+/experimental
+```
+
+Then switch between modes with **Shift+Tab**:
 
 | Mode | When to Use | Behavior |
 |---|---|---|
@@ -167,7 +174,7 @@ These commands work inside any Copilot CLI session:
 Quick model switching examples:
 
 ```text
-/model claude-sonnet-4.6    # Balanced reasoning (default)
+/model claude-sonnet-4.6    # Balanced reasoning
 /model gpt-5-mini           # Fast code generation
 /model claude-opus-4.6      # Deep analysis (premium)
 ```

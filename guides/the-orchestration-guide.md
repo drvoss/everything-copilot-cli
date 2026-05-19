@@ -135,7 +135,10 @@ You don't even need to remember the commands. Just ask:
 > Finally, review the changes with the code-review agent
 ```
 
-Copilot CLI translates your intent into the appropriate shell commands and orchestration.
+Copilot CLI can translate that intent into shell commands and orchestration, but this
+depends on the external CLIs being installed, discoverable on your PATH, and named in a
+way Copilot can use. Treat it as a **community pattern**, not a guaranteed built-in
+capability.
 
 ---
 

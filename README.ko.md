@@ -38,7 +38,7 @@
 
 결과적으로 이 저장소는 에이전트, 스킬, 규칙, MCP 설정, 오케스트레이션 패턴을 함께 제공하는 컬렉션이 됩니다. 가능한 곳에서는 portable하게, 핵심 강점이 걸린 곳에서는 Copilot-native하게 설계합니다.
 
-> Copilot CLI가 Claude Code, Codex CLI, Gemini CLI 같은 specialist agent를 어떻게 조율하는지는 [Multi-AI Orchestration](#multi-ai-orchestration-) 섹션을 참고하세요.
+> 이 저장소의 community pattern이 Claude Code, Codex CLI, Gemini CLI 같은 외부 specialist worker를 어떻게 조율하는지는 [Multi-AI Orchestration](#multi-ai-orchestration-) 섹션을 참고하세요.
 
 ---
 
@@ -78,7 +78,7 @@ Copilot CLI가 multi-AI 개발 워크플로우의 허브로 강한 이유는 세
 | 8 | **Session SQL Database** | 세션별 내장 SQLite — 구조화된 데이터, 할일 추적, 상태 관리 |
 | 9 | **Cross-Session Memory** | `session_store`로 이전 세션 기록을 검색하고 재사용 |
 | 10 | **LSP 퍼스트클래스 지원** | Language Server Protocol 통합으로 정밀한 코드 인텔리전스 |
-| 11 | **Multi-AI Orchestrator** | Copilot을 메타 허브로 삼아 Claude Code, Codex, Gemini CLI를 통합 조율 |
+| 11 | **Multi-AI Orchestrator** | Copilot을 메타 허브로 삼아 Claude Code, Codex, Gemini CLI를 통합 조율 _(community pattern)_ |
 
 </details>
 
@@ -184,7 +184,7 @@ everything-copilot-cli/
 │   ├── templates/                 #   재사용 가능한 오케스트레이터 템플릿
 │   └── examples/                  #   실전 예제 (6개)
 │
-├── guides/                        # 종합 가이드 (16개)
+├── guides/                        # 종합 가이드 (17개)
 ├── mcp-configs/                   # MCP 서버 설정 (7개 파일; 설정 6개 + README)
 ├── examples/                      # 프로젝트별 copilot-instructions 예제
 │   ├── nextjs-app/
@@ -422,6 +422,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | **오케스트레이션 가이드** | Multi-AI 오케스트레이션 패턴 및 설정 |
 | **스킬 작성 모범 사례** | 실제로 동작하는 트리거 우선 description 작성법 |
 | **스킬 테스팅 가이드** | 프롬프트웨어의 트리거 정확도 및 출력 품질 테스트 |
+| **스킬 테스팅 & Waza 평가** | 스킬의 트리거 정확도, 토큰 예산, eval coverage를 측정 |
 | **QA 에이전트 가이드** | 경계면 교차 비교 기반의 실질적인 QA 에이전트 설계 |
 | **입문자용 스킬 실습 가이드 (EN)** | 일반 프롬프트와 스킬 기반 프롬프트 차이를 체감하는 복붙 실습 |
 | **입문자용 스킬 실습 가이드 (KO)** | 한국어 버전 입문자 실습 가이드 |
@@ -434,7 +435,11 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 
 ## Multi-AI Orchestration ★
 
-> **커뮤니티 패턴.** 이것은 GitHub Copilot CLI의 공식 내장 기능이 아닙니다 — 쉘 스크립팅, MCP, 파이프라인을 활용해 여러 AI 도구를 결합하는 커뮤니티 제안 워크플로 패턴입니다. Copilot CLI는 GitHub 통합과 멀티 모델 지원 덕분에 허브로 활용하기 적합합니다.
+> **두 레이어 — 구분이 중요합니다.**
+>
+> **Copilot-native**: GitHub MCP, `/model` 전환, Plan Mode, Autopilot, Fleet, Background Agents, Session SQL database는 Copilot CLI에 내장된 기능입니다.
+>
+> **Community pattern**: Claude Code, Codex CLI, Gemini CLI와의 크로스-툴 오케스트레이션은 이 저장소가 shell/MCP/pipeline 기반 워크플로 패턴으로 문서화한 것입니다. 외부 CLI 설치에 의존하며 Copilot의 공식 내장 기능은 아닙니다.
 
 ### 핵심 아이디어
 
@@ -516,7 +521,7 @@ Copilot CLI는 GitHub 워크플로우를 중심으로 설계된 도구입니다.
 | **Session SQL Database** | 세션별 내장 SQLite — 구조화된 상태 관리 및 할일 추적 |
 | **Cross-Session Memory** | `session_store`와 `/resume`으로 이전 세션 기록 검색 및 재사용 |
 | **LSP 통합** | 심볼 인식 기반의 정밀한 코드 인텔리전스 |
-| **Multi-AI Orchestration** | 단일 허브에서 Claude Code, Codex, Gemini CLI 통합 조율 |
+| **Multi-AI Orchestration** | 단일 허브에서 Claude Code, Codex, Gemini CLI 통합 조율 _(community pattern)_ |
 
 > 각 기능에 대한 심층 안내는 [Copilot 전용 기능 가이드](guides/copilot-exclusive-features.md)를 참고하세요.
 
@@ -528,7 +533,7 @@ Copilot CLI는 GitHub 워크플로우를 중심으로 설계된 도구입니다.
 
 ```text
 CLAUDE.md 규칙         →  .github/copilot-instructions.md
-.claude/commands/      →  skills/
+.claude/commands/      →  .github/skills/
 .claude/settings.json  →  mcp-configs/ & contexts/
 Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 ```
@@ -536,7 +541,7 @@ Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 마이그레이션 스크립트가 대부분의 작업을 자동화합니다:
 
 ```bash
-node scripts/migrate-from-claude.js --source /path/to/your/project
+node scripts/migrate-from-claude.js /path/to/your/project
 ```
 
 > [마이그레이션 가이드](guides/migration-from-claude-code.md)와 [Hooks 대안 가이드](guides/hooks-to-github-actions.md)를 참고하세요.

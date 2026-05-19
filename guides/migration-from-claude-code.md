@@ -13,7 +13,7 @@ Copilot CLI equivalent:
 
 | Claude Code | Copilot CLI | Notes |
 |------------|------------|-------|
-| `CLAUDE.md` | `.github/copilot-instructions.md` | Same purpose — project-level AI instructions |
+| `CLAUDE.md` | `.github/copilot-instructions.md` | Runtime project instructions; optionally keep a fuller `COPILOT-INSTRUCTIONS.md` reference guide in the repo root |
 | `AGENTS.md` | `AGENTS.md` + skill files | Direct mapping; Copilot also uses `skills/` directory |
 | `/agent-name` (slash command) | `agent_type` parameter in task tool | Architecture differs — Copilot uses 4 agent types |
 | Hooks (pre-tool, post-tool) | Git Hooks / GitHub Actions / Prompt Guards | **No direct equivalent** — use [alternatives](./hooks-to-github-actions.md) depending on purpose |
@@ -23,7 +23,7 @@ Copilot CLI equivalent:
 | `/compact` | `/clear` | Similar purpose — manage context window |
 | Git worktrees (parallel) | Fleet mode | Better in Copilot — native fleet orchestration |
 | `--dangerously-skip-permissions` | Autopilot mode | Better in Copilot — safer, more structured |
-| `CLAUDE.md` hierarchy | `.github/copilot-instructions.md` | Copilot reads from `.github/` directory |
+| `CLAUDE.md` hierarchy | `.github/copilot-instructions.md` | Recommended migration target for project runtime instructions; Copilot can also read other instruction files such as `CLAUDE.md` and `AGENTS.md` |
 | Context files | `contexts/` directory | Reusable context definitions |
 | Todo tracking (file-based) | SQL `todos` table | Better in Copilot — queryable, dependency-aware |
 | Session memory (hooks) | `session_store` database | Both experimental, different approaches |
@@ -74,12 +74,15 @@ Claude Code skills and Copilot CLI skills use **nearly identical formats** — M
 files with YAML frontmatter. Migration is mostly copy + adjust.
 
 **From:** `.claude/skills/*.md`
-**To:** `skills/<category>/*.md`
+**To:** `.github/skills/<skill-name>/SKILL.md` (project-level install)
 
 ```powershell
-# Copy skills to appropriate category directories
-Copy-Item .claude/skills/tdd-workflow.md skills/development/tdd-workflow.md
-Copy-Item .claude/skills/security-scan.md skills/security/security-scan.md
+# Copy skills into Copilot's project-level skills directory
+New-Item -ItemType Directory -Force ".github/skills/tdd-workflow" | Out-Null
+Copy-Item .claude/skills/tdd-workflow.md .github/skills/tdd-workflow/SKILL.md
+
+New-Item -ItemType Directory -Force ".github/skills/security-scan" | Out-Null
+Copy-Item .claude/skills/security-scan.md .github/skills/security-scan/SKILL.md
 ```
 
 **Adjust frontmatter:**
@@ -91,17 +94,20 @@ name: tdd-workflow
 description: Test-driven development cycle
 ---
 
-# Copilot CLI skill frontmatter (add category + tools)
+# Copilot CLI skill frontmatter
 ---
 name: tdd-workflow
-description: Test-driven development cycle
-category: development
-requires_tools:
-  - powershell
-  - edit
-  - view
+description: >
+  Use when you need to write tests before implementation — run the red/green/refactor cycle.
+metadata:
+  category: development
+  agent_type: general-purpose
+keep-coding-instructions: true
 ---
 ```
+
+If you later contribute a migrated skill back to this repository's shared library, the
+source path format here is `skills/<category>/<skill-name>/SKILL.md`.
 
 **Adjust tool references in skill body:**
 
@@ -243,10 +249,10 @@ If you're coming from `awesome-claude-code` slash commands, here's how each comm
 | `/add-to-changelog` | `add-to-changelog` skill | `skills/documentation/add-to-changelog/` |
 | `/release` | `release` skill | `skills/workflow/release/` |
 | `/context-prime` | `context-prime` skill | `skills/copilot-exclusive/context-prime/` |
-| `/create-pr` | `gh pr create` + commit-workflow | Native `gh` CLI |
-| `/update-docs` | Prompt Copilot to update docs after changes | No dedicated skill yet |
-| `/optimize` | Describe optimization goal in Plan Mode | No dedicated skill |
-| `/clean` | `refactor-clean` agent | `agents/refactor-cleaner.md` |
+| `/create-pr` | `github-pr-workflow` skill or `gh pr create` + commit-workflow | `skills/copilot-exclusive/github-pr-workflow/` or native `gh` CLI |
+| `/update-docs` | `doc-update` skill | `skills/documentation/doc-update/` |
+| `/optimize` | `performance-optimization` skill or Plan Mode | `skills/development/performance-optimization/` |
+| `/clean` | `refactor-clean` skill or `refactor-cleaner` agent | `skills/development/refactor-clean/` or `agents/refactor-cleaner.md` |
 | `/todo` | SQL `todos` table | `sql` tool |
 | `/evaluate-repository` | `evaluate-repository` skill | `skills/security/evaluate-repository/` |
 | CLAUDE.md | `.github/copilot-instructions.md` | See Step 1 above |
@@ -348,7 +354,7 @@ Be honest about what Claude Code does better:
 | # | Capability | Workaround in Copilot CLI |
 |---|-----------|--------------------------|
 | 1 | **16 Specialized Agents** | Use 4 types + model overrides + custom prompts |
-| 2 | **83 Curated Skills** | 83 curated skills in this repo; port your custom skills |
+| 2 | **96 Curated Skills** | 96 curated skills in this repo; port your custom skills |
 | 3 | **Full Lifecycle Hooks** | Use startup scripts + SQL logging |
 | 4 | **AgentShield Security** | Use security-reviewer agent + security skills |
 | 5 | **Claude-Optimized Integration** | Use Claude models via model override |
@@ -463,21 +469,21 @@ npx claude-rules-doctor scan .
 The repository includes a migration helper script:
 
 ```powershell
-# Validate migration readiness
-node scripts/migrate-from-claude.js --check
+# Run migration against the current directory
+node scripts/migrate-from-claude.js
 
-# Perform migration (creates Copilot CLI configs from Claude Code configs)
-node scripts/migrate-from-claude.js --migrate
-
-# Verify migration
-node scripts/migrate-from-claude.js --verify
+# Run migration against a specific project
+node scripts/migrate-from-claude.js C:\path\to\your-project
 ```
+
+Pass the target project directory as the first argument. If omitted, the script uses the
+current working directory.
 
 The script handles:
 
 - Copying and transforming `CLAUDE.md` → `.github/copilot-instructions.md`
-- Converting Claude-style `.mcp.json` schema → Copilot CLI workspace `.mcp.json` schema
-- Porting skills with category detection
+- Reviewing `.claude/settings.json` and hooks for manual follow-up
+- Copying markdown skills into `.github/skills/<skill-name>/SKILL.md`
 - Generating a migration report
 
 ---
@@ -487,7 +493,7 @@ The script handles:
 Use this checklist to track your migration progress:
 
 - [ ] Copy and adapt `CLAUDE.md` → `.github/copilot-instructions.md`
-- [ ] Port custom skills to `skills/<category>/` with updated frontmatter
+- [ ] Port custom skills to `.github/skills/<skill-name>/SKILL.md` with updated frontmatter
 - [ ] Convert MCP configs to workspace `.mcp.json` or user `~/.copilot/mcp-config.json`
 - [ ] Map agent invocations to Copilot CLI's 4 agent types
 - [ ] Replace hooks with Git Pre-commit Hooks, GitHub Actions, or Prompt Guards (see [hooks guide](./hooks-to-github-actions.md))
@@ -495,7 +501,8 @@ Use this checklist to track your migration progress:
 - [ ] Test key workflows (build, test, PR creation, code review)
 - [ ] Train team on new features (fleet mode, plan mode, SQL database)
 - [ ] Update CI/CD pipelines to use Copilot CLI commands
-- [ ] Document team-specific conventions in `COPILOT-INSTRUCTIONS.md`
+- [ ] Document runtime project conventions in `.github/copilot-instructions.md`
+- [ ] Optionally maintain a fuller `COPILOT-INSTRUCTIONS.md` reference guide in the repo root
 
 ---
 
