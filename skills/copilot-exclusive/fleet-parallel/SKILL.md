@@ -23,6 +23,15 @@ with their own tool access.
 - Batch-processing items where each item needs AI reasoning, not just scripting
 - Any task that decomposes into 3+ independent units of work
 
+## When NOT to Use
+
+| Instead of fleet-parallel | Use |
+|---------------------------|-----|
+| A single-file or single-function change | Work directly in the current session |
+| A task with ordered dependencies between steps | Plan the sequence and run it serially |
+| Subtasks that would edit the same file, lockfile, or generated artifact | Split ownership first or avoid fleet mode |
+| A tiny batch of 2-3 trivial items | Handle them sequentially unless agent overhead is clearly worth it |
+
 ## Workflow
 
 ### 1. Use the `/fleet` Slash Command (Recommended)

@@ -1,6 +1,6 @@
 ---
 name: mcp-ecosystem
-description: Use when Copilot CLI's built-in tools don't cover a service you need (database, custom API, internal tool) — add an MCP server to extend capabilities beyond the default GitHub MCP. NOT when the built-in tools already cover the task.
+description: Use when Copilot CLI's built-in tools do not cover a service you need — for example PostgreSQL, Redis, Jira, Slack, or an internal API — and you need to add an MCP server beyond the default GitHub MCP. NOT when the built-in tools already cover the task.
 metadata:
   category: copilot-exclusive
   copilot_feature: "Built-in GitHub MCP, copilot mcp commands, workspace .mcp.json, plugin MCP servers"
@@ -19,17 +19,35 @@ different configuration workflow.
 
 ## When to Use
 
-- Accessing GitHub resources natively (the built-in MCP covers most needs)
-- Adding domain-specific tools (databases, APIs, cloud services)
-- Creating MCP bridges to internal systems
-- Sharing tool configurations across VS Code and CLI
-- Building custom AI-powered workflows with specialized servers
+- Adding domain-specific tools that the built-in GitHub MCP does not cover, such as PostgreSQL, Redis, Jira, Slack, or an internal feature-flag API
+- Creating MCP bridges to internal systems or external SaaS tools outside the default GitHub workflow
+- Sharing custom MCP configurations across Copilot CLI and VS Code
+- Building specialized AI workflows that need custom tools beyond the built-in GitHub MCP
+
+## When NOT to Use
+
+| Instead of mcp-ecosystem | Use |
+|--------------------------|-----|
+| Reading GitHub issues, PRs, Actions, or repository metadata already covered by the built-in MCP | Use the built-in GitHub MCP tools directly |
+| Reviewing PRs, checking CI failures, or searching repository code | Use the built-in GitHub MCP and normal repo tools directly |
+| Pure code search, code review, or coding tasks with no external service dependency | Use the normal repo tools or the most relevant skill for that task |
+| Adding an untrusted third-party server without validating permissions and secret handling | Review the server first and prefer least-privilege configuration |
+
+## Common MCP Candidates
+
+These are the kinds of services that usually justify this skill:
+
+- PostgreSQL or MySQL databases
+- Redis or other cache/data stores
+- Internal REST or GraphQL APIs
+- Jira, Slack, Notion, or other external SaaS tools
 
 ## Workflow
 
 ### 1. Built-In GitHub MCP (Zero Config)
 
-These tools work immediately — no setup required:
+These tools work immediately — no setup required. Check this built-in coverage first before
+adding a custom MCP server:
 
 **Repository & Code:**
 
@@ -61,10 +79,12 @@ These tools work immediately — no setup required:
 
 #### Global Configuration
 
-Use `copilot mcp add` for user-level installs, or edit `~/.copilot/mcp-config.json` directly:
+Use `copilot mcp add` for user-level installs, or edit `~/.copilot/mcp-config.json` directly.
+Prefer environment variables for secrets rather than embedding tokens or connection strings in
+committed config:
 
 ```text
-copilot mcp add context7 -- npx -y @upstash/context7-mcp
+copilot mcp add --transport http context7 https://mcp.context7.com/mcp
 copilot mcp add --transport http notion https://mcp.notion.com/mcp
 ```
 
@@ -138,28 +158,59 @@ If a configured server is missing, check `copilot mcp list`, then inspect the sp
 When you need current, version-aware framework or library docs, Context7 is one of the
 highest-value MCP servers to add.
 
-Use the two-stage lookup pattern:
+#### Setup (recommended)
 
-#### Stage 1: Resolve the library ID
-
-```text
-use context7
-resolve the library ID for: next.js
-```
-
-#### Stage 2: Fetch targeted docs
+Run the guided setup to authenticate via OAuth and install the MCP server:
 
 ```text
-use context7
-get current docs for /vercel/next.js
-focus on: App Router middleware, route handlers
+npx ctx7 setup
 ```
 
-If you already know the library ID or only need one focused answer, you can combine the
-lookup into a single prompt:
+This generates an API key and registers the server automatically. To configure manually,
+add the HTTP MCP server and pass your key as a header:
+
+```text
+copilot mcp add --transport http context7 https://mcp.context7.com/mcp
+```
+
+Then set `CONTEXT7_API_KEY` in your environment (or via `${env:CONTEXT7_API_KEY}` in
+`.mcp.json`) so the server can authenticate.
+
+#### MCP tools (called automatically by the agent)
+
+| Tool | Purpose |
+|------|---------|
+| `resolve-library-id` | Map a library name to a Context7 ID (e.g. `/vercel/next.js`) |
+| `query-docs` | Fetch version-specific docs for a given library ID and question |
+
+#### Prompt patterns
+
+Single-prompt (agent resolves and fetches in one turn):
 
 ```text
 How do I configure middleware in Next.js 15 App Router? use context7
+```
+
+Targeting a specific version:
+
+```text
+How do I set up Next.js 14 middleware? use context7
+```
+
+When you already know the library ID, skip resolution and load docs directly:
+
+```text
+Implement basic authentication with Supabase.
+use library /supabase/supabase for API and docs. use context7
+```
+
+#### CLI commands (no MCP required)
+
+If you prefer not to run the MCP server, use the `ctx7` CLI directly:
+
+```text
+ctx7 library next.js "App Router middleware"
+ctx7 docs /vercel/next.js "route handlers"
 ```
 
 This pattern is especially useful when:
@@ -255,8 +306,9 @@ copilot mcp get <name>
   of config files.
 - **Inspect before you trust**: `copilot mcp list` and `copilot mcp get` are the
   fastest way to verify that Copilot is seeing the server definition you expect.
-- **Re-check fast-moving MCP tools**: Context7 evolves quickly, so confirm its latest
-  CLI and MCP behavior against upstream docs before standardizing new team workflows.
+- **Re-check fast-moving MCP tools**: Context7 evolves quickly — run `npx ctx7 setup` to
+  get the latest version and confirm its MCP tool names (`resolve-library-id`, `query-docs`)
+  match what your agent expects before standardizing new team workflows.
 
 ## See Also
 

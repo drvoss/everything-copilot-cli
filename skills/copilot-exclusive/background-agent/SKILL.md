@@ -1,6 +1,6 @@
 ---
 name: background-agent
-description: Use when a task is too long to block the current session or should run autonomously — delegates to a cloud background agent via & or /delegate so work can continue on GitHub while you keep moving locally.
+description: Use when a task is too long to block the current session or should run autonomously — delegates to a cloud background agent via & or /delegate so work can continue on GitHub while you keep moving locally, not in a local async PowerShell session.
 metadata:
   category: copilot-exclusive
   copilot_feature: "Background Delegation (&, /delegate), cloud Copilot coding agent, branch/PR workflows, /resume"
@@ -24,6 +24,15 @@ which still uses `mode: "async"` in the powershell tool.
 - Complex tasks where you want research or an implementation plan before any code is written
 - Any task that benefits from running in a fresh, isolated context on GitHub
 - Handing off work while you continue unrelated local development
+
+## When NOT to Use
+
+| Instead of background-agent | Use |
+|-----------------------------|-----|
+| A small, well-scoped edit you can finish immediately | Work directly in the current session |
+| A local build, dev server, watcher, or test run | Async PowerShell with `mode: "async"` |
+| A read-only query where you need the answer right away | Answer directly in the current session |
+| A task that depends on local-only services, hardware, or unshared secrets | Keep the work local rather than delegating to GitHub |
 
 ## Cloud Agent Deep Work Mode
 
@@ -80,6 +89,8 @@ Your terminal is free. Keep coding locally while the agent works on GitHub.
 
 By default, review the resulting work on GitHub. Depending on how you prompted the task,
 Copilot may leave the work on a branch for diff review or create a PR when you ask for one.
+Do not treat terminal polling as the primary review path; the GitHub branch or PR is the
+canonical output.
 
 ### 4. Continue the Conversation Locally (Optional)
 
