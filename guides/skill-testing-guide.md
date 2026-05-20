@@ -146,6 +146,53 @@ Method:
 
 This catches the most common failure mode: a well-written workflow that rarely triggers (or triggers too broadly).
 
+## 7. Automated Output Quality Checks with Promptfoo
+
+Use [Promptfoo](https://github.com/promptfoo/promptfoo) when you want repeatable checks for
+output structure, actionability, and boundary adherence without claiming to verify real Copilot
+skill invocation.
+
+Promptfoo is a **supplement**, not a replacement, for the manual workflow in this guide:
+
+- **Use Promptfoo for**:
+  - rubric-based output quality checks
+  - regression checks after editing a skill
+  - "When NOT to Use" boundary tests
+  - adversarial prompt checks for prompt-sensitive skills
+- **Keep manual testing for**:
+  - should-trigger / should-NOT-trigger verification in actual Copilot sessions
+  - installed vs not-installed skill comparisons
+  - confirming whether Copilot really invoked the skill rather than merely producing a plausible answer
+
+Recommended pilot layout:
+
+```text
+promptfooconfig.yaml
+tests/
+  promptfoo/
+    mcp-ecosystem/
+      cases.yaml
+    create-prd/
+      cases.yaml
+    feature-prioritization/
+      cases.yaml
+```
+
+Recommended local-only Phase 1 command:
+
+```bash
+npm run eval
+```
+
+Before running the pilot:
+
+- Set the provider API key required by `promptfooconfig.yaml` (for the default config, `OPENAI_API_KEY`)
+- If you use a different provider, update `promptfooconfig.yaml` before running the eval
+- Promptfoo `0.121.11` currently requires Node `20.20+` or `22.22+`, which is stricter than this repo's base `>=18` minimum; `npm run eval` will stop early with a clear message if your runtime is too old
+
+Keep Promptfoo out of CI until the pilot establishes stable expectations, acceptable cost,
+and a clear policy for API-backed evaluation.
+
 ## See Also
 
 - `guides/skill-writing-best-practices.md` — description quality guide

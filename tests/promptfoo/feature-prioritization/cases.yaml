@@ -1,0 +1,25 @@
+- description: "Prioritization uses the stated scoring dimensions"
+  vars:
+    skill_path: skills/product/feature-prioritization/SKILL.md
+    query: "Prioritize these next-sprint features: SSO integration, dark mode, bulk CSV import, and weekly email digest."
+  assert:
+    - type: llm-rubric
+      value: "The response scores or compares features using Impact, Confidence, and Effort rather than offering an unstructured opinion."
+    - type: contains-all
+      value:
+        - "Impact"
+        - "Confidence"
+        - "Effort"
+
+- description: "Prioritization calls out assumptions or dependencies"
+  vars:
+    skill_path: skills/product/feature-prioritization/SKILL.md
+    query: "Rank mobile offline mode, audit logs, and public API v2 for our next sprint. Note any assumptions that make the ranking fragile."
+  assert:
+    - type: llm-rubric
+      value: "The response highlights at least one assumption, uncertainty, or dependency instead of presenting the ranking as perfectly certain."
+    - type: icontains-any
+      value:
+        - "assumption"
+        - "dependency"
+        - "confidence"

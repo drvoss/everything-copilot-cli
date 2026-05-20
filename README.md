@@ -184,7 +184,7 @@ everything-copilot-cli/
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 17 comprehensive guides
+├── guides/                        # 16 comprehensive guides
 ├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
@@ -421,8 +421,7 @@ The Multi-AI Orchestration system (see [dedicated section](#multi-ai-orchestrati
 | **Hooks to GitHub Actions** | Claude Code Hooks alternatives (Git Hooks / Actions / Prompt Guards) |
 | **Orchestration Guide** | Multi-AI orchestration patterns and setup |
 | **Skill Writing Best Practices** | Write trigger-first descriptions that actually fire |
-| **Skill Testing Guide** | Test trigger accuracy and output quality for promptware |
-| **Skill Testing & Waza Evaluation** | Test trigger accuracy, token budget, and eval coverage for skills |
+| **Skill Testing Guide** | Test trigger accuracy and output quality for promptware, with Promptfoo as an optional output-quality supplement |
 | **QA Agent Guide** | Design QA agents that catch real bugs via boundary-crossing comparison |
 | **Beginner Skills Tutorial (EN)** | Copy-paste lab to feel the difference between plain and skill-guided prompting |
 | **Beginner Skills Tutorial (KO)** | Korean version of the beginner hands-on skills lab |

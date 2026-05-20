@@ -184,7 +184,7 @@ everything-copilot-cli/
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 17 comprehensive guides
+├── guides/                        # 16 comprehensive guides
 ├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
@@ -421,8 +421,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | **Hooks to GitHub Actions** | Claude Code Hooks の代替（Git Hooks / Actions / Prompt Guards）です |
 | **Orchestration Guide** | マルチAIオーケストレーションのパターンと設定方法です |
 | **Skill Writing Best Practices** | 実際に発火する trigger-first 記述の書き方です |
-| **Skill Testing Guide** | promptware 向けに trigger 精度と出力品質を検証する方法です |
-| **Skill Testing & Waza Evaluation** | skill の trigger 精度、token budget、eval coverage を測定します |
+| **Skill Testing Guide** | promptware 向けに trigger 精度と出力品質を検証し、Promptfoo を任意の出力品質補助として使う方法です |
 | **QA Agent Guide** | 境界横断比較により実バグを捕捉する QA agent 設計です |
 | **Beginner Skills Tutorial (EN)** | 通常 prompt と skill 指定 prompt の違いを体感するコピペ実習です |
 | **Beginner Skills Tutorial (KO)** | 韓国語版の入門実習ガイドです |

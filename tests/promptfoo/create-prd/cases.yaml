@@ -1,0 +1,25 @@
+- description: "PRD draft includes core sections"
+  vars:
+    skill_path: skills/product/create-prd/SKILL.md
+    query: "Create a PRD for a user notification system with email and in-app channels."
+  assert:
+    - type: llm-rubric
+      value: "The response is a structured PRD draft with an overview, problem framing, goals or success metrics, user stories, and explicit scope boundaries."
+    - type: contains-all
+      value:
+        - "Overview"
+        - "Problem"
+        - "User Stories"
+
+- description: "PRD uses measurable outcomes"
+  vars:
+    skill_path: skills/product/create-prd/SKILL.md
+    query: "Create a PRD for migrating our auth system to OAuth 2.0."
+  assert:
+    - type: llm-rubric
+      value: "The response includes measurable success metrics and identifies non-goals or scope boundaries rather than only listing vague objectives."
+    - type: contains-any
+      value:
+        - "Success Metrics"
+        - "Metric"
+        - "Non-Goals"

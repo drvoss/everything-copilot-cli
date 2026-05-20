@@ -1,0 +1,32 @@
+- description: "GitHub PR review stays on built-in MCP"
+  vars:
+    skill_path: skills/copilot-exclusive/mcp-ecosystem/SKILL.md
+    query: "List open pull requests and tell me which ones have failing CI checks."
+  assert:
+    - type: llm-rubric
+      value: "The response recommends using the built-in GitHub MCP tools or normal repository review flow, not adding a custom MCP server."
+    - type: not-contains
+      value: "copilot mcp add"
+
+- description: "PostgreSQL access recommends a custom MCP server"
+  vars:
+    skill_path: skills/copilot-exclusive/mcp-ecosystem/SKILL.md
+    query: "Query the users table in our PostgreSQL database from Copilot CLI."
+  assert:
+    - type: llm-rubric
+      value: "The response recommends adding or configuring a PostgreSQL MCP server because the built-in GitHub MCP does not cover database access."
+    - type: contains-any
+      value:
+        - "copilot mcp add"
+        - ".mcp.json"
+        - "server-postgres"
+
+- description: "Pure code review does not trigger MCP setup"
+  vars:
+    skill_path: skills/copilot-exclusive/mcp-ecosystem/SKILL.md
+    query: "Review this function for security issues and edge cases."
+  assert:
+    - type: llm-rubric
+      value: "The response stays focused on code review and does not recommend custom MCP setup for a pure repository task."
+    - type: not-contains
+      value: "copilot mcp add"

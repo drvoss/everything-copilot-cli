@@ -184,7 +184,7 @@ everything-copilot-cli/
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 17 comprehensive guides
+├── guides/                        # 16 comprehensive guides
 ├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
@@ -421,8 +421,7 @@ everything-copilot-cli/
 | **Hooks to GitHub Actions** | Claude Code Hooks 替代方案（Git Hooks / Actions / Prompt Guards） |
 | **Orchestration Guide** | 多AI协同编排模式与配置 |
 | **Skill Writing Best Practices** | 编写真正能触发的 trigger-first 描述 |
-| **Skill Testing Guide** | 为 promptware 测试触发准确性与输出质量 |
-| **Skill Testing & Waza Evaluation** | 测量 skill 的触发准确性、token budget 与 eval coverage |
+| **Skill Testing Guide** | 为 promptware 测试触发准确性与输出质量，并将 Promptfoo 作为可选的输出质量补充工具 |
 | **QA Agent Guide** | 设计可通过跨边界比较捕捉真实缺陷的 QA agent |
 | **Beginner Skills Tutorial (EN)** | 用复制粘贴实验感受普通 prompt 与 skill 引导的差异 |
 | **Beginner Skills Tutorial (KO)** | 韩文版入门技能实操教程 |

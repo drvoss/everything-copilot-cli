@@ -184,7 +184,7 @@ everything-copilot-cli/
 │   ├── templates/                 #   재사용 가능한 오케스트레이터 템플릿
 │   └── examples/                  #   실전 예제 (6개)
 │
-├── guides/                        # 종합 가이드 (17개)
+├── guides/                        # 종합 가이드 (16개)
 ├── mcp-configs/                   # MCP 서버 설정 (7개 파일; 설정 6개 + README)
 ├── examples/                      # 프로젝트별 copilot-instructions 예제
 │   ├── nextjs-app/
@@ -421,8 +421,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | **Hooks to GitHub Actions** | Claude Code Hooks 대안 (Git Hooks / Actions / Prompt Guards) |
 | **오케스트레이션 가이드** | Multi-AI 오케스트레이션 패턴 및 설정 |
 | **스킬 작성 모범 사례** | 실제로 동작하는 트리거 우선 description 작성법 |
-| **스킬 테스팅 가이드** | 프롬프트웨어의 트리거 정확도 및 출력 품질 테스트 |
-| **스킬 테스팅 & Waza 평가** | 스킬의 트리거 정확도, 토큰 예산, eval coverage를 측정 |
+| **스킬 테스팅 가이드** | 프롬프트웨어의 트리거 정확도 및 출력 품질을 테스트하며, Promptfoo는 선택적 출력 품질 보조 도구로 활용 |
 | **QA 에이전트 가이드** | 경계면 교차 비교 기반의 실질적인 QA 에이전트 설계 |
 | **입문자용 스킬 실습 가이드 (EN)** | 일반 프롬프트와 스킬 기반 프롬프트 차이를 체감하는 복붙 실습 |
 | **입문자용 스킬 실습 가이드 (KO)** | 한국어 버전 입문자 실습 가이드 |

@@ -1,0 +1,17 @@
+description: "everything-copilot-cli Promptfoo pilot for skill output quality"
+
+providers:
+  # Requires OPENAI_API_KEY by default. Replace with a different provider if needed.
+  - id: openai:gpt-5-mini
+    config:
+      temperature: 0
+
+prompts:
+  - file://scripts/promptfoo-skill-prompt.js
+
+defaultTest:
+  options:
+    provider: openai:gpt-5-mini
+
+tests:
+  - file://tests/promptfoo/**/*.yaml
