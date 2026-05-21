@@ -63,6 +63,15 @@ git --no-pager grep -n "allowedTools\|toolWhitelist\|allowlist\|permissions" -- 
 **Pass**: Tool access is scoped to the task or role.  
 **Fail**: The agent can invoke any available tool or cross trust boundaries freely.
 
+#### ASI-02-B: Tool Usage Policy Enforcement
+
+```powershell
+git --no-pager grep -n "rate_limit\|approval\|require_approval\|tool_policy\|UsagePolicy" -- "*.ts" "*.js" "*.py" "*.json" "*.yaml" "*.yml"
+```
+
+**Pass**: Tool calls have rate limits and high-risk tools require explicit approval or review gates.  
+**Fail**: Tools can be called indefinitely or without any approval boundary for sensitive operations.
+
 #### ASI-03: Memory Injection
 
 ```powershell
@@ -187,10 +196,12 @@ Block deployment if ASI-01, ASI-03, or ASI-05 lands at 3/10 or below.
 - Pair this with `evaluate-repository` when you need both a broad repo scorecard and a focused agent-security pass
 - Pair this with `eval-harness` when ASI-07 needs adversarial test coverage rather than static inspection
 - Use `sub-agent-sandboxing` patterns as concrete mitigations for ASI-08 findings
+- Look for tool usage policies that enforce rate limits or approvals, not just allowlists
 
 ## See Also
 
 - [`evaluate-repository`](../evaluate-repository/SKILL.md) — broad repository scorecard with an AI governance dimension
 - [`security-scan`](../security-scan/SKILL.md) — general codebase security review
 - [`eval-harness`](../../testing/eval-harness/SKILL.md) — adversarial and regression eval design
+- [`agent-governance`](../agent-governance/SKILL.md) — tool allowlists, approval gates, trust scoring, and audit trails
 - [`sub-agent-sandboxing`](../../../orchestration/patterns/sub-agent-sandboxing.md) — loop detection and circuit breaker patterns

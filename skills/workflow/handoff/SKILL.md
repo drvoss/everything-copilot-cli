@@ -78,6 +78,20 @@ Do not restate content that already lives in:
 
 Link to those artifacts by path, URL, or commit hash and explain only why they matter.
 
+### 3-A. Redact sensitive data before saving
+
+Before writing the handoff document, actively redact sensitive data in the captured
+context:
+
+- API keys, tokens, or credentials -> `[REDACTED]`
+- Passwords or secrets -> `[REDACTED]`
+- PII in sensitive context -> `[REDACTED]`
+- Internal-only URLs or endpoints -> `[INTERNAL URL]`
+
+Do not simply omit the fact that something existed. Replace the value with a
+placeholder so the next session knows there was sensitive context without seeing the
+secret itself.
+
 ### 4. Capture only the load-bearing context
 
 Good handoffs usually include:
