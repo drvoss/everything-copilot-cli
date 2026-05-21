@@ -196,12 +196,16 @@ Skills for identifying and fixing security issues.
 | Skill | Description |
 |-------|-------------|
 | [`agent-owasp-check`](security/agent-owasp-check/SKILL.md) | Audit an AI agent system against the OWASP Agentic Security Initiative Top 10 |
+| [`agent-governance`](security/agent-governance/SKILL.md) | Add policy controls, approval gates, trust scoring, and append-only audit trails to agent systems |
+| [`agent-supply-chain`](security/agent-supply-chain/SKILL.md) | Verify integrity manifests, detect tampering, and enforce promotion gates for agent plugins and MCP bundles |
 | [`evaluate-repository`](security/evaluate-repository/SKILL.md) | Score a repository 1-10 across 7 dimensions, including AI agent governance |
+| [`gha-security-review`](security/gha-security-review/SKILL.md) | Review GitHub Actions workflows for exploitable CI/CD attack paths such as pwn requests, expression injection, and credential escalation |
 | [`input-validation`](security/input-validation/SKILL.md) | Validate and sanitize all user-supplied inputs |
 | [`pr-security-review`](security/pr-security-review/SKILL.md) | Review a pull request for security vulnerabilities — auth, injection, secrets, and OWASP Top 10 before merging |
 | [`secret-detection`](security/secret-detection/SKILL.md) | Find and remove hardcoded secrets |
 | [`security-bounty-hunter`](security/security-bounty-hunter/SKILL.md) | Use when the goal is practical vulnerability discovery for responsible disclosure or bounty submission — focuses on remotely reachable, exploitable issues |
 | [`security-scan`](security/security-scan/SKILL.md) | Run a security scan across the codebase |
+| [`threat-model-analyst`](security/threat-model-analyst/SKILL.md) | Build or update a STRIDE-A threat model with trust boundaries, abuse cases, and change-focused findings |
 
 ### 🧪 Testing (`testing/`)
 
