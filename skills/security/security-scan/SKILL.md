@@ -16,6 +16,14 @@ metadata:
 - When onboarding to an unfamiliar codebase
 - After a security incident to check for similar vulnerabilities
 
+## When NOT to Use
+
+| Instead of security-scan | Use |
+|--------------------------|-----|
+| PR-diff-only security review | `pr-security-review` |
+| Agent / MCP / LLM risk review | `agent-owasp-check` |
+| Strategic threat-model audit | `security-audit` or `threat-model-analyst` |
+
 ## Prerequisites
 
 - Access to the project source code and dependency manifests
@@ -24,7 +32,39 @@ metadata:
 
 ## Workflow
 
-### 0. Keep the scan itself safe
+### 0. Choose the operating mode
+
+This skill can run in three distinct modes without becoming a separate skill:
+
+1. **Secure-by-default implementation** — when writing new code or refactoring risky paths,
+   identify the stack first, load any matching security references, and keep safe defaults
+   in mind while implementing.
+2. **Passive detection during the current task** — while you are already reading or editing
+   files, call out only high-impact violations of the loaded guidance. This is not a
+   background watcher; it applies only to the files you are actively handling.
+3. **Explicit security report** — when the user asks for a review or report, produce a
+   prioritized findings list with IDs, severity, and concrete file:line references.
+
+### 0.5 Load stack-specific security references
+
+Before scanning deeply, identify the language and primary framework in scope. If the shared
+[`../../../references/security-scan/`](../../../references/security-scan/) directory contains a
+matching file, read it first and pair it with the shared repository checklist at
+[`../../../references/security-checklist.md`](../../../references/security-checklist.md).
+
+Suggested lookup order:
+
+1. framework-specific reference such as
+   `../../../references/security-scan/javascript-typescript-general-security.md` when the
+   codebase is JS/TS-heavy
+2. `../../../references/security-scan/python-general-security.md` when the codebase is
+   Python-heavy
+3. the shared repository checklist when no stack-specific note exists
+
+If no matching reference exists, continue with the scan using well-known best practices rather
+than inventing framework-specific rules.
+
+### 0.75 Keep the scan itself safe
 
 Start with read-only discovery commands. Do not treat destructive shell forms as harmless
 inspection:
@@ -120,6 +160,30 @@ Document findings with severity, location, and remediation:
 - [ ] Console.log contains user email in src/auth/login.ts:15
 ```
 
+### 5.5 Report format for explicit security-review requests
+
+When the user explicitly asks for a security review or best-practices report, prefer numbered
+findings with evidence:
+
+````markdown
+## Security Scan Results — [Date]
+
+### Critical
+- **[SEC-001] SQL Injection** `src/db/query.ts:42` — User-controlled input is concatenated
+  into a raw SQL string. Use a parameterized query.
+
+### High
+- **[SEC-002] Missing Auth Check** `src/api/admin.ts:15` — Sensitive route lacks auth
+  middleware and is reachable with an ordinary session.
+
+### Medium
+- **[SEC-003] Weak Secret Handling** `src/auth/config.ts:8` — Fallback development secret is
+  hardcoded in source. Move it to environment configuration.
+````
+
+If the user wants a written report, write it to a path they specify. Otherwise, present the
+report in chat first and only create a Markdown file when asked.
+
 ## Examples
 
 ### Full Scan Pipeline
@@ -194,6 +258,9 @@ For new features or significant changes, apply STRIDE before scanning:
 
 ## Tips
 
+- Load any matching stack reference before making framework-specific recommendations
+- Use `[SEC-001]` style IDs only when the scan is operating in explicit report mode
+- Always include concrete file:line references for actionable findings
 - Run `npm audit` in CI to catch new vulnerabilities automatically
 - Use `.gitignore` to prevent secrets from being committed — but also verify with `git ls-files`
 - Focus on **input boundaries** — anywhere user data enters the system

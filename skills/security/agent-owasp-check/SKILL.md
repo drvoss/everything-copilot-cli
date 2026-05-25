@@ -146,6 +146,19 @@ git --no-pager grep -n "audit\|tool log\|event store\|activity log" -- "*.ts" "*
 **Pass**: Tool calls and key agent actions are observable after the fact.  
 **Fail**: There is no durable record of what the agent did.
 
+### AI/ML CWE Cross-Reference (CWE 4.20)
+
+Use this table as a taxonomy cross-check alongside the ASI findings above:
+
+| Check | CWE | Notes |
+|-------|-----|-------|
+| Prompt injection prevention | CWE-1427 | Improper Neutralization of Input Used for LLM Prompting |
+| Insecure inference parameters | CWE-1434 | Review hardcoded `temperature`, `top_p`, unsafe system-prompt overrides, and similarly risky inference settings |
+
+Do not map "model poisoning" to `CWE-1428` here. MITRE CWE 4.20 assigns `CWE-1428` to
+reliance on HTTP instead of HTTPS, so keep that AI-specific label deferred until MITRE
+publishes a stable matching identifier.
+
 ### 3. Summarize findings
 
 ```text
