@@ -18,4 +18,4 @@ security reference exists for the active framework.
 
 - [`../security-checklist.md`](../security-checklist.md)
 - [`../../skills/security/security-scan/SKILL.md`](../../skills/security/security-scan/SKILL.md)
-- relevant framework rules in `rules/frameworks/` when they exist
+- relevant framework rules in `../../rules/frameworks/` when they exist

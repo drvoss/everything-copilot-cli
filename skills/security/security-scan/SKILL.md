@@ -45,7 +45,7 @@ This skill can run in three distinct modes without becoming a separate skill:
 3. **Explicit security report** — when the user asks for a review or report, produce a
    prioritized findings list with IDs, severity, and concrete file:line references.
 
-### 0.5 Load stack-specific security references
+### 0a. Load stack-specific security references
 
 Before scanning deeply, identify the language and primary framework in scope. If the shared
 [`../../../references/security-scan/`](../../../references/security-scan/) directory contains a
@@ -64,7 +64,7 @@ Suggested lookup order:
 If no matching reference exists, continue with the scan using well-known best practices rather
 than inventing framework-specific rules.
 
-### 0.75 Keep the scan itself safe
+### 0b. Keep the scan itself safe
 
 Start with read-only discovery commands. Do not treat destructive shell forms as harmless
 inspection:
@@ -140,7 +140,9 @@ grep -rni "cors\|Access-Control-Allow-Origin" src/ --include="*.ts"
 grep -rni "helmet\|csrf\|xss\|sanitize" src/ --include="*.ts"
 ```
 
-### 5. Generate Report
+### 5. Generate Report (quick checklist)
+
+For standard scans or ongoing work, use a lightweight checklist format:
 
 Document findings with severity, location, and remediation:
 
@@ -160,7 +162,7 @@ Document findings with severity, location, and remediation:
 - [ ] Console.log contains user email in src/auth/login.ts:15
 ```
 
-### 5.5 Report format for explicit security-review requests
+### 6. Report format for explicit security-review requests
 
 When the user explicitly asks for a security review or best-practices report, prefer numbered
 findings with evidence:
