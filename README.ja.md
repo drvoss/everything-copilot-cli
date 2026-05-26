@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="100 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="102 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (96 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
+├── skills/                        # Reusable workflow skills (102 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
 │   ├── development/               #   Dev skills (23)
 │   ├── documentation/             #   Doc skills (6)
-│   ├── security/                  #   Security skills (7)
+│   ├── security/                  #   Security skills (11)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (22)
+│   ├── workflow/                  #   Workflow skills (23)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -193,7 +193,10 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # Context presets
-├── references/                    # Checklist & pattern references (5)
+├── references/                    # Checklist & pattern references (root + subdirectories, 13 files)
+│   ├── github-actions-efficiency/ #   Actions 効率監査リファレンス
+│   ├── github-codespaces-efficiency/ # Codespaces 最適化ガイド
+│   ├── security-scan/             #   スタック別セキュリティガイダンス
 │   ├── testing-patterns.md        # AAA structure, mocking, component/API/E2E patterns
 │   ├── security-checklist.md      # OWASP Top 10, auth, input validation, security headers
 │   ├── performance-checklist.md   # Core Web Vitals, frontend/backend optimization
@@ -222,12 +225,12 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計96・8カテゴリ）
+### スキル（合計102・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
 <details>
-<summary><strong>★ Copilot 専用 Skills（25）</strong></summary>
+<summary><strong>★ Copilot 専用 Skills（26）</strong></summary>
 
 GitHub Copilot CLI 固有の機能を活用する skill です。
 
@@ -242,6 +245,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `github-code-search` | GitHub 全体のコード検索で実装例を探し、根拠付きコンテキストとして取り込みます |
 | `github-pr-workflow` | 組み込み GitHub MCP で PR ライフサイクル全体を扱います |
 | `github-issue-triage` | Issue を一括分類・トリアージします |
+| `github-codespaces-efficiency` | GitHub Codespaces の起動時間、マシンサイズ、prebuild 範囲、コストを監査し、必要な開発ツールを残したまま最適化します |
 | `actions-debugging` | native Actions アクセスで CI failure をデバッグします |
 | `cross-session-memory` | 以前の session context を検索して再開します |
 | `copilot-memory` | CLI、cloud agent、code review で共有される repository-level Copilot memory を確認・整理します |
@@ -312,22 +316,26 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>セキュリティ Skills（7）</strong></summary>
+<summary><strong>セキュリティ Skills（11）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
 | `agent-owasp-check` | AI agent システムを OWASP Agentic Security Initiative Top 10 に沿って監査します |
+| `agent-governance` | AI agent システムに policy controls、approval gates、trust scoring、append-only audit trails を追加します |
+| `agent-supply-chain` | agent plugin と MCP bundle の integrity manifest を検証し、tampering 検出と promotion gate を適用します |
 | `evaluate-repository` | AI agent governance を含む 7次元 scorecard（1〜10）と remediation plan を作成します |
+| `gha-security-review` | GitHub Actions workflow の pwn request、expression injection、credential escalation などの CI/CD 攻撃経路をレビューします |
 | `security-scan` | OWASP Top 10 + dependency audit を実施します |
 | `secret-detection` | source と git history 内のハードコードされた secret を検出します |
 | `input-validation` | injection 攻撃（SQL、XSS、CSRF）を防止します |
 | `security-bounty-hunter` | bug bounty 観点で vuln を探索し、proof-of-concept 手順を示します |
 | `pr-security-review` | auth、injection、secret、OWASP Top 10 を中心に PR を security review します |
+| `threat-model-analyst` | trust boundary、abuse case、変更起点の所見を含む STRIDE-A threat model を作成または更新します |
 
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（22）</strong></summary>
+<summary><strong>ワークフロー Skills（23）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -340,6 +348,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `security-audit` | OWASP Top 10 + STRIDE threat modeling |
 | `sprint-retro` | git metrics に基づくデータ駆動 retro |
 | `cost-audit` | AI inference token コストを監査し、model/prompt 最適化を提案します |
+| `github-actions-efficiency` | GitHub Actions workflow の CI minutes、cache、concurrency、trigger 範囲、無駄な実行を監査します |
 | `council` | 高リスク判断向けの 4者 adversarial decision council を開催します |
 | `deep-research` | 構造化 synthesis を伴う体系的な複数ソース調査を行います |
 | `grill-me` | 前提、依存関係、リスクが明示されるまで 1 問ずつ plan を厳しく掘り下げます |

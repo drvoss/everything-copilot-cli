@@ -126,6 +126,7 @@ fleet mode, plan mode, and GitHub integration.
 | [`fleet-parallel`](copilot-exclusive/fleet-parallel/SKILL.md) | Use when you need to run the same task across many files or contexts in parallel — triggers /fleet mode for batch operations |
 | [`github-code-search`](copilot-exclusive/github-code-search/SKILL.md) | Use when you need real-world implementation examples or cross-repository context — search GitHub's global code index and reuse the results as grounded context |
 | [`github-issue-triage`](copilot-exclusive/github-issue-triage/SKILL.md) | Use when you have a backlog of unorganized GitHub Issues — bulk-labels, prioritizes, and assigns at scale |
+| [`github-codespaces-efficiency`](copilot-exclusive/github-codespaces-efficiency/SKILL.md) | Use when optimizing GitHub Codespaces — faster startup, lower spend, slimmer devcontainers, right-sized machines, and tighter prebuild scope |
 | [`github-pr-workflow`](copilot-exclusive/github-pr-workflow/SKILL.md) | Use when creating, reviewing, or merging a PR — runs the full PR lifecycle through Copilot's built-in GitHub MCP |
 | [`ide-switching`](copilot-exclusive/ide-switching/SKILL.md) | Use when moving between VS Code and Copilot CLI — transfers context so you don't lose state when switching environments |
 | [`knowledge-curator`](copilot-exclusive/knowledge-curator/SKILL.md) | Use when recurring project lessons should be promoted from session context into durable instructions, docs, or decision records |
@@ -227,6 +228,7 @@ End-to-end development workflow skills — from planning to shipping.
 |-------|-------------|
 | [`commit-workflow`](workflow/commit-workflow/SKILL.md) | Conventional commit messages with emoji, atomic splits, and pre-commit checks |
 | [`cost-audit`](workflow/cost-audit/SKILL.md) | Use when AI inference costs are growing unexpectedly or when comparing model choices by cost/quality ratio — produces an actionable cost reduction plan |
+| [`github-actions-efficiency`](workflow/github-actions-efficiency/SKILL.md) | Use when auditing GitHub Actions workflows for efficiency — reduce CI minutes, tighten trigger scope, fix caching and concurrency, and rank the highest-value improvements |
 | [`council`](workflow/council/SKILL.md) | Use when a decision has multiple credible paths and no obvious winner — convene a four-voice council (Architect, Skeptic, Pragmatist, Critic) for adversarial deliberation |
 | [`deep-research`](workflow/deep-research/SKILL.md) | Use when a question requires comprehensive evidence gathering from multiple sources, systematic synthesis, and traceable citations |
 | [`grill-me`](workflow/grill-me/SKILL.md) | Use when a plan still has hidden assumptions — run a one-question-at-a-time grilling session until dependencies, risks, and decisions are explicit before implementation starts |

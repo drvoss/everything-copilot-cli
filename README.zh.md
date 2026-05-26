@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="100 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="102 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (96 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
+├── skills/                        # Reusable workflow skills (102 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
 │   ├── development/               #   Dev skills (23)
 │   ├── documentation/             #   Doc skills (6)
-│   ├── security/                  #   Security skills (7)
+│   ├── security/                  #   Security skills (11)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (22)
+│   ├── workflow/                  #   Workflow skills (23)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -193,7 +193,10 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # Context presets
-├── references/                    # Checklist & pattern references (5)
+├── references/                    # Checklist & pattern references（根目录 + 子目录共 13 个文件）
+│   ├── github-actions-efficiency/ #   Actions 效率审计参考
+│   ├── github-codespaces-efficiency/ # Codespaces 优化指南
+│   ├── security-scan/             #   按技术栈拆分的安全参考
 │   ├── testing-patterns.md        # AAA structure, mocking, component/API/E2E patterns
 │   ├── security-checklist.md      # OWASP Top 10, auth, input validation, security headers
 │   ├── performance-checklist.md   # Core Web Vitals, frontend/backend optimization
@@ -222,12 +225,12 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 96 个 · 8 个类别）
+### 技能（Skill）（共 102 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
 <details>
-<summary><strong>★ Copilot 专属技能（25）</strong></summary>
+<summary><strong>★ Copilot 专属技能（26）</strong></summary>
 
 利用 GitHub Copilot CLI 独有能力的 skills：
 
@@ -242,6 +245,7 @@ everything-copilot-cli/
 | `github-code-search` | 使用 GitHub 全局代码搜索查找真实实现示例，并将结果注入为上下文 |
 | `github-pr-workflow` | 通过内置 GitHub MCP 完成完整 PR 生命周期 |
 | `github-issue-triage` | 批量 Issue 分类与分诊 |
+| `github-codespaces-efficiency` | 审计 GitHub Codespaces 的启动时间、机器规格、prebuild 范围与成本，并在保留必要开发工具的前提下优化 |
 | `actions-debugging` | 利用原生 Actions 访问能力调试 CI 失败 |
 | `cross-session-memory` | 检索并恢复先前的会话上下文 |
 | `copilot-memory` | 审查并整理 CLI、云代理与代码评审共享的仓库级 Copilot Memory |
@@ -312,22 +316,26 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>安全技能（7）</strong></summary>
+<summary><strong>安全技能（11）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
 | `agent-owasp-check` | 按 OWASP Agentic Security Initiative Top 10 审计 AI agent 系统 |
+| `agent-governance` | 为 AI agent 系统加入策略控制、审批关卡、信任评分与 append-only 审计轨迹 |
+| `agent-supply-chain` | 校验 agent 插件与 MCP bundle 的完整性清单，检测篡改并实施晋级关卡 |
 | `evaluate-repository` | 含 AI agent 治理维度的七维评分卡（1–10）与修复计划 |
+| `gha-security-review` | 审查 GitHub Actions workflow 中的 pwn request、表达式注入、凭证提权等 CI/CD 攻击路径 |
 | `security-scan` | OWASP Top 10 + 依赖审计 |
 | `secret-detection` | 在源码与 git 历史中查找硬编码密钥 |
 | `input-validation` | 防止注入攻击（SQL、XSS、CSRF） |
 | `security-bounty-hunter` | 以漏洞赏金视角进行漏洞挖掘，并提供 PoC 步骤 |
 | `pr-security-review` | 围绕认证、注入、密钥与 OWASP Top 10 的 PR 安全分析 |
+| `threat-model-analyst` | 构建或更新包含信任边界、abuse case 与变更聚焦发现的 STRIDE-A 威胁模型 |
 
 </details>
 
 <details>
-<summary><strong>工作流技能（22）</strong></summary>
+<summary><strong>工作流技能（23）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -340,6 +348,7 @@ everything-copilot-cli/
 | `security-audit` | OWASP Top 10 + STRIDE 威胁建模 |
 | `sprint-retro` | 基于 git 指标的数据驱动复盘 |
 | `cost-audit` | 审计 AI 推理 token 开销，并给出模型/prompt 优化建议 |
+| `github-actions-efficiency` | 审计 GitHub Actions workflow 的 CI minutes、缓存、concurrency、触发范围与浪费执行 |
 | `council` | 为高风险决策召集四方对抗式决策 council |
 | `deep-research` | 系统化多源研究与结构化综合 |
 | `grill-me` | 以一次一个问题的方式拷问方案，直到假设、依赖和风险都被说清 |

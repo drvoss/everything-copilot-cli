@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="100 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="102 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (96개)
-│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (25개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (102개)
+│   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (26개)
 │   ├── development/               #   개발 스킬 (23개)
 │   ├── documentation/             #   문서화 스킬 (6개)
-│   ├── security/                  #   보안 스킬 (7개)
+│   ├── security/                  #   보안 스킬 (11개)
 │   ├── testing/                   #   테스팅 스킬 (5개)
-│   ├── workflow/                  #   워크플로우 스킬 (22개)
+│   ├── workflow/                  #   워크플로우 스킬 (23개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │
@@ -193,7 +193,10 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # 컨텍스트 프리셋
-├── references/                    # 체크리스트 & 패턴 레퍼런스 (5개)
+├── references/                    # 체크리스트 & 패턴 레퍼런스 (루트/하위 디렉터리 포함 13개 파일)
+│   ├── github-actions-efficiency/ #   Actions 효율성 감사 레퍼런스
+│   ├── github-codespaces-efficiency/ # Codespaces 최적화 가이드
+│   ├── security-scan/             #   스택별 보안 가이드
 │   ├── testing-patterns.md        # AAA 구조, mock 전략, 컴포넌트/API/E2E 패턴
 │   ├── security-checklist.md      # OWASP Top 10, 인증, 입력 검증, 보안 헤더
 │   ├── performance-checklist.md   # Core Web Vitals, 프론트/백엔드 최적화
@@ -222,12 +225,12 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 96개 · 8개 카테고리)
+### 스킬 (총 102개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
 <details>
-<summary><strong>★ Copilot 전용 스킬 (25개)</strong></summary>
+<summary><strong>★ Copilot 전용 스킬 (26개)</strong></summary>
 
 GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
@@ -242,6 +245,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `github-code-search` | GitHub 전체 코드 검색을 활용해 실제 구현 예시를 찾고 컨텍스트로 주입 |
 | `github-pr-workflow` | 내장 GitHub MCP를 통한 전체 PR 라이프사이클 |
 | `github-issue-triage` | 이슈 대량 분류 및 트리아지 |
+| `github-codespaces-efficiency` | GitHub Codespaces의 시작 시간, 머신 크기, prebuild 범위, 비용을 점검하고 필요한 개발 도구는 유지한 채 최적화 |
 | `actions-debugging` | 네이티브 Actions 접근으로 CI 실패 디버깅 |
 | `cross-session-memory` | 이전 세션 컨텍스트를 검색하고 재개 |
 | `copilot-memory` | CLI, 클라우드 에이전트, 코드 리뷰가 공유하는 저장소 수준 Copilot 메모리를 검토하고 정리 |
@@ -312,22 +316,26 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>보안 스킬 (7개)</strong></summary>
+<summary><strong>보안 스킬 (11개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `agent-owasp-check` | AI 에이전트 시스템을 OWASP Agentic Security Initiative Top 10 기준으로 점검 |
+| `agent-governance` | AI 에이전트 시스템에 정책 제어, 승인 게이트, 신뢰 점수, append-only 감사 추적을 추가 |
+| `agent-supply-chain` | 에이전트 플러그인과 MCP 번들의 무결성 매니페스트를 검증하고 변조 탐지 및 승격 게이트를 적용 |
 | `evaluate-repository` | AI 에이전트 거버넌스를 포함한 7개 차원 1~10점 보안 스코어카드 + 개선 계획 |
+| `gha-security-review` | GitHub Actions 워크플로우에서 pwn request, 표현식 주입, 자격 증명 상승 같은 CI/CD 공격 경로를 검토 |
 | `security-scan` | OWASP Top 10 + 의존성 감사 |
 | `secret-detection` | 소스 및 git 히스토리에서 하드코딩된 시크릿 탐지 |
 | `input-validation` | SQL/XSS/CSRF 인젝션 공격 방어 |
 | `security-bounty-hunter` | 버그 바운티 관점 취약점 탐색 및 개념 증명 |
 | `pr-security-review` | 인증, 인젝션, 시크릿, OWASP Top 10 중심의 PR 보안 분석 |
+| `threat-model-analyst` | 신뢰 경계, abuse case, 변경 중심 발견을 포함한 STRIDE-A 위협 모델을 구축하거나 갱신 |
 
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (22개)</strong></summary>
+<summary><strong>워크플로우 스킬 (23개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -340,6 +348,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `security-audit` | OWASP Top 10 + STRIDE 위협 모델링 |
 | `sprint-retro` | git 메트릭을 활용한 데이터 기반 회고 |
 | `cost-audit` | AI 토큰 비용 감사 및 모델/프롬프트 최적화 권고 |
+| `github-actions-efficiency` | GitHub Actions 워크플로우의 CI minutes, 캐시, concurrency, 트리거 범위, 낭비 실행을 감사 |
 | `council` | 고위험 의사결정을 위한 네 가지 관점 적대적 토론 패널 |
 | `deep-research` | 체계적 멀티소스 리서치 및 구조화 합성 |
 | `grill-me` | 계획의 숨은 가정, 의존성, 위험이 드러날 때까지 한 번에 한 질문씩 압박 검증 |

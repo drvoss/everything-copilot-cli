@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="100 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="102 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (96 total)
-│   ├── copilot-exclusive/         #   ★ Copilot-only skills (25)
+├── skills/                        # Reusable workflow skills (102 total)
+│   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
 │   ├── development/               #   Dev skills (23)
 │   ├── documentation/             #   Doc skills (6)
-│   ├── security/                  #   Security skills (7)
+│   ├── security/                  #   Security skills (11)
 │   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (22)
+│   ├── workflow/                  #   Workflow skills (23)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -193,7 +193,10 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # Context presets
-├── references/                    # Checklist & pattern references (5)
+├── references/                    # Checklist & pattern references (13 files across root + subdirectories)
+│   ├── github-actions-efficiency/ #   Actions efficiency audit references
+│   ├── github-codespaces-efficiency/ # Codespaces efficiency guidance
+│   ├── security-scan/             #   Stack-specific security guidance
 │   ├── testing-patterns.md        # AAA structure, mocking, component/API/E2E patterns
 │   ├── security-checklist.md      # OWASP Top 10, auth, input validation, security headers
 │   ├── performance-checklist.md   # Core Web Vitals, frontend/backend optimization
@@ -222,12 +225,12 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (96 Total · 8 Categories)
+### Skills (102 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
 <details>
-<summary><strong>★ Copilot-Exclusive Skills (25)</strong></summary>
+<summary><strong>★ Copilot-Exclusive Skills (26)</strong></summary>
 
 Skills that leverage capabilities unique to GitHub Copilot CLI:
 
@@ -242,6 +245,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `github-code-search` | Search GitHub's global code index for real implementation examples and use the results as grounded context |
 | `github-pr-workflow` | Full PR lifecycle via built-in GitHub MCP |
 | `github-issue-triage` | Bulk issue classification and triage |
+| `github-codespaces-efficiency` | Audit GitHub Codespaces startup time, machine sizing, prebuild scope, and spend without stripping required dev tools |
 | `actions-debugging` | Debug CI failures with native Actions access |
 | `cross-session-memory` | Search and resume prior session context |
 | `copilot-memory` | Review and curate repository-level Copilot memory shared across CLI, cloud agent, and code review |
@@ -312,22 +316,26 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Security Skills (7)</strong></summary>
+<summary><strong>Security Skills (11)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `agent-owasp-check` | Audit an AI agent system against the OWASP Agentic Security Initiative Top 10 |
+| `agent-governance` | Add policy controls, approval gates, trust scoring, and append-only audit trails to agent systems |
+| `agent-supply-chain` | Verify integrity manifests, detect tampering, and enforce promotion gates for agent plugins and MCP bundles |
 | `evaluate-repository` | 7-dimension scorecard (1–10) with remediation plan |
+| `gha-security-review` | Review GitHub Actions workflows for exploitable CI/CD attack paths such as pwn requests, expression injection, and credential escalation |
 | `security-scan` | OWASP Top 10 + dependency audit |
 | `secret-detection` | Find hardcoded secrets in source and git history |
 | `input-validation` | Prevent injection attacks (SQL, XSS, CSRF) |
 | `security-bounty-hunter` | Bug-bounty-perspective vuln hunting with proof-of-concept steps |
 | `pr-security-review` | Automated PR security analysis — auth, injection, secrets, OWASP Top 10 |
+| `threat-model-analyst` | Build or update a STRIDE-A threat model with trust boundaries, abuse cases, and change-focused findings |
 
 </details>
 
 <details>
-<summary><strong>Workflow Skills (22)</strong></summary>
+<summary><strong>Workflow Skills (23)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -340,6 +348,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `security-audit` | OWASP Top 10 + STRIDE threat modeling |
 | `sprint-retro` | Data-driven retros using git metrics |
 | `cost-audit` | Audit AI inference token spend and recommend model/prompt optimizations |
+| `github-actions-efficiency` | Audit GitHub Actions workflows for CI minutes, caching, concurrency, trigger scope, and wasted runs |
 | `council` | Convene a 4-voice adversarial decision council for high-stakes choices |
 | `deep-research` | Systematic multi-source research with structured synthesis |
 | `grill-me` | Stress-test a plan with one-question-at-a-time interrogation until assumptions, dependencies, and risks are explicit |
