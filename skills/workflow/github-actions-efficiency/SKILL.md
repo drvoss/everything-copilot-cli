@@ -6,7 +6,7 @@ description: >
 metadata:
   category: workflow
   agent_type: general-purpose
-origin: adapted from github/awesome-copilot github-actions-efficiency (MIT)
+  origin: adapted from github/awesome-copilot github-actions-efficiency (MIT)
 ---
 
 # GitHub Actions Efficiency

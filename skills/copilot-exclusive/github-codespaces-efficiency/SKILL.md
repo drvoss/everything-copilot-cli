@@ -6,7 +6,7 @@ description: >
 metadata:
   category: copilot-exclusive
   agent_type: general-purpose
-origin: adapted from github/awesome-copilot github-codespaces-efficiency (MIT)
+  origin: adapted from github/awesome-copilot github-codespaces-efficiency (MIT)
 ---
 
 # GitHub Codespaces Efficiency
