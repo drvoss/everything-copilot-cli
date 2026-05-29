@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="102 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="104 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (102 total)
+├── skills/                        # Reusable workflow skills (104 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
 │   ├── development/               #   Dev skills (23)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (11)
-│   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (23)
+│   ├── testing/                   #   Test skills (6)
+│   ├── workflow/                  #   Workflow skills (24)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -225,7 +225,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (102 Total · 8 Categories)
+### Skills (104 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -335,11 +335,12 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Workflow Skills (23)</strong></summary>
+<summary><strong>Workflow Skills (24)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `commit-workflow` | Conventional commits + emoji, atomic split guidance |
+| `conventional-branch` | Create or validate Git branch names that follow a conventional type/description format before parallel work starts |
 | `doubt-driven-development` | Challenge a non-trivial decision with a fresh-context adversarial review before it stands |
 | `release` | tag → GitHub Release → publish (npm/PyPI/Docker) |
 | `verification-before-completion` | Prove a task is done with fresh command output before claiming success |
@@ -379,13 +380,14 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Testing Skills (5)</strong></summary>
+<summary><strong>Testing Skills (6)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `test-coverage` | Identify gaps and write targeted tests |
 | `e2e-testing` | E2E test scaffolding for critical paths |
 | `eval-harness` | Build LLM pipeline evaluation suites with SQL-tracked test cases |
+| `qa-review` | Review QA strategy across test pyramid balance, test quality, reliability, and CI defect reporting |
 | `browser-devtools` | Verify frontend behavior at runtime — DOM validation, network inspection, performance profiling |
 | `ux-audit` | Structured usability review with Krug-inspired heuristics and prioritized findings |
 

@@ -105,6 +105,20 @@ Good handoffs usually include:
 
 Skip long narrative unless it changes the next decision.
 
+### 4-A. Make delegated work resumable
+
+If the handoff is crossing sessions, machines, or agents, capture the minimum
+task ledger needed to resume without guesswork:
+
+- current owner and next owner
+- branch or worktree path when one exists
+- current status (`ready`, `blocked`, `awaiting-review`, `needs-verification`)
+- exact resume trigger
+- verifier or synthesizer step if the work fans out
+
+For parallel work, list each active lane separately instead of flattening it into
+one vague status paragraph.
+
 ### 5. Recommend the next skill or workflow
 
 If another skill would help the next session, name it explicitly and explain why.
@@ -130,6 +144,11 @@ exact saved path.
 
 ## Current State
 - ...
+
+## Task Ledger
+| Task | Owner | Status | Resume Trigger |
+|------|-------|--------|----------------|
+| ...  | ...   | ...    | ...            |
 
 ## Key Decisions
 - ...

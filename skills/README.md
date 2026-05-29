@@ -189,6 +189,7 @@ Skills for keeping docs accurate and up-to-date.
 | [`architecture-decisions`](documentation/architecture-decisions/SKILL.md) | Document hard-to-reverse technical decisions as Architecture Decision Records (ADRs) |
 | [`code-tour`](documentation/code-tour/SKILL.md) | Use when a user asks for a code tour, onboarding walkthrough, architecture tour, or PR tour — creates persona-targeted `.tour` files with real file and line anchors |
 | [`doc-update`](documentation/doc-update/SKILL.md) | Sync documentation when implementation changes |
+| [`document-generate`](documentation/document-generate/SKILL.md) | Use when engineering context must become a durable long-form technical document — generate a repo-grounded draft from real code, configs, and workflow evidence |
 
 ### 🔒 Security (`security/`)
 
@@ -214,10 +215,11 @@ Skills for improving test coverage and quality.
 
 | Skill | Description |
 |-------|-------------|
-| [`browser-devtools`](testing/browser-devtools/SKILL.md) | Verify frontend behavior at runtime — DOM validation, network inspection, performance profiling |
+| [`test-coverage`](testing/test-coverage/SKILL.md) | Analyze and improve test coverage |
 | [`e2e-testing`](testing/e2e-testing/SKILL.md) | Write and run end-to-end tests |
 | [`eval-harness`](testing/eval-harness/SKILL.md) | Use when you need to evaluate an LLM pipeline or AI feature systematically — sets up test cases, scoring rubrics, and pass/fail tracking |
-| [`test-coverage`](testing/test-coverage/SKILL.md) | Analyze and improve test coverage |
+| [`qa-review`](testing/qa-review/SKILL.md) | Use when a feature, PR, or release needs a QA-oriented review — checks test pyramid balance, test quality, reliability, and CI reporting gaps |
+| [`browser-devtools`](testing/browser-devtools/SKILL.md) | Verify frontend behavior at runtime — DOM validation, network inspection, performance profiling |
 | [`ux-audit`](testing/ux-audit/SKILL.md) | Use when a page or component feels confusing and you need a structured UX audit — applies 6 Krug-inspired usability checks and returns prioritized findings |
 
 ### 🔄 Workflow (`workflow/`)
@@ -227,6 +229,7 @@ End-to-end development workflow skills — from planning to shipping.
 | Skill | Description |
 |-------|-------------|
 | [`commit-workflow`](workflow/commit-workflow/SKILL.md) | Conventional commit messages with emoji, atomic splits, and pre-commit checks |
+| [`conventional-branch`](workflow/conventional-branch/SKILL.md) | Use when creating or validating a Git branch name — keeps type/description slugs consistent before work begins |
 | [`cost-audit`](workflow/cost-audit/SKILL.md) | Use when AI inference costs are growing unexpectedly or when comparing model choices by cost/quality ratio — produces an actionable cost reduction plan |
 | [`github-actions-efficiency`](workflow/github-actions-efficiency/SKILL.md) | Use when auditing GitHub Actions workflows for efficiency — reduce CI minutes, tighten trigger scope, fix caching and concurrency, and rank the highest-value improvements |
 | [`council`](workflow/council/SKILL.md) | Use when a decision has multiple credible paths and no obvious winner — convene a four-voice council (Architect, Skeptic, Pragmatist, Critic) for adversarial deliberation |

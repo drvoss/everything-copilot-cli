@@ -61,6 +61,7 @@ Include:
 - `blocked_patterns`
 - `max_calls_per_request`
 - `require_human_approval`
+- `tool_policies`
 
 Example shape:
 
@@ -77,9 +78,20 @@ blocked_patterns:
 max_calls_per_request: 25
 require_human_approval:
   - send_email
+tool_policies:
+  shell_exec:
+    rate_limit: 3/hour
+    approval: required
+    justification: ticket-or-incident
+  query_database:
+    rate_limit: 30/request
+    approval: not-required
 ```
 
 Use "most restrictive wins" when composing org-wide, team, and agent-specific policies.
+When a system supports a `ToolPolicy` schema, keep rate-limit, approval, and
+justification guards in that policy layer instead of scattering them across
+prompts, docs, and handler code.
 
 ### 2. Classify intent before tool execution
 
@@ -129,6 +141,19 @@ Use trust thresholds to choose between:
 
 Trust should decay over time so stale reputation does not behave like permanent trust.
 
+### 4-A. Harden trust boundaries explicitly
+
+If remote identities, signed delegates, or service-issued agent credentials affect
+authorization, define the trust boundary before enabling autonomy:
+
+- which issuers are trusted
+- where keys come from (for example, JWKS or another signed metadata source)
+- how revocation or key rotation is handled
+- which agent roles are allowed to cross each boundary
+
+Do not let planner, worker, verifier, and synthesizer roles silently share one
+flat trust zone when their permissions differ.
+
 ### 5. Keep an append-only audit trail
 
 For every governed action, log:
@@ -151,13 +176,29 @@ Export to JSONL or another append-only form that works with later incident revie
 | **Strict** | Standard + approval on sensitive tools | regulated or customer-facing systems |
 | **Locked** | Allowlist only + full audit + no dynamic tools | compliance-critical environments |
 
+### 7. Reference the right specification layer
+
+As systems mature, separate the governance contract into a few explicit layers:
+
+- identity and key-discovery rules
+- trust-boundary and delegation rules
+- MCP or tool transport security assumptions
+- audit sink and retention behavior
+- SRE and incident response ownership
+- external compliance mappings such as EU AI Act obligations when they matter
+
+This keeps tool policy, identity, trust, and audit requirements reviewable instead
+of burying them in one prose blob.
+
 ## Implementation Checklist
 
 - [ ] Define policy in YAML or JSON rather than scattering checks through code
 - [ ] Add intent classification before tool execution
 - [ ] Enforce allow/deny/review decisions at the tool boundary
+- [ ] Tool policies capture rate limits, approvals, and justification requirements explicitly
 - [ ] Add rate limits or per-request call budgets
 - [ ] Record trust scores for delegated agents
+- [ ] Remote trust boundaries document issuer, key discovery, and revocation behavior
 - [ ] Export an append-only audit trail
 - [ ] Fail closed when governance checks error
 

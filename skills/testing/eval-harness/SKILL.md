@@ -263,6 +263,35 @@ Example rubric:
 Use trajectory evaluation when the workflow itself matters — especially multi-step agent
 systems, tool-using assistants, or retry-heavy pipelines.
 
+### Trajectory argument matching
+
+When a trajectory check depends on tool inputs, compare normalized arguments rather
+than raw payloads when possible.
+
+Good ignore candidates:
+
+- timestamps
+- request IDs
+- signatures or auth headers
+- optional defaults injected by the runtime
+
+If the same volatile field appears in repeated nested structures, support glob-style
+ignore paths so the matcher stays maintainable instead of listing every index by hand.
+
+Example shape:
+
+```json
+{
+  "assertion": "trajectory:tool-args-match",
+  "ignore": [
+    "headers.authorization",
+    "steps[*].request_id",
+    "steps[*].metadata.timestamp"
+  ],
+  "tolerate_optional_defaults": true
+}
+```
+
 ## Common Mistakes
 
 | Mistake | Fix |

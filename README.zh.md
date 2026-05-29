@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="102 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="104 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (102 total)
+├── skills/                        # Reusable workflow skills (104 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
 │   ├── development/               #   Dev skills (23)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (11)
-│   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (23)
+│   ├── testing/                   #   Test skills (6)
+│   ├── workflow/                  #   Workflow skills (24)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -225,7 +225,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 102 个 · 8 个类别）
+### 技能（Skill）（共 104 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -335,11 +335,12 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>工作流技能（23）</strong></summary>
+<summary><strong>工作流技能（24）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
 | `commit-workflow` | Conventional commits + emoji，以及原子化拆分指导 |
+| `conventional-branch` | 在并行工作开始前，以 conventional 的类型/描述格式创建或校验 Git 分支名 |
 | `doubt-driven-development` | 在非平凡决策落定前，用 fresh-context 对抗式审查先尝试证伪 |
 | `release` | tag → GitHub Release → 发布（npm/PyPI/Docker） |
 | `verification-before-completion` | 在宣称完成前，用最新命令输出证明任务确实完成 |
@@ -379,13 +380,14 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>测试技能（5）</strong></summary>
+<summary><strong>测试技能（6）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
 | `test-coverage` | 识别覆盖缺口并编写有针对性的测试 |
 | `e2e-testing` | 为关键路径搭建 E2E 测试脚手架 |
 | `eval-harness` | 构建带 SQL 跟踪测试用例的 LLM pipeline 评估套件 |
+| `qa-review` | 从 QA 视角审查测试金字塔分布、测试质量、可靠性与 CI 缺陷报告 |
 | `browser-devtools` | 在运行时验证前端行为——DOM 校验、网络检查、性能分析 |
 | `ux-audit` | 用 Krug 风格可用性启发式检查界面，并输出带优先级的问题列表 |
 

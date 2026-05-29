@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="102 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="104 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (102개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (104개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (26개)
 │   ├── development/               #   개발 스킬 (23개)
 │   ├── documentation/             #   문서화 스킬 (6개)
 │   ├── security/                  #   보안 스킬 (11개)
-│   ├── testing/                   #   테스팅 스킬 (5개)
-│   ├── workflow/                  #   워크플로우 스킬 (23개)
+│   ├── testing/                   #   테스팅 스킬 (6개)
+│   ├── workflow/                  #   워크플로우 스킬 (24개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │
@@ -225,7 +225,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 102개 · 8개 카테고리)
+### 스킬 (총 104개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -335,11 +335,12 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (23개)</strong></summary>
+<summary><strong>워크플로우 스킬 (24개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `commit-workflow` | 컨벤셔널 커밋 + 이모지, 원자적 분할 가이드 |
+| `conventional-branch` | 병렬 작업 전에 Git 브랜치 이름을 컨벤셔널 타입/설명 형식으로 생성하거나 검증 |
 | `doubt-driven-development` | 비사소한 결정을 굳히기 전에 fresh-context 적대적 리뷰로 검증 |
 | `release` | 태그 → GitHub Release → 배포 (npm/PyPI/Docker) |
 | `verification-before-completion` | 완료 주장 전에 새 명령 출력으로 작업 완료를 증명 |
@@ -379,13 +380,14 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>테스팅 스킬 (5개)</strong></summary>
+<summary><strong>테스팅 스킬 (6개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `test-coverage` | 커버리지 갭 식별 및 타겟 테스트 작성 |
 | `e2e-testing` | 핵심 사용자 경로 E2E 테스트 스캐폴딩 |
 | `eval-harness` | SQL 추적 테스트 케이스로 LLM 파이프라인 평가 스위트 구축 |
+| `qa-review` | 테스트 피라미드 균형, 테스트 품질, 신뢰성, CI 결함 보고 체계를 QA 관점에서 리뷰 |
 | `browser-devtools` | 브라우저 DevTools로 런타임 DOM, 네트워크, 성능 검증 |
 | `ux-audit` | Krug 계열 휴리스틱으로 사용성을 점검하고 우선순위 이슈를 정리 |
 

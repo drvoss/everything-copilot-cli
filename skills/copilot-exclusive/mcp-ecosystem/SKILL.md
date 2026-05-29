@@ -126,6 +126,24 @@ Create `.mcp.json` in your repo:
 }
 ```
 
+### 2-A. Review server dependencies before trusting them
+
+Treat an MCP server like any other runtime dependency:
+
+1. identify the package or image version actually deployed
+2. check recent advisories before standardizing it
+3. prefer pinned versions over floating `latest`
+
+For Node-based MCP servers or companion dashboards that depend on transport
+libraries such as `ws`, verify the effective version is patched and confirm the
+reason in upstream release notes or your advisory feed before standardizing it.
+
+```text
+npm ls ws
+npm audit --omit=dev
+pip show <package-name>
+```
+
 ### 3. Inspect Configured Servers
 
 Use the CLI to inspect what Copilot currently sees:
@@ -152,6 +170,32 @@ Copilot automatically discovers and can use all registered MCP tools.
 
 If a configured server is missing, check `copilot mcp list`, then inspect the specific entry with
 `copilot mcp get <name>`.
+
+### 5-A. Transport-specific cautions
+
+Not every transport should reuse sessions the same way:
+
+| Transport | Default stance | What to watch |
+|-----------|----------------|---------------|
+| stdio | reuse cautiously | command path, env injection, process lifetime |
+| HTTP / SSE | isolation first | some backends intentionally skip session pooling for these transports; confirm auth, state, and retry behavior per request |
+| WebSocket | persistent but patched | heartbeat, timeout, reconnect behavior, and vulnerable `ws` versions |
+
+If you standardize an HTTP or SSE server, document whether it is safe to pool
+sessions or whether each request should create fresh state.
+
+### 5-B. Heavy-analysis MCP servers
+
+Some MCP servers can shift from lightweight indexing to heavier background
+analysis as they evolve. If you use a codebase-memory or indexing server,
+verify whether LSP-backed analysis is opt-in or effectively always on in the
+version you deploy.
+
+Verify:
+
+- startup CPU and memory impact
+- whether the repo actually benefits from live indexing
+- whether the team wants that server enabled everywhere or only on demand
 
 ### 6. Use Context7 for Live Documentation
 
@@ -293,6 +337,8 @@ copilot mcp get <name>
 | Server is listed but tools are unavailable in-session | Session loaded a different config state | Use `/env` to inspect loaded MCP servers for the current session |
 | Remote server fails to respond | URL, auth header, or timeout issue | Re-check the remote endpoint and any `--header` values |
 | Local stdio server fails | Command path or dependencies are missing | Run the command manually and inspect its stderr outside Copilot |
+| HTTP or SSE server behaves inconsistently between requests | Unsafe session reuse assumption | Confirm whether the backend supports pooling for that transport or expects fresh state per request |
+| Server installs cleanly but acts unstable after upgrade | Dependency advisory or runtime-mode change | Re-check package versions, advisories, and whether heavy features such as always-on LSP changed defaults |
 
 ## Tips
 
@@ -306,6 +352,10 @@ copilot mcp get <name>
   of config files.
 - **Inspect before you trust**: `copilot mcp list` and `copilot mcp get` are the
   fastest way to verify that Copilot is seeing the server definition you expect.
+- **Audit MCP dependencies explicitly**: treat the server package, transport library,
+  and companion UI as part of the security surface before rollout.
+- **Treat HTTP/SSE as isolation-first**: confirm whether the backend intentionally
+  avoids pooling before you optimize for reuse.
 - **Re-check fast-moving MCP tools**: Context7 evolves quickly — run `npx ctx7 setup` to
   get the latest version and confirm its MCP tool names (`resolve-library-id`, `query-docs`)
   match what your agent expects before standardizing new team workflows.

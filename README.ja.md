@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="102 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="104 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (102 total)
+├── skills/                        # Reusable workflow skills (104 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
 │   ├── development/               #   Dev skills (23)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (11)
-│   ├── testing/                   #   Test skills (5)
-│   ├── workflow/                  #   Workflow skills (23)
+│   ├── testing/                   #   Test skills (6)
+│   ├── workflow/                  #   Workflow skills (24)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -225,7 +225,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計102・8カテゴリ）
+### スキル（合計104・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
@@ -335,11 +335,12 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（23）</strong></summary>
+<summary><strong>ワークフロー Skills（24）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
 | `commit-workflow` | Conventional commit + emoji、atomic split ガイダンス |
+| `conventional-branch` | 並列作業の前に Git branch 名を conventional な type/description 形式で作成または検証します |
 | `doubt-driven-development` | 非自明な判断を確定させる前に fresh-context の adversarial review で揺さぶります |
 | `release` | tag → GitHub Release → publish（npm/PyPI/Docker） |
 | `verification-before-completion` | 完了を主張する前に新しい command 出力で本当に終わったことを証明します |
@@ -379,13 +380,14 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>テスト Skills（5）</strong></summary>
+<summary><strong>テスト Skills（6）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
 | `test-coverage` | ギャップを特定し、狙いを定めた test を作成します |
 | `e2e-testing` | 重要経路向け E2E test scaffolding |
 | `eval-harness` | SQL 追跡 test case 付きで LLM pipeline 評価スイートを構築します |
+| `qa-review` | test pyramid の配分、test 品質、信頼性、CI の defect reporting を QA 観点でレビューします |
 | `browser-devtools` | 実行時 frontend 挙動を検証します（DOM 検証、network 検査、performance profiling） |
 | `ux-audit` | Krug 系ヒューリスティクスで usability を点検し、優先度付きの課題を返します |
 
