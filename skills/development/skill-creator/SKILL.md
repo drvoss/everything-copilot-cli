@@ -234,6 +234,9 @@ metadata:
   Write criteria an agent can check with a command or an observable outcome.
 - **Port the job, not the syntax**: preserve the workflow value from upstream sources,
   but translate slash commands, hooks, and agent primitives into Copilot CLI equivalents.
+- **Keep stable lessons separate from churn**: if repeated reviews keep teaching the same
+  high-level correction, consider one clearly marked longitudinal guidance subsection instead of
+  scattering tiny edits across the whole skill.
 - **Link related skills**: skills are more powerful when chained. Cross-reference skills
   in "See Also" or "Tips" sections.
 - **Use this skill first**: before creating any new skill in this repository, run

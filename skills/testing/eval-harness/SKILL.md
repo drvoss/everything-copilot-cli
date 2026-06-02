@@ -292,6 +292,46 @@ Example shape:
 }
 ```
 
+### Failure-driven improvement loop
+
+When the same eval cases fail repeatedly, turn the failures into **bounded edit hypotheses** for
+the prompt, policy, or skill instead of making broad speculative rewrites.
+
+Good bounded edit types:
+
+- add one missing instruction
+- delete one conflicting instruction
+- replace one ambiguous step with a clearer constraint
+
+Accept an edit only if it improves held-out or regression-tracked cases, not just the failure that
+inspired it.
+
+### Rejected edit buffer
+
+Track failed edit ideas so the harness does not keep retrying the same bad patch in slightly
+different wording.
+
+Build the `fingerprint` from the combination of:
+
+- target artifact path
+- edit type (`add`, `delete`, `replace`)
+- the specific failing case IDs or cluster label
+- the proposed edit itself, keyed consistently enough to avoid retrying the same hypothesis under a
+  new human summary label
+
+```sql
+CREATE TABLE IF NOT EXISTS rejected_edits (
+    fingerprint TEXT PRIMARY KEY,
+    target_artifact TEXT,
+    based_on_cases TEXT,
+    rationale TEXT,
+    failed_at TEXT
+);
+```
+
+Before applying another prompt or skill patch, check whether the same hypothesis already failed
+under comparable cases. If it did, change the hypothesis rather than repeating the edit.
+
 ## Common Mistakes
 
 | Mistake | Fix |

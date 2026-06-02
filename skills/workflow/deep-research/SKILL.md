@@ -38,6 +38,8 @@ Conduct systematic multi-source research with traceable citations and structured
 - Search CLI or repo-specific web search helpers — use them as the preferred discovery layer when
   they are already available in your environment, then fetch the final URLs with `web_fetch` for
   evidence capture and citations
+- `defuddle` — extract clean markdown from cluttered public web pages before summarizing or filing
+  evidence
 
 **Optional via MCP (if configured):**
 
@@ -45,6 +47,15 @@ Conduct systematic multi-source research with traceable citations and structured
 - Exa — semantic web search with real results
 
 If you only have `web_fetch`, use targeted URL fetches. Prefer primary sources (papers, official docs, specification pages) over aggregators.
+
+If `defuddle` is installed and the page is a clutter-heavy HTML article or docs site, normalize it
+first:
+
+```powershell
+defuddle parse <url> --md
+```
+
+Do not use this for URLs that already end in `.md`, authenticated pages, or JSON/API endpoints.
 
 See `mcp-configs/` for MCP server configuration if you want Firecrawl or Exa.
 

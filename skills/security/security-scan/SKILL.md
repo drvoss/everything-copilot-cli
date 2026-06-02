@@ -140,6 +140,34 @@ grep -rni "cors\|Access-Control-Allow-Origin" src/ --include="*.ts"
 grep -rni "helmet\|csrf\|xss\|sanitize" src/ --include="*.ts"
 ```
 
+#### 4-A. Sensitive bootstrap and execution surfaces
+
+Treat repository-contained startup and build-entry files as security-sensitive
+execution surfaces, not ordinary text files.
+
+```powershell
+# Inventory repo-contained bootstrap/config files worth extra review
+$bootstrapFiles = git --no-pager ls-files --cached --others --exclude-standard |
+  Select-String "(^|/)(\.bashrc|\.zshrc|\.profile|\.bash_profile|\.zprofile|\.bash_logout|Makefile|pyproject\.toml|package\.json|[^/]+\.sh)$" |
+  ForEach-Object { $_.Line }
+
+# Look for script hooks or fetched-content execution in those files
+if ($bootstrapFiles) {
+  Select-String -Path $bootstrapFiles -Pattern "preinstall|postinstall|prepare|curl|wget|Invoke-WebRequest|iex|eval|bash -c|sh -c|source "
+}
+```
+
+Review especially:
+
+- repo-contained shell profile or startup files that modify PATH, aliases, shell functions, or
+  bootstrap commands
+- `package.json` script hooks such as `preinstall`, `postinstall`, or `prepare`
+- `pyproject.toml` build-system and tool configuration that can alter packaging or code execution
+- `Makefile` targets used for setup, bootstrap, release, or developer environment initialization
+
+If these files download remote content, invoke shells dynamically, or run before ordinary developer
+review, treat them as higher-priority findings.
+
 ### 5. Generate Report (quick checklist)
 
 For standard scans or ongoing work, use a lightweight checklist format:

@@ -18,7 +18,7 @@ reached from a realistic external trigger.
 
 ## When to Use
 
-- Reviewing `.github/workflows/*.yml` changes before merge
+- Reviewing `.github/workflows/*.yml` or `.github/workflows/*.yaml` changes before merge
 - Auditing a repository that runs PR, issue comment, or reusable workflow automation
 - Checking whether workflow files expose secrets, write tokens, or command execution
 - Investigating CI/CD compromise paths involving fork PRs or untrusted workflow inputs
@@ -56,7 +56,7 @@ If exploitation requires write access, do not report it as an in-scope finding.
 
 Review:
 
-- `.github/workflows/*.yml`
+- `.github/workflows/*.yml` or `.github/workflows/*.yaml`
 - `action.yml` or `action.yaml`
 - local reusable actions under `.github/actions/`
 - config or scripts loaded by workflows such as `AGENTS.md`, `CLAUDE.md`, `Makefile`, and shell scripts
@@ -64,7 +64,9 @@ Review:
 Start by listing relevant files:
 
 ```powershell
-git ls-files ".github/workflows/*" ".github/actions/*" "action.yml" "action.yaml" "Makefile" "AGENTS.md" "CLAUDE.md"
+git --no-pager ls-files --cached --others --exclude-standard |
+  Select-String "^(\\.github/(workflows|actions)/.+|scripts/.+|.+\\.sh|action\\.ya?ml|Makefile|AGENTS\\.md|CLAUDE\\.md)$" |
+  ForEach-Object { $_.Line }
 ```
 
 ### 2. Classify triggers first
@@ -88,7 +90,7 @@ Only continue down exploit paths that fit the threat model above.
 Look for `pull_request_target` combined with checkout or execution of fork-controlled code.
 
 ```powershell
-git --no-pager grep -n "pull_request_target|actions/checkout|github.event.pull_request.head" -- ".github/workflows/*.yml"
+git --no-pager grep -n "pull_request_target|actions/checkout|github.event.pull_request.head" -- ".github/workflows"
 ```
 
 Report when all three are true:
@@ -102,7 +104,7 @@ Report when all three are true:
 Look for attacker-controlled `${{ ... }}` expressions inside `run:` blocks.
 
 ```powershell
-git --no-pager grep -n "\${{.*}}" -- ".github/workflows/*.yml"
+git --no-pager grep -n "\${{.*}}" -- ".github/workflows"
 ```
 
 Safe patterns to **not** report:
@@ -149,6 +151,40 @@ Check for:
 - broad `permissions:` blocks
 - self-hosted runner exposure
 - unsafe cache or artifact reuse
+
+#### 3-G. Diff-Driven Filename Injection
+
+Workflows that collect changed files and feed them into shell commands can become exploitable when
+attacker-controlled filenames are interpolated into command strings.
+
+Check for diff-driven file handling first:
+
+```powershell
+$workflowFiles = git --no-pager ls-files --cached --others --exclude-standard |
+  Select-String "^(\\.github/(workflows|actions)/.+|scripts/.+|.+\\.sh)$" |
+  ForEach-Object { $_.Line }
+if ($workflowFiles) {
+  Select-String -Path $workflowFiles -Pattern "git diff --name-only|git diff-tree|GITHUB_OUTPUT|xargs|for file in|while read"
+}
+```
+
+Prefer these patterns:
+
+1. **NUL-delimited parsing** for changed files:
+   `git diff --name-only -z ... | while IFS= read -r -d '' file; do ...; done`
+2. **Data-only workflow outputs** written to `$GITHUB_OUTPUT` or environment files, rather than
+   constructing one shell command that embeds filenames directly. When a filename must cross a
+   workflow boundary, encode it safely first (for example JSON, Base64, or another structured
+   representation that preserves control characters)
+3. **Array-based execution** in shell steps:
+   `CMD=("tool" "$file"); "${CMD[@]}"`
+
+Do not trust:
+
+- `git diff --name-only` output pasted directly into `run:` command strings
+- PR titles, branch names, or filenames concatenated into shell code
+- raw filename writes to `$GITHUB_OUTPUT` or env files without control-character-safe encoding
+- `xargs` or `for` loops that split on whitespace when filenames may contain special characters
 
 ### 4. Validate each finding before reporting
 
@@ -209,6 +245,7 @@ Use this structure:
 - long-lived secrets reachable from untrusted code paths
 - third-party actions pinned by tag instead of full SHA
 - PR-controlled config files used as workflow instructions
+- diff-derived filenames interpolated into shell commands without NUL-safe parsing or array passing
 
 ## Verification
 
