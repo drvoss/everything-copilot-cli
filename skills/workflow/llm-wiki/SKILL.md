@@ -100,7 +100,9 @@ This prevents duplicate pages, inconsistent tags, and missed cross-links.
 
 When the user provides a URL, file, transcript, or pasted text:
 
-1. save the raw source under `raw/`
+1. save the raw source under `raw/`; if the source is a clutter-heavy public HTML page,
+   normalize it first with `defuddle parse <url> --md` before saving — skip for `.md` URLs,
+   authenticated pages, or JSON/API endpoints
 2. inspect whether the topic already exists
 3. create or update only the pages that meet the wiki's page threshold
 4. add backlinks and update `index.md`
