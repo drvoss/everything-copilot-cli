@@ -14,6 +14,7 @@ metadata:
 - As part of a security review gate before production deployment
 - When onboarding a new open-source project — quick trust assessment
 - Periodic audits of your own repository for hygiene regressions
+- Before granting broad write, review, or merge autonomy to a coding agent
 
 ## Prerequisites
 
@@ -165,6 +166,18 @@ git --no-pager grep -n "maxTokens\|max_tokens\|timeout\|rate_limit\|maxRetries" 
 
 # Look for tool access controls or allowlists
 git --no-pager grep -n "allowedTools\|toolWhitelist\|allowlist\|tool_guard" -- "*.ts" "*.js" "*.py"
+
+# Check maintainer-controlled agent instructions and MCP configs
+git ls-files | Where-Object {
+  $_ -match '(^|/)(AGENTS\.md|CLAUDE\.md|GEMINI\.md|SKILL\.md|\.mcp\.json|mcp-config\.json)$'
+}
+
+# Check whether untrusted GitHub event text can reach automation paths
+git --no-pager grep -n "issue_comment|pull_request|pull_request_target|workflow_run|repository_dispatch" --
+  ".github/workflows/*.yml" ".github/workflows/*.yaml"
+
+# Check whether prior agent runs leave reviewable traces or artifacts
+git ls-files | Where-Object { $_ -match '(^|/)(runs|traces|artifacts)/' }
 ```
 
 Use this dimension only when the repo actually contains agentic behavior. If no such
@@ -176,6 +189,16 @@ surface exists, mark the dimension `N/A` and exclude it from the average.
 - No resource caps exist for agent runs (tokens, retries, time)
 - Untrusted external content is injected directly into prompts or memory
 - No audit trail exists for agent actions or tool calls
+- Maintainer-controlled agent instructions or MCP configs are absent, contradictory, or unreviewed
+- GitHub event payloads, PR comments, or issue text can steer automation without an explicit trust boundary
+- No reviewable traces exist for previous automated runs, so readiness claims cannot be verified
+
+**Readiness evidence to collect before enabling automation broadly:**
+
+- scorecard-style summary with explicit blockers
+- status of maintainer-controlled instruction files (`AGENTS.md`, `SKILL.md`, MCP config)
+- whether untrusted event text is treated as data instead of executable instruction
+- traces, logs, or prior run artifacts that justify the claimed safety level
 
 ### 3. Generate Scorecard
 

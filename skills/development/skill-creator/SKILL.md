@@ -170,6 +170,25 @@ Before finalizing the skill, answer:
 3. What is the nearest Copilot-native equivalent?
 4. Should the result be a new skill, or an update to an existing one?
 
+### 4-A. Audit activation and collision risk
+
+Before you keep a new `name` + `description` pair, test whether the skill is actually
+likely to load and whether it would shadow an adjacent skill.
+
+Check at least:
+
+1. **Trigger clarity** - would a user naturally phrase the request this way, or is the
+   description too generic to win routing?
+2. **Adjacency** - does another local skill already own the same trigger surface more
+   clearly?
+3. **Prompt simulation** - try 3-5 realistic phrasings, including one terse
+   code-oriented phrasing and one broader planning/review phrasing. If two skills seem
+   equally plausible, sharpen the description or merge the concept into the existing
+   skill instead of adding another near-duplicate.
+4. **Cross-model robustness** - avoid descriptions that only make sense in one host's
+   naming conventions. Prefer portable verbs like "review", "audit", "debug", "plan",
+   or "verify" over vendor-specific slash-command language.
+
 ### 5. Validate
 
 ```powershell
@@ -194,6 +213,8 @@ After generating a new skill, verify:
 - [ ] Frontmatter has `name`, `description`, and `metadata.category`
 - [ ] File name is kebab-case and matches `name` in frontmatter
 - [ ] Source-specific concepts were translated into Copilot-native primitives instead of copied blindly
+- [ ] The `name` + `description` pair is specific enough to trigger on real user phrasing
+- [ ] Adjacent skills were checked for collisions or silent shadowing before adding a new one
 - [ ] "When to Use" section has ≥ 3 concrete trigger scenarios
 - [ ] "When NOT to Use" table directs to alternatives
 - [ ] Workflow has numbered steps with concrete commands or examples

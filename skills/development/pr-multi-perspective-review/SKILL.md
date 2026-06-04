@@ -54,13 +54,18 @@ Use fleet mode to run all 6 perspectives simultaneously:
 >   4. Security lens: vulnerabilities, secrets, auth, input validation
 >   5. DevOps lens: CI/CD impact, performance, observability, rollback
 >   6. UX lens: user-facing changes, error messages, accessibility
+>   7. Optional Staff lens: system-level risk, rollout readiness, ownership burden
 > Each agent should output: [PASS/CONCERN/BLOCK] + findings as bullet list.
-> Final agent: synthesize all 6 outputs into a single review comment.
+> Final agent: synthesize all active lens outputs into a single review comment.
 ```
 
 ---
 
 ### The 6 Perspectives
+
+For architecture-heavy, rollout-sensitive, or cross-team changes, add the optional
+**Staff Engineer lens** below instead of assuming the regular Dev lens covers
+system-level risk.
 
 #### 1. 📋 PM Lens — Business & Requirements
 
@@ -218,11 +223,29 @@ gh pr view $pr --json files | ConvertFrom-Json | Select-Object -ExpandProperty f
 - Finding 1 (or "N/A — no user-facing changes")
 ```
 
+#### 7. 🧭 Staff Engineer Lens — Systemic Risk & Change Readiness *(Optional)*
+
+*Use this lens for high-blast-radius PRs: migrations, platform changes, major rollout
+plans, reliability work, or changes that alter long-term ownership burden.*
+
+**Questions to answer:**
+
+- Does this change add hidden operational burden, coupling, or long-term maintenance cost?
+- Does the rollout, rollback, or migration plan match the blast radius?
+- Are ownership, observability, and failure recovery clear if this change goes wrong?
+- Would splitting the change reduce review risk or release risk materially?
+
+```text
+[STAFF] STATUS: PASS / CONCERN / BLOCK
+- Finding 1
+- Finding 2
+```
+
 ---
 
 ### Final Synthesis
 
-After all 6 lenses complete, compile the summary:
+After all active lenses complete, compile the summary:
 
 ```markdown
 ## Multi-Perspective Review: PR #123
@@ -250,6 +273,8 @@ After all 6 lenses complete, compile the summary:
 - **BLOCK is a hard stop** — any single BLOCK means the PR should not merge until resolved
 - **CONCERN is advisory** — capture it as a follow-up issue if not fixing now
 - **Skip irrelevant lenses** — if the PR has no UI changes, mark UX as N/A upfront
+- **Add Staff when the blast radius is real** — migrations, infra, platform, or
+  multi-service changes benefit from a system-level lens
 - **Fleet version scales better** — for large PRs (>500 lines), fleet runs 6x faster than sequential
 - **Post as PR comment**: use `gh pr comment $pr --body-file review.md` to submit the synthesis
 
