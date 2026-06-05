@@ -173,8 +173,7 @@ git ls-files | Where-Object {
 }
 
 # Check whether untrusted GitHub event text can reach automation paths
-git --no-pager grep -n "issue_comment|pull_request|pull_request_target|workflow_run|repository_dispatch" --
-  ".github/workflows/*.yml" ".github/workflows/*.yaml"
+git --no-pager grep -n "issue_comment\|pull_request\|pull_request_target\|workflow_run\|repository_dispatch" -- ".github/workflows/*.yml" ".github/workflows/*.yaml"
 
 # Check whether prior agent runs leave reviewable traces or artifacts
 git ls-files | Where-Object { $_ -match '(^|/)(runs|traces|artifacts)/' }
