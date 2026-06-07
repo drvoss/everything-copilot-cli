@@ -218,7 +218,8 @@ session tokens, authorization headers, or unnecessary personal data verbatim.
 
 ### Medium
 - **[SEC-003] Weak Secret Handling** `src/auth/config.ts:8` — Fallback development secret is
-  hardcoded in source. Report the finding, but redact the literal value as `[REDACTED]` when sharing evidence.
+  hardcoded in source. Move it to environment configuration. Report the finding with the literal
+  value redacted as `[REDACTED]` when sharing evidence.
 ````
 
 If the user wants a written report, write it to a path they specify. Otherwise, present the
