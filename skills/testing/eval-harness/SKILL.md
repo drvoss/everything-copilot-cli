@@ -96,6 +96,26 @@ Rubric types (choose appropriate ones):
 | `semantic_similarity` | open-ended generation; threshold 0.80 |
 | `human_review` | subjective quality, creativity |
 | `format_check` | JSON schema, Markdown structure, length |
+| `multimodal_rubric` | images, diagrams, code execution artifacts, or other non-text outputs |
+
+### 3-A. Design multimodal rubrics for non-text outputs
+
+When the system produces more than plain text, grade the artifact type directly instead of forcing
+it into a text-only rubric.
+
+| Output type | Score dimensions | Typical evidence |
+|-------------|------------------|------------------|
+| Image or screenshot | visual correctness, missing elements, safety, readability | referenced artifact plus a short judge explanation |
+| Diagram | semantic accuracy, completeness, structure, label clarity | rendered diagram or exported source |
+| Code execution result | correctness, determinism, error handling, side effects | logs, exit status, snapshots, or produced files |
+| Structured file (JSON, CSV, YAML) | schema validity, field completeness, value plausibility | validator output plus sampled rows |
+
+Guidelines:
+
+- store or reference the artifact being graded so the judge can inspect the actual output, not a lossy paraphrase
+- define one rubric per artifact type with explicit pass/fail thresholds
+- score safety and policy compliance separately from usefulness when the artifact could be harmful even if technically correct
+- if the output cannot be judged reliably by automation, mark it `human_review` instead of pretending the rubric is objective
 
 ### 4. Track runs in SQL
 

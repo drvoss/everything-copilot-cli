@@ -127,6 +127,10 @@ grep -rni "AKIA[0-9A-Z]\{16\}\|ghp_[a-zA-Z0-9]\{36\}\|sk-[a-zA-Z0-9]\{48\}" src/
 git --no-pager ls-files | Select-String "\.env$|\.env\." | Select-String -NotMatch "\.example|\.template"
 ```
 
+Treat secret matches as toxic output: do not paste raw credential values into chat, Markdown reports,
+or issue comments. When a grep or `secret-detection` run hits a live-looking value, report the
+finding as `path:line - potential secret [REDACTED]` and keep only the evidence needed for remediation.
+
 ### 4. Configuration Security
 
 ```powershell
@@ -172,7 +176,9 @@ review, treat them as higher-priority findings.
 
 For standard scans or ongoing work, use a lightweight checklist format:
 
-Document findings with severity, location, and remediation:
+Document findings with severity, location, and remediation.
+Redact API keys, passwords, tokens, private keys, connection strings, and direct PII values in the
+report body; keep file path, line number, and finding type, but mask the value as `[REDACTED]` or `***`.
 
 ```markdown
 ## Security Scan Results — [Date]
@@ -185,6 +191,7 @@ Document findings with severity, location, and remediation:
 
 ### Medium
 - [ ] Missing CSRF protection on POST /api/users
+- [ ] Potential GitHub token in src/config.ts:18 — value redacted as [REDACTED]
 
 ### Low
 - [ ] Console.log contains user email in src/auth/login.ts:15
@@ -194,6 +201,9 @@ Document findings with severity, location, and remediation:
 
 When the user explicitly asks for a security review or best-practices report, prefer numbered
 findings with evidence:
+
+Apply the same redaction rule here: include enough evidence to act, but never reproduce secret values,
+session tokens, authorization headers, or unnecessary personal data verbatim.
 
 ````markdown
 ## Security Scan Results — [Date]
@@ -208,7 +218,7 @@ findings with evidence:
 
 ### Medium
 - **[SEC-003] Weak Secret Handling** `src/auth/config.ts:8` — Fallback development secret is
-  hardcoded in source. Move it to environment configuration.
+  hardcoded in source. Report the finding, but redact the literal value as `[REDACTED]` when sharing evidence.
 ````
 
 If the user wants a written report, write it to a path they specify. Otherwise, present the

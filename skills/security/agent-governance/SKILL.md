@@ -61,6 +61,7 @@ Include:
 - `blocked_patterns`
 - `max_calls_per_request`
 - `require_human_approval`
+- `profile`
 - `tool_policies`
 
 Example shape:
@@ -76,6 +77,7 @@ blocked_tools:
 blocked_patterns:
   - "(?i)(api[_-]?key|secret|password)\\s*[:=]"
 max_calls_per_request: 25
+profile: balanced
 require_human_approval:
   - send_email
 tool_policies:
@@ -92,6 +94,9 @@ Use "most restrictive wins" when composing org-wide, team, and agent-specific po
 When a system supports a `ToolPolicy` schema, keep rate-limit, approval, and
 justification guards in that policy layer instead of scattering them across
 prompts, docs, and handler code.
+
+If the policy file is missing, unreadable, or fails validation, fail closed:
+apply the strict profile and stop instead of falling through to a more permissive default.
 
 ### 2. Classify intent before tool execution
 
@@ -121,6 +126,24 @@ Every tool call should answer:
 
 Apply the checks at the boundary where the tool is actually invoked, not only in a
 planner or prompt template.
+
+### 3-A. Scan untrusted fetched content before use
+
+Treat external fetch results as an input boundary, not as pre-trusted working context.
+
+Before using fetched content to guide tool calls, memory updates, or code changes, check for:
+
+- tool-poisoning instructions hidden in docs, READMEs, or generated artifacts
+- data-exfiltration phrasing such as "print secrets", "dump config", or "send environment"
+- attempts to override local policy, approval rules, or task scope
+
+At minimum:
+
+1. classify whether the source is maintainer-controlled or untrusted
+2. inspect the fetched content for dangerous instructions before acting on it
+3. require review when the fetched content would trigger shell, persistence, or credential-adjacent work
+
+In strict mode, do not execute downstream actions from untrusted fetched content until this scan is complete.
 
 ### 4. Add trust scoring for delegated agents
 
@@ -167,14 +190,15 @@ For every governed action, log:
 
 Export to JSONL or another append-only form that works with later incident review.
 
-### 6. Choose an explicit governance level
+### 6. Choose an explicit policy profile
 
-| Level | Controls | Good fit |
-|-------|----------|----------|
-| **Open** | Audit only | internal experimentation |
-| **Standard** | Allowlist + content filters | general production agents |
-| **Strict** | Standard + approval on sensitive tools | regulated or customer-facing systems |
-| **Locked** | Allowlist only + full audit + no dynamic tools | compliance-critical environments |
+| Profile | Controls | Good fit |
+|---------|----------|----------|
+| **Advisory** | Detect and warn on risky patterns, but do not block by default | internal experimentation or supervised migrations |
+| **Balanced** | Auto-allow known low-risk tools, require review for new tools and risky writes/fetches | general production agents |
+| **Strict** | Fail closed on policy errors, require fetched-content scanning before action, inspect shell output, and block unapproved high-risk actions | regulated, customer-facing, or high-trust environments |
+
+If your organization already uses broader maturity labels such as open or locked, map them onto these profiles explicitly instead of assuming the names are equivalent.
 
 ### 7. Reference the right specification layer
 
@@ -197,8 +221,10 @@ of burying them in one prose blob.
 - [ ] Enforce allow/deny/review decisions at the tool boundary
 - [ ] Tool policies capture rate limits, approvals, and justification requirements explicitly
 - [ ] Add rate limits or per-request call budgets
+- [ ] Choose and document an explicit advisory / balanced / strict profile
 - [ ] Record trust scores for delegated agents
 - [ ] Remote trust boundaries document issuer, key discovery, and revocation behavior
+- [ ] Untrusted fetched content is scanned before it can steer tool use or persistence
 - [ ] Export an append-only audit trail
 - [ ] Fail closed when governance checks error
 
