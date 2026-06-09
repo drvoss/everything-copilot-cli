@@ -187,6 +187,7 @@ surface exists, mark the dimension `N/A` and exclude it from the average.
 - Agents can invoke arbitrary tools with no allowlist or scope control
 - No resource caps exist for agent runs (tokens, retries, time)
 - Untrusted external content is injected directly into prompts or memory
+- The same automation path combines sensitive-data access, untrusted content, and outbound communication or action capability without explicit trust boundaries
 - No audit trail exists for agent actions or tool calls
 - Maintainer-controlled agent instructions or MCP configs are absent, contradictory, or unreviewed
 - GitHub event payloads, PR comments, or issue text can steer automation without an explicit trust boundary
@@ -197,7 +198,13 @@ surface exists, mark the dimension `N/A` and exclude it from the average.
 - scorecard-style summary with explicit blockers
 - status of maintainer-controlled instruction files (`AGENTS.md`, `SKILL.md`, MCP config)
 - whether untrusted event text is treated as data instead of executable instruction
+- whether one workflow combines sensitive-data access, untrusted content, and outbound action capability
 - traces, logs, or prior run artifacts that justify the claimed safety level
+
+**Compound-risk check:** If the same agent path can access sensitive data,
+ingest untrusted content, and trigger outbound communication or tool execution,
+treat Dimension 7 as a top-priority governance risk until explicit trust
+boundaries, approval gates, and reviewable traces are in place.
 
 ### 3. Generate Scorecard
 

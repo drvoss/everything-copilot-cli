@@ -146,6 +146,18 @@ git --no-pager grep -n "audit\|tool log\|event store\|activity log" -- "*.ts" "*
 **Pass**: Tool calls and key agent actions are observable after the fact.  
 **Fail**: There is no durable record of what the agent did.
 
+#### Compound-risk escalation
+
+Treat the review as highest severity when the same workflow combines all three:
+
+- access to sensitive or private data
+- ingestion of untrusted content such as user text, fetched docs, or marketplace skills
+- outbound communication or action capability such as network calls, tool execution, or write operations
+
+This combination is sometimes called the "Lethal Trifecta." Even when individual
+controls look acceptable in isolation, require explicit trust boundaries,
+approval gates, and reviewable traces before deployment.
+
 #### Additional high-signal pattern checks
 
 Use these targeted checks when the repository has a richer agent stack than the
@@ -244,6 +256,7 @@ Block deployment if ASI-01, ASI-03, or ASI-05 lands at 3/10 or below.
 
 - Arbitrary tool execution with no allowlist
 - Untrusted external content flows straight into prompts
+- One workflow combines sensitive-data access, untrusted content, and outbound action capability
 - No timeout, retry cap, or stop condition on agent runs
 - No evidence of adversarial testing
 
