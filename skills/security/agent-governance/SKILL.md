@@ -98,6 +98,19 @@ prompts, docs, and handler code.
 If the policy file is missing, unreadable, or fails validation, fail closed:
 apply the strict profile and stop instead of falling through to a more permissive default.
 
+### 1-A. Keep dynamic conditions in policy, not prompts
+
+When your policy layer supports dynamic conditions, keep them declarative and
+reviewable instead of burying them in agent instructions.
+
+- **Time-based**: apply stricter profiles outside business hours, during weekends, or in incident mode
+- **Cost-aware**: tighten tool access or require review when token or API spend crosses a defined threshold
+- **Trust-gated registration**: require signed registration or proof-of-outcome evidence before a new agent or delegate is treated as trusted
+
+Evaluate these conditions at the same enforcement boundary as your normal
+allow/deny/review checks. If the condition inputs are missing, stale, or
+unverifiable, fail closed instead of silently falling back to a permissive tier.
+
 ### 2. Classify intent before tool execution
 
 Do not wait until after a tool runs to discover the request was dangerous.
@@ -222,6 +235,7 @@ of burying them in one prose blob.
 - [ ] Tool policies capture rate limits, approvals, and justification requirements explicitly
 - [ ] Add rate limits or per-request call budgets
 - [ ] Choose and document an explicit advisory / balanced / strict profile
+- [ ] Dynamic conditions such as time windows or spend thresholds stay in policy, not prompt text
 - [ ] Record trust scores for delegated agents
 - [ ] Remote trust boundaries document issuer, key discovery, and revocation behavior
 - [ ] Untrusted fetched content is scanned before it can steer tool use or persistence

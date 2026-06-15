@@ -196,6 +196,13 @@ Verify:
 - startup CPU and memory impact
 - whether the repo actually benefits from live indexing
 - whether the team wants that server enabled everywhere or only on demand
+- whether the server still stays localhost-bound or now exposes a broader HTTP surface
+- whether cross-repo graph or intelligence features widen the default data boundary more than the team wants
+
+Treat upgrades in this class as scope changes, not only performance changes.
+When a codebase-memory server adds its own HTTP listener or cross-repo
+intelligence, re-check binding, authentication assumptions, and whether those
+features belong in the default deployment.
 
 ### 6. Use Context7 for Live Documentation
 
