@@ -234,12 +234,16 @@ End-to-end development workflow skills — from planning to shipping.
 | [`github-actions-efficiency`](workflow/github-actions-efficiency/SKILL.md) | Use when auditing GitHub Actions workflows for efficiency — reduce CI minutes, tighten trigger scope, fix caching and concurrency, and rank the highest-value improvements |
 | [`council`](workflow/council/SKILL.md) | Use when a decision has multiple credible paths and no obvious winner — convene a four-voice council (Architect, Skeptic, Pragmatist, Critic) for adversarial deliberation |
 | [`deep-research`](workflow/deep-research/SKILL.md) | Use when a question requires comprehensive evidence gathering from multiple sources, systematic synthesis, and traceable citations |
+| [`doubt-driven-development`](workflow/doubt-driven-development/SKILL.md) | Use when a decision has hardened prematurely — run a one-question fresh-context adversarial review to surface blind spots before it stands |
 | [`grill-me`](workflow/grill-me/SKILL.md) | Use when a plan still has hidden assumptions — run a one-question-at-a-time grilling session until dependencies, risks, and decisions are explicit before implementation starts |
 | [`grill-with-docs`](workflow/grill-with-docs/SKILL.md) | Use when a plan must be stress-tested against the codebase's existing language and decisions — grill it against current docs, glossary terms, and ADRs before implementation begins |
+| [`handoff`](workflow/handoff/SKILL.md) | Use when context must survive a session end, agent swap, or machine switch — produce a compact, self-contained handoff document without duplicating existing artifacts |
 | [`implementation-review`](workflow/implementation-review/SKILL.md) | Use after a delegated implementation pass lands — compare the delivered diff against the original task spec and produce an actionable follow-up review |
+| [`interview-me`](workflow/interview-me/SKILL.md) | Use when starting a new task and the goal is still fuzzy — run a structured discovery interview before writing a plan, spec, or code |
 | [`llm-wiki`](workflow/llm-wiki/SKILL.md) | Use when research or domain knowledge keeps getting rediscovered across sessions — build a supplementary markdown wiki that compounds synthesized knowledge without replacing GitHub or committed project guidance |
 | [`deployment-canary`](workflow/deployment-canary/SKILL.md) | Use when a release needs staged rollout checks, rollback thresholds, and explicit promote/hold decisions |
 | [`outside-voice`](workflow/outside-voice/SKILL.md) | Use when you need an independent second opinion before, during, or after implementation — run challenge, consult, or review mode in a direct builder-to-builder voice |
+| [`prompt-optimizer`](workflow/prompt-optimizer/SKILL.md) | Use when a rough prompt idea must become a finished, copy-pasteable prompt for a chat-based LLM — rewrites it with no placeholders and no instruction bleed |
 | [`release`](workflow/release/SKILL.md) | Cut a versioned release: tag → GitHub Release → publish (npm/PyPI/Docker) |
 | [`verification-before-completion`](workflow/verification-before-completion/SKILL.md) | Prove a task is done with fresh command output before claiming success |
 | [`sprint-workflow`](workflow/sprint-workflow/SKILL.md) | Full sprint: Think → Plan → Build → Review → Test → Ship |
