@@ -77,6 +77,21 @@ Do not over-claim.
 | Build completed with warnings | "The build passed with warnings" |
 | Reproduction no longer fails | "The reproduced failure no longer occurs" |
 
+### 4-A. When work is tracked in git
+
+If the claim is about a commit, PR, or patch series, use git evidence to scope the claim
+correctly — but never treat a diff or commit by itself as proof that the work works.
+
+Check:
+
+- the actual diff matches the change you are claiming
+- the proving command output is newer than the last relevant edit or commit
+- the changed files and commit message do not imply a broader success than the command proved
+- if runtime evidence and git evidence disagree, hold the report until they line up
+
+Git evidence can prove **what changed**. It cannot prove **that the change succeeded**
+without fresh execution or state verification.
+
 ### 5. Only then report completion
 
 Good:

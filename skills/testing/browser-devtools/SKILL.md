@@ -93,6 +93,28 @@ new PerformanceObserver((list) => {
 - INP ≤ 200ms
 - CLS ≤ 0.1
 
+### 3-A. 재현 가능한 성능 게이트로 굳히기
+
+브라우저 DevTools에서 병목을 찾았으면, 같은 문제를 CI에서도 다시 잡을 수 있게
+반복 가능한 측정으로 굳힌다.
+
+```bash
+# Lighthouse CLI로 동일 경로를 반복 측정
+npx lighthouse https://example.com --output=json --output-path=./lighthouse-report.json
+```
+
+확인 항목:
+
+- Lighthouse 결과를 기준선과 비교해 임계값 이하로 떨어지면 빌드를 실패시키는지
+- 번들 분석 도구로 초기 로드에 영향을 주는 큰 자산과 중복 의존성을 찾는지
+- 성능 예산이 명시돼 있는지 (예: 핵심 경로 LCP/INP/CLS, 초기 JS 바이트 수, 이미지 총량)
+
+원칙:
+
+- 특정 빌드 도구에 과적합하지 말고, 현재 스택의 네이티브 번들 분석 도구를 사용한다
+- "점수가 나빠 보인다"가 아니라 어떤 예산을 넘으면 실패인지 미리 합의한다
+- 런타임 DevTools 조사와 CI 측정을 같은 사용자 플로우로 맞춘다
+
 ### 4. Accessibility 탭
 
 ```javascript

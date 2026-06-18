@@ -149,8 +149,20 @@ Check for:
 
 - unpinned third-party actions
 - broad `permissions:` blocks
+- jobs that could use OIDC but still rely on long-lived cloud secrets
 - self-hosted runner exposure
 - unsafe cache or artifact reuse
+
+Prefer findings that point to a narrower trust shape:
+
+```yaml
+permissions:
+  contents: read
+  id-token: write  # only when the job actually uses OIDC federation
+```
+
+Flag workflows that hand out repository write or cloud credentials broadly when the job
+only needs read access or short-lived federated credentials.
 
 #### 3-G. Diff-Driven Filename Injection
 
@@ -183,8 +195,30 @@ Do not trust:
 
 - `git diff --name-only` output pasted directly into `run:` command strings
 - PR titles, branch names, or filenames concatenated into shell code
-- raw filename writes to `$GITHUB_OUTPUT` or env files without control-character-safe encoding
+- raw filename writes to `$GITHUB_OUTPUT` or `$GITHUB_ENV` without control-character-safe encoding
 - `xargs` or `for` loops that split on whitespace when filenames may contain special characters
+
+#### 3-H. Hardening Follow-Through
+
+After you find an exploitable pattern, check whether the workflow keeps its protective
+controls current:
+
+- third-party actions pinned by tag instead of full commit SHA
+- no automation for reviewing stale GitHub Actions pins
+- organization-wide hardening intent documented, but individual workflows still inheriting broad defaults
+
+A minimal update workflow can look like:
+
+```yaml
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+```
+
+Treat missing pin maintenance as a hardening gap, not just a style issue.
 
 ### 4. Validate each finding before reporting
 

@@ -187,7 +187,7 @@ Structure findings by severity:
 | A07 | Auth Failures | Weak password policy, missing brute force protection |
 | A08 | Software Integrity | Unsigned dependencies, missing subresource integrity |
 | A09 | Logging Failures | PII in logs, insufficient audit trail |
-| A10 | SSRF | User-controlled URLs used in server-side requests |
+| A10 | SSRF | User-controlled URLs used in server-side requests, especially when URL parsing, hostname allowlists, or IP validation can be bypassed |
 
 ## Common Rationalizations
 
@@ -206,6 +206,8 @@ Structure findings by severity:
 - Dependencies added that are unusual variations of popular package names
 - JWT or token validation logic changed or simplified
 - New `Access-Control-Allow-Origin: *` header
+- SSRF protections only block plain `127.0.0.1` or exact hostnames, but do not normalize encoded IP literals such as `2130706433` or `0x7f.0.0.1`
+- SSRF allowlists or denylists compare raw hostnames without handling trailing-dot forms such as `internal.example.com.`
 
 ## Verification
 
