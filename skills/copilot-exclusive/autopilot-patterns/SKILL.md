@@ -91,6 +91,10 @@ task checkpoints by itself.
 You: "Refactor the auth module in autopilot, but stop if changes extend beyond src/auth/"
 ```
 
+It also does **not** grant standing approval for irreversible commands. If the run would need to
+discard local work, rewrite Git history, or destroy infrastructure, spell out that permission
+explicitly in the task instead of assuming `/allow-all` covers it.
+
 ### If autopilot pauses or stops mid-task
 
 1. Check which todo is still `in_progress`
@@ -170,6 +174,23 @@ You: "Freeze these files unless a blocker forces a change:
 
 Use this when some outputs are already reviewed, signed off, or shared with another team.
 
+#### Pattern 7: Irreversible-Command Guard
+
+Autopilot should stop before any command that can permanently discard work or destroy state unless
+the user explicitly asked for that exact action in the current run.
+
+Treat these as opt-in, not implied permission:
+
+- `git reset --hard`
+- `git checkout -- <path>` or `git checkout -- .`
+- `git clean -fd`
+- `git stash drop`
+- `git commit --amend` when it rewrites an earlier or already-shared commit
+- `terraform destroy`, `pulumi destroy`, or `cdk destroy`
+
+When a plan seems to require one of these, pause the run, explain why, and get a fresh explicit
+instruction instead of trying to recover automatically.
+
 ## Examples
 
 ### Safe Autopilot for Code Migration
@@ -214,7 +235,7 @@ You: "Add JSDoc to all exported functions in src/. Use autopilot, run
       the TypeScript compiler after each file to verify no errors."
 ```
 
-#### Pattern 7: Ralph Wiggum Autonomous Loop
+#### Pattern 8: Ralph Wiggum Autonomous Loop
 
 An autonomous improvement cycle that repeats until an exit condition is met. Use for iterative quality improvement tasks where the number of passes is unknown upfront.
 
@@ -274,6 +295,8 @@ UPDATE loop_state SET
   is automated test verification at each step.
 - **Use careful/freeze language explicitly**: if scope must stay narrow, say what is
   locked and when autopilot must stop rather than assuming it will infer the boundary.
+- **Treat irreversible commands as separate consent**: `/allow-all` is not permission to discard
+  work, rewrite history, or destroy infrastructure without an explicit request.
 - **Set a continuation limit for risky runs**: use `--max-autopilot-continues` when you want
   an explicit review checkpoint after a fixed number of autonomous steps.
 - **Start small**: First time using autopilot? Try it on a 3-todo task.

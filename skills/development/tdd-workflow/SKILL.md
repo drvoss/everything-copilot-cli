@@ -36,6 +36,21 @@ metadata:
 
 ## Workflow
 
+### 0. Choose the Thinnest Slice First
+
+Before you write or change anything, shrink the task to the smallest meaningful behavior that can
+go through one Red → Green → Refactor loop.
+
+Good first slices usually have all three properties:
+
+- one visible behavior change
+- one main assertion path
+- one reason it could fail
+
+If the first test needs multiple branches, multiple modules, or a large fixture to make sense,
+shrink it again. After each Green phase, pause long enough to confirm the direction before stacking
+more behavior on top.
+
 ### 1. Pre-Check — Does a Test Already Exist?
 
 Before writing a new test, verify you are not duplicating existing coverage.
@@ -118,6 +133,9 @@ Add the next test case for edge cases or the next slice of behavior:
 - Boundary values
 - Error conditions
 - Integration with adjacent modules
+
+Pick the smallest next slice that adds new information. If the product direction, API shape, or UX
+is still uncertain, stop after a thin vertical slice and get feedback before widening the change.
 
 ### 6. Check Coverage
 
@@ -206,6 +224,7 @@ To enforce this automatically, add it as a Git pre-commit hook:
 ## Tips
 
 - Write the **assertion first**, then work backward to the setup
+- Start with the **smallest meaningful behavior**, not the full feature
 - Each test should verify **one behavior** — keep tests small and descriptive
 - Name tests as sentences: `it('rejects negative quantities')`
 - Use `task` agent to run tests so output stays clean in your main context
