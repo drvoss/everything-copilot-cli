@@ -167,6 +167,7 @@ Review agent output exactly as you would review a code submission from a new con
 - [ ] Auth/authorization code was reviewed from a security perspective
 - [ ] New logic has corresponding tests
 - [ ] Reviewed the full `git --no-pager diff main...HEAD`
+- [ ] If any code was AI-generated, the Quality Gate Before Merging AI Output checklist was applied
 
 ## Tips
 

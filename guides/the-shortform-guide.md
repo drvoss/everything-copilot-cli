@@ -77,8 +77,9 @@ Skills are reusable workflows defined in markdown with YAML front matter.
 ---
 name: my-skill
 description: What this skill does
-category: development
-agent_type: general-purpose
+metadata:
+  category: development
+  agent_type: general-purpose
 ---
 
 # My Skill
@@ -99,11 +100,14 @@ agent_type: general-purpose
 
 | Category | Skills | Path |
 |---|---|---|
-| Development | TDD workflow, code review, refactoring, build fixes | `skills/development/` |
-| Security | Security scan, secret detection, input validation | `skills/security/` |
-| Documentation | Doc updates, API documentation | `skills/documentation/` |
-| Testing | Test coverage, E2E testing | `skills/testing/` |
 | Copilot-Exclusive | Fleet parallel, session management, PR workflow | `skills/copilot-exclusive/` |
+| Development | TDD workflow, code review, refactoring, build fixes | `skills/development/` |
+| Documentation | Doc updates, API documentation | `skills/documentation/` |
+| Security | Security scan, secret detection, input validation | `skills/security/` |
+| Testing | Test coverage, E2E testing, UX audit | `skills/testing/` |
+| Workflow | Sprint, commit, release, research, council | `skills/workflow/` |
+| Product | PRD, feature prioritization, launch strategy | `skills/product/` |
+| Content | Content strategy, SEO, AI visibility | `skills/content/` |
 
 ### Essential Slash Commands
 

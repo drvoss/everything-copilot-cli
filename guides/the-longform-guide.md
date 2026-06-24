@@ -514,14 +514,8 @@ Skills are Markdown files with YAML frontmatter that define reusable, composable
 ---
 name: my-custom-skill
 description: One-line description of what this skill does
-category: development  # development | security | testing | documentation | copilot-exclusive
-triggers:
-  - keyword or phrase that activates this skill
-  - another trigger phrase
-requires_tools:
-  - powershell
-  - edit
-  - view
+metadata:
+  category: development  # development | testing | security | documentation | copilot-exclusive | workflow | product | content
 ---
 
 # My Custom Skill

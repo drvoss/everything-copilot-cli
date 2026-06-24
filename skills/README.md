@@ -220,7 +220,7 @@ Skills for improving test coverage and quality.
 | [`eval-harness`](testing/eval-harness/SKILL.md) | Use when you need to evaluate an LLM pipeline or AI feature systematically — sets up test cases, scoring rubrics, and pass/fail tracking |
 | [`qa-review`](testing/qa-review/SKILL.md) | Use when a feature, PR, or release needs a QA-oriented review — checks test pyramid balance, test quality, reliability, and CI reporting gaps |
 | [`browser-devtools`](testing/browser-devtools/SKILL.md) | Verify frontend behavior at runtime — DOM validation, network inspection, performance profiling |
-| [`ux-audit`](testing/ux-audit/SKILL.md) | Use when a page or component feels confusing and you need a structured UX audit — applies 6 Krug-inspired usability checks and returns prioritized findings |
+| [`ux-audit`](testing/ux-audit/SKILL.md) | Use when a page or component needs a structured UX audit — quick scan (6 Krug checks) or deep audit (15-dimension Jobs/Ive framework) with prioritized findings |
 
 ### 🔄 Workflow (`workflow/`)
 

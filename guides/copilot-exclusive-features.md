@@ -431,6 +431,10 @@ these tasks with no manual coordination.
 - Heavily sequential operations where each step depends on the previous one
 - Tasks requiring shared state (use SQL + sequential instead)
 
+> **Write-Scope Rule**: Before launching a fleet batch, verify that no two agents will write to the same file. Same file = must be serialized. If scope overlap is discovered mid-run, stop the later agent and requeue after the first completes.
+>
+> **Heartbeat Monitoring**: For long-running fleet batches, check agent status periodically — look for DONE, ERROR, STUCK (waiting for input), or STALLED (no progress). Do not retry indefinitely; surface the blocker after a bounded number of attempts.
+
 ### Example
 
 ```text

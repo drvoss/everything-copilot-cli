@@ -389,7 +389,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `eval-harness` | Build LLM pipeline evaluation suites with SQL-tracked test cases |
 | `qa-review` | Review QA strategy across test pyramid balance, test quality, reliability, and CI defect reporting |
 | `browser-devtools` | Verify frontend behavior at runtime — DOM validation, network inspection, performance profiling |
-| `ux-audit` | Structured usability review with Krug-inspired heuristics and prioritized findings |
+| `ux-audit` | Structured usability review — quick scan (6 Krug checks) or deep audit (15-dimension Jobs/Ive framework) |
 
 </details>
 

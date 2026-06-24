@@ -1,6 +1,6 @@
 ---
 name: ux-audit
-description: Use when a page or component feels confusing and you need a structured UX audit — applies 6 Krug-inspired usability checks and returns prioritized findings
+description: Use when a page or component needs a structured UX audit — quick scan applies 6 Krug-inspired usability checks; deep audit covers 15 design dimensions with Jobs/Ive philosophy
 metadata:
   category: testing
   agent_type: general-purpose
@@ -116,15 +116,16 @@ Escalate findings when any of these appear:
 
 ## Suggested Workflow
 
+0. **Choose your audit mode**: Quick Scan (6 checks, default) or Deep Audit (15 dimensions) — see Audit Modes table above.
 1. Inspect the live page or rendered component
-2. Record evidence for each of the six checks
-3. Mark each check as pass, concern, or fail
+2. Record evidence for each check (Quick Scan) or each dimension (Deep Audit)
+3. Mark each check/dimension as pass, concern, or fail
 4. Separate structural issues from copy polish
 5. Prioritize fixes that reduce confusion on the main user path
 
 If runtime inspection is needed, pair this skill with `browser-devtools`.
 
-## Output Format
+## Output Format — Quick Scan
 
 Default to a short human-readable report:
 
@@ -149,6 +150,8 @@ Default to a short human-readable report:
 
 If another workflow needs structured output, you may additionally emit JSON, but
 human-readable findings remain the primary deliverable.
+
+> For Deep Audit output, see the **Phased Plan Output** template in the Deep Audit section below.
 
 ## Tips
 
