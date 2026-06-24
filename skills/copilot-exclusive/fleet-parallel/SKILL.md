@@ -32,6 +32,19 @@ with their own tool access.
 | Subtasks that would edit the same file, lockfile, or generated artifact | Split ownership first or avoid fleet mode |
 | A tiny batch of 2-3 trivial items | Handle them sequentially unless agent overhead is clearly worth it |
 
+### Write-Scope Conflict Guard
+
+Before launching any fleet batch, validate that no two agents share write scope:
+
+```text
+Rule: Same file = sequential. Different files = parallel.
+```
+
+- List all files each subtask will modify
+- If two tasks name the same file, one **must** wait — do not launch them in the same batch
+- Lockfiles, generated files, and shared config are treated the same as source files
+- If scope overlap is discovered mid-run, stop the later agent, let the earlier one finish, then requeue
+
 ## Workflow
 
 ### 1. Use the `/fleet` Slash Command (Recommended)
@@ -178,6 +191,33 @@ Fleet assigns one agent per file. Each agent:
 
 ```text
 /fleet Add JSDoc comments to all exported functions in src/services/
+```
+
+### 8. Heartbeat Monitoring for Long-Running Fleets
+
+For batches expected to run longer than a few minutes, schedule periodic progress checks:
+
+```text
+Every N minutes: check each active agent for DONE / ERROR / STUCK
+```
+
+**Status patterns to watch:**
+
+| Signal | State | Action |
+|--------|-------|--------|
+| Completion indicator or clean exit | DONE | Mark task complete, unlock dependents |
+| Error/failure output | ERROR | Capture logs, retry with error context, bounded retries |
+| Prompt waiting for input | STUCK | Send the expected response or surface to human |
+| No progress for threshold time | STALLED | Nudge or restart with context from prior attempt |
+
+**Bounded retry rule**: Do not retry indefinitely. After the configured retry limit, stop the task and surface the blocker — guessing at a fix compounds errors. Human review is the correct escalation.
+
+**Progress logging**: Write task state to the SQL `todos` table (or a manifest file) so a crash or session restart does not lose orchestration state:
+
+```sql
+UPDATE todos SET status = 'done' WHERE id = 'task-id';
+-- or 'blocked' with a blocker note in description
+UPDATE todos SET status = 'blocked', description = 'Retry limit reached: <error summary>' WHERE id = 'task-id';
 ```
 
 ## Tips

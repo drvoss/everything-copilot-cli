@@ -29,6 +29,15 @@ or alongside design review.
 | Performance bottleneck analysis | `browser-devtools` or `performance-optimization` |
 | Pure visual polish critique | manual design review |
 
+## Audit Modes
+
+Choose the depth of review based on what you need:
+
+| Mode | Checks | Best for |
+|------|--------|----------|
+| **Quick scan** (default) | 6 Krug usability checks | Navigation/copy confusion, pre-handoff spot checks |
+| **Deep audit** | 15-dimension Jobs/Ive framework | Major redesigns, premium quality bar, comprehensive UI review |
+
 ## The 6 Usability Checks
 
 Run all six checks in sequence. A page with repeated failures across these categories
@@ -147,6 +156,69 @@ human-readable findings remain the primary deliverable.
 - Prefer concrete evidence ("two CTAs compete above the fold") over taste-based critique
 - Fix structural confusion before refining tone or visual polish
 - Re-run the audit after major IA, copy, or navigation changes
+
+## Deep Audit — Jobs/Ive 15 Dimensions
+
+Use for major redesigns, premium quality assessment, or when the quick scan surfaces systemic issues. Review every screen across all 15 dimensions before writing any recommendations.
+
+### The 15 Dimensions
+
+| Dimension | Key Questions |
+|-----------|---------------|
+| **Visual Hierarchy** | Does the eye land where it should? Most important = most prominent? Understandable in 2 seconds? |
+| **Spacing & Rhythm** | Whitespace consistent and intentional? Elements breathe or cramped? Vertical rhythm harmonious? |
+| **Typography** | Clear size hierarchy? Too many competing weights/sizes? Calm or chaotic? |
+| **Color** | Used with restraint and purpose? Guides attention or scatters it? Sufficient contrast? |
+| **Alignment & Grid** | Consistent grid? Anything off by 1–2px? Every element locked into layout? |
+| **Components** | Similar elements styled identically? Interactive elements obviously interactive? All states covered? |
+| **Iconography** | Consistent style, weight, size? From one cohesive set or mixed? Support meaning or just decorate? |
+| **Motion** | Transitions natural and purposeful? Motion that exists for no reason? Feels responsive? |
+| **Empty States** | Every screen with no data — intentional or broken? User guided toward first action? |
+| **Loading States** | Skeletons/spinners consistent? App feels alive while waiting or frozen? |
+| **Error States** | Styled consistently? Helpful and clear or hostile and technical? |
+| **Dark Mode** | Actually designed or just inverted? Tokens, shadows, contrast hold up? |
+| **Density** | Anything removable without losing meaning? Redundant elements? Every element earning its place? |
+| **Responsiveness** | Works at mobile/tablet/desktop? Touch targets sized for thumbs? Adapts fluidly, not just at breakpoints? |
+| **Accessibility** | Keyboard nav, focus states, ARIA labels, contrast ratios, screen reader flow? |
+
+### Jobs Filter — Apply to Every Element
+
+For each screen element, ask:
+
+1. "Would a user need to be told this exists?" → If yes, redesign until obvious
+2. "Can this be removed without losing meaning?" → If yes, remove it
+3. "Does this feel inevitable, like no other design was possible?" → If no, it is not done
+4. "Is this detail as refined as the details users will never see?" → The back of the fence must be painted too
+
+**The test**: Remove until it breaks. Then add back the last thing.
+
+### Phased Plan Output
+
+After completing all 15 dimensions, compile a phased plan before making any changes:
+
+```markdown
+DEEP AUDIT RESULTS:
+
+Overall Assessment: [1–2 sentences on current state]
+
+PHASE 1 — Critical (hierarchy, usability, responsiveness issues that actively hurt UX)
+- [Screen/Component]: [what's wrong] → [what it should be] → [why this matters]
+
+PHASE 2 — Refinement (spacing, typography, color, alignment that elevate quality)
+- [Screen/Component]: [what's wrong] → [what it should be] → [why this matters]
+
+PHASE 3 — Polish (micro-interactions, empty/loading/error states, dark mode, subtle details)
+- [Screen/Component]: [what's wrong] → [what it should be] → [why this matters]
+
+DESIGN SYSTEM UPDATES:
+- [New tokens, colors, spacing, or component changes required]
+```
+
+> Do not implement until the plan is approved. Execute phase by phase, presenting results before advancing.
+
+### Scope Discipline
+
+Deep audit covers visual design, layout, spacing, typography, color, interaction, motion, and accessibility. It **does not** touch application logic, state management, API calls, or feature behavior. If a design improvement would require a functional change, flag it rather than implementing it.
 
 ## See Also
 

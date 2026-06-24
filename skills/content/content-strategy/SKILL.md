@@ -183,3 +183,44 @@ For each content piece, generate a brief:
 - **Keyword intent > keyword volume**: A 200-search/month "how to migrate from [Competitor]" keyword converts better than a 50,000/month generic term
 - **Build for both humans and AI**: Structure your content to be cited by AI systems (see `ai-visibility` skill) AND scanned by human readers
 - **Measure conversion, not just traffic**: Content that drives signups is worth 10x content that drives views
+
+## AI Writing Pattern Removal
+
+Content co-written with AI frequently contains patterns that signal machine origin. Before publishing, scan for these tells and rewrite.
+
+### High-Signal AI Tell Words
+
+The following words appear far more often in post-2023 AI-generated text. Seeing clusters of them is a reliable signal:
+
+> `additionally`, `align with`, `crucial`, `delve`, `emphasizing`, `enduring`, `enhance`, `fostering`, `garner`, `highlight` (as verb), `interplay`, `intricate/intricacies`, `key` (as adjective), `landscape` (abstract), `pivotal`, `showcase`, `tapestry` (abstract), `testament`, `underscore` (as verb), `valuable`, `vibrant`
+
+### AI Pattern Checklist
+
+Run through each item before publishing:
+
+| Pattern | How it reads | Fix |
+|---------|-------------|-----|
+| **Inflated significance** | "marking a pivotal moment in the evolution of…" | State the fact plainly. Cut the significance claim. |
+| **Superficial -ing endings** | "symbolizing… reflecting… contributing to…" | Remove the participial phrase or replace with a concrete fact. |
+| **Promotional language** | "nestled in the heart of… breathtaking… vibrant" | Neutral noun + specific detail. |
+| **Vague attributions** | "experts argue… industry reports suggest…" | Name the specific source or delete. |
+| **Copula avoidance** | "serves as… stands as… boasts…" | Replace with "is" / "has". |
+| **Negative parallelism** | "It's not just about X, it's about Y" | Pick one statement and say it directly. |
+| **Rule of three overuse** | "innovation, inspiration, and industry insights" | Use the minimum needed. |
+| **Challenges and future outlook** sections | Formulaic closing with vague forward-looking language | Cut or replace with specific next steps. |
+| **Em dash overuse** | Multiple em dashes per paragraph as rhetorical beats | Use sparingly — one per paragraph maximum. |
+
+### Personality Check
+
+Avoiding AI patterns is only half the job. Sterile, voiceless prose is also a signal. Check:
+
+- Do any sentences express an opinion or reaction, not just facts?
+- Does sentence length vary (short punchy / longer reflective)?
+- Is there a first-person perspective where appropriate?
+- Are feelings specific ("there's something unsettling about…") rather than generic ("this is concerning")?
+
+If every sentence is the same length, neutral, and opinionless — that is also a tell.
+
+### Quick Rewrite Test
+
+Take any paragraph and ask: "Does a human stand behind this?" If not, rewrite until the answer is yes.

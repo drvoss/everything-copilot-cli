@@ -121,6 +121,37 @@ prompt: "Review changes between main and the current branch. Focus on correctnes
 | "It's a big PR, I'll skim it" | Large PRs need more thorough review. The size itself is the first piece of feedback. |
 | "Security is for the security team later" | Cost to fix in development < cost to fix in production × 100. |
 
+## Reviewing AI-Generated Code
+
+AI-generated code requires the same review standard as human-written code — often a stricter one.
+
+**Core principle**: Treat the AI as a junior engineer. The first output is a draft, not a finished product.
+
+```text
+Verify, Don't Trust.
+Review agent output exactly as you would review a code submission from a new contributor.
+```
+
+### LLM-Specific Checklist
+
+| Risk | What to look for |
+|------|-----------------|
+| **Plausible but wrong logic** | Code that looks correct but contains subtle semantic errors — AI optimizes for appearance |
+| **Hallucinated APIs** | Method names, library versions, or options that don't exist |
+| **Missing edge cases** | AI often generates the happy path only; check null, empty, concurrent, and boundary conditions |
+| **Scope creep** | AI may change code beyond what was asked — diff carefully |
+| **Test quality** | AI-written tests often assert the implementation, not the behavior; verify they would actually catch regressions |
+| **Security assumptions** | AI may apply patterns from its training data that are outdated or contextually wrong |
+
+### Quality Gate Before Merging AI Output
+
+- [ ] Linter passes with no suppressions added
+- [ ] Type checker passes
+- [ ] Tests pass, and at minimum one test was in a failing state before the fix
+- [ ] Manual smoke test on the core path
+- [ ] Edge cases (null, empty, large input, concurrent access) are handled
+- [ ] No new technical debt introduced silently (TODOs, skipped tests, magic values)
+
 ## Red Flags
 
 - "LGTM" approval within 2 minutes of a 500-line PR
