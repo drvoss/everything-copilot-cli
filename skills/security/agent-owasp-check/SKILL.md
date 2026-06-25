@@ -4,6 +4,7 @@ description: Use when auditing an AI agent system against the OWASP Agentic Secu
 metadata:
   category: security
   agent_type: general-purpose
+  origin: adapted from mukul975/Anthropic-Cybersecurity-Skills auditing-mcp-servers-for-tool-poisoning (Apache-2.0)
 ---
 
 # Agent OWASP Check
@@ -94,8 +95,8 @@ git --no-pager grep -in "do not tell\|<important>\|dump.*env\|read.*\.ssh" -- "*
 if (-not (Test-Path ".mcp-hashes.json")) { Write-Warning "No .mcp-hashes.json baseline — rug-pull undetectable." }
 ```
 
-**Pass**: Tool names intentional; descriptions free of hidden instructions, obfuscated text, and hash drift.  
-**Fail**: Arbitrary names accepted, zero-width chars present, or `.mcp-hashes.json` baseline missing/mismatched.
+**Pass**: Tool names intentional; descriptions free of hidden instructions and obfuscated text; hash baseline present.  
+**Fail**: Arbitrary names accepted, zero-width chars present, or `.mcp-hashes.json` baseline absent.
 
 #### ASI-05: Prompt Injection
 
