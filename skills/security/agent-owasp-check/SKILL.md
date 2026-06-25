@@ -86,10 +86,16 @@ git --no-pager grep -n "UNTRUSTED\|sanitize\|escape\|external content" -- "*.md"
 ```powershell
 git ls-files | Where-Object { $_ -match 'mcp|tool' }
 git --no-pager grep -n "\"name\"\|toolName\|tool_name" -- "*.json" "*.ts" "*.js"
+# Zero-width / Unicode obfuscation in tool descriptions
+git --no-pager grep -Pn "[\x{200B}-\x{200F}\x{FEFF}\x{202A}-\x{202E}]" -- "*.json" "*.ts" "*.js"
+# Hidden directives aimed at the model
+git --no-pager grep -in "do not tell\|<important>\|dump.*env\|read.*\.ssh" -- "*.json" "*.ts" "*.js"
+# Tool-description hash drift (rug-pull) — file-level package integrity → agent-supply-chain instead
+if (-not (Test-Path ".mcp-hashes.json")) { Write-Warning "No .mcp-hashes.json baseline — rug-pull undetectable." }
 ```
 
-**Pass**: MCP servers and tool names are intentional, reviewed, and not easily spoofed.  
-**Fail**: Tool registration accepts arbitrary or confusing names without validation.
+**Pass**: Tool names intentional; descriptions free of hidden instructions, obfuscated text, and hash drift.  
+**Fail**: Arbitrary names accepted, zero-width chars present, or `.mcp-hashes.json` baseline missing/mismatched.
 
 #### ASI-05: Prompt Injection
 
@@ -207,6 +213,31 @@ git --no-pager grep -n "sandbox\|seccomp\|vm\|subprocess\|denylist\|blocked impo
 
 **Pass**: Sandboxed execution paths constrain imports, stdlib escape hatches, or subprocess access explicitly.  
 **Fail**: A supposedly sandboxed path can regain privileged file, network, or process access through unchecked runtime features.
+
+#### MCP SSRF and endpoint exposure (static)
+
+```powershell
+# Hardcoded internal targets in URL-fetch tools (static analysis — no live probing)
+git --no-pager grep -n "169\.254\.169\.254\|metadata\.google\.internal\|localhost:6379\|localhost:22\|file:///etc" -- "*.json" "*.ts" "*.js" "*.py" ".mcp.json"
+# 0.0.0.0 binding or auth bypass in MCP server config
+git --no-pager grep -in "0\.0\.0\.0\|\"auth\".*false\|no.?auth" -- ".mcp.json" "*.json" "*.yaml" "*.yml"
+```
+
+**Pass**: No internal/metadata addresses hardcoded; MCP server binds to localhost or an authenticated gateway.  
+**Fail**: AWS IMDS, GCP metadata, or internal service addresses present; or server exposed on `0.0.0.0` without auth.
+
+> Dynamic SSRF probing against a live server requires ownership — out of scope for this static audit.
+
+#### mcp-scan (optional, if uvx is available)
+
+```powershell
+# Automated static + runtime scan by Invariant Labs (https://github.com/invariantlabs-ai/mcp-scan)
+# Pin a specific version — @latest violates agent-supply-chain guidance.
+if (Get-Command uvx -ErrorAction SilentlyContinue) {
+    uvx "mcp-scan==0.1.14" .mcp.json --json  # verify current stable at invariantlabs-ai/mcp-scan
+}
+# Without uvx: rely on the static checks above.
+```
 
 ### AI/ML CWE Cross-Reference (CWE 4.20)
 
