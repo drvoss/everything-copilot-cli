@@ -137,6 +137,41 @@ This works especially well with [`task-intake-router`](../task-intake-router/SKI
 and [`team-planner`](../team-planner/SKILL.md), where the route and agent roster are
 decided before implementation begins.
 
+### 5. Explicit Model Declaration per Dispatch
+
+When dispatching sub-agents in fleet or parallel workflows — or any workflow where cost or
+capability matters — always name the model explicitly for every `task()` call.
+
+Using **Auto** for your main interactive session is fine. But when delegating to sub-agents,
+accidental escalation to expensive models compounds across multiple parallel lanes. Name the
+model so the intent is visible and reviewable.
+
+```text
+# ✅ Explicit — model intent is visible and reviewable
+task(agent_type: "general-purpose", model: "claude-haiku-4.5",
+     prompt: "Scan for unused imports in src/utils/")
+
+# ❌ Implicit — which model runs this? Can change between sessions
+task(agent_type: "general-purpose",
+     prompt: "Scan for unused imports in src/utils/")
+```
+
+Dispatch declaration checklist:
+
+- [ ] Every `task()` call names a model
+- [ ] Premium models are reserved for justified tasks (security, architecture, complex review)
+- [ ] Exploration and transformation tasks use fast/cheap tier
+- [ ] The model choice is readable in the orchestration script itself
+
+### 6. Future Model Integration
+
+When new models appear in Copilot CLI's `/model` output, apply the same explicit-declaration
+principle immediately — name the model in every dispatch from the first time you use it.
+
+Check `/model` or Copilot's current documentation when you suspect new model families
+have been added. The roster changes over time; avoid hardcoding assumptions about which
+models exist without verification.
+
 ## Examples
 
 ### Security Audit with Premium Model

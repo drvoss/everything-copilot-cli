@@ -153,6 +153,83 @@ Use a simple status table in review notes:
 | Required metadata present | ✅ / ❌ | |
 | Ready for promotion | ✅ / ❌ | |
 
+### Cryptographic Provenance Verification
+
+SHA-256 manifest integrity proves files have not drifted. Cryptographic provenance adds a
+stronger guarantee: it binds the publisher's identity to the artifact at signing time.
+
+This addresses OWASP AST01 (Skill Supply Chain Integrity) and AST02 (Unauthorized Skill Modification).
+
+#### Publisher Identity Binding
+
+When a skill or plugin is published, the publisher signs the manifest with an asymmetric key.
+Consumers verify the signature before trusting the package.
+
+Minimum requirements:
+
+- The signing key is associated with the publisher's verified identity (e.g., GitHub identity, GPG key)
+- The signature covers the manifest hash (not individual files)
+- The signature and public key fingerprint are shipped alongside `INTEGRITY.json`
+
+```text
+INTEGRITY.json
+INTEGRITY.sig         # detached signature over the manifest hash
+INTEGRITY.pubkey.asc  # publisher's public key fingerprint (for offline verification)
+```
+
+Verification checklist (cryptographic):
+
+- [ ] Signature file is present alongside `INTEGRITY.json`
+- [ ] Signature was produced by the expected publisher key
+- [ ] The signed data matches `manifest_hash` in `INTEGRITY.json`
+- [ ] The public key fingerprint is pinned in your trust store, not fetched dynamically
+
+Verification example using `gpg` (detached signature):
+
+```powershell
+# Import the publisher's key (once, pinned to fingerprint)
+gpg --import INTEGRITY.pubkey.asc
+
+# Verify the detached signature against the manifest
+gpg --verify INTEGRITY.sig INTEGRITY.json
+# Expected: "Good signature from <publisher identity>"
+```
+
+Or with `cosign` for container-registry-style trust chains:
+
+```powershell
+cosign verify-blob --key publisher.pub --signature INTEGRITY.sig INTEGRITY.json
+```
+
+#### Revocation Infrastructure
+
+A signed package that is later compromised must be revocable. Check that the publisher provides:
+
+- A revocation list or endpoint (e.g., `REVOKED.json`, CRL, or OCSP-equivalent)
+- A documented process for how consumers are notified when a package is revoked
+- A timestamp on the revocation so consumers know when it took effect
+
+Revocation check before promotion:
+
+```text
+1. Fetch the publisher's revocation list
+2. Confirm the package version + manifest_hash is not listed as revoked
+3. Record the revocation check timestamp in your promotion notes
+```
+
+If a revocation infrastructure does not exist for a third-party skill, treat the package as
+lower-trust and apply stricter sandbox isolation (see `sub-agent-sandboxing`).
+
+#### AST01 / AST02 Alignment
+
+| OWASP Risk | Mitigation |
+|-----------|-----------|
+| **AST01** — Supply chain compromise via unverified source | Publisher identity binding + signed manifest |
+| **AST02** — Unauthorized modification after publish | SHA-256 manifest diff + signature re-verification before each use |
+
+Do not substitute "we downloaded it from an official source" for a signature check.
+Official sources can be compromised; the signature proves the publisher's key was used.
+
 ## Common Rationalizations
 
 | Rationalization | Reality |
@@ -176,6 +253,8 @@ Use a simple status table in review notes:
 - [ ] Modified, missing, and untracked files are classified explicitly
 - [ ] Dependency manifests were checked for floating versions
 - [ ] Promotion is blocked when integrity or pinning checks fail
+- [ ] Publisher signature is verified against a pinned key fingerprint
+- [ ] Revocation list was consulted before promotion
 
 ## See Also
 

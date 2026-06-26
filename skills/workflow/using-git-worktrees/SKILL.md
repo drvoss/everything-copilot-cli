@@ -31,7 +31,7 @@ tasks should not compete for the same checkout.
 
 ### 1. Pick a directory layout
 
-Use sibling folders so each worktree is obvious:
+**Option A — Sibling folders (traditional)**: each worktree is a sibling of the main repo:
 
 ```text
 C:\work\repo-main
@@ -39,16 +39,53 @@ C:\work\repo-feature-api
 C:\work\repo-feature-docs
 ```
 
+**Option B — Project-internal `.worktrees/` directory (recommended for Copilot CLI agent workflows)**:
+Keep all worktrees inside the project root for easier discovery and cleaner orchestration briefs:
+
+```text
+C:\work\repo-main
+C:\work\repo-main\.worktrees\feature-api
+C:\work\repo-main\.worktrees\feature-docs
+```
+
+Advantages of project-internal layout:
+
+- All active worktrees visible from one root path — no guessing sibling names
+- Agents receive a relative path (`.\\.worktrees\\feature-api`) instead of an absolute sibling path
+- Easier to clean up: removing the project removes all its worktrees
+- Git-ignore `.worktrees/` to prevent accidental tracking of worktree state files
+
+```powershell
+# Create a project-internal worktree
+git worktree add .worktrees\feature-api feature/api-contract
+
+# Or from the project root
+git worktree add .\.worktrees\perf-audit -b feature/perf-audit
+
+# List
+git worktree list
+```
+
+Add `.worktrees/` to `.gitignore` to prevent worktree bookkeeping files from being committed:
+
+```text
+# .gitignore
+.worktrees/
+```
+
 Name the folder after the branch or task.
 
 ### 2. Create the worktree
 
 ```powershell
-# Existing branch
+# Existing branch (sibling layout)
 git worktree add ..\repo-feature-api feature/api-contract
 
+# Existing branch (project-internal layout)
+git worktree add .worktrees\feature-api feature/api-contract
+
 # New branch created from the current HEAD
-git worktree add -b feature/perf-audit ..\repo-perf-audit
+git worktree add -b feature/perf-audit .worktrees\perf-audit
 
 # Inspect active worktrees
 git worktree list
@@ -60,9 +97,9 @@ Each worktree gets its own working directory while sharing the same repository o
 
 Use a dedicated branch and directory for each independent task:
 
-- Agent A -> `..\repo-feature-api`
-- Agent B -> `..\repo-perf-audit`
-- Agent C -> `..\repo-docs-sync`
+- Agent A -> `.worktrees\feature-api`
+- Agent B -> `.worktrees\perf-audit`
+- Agent C -> `.worktrees\docs-sync`
 
 Do not send two independent agents into the same worktree. That defeats the isolation.
 
@@ -80,14 +117,19 @@ If the task also uses fleet or background agents, pass the exact worktree path i
 After the branch is merged or no longer needed:
 
 ```powershell
+# Sibling layout
 git worktree remove ..\repo-feature-api
+
+# Project-internal layout
+git worktree remove .worktrees\feature-api
+
 git worktree prune
 ```
 
 If uncommitted changes remain and removal is intentional:
 
 ```powershell
-git worktree remove --force ..\repo-feature-api
+git worktree remove --force .worktrees\feature-api
 git worktree prune
 ```
 

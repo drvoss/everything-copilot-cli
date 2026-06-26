@@ -34,6 +34,29 @@ proves the claim. Memory, prior runs, and "it should work" are not evidence.
 - You know the command that would prove or falsify that claim
 - You can inspect the full output and exit code
 
+## Pre-flight Plan Check
+
+Before starting any task, validate the plan itself — not just after the work is done.
+
+Ask:
+
+- Does any step in the plan conflict with another (e.g., two steps that modify the same file in incompatible ways)?
+- Does the plan match the stated objective, or has scope crept in?
+- Are there hidden dependencies the plan does not account for?
+
+Run the plan check **before the first tool call**, not after the work is in progress.
+
+```text
+Pre-flight checklist:
+[ ] Objective matches the actual request
+[ ] No step conflicts with another
+[ ] Scope matches what was authorized — no undeclared additions
+[ ] Dependencies between steps are accounted for
+```
+
+If a conflict is found at pre-flight, resolve it with the user before proceeding.
+Fixing a wrong plan mid-execution costs more than catching it upfront.
+
 ## Workflow
 
 ### 1. Identify the proving command
@@ -123,12 +146,85 @@ This should be fixed now.
 - You are reusing output from before the last edit
 - You are claiming a broader success than the command proved
 
+## Single-Pass Review Model
+
+When a task requires both spec compliance and quality review, combine them into one reviewer pass instead of two separate passes.
+
+Two-pass review problems:
+
+- The first reviewer may flag issues the second reverses
+- Running two sequential reviewers doubles context cost for the same artifact
+- Separate passes can give conflicting verdicts with no clear tie-breaker
+
+Single-pass review framing:
+
+```text
+Review this [artifact] against:
+1. Spec compliance — does it do what was asked?
+2. Quality — is it correct, maintainable, and free of regressions?
+
+Return a single verdict. Do not approve unless both checks pass.
+```
+
+## Definition of Done Check
+
+Before reporting a task complete, apply the DoD (Definition of Done) framing:
+two questions that must both be answered affirmatively.
+
+| Question | Category |
+|----------|----------|
+| **"Did we build the right thing?"** | Correctness, Integration |
+| **"Is it ready?"** | Quality, Documentation, Ship-readiness |
+
+Five DoD categories:
+
+| Category | Covers |
+|----------|--------|
+| **Correctness** | Does the output do what was specified? Edge cases handled? |
+| **Quality** | Is it maintainable? Are there regressions? Tests pass? |
+| **Integration** | Does it work with the rest of the system? No broken interfaces? |
+| **Documentation** | Is affected documentation updated? Is the change understandable to the next reader? |
+| **Ship-readiness** | Is it safe to deploy? No known blocking issues? |
+
+Do not substitute "I'm satisfied with the code" for a real DoD check.
+
+## Zero-Output Phase Detection (Scope Escape)
+
+A phase that **was expected to produce file changes** but reports success with zero
+target-file modifications is a false positive. Treat it as suspicious.
+
+Valid zero-output phases exist (verification passes, read-only audits, linting that finds
+no issues). This check applies only to phases whose stated purpose was to create or modify files.
+
+Watch for:
+
+- "14/14 steps PASSED" with no files modified — when file changes were expected
+- A build or test reports success on a stale artifact
+- An agent returns "done" but `git diff` shows nothing changed
+
+When a file-producing phase produces zero outputs:
+
+1. Do not count it as completed
+2. Inspect whether the phase was scoped to the right target
+3. Verify the phase was not silently skipped or short-circuited
+4. Re-run with explicit output confirmation before proceeding
+
+```text
+Scope escape check:
+[ ] At least one expected file was created or modified
+[ ] The changed files match the stated scope
+[ ] No "PASSED" phase has zero net changes to target files
+```
+
 ## Verification
 
+- [ ] Pre-flight plan check passed before any tool calls began
 - [ ] The exact proving command was identified before reporting success
 - [ ] The command was run after the latest relevant change
 - [ ] Exit code and output were read, not assumed
 - [ ] The reported claim matches the evidence exactly
+- [ ] DoD check: "did we build the right thing?" AND "is it ready?"
+- [ ] No phase reported success with zero output changes
 
 ## Tips
 

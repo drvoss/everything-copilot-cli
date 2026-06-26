@@ -105,7 +105,47 @@ Good handoffs usually include:
 
 Skip long narrative unless it changes the next decision.
 
-### 4-A. Make delegated work resumable
+### 4-A. Transfer tasks via file, not paste
+
+When dispatching a task to a sub-agent **in the same session or machine**, write the task
+brief to a file and pass the file path — do not paste the full task text inline.
+
+Why:
+
+- Inlined task text inflates context immediately, even when the agent has not started
+- File-based transfer lets multiple agents share the same brief without duplicating tokens
+- The brief becomes inspectable and auditable
+
+For **cross-machine or cross-session** handoff, store the brief in a committed repo location
+or a shared path both machines can access — not in `$env:TEMP`. See Section 2 for picking
+a portable file path.
+
+Pattern (same-session sub-agent dispatch):
+
+```text
+# Orchestrator writes the brief
+$brief = "$env:TEMP\task-brief-$(New-Guid).md"
+Set-Content $brief @"
+## Objective
+...
+
+## Input files
+...
+
+## Expected output
+...
+"@
+
+# Pass only the file path to the sub-agent
+task(agent_type: "general-purpose",
+     prompt: "Read the task brief at $brief and complete it.")
+```
+
+Keep the brief short (objective, inputs, expected outputs, constraints).
+Do not embed code diffs, full file contents, or conversation history into the brief file.
+Reference those by path instead.
+
+### 4-B. Make delegated work resumable
 
 If the handoff is crossing sessions, machines, or agents, capture the minimum
 task ledger needed to resume without guesswork:

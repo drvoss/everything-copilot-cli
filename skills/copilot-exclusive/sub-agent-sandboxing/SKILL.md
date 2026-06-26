@@ -34,6 +34,44 @@ different checkout or environment before merging it back.
 | You are designing tasks and contracts before execution starts | `agentic-engineering` |
 | The task is read-only research | normal delegation or `fleet-parallel` |
 
+## Read-Only Reviewer Constraint
+
+Reviewer sub-agents must not modify the working tree.
+
+When a reviewer edits files during review:
+
+- Uncommitted reviewer changes can be orphaned in the worktree
+- A subsequent merge or rebase may silently include reviewer edits as if they were author changes
+- The boundary between "authored work" and "review annotations" collapses
+
+Enforce read-only mode in review briefs:
+
+```text
+You are a reviewer. Your job is to evaluate the work, not change it.
+Do not edit, create, or delete any files.
+Return your findings as a report — do not apply fixes inline.
+```
+
+Orchestrator checks after a review pass:
+
+```powershell
+# Confirm the reviewer left no staged or unstaged changes
+git diff --name-only       # no output expected
+git diff --cached --name-only  # no output expected
+```
+
+If `git diff` shows reviewer-authored changes:
+
+1. Stash or discard them
+2. Revise the brief with an explicit read-only constraint
+3. Re-run the review
+
+When inline changes are genuinely needed (annotated suggestions):
+
+- Have the reviewer write suggestions to a separate review-notes file
+- Never commit those suggestions as if they were implementation changes
+- Keep the review artifact on a separate branch or in a temp file
+
 ## The Three Guardrails
 
 ### 1. Loop Detection
@@ -141,6 +179,8 @@ Next action: rewrite the brief or switch to a higher-isolation lane.
 - [ ] Sandbox level matches the real blast radius
 - [ ] Output is validated before merge or apply
 - [ ] The failure path reports a blocker instead of silently retrying forever
+- [ ] Reviewer agents have explicit read-only constraints in their briefs
+- [ ] `git diff` is clean after any review pass
 
 ## Tips
 
