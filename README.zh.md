@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="104 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="105 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -69,7 +69,7 @@
 | # | 优势 | 说明 |
 |---|------|------|
 | 1 | **GitHub-Native Integration** | Issue、PR、Actions、代码搜索——全部通过内置 MCP 完成，无需额外配置。 |
-| 2 | **20+ Model Selection** | GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3 Pro——可按任务选择最合适模型。 |
+| 2 | **20+ Model Selection** | GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3.1 Pro——可按任务选择最合适模型。 |
 | 3 | **IDE ↔ CLI Seamless Switching** | 在 VS Code、JetBrains 与终端中共享同一 Copilot 上下文。 |
 | 4 | **Plan Mode** | 结构化文本规划——在编写任何代码前先生成分步实施计划。 |
 | 5 | **Autopilot Mode** | 带护栏的自主任务执行。_（实验性功能）_ |
@@ -162,9 +162,9 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (104 total)
+├── skills/                        # Reusable workflow skills (105 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
-│   ├── development/               #   Dev skills (23)
+│   ├── development/               #   Dev skills (24)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (11)
 │   ├── testing/                   #   Test skills (6)
@@ -225,7 +225,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 104 个 · 8 个类别）
+### 技能（Skill）（共 105 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -266,7 +266,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>开发技能（23）</strong></summary>
+<summary><strong>开发技能（24）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -275,6 +275,7 @@ everything-copilot-cli/
 | `code-review` | 带严重级别的结构化评审 |
 | `cpp-debugging` | 当 C++ 故障涉及对象生命周期、未定义行为、原生崩溃或仅在调试器中显现的状态时，先用符号、sanitizer 与平台原生调试器定位根因，再避免症状式修补 |
 | `fix-github-issue` | 读取 Issue → 定位 bug → 修复 → 测试 → PR |
+| `implement` | 将 PRD、规格或 Issue 通过五步循环（TDD → 类型检查 → 全量测试 → /review → commit）转化为已提交的代码 |
 | `fix-build-errors` | 诊断并解决构建失败 |
 | `improve-codebase-architecture` | 当代码库变得难以修改、测试或理解时，梳理架构摩擦点，并把一个更深的模块候选收敛为可执行的重构方向 |
 | `performance-optimization` | 基于测量定位瓶颈，并验证性能优化是否真实生效 |
@@ -522,7 +523,7 @@ Copilot CLI 围绕你的 GitHub 工作流而构建。以下能力开箱即用：
 | 能力 | 细节 |
 |------|------|
 | **GitHub-Native MCP** | Issue、PR、Actions 和代码搜索——零额外配置 |
-| **20+ Model Selection** | 可按任务在 GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3 Pro 间切换 |
+| **20+ Model Selection** | 可按任务在 GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3.1 Pro 间切换 |
 | **IDE ↔ CLI Context Sharing** | 在 VS Code、JetBrains 与终端间无缝切换上下文 |
 | **Plan Mode** | 在写代码前进行带审批流程的结构化文本规划 |
 | **Autopilot Mode** | 带护栏的自主任务执行 _（实验性功能）_ |

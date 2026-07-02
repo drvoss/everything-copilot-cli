@@ -110,7 +110,7 @@ Copilot CLI always includes Interactive and Plan modes. Autopilot is currently a
 experimental mode, so enable experimental features first if you want to try it:
 
 ```text
-/experimental
+/experimental on
 ```
 
 Then switch between modes with **Shift+Tab**:
@@ -164,7 +164,7 @@ These commands work inside any Copilot CLI session:
 /add-dir ./src      # Add directories to context
 /clear              # Clear conversation history
 /diff               # Review current changes
-/review             # Run PR code review
+/review             # Review implementation against spec or plan
 /init               # Initialize Copilot setup for this project
 /plugin install     # Install a community plugin
 /chronicle          # Standup reports & session history (experimental: /experimental on)

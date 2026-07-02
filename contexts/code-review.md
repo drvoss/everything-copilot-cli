@@ -46,3 +46,4 @@ issues, and logic errors — while ignoring cosmetic concerns.
 | Understand context      | explore          |
 | Verify test coverage    | explore          |
 | Check CI status         | task             |
+| Security vulnerability review | security-review |

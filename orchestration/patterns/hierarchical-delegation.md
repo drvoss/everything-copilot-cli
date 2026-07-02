@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS hierarchical_jobs (
   parent_id TEXT,
   level INTEGER NOT NULL,         -- 0=root, 1=domain orchestrator, 2=specialist
   name TEXT NOT NULL,
-  agent_type TEXT,               -- explore|task|general-purpose|code-review
+  agent_type TEXT,               -- explore|task|general-purpose|code-review|research|security-review
   model TEXT,
   status TEXT NOT NULL DEFAULT 'pending',
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
@@ -78,8 +78,6 @@ CREATE TABLE IF NOT EXISTS hierarchical_jobs (
   result TEXT,
   FOREIGN KEY(parent_id) REFERENCES hierarchical_jobs(id)
 );
-
-CREATE INDEX IF NOT EXISTS idx_hjobs_parent_id ON hierarchical_jobs(parent_id);
 CREATE INDEX IF NOT EXISTS idx_hjobs_status ON hierarchical_jobs(status);
 '@)
 
@@ -250,7 +248,7 @@ CREATE TABLE hierarchical_jobs (
   parent_id TEXT,
   level INTEGER NOT NULL,         -- 0=root, 1=domain orchestrator, 2=specialist
   name TEXT NOT NULL,
-  agent_type TEXT,               -- explore|task|general-purpose|code-review
+  agent_type TEXT,               -- explore|task|general-purpose|code-review|research|security-review
   model TEXT,
   status TEXT NOT NULL DEFAULT 'pending',
   created_at TEXT NOT NULL DEFAULT (datetime('now')),

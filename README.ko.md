@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="104 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="105 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -69,7 +69,7 @@ Copilot CLI가 multi-AI 개발 워크플로우의 허브로 강한 이유는 세
 | # | 장점 | 설명 |
 |---|------|------|
 | 1 | **GitHub 네이티브 통합** | Issues, PR, Actions, 코드 검색 — 내장 MCP로 별도 설정 없이 바로 사용 |
-| 2 | **20개 이상 모델 선택** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — 작업별로 최적의 모델 선택 |
+| 2 | **20개 이상 모델 선택** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3.1 Pro — 작업별로 최적의 모델 선택 |
 | 3 | **IDE ↔ CLI 원활한 전환** | VS Code, JetBrains, 터미널에서 동일한 Copilot 컨텍스트 유지 |
 | 4 | **Plan Mode** | 구조화된 텍스트 플래닝 — 코드를 작성하기 전에 단계별 구현 계획을 수립 |
 | 5 | **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 _(실험적 기능)_ |
@@ -162,9 +162,9 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (104개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (105개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (26개)
-│   ├── development/               #   개발 스킬 (23개)
+│   ├── development/               #   개발 스킬 (24개)
 │   ├── documentation/             #   문서화 스킬 (6개)
 │   ├── security/                  #   보안 스킬 (11개)
 │   ├── testing/                   #   테스팅 스킬 (6개)
@@ -225,7 +225,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 104개 · 8개 카테고리)
+### 스킬 (총 105개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -266,7 +266,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>개발 스킬 (23개)</strong></summary>
+<summary><strong>개발 스킬 (24개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -275,6 +275,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `code-review` | 심각도 수준이 포함된 구조화된 코드 리뷰 |
 | `cpp-debugging` | C++ 오류가 객체 수명, 정의되지 않은 동작, 네이티브 크래시, 디버거에서만 드러나는 상태를 포함할 때 심볼, sanitizer, 플랫폼별 디버거로 증상을 패치하기 전에 원인을 추적 |
 | `fix-github-issue` | 이슈 읽기 → 버그 위치 → 수정 → 테스트 → PR |
+| `implement` | PRD·스펙·이슈를 5단계(TDD → 타입체크 → 전체 suite → /review → commit) 루프로 커밋까지 연결 |
 | `fix-build-errors` | 빌드 실패 진단 및 해결 |
 | `improve-codebase-architecture` | 코드베이스가 바꾸기, 테스트하기, 탐색하기 어렵게 느껴질 때 아키텍처 마찰을 드러내고 더 깊은 모듈 후보 하나를 구체적 리팩터링 방향까지 좁힘 |
 | `performance-optimization` | 측정 기반으로 병목을 찾고 성능 개선을 검증 |
@@ -522,7 +523,7 @@ Copilot CLI는 GitHub 워크플로우를 중심으로 설계된 도구입니다.
 | 기능 | 설명 |
 |-----|------|
 | **GitHub 네이티브 MCP** | Issues, PR, Actions, 코드 검색 — 별도 설정 없이 바로 사용 |
-| **20개 이상 모델 선택** | 작업별로 GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro 전환 |
+| **20개 이상 모델 선택** | 작업별로 GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3.1 Pro 전환 |
 | **IDE ↔ CLI 컨텍스트 공유** | VS Code, JetBrains, 터미널 간 원활한 전환 |
 | **Plan Mode** | 코드 작성 전 승인 워크플로우를 포함한 구조화된 텍스트 플래닝 |
 | **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 _(실험적 기능)_ |

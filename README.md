@@ -69,7 +69,7 @@ Three capabilities make Copilot CLI a strong hub for multi-AI development workfl
 | # | Advantage | Description |
 |---|-----------|-------------|
 | 1 | **GitHub-Native Integration** | Issues, PRs, Actions, code search — all via built-in MCP. No extra setup. |
-| 2 | **20+ Model Selection** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro — pick the right model per task. |
+| 2 | **20+ Model Selection** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3.1 Pro — pick the right model per task. |
 | 3 | **IDE ↔ CLI Seamless Switching** | Same Copilot context in VS Code, JetBrains, and the terminal. |
 | 4 | **Plan Mode** | Structured text planning — Copilot builds a step-by-step implementation plan before writing any code. |
 | 5 | **Autopilot Mode** | Autonomous task execution with guardrails. _(Experimental)_ |
@@ -266,7 +266,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Development Skills (23)</strong></summary>
+<summary><strong>Development Skills (24)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -275,6 +275,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `code-review` | Structured review with severity levels |
 | `cpp-debugging` | Use when a C++ failure involves memory lifetime, undefined behavior, native crashes, or debugger-only state — debug with symbols, sanitizers, and platform-native debuggers before patching symptoms |
 | `fix-github-issue` | Read issue → locate bug → fix → test → PR |
+| `implement` | Turn a PRD, spec, or set of issues into committed code via a five-step TDD → validate → review → commit loop |
 | `fix-build-errors` | Diagnose and resolve build failures |
 | `improve-codebase-architecture` | Use when a codebase feels hard to change, test, or navigate — surface architectural friction and walk one deeper-module candidate into a concrete refactoring direction |
 | `performance-optimization` | Measure first, isolate bottlenecks, and prove performance improvements |
@@ -522,7 +523,7 @@ Copilot CLI is purpose-built around your GitHub workflow. Here's what you get ou
 | Capability | Details |
 |-----------|---------|
 | **GitHub-Native MCP** | Issues, PRs, Actions, and code search — zero extra setup |
-| **20+ Model Selection** | Switch between GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3 Pro per task |
+| **20+ Model Selection** | Switch between GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3.1 Pro per task |
 | **IDE ↔ CLI Context Sharing** | Seamless switching between VS Code, JetBrains, and the terminal |
 | **Plan Mode** | Structured text planning with approval workflow before any code is written |
 | **Autopilot Mode** | Autonomous task execution with guardrails _(Experimental)_ |

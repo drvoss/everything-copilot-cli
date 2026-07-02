@@ -557,11 +557,8 @@ npm run build && npm test
 |-------|----------|------|-------------|
 | `name` | ✅ | string | Kebab-case identifier matching filename |
 | `description` | ✅ | string | One-line purpose statement |
-| `category` | ✅ | string | One of: development, security, testing, documentation, copilot-exclusive |
-| `triggers` | ⚠️ | string[] | Phrases that should activate this skill |
-| `requires_tools` | ⚠️ | string[] | Tools the skill needs access to |
-| `agent_type` | ⚠️ | string | Which agent type best executes this skill |
-| `model` | ⚠️ | string | Recommended model override |
+| `metadata.category` | ✅ | string | One of: development, security, testing, documentation, workflow, product, content, copilot-exclusive |
+| `metadata.agent_type` | ⚠️ | string | Recommended agent type (general-purpose, code-review, security-reviewer, etc.) |
 
 ### Testing Skills
 
@@ -732,7 +729,7 @@ Transfer context between AI tools using file-based hand-off:
 
 ```powershell
 # Copilot CLI generates analysis
-copilot-cli "Analyze auth system, write findings to analysis.md"
+copilot "Analyze auth system, write findings to analysis.md"
 
 # Claude Code continues with deep reasoning
 claude "Read analysis.md and propose architectural improvements"

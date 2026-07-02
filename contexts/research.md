@@ -43,5 +43,6 @@ or researching how something works. This mode is read-only — no code is modifi
 | Search for patterns     | explore          |
 | Understand architecture | explore          |
 | Read specific files     | (use view tool)  |
-| Summarise findings      | general-purpose  |
+| Synthesise findings      | general-purpose  |
 | Check dependencies      | explore          |
+| Web / cross-repo research | research       |

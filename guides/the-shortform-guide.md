@@ -119,7 +119,7 @@ metadata:
 /compact            # Compress context to save tokens
 /login              # Authenticate with GitHub
 /diff               # Review current changes
-/review             # Run PR code review
+/review             # Review implementation against spec or plan
 /init               # Initialize Copilot setup for this project
 /plugin install     # Install a community plugin
 /chronicle          # Standup reports & session history (experimental)

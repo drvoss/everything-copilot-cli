@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="104 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="105 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -69,7 +69,7 @@ Copilot CLI が multi-AI 開発 workflow のハブとして強い理由は、次
 | # | 強み | 説明 |
 |---|-----------|-------------|
 | 1 | **GitHub ネイティブ統合** | Issue、PR、Actions、code search をすべて組み込み MCP で利用できます。追加設定は不要です。 |
-| 2 | **20+ モデル選択** | GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3 Pro から、task ごとに最適なモデルを選べます。 |
+| 2 | **20+ モデル選択** | GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3.1 Pro から、task ごとに最適なモデルを選べます。 |
 | 3 | **IDE ↔ CLI のシームレス切り替え** | VS Code、JetBrains、terminal で同じ Copilot context を共有できます。 |
 | 4 | **Plan Mode** | 構造化テキストで計画できます。Copilot はコードを書く前に段階的な実装計画を作成します。 |
 | 5 | **Autopilot Mode** | ガードレール付きの自律 task 実行。_（実験的機能）_ |
@@ -162,9 +162,9 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (104 total)
+├── skills/                        # Reusable workflow skills (105 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
-│   ├── development/               #   Dev skills (23)
+│   ├── development/               #   Dev skills (24)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (11)
 │   ├── testing/                   #   Test skills (6)
@@ -225,7 +225,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計104・8カテゴリ）
+### スキル（合計105・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
@@ -266,7 +266,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>開発 Skills（23）</strong></summary>
+<summary><strong>開発 Skills（24）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -275,6 +275,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `code-review` | 重大度レベル付きの構造化 review |
 | `cpp-debugging` | C++ の失敗が寿命、未定義動作、native crash、debugger でしか見えない状態を含むときに、symbol、sanitizer、platform-native debugger で症状パッチ前に原因を追跡します |
 | `fix-github-issue` | issue を読む → bug 特定 → 修正 → test → PR |
+| `implement` | PRD・spec・issue をもとに 5 ステップ（TDD → 型チェック → full suite → /review → commit）で実装からコミットまで通します |
 | `fix-build-errors` | build failure を診断して解決します |
 | `improve-codebase-architecture` | codebase が変更しづらく、テストしづらく、読み解きにくいときに、設計上の摩擦を洗い出し、より深い module 候補を具体的な refactoring 方向まで絞り込みます |
 | `performance-optimization` | 計測ベースで bottleneck を特定し、改善を実証します |
@@ -522,7 +523,7 @@ Copilot CLI は GitHub workflow に最適化されて設計されています。
 | 機能 | 詳細 |
 |-----------|---------|
 | **GitHub-Native MCP** | Issue、PR、Actions、code search を追加設定なしで利用できます |
-| **20+ Model Selection** | task ごとに GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3 Pro を切り替えられます |
+| **20+ Model Selection** | task ごとに GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3.1 Pro を切り替えられます |
 | **IDE ↔ CLI Context Sharing** | VS Code、JetBrains、terminal 間をシームレスに切り替えられます |
 | **Plan Mode** | code を書く前に承認 workflow 付きの構造化テキスト計画を行います |
 | **Autopilot Mode** | ガードレール付きの自律 task 実行 _（実験的機能）_ |
