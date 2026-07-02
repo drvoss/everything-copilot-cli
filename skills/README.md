@@ -156,6 +156,7 @@ Core software development skills applicable to any project.
 | [`deprecation-and-migration`](development/deprecation-and-migration/SKILL.md) | Safely remove old APIs and migrate to new patterns with a 3-phase process |
 | [`fix-build-errors`](development/fix-build-errors/SKILL.md) | Diagnose and fix build failures fast |
 | [`fix-github-issue`](development/fix-github-issue/SKILL.md) | Resolve a GitHub Issue end-to-end: read → locate → fix → test → PR |
+| [`implement`](development/implement/SKILL.md) | Turn a PRD, spec, or set of issues into committed code via a five-step TDD → validate → review → commit loop |
 | [`improve-codebase-architecture`](development/improve-codebase-architecture/SKILL.md) | Use when a codebase feels hard to change, test, or navigate — surface architectural friction and walk one deeper-module candidate into a concrete refactoring direction |
 | [`performance-optimization`](development/performance-optimization/SKILL.md) | Measure first, isolate bottlenecks, and prove that a performance change actually helps |
 | [`pr-multi-perspective-review`](development/pr-multi-perspective-review/SKILL.md) | Review PRs from 6 lenses: PM / Dev / QA / Security / DevOps / UX |

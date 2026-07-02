@@ -22,7 +22,7 @@ spec to commit.
 ## When to Use
 
 - You have a PRD, issue, or spec and need a repeatable path from "start" to "merged"
-- You want to enforce `/code-review` and type-checking as gates before every commit
+- You want to enforce `/review` and type-checking as gates before every commit
 - You need a structured sequence that doesn't skip test coverage or review under deadline pressure
 
 ## When NOT to Use
