@@ -193,7 +193,7 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # Context presets
-├── references/                    # Checklist & pattern references (13 files across root + subdirectories)
+├── references/                    # Checklist & pattern references (14 files across root + subdirectories)
 │   ├── github-actions-efficiency/ #   Actions efficiency audit references
 │   ├── github-codespaces-efficiency/ # Codespaces efficiency guidance
 │   ├── security-scan/             #   Stack-specific security guidance
