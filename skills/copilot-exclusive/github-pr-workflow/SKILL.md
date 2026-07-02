@@ -132,3 +132,79 @@ Tool: github-mcp-server-search_pull_requests
   If CI is red, focus on the failure first.
 - **Paginate large results**: Use `page` and `perPage` parameters to handle repositories
   with hundreds of open PRs without overwhelming your context window.
+
+## Automated Review-Loop (copilot-pr-autopilot)
+
+Automate the full Copilot Code Review cycle: request → monitor → triage → fix → resolve → re-trigger.
+Inspired by the `copilot-pr-autopilot` pattern from [github/awesome-copilot PR #1944](https://github.com/github/awesome-copilot/pull/1944).
+
+### Loop Overview
+
+```text
+1. Request Copilot Code Review on the PR
+2. Poll until review is complete (status: "completed" or "action_required")
+3. Triage open review threads:
+   - Actionable → fix in code
+   - Outdated / resolved by other changes → reply + resolve
+4. Commit fixes with a targeted message
+5. Re-trigger Copilot Code Review
+6. Repeat until no actionable threads remain
+```
+
+### When to Use This Loop
+
+- You want to resolve all Copilot review comments without manual thread triage
+- You are working as an external contributor (single-iteration mode recommended)
+- You need to clear a review queue before merge
+
+### Implementation Pattern
+
+Use `gh api graphql` for thread-level operations that the REST API does not expose:
+
+```bash
+# List unresolved review threads on a PR
+gh api graphql -f query='
+  query($owner: String!, $repo: String!, $pr: Int!) {
+    repository(owner: $owner, name: $repo) {
+      pullRequest(number: $pr) {
+        reviewThreads(first: 50) {
+          nodes { id isResolved isOutdated comments(first: 1) { nodes { body } } }
+        }
+      }
+    }
+  }
+' -f owner=MY-ORG -f repo=MY-REPO -F pr=142
+```
+
+```bash
+# Resolve a specific thread after fixing
+gh api graphql -f query='
+  mutation($threadId: ID!) {
+    resolveReviewThread(input: {threadId: $threadId}) { thread { id isResolved } }
+  }
+' -f threadId=THREAD_ID
+```
+
+### Triage Strategy
+
+| Thread state | Action |
+|---|---|
+| Actionable, code not fixed | Fix in source, then resolve |
+| Outdated (code changed since comment) | Reply "Addressed by [commit]", then resolve |
+| Duplicate of a resolved thread | Resolve without reply |
+| Requires discussion | Leave open, note for human reviewer |
+
+### Single-Iteration Mode (External Contributor Friendly)
+
+For repositories where you lack Triage/Write permissions, run one iteration only:
+
+1. Fix all actionable threads in a single commit
+2. Reply to each thread explaining the fix
+3. Leave resolution to the PR author or maintainer
+
+### Safety Guards
+
+- **Require Triage permission** before calling `resolveReviewThread` — check `viewerCanResolveThread` in the GraphQL query
+- **Never auto-resolve threads marked as security-blocking** — check the thread body for "BLOCK" or severity markers
+- **Cap iterations at 5** to prevent runaway loops on PRs with continuously regenerated review comments
+- **Do not delete stale comments automatically** — reply and resolve instead; git blame and PR history should remain intact

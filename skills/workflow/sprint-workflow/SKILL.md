@@ -236,10 +236,28 @@ Categories: Logic, Security, Tests, Performance, API Contracts
 
 - [ ] Sprint goal defined in 1–3 clear sentences
 - [ ] Every task has explicit acceptance criteria
+- [ ] **Plan identifiers are unique** — each TASK-/GOAL-/REQ- identifier declared exactly once (run checks below)
 - [ ] All PRs merged by sprint end passed code review
 - [ ] Runtime releases included a canary or smoke-monitoring step
 - [ ] `sprint-retro` skill used for a data-driven retrospective
 - [ ] Next sprint backlog prepared
+
+### Plan Identifier Uniqueness Gate
+
+Before approving a plan, verify that each `TASK-`, `GOAL-`, and `REQ-` identifier is declared
+exactly once. A reference to another task (e.g., "depends on TASK-03") is not a declaration and
+must not appear in the duplicate list.
+
+```bash
+# Detect duplicate declarations in table rows
+grep -oE '^\| (TASK|GOAL|REQ)-[0-9]+' plan.md | sort | uniq -d
+
+# Detect duplicate declarations in bullet lists
+grep -oE '^- \*\*(TASK|GOAL|REQ)-[0-9]+' plan.md | sort | uniq -d
+```
+
+Any output from either command is a blocking error — resolve the collision before beginning the
+Build step.
 
 ## Tips
 

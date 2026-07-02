@@ -59,7 +59,8 @@ Suggested lookup order:
    codebase is JS/TS-heavy
 2. `../../../references/security-scan/python-general-security.md` when the codebase is
    Python-heavy
-3. the shared repository checklist when no stack-specific note exists
+3. `../../../references/security-scan/rust.md` when the codebase is Rust-heavy
+4. the shared repository checklist when no stack-specific note exists
 
 If no matching reference exists, continue with the scan using well-known best practices rather
 than inventing framework-specific rules.
