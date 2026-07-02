@@ -162,7 +162,7 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (104 total)
+├── skills/                        # Reusable workflow skills (105 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
 │   ├── development/               #   Dev skills (23)
 │   ├── documentation/             #   Doc skills (6)
@@ -225,7 +225,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (104 Total · 8 Categories)
+### Skills (105 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
