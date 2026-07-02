@@ -164,7 +164,7 @@ everything-copilot-cli/
 │
 ├── skills/                        # Reusable workflow skills (105 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
-│   ├── development/               #   Dev skills (23)
+│   ├── development/               #   Dev skills (24)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (11)
 │   ├── testing/                   #   Test skills (6)
