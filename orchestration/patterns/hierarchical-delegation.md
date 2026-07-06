@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS hierarchical_jobs (
   result TEXT,
   FOREIGN KEY(parent_id) REFERENCES hierarchical_jobs(id)
 );
+CREATE INDEX IF NOT EXISTS idx_hjobs_parent_id ON hierarchical_jobs(parent_id);
 CREATE INDEX IF NOT EXISTS idx_hjobs_status ON hierarchical_jobs(status);
 '@)
 

@@ -12,6 +12,7 @@ const EXPECTED_COMMON_FILES = [
   "error-handling.md",
   "git-workflow.md",
   "security.md",
+  "supply-chain-security.md",
   "testing.md",
 ];
 

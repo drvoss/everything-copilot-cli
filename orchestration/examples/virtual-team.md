@@ -265,7 +265,7 @@ Diff: $(git --no-pager diff main...HEAD)
 
 ## See Also
 
-- [Pattern: Pipeline](pipeline.md) — Sequential agent chaining
-- [Pattern: Producer-Reviewer](producer-reviewer.md) — Simpler two-role pattern
+- [Pattern: Pipeline](../patterns/pipeline.md) — Sequential agent chaining
+- [Pattern: Producer-Reviewer](../patterns/producer-reviewer.md) — Simpler two-role pattern
 - [Skill: team-planner](../../skills/copilot-exclusive/team-planner/SKILL.md) — Copilot-specific team assembly
 - [Agent: planner](../../agents/planner.md) — Structured task decomposition

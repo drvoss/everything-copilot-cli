@@ -5,7 +5,14 @@ import { join, extname, resolve } from "node:path";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const AGENTS_DIR = join(ROOT, "agents");
-const VALID_TYPES = ["explore", "task", "general-purpose", "code-review"];
+const VALID_TYPES = [
+  "explore",
+  "task",
+  "general-purpose",
+  "code-review",
+  "research",
+  "security-review",
+];
 
 function parseFrontmatter(content) {
   const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
