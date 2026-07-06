@@ -175,7 +175,7 @@ everything-copilot-cli/
 ├── rules/                         # Coding rules & guidelines
 │   ├── common/                    #   Universal rules (6)
 │   ├── languages/                 #   Language-specific: TS, Python, Go, C#, Java, C++
-│   └── frameworks/                #   Framework rules (7)
+│   └── frameworks/                #   Framework rules (8)
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   11 orchestration patterns
@@ -411,7 +411,7 @@ Coding rules and guidelines, organized by scope:
 
 - **Common Rules** — Universal best practices (error handling, logging, naming conventions)
 - **Language-Specific Rules** — TypeScript, Python, Go, C#, Java
-- **Framework-Specific Rules** — Next.js, React, Prisma, Playwright, NestJS, Cloudflare Workers, Vitest
+- **Framework-Specific Rules** — Next.js, React, Vue, Prisma, Playwright, NestJS, Cloudflare Workers, Vitest
 
 ### Orchestration
 

@@ -175,7 +175,7 @@ everything-copilot-cli/
 ├── rules/                         # 코딩 규칙 & 가이드라인
 │   ├── common/                    #   범용 규칙 (6개)
 │   ├── languages/                 #   언어별 규칙: TS, Python, Go, C#, Java, C++
-│   └── frameworks/                #   프레임워크 규칙 (7개)
+│   └── frameworks/                #   프레임워크 규칙 (8개)
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   11가지 오케스트레이션 패턴
@@ -411,7 +411,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 
 - **Common Rules** — 범용 모범 사례 (에러 처리, 로깅, 네이밍 컨벤션)
 - **Language-Specific Rules** — TypeScript, Python, Go, C#, Java
-- **Framework-Specific Rules** — Next.js, React, Prisma, Playwright, NestJS, Cloudflare Workers, Vitest
+- **Framework-Specific Rules** — Next.js, React, Vue, Prisma, Playwright, NestJS, Cloudflare Workers, Vitest
 
 ### 오케스트레이션
 

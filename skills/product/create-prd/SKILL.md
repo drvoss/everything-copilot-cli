@@ -19,6 +19,39 @@ metadata:
 **Note**: This skill works best for well-scoped, single-feature PRDs. For large epics with
 many sub-features, use this per sub-feature and link them together.
 
+## Before You Write This PRD (Risk Gate)
+
+Before formalizing requirements, briefly verify that the feature is worth building.
+Skip this gate only when the build decision is already validated (e.g., a committed
+roadmap item, a contractual requirement, or a P0 bug fix).
+
+### Feature Demand Level Check
+
+| Level | Signal | Action |
+|-------|--------|--------|
+| 0 | Founder/stakeholder anxiety — "competitors have it" or "feels incomplete" | Defer; validate first |
+| 1 | One user request, no behavior proof | Validate before writing a PRD |
+| 2 | Repeated requests from target users, no usage proof yet | Write a lightweight PRD; plan validation alongside it |
+| 3 | Workflow blocker — users cannot complete the core job without it | Write the PRD and build |
+| 4 | Revenue or retention blocker — users churn or refuse to pay without it | Write the PRD and build now |
+
+**Proceed to a full PRD for Level 3 or Level 4.** For Level 0–2, start with the
+smallest validation step (a buyer conversation, a landing page, a manual pilot) and
+feed the findings into the PRD's Problem Statement and JTBD sections instead of
+skipping straight to requirements.
+
+### Minimum Risk Check (for Level 1–2)
+
+Answer these before writing requirements:
+
+- **Demand**: Is there evidence a specific user urgently needs this?
+- **Switching reason**: What makes the current alternative insufficient?
+- **Distribution**: Is there a repeatable way to reach the target user after launch?
+- **Retention**: Is there a reason users would return after the first use?
+
+If any answer is "unknown", record it in the PRD's **Open Questions** section and tag
+it `needs-validation-before-implementation` rather than silently assuming a "yes".
+
 ## Prerequisites
 
 - A feature idea, GitHub Issue, or user request to formalize

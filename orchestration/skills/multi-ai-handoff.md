@@ -197,6 +197,62 @@ WHERE id = 'auth-refactor';
 - **Return via Copilot CLI** — even if Claude Code generates code, route the final PR creation through Copilot CLI for GitHub-native integration.
 - **Clean up `.handoff/`** — add to `.gitignore`; these are session artifacts, not source code.
 
+## Synthesis Pattern: Treat Delegated Results as Peer Opinion
+
+When a delegate returns its result, do not echo it verbatim. Instead:
+
+1. Summarize the key findings in your own words
+2. State explicitly where you **agree** and where you **disagree**
+3. Recommend next steps based on reconciling both perspectives
+
+The delegate's output is a peer opinion, not authority — the orchestrating agent
+stays accountable for the final decision. This is especially useful for pre-merge
+code review and architecture challenges, where blindly forwarding a second model's
+opinion can mask disagreements that matter.
+
+## Session Continuity for Multi-Turn Delegation
+
+When dispatching to the same external CLI multiple times in a session, assign a
+**topic ID** (short UUID or descriptive label) to each thread:
+
+```text
+topic: auth-review-codex
+topic: architecture-challenge-gemini
+```
+
+When resuming a thread, pass only the **delta** (what changed since the last
+exchange) instead of replaying the full context — this keeps delegated context
+bounded as the session grows.
+
+If the topic mapping is lost (e.g., after context compaction), ask the user which
+thread to resume, or start a fresh thread rather than guessing.
+
+## Security: Pass Prompts via stdin, Not Shell Interpolation
+
+Never build a command line by concatenating untrusted context (issue text, PR
+descriptions, diffs, chat messages) into a string that gets passed to a shell
+interpreter (`Invoke-Expression`, `cmd /c`, `bash -c`, or similar). Untrusted text
+can contain characters that the interpreter re-evaluates, letting it inject
+additional commands.
+
+```powershell
+# Safe: pipe the prompt through stdin — most CLIs (codex, claude, gemini) accept
+# a prompt on stdin when given "-" or no positional prompt argument.
+$promptText | codex exec --sandbox read-only -
+```
+
+```powershell
+# Unsafe: passing untrusted text through a shell interpreter that re-parses it
+cmd /c "codex exec `"Review this issue: $issueBody`""   # do not do this
+Invoke-Expression "codex exec '$issueBody'"              # do not do this either
+```
+
+Direct PowerShell string interpolation into a single command argument (e.g.
+`codex exec "Review: $issueBody"`) is safer than the above because PowerShell does
+not re-parse the resulting string — but prefer stdin piping regardless, since it
+avoids CLI argument length limits and keeps the prompt out of process listings and
+shell history.
+
 ## See Also
 
 - [Pattern: Pipeline](../patterns/pipeline.md) — Sequential AI chaining

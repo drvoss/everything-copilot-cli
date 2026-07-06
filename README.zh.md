@@ -175,7 +175,7 @@ everything-copilot-cli/
 ├── rules/                         # Coding rules & guidelines
 │   ├── common/                    #   Universal rules (6)
 │   ├── languages/                 #   Language-specific: TS, Python, Go, C#, Java, C++
-│   └── frameworks/                #   Framework rules (7)
+│   └── frameworks/                #   Framework rules (8)
 │
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   11 orchestration patterns
@@ -411,7 +411,7 @@ everything-copilot-cli/
 
 - **通用规则** —— 通用最佳实践（错误处理、日志、命名规范）
 - **语言特定规则** —— TypeScript、Python、Go、C#、Java
-- **框架特定规则** —— Next.js、React、Prisma、Playwright、NestJS、Cloudflare Workers、Vitest
+- **框架特定规则** —— Next.js、React、Vue、Prisma、Playwright、NestJS、Cloudflare Workers、Vitest
 
 ### 编排
 

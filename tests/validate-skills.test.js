@@ -1,11 +1,12 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join, extname, resolve } from "node:path";
+import { join, extname, resolve, basename, dirname, posix as pathPosix } from "node:path";
 import { VALID_SKILL_CATEGORIES, getSkillCategory, parseFrontmatter } from "../scripts/skill-metadata.js";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const SKILLS_DIR = join(ROOT, "skills");
+const README_PATH = join(SKILLS_DIR, "README.md");
 
 function collectMarkdownFiles(dir) {
   if (!statSync(dir, { throwIfNoEntry: false })?.isDirectory()) return [];
@@ -52,6 +53,28 @@ describe("skills/ validation", () => {
         `Invalid category "${category}". Must be one of: ${VALID_SKILL_CATEGORIES.join(", ")}`
       );
     });
+
+    it(`${filename} name should match its directory name`, () => {
+      const content = readFileSync(file, "utf-8");
+      const fm = parseFrontmatter(content);
+      const dirName = basename(dirname(file));
+      assert.equal(
+        fm?.name,
+        dirName,
+        `frontmatter name "${fm?.name}" must equal directory name "${dirName}"`
+      );
+    });
+
+    it(`${filename} category should match its parent folder`, () => {
+      const content = readFileSync(file, "utf-8");
+      const category = getSkillCategory(content);
+      const folderName = basename(dirname(dirname(file)));
+      assert.equal(
+        category,
+        folderName,
+        `category "${category}" must equal parent folder "${folderName}"`
+      );
+    });
   }
 
   it("should have no duplicate skill names", () => {
@@ -67,4 +90,46 @@ describe("skills/ validation", () => {
       `Duplicate names found: ${names.filter((n, i) => names.indexOf(n) !== i).join(", ")}`
     );
   });
+});
+
+describe("skills/README.md catalog", () => {
+  const readmeContent = readFileSync(README_PATH, "utf-8");
+
+  // e.g. skills/README.md linking to `category/skill-name/SKILL.md`
+  const linkPattern = /\(([\w-]+\/[\w-]+\/SKILL\.md)\)/g;
+  const linkedPaths = new Set(
+    [...readmeContent.matchAll(linkPattern)].map((m) => m[1])
+  );
+
+  // Path on disk relative to skills/, using posix separators for comparison.
+  const diskPaths = new Set(
+    skillFiles.map((file) =>
+      file
+        .slice(SKILLS_DIR.length + 1)
+        .split(/[\\/]/)
+        .join(pathPosix.sep)
+    )
+  );
+
+  it("should link at least one skill", () => {
+    assert.ok(linkedPaths.size > 0, "No SKILL.md links found in skills/README.md");
+  });
+
+  for (const linkedPath of linkedPaths) {
+    it(`linked catalog entry ${linkedPath} should exist on disk`, () => {
+      assert.ok(
+        diskPaths.has(linkedPath),
+        `skills/README.md links to "${linkedPath}" but no such SKILL.md exists on disk`
+      );
+    });
+  }
+
+  for (const diskPath of diskPaths) {
+    it(`${diskPath} should be listed in skills/README.md catalog`, () => {
+      assert.ok(
+        linkedPaths.has(diskPath),
+        `${diskPath} exists on disk but is not linked anywhere in skills/README.md`
+      );
+    });
+  }
 });

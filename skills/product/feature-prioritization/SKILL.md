@@ -67,6 +67,22 @@ CREATE TABLE features (
 > Challenge my assumptions if something seems over- or under-valued.
 ```
 
+### Alternative Frameworks
+
+Impact × Confidence × Effort is the default because it is fast and transparent, but
+it is not the only valid framework. Switch when the situation calls for it:
+
+| Framework | Best for | Trade-off vs. this matrix |
+|-----------|----------|---------------------------|
+| **RICE** (Reach × Impact × Confidence ÷ Effort) | Larger backlogs where reach varies widely (e.g., 50 users vs. 50,000) | Adds an explicit reach term instead of folding it into Impact |
+| **ICE** (Impact × Confidence × Ease) | Fast, low-ceremony triage with a small team | Simpler but less precise than RICE or this matrix |
+| **MoSCoW** (Must / Should / Could / Won't) | Scope-cutting inside a fixed release, not ongoing backlog ranking | Categorical, not a numeric score — pairs well with `launch-strategy` tiers |
+| **Kano Model** (Basic / Performance / Delighter) | Understanding *why* a feature matters to satisfaction, not just urgency | Requires user surveys; slower than a team scoring session |
+
+If the backlog spans wildly different audience sizes, prefer RICE over this matrix.
+If the team needs a same-meeting decision, ICE is faster. Record which framework was
+used in the `notes` column so future prioritization stays comparable.
+
 ### Step 3: Insert into SQL
 
 ```sql
