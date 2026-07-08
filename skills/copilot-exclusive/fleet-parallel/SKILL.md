@@ -149,6 +149,34 @@ If agents need separate long-lived branches or may touch overlapping tooling sta
 git worktree per task and include that path in the prompt. See
 [`using-git-worktrees`](../../workflow/using-git-worktrees/SKILL.md).
 
+### 5-A. Fresh Context Per Task, With a Dual Review Gate (Sequential Variant)
+
+Fleet mode above parallelizes independent tasks. When tasks are mostly independent but you want
+to stay in the *current* session (no separate `/fleet` batch, no context switch), apply the same
+isolation discipline **sequentially**: dispatch one fresh sub-agent per task, gate each with a
+review before moving on, and do the final review only once at the end.
+
+- **Fresh subagent per task** — never let a sub-agent inherit this session's full history.
+  Construct its brief from scratch: only the plan step, the files it owns, and any prior-task
+  output it genuinely depends on. This keeps the sub-agent focused and preserves your own context
+  for coordination.
+- **Dual review per task** — after each task's sub-agent reports done, dispatch a separate
+  reviewer (read-only, per `sub-agent-sandboxing`'s read-only reviewer constraint) that checks two
+  things: does the result match the task's spec, and is the quality acceptable. Only mark the task
+  complete in the SQL `todos` table after both pass; otherwise dispatch a fix pass and re-review.
+- **One broad review at the end** — after every task is complete, run a single whole-branch review
+  across the full diff, separate from the per-task reviews. Per-task review catches local defects;
+  the final pass catches integration and cross-task consistency issues neither task saw in
+  isolation.
+- **Continuous execution** — once dispatched, do not pause between tasks to ask "should I
+  continue?". Keep executing the remaining tasks. The only valid reasons to stop are: a task
+  reports BLOCKED and you cannot resolve it, a genuine ambiguity prevents progress, or all tasks
+  are done.
+
+This differs from full `/fleet` batches in one way: tasks run one after another in the same
+session rather than as concurrent agents, which is the right trade when task N's brief needs
+output from task N-1 but you still want isolation and review discipline per step.
+
 ### 6. Monitor and Collect Results
 
 While fleet agents run, you can:
@@ -240,3 +268,7 @@ Fleet assigns one agent per file. Each agent:
   most valuable once you have 4+ truly independent tasks.
 - **Cost awareness**: Fleet mode uses more API calls. Use it when parallelism
   provides clear value, not for trivially sequential tasks.
+- **Sequential isolation is still isolation**: when tasks are dependent and must stay in one
+  session, the 5-A fresh-context + dual-review discipline gets you most of fleet's quality
+  benefit without the concurrency (concept adapted from obra/superpowers
+  `subagent-driven-development`).

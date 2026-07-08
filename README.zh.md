@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="105 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="107 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (105 total)
+├── skills/                        # Reusable workflow skills (107 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
-│   ├── development/               #   Dev skills (24)
+│   ├── development/               #   Dev skills (25)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (11)
 │   ├── testing/                   #   Test skills (6)
-│   ├── workflow/                  #   Workflow skills (24)
+│   ├── workflow/                  #   Workflow skills (25)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -225,7 +225,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 105 个 · 8 个类别）
+### 技能（Skill）（共 107 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -266,7 +266,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>开发技能（24）</strong></summary>
+<summary><strong>开发技能（25）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -281,6 +281,7 @@ everything-copilot-cli/
 | `performance-optimization` | 基于测量定位瓶颈，并验证性能优化是否真实生效 |
 | `pr-multi-perspective-review` | 六视角 PR 评审：PM / Dev / QA / Security / DevOps / UX |
 | `review` | 以固定 git 基准点为参照，从仓库规范与原始规格两个独立维度审查变更 |
+| `receiving-code-review` | 对照代码库验证评审反馈，用技术论据反驳而非表演式附和 |
 | `prototype` | 当设计问题仍然模糊时，快速构建只为回答一个问题的临时 logic/UI 原型，并预期后续删除或吸收 |
 | `refactor-clean` | 安全地移除死代码并简化逻辑 |
 | `diagnose` | 先构建最快的反馈回路，再给主要假设排序，并只添加能缩小搜索范围的定向观测 |
@@ -336,7 +337,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>工作流技能（24）</strong></summary>
+<summary><strong>工作流技能（25）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -344,6 +345,7 @@ everything-copilot-cli/
 | `conventional-branch` | 在并行工作开始前，以 conventional 的类型/描述格式创建或校验 Git 分支名 |
 | `doubt-driven-development` | 在非平凡决策落定前，用 fresh-context 对抗式审查先尝试证伪 |
 | `release` | tag → GitHub Release → 发布（npm/PyPI/Docker） |
+| `finishing-a-development-branch` | 验证测试并检测工作树状态，然后给出并执行 merge/PR/保留/丢弃选项 |
 | `verification-before-completion` | 在宣称完成前，用最新命令输出证明任务确实完成 |
 | `sprint-workflow` | 完整冲刺流程：Think → Plan → Build → Review → Test → Ship → Monitor |
 | `deployment-canary` | 发布后 canary 检查、回滚阈值，以及 promote/hold 决策 |

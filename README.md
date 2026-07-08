@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="105 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="107 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (105 total)
+├── skills/                        # Reusable workflow skills (107 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
-│   ├── development/               #   Dev skills (24)
+│   ├── development/               #   Dev skills (25)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (11)
 │   ├── testing/                   #   Test skills (6)
-│   ├── workflow/                  #   Workflow skills (24)
+│   ├── workflow/                  #   Workflow skills (25)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -225,7 +225,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (105 Total · 8 Categories)
+### Skills (107 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -266,7 +266,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Development Skills (24)</strong></summary>
+<summary><strong>Development Skills (25)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -281,6 +281,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `performance-optimization` | Measure first, isolate bottlenecks, and prove performance improvements |
 | `pr-multi-perspective-review` | 6-lens PR review: PM / Dev / QA / Security / DevOps / UX |
 | `review` | Compare changes against a pinned git reference on two separate axes: repository standards and originating spec |
+| `receiving-code-review` | Verify review feedback against the codebase and push back with technical reasoning instead of performative agreement |
 | `prototype` | Use when a design question is still fuzzy — build a throwaway logic or UI prototype that answers one question fast and is meant to be deleted or absorbed |
 | `refactor-clean` | Remove dead code, simplify logic safely |
 | `diagnose` | Build the fastest feedback loop first, rank the leading hypotheses, and instrument only what narrows the search |
@@ -336,7 +337,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Workflow Skills (24)</strong></summary>
+<summary><strong>Workflow Skills (25)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -344,6 +345,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `conventional-branch` | Create or validate Git branch names that follow a conventional type/description format before parallel work starts |
 | `doubt-driven-development` | Challenge a non-trivial decision with a fresh-context adversarial review before it stands |
 | `release` | tag → GitHub Release → publish (npm/PyPI/Docker) |
+| `finishing-a-development-branch` | Verify tests, detect worktree state, then present merge/PR/keep/discard options and execute cleanup |
 | `verification-before-completion` | Prove a task is done with fresh command output before claiming success |
 | `sprint-workflow` | Full sprint: Think → Plan → Build → Review → Test → Ship → Monitor |
 | `deployment-canary` | Post-release canary checks, rollback thresholds, and promote/hold decisions |

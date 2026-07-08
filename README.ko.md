@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="105 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="107 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (105개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (107개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (26개)
-│   ├── development/               #   개발 스킬 (24개)
+│   ├── development/               #   개발 스킬 (25개)
 │   ├── documentation/             #   문서화 스킬 (6개)
 │   ├── security/                  #   보안 스킬 (11개)
 │   ├── testing/                   #   테스팅 스킬 (6개)
-│   ├── workflow/                  #   워크플로우 스킬 (24개)
+│   ├── workflow/                  #   워크플로우 스킬 (25개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │
@@ -225,7 +225,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 105개 · 8개 카테고리)
+### 스킬 (총 107개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -266,7 +266,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>개발 스킬 (24개)</strong></summary>
+<summary><strong>개발 스킬 (25개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -281,6 +281,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `performance-optimization` | 측정 기반으로 병목을 찾고 성능 개선을 검증 |
 | `pr-multi-perspective-review` | 6가지 관점 PR 리뷰: PM/Dev/QA/Security/DevOps/UX |
 | `review` | 고정된 git 기준점 대비 변경사항을 저장소 규약과 원본 스펙 두 축으로 분리 검토 |
+| `receiving-code-review` | 리뷰 피드백을 코드베이스에 대해 검증하고, 형식적 동의 대신 기술적 근거로 반박 |
 | `prototype` | 설계 질문이 아직 흐릴 때 하나의 질문에 답하는 로직/UI 폐기형 프로토타입을 빠르게 만들고, 이후 삭제하거나 흡수하도록 유도 |
 | `refactor-clean` | 동작 보존하며 데드 코드 제거 및 로직 단순화 |
 | `diagnose` | 가장 빠른 피드백 루프를 먼저 만들고, 가설 우선순위를 매긴 뒤 필요한 계측만 추가 |
@@ -336,7 +337,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (24개)</strong></summary>
+<summary><strong>워크플로우 스킬 (25개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -344,6 +345,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `conventional-branch` | 병렬 작업 전에 Git 브랜치 이름을 컨벤셔널 타입/설명 형식으로 생성하거나 검증 |
 | `doubt-driven-development` | 비사소한 결정을 굳히기 전에 fresh-context 적대적 리뷰로 검증 |
 | `release` | 태그 → GitHub Release → 배포 (npm/PyPI/Docker) |
+| `finishing-a-development-branch` | 테스트 검증 후 워크트리 상태를 감지하고 merge/PR/유지/폐기 옵션을 제시·실행 |
 | `verification-before-completion` | 완료 주장 전에 새 명령 출력으로 작업 완료를 증명 |
 | `sprint-workflow` | 전체 스프린트: 구상 → 계획 → 구축 → 리뷰 → 테스트 → 출시 → 모니터링 |
 | `deployment-canary` | 출시 후 카나리 점검, 롤백 기준, promote/hold 판단 |

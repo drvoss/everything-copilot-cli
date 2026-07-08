@@ -133,6 +133,44 @@ git --no-pager grep -n ">=.*$" -- "requirements.txt" "pyproject.toml"
 git --no-pager grep -n "@latest" -- ".mcp.json" "*.json" "*.yaml" "*.yml"
 ```
 
+### 4-A. Static Content Pattern Scan
+
+Manifest hashing proves files did not drift; it says nothing about whether the *content* itself
+is malicious. Before promotion, scan every skill/plugin source file (prompts, `SKILL.md`,
+instructions, hooks) for patterns that indicate prompt injection or exfiltration rather than
+legitimate functionality.
+
+Use `git grep --no-index` (or a plain recursive `grep`/`Select-String`), not `git grep` alone —
+a fresh third-party download is untracked and un-added, so a bare `git grep` silently skips
+exactly the unvetted files this scan exists to check:
+
+```powershell
+# Instruction-override / injection attempts
+git --no-pager grep --no-index -E -n -i "ignore (all |the )?(previous|prior|above) instructions" -- $root
+git --no-pager grep --no-index -E -n -i "disregard (your|the) (system|developer) prompt" -- $root
+
+# Silent exfiltration patterns: encode-then-send, or send-to-unlisted-host
+git --no-pager grep --no-index -E -n "base64.*(curl|Invoke-WebRequest|fetch\()" -- $root
+git --no-pager grep --no-index -E -n "curl|Invoke-WebRequest|fetch\(" -- $root | Select-String -NotMatch "github.com|npmjs.org|pypi.org"
+
+# Credential / secret access outside declared scope
+git --no-pager grep --no-index -E -n -i "env:.*(TOKEN|SECRET|KEY|PASSWORD)" -- $root
+```
+
+Classify hits into:
+
+- `INJECTION` — text attempting to override the host agent's instructions
+- `EXFIL` — encode-and-send or send-to-unlisted-host patterns
+- `CRED_ACCESS` — reads of credentials/secrets not declared in the package's stated purpose
+
+A hit is not automatically disqualifying (e.g., a security-training skill may legitimately quote
+injection strings as examples) — but every hit must be explained in review notes before promotion,
+not silently passed over. Treat unexplained hits the same as a failed integrity check.
+
+This static scan is a lightweight, repo-local complement to full sandboxed dynamic scanning
+(see `sub-agent-sandboxing` for runtime containment); it does not replace manifest verification
+or provenance checks above.
+
 ### 5. Gate promotion with explicit criteria
 
 Promote only when all of the following are true:
@@ -252,6 +290,7 @@ Official sources can be compromised; the signature proves the publisher's key wa
 - [ ] All manifest entries hash cleanly with SHA-256
 - [ ] Modified, missing, and untracked files are classified explicitly
 - [ ] Dependency manifests were checked for floating versions
+- [ ] Static content pattern scan run; every INJECTION/EXFIL/CRED_ACCESS hit is explained in review notes
 - [ ] Promotion is blocked when integrity or pinning checks fail
 - [ ] Publisher signature is verified against a pinned key fingerprint
 - [ ] Revocation list was consulted before promotion
@@ -261,3 +300,5 @@ Official sources can be compromised; the signature proves the publisher's key wa
 - [`gha-security-review`](../gha-security-review/SKILL.md) - review GitHub Actions workflows that build or promote packages
 - [`agent-owasp-check`](../agent-owasp-check/SKILL.md) - audit agent systems against OWASP ASI risks
 - [`evaluate-repository`](../evaluate-repository/SKILL.md) - broader repository trust and configuration review
+- Static Content Pattern Scan step (4-A) adapted from the static-scan concept in
+  bytedance/deer-flow's `SkillScan` phase 1 (PR #3033)

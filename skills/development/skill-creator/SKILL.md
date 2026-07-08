@@ -189,6 +189,25 @@ Check at least:
    naming conventions. Prefer portable verbs like "review", "audit", "debug", "plan",
    or "verify" over vendor-specific slash-command language.
 
+### 4-B. Watch for steering-by-omission failure modes
+
+Language you think of as "off" can still steer the agent. Check drafts against these two related
+failure modes before finalizing:
+
+- **Negation** — naming what *not* to do drags the forbidden behavior into context and makes it
+  *more* available, not less (the "don't think of an elephant" effect). A skill full of "don't
+  do X" instructions primes the agent to think about X. Prefer stating the **positive** version:
+  instead of "don't skip verification," write "verify before implementing."
+- **Negative space** — every decision a skill declines to make is silently delegated to the
+  agent's priors rather than left neutral. An omission is never truly neutral. Read a draft for
+  its silences and decide each one deliberately: either fill the gap explicitly, or leave it open
+  as a documented branch point (e.g., "if the tracker is not GitHub, ask which workflow applies"
+  rather than saying nothing).
+
+Apply this check during drafting, not just at review time — a skill written entirely as
+prohibitions ("never do A, never do B, don't assume C") is a sign the positive process was never
+actually specified.
+
 ### 5. Validate
 
 ```powershell

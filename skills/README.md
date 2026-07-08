@@ -161,6 +161,7 @@ Core software development skills applicable to any project.
 | [`performance-optimization`](development/performance-optimization/SKILL.md) | Measure first, isolate bottlenecks, and prove that a performance change actually helps |
 | [`pr-multi-perspective-review`](development/pr-multi-perspective-review/SKILL.md) | Review PRs from 6 lenses: PM / Dev / QA / Security / DevOps / UX |
 | [`review`](development/review/SKILL.md) | Compare changes against a pinned git reference on two separate axes: repository standards and originating spec |
+| [`receiving-code-review`](development/receiving-code-review/SKILL.md) | Use when acting on review feedback — verify each item against the codebase and push back with technical reasoning instead of performative agreement |
 | [`prototype`](development/prototype/SKILL.md) | Use when a design question is still fuzzy — build a throwaway logic or UI prototype that answers one question fast and is meant to be deleted or absorbed |
 | [`refactor-clean`](development/refactor-clean/SKILL.md) | Remove dead code and simplify complex logic |
 | [`diagnose`](development/diagnose/SKILL.md) | Use when a bug or performance issue is still fuzzy — build the fastest feedback loop first, rank hypotheses, and instrument only what narrows the search |
@@ -246,6 +247,7 @@ End-to-end development workflow skills — from planning to shipping.
 | [`outside-voice`](workflow/outside-voice/SKILL.md) | Use when you need an independent second opinion before, during, or after implementation — run challenge, consult, or review mode in a direct builder-to-builder voice |
 | [`prompt-optimizer`](workflow/prompt-optimizer/SKILL.md) | Use when a rough prompt idea must become a finished, copy-pasteable prompt for a chat-based LLM — rewrites it with no placeholders and no instruction bleed |
 | [`release`](workflow/release/SKILL.md) | Cut a versioned release: tag → GitHub Release → publish (npm/PyPI/Docker) |
+| [`finishing-a-development-branch`](workflow/finishing-a-development-branch/SKILL.md) | Use when implementation is complete and tests pass but the branch itself is unresolved — verify tests, detect worktree state, then present merge/PR/keep/discard options and execute cleanup |
 | [`verification-before-completion`](workflow/verification-before-completion/SKILL.md) | Prove a task is done with fresh command output before claiming success |
 | [`sprint-workflow`](workflow/sprint-workflow/SKILL.md) | Full sprint: Think → Plan → Build → Review → Test → Ship |
 | [`security-audit`](workflow/security-audit/SKILL.md) | OWASP Top 10 + STRIDE threat modeling audit |

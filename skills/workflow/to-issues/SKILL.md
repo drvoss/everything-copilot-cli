@@ -53,6 +53,11 @@ Good slices usually:
 Bad slices are things like "database changes only" or "UI updates only" if they cannot be verified
 in isolation.
 
+**Exception — wide refactors:** a single mechanical change (rename a column, retype a shared
+symbol) can have a blast radius that fans across the whole codebase, breaking thousands of call
+sites at once so no vertical slice can land green. Do not force this shape into a tracer bullet —
+see [Wide Refactor Exception](#wide-refactor-exception) below.
+
 ### 3. Mark blockers explicitly
 
 For each proposed issue, identify:
@@ -81,6 +86,27 @@ Support the tracker the project already uses.
 - **GitLab**: use the GitLab issue workflow or CLI available in the environment
 
 Do not assume one provider if the project uses another.
+
+### Wide Refactor Exception
+
+A **wide refactor** is one mechanical change whose **blast radius** fans across the whole
+codebase — a single edit breaks thousands of call sites at once, so no vertical slice can land
+green. Do not force it into a tracer bullet; sequence it as **expand–contract** instead:
+
+1. **Expand** — add the new form beside the old so nothing breaks yet. One issue.
+2. **Migrate** — move call sites over in batches sized by blast radius (per package, per
+   directory). Each batch is its own issue, blocked by the expand issue. CI stays green batch to
+   batch because the old form still exists alongside the new one.
+3. **Contract** — delete the old form once no caller remains, in an issue blocked by every
+   migration batch.
+
+When even individual batches cannot stay green in isolation, keep the same three-phase sequence
+but let the batches share an integration branch that all block a final integrate-and-verify
+issue — green is promised only there, not batch by batch.
+
+Use this exception only when the change is genuinely mechanical and blast-radius-driven (renames,
+retyped shared symbols, signature-wide API changes). A feature that merely touches many files
+because it has many concerns is not a wide refactor — slice it vertically instead.
 
 ## Output Template
 
