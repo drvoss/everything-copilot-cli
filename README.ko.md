@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="107 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="109 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (107개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (109개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (26개)
 │   ├── development/               #   개발 스킬 (25개)
 │   ├── documentation/             #   문서화 스킬 (6개)
-│   ├── security/                  #   보안 스킬 (11개)
+│   ├── security/                  #   보안 스킬 (12개)
 │   ├── testing/                   #   테스팅 스킬 (6개)
-│   ├── workflow/                  #   워크플로우 스킬 (25개)
+│   ├── workflow/                  #   워크플로우 스킬 (26개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │
@@ -225,7 +225,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 107개 · 8개 카테고리)
+### 스킬 (총 109개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -318,7 +318,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>보안 스킬 (11개)</strong></summary>
+<summary><strong>보안 스킬 (12개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -333,11 +333,12 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `security-bounty-hunter` | 버그 바운티 관점 취약점 탐색 및 개념 증명 |
 | `pr-security-review` | 인증, 인젝션, 시크릿, OWASP Top 10 중심의 PR 보안 분석 |
 | `threat-model-analyst` | 신뢰 경계, abuse case, 변경 중심 발견을 포함한 STRIDE-A 위협 모델을 구축하거나 갱신 |
+| `mcp-implementation-security-review` | MCP server/client 구현의 소스코드를 인증, 세션, 레이트리밋, 스키마 검증, SDK 사용 관점으로 리뷰하고 파일/라인 인용 발견을 작성 |
 
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (25개)</strong></summary>
+<summary><strong>워크플로우 스킬 (26개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
@@ -366,6 +367,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `to-issues` | 계획, 스펙, PRD를 검증 가능한 얇은 수직 슬라이스 이슈들로 분해 |
 | `triage` | 단일 이슈에 구조화된 트리아지가 필요할 때 분류, 재현, 추가 정보 요청, 후속 에이전트/종결 메모까지 이슈 트래커에 남김 |
 | `using-git-worktrees` | 저장소를 다시 클론하지 않고 병렬 브랜치 작업용 별도 작업 디렉터리 생성 |
+| `wayfinder` | 한 세션으로 끝내기엔 너무 크거나 모호한 작업을 위해, breadth-first triage와 명시적 Deferred 섹션, 구현 전 confirmation gate를 갖춘 destination-centric 계획을 수립 |
 
 </details>
 

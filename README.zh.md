@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="107 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="109 Skills" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (107 total)
+├── skills/                        # Reusable workflow skills (109 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
 │   ├── development/               #   Dev skills (25)
 │   ├── documentation/             #   Doc skills (6)
-│   ├── security/                  #   Security skills (11)
+│   ├── security/                  #   Security skills (12)
 │   ├── testing/                   #   Test skills (6)
-│   ├── workflow/                  #   Workflow skills (25)
+│   ├── workflow/                  #   Workflow skills (26)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -225,7 +225,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 107 个 · 8 个类别）
+### 技能（Skill）（共 109 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -318,7 +318,7 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>安全技能（11）</strong></summary>
+<summary><strong>安全技能（12）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -333,11 +333,12 @@ everything-copilot-cli/
 | `security-bounty-hunter` | 以漏洞赏金视角进行漏洞挖掘，并提供 PoC 步骤 |
 | `pr-security-review` | 围绕认证、注入、密钥与 OWASP Top 10 的 PR 安全分析 |
 | `threat-model-analyst` | 构建或更新包含信任边界、abuse case 与变更聚焦发现的 STRIDE-A 威胁模型 |
+| `mcp-implementation-security-review` | 审查 MCP server/client 实现的源代码，检查认证、会话、限流、schema 校验与 SDK 使用问题，并给出带文件/行号引用的发现 |
 
 </details>
 
 <details>
-<summary><strong>工作流技能（25）</strong></summary>
+<summary><strong>工作流技能（26）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
@@ -366,6 +367,7 @@ everything-copilot-cli/
 | `to-issues` | 将计划、规范或 PRD 拆成可验证的薄垂直切片 issue |
 | `triage` | 当单个 issue 需要结构化分诊时，完成分类、复现、补充信息请求，并把后续 brief 或关闭说明沉淀到 issue tracker 中 |
 | `using-git-worktrees` | 无需重复克隆仓库即可为并行分支工作创建独立工作目录 |
+| `wayfinder` | 当任务过大或过于模糊、无法在一个 session 内完成时，通过 breadth-first triage、明确的 Deferred 部分与实现前的 confirmation gate 构建以目标（destination）为中心的计划 |
 
 </details>
 

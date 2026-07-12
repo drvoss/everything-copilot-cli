@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="107 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="109 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (107 total)
+├── skills/                        # Reusable workflow skills (109 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
 │   ├── development/               #   Dev skills (25)
 │   ├── documentation/             #   Doc skills (6)
-│   ├── security/                  #   Security skills (11)
+│   ├── security/                  #   Security skills (12)
 │   ├── testing/                   #   Test skills (6)
-│   ├── workflow/                  #   Workflow skills (25)
+│   ├── workflow/                  #   Workflow skills (26)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -225,7 +225,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計107・8カテゴリ）
+### スキル（合計109・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
@@ -318,7 +318,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>セキュリティ Skills（11）</strong></summary>
+<summary><strong>セキュリティ Skills（12）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -333,11 +333,12 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `security-bounty-hunter` | bug bounty 観点で vuln を探索し、proof-of-concept 手順を示します |
 | `pr-security-review` | auth、injection、secret、OWASP Top 10 を中心に PR を security review します |
 | `threat-model-analyst` | trust boundary、abuse case、変更起点の所見を含む STRIDE-A threat model を作成または更新します |
+| `mcp-implementation-security-review` | MCP server/client 実装のソースコードを認証、セッション、rate limit、schema validation、SDK 利用の観点でレビューし、file/line を引用した所見を作成します |
 
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（25）</strong></summary>
+<summary><strong>ワークフロー Skills（26）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
@@ -366,6 +367,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `to-issues` | plan、spec、PRD を検証可能な薄い vertical slice issue に分解します |
 | `triage` | 単一 issue の構造化 triage が必要なときに、分類、再現、追加情報の依頼、次の担当者向け brief または close-out note を issue tracker に残します |
 | `using-git-worktrees` | repository を再 clone せずに並列 branch 作業用の分離ディレクトリを作成します |
+| `wayfinder` | 1 セッションで終わらない、または曖昧すぎる task のために、breadth-first triage、明示的な Deferred セクション、実装前の confirmation gate を備えた destination-centric な plan を構築します |
 
 </details>
 

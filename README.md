@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="107 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="109 Skills" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
@@ -162,13 +162,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (107 total)
+├── skills/                        # Reusable workflow skills (109 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
 │   ├── development/               #   Dev skills (25)
 │   ├── documentation/             #   Doc skills (6)
-│   ├── security/                  #   Security skills (11)
+│   ├── security/                  #   Security skills (12)
 │   ├── testing/                   #   Test skills (6)
-│   ├── workflow/                  #   Workflow skills (25)
+│   ├── workflow/                  #   Workflow skills (26)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -225,7 +225,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (107 Total · 8 Categories)
+### Skills (109 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -318,7 +318,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Security Skills (11)</strong></summary>
+<summary><strong>Security Skills (12)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -333,11 +333,12 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `security-bounty-hunter` | Bug-bounty-perspective vuln hunting with proof-of-concept steps |
 | `pr-security-review` | Automated PR security analysis — auth, injection, secrets, OWASP Top 10 |
 | `threat-model-analyst` | Build or update a STRIDE-A threat model with trust boundaries, abuse cases, and change-focused findings |
+| `mcp-implementation-security-review` | Review the source code of an MCP server or client implementation for auth, session, rate-limit, schema-validation, and SDK-usage vulnerabilities, with file/line-cited findings |
 
 </details>
 
 <details>
-<summary><strong>Workflow Skills (25)</strong></summary>
+<summary><strong>Workflow Skills (26)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
@@ -366,6 +367,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `to-issues` | Break a plan, spec, or PRD into thin dependency-aware issues that each deliver a verifiable vertical slice |
 | `triage` | Use when a single issue needs structured triage — classify it, reproduce if needed, request missing information, and leave a durable brief or close-out note in the tracker |
 | `using-git-worktrees` | Create isolated working directories for parallel branch work without recloning the repo |
+| `wayfinder` | Use when a task is too large or ambiguous to finish in one session — build a destination-centric plan with breadth-first triage, an explicit Deferred section, and a confirmation gate before implementation starts |
 
 </details>
 
