@@ -71,6 +71,13 @@ Scope: [what to include / exclude]
 Output goal: [decision support / comparison / summary / literature review]
 ```
 
+Get explicit user approval before starting external evidence gathering, and again before acting
+on the brief's conclusions. Fetching from third-party sites, browser automation, or other external
+research tools can have side effects (rate limits, exposed queries, cost) the user should confirm
+first — and a research brief that recommends an implementation path deserves a second, separate
+confirmation before that path is actually built. Treat both gates as required, not optional, for
+any research that leaves the local session.
+
 ### 2. Source planning
 
 For each major claim or sub-question, identify target source types:

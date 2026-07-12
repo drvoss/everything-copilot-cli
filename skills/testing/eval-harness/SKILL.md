@@ -283,6 +283,37 @@ Example rubric:
 Use trajectory evaluation when the workflow itself matters — especially multi-step agent
 systems, tool-using assistants, or retry-heavy pipelines.
 
+### Multi-run stability and verdict-flip attribution
+
+A single run can pass by luck. For pipelines with any non-determinism (temperature > 0, tool
+retries, model-side randomness), run each case multiple times and treat instability itself as a
+failure signal, not just the individual pass/fail outcomes.
+
+1. **Onboard a golden baseline** — capture a known-good run's outputs as the reference baseline
+   before making any change.
+2. **Run each case N times** (3-5 is a reasonable default) against both the baseline and the
+   candidate.
+3. **Detect verdict flips** — a case that passes on some runs and fails on others against the
+   *same* candidate is unstable regardless of its average pass rate. Flag it separately from a
+   case that consistently fails.
+4. **Attribute the flip** — before treating a verdict flip as a regression, check whether it
+   traces to the candidate change itself or to pre-existing non-determinism the baseline already
+   had. Compare flip rate on the baseline (should be near zero) against flip rate on the
+   candidate; a candidate-only increase in flip rate is the real signal.
+
+```sql
+CREATE TABLE IF NOT EXISTS stability_runs (
+    case_id TEXT,
+    variant TEXT,     -- baseline | candidate
+    run_number INTEGER,
+    status TEXT,      -- pass | fail
+    PRIMARY KEY (case_id, variant, run_number)
+);
+```
+
+A case with a high verdict-flip rate should block a ship decision even if its average pass rate
+looks acceptable — instability is itself the defect.
+
 ### Trajectory argument matching
 
 When a trajectory check depends on tool inputs, compare normalized arguments rather

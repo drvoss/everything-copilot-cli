@@ -101,6 +101,13 @@ Do not let a failing lane hammer the same provider indefinitely.
 Use a single bounded reroute only when the task is idempotent and policy allows a different model
 or provider lane. Otherwise, keep the breaker open and surface the blocker.
 
+**Always release the probe flag, even on a non-retriable error.** A probe call that fails with a
+non-retriable error (auth rejection, malformed request, permanent 4xx) must still clear the
+in-flight probe flag before returning. If the flag is only cleared on success or on retriable
+failure, the breaker can get stuck permanently open — every subsequent cooldown expiry sees the
+flag still set and never issues a new probe, so the lane never has a chance to recover even after
+the underlying issue is fixed.
+
 ### 3. Sandbox Escalation
 
 Increase isolation as risk increases:

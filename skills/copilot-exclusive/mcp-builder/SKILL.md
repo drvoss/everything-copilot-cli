@@ -122,6 +122,32 @@ Whether your stack calls these **interceptors**, **middleware**, or **request wr
 the rule is the same: tool handlers should focus on business logic, while transport policy
 stays in a reusable layer.
 
+### 5a. Design token-dense tool responses
+
+Default every tool's response shape to be token-dense, not just correct. An LLM caller pays
+context-window cost for every token a tool returns, so a verbose or redundantly-nested response
+shape is a recurring tax on every future call, not a one-time cost.
+
+- Prefer compact, flat structures over deeply nested JSON with repeated keys
+- Strip fields the caller cannot act on (internal IDs, boilerplate metadata) unless a tool
+  explicitly needs them
+- Consider a compact serialization format for tools that return large structured results
+  ([TOON](https://github.com/DeusData/codebase-memory-mcp) is one example reporting roughly 90%
+  token reduction versus naive JSON on graph/trace-shaped output — treat vendor-reported
+  reduction numbers as a claim to verify against your own payloads, not a guarantee)
+- Measure actual token cost on a representative response before and after a format change
+
+### 5b. Use routing hints to defer low-probability tools
+
+If the server exposes many tools but most calls only need a handful, do not force every tool's
+full schema into the initial discovery response. Expose a smaller set of high-probability tools
+up front, and attach routing hints (a short description of what else is available and when to ask
+for it) so the caller can request the rest only when needed.
+
+This avoids a full discovery round-trip for tools that are rarely used, which matters most for
+servers with a large or long-tail tool surface. Promote a deferred tool to fully visible only when
+its routing hint condition is actually triggered by the caller's request.
+
 ### 6. Inspect, load, and test
 
 Use Copilot CLI's built-in management flow:
@@ -148,6 +174,8 @@ Before sharing the server, prepare realistic prompts that prove:
 - [ ] Output shape is predictable
 - [ ] Errors tell the caller what to fix next
 - [ ] Auth, header, or request-context propagation is centralized instead of duplicated per tool
+- [ ] Tool responses are token-dense — no redundant nesting or fields the caller can't act on
+- [ ] Low-probability tools use routing hints instead of forcing full upfront discovery
 - [ ] The config is visible in `copilot mcp list`
 - [ ] At least one end-to-end tool invocation succeeds after the server is loaded
 

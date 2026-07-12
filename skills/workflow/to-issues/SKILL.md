@@ -4,7 +4,7 @@ description: Use when a plan, spec, or PRD must become an actionable backlog —
 metadata:
   category: workflow
   agent_type: general-purpose
-  origin: adapted from mattpocock/skills to-issues
+  origin: adapted from mattpocock/skills to-tickets (formerly to-issues)
 ---
 
 # To Issues
@@ -77,6 +77,23 @@ Show the user the proposed issue set and ask whether:
 - the dependency order is correct
 
 Only publish after the breakdown is approved.
+
+### 4a. Draft locally before publishing
+
+Before publishing, stage each proposed issue as its own local draft file rather than one combined
+scratch document:
+
+```text
+.scratch/<feature-slug>/issues/<NN>-<slug>.md
+```
+
+- `<feature-slug>` groups all drafts for one plan/PRD pass
+- `<NN>` is a zero-padded sequence number that reflects publish order
+- `<slug>` is a short kebab-case title
+
+One file per issue makes it possible to publish, edit, or drop a single slice without touching the
+others, and keeps the dependency-blocker references (`Blocked by: #NN`) resolvable against the
+local draft numbering before the tracker assigns real issue numbers.
 
 ### 5. Publish to the active issue tracker
 
@@ -168,5 +185,6 @@ None - can start immediately
 ## See Also
 
 - [`create-prd`](../../product/create-prd/SKILL.md) — define the feature before turning it into backlog items
+- [`wayfinder`](../wayfinder/SKILL.md) — build the destination-centric plan first for large, multi-session initiatives
 - [`github-issue-triage`](../../copilot-exclusive/github-issue-triage/SKILL.md) — organize and review an existing GitHub issue backlog
 - [`team-planner`](../../copilot-exclusive/team-planner/SKILL.md) — assign the resulting slices across specialist agents

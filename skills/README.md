@@ -205,6 +205,7 @@ Skills for identifying and fixing security issues.
 | [`evaluate-repository`](security/evaluate-repository/SKILL.md) | Score a repository 1-10 across 7 dimensions, including AI agent governance |
 | [`gha-security-review`](security/gha-security-review/SKILL.md) | Review GitHub Actions workflows for exploitable CI/CD attack paths such as pwn requests, expression injection, and credential escalation |
 | [`input-validation`](security/input-validation/SKILL.md) | Validate and sanitize all user-supplied inputs |
+| [`mcp-implementation-security-review`](security/mcp-implementation-security-review/SKILL.md) | Use when reviewing the source code of an MCP server or client implementation for auth, session, rate-limit, schema-validation, and SDK-usage vulnerabilities, with file/line-cited findings |
 | [`pr-security-review`](security/pr-security-review/SKILL.md) | Review a pull request for security vulnerabilities — auth, injection, secrets, and OWASP Top 10 before merging |
 | [`secret-detection`](security/secret-detection/SKILL.md) | Find and remove hardcoded secrets |
 | [`security-bounty-hunter`](security/security-bounty-hunter/SKILL.md) | Use when the goal is practical vulnerability discovery for responsible disclosure or bounty submission — focuses on remotely reachable, exploitable issues |
@@ -255,6 +256,7 @@ End-to-end development workflow skills — from planning to shipping.
 | [`to-issues`](workflow/to-issues/SKILL.md) | Use when a plan, spec, or PRD must become an actionable backlog — break it into thin dependency-aware issues that each deliver a verifiable vertical slice |
 | [`triage`](workflow/triage/SKILL.md) | Use when a single issue needs structured triage — classify it, reproduce if needed, request missing information, and leave a durable brief or close-out note in the tracker |
 | [`using-git-worktrees`](workflow/using-git-worktrees/SKILL.md) | Create isolated working directories for parallel branch work without cloning the repo repeatedly |
+| [`wayfinder`](workflow/wayfinder/SKILL.md) | Use when a task is too large or ambiguous to finish in one session — build a destination-centric plan with breadth-first triage, an explicit Deferred section, and a confirmation gate before implementation starts |
 
 ### 📦 Product (`product/`)
 
