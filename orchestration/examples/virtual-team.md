@@ -36,7 +36,7 @@ Inspired by the gstack pattern (garrytan) for running Claude Code as a virtual t
 
 ```powershell
 # PM agent: produce a structured PRD and acceptance criteria
-$prd = npx @anthropic-ai/claude-code --print @"
+$prd = claude -p @"
 You are the Product Manager for this project.
 
 Feature request: [FEATURE DESCRIPTION]
@@ -61,7 +61,7 @@ Write-Host "✅ PRD written to .team/prd.md"
 # Architect agent: design based on PRD
 $prd = Get-Content ".team/prd.md" -Raw
 
-$architecture = npx @anthropic-ai/claude-code --print @"
+$architecture = claude -p @"
 You are the Software Architect. Review this PRD and produce a technical design.
 
 PRD:
@@ -92,7 +92,7 @@ $prd = Get-Content ".team/prd.md" -Raw
 $arch = Get-Content ".team/architecture.md" -Raw
 
 # Implementation (using codex for speed, or claude for complex logic)
-codex --quiet @"
+codex exec --skip-git-repo-check @"
 You are a Senior Developer. Implement the feature described below.
 
 PRD:
@@ -118,7 +118,7 @@ Write-Host "✅ Implementation complete"
 # Reviewer agent: review the implementation
 $diff = git --no-pager diff main...HEAD
 
-$review = npx @anthropic-ai/claude-code --print @"
+$review = claude -p @"
 You are a Senior Code Reviewer. Review this diff against the requirements.
 
 PRD acceptance criteria:
@@ -156,7 +156,7 @@ if ($blockCount -gt 0) {
     $review = Get-Content ".team/review.md" -Raw
     
     # Developer fixes blocking issues
-    npx @anthropic-ai/claude-code --print @"
+    claude -p @"
 Fix all BLOCK-level issues identified in this code review.
 For each fix, explain why the change resolves the concern.
 
@@ -166,7 +166,7 @@ $review
     
     # Re-run reviewer
     $diff = git --no-pager diff main...HEAD
-    $finalReview = npx @anthropic-ai/claude-code --print @"
+    $finalReview = claude -p @"
 Re-review this updated diff. Only check if the previous BLOCK issues are resolved.
 State RESOLVED or STILL-OPEN for each prior BLOCK item.
 
@@ -183,7 +183,7 @@ $diff
 $arch = Get-Content ".team/architecture.md" -Raw
 $diff = git --no-pager diff main...HEAD --name-only
 
-$docUpdate = npx @anthropic-ai/claude-code --print @"
+$docUpdate = claude -p @"
 You are a Technical Writer. Update the project documentation to reflect this new feature.
 
 Changed files: $diff
@@ -230,10 +230,10 @@ For smaller tasks, use just PM + Developer:
 
 ```powershell
 # 1. PM
-$prd = npx @anthropic-ai/claude-code --print "Define acceptance criteria for: [TASK]"
+$prd = claude -p "Define acceptance criteria for: [TASK]"
 
 # 2. Developer  
-codex --quiet "Implement: [TASK]. Acceptance criteria: $prd"
+codex exec --skip-git-repo-check "Implement: [TASK]. Acceptance criteria: $prd"
 
 # 3. Verify
 npm test
@@ -245,7 +245,7 @@ Add or remove roles based on task complexity:
 
 ```powershell
 # For a security-sensitive feature, add a Security Reviewer after Code Review:
-$secReview = npx @anthropic-ai/claude-code --print @"
+$secReview = claude -p @"
 You are a Security Engineer. Review this diff for security vulnerabilities only.
 Focus: injection, auth bypass, secrets, insecure crypto.
 Diff: $(git --no-pager diff main...HEAD)

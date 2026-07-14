@@ -26,7 +26,7 @@ Copilot CLI uses its `powershell` tool to:
 
 ```powershell
 # Generate a function with Codex CLI
-$result = codex --quiet "Generate a TypeScript function that validates 
+$result = codex exec --skip-git-repo-check "Generate a TypeScript function that validates 
   credit card numbers using the Luhn algorithm. Output only the code."
 
 # Use the result in your workflow
@@ -39,7 +39,7 @@ $result | Out-File -FilePath src/validators/credit-card.ts
 
 ```powershell
 # Send your codebase to Claude for deep analysis
-$review = npx @anthropic-ai/claude-code --print `
+$review = claude -p `
   "Review the architecture of this project. Focus on:
    1. Separation of concerns
    2. Error handling patterns
@@ -65,11 +65,11 @@ Write-Output $analysis
 
 ```bash
 # Generate code with Codex, save to file
-codex --quiet "Create a REST API middleware for rate limiting 
+codex exec --skip-git-repo-check "Create a REST API middleware for rate limiting 
   using a sliding window algorithm in Node.js" > src/middleware/rate-limiter.js
 
 # Have Claude review it
-npx @anthropic-ai/claude-code --print \
+claude -p \
   "Review src/middleware/rate-limiter.js for security issues" > review.txt
 
 # Read the review and decide whether to keep or regenerate
@@ -81,11 +81,11 @@ cat review.txt
 ```bash
 # Generate tests for multiple files using Codex
 for file in src/services/*.ts; do
-  codex --quiet "Write unit tests for $(cat $file)" > "tests/$(basename $file .ts).test.ts"
+  codex exec --skip-git-repo-check "Write unit tests for $(cat $file)" > "tests/$(basename $file .ts).test.ts"
 done
 
 # Have Claude review all generated tests
-npx @anthropic-ai/claude-code --print \
+claude -p \
   "Review the test files in tests/ for completeness and edge cases"
 ```
 
@@ -97,9 +97,9 @@ Within a Copilot CLI session, you can orchestrate other AIs naturally:
 You: "Use Codex to generate a Redis caching layer, then have Claude review it"
 
 Copilot CLI will:
-1. Run: codex "Generate a Redis caching layer for our API..."
+1. Run: codex exec --skip-git-repo-check --ask-for-approval "Generate a Redis caching layer for our API..."
 2. Save the output to a file
-3. Run: npx @anthropic-ai/claude-code --print "Review this caching implementation..."
+3. Run: claude -p "Review this caching implementation..."
 4. Present both results to you
 ```
 
@@ -109,7 +109,7 @@ For more reliable parsing, request structured output:
 
 ```powershell
 # Ask for JSON output
-$json = codex --quiet 'Generate a JSON schema for a User model with fields: 
+$json = codex exec --skip-git-repo-check 'Generate a JSON schema for a User model with fields: 
   id, email, name, role, createdAt. Output valid JSON only.'
 
 # Parse and use
@@ -123,11 +123,11 @@ $schema | ConvertTo-Json -Depth 10
 
 ```powershell
 try {
-    $result = codex --quiet "Generate authentication middleware"
+    $result = codex exec --skip-git-repo-check "Generate authentication middleware"
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Codex failed with exit code $LASTEXITCODE"
         # Fallback: try Claude instead
-        $result = npx @anthropic-ai/claude-code --print "Generate authentication middleware"
+        $result = claude -p "Generate authentication middleware"
     }
     Write-Output $result
 } catch {
@@ -140,7 +140,7 @@ try {
 ```powershell
 # Set a timeout for long-running AI operations
 $job = Start-Job -ScriptBlock {
-    codex --quiet "Analyze and refactor all services in src/services/"
+    codex exec --skip-git-repo-check "Analyze and refactor all services in src/services/"
 }
 
 $completed = $job | Wait-Job -Timeout 120

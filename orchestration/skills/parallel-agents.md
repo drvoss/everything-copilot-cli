@@ -61,13 +61,13 @@ $jobs = @()
 
 # Agent 1: Claude Code — Architecture review
 $jobs += Start-Job -Name "claude-arch" -ScriptBlock {
-    npx @anthropic-ai/claude-code --print `
+    claude -p `
       "Review the architecture of src/ for scalability issues. Output JSON."
 }
 
 # Agent 2: Codex CLI — Generate tests
 $jobs += Start-Job -Name "codex-tests" -ScriptBlock {
-    codex --quiet "Generate comprehensive unit tests for src/services/user.ts"
+    codex exec --skip-git-repo-check "Generate comprehensive unit tests for src/services/user.ts"
 }
 
 # Agent 3: Antigravity CLI (`agy`) — Performance analysis
@@ -113,13 +113,13 @@ mkdir -p "$WORKDIR"
 echo "⏳ Running 3 agents in parallel..."
 
 # Agent 1: Claude Code — Architecture review
-npx @anthropic-ai/claude-code --print \
+claude -p \
   "Review the architecture of src/ for scalability issues" \
   > "$WORKDIR/claude-arch.txt" 2>&1 &
 PID_CLAUDE=$!
 
 # Agent 2: Codex CLI — Generate tests  
-codex --quiet \
+codex exec --skip-git-repo-check \
   "Generate unit tests for src/services/user.ts" \
   > "$WORKDIR/codex-tests.txt" 2>&1 &
 PID_CODEX=$!
@@ -152,8 +152,8 @@ Get different perspectives on the same code simultaneously:
 # Ask the same question to three different AIs
 $question = "Review src/middleware/auth.ts for security vulnerabilities"
 
-$claude = Start-Job { npx @anthropic-ai/claude-code --print $using:question }
-$codex = Start-Job { codex --quiet $using:question }
+$claude = Start-Job { claude -p $using:question }
+$codex = Start-Job { codex exec --skip-git-repo-check $using:question }
 $agy = Start-Job { agy -p $using:question }
 
 $claude, $codex, $agy | Wait-Job
@@ -165,7 +165,7 @@ $results = @{
 }
 
 # Synthesize: use Claude to merge all perspectives
-$synthesis = npx @anthropic-ai/claude-code --print @"
+$synthesis = claude -p @"
 Three AI agents reviewed the same auth middleware. Synthesize their findings:
 
 Claude's review:
@@ -191,9 +191,9 @@ Write-Output $synthesis
 ```powershell
 # When agents produce independent, non-overlapping output
 $allTests = @()
-$allTests += codex --quiet "Generate tests for src/services/auth.ts"
-$allTests += codex --quiet "Generate tests for src/services/user.ts"
-$allTests += codex --quiet "Generate tests for src/services/order.ts"
+$allTests += codex exec --skip-git-repo-check "Generate tests for src/services/auth.ts"
+$allTests += codex exec --skip-git-repo-check "Generate tests for src/services/user.ts"
+$allTests += codex exec --skip-git-repo-check "Generate tests for src/services/order.ts"
 
 $allTests | Out-File tests/generated-tests.ts
 ```
@@ -203,12 +203,12 @@ $allTests | Out-File tests/generated-tests.ts
 ```powershell
 # When agents produce overlapping or conflicting output
 $implementations = @{
-    codex = codex --quiet "Implement a rate limiter"
-    claude = npx @anthropic-ai/claude-code --print "Implement a rate limiter"
+    codex = codex exec --skip-git-repo-check "Implement a rate limiter"
+    claude = claude -p "Implement a rate limiter"
 }
 
 # Use Claude to pick the best parts from each
-$merged = npx @anthropic-ai/claude-code --print @"
+$merged = claude -p @"
 Two implementations of a rate limiter were generated. 
 Create the best version by combining the strengths of each:
 

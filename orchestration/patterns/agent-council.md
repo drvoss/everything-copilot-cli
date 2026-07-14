@@ -38,7 +38,7 @@ The Agent Council is the most sophisticated orchestration pattern. A dispatcher 
 
 ```powershell
 # Best for: Architecture decisions
-npx @anthropic-ai/claude-code --print `
+claude -p `
   "You are a senior software architect. Review the system design in src/ and:
    1. Identify architectural anti-patterns
    2. Suggest improvements for scalability
@@ -61,7 +61,7 @@ npx @anthropic-ai/claude-code --print `
 
 ```powershell
 # Best for: Rapid implementation
-codex --quiet --approval-mode full-auto `
+codex exec --skip-git-repo-check --full-auto `
   "Implement a complete CRUD API for the User model:
    - GET/POST/PUT/DELETE endpoints
    - Input validation with Zod
@@ -241,8 +241,8 @@ explaining why you chose specific elements from each response."""
 async def _invoke_agent(agent: Agent, prompt: str) -> TaskResult:
     """Invoke a specific AI agent."""
     commands = {
-        Agent.CLAUDE: ["npx", "@anthropic-ai/claude-code", "--print", prompt],
-        Agent.CODEX: ["codex", "--quiet", prompt],
+        Agent.CLAUDE: ["claude", "-p", prompt],
+        Agent.CODEX: ["codex", "exec", "--skip-git-repo-check", prompt],
         Agent.AGY: ["agy", "-p", prompt],
         Agent.COPILOT: ["gh", "copilot", "suggest", prompt],
     }
@@ -314,8 +314,8 @@ Ask all agents, pick the fastest successful response.
 
 ```powershell
 # Race three agents — use whoever finishes first
-$claude = Start-Job { npx @anthropic-ai/claude-code --print "Explain the auth flow" }
-$codex = Start-Job { codex --quiet "Explain the auth flow" }
+$claude = Start-Job { claude -p "Explain the auth flow" }
+$codex = Start-Job { codex exec --skip-git-repo-check "Explain the auth flow" }
 $agy = Start-Job { agy -p "Explain the auth flow" }
 
 $winner = @($claude, $codex, $agy) | Wait-Job -Any
@@ -331,12 +331,12 @@ Ask all agents, resolve conflicts, synthesize the best answer.
 
 ```powershell
 # Get all perspectives, then synthesize
-$claude_result = npx @anthropic-ai/claude-code --print "Review src/auth/ for security issues"
-$codex_result = codex --quiet "Review src/auth/ for security issues"
+$claude_result = claude -p "Review src/auth/ for security issues"
+$codex_result = codex exec --skip-git-repo-check "Review src/auth/ for security issues"
 $agy_result = agy -p "Review src/auth/ for security issues"
 
 # Use Claude to synthesize (strongest reasoner)
-$synthesis = npx @anthropic-ai/claude-code --print @"
+$synthesis = claude -p @"
 Three AI agents reviewed the auth module. Synthesize their findings:
 
 Claude's review: $claude_result
@@ -357,11 +357,11 @@ Route each subtask to the best agent.
 ```powershell
 # Break a feature request into specialist tasks
 # Architecture → Claude
-$design = npx @anthropic-ai/claude-code --print `
+$design = claude -p `
   "Design the architecture for a real-time notification system"
 
 # Implementation → Codex
-$code = codex --quiet `
+$code = codex exec --skip-git-repo-check `
   "Implement this notification system design: $design"
 
 # Performance review → Antigravity CLI

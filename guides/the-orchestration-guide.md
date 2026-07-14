@@ -107,7 +107,7 @@ This guide starts with five cross-AI orchestration patterns, from simple to comp
 # Check what's available on your system
 copilot --version                      # GitHub Copilot CLI
 codex --version                        # OpenAI Codex CLI
-npx @anthropic-ai/claude-code --version # Anthropic Claude Code
+claude --version # Anthropic Claude Code
 agy --version                          # Antigravity CLI (`agy`)
 ```
 
@@ -119,10 +119,10 @@ From inside a Copilot CLI session, you can invoke any other tool directly:
 
 ```powershell
 # Ask Claude to analyze architecture, capture the result
-$analysis = npx @anthropic-ai/claude-code --print "Analyze the architecture of src/ and identify coupling issues"
+$analysis = claude -p "Analyze the architecture of src/ and identify coupling issues"
 
 # Ask Codex to implement a fix based on the analysis
-codex --quiet "Based on this analysis, decouple the user service: $analysis"
+codex exec --skip-git-repo-check "Based on this analysis, decouple the user service: $analysis"
 ```
 
 ### From Copilot CLI (Natural Language)
@@ -177,7 +177,7 @@ Implement, review, and merge with multi-AI coverage:
 # (Use Copilot CLI in Autopilot mode)
 
 # Step 2: AI code review for logic
-npx @anthropic-ai/claude-code --print "Review these changes for logic errors and edge cases: $(git diff)"
+claude -p "Review these changes for logic errors and edge cases: $(git diff)"
 
 # Step 3: Security review
 # (Use Copilot CLI's code-review agent)
@@ -191,7 +191,7 @@ npx @anthropic-ai/claude-code --print "Review these changes for logic errors and
 
 ```powershell
 # Phase 1: Get architectural recommendation from Claude
-$recommendation = npx @anthropic-ai/claude-code --print @"
+$recommendation = claude -p @"
 Analyze our current codebase and recommend whether we should:
 A) Refactor the monolithic API into microservices
 B) Keep the monolith but add a service layer
@@ -205,7 +205,7 @@ and current pain points (slow test suite, deployment coupling).
 # > Break it into phases with estimated effort
 
 # Phase 3: Implement with Codex (fast, parallel)
-codex --quiet "Implement phase 1 of the modular monolith: extract user domain into its own module with clear boundaries"
+codex exec --skip-git-repo-check "Implement phase 1 of the modular monolith: extract user domain into its own module with clear boundaries"
 ```
 
 ---
@@ -299,7 +299,7 @@ Any tool that reads stdin/stdout or exposes an MCP server can be orchestrated fr
 
 ```powershell
 # Unix pipe style
-Get-Content src\api.ts | codex --quiet "Add error handling" | Set-Content src\api-improved.ts
+Get-Content src\api.ts | codex exec --skip-git-repo-check "Add error handling" | Set-Content src\api-improved.ts
 
 # MCP integration
 # Add any MCP server to workspace .mcp.json and Copilot CLI can load it
@@ -392,7 +392,7 @@ GitHub Copilot CLI is uniquely positioned as the orchestration hub because:
 
 ```powershell
 # 1. Check your tools
-copilot --version && codex --version && npx @anthropic-ai/claude-code --version
+copilot --version && codex --version && claude --version
 
 # 2. Start a Copilot CLI session in your project
 cd C:\your-project

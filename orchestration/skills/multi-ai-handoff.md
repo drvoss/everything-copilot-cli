@@ -92,7 +92,7 @@ Complete the task. Output:
 2. A summary of what you changed and why
 "@
 
-$result = npx @anthropic-ai/claude-code --print $prompt
+$result = claude -p $prompt
 
 # 5. Save result for return handoff
 $result | Set-Content ".handoff/auth-refactor-result.txt"
@@ -137,7 +137,7 @@ After Codex generates implementation:
 ```powershell
 # Codex generates the implementation
 $spec = Get-Content "specs/api-contract.json" -Raw
-$implementation = codex --quiet @"
+$implementation = codex exec --skip-git-repo-check @"
 Implement this API contract. Output each file with === FILE: path === headers.
 
 $spec

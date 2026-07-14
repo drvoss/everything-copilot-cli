@@ -68,12 +68,12 @@ $modules = Get-ChildItem src/ -Directory | Select-Object -ExpandProperty Name
 $jobs = @()
 
 $jobs += Start-Job -Name "auth-review" {
-    npx @anthropic-ai/claude-code --print `
+    claude -p `
       "Security review of the auth module. Identify vulnerabilities in: $(Get-Content src/auth/ -Raw)"
 }
 
 $jobs += Start-Job -Name "api-review" {
-    codex --quiet `
+    codex exec --skip-git-repo-check `
       "Review src/api/ for missing input validation. List each endpoint and status."
 }
 
@@ -169,7 +169,7 @@ For summaries or conflict detection, pass collected results to a synthesizer:
 ```powershell
 $allFindings = $results.Values -join "`n---`n"
 
-$summary = npx @anthropic-ai/claude-code --print @"
+$summary = claude -p @"
 These are security reviews from multiple agents covering different modules:
 
 $allFindings
@@ -212,8 +212,8 @@ $jobs | Wait-Job | ForEach-Object {
 # Generate the same component with 3 agents, compare outputs
 $prompt = "Write a TypeScript function that validates an email address. Include JSDoc."
 
-$claude  = Start-Job { npx @anthropic-ai/claude-code --print $using:prompt }
-$codex   = Start-Job { codex --quiet $using:prompt }
+$claude  = Start-Job { claude -p $using:prompt }
+$codex   = Start-Job { codex exec --skip-git-repo-check $using:prompt }
 $agy     = Start-Job { agy -p $using:prompt }
 
 @($claude, $codex, $agy) | Wait-Job | Out-Null
@@ -223,7 +223,7 @@ $codex_out   = $codex   | Receive-Job; $codex   | Remove-Job
 $agy_out     = $agy     | Receive-Job; $agy     | Remove-Job
 
 # Present all 3 for human selection or Claude synthesis
-npx @anthropic-ai/claude-code --print @"
+claude -p @"
 Three agents wrote an email validator. Pick the best one, explaining why.
 
 [Claude]: $claude_out
@@ -247,7 +247,7 @@ $jobs = foreach ($svc in $services) {
                 Out-String
     Start-Job -Name $name -ArgumentList $name, $content {
         param($svcName, $svcContent)
-        npx @anthropic-ai/claude-code --print @"
+        claude -p @"
 Audit the '$svcName' service. Report:
 1. Missing error handling
 2. Unvalidated inputs

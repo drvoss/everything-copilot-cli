@@ -35,7 +35,7 @@ Delegate the implementation to Codex with a detailed specification:
 
 ```powershell
 # Codex generates the complete CRUD API
-codex --quiet --approval-mode full-auto @"
+codex exec --skip-git-repo-check --full-auto @"
 Create a complete CRUD API for a 'Product' resource following the exact same 
 patterns as src/routes/users.ts and src/services/userService.ts.
 
@@ -199,7 +199,7 @@ $filesToReview = @(
     "src/services/productService.ts"
 ) | ForEach-Object { "=== $_ ===`n$(Get-Content $_ -Raw)" } | Out-String
 
-$review = npx @anthropic-ai/claude-code --print @"
+$review = claude -p @"
 Quick security review of these auto-generated API files:
 
 $filesToReview

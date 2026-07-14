@@ -35,7 +35,7 @@ $copilot = Start-Job {
 }
 
 $claude = Start-Job {
-    npx @anthropic-ai/claude-code --print @"
+    claude -p @"
 Review the following for architecture quality, edge cases, and security implications.
 Be specific — quote the relevant sections.
 

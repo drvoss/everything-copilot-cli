@@ -3,12 +3,13 @@
   "_comment": "MCP Bridge configuration for connecting Copilot CLI to Claude Code",
   "name": "claude-bridge",
   "description": "Bridge to Claude Code for deep reasoning, architecture design, security analysis, and large-context code understanding. Leverages Claude's 200K token context window.",
-  "command": "npx",
-  "args": ["@anthropic-ai/claude-code", "--mcp"],
+  "command": "claude",
+  "args": ["mcp"],
   "env": {
     "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
     "CLAUDE_CODE_TIMEOUT": "180"
   },
+  "_note": "command/args updated from the legacy `npx @anthropic-ai/claude-code --mcp` invocation to the standalone `claude` binary (`claude mcp`); verify the exact MCP subcommand with `claude --help` for your installed version.",
   "tools": [
     {
       "name": "claude_reason",
@@ -90,12 +91,12 @@
     "registration": {
       "userLevel": "Add to ~/.copilot/mcp.json under mcpServers.claude-bridge",
       "projectLevel": "Add to .vscode/mcp.json or devcontainer.json",
-      "note": "Claude Code has native MCP server support — the --mcp flag exposes its tools directly",
+      "note": "Claude Code has native MCP server support — the `mcp` subcommand exposes its tools directly",
       "example": {
         "mcpServers": {
           "claude-code": {
-            "command": "npx",
-            "args": ["@anthropic-ai/claude-code", "--mcp"],
+            "command": "claude",
+            "args": ["mcp"],
             "env": {
               "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
             }
@@ -104,7 +105,7 @@
       }
     },
     "prerequisites": [
-      "npx @anthropic-ai/claude-code (runs without global install)",
+      "claude (standalone Claude Code CLI binary installed and on PATH)",
       "Set ANTHROPIC_API_KEY environment variable"
     ]
   }
