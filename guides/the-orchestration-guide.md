@@ -12,7 +12,7 @@ category: guide
 
 ## Introduction: Why Orchestrate Multiple AI Tools?
 
-No single AI tool excels at everything. Claude has deep reasoning. Codex is fast at code generation. Gemini handles multimodal input. Copilot CLI ties directly into GitHub's ecosystem.
+No single AI tool excels at everything. Claude has deep reasoning. Codex is fast at code generation. Antigravity CLI (`agy`) handles multimodal input and large-document analysis. Copilot CLI ties directly into GitHub's ecosystem.
 
 **Multi-AI orchestration** means using each tool for what it does best, coordinated from a single hub. Instead of switching between terminals, you direct all tools from one place.
 
@@ -46,8 +46,8 @@ Copilot CLI is the ideal orchestrator for multi-AI workflows. Here's why:
               ┌────────────┼────────────┐
               │            │            │
         ┌─────┴─────┐ ┌───┴───┐ ┌─────┴─────┐
-        │ Claude Code│ │ Codex │ │ Gemini CLI│
-        │  (Analyze) │ │(Build)│ │ (Assess)  │
+        │ Claude Code│ │ Codex │ │Antigravity│
+        │  (Analyze) │ │(Build)│ │ (`agy`)   │
         └───────────┘ └───────┘ └───────────┘
 ```
 
@@ -59,11 +59,11 @@ Copilot CLI delegates tasks to specialized tools, collects results, and coordina
 
 ### Detailed Comparison
 
-| Capability | Claude Code | Codex CLI | Gemini CLI | Copilot CLI |
+| Capability | Claude Code | Codex CLI | Antigravity CLI | Copilot CLI |
 |---|---|---|---|---|
 | **Deep reasoning** | ★★★★★ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
 | **Code generation speed** | ★★★☆☆ | ★★★★★ | ★★★★☆ | ★★★★☆ |
-| **Context window** | 200K tokens | 128K tokens | 1M+ tokens | Varies by model |
+| **Context handling** | 200K tokens | 128K tokens | Multi-model, large-doc capable | Varies by model |
 | **Architecture analysis** | ★★★★★ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
 | **Security analysis** | ★★★★★ | ★★★☆☆ | ★★★☆☆ | ★★★★☆ |
 | **Multimodal (images)** | ★★★☆☆ | ★☆☆☆☆ | ★★★★★ | ★★★☆☆ |
@@ -78,7 +78,7 @@ Copilot CLI delegates tasks to specialized tools, collects results, and coordina
 |---|---|
 | **Claude Code** | Architecture decisions, complex refactors, security audits, code review requiring deep analysis |
 | **Codex CLI** | Fast implementation tasks, boilerplate generation, straightforward coding, OpenAI-ecosystem projects |
-| **Gemini CLI** | Performance analysis, diagram interpretation, multimodal input, large context analysis |
+| **Antigravity CLI (`agy`)** | Diagram interpretation, multimodal input, large document digestion, multi-model backend workflows |
 | **Copilot CLI** | GitHub workflows, PR/Issue management, orchestration, IDE-integrated development, fleet operations |
 
 ---
@@ -108,7 +108,7 @@ This guide starts with five cross-AI orchestration patterns, from simple to comp
 copilot --version                      # GitHub Copilot CLI
 codex --version                        # OpenAI Codex CLI
 npx @anthropic-ai/claude-code --version # Anthropic Claude Code
-gemini --version                       # Google Gemini CLI
+agy --version                          # Antigravity CLI (`agy`)
 ```
 
 You don't need all of them — start with whichever tools you already have installed.
@@ -318,7 +318,7 @@ Use Copilot CLI's built-in SQL database to track multi-AI workflows:
 -- Track which tool handles which task
 CREATE TABLE orchestration_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    tool TEXT NOT NULL,           -- 'claude', 'codex', 'copilot', 'gemini'
+    tool TEXT NOT NULL,           -- 'claude', 'codex', 'copilot', 'antigravity'
     task TEXT NOT NULL,           -- What was delegated
     status TEXT DEFAULT 'pending', -- 'pending', 'running', 'done', 'failed'
     result TEXT,                  -- Output summary

@@ -49,11 +49,11 @@ $review = npx @anthropic-ai/claude-code --print `
 Write-Output $review
 ```
 
-### Quick Analysis with Gemini
+### Quick Analysis with Antigravity CLI
 
 ```powershell
-# Use Gemini for performance analysis
-$analysis = gemini --prompt "Analyze the performance characteristics 
+# Use Antigravity CLI (`agy`) for performance analysis
+$analysis = agy -p "Analyze the performance characteristics 
   of the database queries in src/db/. Suggest index optimizations."
 
 Write-Output $analysis

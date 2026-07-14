@@ -322,7 +322,7 @@ For teams running both Claude Code and Copilot CLI simultaneously, use Copilot C
 Copilot CLI (GitHub integration, orchestration)
     ├── delegates deep analysis → Claude Code (200K context)
     ├── delegates fast codegen  → Codex CLI
-    └── delegates visual review → Gemini CLI
+    └── delegates visual review → Antigravity CLI (`agy`)
 ```
 
 See [Using Both Together](#using-both-together) and [orchestration patterns](../orchestration/README.md).
@@ -341,7 +341,7 @@ Migrating to Copilot CLI unlocks 11 capabilities not available in Claude Code:
 | 6 | **SQL Session Database** | Structured state that survives compaction |
 | 7 | **Plan Mode** | Structured text planning with autopilot transition |
 | 8 | **Autopilot Mode** | Safer autonomous execution *(Experimental)* |
-| 9 | **Multi-AI Orchestration** | Use Claude Code, Codex, Hermes, Gemini as workers |
+| 9 | **Multi-AI Orchestration** | Use Claude Code, Codex, Hermes, Antigravity CLI (`agy`) as workers |
 | 10 | **Cross-Session Search** | FTS5 search across previous sessions |
 | 11 | **LSP Support** | Language-aware code navigation |
 
@@ -379,7 +379,7 @@ The recommended approach for teams in transition: **use both, with Copilot CLI a
 │  Parallel work    ──→ Fleet mode                     │
 │  Deep analysis    ──→ Delegate to Claude Code        │
 │  Fast generation  ──→ Delegate to Codex CLI          │
-│  Visual analysis  ──→ Delegate to Gemini CLI         │
+│  Visual analysis  ──→ Delegate to Antigravity CLI (`agy`) │
 │                                                      │
 └─────────────────────────────────────────────────────┘
 ```

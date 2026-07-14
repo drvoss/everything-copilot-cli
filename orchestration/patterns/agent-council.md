@@ -20,7 +20,7 @@ The Agent Council is the most sophisticated orchestration pattern. A dispatcher 
                ┌────────────────────┼────────────────────┐
                │                    │                    │
     ┌──────────▼──────────┐ ┌──────▼──────────┐ ┌──────▼──────────┐
-    │    Claude Code       │ │   Codex CLI      │ │   Gemini CLI    │
+    │    Claude Code       │ │   Codex CLI      │ │ Antigravity CLI │
     │    (Architect)       │ │   (Builder)      │ │   (Analyst)     │
     │                      │ │                  │ │                 │
     │  • Architecture      │ │  • Fast code gen │ │  • Multimodal   │
@@ -78,13 +78,13 @@ codex --quiet --approval-mode full-auto `
 - Multi-file scaffolding
 - Applying well-known patterns (CRUD, auth, etc.)
 
-### Gemini CLI — The Analyst
+### Antigravity CLI (`agy`) — The Analyst
 
-**Strengths:** Multimodal analysis, performance profiling, diagram understanding, large context
+**Strengths:** Multimodal analysis, performance profiling, diagram understanding, large document digestion
 
 ```powershell
 # Best for: Performance and multimodal analysis
-gemini --prompt `
+agy -p `
   "Analyze the performance characteristics of the database queries in src/db/.
    1. Identify N+1 query patterns
    2. Suggest index optimizations
@@ -92,7 +92,7 @@ gemini --prompt `
    4. Recommend caching strategies"
 ```
 
-**Route to Gemini when:**
+**Route to Antigravity when:**
 
 - Analyzing images, diagrams, or screenshots
 - Performance profiling and optimization
@@ -139,7 +139,7 @@ from typing import Optional
 class Agent(Enum):
     CLAUDE = "claude"
     CODEX = "codex"
-    GEMINI = "gemini"
+    AGY = "agy"
     COPILOT = "copilot"
 
 
@@ -156,14 +156,14 @@ class TaskType(Enum):
 
 # Routing table: task type → primary agent + fallback
 ROUTING_TABLE = {
-    TaskType.ARCHITECTURE:    (Agent.CLAUDE, Agent.GEMINI),
+    TaskType.ARCHITECTURE:    (Agent.CLAUDE, Agent.AGY),
     TaskType.IMPLEMENTATION:  (Agent.CODEX, Agent.CLAUDE),
-    TaskType.REVIEW:          (Agent.CLAUDE, Agent.GEMINI),
-    TaskType.PERFORMANCE:     (Agent.GEMINI, Agent.CLAUDE),
+    TaskType.REVIEW:          (Agent.CLAUDE, Agent.AGY),
+    TaskType.PERFORMANCE:     (Agent.AGY, Agent.CLAUDE),
     TaskType.SECURITY:        (Agent.CLAUDE, Agent.CODEX),
     TaskType.DOCUMENTATION:   (Agent.CODEX, Agent.CLAUDE),
     TaskType.GITHUB_OPS:      (Agent.COPILOT, Agent.CODEX),
-    TaskType.MULTIMODAL:      (Agent.GEMINI, Agent.CLAUDE),
+    TaskType.MULTIMODAL:      (Agent.AGY, Agent.CLAUDE),
 }
 
 
@@ -198,7 +198,7 @@ async def dispatch(task_type: TaskType, prompt: str) -> TaskResult:
 async def council_vote(prompt: str, agents: list[Agent] = None) -> CouncilDecision:
     """Get input from multiple agents and resolve conflicts."""
     if agents is None:
-        agents = [Agent.CLAUDE, Agent.CODEX, Agent.GEMINI]
+        agents = [Agent.CLAUDE, Agent.CODEX, Agent.AGY]
 
     # Run all agents in parallel
     tasks = [_invoke_agent(agent, prompt) for agent in agents]
@@ -243,7 +243,7 @@ async def _invoke_agent(agent: Agent, prompt: str) -> TaskResult:
     commands = {
         Agent.CLAUDE: ["npx", "@anthropic-ai/claude-code", "--print", prompt],
         Agent.CODEX: ["codex", "--quiet", prompt],
-        Agent.GEMINI: ["gemini", "--prompt", prompt],
+        Agent.AGY: ["agy", "-p", prompt],
         Agent.COPILOT: ["gh", "copilot", "suggest", prompt],
     }
 
@@ -316,13 +316,13 @@ Ask all agents, pick the fastest successful response.
 # Race three agents — use whoever finishes first
 $claude = Start-Job { npx @anthropic-ai/claude-code --print "Explain the auth flow" }
 $codex = Start-Job { codex --quiet "Explain the auth flow" }
-$gemini = Start-Job { gemini --prompt "Explain the auth flow" }
+$agy = Start-Job { agy -p "Explain the auth flow" }
 
-$winner = @($claude, $codex, $gemini) | Wait-Job -Any
+$winner = @($claude, $codex, $agy) | Wait-Job -Any
 $result = $winner | Receive-Job
 Write-Output "Winner: $($winner.Name)`n$result"
 
-@($claude, $codex, $gemini) | Stop-Job
+@($claude, $codex, $agy) | Stop-Job
 ```
 
 ### Strategy 2: Consensus (Quality)
@@ -333,7 +333,7 @@ Ask all agents, resolve conflicts, synthesize the best answer.
 # Get all perspectives, then synthesize
 $claude_result = npx @anthropic-ai/claude-code --print "Review src/auth/ for security issues"
 $codex_result = codex --quiet "Review src/auth/ for security issues"
-$gemini_result = gemini --prompt "Review src/auth/ for security issues"
+$agy_result = agy -p "Review src/auth/ for security issues"
 
 # Use Claude to synthesize (strongest reasoner)
 $synthesis = npx @anthropic-ai/claude-code --print @"
@@ -341,7 +341,7 @@ Three AI agents reviewed the auth module. Synthesize their findings:
 
 Claude's review: $claude_result
 Codex's review: $codex_result
-Gemini's review: $gemini_result
+Antigravity's review: $agy_result
 
 Combine all valid findings, resolve any contradictions, and provide 
 a unified security review with prioritized recommendations.
@@ -364,8 +364,8 @@ $design = npx @anthropic-ai/claude-code --print `
 $code = codex --quiet `
   "Implement this notification system design: $design"
 
-# Performance review → Gemini
-$perf = gemini --prompt `
+# Performance review → Antigravity CLI
+$perf = agy -p `
   "Review this notification system for performance bottlenecks: $code"
 
 # Ship → Copilot (native GitHub integration)
@@ -379,7 +379,7 @@ When agents disagree, use these resolution strategies:
 | Strategy | When to Use | Method |
 |----------|-------------|--------|
 | **Majority Vote** | 3+ agents, factual questions | Pick the most common answer |
-| **Expert Authority** | Domain-specific conflicts | Trust the specialist (Claude for security, Gemini for perf) |
+| **Expert Authority** | Domain-specific conflicts | Trust the specialist (Claude for security, Antigravity for perf) |
 | **Synthesis** | Complementary perspectives | Combine non-conflicting parts from each |
 | **Escalation** | Critical decisions | Present all perspectives to the human |
 

@@ -621,13 +621,13 @@ See [Cross-Session Memory skill](../skills/copilot-exclusive/cross-session-memor
 ### What It Is
 
 Using Copilot CLI as a hub, you can orchestrate multiple AI coding tools —
-Claude Code, Codex CLI, Gemini CLI, and any MCP-compatible tool — routing tasks to
+Claude Code, Codex CLI, Antigravity CLI (`agy`), and any MCP-compatible tool — routing tasks to
 whichever tool is best suited via shell scripting and MCP.
 
 ### Why It Matters
 
 No single AI tool is best at everything. Claude excels at deep reasoning, Codex at
-fast generation, Gemini at multimodal analysis, and Copilot at GitHub integration.
+fast generation, Antigravity CLI (`agy`) at multimodal analysis, and Copilot at GitHub integration.
 Orchestration lets you leverage all of them from a single interface.
 
 ### How to Use It
@@ -649,7 +649,7 @@ Orchestration lets you leverage all of them from a single interface.
 | Copilot CLI | ⭐⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐ | ⭐⭐ |
 | Claude Code | ⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐ | ⭐⭐⭐ |
 | Codex CLI | ⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐ | ⭐⭐ |
-| Gemini CLI | ⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ |
+| Antigravity CLI | ⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ |
 
 ### Example: Full Workflow Orchestration
 
@@ -657,7 +657,7 @@ Orchestration lets you leverage all of them from a single interface.
 1. Copilot CLI: Gather requirements from GitHub issues
 2. Claude Code: Design architecture (deep reasoning, 200K context)
 3. Codex CLI:   Rapid prototype implementation (fast, sandboxed)
-4. Gemini CLI:  Analyze UI mockups and generate components
+4. Antigravity CLI (`agy`): Analyze UI mockups and generate components
 5. Copilot CLI: Run tests, create PR, request reviews
 6. Claude Code: Deep code review of critical paths
 7. Copilot CLI: Merge PR and close related issues
@@ -670,7 +670,7 @@ See the full [Orchestration Guide](../orchestration/README.md) and
 
 ## Feature Summary Matrix
 
-| Feature | Copilot CLI | Claude Code | Codex CLI | Gemini CLI |
+| Feature | Copilot CLI | Claude Code | Codex CLI | Antigravity CLI |
 |---------|:-----------:|:-----------:|:---------:|:----------:|
 | GitHub Native | ✅ | ❌ | ❌ | ❌ |
 | 20+ Models | ✅ | ❌ | ❌ | ❌ |

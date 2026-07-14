@@ -131,9 +131,9 @@ Time  Channel        From      Message
 ─────────────────────────────────────────────────────────
 t0    #tasks         copilot   {type: "analyze", files: ["src/"]}
 t1    #security      claude    {scanning: true}
-t2    #performance   gemini    {scanning: true}
+t2    #performance   agy       {scanning: true}
 t3    #security      claude    {findings: [...]}
-t4    #performance   gemini    {findings: [...]}
+t4    #performance   agy       {findings: [...]}
 t5    #coordination  copilot   {aggregated: true, report: "..."}
 ```
 
@@ -230,7 +230,7 @@ Define a standard event schema for inter-agent communication:
   "properties": {
     "id": { "type": "string", "description": "Unique message ID" },
     "taskId": { "type": "string", "description": "Related task ID" },
-    "agent": { "type": "string", "enum": ["copilot", "claude", "codex", "gemini"] },
+    "agent": { "type": "string", "enum": ["copilot", "claude", "codex", "agy"] },
     "type": { "type": "string", "enum": ["implement", "review", "fix", "analyze", "report"] },
     "status": { "type": "string", "enum": ["pending", "in_progress", "completed", "failed"] },
     "timestamp": { "type": "string", "format": "date-time" },

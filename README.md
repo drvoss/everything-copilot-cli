@@ -180,7 +180,7 @@ everything-copilot-cli/
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   11 orchestration patterns
 │   ├── configs/                   #   MCP bridge configs
-│   ├── skills/                    #   Orchestration skills (7)
+│   ├── skills/                    #   Orchestration skills (9)
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │

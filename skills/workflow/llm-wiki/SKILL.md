@@ -4,7 +4,7 @@ description: Use when research or domain knowledge keeps getting rediscovered ac
 metadata:
   category: workflow
   agent_type: general-purpose
-  compatible_runtimes: [copilot-cli, claude-code, codex-cli, gemini-cli]
+  compatible_runtimes: [copilot-cli, claude-code, codex-cli, agy]
 ---
 
 # LLM Wiki

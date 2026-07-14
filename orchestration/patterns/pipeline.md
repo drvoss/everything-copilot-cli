@@ -8,7 +8,7 @@ The Pipeline pattern follows the Unix philosophy: each AI tool does one thing we
 
 ```text
 ┌──────────┐    stdout    ┌──────────┐    stdout    ┌──────────┐    stdout    ┌──────────┐
-│  Claude   │ ──────────► │  Codex   │ ──────────► │  Gemini  │ ──────────► │  Copilot │
+│  Claude   │ ──────────► │  Codex   │ ──────────► │Antigravity│ ──────────► │  Copilot │
 │  analyze  │    pipe     │  implement│    pipe     │  review  │    pipe     │  ship    │
 └──────────┘             └──────────┘             └──────────┘             └──────────┘
 ```
@@ -218,7 +218,7 @@ npx @anthropic-ai/claude-code --print `
 ### Documentation Pipeline
 
 ```powershell
-# Codex generates docs → Claude refines → Gemini checks for accuracy
+# Codex generates docs → Claude refines → Antigravity CLI checks for accuracy
 codex --quiet "Generate API documentation for all endpoints in src/routes/" `
   > .pipeline/raw-docs.md
 
@@ -226,7 +226,7 @@ npx @anthropic-ai/claude-code --print `
   "Refine this API documentation for clarity and completeness: $(Get-Content .pipeline/raw-docs.md)" `
   > .pipeline/refined-docs.md
 
-gemini --prompt `
+agy -p `
   "Verify this documentation matches the actual code in src/routes/: $(Get-Content .pipeline/refined-docs.md)" `
   > .pipeline/doc-review.md
 ```

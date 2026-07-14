@@ -478,7 +478,7 @@ The VS Code Copilot extension and CLI are complementary, not competing:
 - **Batch operations**: Updating 20 files, adding tests across modules
 - **Autonomous workflows**: "Implement this feature end-to-end" with autopilot
 - **CI/CD integration**: Running in pipelines, automated reviews
-- **Multi-AI orchestration**: Coordinating Claude Code + Codex + Gemini
+- **Multi-AI orchestration**: Coordinating Claude Code + Codex + Antigravity CLI (`agy`)
 - **Long-running tasks**: Background agents that run while you do other work
 
 ### Sharing Context Between Them
@@ -660,8 +660,8 @@ The Agent Council brings multiple AI perspectives to complex decisions:
 ┌─────────────────────────────────────────────────────────┐
 │                    Agent Council                         │
 ├──────────┬──────────┬───────────┬───────────────────────┤
-│ Copilot  │  Claude  │  Codex    │  Gemini               │
-│ CLI      │  Code    │  CLI      │  CLI                  │
+│ Copilot  │  Claude  │  Codex    │  Antigravity          │
+│ CLI      │  Code    │  CLI      │  CLI (`agy`)          │
 ├──────────┼──────────┼───────────┼───────────────────────┤
 │ GitHub   │ Deep     │ Fast      │ Multimodal            │
 │ context  │ analysis │ generation│ analysis              │
@@ -676,7 +676,7 @@ The Agent Council brings multiple AI perspectives to complex decisions:
 
 1. **Copilot CLI** gathers GitHub context (PRs, issues, CI status)
 2. **Claude Code** performs deep architectural analysis (200K context)
-3. **Gemini CLI** analyzes diagrams and visual documentation
+3. **Antigravity CLI (`agy`)** analyzes diagrams and visual documentation
 4. **Copilot CLI** synthesizes all perspectives into a recommendation
 
 See [Agent Council pattern](../orchestration/patterns/agent-council.md).
