@@ -859,7 +859,10 @@ function validateMergedReport(report) {
     return { ok: false };
   }
 
-  if (Object.hasOwn(report, "reviewers_effective") && !Number.isInteger(report.reviewers_effective)) {
+  if (
+    Object.hasOwn(report, "reviewers_effective") &&
+    (!Number.isInteger(report.reviewers_effective) || report.reviewers_effective < 0)
+  ) {
     return { ok: false };
   }
 
@@ -885,8 +888,10 @@ function validateMergedReport(report) {
       typeof finding.blocking !== "boolean" ||
       !Array.isArray(finding.contributors) ||
       finding.contributors.length < 1 ||
+      !finding.contributors.every((contributor) => typeof contributor === "string") ||
       !Array.isArray(finding.families) ||
       finding.families.length < 1 ||
+      !finding.families.every((family) => typeof family === "string") ||
       !Number.isInteger(finding.effective_votes) ||
       finding.effective_votes < 1
     ) {

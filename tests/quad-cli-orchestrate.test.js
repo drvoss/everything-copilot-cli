@@ -125,6 +125,55 @@ describe("quad-cli-orchestrate exit codes (mock reviewers, --diff-file fixture)"
       assert.equal(validation.ok, true, `finding's base fields failed schema validation: ${JSON.stringify(finding)}`);
     }
   });
+
+  it("E2-2 minor regression: validateMergedReport rejects a negative reviewers_effective", () => {
+    // Planning-machine follow-up: the hand-rolled validator previously only checked
+    // Number.isInteger(reviewers_effective), matching the schema's `minimum: 0` in name
+    // only -- a negative integer passed. This can never happen from real orchestrator
+    // output (reviewers_effective = validReports.length, always >= 0), but the self-check
+    // must actually enforce what the schema declares, not just resemble it.
+    const validReport = {
+      schema_version: "1",
+      generated_by: "quad-cli-orchestrate",
+      reviewers_effective: 0,
+      findings: [],
+    };
+    assert.equal(validateMergedReport(validReport).ok, true);
+
+    const invalidReport = { ...validReport, reviewers_effective: -1 };
+    assert.equal(validateMergedReport(invalidReport).ok, false);
+  });
+
+  it("E2-2 minor regression: validateMergedReport rejects non-string contributors/families entries", () => {
+    const baseFinding = {
+      path: "src/a.js",
+      rule_id: "x",
+      severity: "major",
+      message: "m",
+      blocking: false,
+      contributors: ["claude"],
+      families: ["anthropic-claude"],
+      effective_votes: 1,
+    };
+    const validReport = {
+      schema_version: "1",
+      generated_by: "quad-cli-orchestrate",
+      findings: [baseFinding],
+    };
+    assert.equal(validateMergedReport(validReport).ok, true);
+
+    const badContributors = {
+      ...validReport,
+      findings: [{ ...baseFinding, contributors: [123] }],
+    };
+    assert.equal(validateMergedReport(badContributors).ok, false);
+
+    const badFamilies = {
+      ...validReport,
+      findings: [{ ...baseFinding, families: [null] }],
+    };
+    assert.equal(validateMergedReport(badFamilies).ok, false);
+  });
 });
 
 describe("B1 regression: hunk anchoring replaces fixed-width line buckets", () => {
