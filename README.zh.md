@@ -38,7 +38,7 @@
 
 因此，这个仓库提供的是一整套 agents、skills、rules、MCP 配置与 orchestration patterns：能 portable 的部分保持 portable，需要原生能力的部分则明确采用 Copilot-native 方式。
 
-> 若想了解本仓库的 community patterns 如何协调 Claude Code、Codex CLI、Gemini CLI 等外部 specialist workers，请参见 [多AI协同编排](#多ai协同编排-)。
+> 若想了解本仓库的 community patterns 如何协调 Claude Code、Codex CLI、Cursor CLI 与 Antigravity CLI（`agy`）等外部 specialist workers，请参见 [多AI协同编排](#多ai协同编排-)。
 
 ---
 
@@ -47,7 +47,7 @@
 | 原则 | 实际含义 |
 |------|----------|
 | **GitHub 作为 system of record** | 所有 workflow 都从 GitHub 开始并回到 GitHub。Issue 是任务输入，PR 是 agent 输出，Actions 是观测层。 |
-| **Copilot CLI 作为 orchestration hub** | Copilot 不只是生成代码，而是协调 specialist。Claude 擅长深度推理，Codex 擅长快速生成，Gemini 擅长视觉分析；Copilot 负责路由与综合。 |
+| **Copilot CLI 作为 orchestration hub** | Copilot 不只是生成代码，而是协调 specialist。Claude 擅长深度推理，Codex 擅长快速生成，Cursor 擅长基于 IDE 共享上下文进行 repo-aware 编辑，Antigravity（`agy`）覆盖 multi-model / multimodal 分析；Copilot 负责路由与综合。 |
 | **模型选择是 routing，不是 loyalty** | 没有一个单一模型能赢下所有任务。本仓库中的 skills 与 patterns 都围绕“把子任务路由给最合适的模型”来设计。 |
 | **Portable core, Copilot-native layer** | 大多数 skills 都可运行在 agentskills.io 兼容 runtime 中。Copilot 专属能力被明确隔离在 `skills/copilot-exclusive/` 下，因此你始终知道哪些部分依赖原生 Copilot 能力。 |
 
@@ -61,7 +61,7 @@
 
 **多模型路由** —— 在同一会话里，可以通过 `/model` 或按 agent 覆盖来切换 GPT、Claude、Gemini 等模型家族。架构任务用高阶推理模型，样板代码用快速模型，分诊用低成本模型。
 
-**编排原语** —— Plan Mode、Autopilot、Fleet、Background Delegation 以及内置 SQLite session DB，提供了构建复杂 multi-agent workflow 的基础部件。当外部 specialist tool 更适合时，本仓库的 orchestration patterns 也说明了如何把任务委派给 Codex CLI、Claude Code 或 Gemini CLI，并把结果重新带回 GitHub。
+**编排原语** —— Plan Mode、Autopilot、Fleet、Background Delegation 以及内置 SQLite session DB，提供了构建复杂 multi-agent workflow 的基础部件。当外部 specialist tool 更适合时，本仓库的 orchestration patterns 也说明了如何把任务委派给 Codex CLI、Claude Code、Cursor CLI 或 Antigravity CLI（`agy`），并把结果重新带回 GitHub。
 
 <details>
 <summary>完整能力参考（11 项）</summary>
@@ -78,7 +78,7 @@
 | 8 | **Session SQL Database** | 内置每会话 SQLite，用于结构化数据、todo 跟踪与状态管理。 |
 | 9 | **Cross-Session Memory** | 通过 `session_store` 检索并复用过往会话历史。 |
 | 10 | **LSP First-Class Support** | 集成 Language Server Protocol，提供精准代码智能。 |
-| 11 | **Multi-AI Orchestrator** | 以 Copilot 为元枢纽，编排 Claude Code、Codex、Gemini CLI。_(community pattern)_ |
+| 11 | **Multi-AI Orchestrator** | 以 Copilot 为元枢纽，编排 Claude Code、Codex、Cursor CLI 与 Antigravity（`agy`）。_(community pattern)_ |
 
 </details>
 
@@ -454,24 +454,25 @@ everything-copilot-cli/
 >
 > **Copilot-native**：GitHub MCP、`/model` 切换、Plan Mode、Autopilot、Fleet、Background Agents 与 Session SQL database 都是 Copilot CLI 内建能力。
 >
-> **Community pattern**：与 Claude Code、Codex CLI、Gemini CLI 的跨工具协同，是本仓库记录的 shell/MCP/pipeline 工作流模式。它依赖外部 CLI 已安装，并不是 Copilot 的官方内置能力。
+> **Community pattern**：与 Claude Code、Codex CLI、Cursor CLI 和 Antigravity CLI（`agy`）的跨工具协同，是本仓库记录的 shell/MCP/pipeline 工作流模式。它依赖外部 CLI 已安装，并不是 Copilot 的官方内置能力。
 
 ### 核心思路
 
-没有任何单一 AI 在所有场景都最优。Claude 擅长推理，Codex 擅长快速实现，Gemini 擅长多模态理解，而 Copilot 擅长 GitHub 集成。那如果你能在一个地方使用**它们全部**呢？
+没有任何单一 AI 在所有场景都最优。Claude 擅长推理，Codex 擅长快速实现，Cursor 擅长基于 repo 上下文的多文件编辑，Antigravity（`agy`）擅长 multi-model / multimodal 分析，而 Copilot 擅长 GitHub 集成。那如果你能在一个地方使用**它们全部**呢？
 
 ```text
-┌──────────────────────────────────────────────────┐
-│                GitHub Copilot CLI                │
-│            (Orchestrator / Meta-Hub)             │
-├──────────────────────────────────────────────────┤
-│                                                  │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐  │
-│  │ Claude Code│  │  Codex CLI │  │ Gemini CLI │  │
-│  │ (Reasoning)│  │(Impl./Gen.)│  │(Multimodal)│  │
-│  └────────────┘  └────────────┘  └────────────┘  │
-│                                                  │
-└──────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────┐
+│                       GitHub Copilot CLI                       │
+│                   (Orchestrator / Meta-Hub)                    │
+├────────────────────────────────────────────────────────────────┤
+│                                                                │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐ │
+│  │ Claude Code│  │  Codex CLI │  │ Cursor CLI │  │ Antigravity│ │
+│  │   (推理)   │  │  (实现)    │  │(Repo 编辑) │  │(agy·multi- │ │
+│  │            │  │            │  │            │  │model/vision│ │
+│  └────────────┘  └────────────┘  └────────────┘  └────────────┘ │
+│                                                                │
+└────────────────────────────────────────────────────────────────┘
 ```
 
 ### 5 种编排模式（模式 1–5：跨 AI）
@@ -504,7 +505,8 @@ everything-copilot-cli/
 | **Copilot CLI** | GitHub 集成 · 多模型灵活性 · 编排 | 元枢纽 / 协调者 |
 | **Claude Code** | 深度推理 · 大上下文分析 | 推理专家 |
 | **Codex CLI** | 快速代码生成 · 样板代码 | 实现专家 |
-| **Gemini CLI** | 多模态理解 · 视觉分析 | 视觉 / 多模态专家 |
+| **Cursor CLI** | Repo-aware 多文件编辑 · IDE 共享上下文 · headless JSON/CI | Repo-aware 编辑器 |
+| **Antigravity CLI (`agy`)** | Multi-model backend（Gemini 3.x / Claude / GPT-OSS）· multimodal · Google grounding · background subagents | Multi-model / multimodal specialist |
 
 ### 参考与验证过的框架
 
@@ -536,7 +538,7 @@ Copilot CLI 围绕你的 GitHub 工作流而构建。以下能力开箱即用：
 | **Session SQL Database** | 每会话内置 SQLite，用于结构化状态与 todo 跟踪 |
 | **Cross-Session Memory** | 通过 `session_store` 与 `/resume` 检索并复用过往会话历史 |
 | **LSP Integration** | Language Server Protocol 提供精准、符号感知的代码智能 |
-| **Multi-AI Orchestration** | 从单一枢纽协调 Claude Code、Codex、Gemini CLI _(community pattern)_ |
+| **Multi-AI Orchestration** | 从单一枢纽协调 Claude Code、Codex、Cursor CLI 与 Antigravity（`agy`）_(community pattern)_ |
 
 > 详见 [Copilot Exclusive Features guide](guides/copilot-exclusive-features.md) 以深入了解每项能力。
 

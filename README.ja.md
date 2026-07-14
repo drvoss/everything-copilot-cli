@@ -38,7 +38,7 @@
 
 その結果、このリポジトリは agent、skill、rule、MCP 設定、orchestration pattern をまとめて提供します。可能なものは portable に、Copilot の強みが重要な部分は Copilot-native に設計しています。
 
-> このリポジトリの community pattern が Claude Code、Codex CLI、Gemini CLI のような外部 specialist worker をどう連携させるかは [Multi-AI Orchestration](#multi-ai-orchestration-) を参照してください。
+> このリポジトリの community pattern が Claude Code、Codex CLI、Cursor CLI、Antigravity CLI (`agy`) のような外部 specialist worker をどう連携させるかは [Multi-AI Orchestration](#multi-ai-orchestration-) を参照してください。
 
 ---
 
@@ -47,7 +47,7 @@
 | 原則 | 実際の意味 |
 |------|------------|
 | **GitHub を system of record にする** | すべての workflow は GitHub で始まり GitHub で終わります。Issue は task 入力、PR は agent 出力、Actions は observability layer です。 |
-| **Copilot CLI を orchestration hub にする** | Copilot は単に code を生成するだけでなく specialist を調整します。Claude は深い reasoning、Codex は高速生成、Gemini は visual analysis を担当し、Copilot はそれを routing・synthesis します。 |
+| **Copilot CLI を orchestration hub にする** | Copilot は単に code を生成するだけでなく specialist を調整します。Claude は深い reasoning、Codex は高速生成、Cursor は IDE 共有 context を活かした repo-aware な編集、Antigravity (`agy`) はマルチモデル／マルチモーダル分析を担当し、Copilot はそれを routing・synthesis します。 |
 | **model choice は loyalty ではなく routing** | すべての task に最適な単一 model はありません。このリポジトリの skill と pattern は subtask ごとに最適な model へルーティングする前提で設計されています。 |
 | **Portable core, Copilot-native layer** | 多くの skill は agentskills.io 互換 runtime ならどこでも動作します。Copilot 専用機能は `skills/copilot-exclusive/` に分離され、native Copilot 依存が明確です。 |
 
@@ -61,7 +61,7 @@ Copilot CLI が multi-AI 開発 workflow のハブとして強い理由は、次
 
 **Multi-model routing** — 同じ session の中で `/model` や agent ごとの override を使い、GPT、Claude、Gemini 系 model を切り替えられます。architecture には高性能 reasoning model、boilerplate には高速 model、triage には低コスト model を選ぶ、といった運用が可能です。
 
-**Orchestration primitives** — Plan Mode、Autopilot、Fleet、Background Delegation、組み込み SQLite session DB が、複雑な multi-agent workflow の building block になります。別の specialist tool が適切なら、このリポジトリの orchestration pattern で Codex CLI、Claude Code、Gemini CLI に委任し、結果を GitHub に戻せます。
+**Orchestration primitives** — Plan Mode、Autopilot、Fleet、Background Delegation、組み込み SQLite session DB が、複雑な multi-agent workflow の building block になります。別の specialist tool が適切なら、このリポジトリの orchestration pattern で Codex CLI、Claude Code、Cursor CLI、Antigravity CLI (`agy`) に委任し、結果を GitHub に戻せます。
 
 <details>
 <summary>フル機能リファレンス（11項目）</summary>
@@ -78,7 +78,7 @@ Copilot CLI が multi-AI 開発 workflow のハブとして強い理由は、次
 | 8 | **Session SQL Database** | session ごとに組み込み SQLite を利用でき、構造化データ、todo 追跡、状態管理が可能です。 |
 | 9 | **Cross-Session Memory** | `session_store` で以前の session 履歴を検索し、再利用できます。 |
 | 10 | **LSP のファーストクラスサポート** | Language Server Protocol 統合により、高精度な code intelligence を実現します。 |
-| 11 | **Multi-AI Orchestrator** | Copilot をメタハブとして Claude Code、Codex、Gemini CLI をオーケストレーションできます。_(community pattern)_ |
+| 11 | **Multi-AI Orchestrator** | Copilot をメタハブとして Claude Code、Codex、Cursor CLI、Antigravity (`agy`) をオーケストレーションできます。_(community pattern)_ |
 
 </details>
 
@@ -454,24 +454,25 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 >
 > **Copilot-native**: GitHub MCP、`/model` 切り替え、Plan Mode、Autopilot、Fleet、Background Agents、Session SQL database は Copilot CLI に組み込まれています。
 >
-> **Community pattern**: Claude Code、Codex CLI、Gemini CLI との cross-tool orchestration は、このリポジトリが shell/MCP/pipeline ベースの workflow pattern として文書化したものです。外部 CLI の導入に依存し、Copilot の公式組み込み機能ではありません。
+> **Community pattern**: Claude Code、Codex CLI、Cursor CLI、Antigravity CLI (`agy`) との cross-tool orchestration は、このリポジトリが shell/MCP/pipeline ベースの workflow pattern として文書化したものです。外部 CLI の導入に依存し、Copilot の公式組み込み機能ではありません。
 
 ### アイデア
 
-1つの AI がすべてに最適とは限りません。Claude は推論、Codex は高速実装、Gemini はマルチモーダル理解、Copilot は GitHub 統合に強みがあります。これら **すべて** を1か所から使えたらどうでしょうか。
+1つの AI がすべてに最適とは限りません。Claude は推論、Codex は高速実装、Cursor は repo-aware な multi-file editing、Antigravity (`agy`) はマルチモデル／マルチモーダル分析、Copilot は GitHub 統合に強みがあります。これら **すべて** を1か所から使えたらどうでしょうか。
 
 ```text
-┌──────────────────────────────────────────────────┐
-│                GitHub Copilot CLI                │
-│            (Orchestrator / Meta-Hub)             │
-├──────────────────────────────────────────────────┤
-│                                                  │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐  │
-│  │ Claude Code│  │  Codex CLI │  │ Gemini CLI │  │
-│  │ (Reasoning)│  │(Impl./Gen.)│  │(Multimodal)│  │
-│  └────────────┘  └────────────┘  └────────────┘  │
-│                                                  │
-└──────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────┐
+│                       GitHub Copilot CLI                        │
+│                   (Orchestrator / Meta-Hub)                     │
+├────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐ │
+│  │ Claude Code│  │  Codex CLI │  │ Cursor CLI │  │ Antigravity│ │
+│  │   (推論)   │  │   (実装)   │  │ (repo編集) │  │(agy・multi-│ │
+│  │            │  │            │  │            │  │model/vision│ │
+│  └────────────┘  └────────────┘  └────────────┘  └────────────┘ │
+│                                                                  │
+└────────────────────────────────────────────────────────────────┘
 ```
 
 ### 5つのオーケストレーションパターン（Pattern 1〜5：cross-AI）
@@ -504,7 +505,8 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | **Copilot CLI** | GitHub 統合 · マルチモデル柔軟性 · オーケストレーション | メタハブ / coordinator |
 | **Claude Code** | 深い推論 · 大規模 context 分析 | 推論 specialist |
 | **Codex CLI** | 高速 code 生成 · boilerplate | 実装 specialist |
-| **Gemini CLI** | マルチモーダル理解 · 視覚分析 | vision / マルチモーダル specialist |
+| **Cursor CLI** | Repo-aware な multi-file editing · IDE-shared context · headless JSON/CI | Repo-aware editor |
+| **Antigravity CLI (`agy`)** | Multi-model backend (Gemini 3.x/Claude/GPT-OSS) · multimodal · Google grounding · background subagents | Multi-model / multimodal specialist |
 
 ### 参考情報と実証済みフレームワーク
 
@@ -536,7 +538,7 @@ Copilot CLI は GitHub workflow に最適化されて設計されています。
 | **Session SQL Database** | session ごとの組み込み SQLite で構造化状態と todo を管理します |
 | **Cross-Session Memory** | `session_store` と `/resume` で以前の session 履歴を検索し、再利用します |
 | **LSP Integration** | Language Server Protocol により symbol-aware な高精度 code intelligence を提供します |
-| **Multi-AI Orchestration** | 単一ハブから Claude Code、Codex、Gemini CLI を連携します _(community pattern)_ |
+| **Multi-AI Orchestration** | 単一ハブから Claude Code、Codex、Cursor CLI、Antigravity (`agy`) を連携します _(community pattern)_ |
 
 > 各機能の詳細は [Copilot Exclusive Features guide](guides/copilot-exclusive-features.md) を参照してください。
 
