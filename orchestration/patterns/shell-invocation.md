@@ -97,7 +97,7 @@ Within a Copilot CLI session, you can orchestrate other AIs naturally:
 You: "Use Codex to generate a Redis caching layer, then have Claude review it"
 
 Copilot CLI will:
-1. Run: codex exec --skip-git-repo-check --ask-for-approval "Generate a Redis caching layer for our API..."
+1. Run: codex exec --skip-git-repo-check --sandbox read-only "Generate a Redis caching layer for our API..." (codex exec is non-interactive by design; read-only is its default sandbox and produces a preview without applying changes — for real interactive "ask before applying" approval, use the interactive `codex` command instead of `exec`)
 2. Save the output to a file
 3. Run: claude -p "Review this caching implementation..."
 4. Present both results to you

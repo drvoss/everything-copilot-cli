@@ -43,8 +43,11 @@ codex exec --skip-git-repo-check --full-auto `
 ### With Approval Modes
 
 ```powershell
-# suggest (default) — Codex shows changes, asks for approval
-codex exec --skip-git-repo-check --ask-for-approval "Add pagination to the users endpoint"
+# suggest (default) — non-interactive preview only; codex exec has no --ask-for-approval flag
+# (that flag is top-level `codex` only and requires a value) — use --sandbox read-only
+# (the exec default) for a preview without applying changes. For real interactive
+# approval prompts, use the interactive `codex` command instead of `exec`.
+codex exec --skip-git-repo-check --sandbox read-only "Add pagination to the users endpoint"
 
 # auto-edit — Codex applies changes automatically but doesn't run commands
 # workspace-write allows file edits without full command-execution auto-run; verify exact semantics with codex exec --help
@@ -213,7 +216,7 @@ if ($LASTEXITCODE -eq 0) {
 | Command / Flag | Description | Example |
 |----------------|-------------|---------|
 | `exec` | Non-interactive command execution | `codex exec --skip-git-repo-check "prompt"` |
-| `--ask-for-approval` | Show proposed changes and ask before applying them | `codex exec --skip-git-repo-check --ask-for-approval "prompt"` |
+| `--sandbox read-only` | Preview only, non-interactive (exec default) — no changes applied | `codex exec --skip-git-repo-check --sandbox read-only "prompt"` |
 | `--sandbox workspace-write` | Allow file edits without full command-execution auto-run | `codex exec --skip-git-repo-check --sandbox workspace-write "prompt"` |
 | `--full-auto` | Apply edits and run commands automatically | `codex exec --skip-git-repo-check --full-auto "prompt"` |
 | `--model` | Choose model variant | `codex exec --skip-git-repo-check --model o4-mini` |
