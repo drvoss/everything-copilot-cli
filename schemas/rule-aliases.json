@@ -1,0 +1,9 @@
+{
+  "_comment": "Extend this alias map with team-specific reviewer rule names as more CLIs are normalized.",
+  "no-console": "no-console",
+  "no-unused-vars": "no-unused-vars",
+  "unused-variable": "no-unused-vars",
+  "missing-null-check": "missing-null-check",
+  "null-check-required": "missing-null-check",
+  "unsafe-null-access": "missing-null-check"
+}

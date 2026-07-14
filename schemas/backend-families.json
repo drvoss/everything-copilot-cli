@@ -1,0 +1,8 @@
+{
+  "_comment": "Maps each spoke CLI to the model family it effectively runs on, for consensus-vote deduplication in scripts/quad-cli-orchestrate.mjs. Two CLIs backed by the SAME family count as ONE vote toward a 'blocking' finding, since they are not independent opinions. These defaults are conservative placeholders, not verified vendor facts — confirm the actual configured model for each CLI in your environment (e.g. `agy --help`, `cursor-agent --help`) before relying on this file, and update it if you pin a CLI to a different backend.",
+  "_conservative_default_note": "agy (Antigravity CLI) is a multi-model backend that can run on Gemini, Claude, or GPT-OSS depending on configuration. Defaulting it to the same family as `claude` is a deliberately conservative (worst-case) assumption so the gate does not overclaim independence it cannot prove. If you pin agy to --model gemini or --model gpt-oss, change its family below to 'google-gemini' or 'openai-gpt-oss' respectively.",
+  "claude": "anthropic-claude",
+  "codex": "openai-gpt",
+  "cursor-agent": "cursor-native",
+  "agy": "anthropic-claude"
+}
