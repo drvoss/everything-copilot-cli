@@ -38,7 +38,7 @@
 
 결과적으로 이 저장소는 에이전트, 스킬, 규칙, MCP 설정, 오케스트레이션 패턴을 함께 제공하는 컬렉션이 됩니다. 가능한 곳에서는 portable하게, 핵심 강점이 걸린 곳에서는 Copilot-native하게 설계합니다.
 
-> 이 저장소의 community pattern이 Claude Code, Codex CLI, Gemini CLI 같은 외부 specialist worker를 어떻게 조율하는지는 [Multi-AI Orchestration](#multi-ai-orchestration-) 섹션을 참고하세요.
+> 이 저장소의 community pattern이 Claude Code, Codex CLI, Cursor CLI, Antigravity CLI (`agy`) 같은 외부 specialist worker를 어떻게 조율하는지는 [Multi-AI Orchestration](#multi-ai-orchestration-) 섹션을 참고하세요.
 
 ---
 
@@ -47,7 +47,7 @@
 | 원칙 | 실제 의미 |
 |------|----------|
 | **GitHub를 시스템 기준점으로** | 모든 워크플로우는 GitHub에서 시작하고 끝납니다. 이슈는 task 입력이고, PR은 에이전트 출력이며, Actions는 관찰 계층입니다. |
-| **Copilot CLI를 오케스트레이션 허브로** | Copilot은 단순히 코드를 생성하는 도구가 아니라 전문가를 조율하는 허브입니다. Claude는 깊이 추론하고, Codex는 빠르게 생성하며, Gemini는 시각 자료를 분석합니다. Copilot은 이를 라우팅하고 합성합니다. |
+| **Copilot CLI를 오케스트레이션 허브로** | Copilot은 단순히 코드를 생성하는 도구가 아니라 specialist를 조율하는 허브입니다. Claude는 깊이 추론하고, Codex는 빠르게 생성하며, Cursor는 IDE와 컨텍스트를 공유한 상태로 repo를 편집하고, Antigravity (`agy`)는 멀티모델/멀티모달 분석을 맡습니다. Copilot은 이를 라우팅하고 합성합니다. |
 | **모델 선택은 라우팅이지 충성도가 아니다** | 모든 task를 가장 잘 처리하는 단일 모델은 없습니다. 이 저장소의 스킬과 패턴은 각 subtask를 가장 적합한 모델로 라우팅하도록 설계되었습니다. |
 | **포터블 코어, Copilot-native 레이어** | 대부분의 스킬은 agentskills.io 호환 런타임 어디서나 작동합니다. Copilot 전용 기능은 `skills/copilot-exclusive/`에 분리되어 있어 native Copilot 의존 여부를 명확히 알 수 있습니다. |
 
@@ -61,7 +61,7 @@ Copilot CLI가 multi-AI 개발 워크플로우의 허브로 강한 이유는 세
 
 **멀티모델 라우팅** — 같은 세션 안에서 `/model`이나 에이전트별 override로 GPT, Claude, Gemini 계열을 바꿔 쓸 수 있습니다. 아키텍처에는 고성능 추론 모델, 보일러플레이트에는 빠른 모델, 트리아지에는 저비용 모델을 고르는 식입니다.
 
-**오케스트레이션 프리미티브** — Plan Mode, Autopilot, Fleet, Background Delegation, 내장 SQLite 세션 DB가 복잡한 multi-agent 워크플로우의 빌딩 블록을 제공합니다. 별도 specialist tool이 더 맞는 경우에는 이 저장소의 오케스트레이션 패턴으로 Codex CLI, Claude Code, Gemini CLI에 위임하고 결과를 다시 GitHub로 연결할 수 있습니다.
+**오케스트레이션 프리미티브** — Plan Mode, Autopilot, Fleet, Background Delegation, 내장 SQLite 세션 DB가 복잡한 multi-agent 워크플로우의 빌딩 블록을 제공합니다. 별도 specialist tool이 더 맞는 경우에는 이 저장소의 오케스트레이션 패턴으로 Codex CLI, Claude Code, Cursor CLI, Antigravity CLI (`agy`)에 위임하고 결과를 다시 GitHub로 연결할 수 있습니다.
 
 <details>
 <summary>전체 기능 레퍼런스 (11개)</summary>
@@ -78,7 +78,7 @@ Copilot CLI가 multi-AI 개발 워크플로우의 허브로 강한 이유는 세
 | 8 | **Session SQL Database** | 세션별 내장 SQLite — 구조화된 데이터, 할일 추적, 상태 관리 |
 | 9 | **Cross-Session Memory** | `session_store`로 이전 세션 기록을 검색하고 재사용 |
 | 10 | **LSP 퍼스트클래스 지원** | Language Server Protocol 통합으로 정밀한 코드 인텔리전스 |
-| 11 | **Multi-AI Orchestrator** | Copilot을 메타 허브로 삼아 Claude Code, Codex, Gemini CLI를 통합 조율 _(community pattern)_ |
+| 11 | **Multi-AI Orchestrator** | Copilot을 메타 허브로 삼아 Claude Code, Codex, Cursor CLI, Antigravity (`agy`)를 통합 조율 _(community pattern)_ |
 
 </details>
 
@@ -454,24 +454,25 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 >
 > **Copilot-native**: GitHub MCP, `/model` 전환, Plan Mode, Autopilot, Fleet, Background Agents, Session SQL database는 Copilot CLI에 내장된 기능입니다.
 >
-> **Community pattern**: Claude Code, Codex CLI, Gemini CLI와의 크로스-툴 오케스트레이션은 이 저장소가 shell/MCP/pipeline 기반 워크플로 패턴으로 문서화한 것입니다. 외부 CLI 설치에 의존하며 Copilot의 공식 내장 기능은 아닙니다.
+> **Community pattern**: Claude Code, Codex CLI, Cursor CLI, Antigravity CLI (`agy`)와의 크로스-툴 오케스트레이션은 이 저장소가 shell/MCP/pipeline 기반 워크플로 패턴으로 문서화한 것입니다. 외부 CLI 설치에 의존하며 Copilot의 공식 내장 기능은 아닙니다.
 
 ### 핵심 아이디어
 
-모든 일을 가장 잘하는 단일 AI는 없습니다. Claude는 추론에, Codex는 빠른 구현에, Gemini는 멀티모달 이해에, Copilot은 GitHub 통합에 강합니다. 이 모든 것을 **한 곳에서** 쓸 수 있다면 어떨까요?
+모든 일을 가장 잘하는 단일 AI는 없습니다. Claude는 추론에, Codex는 빠른 구현에, Cursor는 repo-aware 멀티 파일 편집에, Antigravity (`agy`)는 멀티모델/멀티모달 분석에, Copilot은 GitHub 통합에 강합니다. 이 모든 것을 **한 곳에서** 쓸 수 있다면 어떨까요?
 
 ```text
-┌──────────────────────────────────────────────────┐
-│                GitHub Copilot CLI                │
-│            (Orchestrator / 메타 허브)            │
-├──────────────────────────────────────────────────┤
-│                                                  │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐  │
-│  │ Claude Code│  │  Codex CLI │  │ Gemini CLI │  │
-│  │   (추론)   │  │   (구현)   │  │ (멀티모달) │  │
-│  └────────────┘  └────────────┘  └────────────┘  │
-│                                                  │
-└──────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────┐
+│                       GitHub Copilot CLI                        │
+│                   (Orchestrator / 메타 허브)                    │
+├────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐ │
+│  │ Claude Code│  │  Codex CLI │  │ Cursor CLI │  │ Antigravity│ │
+│  │   (추론)   │  │   (구현)   │  │ (Repo 편집)│  │(agy·멀티모델/│ │
+│  │            │  │            │  │            │  │   비전)    │ │
+│  └────────────┘  └────────────┘  └────────────┘  └────────────┘ │
+│                                                                  │
+└────────────────────────────────────────────────────────────────┘
 ```
 
 ### 5가지 크로스-AI 오케스트레이션 패턴
@@ -504,7 +505,8 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | **Copilot CLI** | GitHub 통합 · 멀티 모델 유연성 · 오케스트레이션 | 메타 허브 / 조율자 |
 | **Claude Code** | 심층 추론 · 대규모 컨텍스트 분석 | 추론 전문가 |
 | **Codex CLI** | 빠른 코드 생성 · 보일러플레이트 | 구현 전문가 |
-| **Gemini CLI** | 멀티모달 이해 · 시각 분석 | 비전 / 멀티모달 전문가 |
+| **Cursor CLI** | Repo-aware 멀티 파일 편집 · IDE 공유 컨텍스트 · headless JSON/CI | Repo-aware 에디터 |
+| **Antigravity CLI (`agy`)** | 멀티모델 백엔드 (Gemini 3.x/Claude/GPT-OSS) · 멀티모달 · Google grounding · background subagents | 멀티모델 / 멀티모달 specialist |
 
 ### 참고 프레임워크
 
@@ -536,7 +538,7 @@ Copilot CLI는 GitHub 워크플로우를 중심으로 설계된 도구입니다.
 | **Session SQL Database** | 세션별 내장 SQLite — 구조화된 상태 관리 및 할일 추적 |
 | **Cross-Session Memory** | `session_store`와 `/resume`으로 이전 세션 기록 검색 및 재사용 |
 | **LSP 통합** | 심볼 인식 기반의 정밀한 코드 인텔리전스 |
-| **Multi-AI Orchestration** | 단일 허브에서 Claude Code, Codex, Gemini CLI 통합 조율 _(community pattern)_ |
+| **Multi-AI Orchestration** | 단일 허브에서 Claude Code, Codex, Cursor CLI, Antigravity (`agy`) 통합 조율 _(community pattern)_ |
 
 > 각 기능에 대한 심층 안내는 [Copilot 전용 기능 가이드](guides/copilot-exclusive-features.md)를 참고하세요.
 
