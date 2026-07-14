@@ -17,7 +17,7 @@ Instead of raw shell commands, Copilot CLI calls typed MCP tools like:
 
 - `codex_generate(prompt, language, outputFormat)`
 - `claude_review(filePath, reviewType)`
-- `gemini_analyze(imagePath, question)`
+- `agy_analyze(imagePath, question)`
 
 ## Why MCP Bridge?
 

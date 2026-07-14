@@ -87,7 +87,7 @@ $sandboxDir = "$env:TEMP\copilot-sandbox-$(Get-Random)"
 New-Item -ItemType Directory -Path $sandboxDir | Out-Null
 
 # Agent writes candidate files here, not to the real project
-$agentOutput = npx @anthropic-ai/claude-code --print @"
+$agentOutput = claude -p @"
 Task: Generate migration SQL for adding indexes to the users table.
 Output: Write a single SQL file to $sandboxDir/migration.sql
 Constraints:
@@ -117,7 +117,7 @@ Remove-Item $sandboxDir -Recurse
 
 ```powershell
 # Agent generates a config file — validate before applying
-$candidateConfig = npx @anthropic-ai/claude-code --print @"
+$candidateConfig = claude -p @"
 Generate a GitHub Actions workflow for running Jest tests on push.
 Output: Valid YAML only. Maximum 50 lines. No secrets or environment variables.
 "@
@@ -151,7 +151,7 @@ if ($gitStatus) {
 }
 
 # 2. Run the agent (it modifies files normally)
-npx @anthropic-ai/claude-code --print @"
+claude -p @"
 Refactor src/utils/date.ts to use date-fns instead of moment.
 Constraints:
 - Only modify src/utils/date.ts and its test file
@@ -208,7 +208,7 @@ git worktree add .worktrees/sandbox -b $branch
 
 # 2. Run agent in the isolated worktree
 Push-Location .worktrees/sandbox
-npx @anthropic-ai/claude-code --print @"
+claude -p @"
 Perform the following large-scale refactor:
 [large refactor description]
 "@

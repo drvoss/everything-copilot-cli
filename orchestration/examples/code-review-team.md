@@ -103,7 +103,7 @@ $jobs = @()
 # 1) Security analyst — auth/injection/secrets
 $jobs += Start-Job -Name "security" -ScriptBlock {
     param($diff)
-    npx @anthropic-ai/claude-code --print @"
+    claude -p @"
 You are a security code reviewer.
 
 Review ONLY the diff below. Focus on:
@@ -125,7 +125,7 @@ $diff
 # 2) Performance analyst — N+1, complexity
 $jobs += Start-Job -Name "performance" -ScriptBlock {
     param($diff)
-    npx @anthropic-ai/claude-code --print @"
+    claude -p @"
 You are a performance code reviewer.
 
 Review ONLY the diff below. Focus on:
@@ -144,7 +144,7 @@ $diff
 # 3) Architecture reviewer — coupling, SOLID, layering
 $jobs += Start-Job -Name "architecture" -ScriptBlock {
     param($diff)
-    npx @anthropic-ai/claude-code --print @"
+    claude -p @"
 You are an architecture reviewer.
 
 Review ONLY the diff below. Focus on:
@@ -163,7 +163,8 @@ $diff
 # 4) Style inspector — conventions, naming, dead code
 $jobs += Start-Job -Name "style" -ScriptBlock {
     param($diff)
-    codex --quiet --approval-mode never @"
+    # read-only keeps this review pass non-mutating; verify exact semantics with codex exec --help
+    codex exec --skip-git-repo-check --sandbox read-only @"
 You are a style and maintainability reviewer.
 
 Review ONLY the diff below. Focus on:
@@ -183,7 +184,7 @@ $diff
 if ($using:needUx) {
     $jobs += Start-Job -Name "ux" -ScriptBlock {
         param($diff)
-        npx @anthropic-ai/claude-code --print @"
+        claude -p @"
 You are a UX and accessibility reviewer.
 
 Review ONLY the diff below. Focus on:
@@ -243,7 +244,7 @@ A dedicated synthesizer agent merges findings, removes duplicates, and prioritiz
 ```powershell
 $joined = ($results -join "`n`n")
 
-$synthesis = npx @anthropic-ai/claude-code --print @"
+$synthesis = claude -p @"
 You are the review synthesizer.
 
 Input: multiple specialist reviews. Produce ONE consolidated review.

@@ -21,7 +21,7 @@
 
 ```powershell
 # Generate a single file
-codex --quiet "Create a TypeScript Express middleware for request logging 
+codex exec --skip-git-repo-check "Create a TypeScript Express middleware for request logging 
   that includes timestamp, method, path, status code, and response time"
 ```
 
@@ -29,7 +29,7 @@ codex --quiet "Create a TypeScript Express middleware for request logging
 
 ```powershell
 # Generate multiple related files with full-auto mode
-codex --quiet --approval-mode full-auto `
+codex exec --skip-git-repo-check --full-auto `
   "Create a complete CRUD API for a 'Product' resource:
    - src/models/product.ts (Prisma model + TypeScript types)
    - src/routes/products.ts (Express routes: GET, POST, PUT, DELETE)
@@ -43,28 +43,32 @@ codex --quiet --approval-mode full-auto `
 ### With Approval Modes
 
 ```powershell
-# suggest (default) — Codex shows changes, asks for approval
-codex "Add pagination to the users endpoint"
+# suggest (default) — non-interactive preview only; codex exec has no --ask-for-approval flag
+# (that flag is top-level `codex` only and requires a value) — use --sandbox read-only
+# (the exec default) for a preview without applying changes. For real interactive
+# approval prompts, use the interactive `codex` command instead of `exec`.
+codex exec --skip-git-repo-check --sandbox read-only "Add pagination to the users endpoint"
 
 # auto-edit — Codex applies changes automatically but doesn't run commands
-codex --approval-mode auto-edit "Add error handling to all service methods"
+# workspace-write allows file edits without full command-execution auto-run; verify exact semantics with codex exec --help
+codex exec --skip-git-repo-check --sandbox workspace-write "Add error handling to all service methods"
 
 # full-auto — Codex applies changes and runs commands (tests, etc.)
-codex --approval-mode full-auto "Add input validation and write tests for it"
+codex exec --skip-git-repo-check --full-auto "Add input validation and write tests for it"
 ```
 
 ### Capture Output for Pipeline
 
 ```powershell
 # Generate code and pipe to review
-$code = codex --quiet "Generate a WebSocket server class in TypeScript 
+$code = codex exec --skip-git-repo-check "Generate a WebSocket server class in TypeScript 
   with rooms, authentication, and reconnection handling"
 
 # Save to file
 $code | Out-File -FilePath src/ws/server.ts -Encoding utf8
 
 # Feed to Claude for review (Pipeline pattern)
-$review = npx @anthropic-ai/claude-code --print `
+$review = claude -p `
   "Review this WebSocket implementation for security and correctness: $code"
 ```
 
@@ -156,13 +160,13 @@ Add appropriate indexes for query performance.
 
 ```powershell
 # After Codex generates code, verify it compiles
-codex --quiet --approval-mode full-auto "Generate the user service"
+codex exec --skip-git-repo-check --full-auto "Generate the user service"
 
 # Check TypeScript compilation
 npx tsc --noEmit
 if ($LASTEXITCODE -ne 0) {
     # If compilation fails, ask Codex to fix
-    codex --quiet --approval-mode auto-edit "Fix all TypeScript compilation errors"
+    codex exec --skip-git-repo-check --sandbox workspace-write "Fix all TypeScript compilation errors"
 }
 ```
 
@@ -170,7 +174,7 @@ if ($LASTEXITCODE -ne 0) {
 
 ```powershell
 # Generate tests and immediately verify they pass
-codex --quiet --approval-mode full-auto `
+codex exec --skip-git-repo-check --full-auto `
   "Generate unit tests for src/services/auth.ts"
 
 # Run the tests
@@ -178,7 +182,7 @@ npm test -- --testPathPattern="auth"
 
 if ($LASTEXITCODE -ne 0) {
     # Fix failing tests
-    codex --quiet --approval-mode auto-edit `
+    codex exec --skip-git-repo-check --sandbox workspace-write `
       "Fix the failing tests. Error output: $(npm test -- --testPathPattern='auth' 2>&1)"
 }
 ```
@@ -187,7 +191,7 @@ if ($LASTEXITCODE -ne 0) {
 
 ```powershell
 # Full flow: Codex implements → verify → Copilot ships
-codex --quiet --approval-mode full-auto "Implement the notification service"
+codex exec --skip-git-repo-check --full-auto "Implement the notification service"
 
 # Verify
 npm run build && npm test
@@ -207,12 +211,16 @@ if ($LASTEXITCODE -eq 0) {
 
 ## Codex CLI Flags Reference
 
-| Flag | Description | Example |
-|------|-------------|---------|
-| `--quiet` | Suppress interactive UI, output result only | `codex --quiet "prompt"` |
-| `--approval-mode` | Set autonomy level | `codex --approval-mode full-auto` |
-| `--model` | Choose model variant | `codex --model o4-mini` |
-| `--notify` | Desktop notification on completion | `codex --notify "long task"` |
+> Note: Reverify Codex exec flags and approval/sandbox semantics against `codex exec --help` for your installed version.
+
+| Command / Flag | Description | Example |
+|----------------|-------------|---------|
+| `exec` | Non-interactive command execution | `codex exec --skip-git-repo-check "prompt"` |
+| `--sandbox read-only` | Preview only, non-interactive (exec default) — no changes applied | `codex exec --skip-git-repo-check --sandbox read-only "prompt"` |
+| `--sandbox workspace-write` | Allow file edits without full command-execution auto-run | `codex exec --skip-git-repo-check --sandbox workspace-write "prompt"` |
+| `--full-auto` | Apply edits and run commands automatically | `codex exec --skip-git-repo-check --full-auto "prompt"` |
+| `--model` | Choose model variant | `codex exec --skip-git-repo-check --model o4-mini` |
+| `--notify` | Desktop notification on completion | `codex exec --skip-git-repo-check --notify "long task"` |
 
 ## Best Practices
 

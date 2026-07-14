@@ -149,7 +149,8 @@ foreach ($f in $batch) {
         $jobs += Start-Job -Name "codex:$f" -ScriptBlock {
             param($file)
             $code = Get-Content $file -Raw
-            codex --quiet --approval-mode auto-edit @"
+            # workspace-write allows file edits without full command-execution auto-run; verify exact semantics with codex exec --help
+            codex exec --skip-git-repo-check --sandbox workspace-write @"
 Migrate this legacy file incrementally.
 
 Rules:
@@ -169,7 +170,7 @@ $code
             $code = Get-Content $file -Raw
 
             # Claude emits a patch; you apply it with git apply.
-            $patch = npx @anthropic-ai/claude-code --print @"
+            $patch = claude -p @"
 You are migrating a legacy module incrementally.
 
 Refactor the file with extreme care:

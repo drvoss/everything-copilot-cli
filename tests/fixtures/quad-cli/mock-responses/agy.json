@@ -1,0 +1,14 @@
+{
+  "schema_version": "1",
+  "generated_by": "quad-cli-orchestrate",
+  "findings": [
+    {
+      "path": "src/jobs/cleanup.js",
+      "rule_id": "unused-variable",
+      "severity": "minor",
+      "message": "staleCount is assigned but never used",
+      "line": 12,
+      "snippet": "const staleCount = sessionIds.length;"
+    }
+  ]
+}

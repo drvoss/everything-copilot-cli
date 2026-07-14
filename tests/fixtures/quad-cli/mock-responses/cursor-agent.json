@@ -1,0 +1,14 @@
+{
+  "schema_version": "1",
+  "generated_by": "quad-cli-orchestrate",
+  "findings": [
+    {
+      "path": "src/routes/user.js",
+      "rule_id": "unsafe-null-access",
+      "severity": "critical",
+      "message": "The diff dereferences response.data.profile.id without a guard for missing data",
+      "line": 23,
+      "snippet": "const userId = response.data.profile.id;"
+    }
+  ]
+}

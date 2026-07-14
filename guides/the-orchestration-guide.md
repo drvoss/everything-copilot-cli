@@ -12,7 +12,7 @@ category: guide
 
 ## Introduction: Why Orchestrate Multiple AI Tools?
 
-No single AI tool excels at everything. Claude has deep reasoning. Codex is fast at code generation. Gemini handles multimodal input. Copilot CLI ties directly into GitHub's ecosystem.
+No single AI tool excels at everything. Claude has deep reasoning. Codex is fast at code generation. Cursor CLI handles repo-aware multi-file editing with IDE-shared context. Antigravity CLI (`agy`) handles multimodal input and large-document analysis. Copilot CLI ties directly into GitHub's ecosystem.
 
 **Multi-AI orchestration** means using each tool for what it does best, coordinated from a single hub. Instead of switching between terminals, you direct all tools from one place.
 
@@ -43,12 +43,12 @@ Copilot CLI is the ideal orchestrator for multi-AI workflows. Here's why:
                     │  Copilot CLI │
                     │  (Meta-Hub)  │
                     └──────┬──────┘
-              ┌────────────┼────────────┐
-              │            │            │
-        ┌─────┴─────┐ ┌───┴───┐ ┌─────┴─────┐
-        │ Claude Code│ │ Codex │ │ Gemini CLI│
-        │  (Analyze) │ │(Build)│ │ (Assess)  │
-        └───────────┘ └───────┘ └───────────┘
+         ┌──────────────┬──┴───┬──────────────┐
+         │              │      │              │
+   ┌─────┴─────┐  ┌─────┴┐  ┌──┴────┐   ┌─────┴─────┐
+   │ Claude Code│  │ Codex│  │Cursor │   │Antigravity│
+   │  (Analyze) │  │(Build)│  │(Edit) │   │ (`agy`)   │
+   └───────────┘  └──────┘  └───────┘   └───────────┘
 ```
 
 Copilot CLI delegates tasks to specialized tools, collects results, and coordinates the workflow — all while maintaining context in its session database.
@@ -59,18 +59,18 @@ Copilot CLI delegates tasks to specialized tools, collects results, and coordina
 
 ### Detailed Comparison
 
-| Capability | Claude Code | Codex CLI | Gemini CLI | Copilot CLI |
-|---|---|---|---|---|
-| **Deep reasoning** | ★★★★★ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
-| **Code generation speed** | ★★★☆☆ | ★★★★★ | ★★★★☆ | ★★★★☆ |
-| **Context window** | 200K tokens | 128K tokens | 1M+ tokens | Varies by model |
-| **Architecture analysis** | ★★★★★ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
-| **Security analysis** | ★★★★★ | ★★★☆☆ | ★★★☆☆ | ★★★★☆ |
-| **Multimodal (images)** | ★★★☆☆ | ★☆☆☆☆ | ★★★★★ | ★★★☆☆ |
-| **GitHub integration** | ★★☆☆☆ | ★★☆☆☆ | ★★☆☆☆ | ★★★★★ |
-| **CI/CD awareness** | ★★☆☆☆ | ★★☆☆☆ | ★★☆☆☆ | ★★★★★ |
-| **Cost efficiency** | Medium-High | Low-Medium | Low | Included with Copilot |
-| **Parallel execution** | Limited | Sandboxed | Limited | Fleet mode ★★★★★ |
+| Capability | Claude Code | Codex CLI | Cursor CLI | Antigravity CLI | Copilot CLI |
+|---|---|---|---|---|---|
+| **Deep reasoning** | ★★★★★ | ★★★☆☆ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
+| **Code generation speed** | ★★★☆☆ | ★★★★★ | ★★★★☆ | ★★★★☆ | ★★★★☆ |
+| **Context handling** | 200K tokens | 128K tokens | Repo/IDE-shared context | Multi-model, large-doc capable | Varies by model |
+| **Architecture analysis** | ★★★★★ | ★★★☆☆ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
+| **Security analysis** | ★★★★★ | ★★★☆☆ | ★★★☆☆ | ★★★☆☆ | ★★★★☆ |
+| **Multimodal (images)** | ★★★☆☆ | ★☆☆☆☆ | ★☆☆☆☆ | ★★★★★ | ★★★☆☆ |
+| **GitHub integration** | ★★☆☆☆ | ★★☆☆☆ | ★★☆☆☆ | ★★☆☆☆ | ★★★★★ |
+| **CI/CD awareness** | ★★☆☆☆ | ★★☆☆☆ | ★★★☆☆ | ★★☆☆☆ | ★★★★★ |
+| **Cost efficiency** | Medium-High | Low-Medium | Medium | Low | Included with Copilot |
+| **Parallel execution** | Limited | Sandboxed | Limited | Limited | Fleet mode ★★★★★ |
 
 ### When to Use Each Tool
 
@@ -78,7 +78,8 @@ Copilot CLI delegates tasks to specialized tools, collects results, and coordina
 |---|---|
 | **Claude Code** | Architecture decisions, complex refactors, security audits, code review requiring deep analysis |
 | **Codex CLI** | Fast implementation tasks, boilerplate generation, straightforward coding, OpenAI-ecosystem projects |
-| **Gemini CLI** | Performance analysis, diagram interpretation, multimodal input, large context analysis |
+| **Cursor CLI** | Repo-aware multi-file editing, IDE-shared context, headless JSON output for CI |
+| **Antigravity CLI (`agy`)** | Diagram interpretation, multimodal input, large document digestion, multi-model backend workflows |
 | **Copilot CLI** | GitHub workflows, PR/Issue management, orchestration, IDE-integrated development, fleet operations |
 
 ---
@@ -107,8 +108,9 @@ This guide starts with five cross-AI orchestration patterns, from simple to comp
 # Check what's available on your system
 copilot --version                      # GitHub Copilot CLI
 codex --version                        # OpenAI Codex CLI
-npx @anthropic-ai/claude-code --version # Anthropic Claude Code
-gemini --version                       # Google Gemini CLI
+claude --version # Anthropic Claude Code
+cursor-agent --version                 # Cursor CLI
+agy --version                          # Antigravity CLI (`agy`)
 ```
 
 You don't need all of them — start with whichever tools you already have installed.
@@ -119,10 +121,10 @@ From inside a Copilot CLI session, you can invoke any other tool directly:
 
 ```powershell
 # Ask Claude to analyze architecture, capture the result
-$analysis = npx @anthropic-ai/claude-code --print "Analyze the architecture of src/ and identify coupling issues"
+$analysis = claude -p "Analyze the architecture of src/ and identify coupling issues"
 
 # Ask Codex to implement a fix based on the analysis
-codex --quiet "Based on this analysis, decouple the user service: $analysis"
+codex exec --skip-git-repo-check "Based on this analysis, decouple the user service: $analysis"
 ```
 
 ### From Copilot CLI (Natural Language)
@@ -177,7 +179,7 @@ Implement, review, and merge with multi-AI coverage:
 # (Use Copilot CLI in Autopilot mode)
 
 # Step 2: AI code review for logic
-npx @anthropic-ai/claude-code --print "Review these changes for logic errors and edge cases: $(git diff)"
+claude -p "Review these changes for logic errors and edge cases: $(git diff)"
 
 # Step 3: Security review
 # (Use Copilot CLI's code-review agent)
@@ -191,7 +193,7 @@ npx @anthropic-ai/claude-code --print "Review these changes for logic errors and
 
 ```powershell
 # Phase 1: Get architectural recommendation from Claude
-$recommendation = npx @anthropic-ai/claude-code --print @"
+$recommendation = claude -p @"
 Analyze our current codebase and recommend whether we should:
 A) Refactor the monolithic API into microservices
 B) Keep the monolith but add a service layer
@@ -205,7 +207,7 @@ and current pain points (slow test suite, deployment coupling).
 # > Break it into phases with estimated effort
 
 # Phase 3: Implement with Codex (fast, parallel)
-codex --quiet "Implement phase 1 of the modular monolith: extract user domain into its own module with clear boundaries"
+codex exec --skip-git-repo-check "Implement phase 1 of the modular monolith: extract user domain into its own module with clear boundaries"
 ```
 
 ---
@@ -224,6 +226,9 @@ Use the right tool at the right price point for each task:
 | **Premium** | Claude Opus | $15-75/M tokens | Architecture, security audit, complex reasoning |
 
 ### Cost-Effective Strategy
+
+> Model names below (e.g. `claude-opus-4.6`, `claude-sonnet-4.6`) are example tiers, not
+> an exhaustive or permanent roster — check `/model` for what's currently available.
 
 ```text
 # ❌ Expensive: Using Opus for everything
@@ -299,7 +304,7 @@ Any tool that reads stdin/stdout or exposes an MCP server can be orchestrated fr
 
 ```powershell
 # Unix pipe style
-Get-Content src\api.ts | codex --quiet "Add error handling" | Set-Content src\api-improved.ts
+Get-Content src\api.ts | codex exec --skip-git-repo-check "Add error handling" | Set-Content src\api-improved.ts
 
 # MCP integration
 # Add any MCP server to workspace .mcp.json and Copilot CLI can load it
@@ -318,7 +323,7 @@ Use Copilot CLI's built-in SQL database to track multi-AI workflows:
 -- Track which tool handles which task
 CREATE TABLE orchestration_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    tool TEXT NOT NULL,           -- 'claude', 'codex', 'copilot', 'gemini'
+    tool TEXT NOT NULL,           -- 'claude', 'codex', 'copilot', 'antigravity'
     task TEXT NOT NULL,           -- What was delegated
     status TEXT DEFAULT 'pending', -- 'pending', 'running', 'done', 'failed'
     result TEXT,                  -- Output summary
@@ -392,7 +397,7 @@ GitHub Copilot CLI is uniquely positioned as the orchestration hub because:
 
 ```powershell
 # 1. Check your tools
-copilot --version && codex --version && npx @anthropic-ai/claude-code --version
+copilot --version && codex --version && claude --version
 
 # 2. Start a Copilot CLI session in your project
 cd C:\your-project

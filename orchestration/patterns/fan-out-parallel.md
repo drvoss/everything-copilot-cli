@@ -5,7 +5,7 @@ agents:
   - copilot
   - claude
   - codex
-  - gemini
+  - agy
 ---
 
 # Pattern: Fan-Out Parallel
@@ -68,17 +68,17 @@ $modules = Get-ChildItem src/ -Directory | Select-Object -ExpandProperty Name
 $jobs = @()
 
 $jobs += Start-Job -Name "auth-review" {
-    npx @anthropic-ai/claude-code --print `
+    claude -p `
       "Security review of the auth module. Identify vulnerabilities in: $(Get-Content src/auth/ -Raw)"
 }
 
 $jobs += Start-Job -Name "api-review" {
-    codex --quiet `
+    codex exec --skip-git-repo-check `
       "Review src/api/ for missing input validation. List each endpoint and status."
 }
 
 $jobs += Start-Job -Name "db-review" {
-    gemini --prompt `
+    agy -p `
       "Review src/db/ for N+1 query patterns and missing indexes."
 }
 
@@ -123,7 +123,7 @@ foreach ($lang in $languages) {
     $jobs += Start-Job -Name "translate-$lang" -ArgumentList $lang {
         param($targetLang)
         $source = Get-Content docs/README.md -Raw
-        gemini --prompt "Translate this Markdown to $targetLang. Preserve all code blocks. Output only the translated text.`n`n$source"
+        agy -p "Translate this Markdown to $targetLang. Preserve all code blocks. Output only the translated text.`n`n$source"
     }
 }
 
@@ -169,7 +169,7 @@ For summaries or conflict detection, pass collected results to a synthesizer:
 ```powershell
 $allFindings = $results.Values -join "`n---`n"
 
-$summary = npx @anthropic-ai/claude-code --print @"
+$summary = claude -p @"
 These are security reviews from multiple agents covering different modules:
 
 $allFindings
@@ -194,7 +194,7 @@ $jobs = foreach ($doc in $docs) {
     Start-Job -Name $doc.BaseName -ArgumentList $doc.FullName {
         param($path)
         $content = Get-Content $path -Raw
-        gemini --prompt "Translate to Korean. Preserve all code blocks and frontmatter.`n`n$content"
+        agy -p "Translate to Korean. Preserve all code blocks and frontmatter.`n`n$content"
     }
 }
 
@@ -212,25 +212,25 @@ $jobs | Wait-Job | ForEach-Object {
 # Generate the same component with 3 agents, compare outputs
 $prompt = "Write a TypeScript function that validates an email address. Include JSDoc."
 
-$claude  = Start-Job { npx @anthropic-ai/claude-code --print $using:prompt }
-$codex   = Start-Job { codex --quiet $using:prompt }
-$gemini  = Start-Job { gemini --prompt $using:prompt }
+$claude  = Start-Job { claude -p $using:prompt }
+$codex   = Start-Job { codex exec --skip-git-repo-check $using:prompt }
+$agy     = Start-Job { agy -p $using:prompt }
 
-@($claude, $codex, $gemini) | Wait-Job | Out-Null
+@($claude, $codex, $agy) | Wait-Job | Out-Null
 
 $claude_out  = $claude  | Receive-Job; $claude  | Remove-Job
 $codex_out   = $codex   | Receive-Job; $codex   | Remove-Job
-$gemini_out  = $gemini  | Receive-Job; $gemini  | Remove-Job
+$agy_out     = $agy     | Receive-Job; $agy     | Remove-Job
 
 # Present all 3 for human selection or Claude synthesis
-npx @anthropic-ai/claude-code --print @"
+claude -p @"
 Three agents wrote an email validator. Pick the best one, explaining why.
 
 [Claude]: $claude_out
 
 [Codex]: $codex_out
 
-[Gemini]: $gemini_out
+[Antigravity]: $agy_out
 "@
 ```
 
@@ -247,7 +247,7 @@ $jobs = foreach ($svc in $services) {
                 Out-String
     Start-Job -Name $name -ArgumentList $name, $content {
         param($svcName, $svcContent)
-        npx @anthropic-ai/claude-code --print @"
+        claude -p @"
 Audit the '$svcName' service. Report:
 1. Missing error handling
 2. Unvalidated inputs
@@ -283,7 +283,7 @@ Each agent produces independent output. The aggregator collects them:
 - All endpoints have input validation via Zod
 - Error responses sanitized
 
-### db-review (Gemini)
+### db-review (Antigravity)
 [STATUS: BLOCK]
 - N+1 query in getUserWithOrders() — line 42
 - Missing index on users.email

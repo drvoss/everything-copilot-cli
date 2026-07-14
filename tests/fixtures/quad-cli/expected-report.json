@@ -1,0 +1,59 @@
+{
+  "schema_version": "1",
+  "generated_by": "quad-cli-orchestrate",
+  "findings": [
+    {
+      "path": "src/routes/user.js",
+      "rule_id": "missing-null-check",
+      "severity": "blocker",
+      "message": "Property access on response.data.profile.id can throw when the API returns null",
+      "blocking": true,
+      "contributors": [
+        "claude",
+        "codex",
+        "cursor-agent"
+      ],
+      "families": [
+        "anthropic-claude",
+        "openai-gpt",
+        "cursor-native"
+      ],
+      "effective_votes": 3,
+      "line": 25,
+      "snippet": "const userId = response.data.profile.id;"
+    },
+    {
+      "path": "src/jobs/cleanup.js",
+      "rule_id": "no-unused-vars",
+      "severity": "minor",
+      "message": "staleCount is assigned but never used",
+      "blocking": false,
+      "contributors": [
+        "agy"
+      ],
+      "families": [
+        "anthropic-claude"
+      ],
+      "effective_votes": 1,
+      "line": 12,
+      "snippet": "const staleCount = sessionIds.length;"
+    },
+    {
+      "path": "src/utils/logger.js",
+      "rule_id": "no-console",
+      "severity": "minor",
+      "message": "Debug console.log should not ship in the request logger",
+      "blocking": false,
+      "contributors": [
+        "claude"
+      ],
+      "families": [
+        "anthropic-claude"
+      ],
+      "effective_votes": 1,
+      "line": 7,
+      "snippet": "console.log(\"request\", requestId);"
+    }
+  ],
+  "reviewers_effective": 4
+}

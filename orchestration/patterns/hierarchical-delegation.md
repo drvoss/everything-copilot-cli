@@ -5,7 +5,7 @@ agents:
   - copilot
   - claude
   - codex
-  - gemini
+  - agy
 ---
 
 # Pattern: Hierarchical Delegation

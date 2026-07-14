@@ -69,7 +69,7 @@ Skills are composable capabilities that agents can invoke. They are organized by
 
 Skills follow the [agentskills.io](https://agentskills.io) spec: each skill lives in a
 `skill-name/SKILL.md` directory, not a flat `.md` file. This ensures compatibility with
-`gemini skills install`, Codex CLI, and other skill-compatible tools.
+`agy skills install`, Codex CLI, and other skill-compatible tools.
 
 See [`skills/README.md`](skills/README.md) for the full catalog and installation instructions.
 

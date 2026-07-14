@@ -1,0 +1,14 @@
+{
+  "schema_version": "1",
+  "generated_by": "quad-cli-orchestrate",
+  "findings": [
+    {
+      "path": "src/routes/user.js",
+      "rule_id": "missing-null-check",
+      "severity": "critical",
+      "message": "response.data may be null before reading profile.id",
+      "line": 24,
+      "snippet": "const userId = response.data.profile.id;"
+    }
+  ]
+}

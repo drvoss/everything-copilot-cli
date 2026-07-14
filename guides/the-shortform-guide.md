@@ -287,7 +287,7 @@ The agent works on GitHub and returns the result there as a branch diff or PR:
 
 ## Orchestration
 
-Copilot CLI can orchestrate other AI tools (Claude Code, Codex CLI, Gemini CLI) for multi-AI workflows.
+Copilot CLI can orchestrate other AI tools (Claude Code, Codex CLI, Antigravity CLI (`agy`)) for multi-AI workflows.
 
 ### Five Patterns
 

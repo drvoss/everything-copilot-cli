@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Quad CLI Reviewer Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_by", "findings"],
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "generated_by": {
+      "const": "quad-cli-orchestrate"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "rule_id", "severity", "message"],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "rule_id": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": ["blocker", "critical", "major", "minor", "info"]
+          },
+          "message": {
+            "type": "string"
+          },
+          "line": {
+            "type": "integer"
+          },
+          "snippet": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

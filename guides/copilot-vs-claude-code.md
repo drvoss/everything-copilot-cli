@@ -126,7 +126,7 @@ Approve the plan to proceed; reject to revise. Not a separate visual UI — same
 
 ### 8. Multi-AI Orchestration (Community Pattern)
 
-Using Copilot CLI as a hub, you can combine Claude Code, Codex CLI, Gemini CLI,
+Using Copilot CLI as a hub, you can combine Claude Code, Codex CLI, Antigravity CLI (`agy`),
 and any MCP-compatible tool from a single interface via shell scripting and MCP.
 
 > **Note:** This is a community-proposed workflow pattern, not a built-in native feature of
@@ -204,8 +204,8 @@ This is where Copilot CLI fundamentally differs from Claude Code:
            ┌─────────┬──────┴───────┬──────────┐
            │         │              │           │
     ┌──────┴──┐ ┌────┴────┐ ┌──────┴──┐ ┌─────┴─────┐
-    │ Claude  │ │ Codex   │ │ Gemini  │ │  Custom   │
-    │ Code    │ │ CLI     │ │ CLI     │ │  MCP      │
+    │ Claude  │ │ Codex   │ │Antigravity│ │  Custom   │
+    │ Code    │ │ CLI     │ │ CLI (`agy`)│ │  MCP      │
     └─────────┘ └─────────┘ └─────────┘ └───────────┘
 ```
 
@@ -219,7 +219,7 @@ each tool's unique strengths:
 |------|----------|----------|
 | Claude Code | Deep reasoning, 200K context | Architecture review, complex analysis |
 | Codex CLI | Fast generation, sandboxed | Rapid prototyping, boilerplate |
-| Gemini CLI | Multimodal, large context | Image analysis, documentation with visuals |
+| Antigravity CLI (`agy`) | Multimodal, large document digestion | Image analysis, documentation with visuals |
 | Copilot CLI | GitHub integration, orchestration | PR workflows, CI/CD, coordination |
 
 **"Why choose when you can use everything?"**

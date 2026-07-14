@@ -158,7 +158,7 @@ $packages = @("web", "api", "shared", "ui", "mobile")
 $jobs = foreach ($pkg in $packages) {
     Start-Job -Name $pkg -ArgumentList $pkg {
         param($p)
-        npx @anthropic-ai/claude-code --print @"
+        claude -p @"
 Audit @app/$p for:
 1. Missing type exports from src/index.ts
 2. Direct imports from other packages' internal paths (not via package name)

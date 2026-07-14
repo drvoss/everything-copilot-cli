@@ -7,7 +7,7 @@
 
 - A task started in Copilot CLI needs Claude Code's 200K token context
 - Codex has generated code that needs Copilot CLI's GitHub integration to ship
-- Gemini has analyzed a diagram/image and the result needs implementation in Copilot
+- Antigravity CLI has analyzed a diagram/image and the result needs implementation in Copilot
 - You want a structured record of what each AI did and decided
 
 ## Handoff Envelope Format
@@ -92,7 +92,7 @@ Complete the task. Output:
 2. A summary of what you changed and why
 "@
 
-$result = npx @anthropic-ai/claude-code --print $prompt
+$result = claude -p $prompt
 
 # 5. Save result for return handoff
 $result | Set-Content ".handoff/auth-refactor-result.txt"
@@ -137,7 +137,7 @@ After Codex generates implementation:
 ```powershell
 # Codex generates the implementation
 $spec = Get-Content "specs/api-contract.json" -Raw
-$implementation = codex --quiet @"
+$implementation = codex exec --skip-git-repo-check @"
 Implement this API contract. Output each file with === FILE: path === headers.
 
 $spec
@@ -185,8 +185,8 @@ WHERE id = 'auth-refactor';
 |-------------------|-------------|-----|
 | 200K context (full codebase) | Claude Code | Largest context window |
 | Fast code generation / boilerplate | Codex CLI | GPT-5 speed, full-auto mode |
-| Image/diagram analysis | Gemini CLI | Multimodal input |
-| Performance profiling | Gemini CLI | Strong analytical reasoning |
+| Image/diagram analysis | Antigravity CLI (`agy`) | Multimodal input |
+| Large document / screenshot digestion | Antigravity CLI (`agy`) | Multi-model backend, Google grounding |
 | GitHub PR / Issue / Actions | Stay in Copilot CLI | Native integration |
 | Multi-model comparison | Fan-out pattern | Run all, compare results |
 
@@ -217,7 +217,7 @@ When dispatching to the same external CLI multiple times in a session, assign a
 
 ```text
 topic: auth-review-codex
-topic: architecture-challenge-gemini
+topic: architecture-challenge-agy
 ```
 
 When resuming a thread, pass only the **delta** (what changed since the last
@@ -236,7 +236,7 @@ can contain characters that the interpreter re-evaluates, letting it inject
 additional commands.
 
 ```powershell
-# Safe: pipe the prompt through stdin — most CLIs (codex, claude, gemini) accept
+# Safe: pipe the prompt through stdin — most CLIs (codex, claude, agy) accept
 # a prompt on stdin when given "-" or no positional prompt argument.
 $promptText | codex exec --sandbox read-only -
 ```
@@ -260,4 +260,4 @@ shell history.
 - [Pattern: Agent Council](../patterns/agent-council.md) — Multi-AI consensus
 - [Skill: delegate-to-claude](delegate-to-claude.md) — Claude Code delegation wrapper
 - [Skill: delegate-to-codex](delegate-to-codex.md) — Codex CLI delegation wrapper
-- [Skill: delegate-to-gemini](delegate-to-gemini.md) — Gemini CLI delegation wrapper
+- [Skill: delegate-to-antigravity](delegate-to-antigravity.md) — Antigravity CLI delegation wrapper

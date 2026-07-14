@@ -8,7 +8,7 @@ The Pipeline pattern follows the Unix philosophy: each AI tool does one thing we
 
 ```text
 ┌──────────┐    stdout    ┌──────────┐    stdout    ┌──────────┐    stdout    ┌──────────┐
-│  Claude   │ ──────────► │  Codex   │ ──────────► │  Gemini  │ ──────────► │  Copilot │
+│  Claude   │ ──────────► │  Codex   │ ──────────► │Antigravity│ ──────────► │  Copilot │
 │  analyze  │    pipe     │  implement│    pipe     │  review  │    pipe     │  ship    │
 └──────────┘             └──────────┘             └──────────┘             └──────────┘
 ```
@@ -25,11 +25,11 @@ Each stage:
 
 ```bash
 # Analyze → Implement → Review in one pipeline
-npx @anthropic-ai/claude-code --print \
+claude -p \
   "Analyze src/api/ and output a JSON implementation plan for adding pagination" \
-| codex --quiet \
+| codex exec --skip-git-repo-check \
   "Implement the pagination changes described in this plan: $(cat -)" \
-| npx @anthropic-ai/claude-code --print \
+| claude -p \
   "Review this implementation for correctness and edge cases: $(cat -)"
 ```
 
@@ -37,13 +37,13 @@ npx @anthropic-ai/claude-code --print \
 
 ```powershell
 # Analyze with Claude → Generate with Codex → Review with Claude
-$plan = npx @anthropic-ai/claude-code --print `
+$plan = claude -p `
   "Analyze src/api/ and create a JSON plan for adding rate limiting. Output JSON only."
 
-$code = $plan | codex --quiet `
+$code = $plan | codex exec --skip-git-repo-check `
   "Implement the changes described in this plan. Output only the code."
 
-$review = $code | npx @anthropic-ai/claude-code --print `
+$review = $code | claude -p `
   "Review this rate limiting implementation. List any issues."
 
 Write-Output $review
@@ -91,7 +91,7 @@ Output a JSON document with this structure:
 Output ONLY the JSON, no other text.
 "@
 
-npx @anthropic-ai/claude-code --print $stage1Prompt > "$WorkDir/01-plan.json"
+claude -p $stage1Prompt > "$WorkDir/01-plan.json"
 Write-Host "   ✅ Plan saved to $WorkDir/01-plan.json"
 
 Write-Host "🟢 Stage 2/4: Implementation (Codex CLI)" -ForegroundColor Green
@@ -108,7 +108,7 @@ Output each file with a header line: === FILE: path/to/file ===
 followed by the complete file content.
 "@
 
-codex --quiet $stage2Prompt > "$WorkDir/02-implementation.txt"
+codex exec --skip-git-repo-check $stage2Prompt > "$WorkDir/02-implementation.txt"
 Write-Host "   ✅ Implementation saved to $WorkDir/02-implementation.txt"
 
 Write-Host "🟡 Stage 3/4: Security & Quality Review (Claude Code)" -ForegroundColor Yellow
@@ -134,7 +134,7 @@ Output a JSON review:
 }
 "@
 
-npx @anthropic-ai/claude-code --print $stage3Prompt > "$WorkDir/03-review.json"
+claude -p $stage3Prompt > "$WorkDir/03-review.json"
 Write-Host "   ✅ Review saved to $WorkDir/03-review.json"
 
 Write-Host "🔴 Stage 4/4: Ship via GitHub (Copilot CLI)" -ForegroundColor Red
@@ -175,17 +175,17 @@ WORKDIR=".pipeline/$(date +%Y%m%d-%H%M%S)"
 mkdir -p "$WORKDIR"
 
 echo "🔵 Stage 1: Analysis (Claude Code)"
-npx @anthropic-ai/claude-code --print \
+claude -p \
   "Analyze the codebase and create an implementation plan for: $TASK. Output JSON." \
   > "$WORKDIR/01-plan.json"
 
 echo "🟢 Stage 2: Implementation (Codex CLI)"
-codex --quiet \
+codex exec --skip-git-repo-check \
   "Implement this plan: $(cat "$WORKDIR/01-plan.json")" \
   > "$WORKDIR/02-implementation.txt"
 
 echo "🟡 Stage 3: Review (Claude Code)"
-npx @anthropic-ai/claude-code --print \
+claude -p \
   "Review this implementation for bugs and security issues: $(cat "$WORKDIR/02-implementation.txt")" \
   > "$WORKDIR/03-review.json"
 
@@ -202,15 +202,15 @@ echo "📁 Artifacts: $WORKDIR/"
 
 ```powershell
 # Claude identifies test gaps → Codex generates tests → Claude reviews coverage
-npx @anthropic-ai/claude-code --print `
+claude -p `
   "Analyze src/ and list functions that lack test coverage. Output as JSON array." `
   > .pipeline/gaps.json
 
-codex --quiet `
+codex exec --skip-git-repo-check `
   "Generate unit tests for these untested functions: $(Get-Content .pipeline/gaps.json)" `
   > .pipeline/tests.txt
 
-npx @anthropic-ai/claude-code --print `
+claude -p `
   "Review these generated tests for completeness and edge cases: $(Get-Content .pipeline/tests.txt)" `
   > .pipeline/test-review.json
 ```
@@ -218,15 +218,15 @@ npx @anthropic-ai/claude-code --print `
 ### Documentation Pipeline
 
 ```powershell
-# Codex generates docs → Claude refines → Gemini checks for accuracy
-codex --quiet "Generate API documentation for all endpoints in src/routes/" `
+# Codex generates docs → Claude refines → Antigravity CLI checks for accuracy
+codex exec --skip-git-repo-check "Generate API documentation for all endpoints in src/routes/" `
   > .pipeline/raw-docs.md
 
-npx @anthropic-ai/claude-code --print `
+claude -p `
   "Refine this API documentation for clarity and completeness: $(Get-Content .pipeline/raw-docs.md)" `
   > .pipeline/refined-docs.md
 
-gemini --prompt `
+agy -p `
   "Verify this documentation matches the actual code in src/routes/: $(Get-Content .pipeline/refined-docs.md)" `
   > .pipeline/doc-review.md
 ```
@@ -235,15 +235,15 @@ gemini --prompt `
 
 ```powershell
 # Claude designs refactor → Codex executes → Claude validates → Copilot ships
-npx @anthropic-ai/claude-code --print `
+claude -p `
   "Design a refactoring plan to extract shared logic from src/services/ into reusable utilities" `
   > .pipeline/refactor-plan.json
 
-codex --quiet --approval-mode full-auto `
+codex exec --skip-git-repo-check --full-auto `
   "Execute this refactoring plan: $(Get-Content .pipeline/refactor-plan.json)" `
   > .pipeline/refactor-result.txt
 
-npx @anthropic-ai/claude-code --print `
+claude -p `
   "Validate this refactoring preserves behavior. Check for broken imports and missing logic: $(Get-Content .pipeline/refactor-result.txt)" `
   > .pipeline/validation.json
 ```
@@ -255,15 +255,15 @@ Build complex workflows by composing simple pipelines:
 ```powershell
 # Define reusable pipeline stages as functions
 function Invoke-ClaudeAnalysis($prompt) {
-    npx @anthropic-ai/claude-code --print $prompt
+    claude -p $prompt
 }
 
 function Invoke-CodexGeneration($prompt) {
-    codex --quiet $prompt
+    codex exec --skip-git-repo-check $prompt
 }
 
 function Invoke-ClaudeReview($code) {
-    npx @anthropic-ai/claude-code --print "Review for bugs and security: $code"
+    claude -p "Review for bugs and security: $code"
 }
 
 # Compose pipelines

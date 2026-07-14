@@ -70,7 +70,7 @@ $codebase
 Output a structured analysis with clear sections and actionable recommendations.
 "@
 
-$analysis = npx @anthropic-ai/claude-code --print $prompt
+$analysis = claude -p $prompt
 $analysis | Out-File .review/architecture-analysis.md -Encoding utf8
 
 Write-Host "✅ Architecture analysis complete — saved to .review/architecture-analysis.md"
@@ -165,7 +165,7 @@ If you need more detail on a specific finding, delegate again:
 
 ```powershell
 # Deep dive into the coupling issue
-$deepDive = npx @anthropic-ai/claude-code --print @"
+$deepDive = claude -p @"
 In the previous architecture analysis, you identified tight coupling between 
 orderService and paymentService through shared database transactions.
 

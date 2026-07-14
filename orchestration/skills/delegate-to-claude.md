@@ -20,7 +20,7 @@
 
 ```powershell
 # Delegate architecture review to Claude
-$result = npx @anthropic-ai/claude-code --print `
+$result = claude -p `
   "Review the architecture of this project. Focus on:
    1. Separation of concerns
    2. Error handling consistency
@@ -47,7 +47,7 @@ Check for:
 - Improper error disclosure
 "@
 
-$review = npx @anthropic-ai/claude-code --print $prompt
+$review = claude -p $prompt
 Write-Output $review
 ```
 
@@ -55,7 +55,7 @@ Write-Output $review
 
 ```powershell
 # Request JSON output for programmatic processing
-$json = npx @anthropic-ai/claude-code --print @"
+$json = claude -p @"
 Analyze the database models in src/models/ and output a JSON migration plan:
 {
   "currentIssues": ["issue 1", ...],
@@ -81,8 +81,8 @@ Add to your MCP configuration (`.mcp.json` in the workspace root or `~/.copilot/
 {
   "servers": {
     "claude-code": {
-      "command": "npx",
-      "args": ["@anthropic-ai/claude-code", "--mcp"],
+      "command": "claude",
+      "args": ["mcp"],
       "env": {
         "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
       }
@@ -181,8 +181,8 @@ $findings | ForEach-Object {
 
 ```powershell
 # Claude designs, Codex implements
-$design = npx @anthropic-ai/claude-code --print "Design a caching layer for src/api/"
-$implementation = codex --quiet "Implement this design: $design"
+$design = claude -p "Design a caching layer for src/api/"
+$implementation = codex exec --skip-git-repo-check "Implement this design: $design"
 ```
 
 1. **Create a PR** with Claude's review as context:

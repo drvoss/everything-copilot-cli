@@ -81,7 +81,7 @@ $existingCode = Get-ChildItem -Recurse src/ -Include *.ts | ForEach-Object {
 } | Out-String
 
 # Delegate architecture design to Claude
-$architecture = npx @anthropic-ai/claude-code --print @"
+$architecture = claude -p @"
 You are a senior architect designing a real-time notification system.
 
 ## Existing Codebase
@@ -192,7 +192,7 @@ Copilot CLI delegates implementation to Codex CLI, feeding it Claude's architect
 $arch = Get-Content .workflow/02-architecture.md -Raw
 
 # Codex implements the full design in full-auto mode
-codex --quiet --approval-mode full-auto @"
+codex exec --skip-git-repo-check --full-auto @"
 Implement the notification system based on this architecture document.
 
 ## Architecture
@@ -251,7 +251,7 @@ $newFiles = @(
     if (Test-Path $_) { "=== $_ ===`n$(Get-Content $_ -Raw)" }
 } | Out-String
 
-$securityReview = npx @anthropic-ai/claude-code --print @"
+$securityReview = claude -p @"
 Perform a comprehensive security review of this notification system.
 
 ## Code
@@ -299,7 +299,8 @@ if ($review.approved) {
     
     # Feed security findings back to Codex for fixes
     $findings = $review.findings | ConvertTo-Json
-    codex --quiet --approval-mode auto-edit `
+    # workspace-write allows file edits without full command-execution auto-run; verify exact semantics with codex exec --help
+    codex exec --skip-git-repo-check --sandbox workspace-write `
       "Fix these security issues in the notification system: $findings"
     
     Write-Host "✅ Security fixes applied by Codex"
@@ -346,7 +347,7 @@ Copilot CLI creates the branch, commits, runs CI, and opens a PR:
 
 ```powershell
 # Generate tests first
-codex --quiet --approval-mode full-auto `
+codex exec --skip-git-repo-check --full-auto `
   "Generate comprehensive Jest tests for the notification system. 
    Cover: notificationService, all channels, routes, WebSocket server.
    Mock Redis and Prisma. Include edge cases."

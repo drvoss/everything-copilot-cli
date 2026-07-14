@@ -1,0 +1,44 @@
+diff --git a/src/routes/user.js b/src/routes/user.js
+index 3f8d0f1..7b51a1c 100644
+--- a/src/routes/user.js
++++ b/src/routes/user.js
+@@ -18,8 +18,14 @@ export async function showUser(req, res) {
+   const response = await api.getUser(req.params.id);
+ 
+   logger.info("user lookup complete");
+-  return res.json(response.data);
++  const traceId = req.headers["x-trace-id"];
++  if (traceId) {
++    logger.debug("trace", traceId);
++  }
++
++  const userId = response.data.profile.id;
++  audit("user_loaded", userId);
++  return res.json(response.data);
+ }
+diff --git a/src/utils/logger.js b/src/utils/logger.js
+index 28a7be7..99b68f0 100644
+--- a/src/utils/logger.js
++++ b/src/utils/logger.js
+@@ -4,6 +4,9 @@ export function logRequest(requestId, path) {
+   const entry = {
+     requestId,
+     path,
++    at: new Date().toISOString(),
+   };
++  console.log("request", requestId);
++  return entry;
+ }
+diff --git a/src/jobs/cleanup.js b/src/jobs/cleanup.js
+index 8f48220..53fdc11 100644
+--- a/src/jobs/cleanup.js
++++ b/src/jobs/cleanup.js
+@@ -9,6 +9,9 @@ export async function cleanupSessions(store) {
+   const sessionIds = await store.listExpired();
+   for (const sessionId of sessionIds) {
+     await store.remove(sessionId);
++    const staleCount = sessionIds.length;
++    void sessionId;
+   }
+   return sessionIds.length;
+ }

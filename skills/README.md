@@ -20,8 +20,9 @@ All skills in this repository follow the **[agentskills.io](https://agentskills.
 - **Install from GitHub**: Any agentskills.io-compatible tool can install skills directly:
 
   ```bash
-  # Gemini CLI (native skills install command)
-  gemini skills install github:drvoss/everything-copilot-cli/skills/development/fix-github-issue
+  # Antigravity CLI (agy) — verify exact skill-install subcommand with `agy --help`;
+  # official successor to the retired standalone Gemini CLI (individual/free tier retired 2026-06-18)
+  agy skills install github:drvoss/everything-copilot-cli/skills/development/fix-github-issue
 
   # Claude Code (manual copy — claude does not have a shell-level skills install command)
   # Copy the skill directory to your project's .claude/skills/ or user-level ~/.claude/skills/
@@ -37,6 +38,7 @@ All skills in this repository follow the **[agentskills.io](https://agentskills.
 | Codex CLI | ✅ | Skills work; no fleet/background equivalent |
 | Hermes Agent | ✅ | Full agentskills.io spec support |
 | Cursor | ⚠️ | Skill content reusable; different invocation model |
+| Antigravity (`agy`) | ⚠️ | Skill content reusable; verify install command support with `agy --help` |
 
 ### Key differences when using in Claude Code
 
@@ -68,11 +70,11 @@ All skills in this repository follow the **[agentskills.io](https://agentskills.
 # Copy to: ~/.codex/skills/<skill-name>/SKILL.md
 ```
 
-### Gemini CLI
+### Antigravity CLI (agy)
 
 ```bash
-# Install directly from this repo using the skills command
-gemini skills install github:drvoss/everything-copilot-cli/skills/<category>/<skill-name>
+# Install directly from this repo using the skills command (verify exact subcommand with `agy --help`)
+agy skills install github:drvoss/everything-copilot-cli/skills/<category>/<skill-name>
 ```
 
 ---
