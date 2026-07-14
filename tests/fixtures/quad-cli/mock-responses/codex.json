@@ -1,0 +1,22 @@
+{
+  "schema_version": "1",
+  "generated_by": "quad-cli-orchestrate",
+  "findings": [
+    {
+      "path": "src/routes/user.js",
+      "rule_id": "null-check-required",
+      "severity": "blocker",
+      "message": "Property access on response.data.profile.id can throw when the API returns null",
+      "line": 25,
+      "snippet": "const userId = response.data.profile.id;"
+    },
+    {
+      "path": "src/routes/user.js",
+      "rule_id": "null-check-required",
+      "severity": "critical",
+      "message": "response.data.profile.id is used without validating response.data first",
+      "line": 24,
+      "snippet": "const userId = response.data.profile.id;"
+    }
+  ]
+}
