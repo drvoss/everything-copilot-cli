@@ -12,6 +12,7 @@ import {
   normalizePath,
   createReport,
   validateRawReport,
+  validateMergedReport,
 } from "../scripts/quad-cli-orchestrate.mjs";
 
 const ROOT = resolve(import.meta.dirname, "..");
@@ -91,15 +92,26 @@ describe("quad-cli-orchestrate exit codes (mock reviewers, --diff-file fixture)"
     assert.equal(report.reviewers_effective, 0);
   });
 
-  it("merged report's core finding fields validate against schemas/quad-cli-report.json (via validateRawReport)", () => {
+  it("merged report's ACTUAL output validates against schemas/quad-cli-merged-report.json (full shape, not a stripped subset)", () => {
     const result = runScript(["--diff-file", resolve(FIXTURES_DIR, "sample.diff")], {
       QUAD_CLI_MOCK_DIR: MOCK_DIR,
     });
     const report = JSON.parse(result.stdout);
-    // The raw schema models a single reviewer's report (no blocking/contributors/families),
-    // so validate the shared base shape (schema_version/generated_by + core finding fields)
-    // using the orchestrator's own schema validator rather than pulling in a new JSON Schema
-    // dependency.
+    // The merged/final report has extra fields (blocking/contributors/families/
+    // effective_votes) that schemas/quad-cli-report.json forbids (additionalProperties:
+    // false) because that schema models a single RAW reviewer's input, not the
+    // orchestrator's output. Validate the report as-is (no field stripping) against the
+    // distinct schemas/quad-cli-merged-report.json contract via validateMergedReport.
+    assert.ok(report.findings.length > 0, "fixture must produce at least one finding to be a meaningful check");
+    const validation = validateMergedReport(report);
+    assert.equal(validation.ok, true, `merged report failed schemas/quad-cli-merged-report.json shape: ${JSON.stringify(report)}`);
+  });
+
+  it("merged report's core finding fields ALSO satisfy the raw single-reviewer contract once blocking/contributors/families/effective_votes are excluded", () => {
+    const result = runScript(["--diff-file", resolve(FIXTURES_DIR, "sample.diff")], {
+      QUAD_CLI_MOCK_DIR: MOCK_DIR,
+    });
+    const report = JSON.parse(result.stdout);
     const baseFindingKeys = ["path", "rule_id", "severity", "message", "line", "snippet"];
     for (const finding of report.findings) {
       const baseFinding = Object.fromEntries(
@@ -110,7 +122,7 @@ describe("quad-cli-orchestrate exit codes (mock reviewers, --diff-file fixture)"
         generated_by: report.generated_by,
         findings: [baseFinding],
       });
-      assert.equal(validation.ok, true, `finding failed schema validation: ${JSON.stringify(finding)}`);
+      assert.equal(validation.ok, true, `finding's base fields failed schema validation: ${JSON.stringify(finding)}`);
     }
   });
 });
@@ -137,16 +149,50 @@ describe("B1 regression: hunk anchoring replaces fixed-width line buckets", () =
     assert.equal(findHunkId(index, "src/a.js", 16), null, "line just after the hunk must not match");
   });
 
+  it("E2-1 regression: a deletion-only hunk (new-side length 0) creates NO phantom anchor", () => {
+    // `@@ -20,3 +19,0 @@` means the new side adds nothing at all -- pure deletion. Prior to
+    // the fix, Math.max(length, 1) forced a minimum 1-line range here, letting a finding
+    // falsely anchor to line 19 and become eligible for blocking even though nothing was
+    // actually added/changed at that location on the new side.
+    const deletionOnlyDiff = [
+      "diff --git a/src/c.js b/src/c.js",
+      "@@ -20,3 +19,0 @@",
+      "-removed one",
+      "-removed two",
+      "-removed three",
+    ].join("\n");
+    const index = buildHunkIndex(deletionOnlyDiff);
+    assert.deepEqual(index.get("src/c.js"), [], "a length-0 new-side hunk must not register any anchor range");
+    assert.equal(findHunkId(index, "src/c.js", 19), null);
+  });
+
+  it("E2-1 regression: an omitted new-side length (implicit 1-line hunk) still anchors normally", () => {
+    // `@@ -5,1 +5 @@` (length omitted, not explicit 0) is unified-diff shorthand for length 1
+    // and must still default to a 1-line anchor -- only an EXPLICIT 0 should be excluded.
+    const implicitSingleLineDiff = [
+      "diff --git a/src/d.js b/src/d.js",
+      "@@ -5,1 +5 @@",
+      "-old",
+      "+new",
+    ].join("\n");
+    const index = buildHunkIndex(implicitSingleLineDiff);
+    assert.deepEqual(index.get("src/d.js"), [{ start: 5, end: 5, id: "src/d.js@5,1" }]);
+    assert.equal(findHunkId(index, "src/d.js", 5), "src/d.js@5,1");
+  });
+
   it("two findings that straddle the old bucket boundary but share one hunk ARE merged and CAN block", () => {
-    // Old Math.round(line/3)*3 bucket logic put line 11 in bucket 12 and line 13 in bucket
-    // 12 too by coincidence, but line 10 -> bucket 9 vs line 11 -> bucket 12 would have
-    // missed a real agreement. With hunk anchoring both land in the same real hunk (10-15).
+    // Old Math.round(line/3)*3 bucket logic put line 10 in bucket 9 and line 15 in bucket 15
+    // -- genuinely DIFFERENT buckets -- so the old code would have missed this real
+    // agreement (a false negative / missed straddle). With hunk anchoring both lines land
+    // in the same real hunk (10-15) and correctly merge. (Lines 11/13 were previously used
+    // here, but both happened to round to old bucket 12 too, so that pairing could pass
+    // even with the old buggy bucket code and did not actually guard this regression.)
     const hunkIndex = buildHunkIndex(diffBody);
     const ruleAliases = loadRuleAliases();
     const backendFamilies = loadBackendFamilies();
     const findings = [
-      { path: "a/src/a.js", rule_id: "x", severity: "major", message: "m1", line: 11, source_cli: "claude" },
-      { path: "b/src/a.js", rule_id: "x", severity: "major", message: "m2", line: 13, source_cli: "codex" },
+      { path: "a/src/a.js", rule_id: "x", severity: "major", message: "m1", line: 10, source_cli: "claude" },
+      { path: "b/src/a.js", rule_id: "x", severity: "major", message: "m2", line: 15, source_cli: "codex" },
     ];
 
     const merged = mergeFindings(findings, ruleAliases, hunkIndex, backendFamilies);

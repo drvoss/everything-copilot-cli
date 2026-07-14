@@ -226,5 +226,4 @@ Treat exit `1` as the required-check failure for blocking consensus findings.
 
 - [Delegate to Claude](delegate-to-claude.md)
 - [Delegate to Codex](delegate-to-codex.md)
-- [Delegate to Cursor](delegate-to-cursor.md)
 - [Delegate to Antigravity](delegate-to-antigravity.md)

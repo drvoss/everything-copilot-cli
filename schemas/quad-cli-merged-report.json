@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Quad CLI Merged Consensus Report",
+  "description": "Shape of the FINAL orchestrator output (after merging raw per-CLI reports). This is intentionally a separate schema from quad-cli-report.json, which models a single raw reviewer's input and forbids the extra fields (blocking/contributors/families/effective_votes/status/reviewers_effective) that the merge step adds. Validating orchestrator OUTPUT against the raw input schema will always fail once findings.length > 0 because of quad-cli-report.json's additionalProperties:false.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_by", "findings"],
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "generated_by": {
+      "const": "quad-cli-orchestrate"
+    },
+    "status": {
+      "enum": ["advisory-degraded", "no-reviewers"]
+    },
+    "reviewers_effective": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "rule_id", "severity", "message", "blocking", "contributors", "families", "effective_votes"],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "rule_id": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": ["blocker", "critical", "major", "minor", "info"]
+          },
+          "message": {
+            "type": "string"
+          },
+          "line": {
+            "type": "integer"
+          },
+          "snippet": {
+            "type": "string"
+          },
+          "blocking": {
+            "type": "boolean"
+          },
+          "contributors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "families": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "effective_votes": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    }
+  }
+}

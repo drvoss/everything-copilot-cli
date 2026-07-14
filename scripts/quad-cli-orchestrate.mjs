@@ -10,6 +10,25 @@ const BACKEND_FAMILIES_PATH = join(ROOT, "schemas", "backend-families.json");
 const TOOL_ORDER = ["claude", "codex", "cursor-agent", "agy"];
 const ALLOWED_TOP_LEVEL_KEYS = new Set(["schema_version", "generated_by", "findings"]);
 const ALLOWED_FINDING_KEYS = new Set(["path", "rule_id", "severity", "message", "line", "snippet"]);
+const ALLOWED_MERGED_TOP_LEVEL_KEYS = new Set([
+  "schema_version",
+  "generated_by",
+  "findings",
+  "status",
+  "reviewers_effective",
+]);
+const ALLOWED_MERGED_FINDING_KEYS = new Set([
+  "path",
+  "rule_id",
+  "severity",
+  "message",
+  "line",
+  "snippet",
+  "blocking",
+  "contributors",
+  "families",
+  "effective_votes",
+]);
 const SEVERITY_RANK = {
   info: 0,
   minor: 1,
@@ -118,6 +137,20 @@ export async function main() {
       status: status !== "ok" ? status : undefined,
       reviewersEffective: validReviewerCount,
     });
+
+    // Defensive self-check: the merged/final report has a distinct shape from the raw
+    // per-CLI input (schemas/quad-cli-report.json) — it must instead satisfy
+    // schemas/quad-cli-merged-report.json. If this ever fails it means mergeFindings/
+    // createReport produced a field the merged schema doesn't allow (or omitted a required
+    // one), which is an internal bug, not a caller error — fail loudly instead of emitting
+    // output that would be rejected by any consumer validating against the merged schema.
+    const mergedValidation = validateMergedReport(finalReport);
+    if (!mergedValidation.ok) {
+      console.error(
+        "quad-cli-consensus-gate: internal error — merged report failed schemas/quad-cli-merged-report.json validation."
+      );
+      process.exit(2);
+    }
 
     process.stdout.write(`${JSON.stringify(finalReport, null, 2)}\n`);
     console.error(
@@ -301,9 +334,18 @@ function buildHunkIndex(diffBody) {
     const hunkHeaderMatch = line.match(hunkHeaderPattern);
     if (hunkHeaderMatch && currentPath) {
       const start = Number.parseInt(hunkHeaderMatch[1], 10);
-      const length = hunkHeaderMatch[2] !== undefined ? Number.parseInt(hunkHeaderMatch[2], 10) : 1;
-      const end = start + Math.max(length, 1) - 1;
-      index.get(currentPath).push({ start, end, id: `${currentPath}@${start},${length}` });
+      // An explicit ",0" length (a deletion-only hunk: the new side adds no lines) must NOT
+      // become a phantom 1-line anchor via Math.max(length, 1) — that would let a finding
+      // reported against a purely-deleted region falsely anchor to `start` and become
+      // eligible for "blocking". Only default to length 1 when the length is OMITTED
+      // entirely (unified diff shorthand for "1 line"), never when it is explicitly 0.
+      const lengthField = hunkHeaderMatch[2];
+      const length = lengthField !== undefined ? Number.parseInt(lengthField, 10) : 1;
+
+      if (length > 0) {
+        const end = start + length - 1;
+        index.get(currentPath).push({ start, end, id: `${currentPath}@${start},${length}` });
+      }
     }
   }
 
@@ -792,6 +834,77 @@ function validateRawReport(report) {
   return { ok: true };
 }
 
+// Validates the FINAL orchestrator output against schemas/quad-cli-merged-report.json's
+// shape (hand-rolled, no external JSON Schema dependency, mirroring validateRawReport's
+// style). This is intentionally a distinct check from validateRawReport: the merged report
+// adds blocking/contributors/families/effective_votes per finding, plus optional top-level
+// status/reviewers_effective, none of which are legal against the RAW single-reviewer schema
+// (schemas/quad-cli-report.json, additionalProperties:false) — validating output against the
+// raw schema is a self-inflicted schema violation, not a real bug in the merge logic.
+function validateMergedReport(report) {
+  if (!report || typeof report !== "object" || Array.isArray(report)) {
+    return { ok: false };
+  }
+
+  const topLevelKeys = Object.keys(report);
+  if (!topLevelKeys.every((key) => ALLOWED_MERGED_TOP_LEVEL_KEYS.has(key))) {
+    return { ok: false };
+  }
+
+  if (report.schema_version !== "1" || report.generated_by !== "quad-cli-orchestrate") {
+    return { ok: false };
+  }
+
+  if (Object.hasOwn(report, "status") && !["advisory-degraded", "no-reviewers"].includes(report.status)) {
+    return { ok: false };
+  }
+
+  if (Object.hasOwn(report, "reviewers_effective") && !Number.isInteger(report.reviewers_effective)) {
+    return { ok: false };
+  }
+
+  if (!Array.isArray(report.findings)) {
+    return { ok: false };
+  }
+
+  for (const finding of report.findings) {
+    if (!finding || typeof finding !== "object" || Array.isArray(finding)) {
+      return { ok: false };
+    }
+
+    const findingKeys = Object.keys(finding);
+    if (!findingKeys.every((key) => ALLOWED_MERGED_FINDING_KEYS.has(key))) {
+      return { ok: false };
+    }
+
+    if (
+      typeof finding.path !== "string" ||
+      typeof finding.rule_id !== "string" ||
+      typeof finding.message !== "string" ||
+      !Object.hasOwn(SEVERITY_RANK, finding.severity) ||
+      typeof finding.blocking !== "boolean" ||
+      !Array.isArray(finding.contributors) ||
+      finding.contributors.length < 1 ||
+      !Array.isArray(finding.families) ||
+      finding.families.length < 1 ||
+      !Number.isInteger(finding.effective_votes) ||
+      finding.effective_votes < 1
+    ) {
+      return { ok: false };
+    }
+
+    if (Object.hasOwn(finding, "line") && !Number.isInteger(finding.line)) {
+      return { ok: false };
+    }
+
+    if (Object.hasOwn(finding, "snippet") && typeof finding.snippet !== "string") {
+      return { ok: false };
+    }
+  }
+
+  return { ok: true };
+}
+
 function mergeFindings(findings, ruleAliases, hunkIndex, backendFamilies) {
   const grouped = new Map();
   let unanchoredCounter = 0;
@@ -973,6 +1086,7 @@ export {
   buildInvocation,
   parseJsonReport,
   validateRawReport,
+  validateMergedReport,
   mergeFindings,
   normalizeFinding,
   normalizePath,
