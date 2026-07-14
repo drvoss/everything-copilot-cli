@@ -4,35 +4,42 @@
 
 ## Why Multi-AI Orchestration Matters
 
-No single AI tool excels at everything. Claude Code has 200K context and deep reasoning. Codex CLI has GPT-5 and blazing speed. Gemini CLI handles multimodal analysis. **Copilot CLI connects them all through GitHub** — where every project lives.
+No single AI tool excels at everything. Claude Code has large context and deep reasoning. Codex CLI has fast codegen models and
+blazing speed. Cursor CLI brings repo-aware, IDE-shared multi-file editing. Antigravity CLI (`agy`) runs multiple models
+(Gemini 3.x/Claude/GPT-OSS) behind one CLI for multimodal analysis and Google grounding. **Copilot CLI connects them all through
+GitHub** — where every project lives.
 
 Instead of choosing one tool, orchestrate them:
 
 ```text
-┌─────────────────────────────────────────────────────┐
-│                  Copilot CLI (Hub)                   │
-│         GitHub Issues • PRs • Actions • MCP         │
-├──────────┬──────────┬──────────┬────────────────────┤
-│ Claude   │ Codex    │ Gemini   │ Other AI           │
-│ Code     │ CLI      │ CLI      │ Tools              │
-│          │          │          │                    │
-│ 200K ctx │ GPT-5    │ Multi-   │ Extensible         │
-│ Reason   │ Fast gen │ modal    │ via MCP            │
-└──────────┴──────────┴──────────┴────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│                       Copilot CLI (Hub)                          │
+│              GitHub Issues • PRs • Actions • MCP                 │
+├──────────┬──────────┬──────────┬──────────┬──────────────────────┤
+│ Claude   │ Codex    │ Cursor   │Antigravity│ Other AI            │
+│ Code     │ CLI      │ CLI      │ (`agy`)   │ Tools               │
+│          │          │          │           │                     │
+│Large ctx │ Fast gen │ Repo-    │ Multi-    │ Extensible          │
+│ Reason   │          │ aware edit│ model/vis│ via MCP             │
+└──────────┴──────────┴──────────┴──────────┴──────────────────────┘
 ```
 
 ## Tool Strength Matrix
 
-| Capability              | Copilot CLI | Claude Code | Codex CLI | Gemini CLI |
-|------------------------|:-----------:|:-----------:|:---------:|:----------:|
-| GitHub Integration     | ★★★★★      | ★★☆☆☆      | ★★☆☆☆    | ★★☆☆☆     |
-| Deep Reasoning         | ★★★★☆      | ★★★★★      | ★★★★☆    | ★★★★☆     |
-| Fast Code Generation   | ★★★★☆      | ★★★☆☆      | ★★★★★    | ★★★★☆     |
-| Large Context (200K+)  | ★★★☆☆      | ★★★★★      | ★★★☆☆    | ★★★★★     |
-| Multimodal Analysis    | ★★☆☆☆      | ★★★☆☆      | ★★☆☆☆    | ★★★★★     |
-| MCP Ecosystem          | ★★★★★      | ★★★★★      | ★★★☆☆    | ★★★★☆     |
-| Autonomous Execution   | ★★★★★      | ★★★★★      | ★★★★★    | ★★★★☆     |
-| PR/Issue Management    | ★★★★★      | ★★☆☆☆      | ★★☆☆☆    | ★★☆☆☆     |
+| Capability              | Copilot CLI | Claude Code | Codex CLI | Cursor CLI | Antigravity (`agy`) |
+|------------------------|:-----------:|:-----------:|:---------:|:----------:|:-------------------:|
+| GitHub Integration     | ★★★★★      | ★★☆☆☆      | ★★☆☆☆    | ★★☆☆☆     | ★★☆☆☆              |
+| Deep Reasoning         | ★★★★☆      | ★★★★★      | ★★★★☆    | ★★★☆☆     | ★★★★☆              |
+| Fast Code Generation   | ★★★★☆      | ★★★☆☆      | ★★★★★    | ★★★★☆     | ★★★★☆              |
+| Large Context          | ★★★☆☆      | ★★★★★      | ★★★☆☆    | ★★★☆☆     | ★★★★☆              |
+| Repo-Aware Multi-File Edit | ★★★★☆  | ★★★☆☆      | ★★★☆☆    | ★★★★★     | ★★★☆☆              |
+| Multimodal Analysis    | ★★☆☆☆      | ★★★☆☆      | ★★☆☆☆    | ★★☆☆☆     | ★★★★★              |
+| Headless JSON / CI     | ★★★★☆      | ★★★☆☆      | ★★★★☆    | ★★★★★     | ★★★☆☆              |
+| MCP Ecosystem          | ★★★★★      | ★★★★★      | ★★★☆☆    | ★★★☆☆     | ★★★★☆              |
+| Autonomous Execution   | ★★★★★      | ★★★★★      | ★★★★★    | ★★★★☆     | ★★★★☆              |
+| PR/Issue Management    | ★★★★★      | ★★☆☆☆      | ★★☆☆☆    | ★★☆☆☆     | ★★☆☆☆              |
+
+> Star ratings are relative, subjective estimates for quick comparison, not benchmark scores. Exact model context windows and capabilities change over time — verify current specs in each vendor's docs before relying on a number.
 
 ## Eleven Orchestration Patterns
 
@@ -108,11 +115,13 @@ Orchestration skills fall into the **Orchestrator** tier of the [three-layer ski
 
 - [Delegate to Claude Code](skills/delegate-to-claude.md) — Deep reasoning, architecture, security
 - [Delegate to Codex CLI](skills/delegate-to-codex.md) — Fast generation, boilerplate, multi-file
-- [Delegate to Gemini CLI](skills/delegate-to-gemini.md) — Multimodal analysis, large document digestion, and screenshot-driven discovery
+- [Delegate to Cursor CLI](skills/delegate-to-cursor.md) — Repo-aware multi-file editing, IDE-shared context, headless JSON/CI
+- [Delegate to Antigravity CLI](skills/delegate-to-antigravity.md) — Multi-model/multimodal analysis, large document digestion, and screenshot-driven discovery
 - [Parallel Agents](skills/parallel-agents.md) — Run multiple AIs simultaneously
 - [Agent Review Chain](skills/agent-review-chain.md) — Multi-agent code review pipeline
 - [Multi-AI Handoff](skills/multi-ai-handoff.md) — Standardized JSON handoff protocol between AI tools
 - [Review Squad](skills/review-squad.md) — 5-specialist parallel PR review with synthesizer
+- [Quad-CLI Consensus Gate](skills/quad-cli-consensus-gate.md) — 4-CLI parallel review gate that only blocks on findings ≥2 tools independently agree on
 
 ## End-to-End Examples
 
@@ -141,16 +150,32 @@ These open-source projects pioneered multi-agent orchestration patterns:
 > **Example verification commands:**
 >
 > - Codex CLI: `codex --version`
-> - Claude Code: `npx @anthropic-ai/claude-code --version`
-> - Gemini CLI: use your locally installed `gemini --version` or vendor entry point
+> - Claude Code: `claude --version`
+> - Cursor CLI: `cursor-agent --version`
+> - Antigravity CLI: `agy --version`
 > - Copilot CLI: `copilot --version`
+
+### Non-Interactive Invocation Contract (4 external spokes)
+
+Each external CLI has its own quirks when called non-interactively (e.g., from a script or CI). Learn these once to avoid repeated troubleshooting:
+
+| Tool | Non-interactive invocation | Notes |
+|---|---|---|
+| `claude` | `claude -p "PROMPT"` | Primary reasoning/orchestrator calls |
+| `codex` | Linux/macOS/Git Bash: `codex exec --skip-git-repo-check "PROMPT" < /dev/null` · PowerShell: `Get-Content -Raw prompt.txt \| codex exec --skip-git-repo-check -` or `cmd /c 'codex exec --skip-git-repo-check "PROMPT" < NUL'` | PowerShell has no `<` stdin redirect; must close/pipe stdin or Codex blocks on "Reading additional input from stdin...". `codex exec` accepts `-` to read the prompt from stdin. |
+| `cursor-agent` | `cursor-agent -f -p "PROMPT"` | `-f` (trust) is required or it exits with "Workspace Trust Required"; add `--force` to allow file edits |
+| `agy` | `agy -p "PROMPT"` (optionally `--sandbox`) | Antigravity CLI — runs multiple models (Gemini 3.x/Claude/GPT-OSS) behind one CLI |
+
+> Recommended practice: after editing, cross-review the diff with a second CLI (e.g., `cursor-agent -f -p` for an independent audit, `codex exec ... < /dev/null` for a schema/consistency pass) and only apply changes ≥2 tools agree on. See [Quad-CLI Consensus Gate](skills/quad-cli-consensus-gate.md) for an automated version of this pattern.
 
 ## Quick Start
 
 ```powershell
 # 1. Verify your tools are available
 codex --version
-npx @anthropic-ai/claude-code --version
+claude --version
+cursor-agent --version
+agy --version
 
 # 2. Try the simplest orchestration (Pattern 1)
 # From within a Copilot CLI session, delegate to Codex:
@@ -183,11 +208,13 @@ orchestration/
 ├── skills/
 │   ├── delegate-to-claude.md         # Delegation skill: Claude Code
 │   ├── delegate-to-codex.md          # Delegation skill: Codex CLI
-│   ├── delegate-to-gemini.md         # Delegation skill: Gemini CLI
+│   ├── delegate-to-cursor.md         # Delegation skill: Cursor CLI
+│   ├── delegate-to-antigravity.md    # Delegation skill: Antigravity CLI (agy)
 │   ├── parallel-agents.md            # Parallel agent execution
 │   ├── agent-review-chain.md         # Multi-agent review pipeline
 │   ├── multi-ai-handoff.md           # JSON handoff protocol
-│   └── review-squad.md               # 5-specialist parallel review
+│   ├── review-squad.md               # 5-specialist parallel review
+│   └── quad-cli-consensus-gate.md    # 4-CLI consensus review gate
 ├── examples/
 │   ├── architecture-review.md         # E2E: Architecture review with Claude
 │   ├── fast-implementation.md         # E2E: Rapid implementation with Codex

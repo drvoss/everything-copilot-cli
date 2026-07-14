@@ -10,43 +10,59 @@
         "name": "Claude Code",
         "role": "architect",
         "description": "Deep reasoning, architecture design, security analysis, large-context understanding",
-        "command": "npx",
-        "args": ["@anthropic-ai/claude-code", "--mcp"],
+        "command": "claude",
+        "args": ["mcp"],
         "env": {
           "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
         },
         "strengths": ["reasoning", "architecture", "security", "large-context"],
-        "contextWindow": 200000,
+        "contextWindow": 1000000,
         "timeout": 180,
-        "costTier": "high"
+        "costTier": "high",
+        "_note": "command/args updated from the legacy `npx @anthropic-ai/claude-code --mcp` invocation to the standalone `claude` binary; verify the exact MCP subcommand with `claude --help` for your installed version. contextWindow should be re-verified against current vendor docs, not hardcoded indefinitely."
       },
       "codex-cli": {
         "name": "Codex CLI",
         "role": "builder",
-        "description": "Fast code generation, boilerplate, multi-file implementation powered by GPT-5",
+        "description": "Fast code generation, boilerplate, multi-file implementation powered by GPT-5.x",
         "command": "codex",
-        "args": ["--quiet"],
+        "args": ["exec"],
         "env": {
           "OPENAI_API_KEY": "${OPENAI_API_KEY}"
         },
         "strengths": ["code-generation", "speed", "boilerplate", "multi-file"],
         "contextWindow": 128000,
         "timeout": 120,
-        "costTier": "medium"
+        "costTier": "medium",
+        "_note": "args updated from the retired `--quiet` flag to the `exec` subcommand (`codex exec`)."
       },
-      "gemini-cli": {
-        "name": "Gemini CLI",
-        "role": "analyst",
-        "description": "Multimodal analysis, performance profiling, diagram understanding",
-        "command": "gemini",
-        "args": [],
+      "antigravity": {
+        "name": "Antigravity CLI",
+        "role": "multi-model-analyst",
+        "description": "Multi-model backend (Gemini 3.x/Claude/GPT-OSS) behind one CLI: multimodal analysis, performance profiling, diagram understanding, Google grounding, background subagents. Official successor to the retired standalone Gemini CLI.",
+        "command": "agy",
+        "args": ["-p"],
         "env": {
           "GOOGLE_API_KEY": "${GOOGLE_API_KEY}"
         },
-        "strengths": ["multimodal", "performance", "analysis", "large-context"],
+        "strengths": ["multi-model", "multimodal", "grounding", "background-agents", "performance", "large-context"],
         "contextWindow": 1000000,
         "timeout": 120,
-        "costTier": "low"
+        "costTier": "low",
+        "_note": "Replaces the retired `gemini-cli` entry (command `gemini`). Verify actual auth method (API key vs OAuth) and exact CLI flags with `agy --help` before relying on this config."
+      },
+      "cursor": {
+        "name": "Cursor CLI",
+        "role": "repo-aware-editor",
+        "description": "Repo-aware, multi-file editing with IDE-shared context; headless JSON/stream-json output suited for scripting and CI",
+        "command": "cursor-agent",
+        "args": ["-f", "-p"],
+        "env": {},
+        "strengths": ["repo-context", "fast-multifile-edit", "headless-json", "ide-context"],
+        "contextWindow": 128000,
+        "timeout": 120,
+        "costTier": "medium",
+        "_note": "New entry (4th external spoke). `-f` (trust) is required non-interactively or cursor-agent exits with 'Workspace Trust Required'; verify auth/env requirements with `cursor-agent --help`."
       },
       "copilot-cli": {
         "name": "Copilot CLI",
@@ -68,36 +84,36 @@
           "taskType": "architecture",
           "description": "System design, API design, database schema, service decomposition",
           "primary": "claude-code",
-          "fallback": "gemini-cli",
-          "reason": "Claude's 200K context and reasoning excels at architecture"
+          "fallback": "antigravity",
+          "reason": "Claude's large context and reasoning excels at architecture"
         },
         {
           "taskType": "implementation",
           "description": "Code generation, feature implementation, boilerplate creation",
           "primary": "codex-cli",
-          "fallback": "claude-code",
-          "reason": "Codex with GPT-5 is fastest for code generation"
+          "fallback": "cursor",
+          "reason": "Codex is fastest for greenfield generation; Cursor is the fallback for repo-aware multi-file changes"
         },
         {
           "taskType": "security-review",
           "description": "Vulnerability scanning, threat modeling, auth review",
           "primary": "claude-code",
-          "fallback": "gemini-cli",
+          "fallback": "antigravity",
           "reason": "Claude has the deepest security reasoning capabilities"
         },
         {
           "taskType": "performance",
           "description": "Performance analysis, optimization, profiling",
-          "primary": "gemini-cli",
+          "primary": "antigravity",
           "fallback": "claude-code",
-          "reason": "Gemini's large context handles full codebase performance analysis"
+          "reason": "Antigravity's large context handles full codebase performance analysis"
         },
         {
           "taskType": "code-review",
           "description": "General code review, best practices, maintainability",
           "primary": "claude-code",
           "fallback": "codex-cli",
-          "reason": "Claude provides the most thorough code reviews"
+          "reason": "Claude provides the most thorough code reviews; see quad-cli-consensus-gate for a multi-CLI parallel review option"
         },
         {
           "taskType": "documentation",
@@ -116,16 +132,23 @@
         {
           "taskType": "multimodal",
           "description": "Image analysis, diagram review, UI comparison",
-          "primary": "gemini-cli",
+          "primary": "antigravity",
           "fallback": "claude-code",
-          "reason": "Gemini has the strongest multimodal capabilities"
+          "reason": "Antigravity has the strongest multimodal capabilities"
+        },
+        {
+          "taskType": "repo-aware-editing",
+          "description": "Multi-file edits sharing context with an open IDE session, headless CI-driven edits",
+          "primary": "cursor",
+          "fallback": "codex-cli",
+          "reason": "Cursor CLI shares context with the Cursor IDE and supports headless JSON output for CI"
         },
         {
           "taskType": "refactoring",
           "description": "Code restructuring, pattern extraction, migration",
           "primary": "claude-code",
-          "fallback": "codex-cli",
-          "reason": "Refactoring needs deep reasoning about side effects"
+          "fallback": "cursor",
+          "reason": "Refactoring needs deep reasoning about side effects; Cursor fallback for large mechanical multi-file changes"
         }
       ]
     },

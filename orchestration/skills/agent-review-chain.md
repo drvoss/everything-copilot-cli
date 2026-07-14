@@ -8,7 +8,7 @@ The Agent Review Chain passes code through a series of specialist AI agents, eac
 
 ```text
 ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐
-│  Codex   │ ──► │  Claude  │ ──► │  Gemini  │ ──► │ Copilot  │
+│  Codex   │ ──► │  Claude  │ ──► │  Antigravity  │ ──► │ Copilot  │
 │ Implement│     │ Review   │     │ Perf     │     │ Ship     │
 │          │     │ Arch     │     │ Review   │     │ PR       │
 └──────────┘     └──────────┘     └──────────┘     └──────────┘
@@ -33,7 +33,7 @@ Implement a rate limiting middleware for Express with:
 - TypeScript with full type safety
 "@
 
-$implementation = codex --quiet --approval-mode suggest $spec
+$implementation = codex exec --approval-mode suggest $spec
 
 # Save checkpoint
 $implementation | Out-File .review-chain/01-implementation.ts -Encoding utf8
@@ -48,7 +48,7 @@ Claude reviews the implementation for architectural correctness and security.
 # Stage 2: Claude reviews architecture and security
 $code = Get-Content .review-chain/01-implementation.ts -Raw
 
-$archReview = npx @anthropic-ai/claude-code --print @"
+$archReview = claude -p @"
 You are a senior architect reviewing a rate limiting middleware.
 
 ## Code to Review
@@ -85,7 +85,7 @@ if (-not $review.approved) {
     
     # Send issues back to Codex for fixes
     $fixPrompt = "Fix these issues in the rate limiter: $($review.issues | ConvertTo-Json -Compress)"
-    $fixedCode = codex --quiet $fixPrompt
+    $fixedCode = codex exec $fixPrompt
     $fixedCode | Out-File .review-chain/01-implementation-v2.ts -Encoding utf8
     
     # Re-review (recursive until approved or max iterations)
@@ -94,15 +94,15 @@ if (-not $review.approved) {
 }
 ```
 
-### Stage 3: Performance Review (Gemini CLI)
+### Stage 3: Performance Review (Antigravity CLI (agy))
 
-Gemini analyzes the implementation for performance characteristics.
+Antigravity analyzes the implementation for performance characteristics.
 
 ```powershell
-# Stage 3: Gemini reviews performance
+# Stage 3: Antigravity reviews performance
 $code = Get-Content .review-chain/01-implementation.ts -Raw
 
-$perfReview = gemini --prompt @"
+$perfReview = agy -p @"
 Analyze this rate limiting middleware for performance:
 
 $code
@@ -154,13 +154,13 @@ Sliding window rate limiter with Redis backend, configurable per-route limits.
 ### Architecture Review (Claude Code)
 $archReview
 
-### Performance Review (Gemini CLI)  
+### Performance Review (Antigravity CLI (agy))  
 $perfReview
 
 ### Review Chain
 - [x] Implementation (Codex CLI)
 - [x] Architecture & Security Review (Claude Code)
-- [x] Performance Review (Gemini CLI)
+- [x] Performance Review (Antigravity CLI (agy))
 - [x] PR Creation (Copilot CLI)
 "@
 
@@ -188,7 +188,7 @@ New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 
 # ─── Stage 1: Implementation (Codex) ───
 Write-Host "`n🔨 Stage 1/4: Implementation (Codex CLI)" -ForegroundColor Green
-$code = codex --quiet --approval-mode suggest $Spec
+$code = codex exec --approval-mode suggest $Spec
 $code | Out-File "$OutputDir/implementation.ts" -Encoding utf8
 
 # ─── Stage 2: Architecture Review (Claude) ───
@@ -200,7 +200,7 @@ $approved = $false
 while (-not $approved -and $iteration -lt $MaxFixIterations) {
     $currentCode = Get-Content "$OutputDir/implementation.ts" -Raw
     
-    $reviewJson = npx @anthropic-ai/claude-code --print @"
+    $reviewJson = claude -p @"
 Review this code for architecture and security issues. Output JSON:
 {"approved": bool, "score": 1-10, "issues": [{"severity": "...", "description": "...", "fix": "..."}]}
 
@@ -218,7 +218,7 @@ $currentCode
         } else {
             $iteration++
             Write-Host "   ⚠️  Issues found (iteration $iteration/$MaxFixIterations)"
-            $fixes = codex --quiet "Fix these issues: $($review.issues | ConvertTo-Json -Compress)"
+            $fixes = codex exec "Fix these issues: $($review.issues | ConvertTo-Json -Compress)"
             $fixes | Out-File "$OutputDir/implementation.ts" -Encoding utf8
         }
     } catch {
@@ -227,16 +227,16 @@ $currentCode
     }
 }
 
-# ─── Stage 3: Performance Review (Gemini) ───
-Write-Host "⚡ Stage 3/4: Performance Review (Gemini CLI)" -ForegroundColor Yellow
+# ─── Stage 3: Performance Review (Antigravity) ───
+Write-Host "⚡ Stage 3/4: Performance Review (Antigravity CLI (agy))" -ForegroundColor Yellow
 $currentCode = Get-Content "$OutputDir/implementation.ts" -Raw
 
-$perfReview = gemini --prompt "Analyze performance of this code. List optimizations: $currentCode" 2>$null
+$perfReview = agy -p "Analyze performance of this code. List optimizations: $currentCode" 2>$null
 if ($perfReview) {
     $perfReview | Out-File "$OutputDir/perf-review.txt" -Encoding utf8
     Write-Host "   ✅ Performance review complete"
 } else {
-    Write-Host "   ⏭️  Gemini not available, skipping performance review"
+    Write-Host "   ⏭️  Antigravity not available, skipping performance review"
 }
 
 # ─── Stage 4: Ship (Copilot/GitHub) ───
@@ -253,7 +253,7 @@ Write-Host "   Run: gh pr create --fill"
 # Add documentation generation after implementation
 # Insert between Stage 1 and Stage 2
 
-$docs = codex --quiet "Generate JSDoc documentation for: $(Get-Content $codeFile -Raw)"
+$docs = codex exec "Generate JSDoc documentation for: $(Get-Content $codeFile -Raw)"
 $docs | Out-File "$OutputDir/documentation.md"
 ```
 
@@ -264,7 +264,7 @@ $docs | Out-File "$OutputDir/documentation.md"
 if ($Critical) {
     # Run full chain
 } else {
-    # Skip Stage 3 (Gemini perf review)
+    # Skip Stage 3 (Antigravity perf review)
 }
 ```
 

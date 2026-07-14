@@ -38,7 +38,7 @@ This repository is built around three ideas:
 
 The result is a curated collection of agents, skills, rules, MCP configurations, and orchestration patterns — portable where possible, Copilot-native where it matters.
 
-> See [Multi-AI Orchestration](#multi-ai-orchestration-) for how this repo's community patterns coordinate Claude Code, Codex CLI, and Gemini CLI as external specialist workers.
+> See [Multi-AI Orchestration](#multi-ai-orchestration-) for how this repo's community patterns coordinate Claude Code, Codex CLI, Cursor CLI, and Antigravity CLI (`agy`) as external specialist workers.
 
 ---
 
@@ -47,7 +47,7 @@ The result is a curated collection of agents, skills, rules, MCP configurations,
 | Principle | What it means in practice |
 |-----------|--------------------------|
 | **GitHub as system of record** | Every workflow starts and ends in GitHub. Issues are task inputs. PRs are agent outputs. Actions are the observability layer. |
-| **Copilot CLI as orchestration hub** | Copilot does not just generate code — it coordinates specialists. Claude reasons deeply, Codex generates fast, Gemini analyzes visuals; Copilot routes and synthesizes. |
+| **Copilot CLI as orchestration hub** | Copilot does not just generate code — it coordinates specialists. Claude reasons deeply, Codex generates fast, Cursor edits repos with IDE-shared context, Antigravity (`agy`) covers multi-model/multimodal analysis; Copilot routes and synthesizes. |
 | **Model choice is routing, not loyalty** | No single model wins every task. Skills and patterns in this repo are designed to route work to the strongest model for each subtask. |
 | **Portable core, Copilot-native layer** | Most skills work in any agentskills.io-compatible runtime. Copilot-exclusive capabilities are clearly separated in `skills/copilot-exclusive/` so you always know what depends on native Copilot features. |
 
@@ -61,7 +61,7 @@ Three capabilities make Copilot CLI a strong hub for multi-AI development workfl
 
 **Multi-model routing** — Within Copilot CLI you can switch between model families such as GPT, Claude, and Gemini with `/model` or per-agent overrides in the same session. Use a premium reasoning model for architecture, a fast model for boilerplate, and a cheaper model for triage.
 
-**Orchestration primitives** — Plan Mode, Autopilot, Fleet, Background Delegation, and the built-in SQLite session database give you building blocks for complex multi-agent workflows. When a separate specialist tool is the better fit, this repository's orchestration patterns show how to delegate to Codex CLI, Claude Code, or Gemini CLI and bring the result back through GitHub.
+**Orchestration primitives** — Plan Mode, Autopilot, Fleet, Background Delegation, and the built-in SQLite session database give you building blocks for complex multi-agent workflows. When a separate specialist tool is the better fit, this repository's orchestration patterns show how to delegate to Codex CLI, Claude Code, Cursor CLI, or Antigravity CLI (`agy`) and bring the result back through GitHub.
 
 <details>
 <summary>Full capability reference (11 features)</summary>
@@ -69,7 +69,7 @@ Three capabilities make Copilot CLI a strong hub for multi-AI development workfl
 | # | Advantage | Description |
 |---|-----------|-------------|
 | 1 | **GitHub-Native Integration** | Issues, PRs, Actions, code search — all via built-in MCP. No extra setup. |
-| 2 | **20+ Model Selection** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3.1 Pro — pick the right model per task. |
+| 2 | **20+ Model Selection** | GPT, Claude, Gemini families (example tiers, not exhaustive) — pick the right model per task. Check `/model` for the current roster since it changes over time. |
 | 3 | **IDE ↔ CLI Seamless Switching** | Same Copilot context in VS Code, JetBrains, and the terminal. |
 | 4 | **Plan Mode** | Structured text planning — Copilot builds a step-by-step implementation plan before writing any code. |
 | 5 | **Autopilot Mode** | Autonomous task execution with guardrails. _(Experimental)_ |
@@ -78,7 +78,7 @@ Three capabilities make Copilot CLI a strong hub for multi-AI development workfl
 | 8 | **Session SQL Database** | Built-in SQLite per session for structured data, todo tracking, and state. |
 | 9 | **Cross-Session Memory** | Search and reuse prior session history via `session_store`. |
 | 10 | **LSP First-Class Support** | Language Server Protocol integration for precise code intelligence. |
-| 11 | **Multi-AI Orchestrator** | Orchestrate Claude Code, Codex, Gemini CLI from Copilot as the meta-hub _(community pattern)_. |
+| 11 | **Multi-AI Orchestrator** | Orchestrate Claude Code, Codex, Cursor CLI, Antigravity (`agy`) from Copilot as the meta-hub _(community pattern)_. |
 
 </details>
 
@@ -454,24 +454,25 @@ All guides are in the [`guides/`](guides/) directory.
 >
 > **Copilot-native**: GitHub MCP, `/model` switching, Plan Mode, Autopilot, Fleet, Background Agents, and the session SQL database are built into Copilot CLI.
 >
-> **Community pattern**: cross-tool orchestration with Claude Code, Codex CLI, and Gemini CLI is documented in this repository as a shell/MCP/pipeline workflow pattern. It depends on those external CLIs being installed and is not an official built-in Copilot feature.
+> **Community pattern**: cross-tool orchestration with Claude Code, Codex CLI, Cursor CLI, and Antigravity CLI (`agy`) is documented in this repository as a shell/MCP/pipeline workflow pattern. It depends on those external CLIs being installed and is not an official built-in Copilot feature.
 
 ### The Idea
 
-No single AI is best at everything. Claude excels at reasoning, Codex at rapid implementation, Gemini at multimodal understanding, and Copilot at GitHub integration. What if you could use **all of them** from one place?
+No single AI is best at everything. Claude excels at reasoning, Codex at rapid implementation, Cursor at repo-aware multi-file editing, Antigravity (`agy`) at multi-model/multimodal analysis, and Copilot at GitHub integration. What if you could use **all of them** from one place?
 
 ```text
-┌──────────────────────────────────────────────────┐
-│                GitHub Copilot CLI                │
-│            (Orchestrator / Meta-Hub)             │
-├──────────────────────────────────────────────────┤
-│                                                  │
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐  │
-│  │ Claude Code│  │  Codex CLI │  │ Gemini CLI │  │
-│  │ (Reasoning)│  │(Impl./Gen.)│  │(Multimodal)│  │
-│  └────────────┘  └────────────┘  └────────────┘  │
-│                                                  │
-└──────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────┐
+│                       GitHub Copilot CLI                        │
+│                   (Orchestrator / Meta-Hub)                     │
+├────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐ │
+│  │ Claude Code│  │  Codex CLI │  │ Cursor CLI │  │ Antigravity│ │
+│  │ (Reasoning)│  │(Impl./Gen.)│  │(Repo edits)│  │(agy·multi- │ │
+│  │            │  │            │  │            │  │model/vision│ │
+│  └────────────┘  └────────────┘  └────────────┘  └────────────┘ │
+│                                                                  │
+└────────────────────────────────────────────────────────────────┘
 ```
 
 ### 5 Orchestration Patterns (Patterns 1–5: cross-AI)
@@ -504,7 +505,8 @@ Each AI tool in the orchestration ecosystem has a distinct specialization. Copil
 | **Copilot CLI** | GitHub integration · multi-model flexibility · orchestration | Meta-hub / coordinator |
 | **Claude Code** | Deep reasoning · large-context analysis | Reasoning specialist |
 | **Codex CLI** | Rapid code generation · boilerplate | Implementation specialist |
-| **Gemini CLI** | Multimodal understanding · visual analysis | Vision / multimodal specialist |
+| **Cursor CLI** | Repo-aware multi-file editing · IDE-shared context · headless JSON/CI | Repo-aware editor |
+| **Antigravity CLI (`agy`)** | Multi-model backend (Gemini 3.x/Claude/GPT-OSS) · multimodal · Google grounding · background subagents | Multi-model / multimodal specialist |
 
 ### References & Proven Frameworks
 
@@ -527,7 +529,7 @@ Copilot CLI is purpose-built around your GitHub workflow. Here's what you get ou
 | Capability | Details |
 |-----------|---------|
 | **GitHub-Native MCP** | Issues, PRs, Actions, and code search — zero extra setup |
-| **20+ Model Selection** | Switch between GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3.1 Pro per task |
+| **20+ Model Selection** | Switch between GPT, Claude, Gemini families (example tiers) per task — check `/model` for the current roster |
 | **IDE ↔ CLI Context Sharing** | Seamless switching between VS Code, JetBrains, and the terminal |
 | **Plan Mode** | Structured text planning with approval workflow before any code is written |
 | **Autopilot Mode** | Autonomous task execution with guardrails _(Experimental)_ |
@@ -536,7 +538,7 @@ Copilot CLI is purpose-built around your GitHub workflow. Here's what you get ou
 | **Session SQL Database** | Built-in SQLite per session for structured state and todo tracking |
 | **Cross-Session Memory** | Search prior session history with `session_store` and `/resume` |
 | **LSP Integration** | Language Server Protocol for precise, symbol-aware code intelligence |
-| **Multi-AI Orchestration** | Coordinate Claude Code, Codex, Gemini CLI from a single hub _(community pattern)_ |
+| **Multi-AI Orchestration** | Coordinate Claude Code, Codex, Cursor CLI, Antigravity (`agy`) from a single hub _(community pattern)_ |
 
 > See the [Copilot Exclusive Features guide](guides/copilot-exclusive-features.md) for a deep dive into each capability.
 
