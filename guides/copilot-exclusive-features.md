@@ -621,13 +621,13 @@ See [Cross-Session Memory skill](../skills/copilot-exclusive/cross-session-memor
 ### What It Is
 
 Using Copilot CLI as a hub, you can orchestrate multiple AI coding tools —
-Claude Code, Codex CLI, Antigravity CLI (`agy`), and any MCP-compatible tool — routing tasks to
+Claude Code, Codex CLI, Cursor CLI, Antigravity CLI (`agy`), and any MCP-compatible tool — routing tasks to
 whichever tool is best suited via shell scripting and MCP.
 
 ### Why It Matters
 
 No single AI tool is best at everything. Claude excels at deep reasoning, Codex at
-fast generation, Antigravity CLI (`agy`) at multimodal analysis, and Copilot at GitHub integration.
+fast generation, Cursor CLI at repo-aware multi-file editing, Antigravity CLI (`agy`) at multimodal analysis, and Copilot at GitHub integration.
 Orchestration lets you leverage all of them from a single interface.
 
 ### How to Use It
@@ -649,6 +649,7 @@ Orchestration lets you leverage all of them from a single interface.
 | Copilot CLI | ⭐⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐ | ⭐⭐ |
 | Claude Code | ⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐ | ⭐⭐⭐ |
 | Codex CLI | ⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐ | ⭐⭐ |
+| Cursor CLI | ⭐ | ⭐⭐ | ⭐⭐ | ⭐ | ⭐⭐⭐ |
 | Antigravity CLI | ⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ |
 
 ### Example: Full Workflow Orchestration
@@ -670,18 +671,18 @@ See the full [Orchestration Guide](../orchestration/README.md) and
 
 ## Feature Summary Matrix
 
-| Feature | Copilot CLI | Claude Code | Codex CLI | Antigravity CLI |
-|---------|:-----------:|:-----------:|:---------:|:----------:|
-| GitHub Native | ✅ | ❌ | ❌ | ❌ |
-| 20+ Models | ✅ | ❌ | ❌ | ❌ |
-| IDE Synergy | ✅ | ❌ | ❌ | ❌ |
-| Plan Mode | ✅ | ⚠️ | ❌ | ❌ |
-| Autopilot _(Experimental)_ | ✅ | ⚠️ | ⚠️ | ❌ |
-| Background Agents | ✅ | ❌ | ❌ | ❌ |
-| Fleet Execution | ✅ | ❌ | ❌ | ❌ |
-| Session SQL DB | ✅ | ❌ | ❌ | ❌ |
-| Cross-Session Memory | ✅ | ⚠️ | ❌ | ❌ |
-| Multi-AI Orchestration _(community pattern)_ | ⚠️ | ❌ | ❌ | ❌ |
+| Feature | Copilot CLI | Claude Code | Codex CLI | Cursor CLI | Antigravity CLI |
+|---------|:-----------:|:-----------:|:---------:|:----------:|:----------:|
+| GitHub Native | ✅ | ❌ | ❌ | ❌ | ❌ |
+| 20+ Models | ✅ | ❌ | ❌ | ❌ | ❌ |
+| IDE Synergy | ✅ | ❌ | ❌ | ✅ | ❌ |
+| Plan Mode | ✅ | ⚠️ | ❌ | ❌ | ❌ |
+| Autopilot _(Experimental)_ | ✅ | ⚠️ | ⚠️ | ⚠️ | ❌ |
+| Background Agents | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Fleet Execution | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Session SQL DB | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Cross-Session Memory | ✅ | ⚠️ | ❌ | ❌ | ❌ |
+| Multi-AI Orchestration _(community pattern)_ | ⚠️ | ❌ | ❌ | ❌ | ❌ |
 
 **These features combined make Copilot CLI uniquely powerful as both a standalone tool
 and an orchestration hub for the entire AI-assisted development ecosystem.**

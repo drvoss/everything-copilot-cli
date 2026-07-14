@@ -12,7 +12,7 @@ category: guide
 
 ## Introduction: Why Orchestrate Multiple AI Tools?
 
-No single AI tool excels at everything. Claude has deep reasoning. Codex is fast at code generation. Antigravity CLI (`agy`) handles multimodal input and large-document analysis. Copilot CLI ties directly into GitHub's ecosystem.
+No single AI tool excels at everything. Claude has deep reasoning. Codex is fast at code generation. Cursor CLI handles repo-aware multi-file editing with IDE-shared context. Antigravity CLI (`agy`) handles multimodal input and large-document analysis. Copilot CLI ties directly into GitHub's ecosystem.
 
 **Multi-AI orchestration** means using each tool for what it does best, coordinated from a single hub. Instead of switching between terminals, you direct all tools from one place.
 
@@ -43,12 +43,12 @@ Copilot CLI is the ideal orchestrator for multi-AI workflows. Here's why:
                     │  Copilot CLI │
                     │  (Meta-Hub)  │
                     └──────┬──────┘
-              ┌────────────┼────────────┐
-              │            │            │
-        ┌─────┴─────┐ ┌───┴───┐ ┌─────┴─────┐
-        │ Claude Code│ │ Codex │ │Antigravity│
-        │  (Analyze) │ │(Build)│ │ (`agy`)   │
-        └───────────┘ └───────┘ └───────────┘
+         ┌──────────────┬──┴───┬──────────────┐
+         │              │      │              │
+   ┌─────┴─────┐  ┌─────┴┐  ┌──┴────┐   ┌─────┴─────┐
+   │ Claude Code│  │ Codex│  │Cursor │   │Antigravity│
+   │  (Analyze) │  │(Build)│  │(Edit) │   │ (`agy`)   │
+   └───────────┘  └──────┘  └───────┘   └───────────┘
 ```
 
 Copilot CLI delegates tasks to specialized tools, collects results, and coordinates the workflow — all while maintaining context in its session database.
@@ -59,18 +59,18 @@ Copilot CLI delegates tasks to specialized tools, collects results, and coordina
 
 ### Detailed Comparison
 
-| Capability | Claude Code | Codex CLI | Antigravity CLI | Copilot CLI |
-|---|---|---|---|---|
-| **Deep reasoning** | ★★★★★ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
-| **Code generation speed** | ★★★☆☆ | ★★★★★ | ★★★★☆ | ★★★★☆ |
-| **Context handling** | 200K tokens | 128K tokens | Multi-model, large-doc capable | Varies by model |
-| **Architecture analysis** | ★★★★★ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
-| **Security analysis** | ★★★★★ | ★★★☆☆ | ★★★☆☆ | ★★★★☆ |
-| **Multimodal (images)** | ★★★☆☆ | ★☆☆☆☆ | ★★★★★ | ★★★☆☆ |
-| **GitHub integration** | ★★☆☆☆ | ★★☆☆☆ | ★★☆☆☆ | ★★★★★ |
-| **CI/CD awareness** | ★★☆☆☆ | ★★☆☆☆ | ★★☆☆☆ | ★★★★★ |
-| **Cost efficiency** | Medium-High | Low-Medium | Low | Included with Copilot |
-| **Parallel execution** | Limited | Sandboxed | Limited | Fleet mode ★★★★★ |
+| Capability | Claude Code | Codex CLI | Cursor CLI | Antigravity CLI | Copilot CLI |
+|---|---|---|---|---|---|
+| **Deep reasoning** | ★★★★★ | ★★★☆☆ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
+| **Code generation speed** | ★★★☆☆ | ★★★★★ | ★★★★☆ | ★★★★☆ | ★★★★☆ |
+| **Context handling** | 200K tokens | 128K tokens | Repo/IDE-shared context | Multi-model, large-doc capable | Varies by model |
+| **Architecture analysis** | ★★★★★ | ★★★☆☆ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
+| **Security analysis** | ★★★★★ | ★★★☆☆ | ★★★☆☆ | ★★★☆☆ | ★★★★☆ |
+| **Multimodal (images)** | ★★★☆☆ | ★☆☆☆☆ | ★☆☆☆☆ | ★★★★★ | ★★★☆☆ |
+| **GitHub integration** | ★★☆☆☆ | ★★☆☆☆ | ★★☆☆☆ | ★★☆☆☆ | ★★★★★ |
+| **CI/CD awareness** | ★★☆☆☆ | ★★☆☆☆ | ★★★☆☆ | ★★☆☆☆ | ★★★★★ |
+| **Cost efficiency** | Medium-High | Low-Medium | Medium | Low | Included with Copilot |
+| **Parallel execution** | Limited | Sandboxed | Limited | Limited | Fleet mode ★★★★★ |
 
 ### When to Use Each Tool
 
@@ -78,6 +78,7 @@ Copilot CLI delegates tasks to specialized tools, collects results, and coordina
 |---|---|
 | **Claude Code** | Architecture decisions, complex refactors, security audits, code review requiring deep analysis |
 | **Codex CLI** | Fast implementation tasks, boilerplate generation, straightforward coding, OpenAI-ecosystem projects |
+| **Cursor CLI** | Repo-aware multi-file editing, IDE-shared context, headless JSON output for CI |
 | **Antigravity CLI (`agy`)** | Diagram interpretation, multimodal input, large document digestion, multi-model backend workflows |
 | **Copilot CLI** | GitHub workflows, PR/Issue management, orchestration, IDE-integrated development, fleet operations |
 
@@ -108,6 +109,7 @@ This guide starts with five cross-AI orchestration patterns, from simple to comp
 copilot --version                      # GitHub Copilot CLI
 codex --version                        # OpenAI Codex CLI
 claude --version # Anthropic Claude Code
+cursor-agent --version                 # Cursor CLI
 agy --version                          # Antigravity CLI (`agy`)
 ```
 
@@ -224,6 +226,9 @@ Use the right tool at the right price point for each task:
 | **Premium** | Claude Opus | $15-75/M tokens | Architecture, security audit, complex reasoning |
 
 ### Cost-Effective Strategy
+
+> Model names below (e.g. `claude-opus-4.6`, `claude-sonnet-4.6`) are example tiers, not
+> an exhaustive or permanent roster — check `/model` for what's currently available.
 
 ```text
 # ❌ Expensive: Using Opus for everything
