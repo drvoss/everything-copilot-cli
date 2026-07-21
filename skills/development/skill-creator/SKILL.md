@@ -233,8 +233,10 @@ After generating a new skill, verify:
 - [ ] File name is kebab-case and matches `name` in frontmatter
 - [ ] Source-specific concepts were translated into Copilot-native primitives instead of copied blindly
 - [ ] The `name` + `description` pair is specific enough to trigger on real user phrasing
+- [ ] The `description` includes at least one positive usage trigger, not only exclusions about when *not* to use the skill
 - [ ] Adjacent skills were checked for collisions or silent shadowing before adding a new one
 - [ ] "When to Use" section has ≥ 3 concrete trigger scenarios
+- [ ] Any heading scan ignores fenced code blocks first, so `#` lines inside examples are not treated as real sections
 - [ ] "When NOT to Use" table directs to alternatives
 - [ ] Workflow has numbered steps with concrete commands or examples
 - [ ] "Verification" section has checkable (not vague) criteria

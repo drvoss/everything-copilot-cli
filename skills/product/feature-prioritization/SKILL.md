@@ -153,6 +153,22 @@ For high-impact, low-confidence, high-effort features (score is low but strategi
 > a major differentiator. What's the cheapest experiment to raise confidence?
 ```
 
+Before committing serious resources, run a **free-AI reproducibility check**: can the
+core deliverable or value proposition be reproduced with a single prompt to an
+off-the-shelf frontier model?
+
+- If **yes**, treat that as a **risk signal**, not an automatic dead verdict
+- Raise the evidence bar on three follow-up questions:
+  1. What meaningful differentiation exists beyond the raw capability?
+  2. What distribution or go-to-market advantage helps *us* reach users?
+  3. What proprietary assets, workflows, or data make the offer harder to clone?
+
+Also correct for a common false positive: **demand does not equal access**. Users wanting
+something is not proof that *you* can capture that demand. Incumbents, distribution
+barriers, switching costs, or already-dominant solutions may absorb the opportunity first.
+Positive signals such as active user requests or live paid advertising in the category
+mean "the market exists," not "we have a wedge."
+
 ## Example Run
 
 ```text
@@ -172,6 +188,6 @@ AI summaries rank low unless confidence can be raised.
 
 - **Score as a team**: Alignment on scoring surfaces hidden assumptions
 - **Revisit quarterly**: Scores change as you learn more and market shifts
-- **Track rejected features**: Record why you said no — prevents relitigating
+- **Track rejected features**: Record why you said no **and** assign a short named kill pattern such as `no distribution moat`, `commodity capability`, or `demand without access` so repeated failure modes become recognizable instead of being relitigated
 - **Weight the dimensions**: If velocity is critical, multiply effort score by 2
 - **Use SQL for transparency**: Share the scored backlog with stakeholders

@@ -97,7 +97,9 @@ CREATE TABLE IF NOT EXISTS assignments (
   input_context TEXT,
   status TEXT NOT NULL DEFAULT 'pending',  -- pending | running | done | failed
   agent_run_id TEXT,                       -- returned by task tool when mode=background
-  result_summary TEXT
+  result_summary TEXT,
+  decision_log TEXT,                       -- append-only: "<timestamp> <what/why>" per update
+  touched_files TEXT                        -- comma- or newline-separated paths this track edited
 );
 
 INSERT INTO assignments (id, agent_id, task, input_context, status) VALUES
@@ -120,6 +122,19 @@ The conductor should own:
 2. Dependency ordering
 3. Review handoffs
 4. Final merge or synthesis criteria
+5. **Track state persistence** — after each meaningful step, the conductor appends a short entry
+   to that track's `decision_log` (*what was decided and why*, not just pending/running/done) and
+   keeps `touched_files` current. This lets the coordinator reconstruct a track's context after a
+   pause, a model swap, or a session resume without re-deriving it from scratch.
+
+**Semantic reversion** (adapted from the `conductor` pattern, wshobson/agents ecosystem —
+concept harvested, no code ported): when an implementer's track needs to be rolled back, prefer
+undoing the **unit of work** the conductor assigned over a raw `git revert` of a commit range. A
+single commit can span multiple tracks, and a single track can span multiple commits — reverting
+by commit boundary risks clawing back unrelated work or leaving a track half-reverted. Roll back
+by reading the track's `touched_files` and `decision_log` from its `assignments` row, restoring or
+re-dispatching just those files, rather than reverting a git range and hoping the boundaries line
+up.
 
 #### Pair-Agent Review Loop
 

@@ -15,6 +15,7 @@ or alongside design review.
 
 ## When to Use
 
+- UI를 만들기 전에 화면의 목적과 품질 기준을 먼저 못 박아야 할 때
 - Before a design review or frontend handoff
 - When users report confusion but the failure mode is still unclear
 - When navigation, headings, or calls to action feel noisy or ambiguous
@@ -26,6 +27,7 @@ or alongside design review.
 |---------------------|-----|
 | Accessibility conformance or ARIA debugging | `browser-devtools` |
 | End-to-end flow automation | `e2e-testing` |
+| Broken or non-functional controls discovered during a UX pass | flag in the audit, then hand off to `e2e-testing` for functional verification |
 | Performance bottleneck analysis | `browser-devtools` or `performance-optimization` |
 | Pure visual polish critique | manual design review |
 
@@ -37,6 +39,34 @@ Choose the depth of review based on what you need:
 |------|--------|----------|
 | **Quick scan** (default) | 6 Krug usability checks | Navigation/copy confusion, pre-handoff spot checks |
 | **Deep audit** | 15-dimension Jobs/Ive framework | Major redesigns, premium quality bar, comprehensive UI review |
+
+## Design Contract — Before Building
+
+Before implementation starts, write a short contract for the screen so the later audit
+has something concrete to enforce.
+
+Capture only three things:
+
+1. **Purpose** — one sentence for what this screen is for
+2. **Primary action** — the one action that must win attention first
+3. **Forbidden defaults/patterns** — shortcuts the screen is not allowed to fall back to
+
+Keep it short:
+
+```markdown
+## Design Contract: [screen]
+
+- Purpose: [one sentence]
+- Primary action: [the main CTA or task]
+- Forbidden defaults:
+  - [generic welcome copy / dashboard filler / placeholder layout / competing CTAs / etc.]
+```
+
+Use the existing audit checks as the contract's enforcement points:
+
+- **Trunk Test** / **Page Area Test** verify that purpose is obvious
+- **3-Second Scan** verifies that the primary action wins quickly
+- **Happy Talk Detection** verifies that forbidden generic copy did not creep back in
 
 ## The 6 Usability Checks
 
@@ -116,12 +146,13 @@ Escalate findings when any of these appear:
 
 ## Suggested Workflow
 
-0. **Choose your audit mode**: Quick Scan (6 checks, default) or Deep Audit (15 dimensions) — see Audit Modes table above.
-1. Inspect the live page or rendered component
-2. Record evidence for each check (Quick Scan) or each dimension (Deep Audit)
-3. Mark each check/dimension as pass, concern, or fail
-4. Separate structural issues from copy polish
-5. Prioritize fixes that reduce confusion on the main user path
+0. **Before building, write the Design Contract**: purpose, primary action, forbidden defaults/patterns.
+1. **Choose your audit mode**: Quick Scan (6 checks, default) or Deep Audit (15 dimensions) — see Audit Modes table above.
+2. Inspect the live page or rendered component
+3. Record evidence for each check (Quick Scan) or each dimension (Deep Audit)
+4. Mark each check/dimension as pass, concern, or fail
+5. Separate structural issues from copy polish
+6. Prioritize fixes that reduce confusion on the main user path
 
 If runtime inspection is needed, pair this skill with `browser-devtools`.
 
@@ -152,6 +183,12 @@ If another workflow needs structured output, you may additionally emit JSON, but
 human-readable findings remain the primary deliverable.
 
 > For Deep Audit output, see the **Phased Plan Output** template in the Deep Audit section below.
+
+## Finish Gate
+
+Do not accept vague self-congratulation as a design decision. Terms like **"clean," "modern," "intuitive,"** or **"premium"** are non-answers unless they resolve into specific choices visible on the screen.
+
+Reject the screen if its copy and layout feel generic enough that they could be bolted onto a completely unrelated product without anyone noticing. Passing requires product-specific purpose, language, and emphasis — not interchangeable SaaS wallpaper.
 
 ## Tips
 
@@ -222,6 +259,8 @@ DESIGN SYSTEM UPDATES:
 ### Scope Discipline
 
 Deep audit covers visual design, layout, spacing, typography, color, interaction, motion, and accessibility. It **does not** touch application logic, state management, API calls, or feature behavior. If a design improvement would require a functional change, flag it rather than implementing it.
+
+If the audit surfaces a control that is broken, dead, or behaves incorrectly, record it as a UX-impacting finding but hand off functional verification to [`e2e-testing`](../e2e-testing/SKILL.md). `ux-audit` diagnoses quality and clarity of the experience; it does not become the functional debugging workflow.
 
 ## See Also
 

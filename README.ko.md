@@ -114,6 +114,24 @@ npm run setup -- --target /path/to/your-project
 
 setup는 프로젝트 instructions를 `.github/copilot-instructions.md`에 쓰고, custom agents는 `.github/agents/`에, project skills는 `.github/skills/`에, rules는 `.github/copilot/rules/`에 설치합니다. `full` 프로필은 contexts도 `.github/copilot/contexts/`에 설치합니다.
 
+이 저장소의 `npm run setup` 경로는 지금도 instructions, rules, contexts, agents, skills까지 전체 프로필을 한 번에 설치하는 가장 빠른 방법입니다. 반대로 개별 skill만 추가하거나 제거하고 싶다면 GitHub Copilot CLI v1.0.72+의 네이티브 skill 관리 명령을 사용할 수 있습니다:
+
+```bash
+# 로컬 파일에서 이 저장소에 skill 설치
+copilot plugins install --skill ./skills/development/fix-build-errors/SKILL.md --scope project
+
+# URL에서 이 저장소에 skill 설치
+copilot plugins install --skill https://example.com/path/to/SKILL.md --scope project
+
+# 로컬 디렉터리에서 skill 설치
+copilot plugins install --skill ./skills/development/fix-build-errors
+
+# 설치된 skill을 이름으로 제거
+copilot plugins remove --skill fix-build-errors
+```
+
+이 저장소의 instructions, rules, contexts, agents, skills를 함께 설치하려면 `npm run setup`을 사용하세요. CLI에서 skill을 하나씩 추가/제거하려면 네이티브 `copilot plugins install/remove --skill` 명령을 사용하면 됩니다. `--scope project` 플래그는 저장소에 설치하는 파일/URL 예시에만 문서화되어 있으므로, 위 디렉터리 예제에는 의도적으로 넣지 않았습니다.
+
 이제 프로젝트에 설치한 에이전트, 스킬, 규칙과 함께 Copilot CLI를 사용해보세요:
 
 ```bash

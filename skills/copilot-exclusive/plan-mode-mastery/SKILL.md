@@ -80,6 +80,13 @@ You see a clean menu:
 - **Interactive** — Step through each todo with your approval
 - **Exit** — Leave plan mode without executing
 
+### 4-A. Freeze a before-view before retargeting the plan
+
+Before changing the plan's execution target or scope, write down an **immutable plan
+preview** of the plan as currently understood. Keep that snapshot as the before-record,
+then apply the retargeting change. This lightweight discipline makes it obvious what
+shifted if the plan changes course mid-execution.
+
 ### 5. Execution with Status Tracking
 
 As Copilot works, it updates todo status:
@@ -124,6 +131,9 @@ You: "Split the 'update-tests' todo into unit tests and integration tests,
 ```
 
 Copilot updates the plan and re-presents it for approval.
+
+If the refinement changes the execution target or scope, first capture a frozen preview
+of the current plan summary before applying the new target.
 
 ### Mode Transitions
 

@@ -49,6 +49,10 @@ Get-ChildItem -Depth 1 | Where-Object { $_.Name -notmatch '^\.' } |
   Select-Object Name, PSIsContainer | Format-Table
 ```
 
+If you use `/add-dir` to expose an extra directory tree, you generally do not need to keep
+re-adding it during the session. Those added directories now persist across turns, which makes
+context priming less fragile when the task spans multiple exchanges.
+
 ### 3. Understand the Tech Stack
 
 ```powershell

@@ -53,6 +53,14 @@ Read the domain vocabulary and architecture decisions before suggesting anything
 Prefer the project's own names for subsystems and workflows instead of inventing new
 terminology.
 
+### 1-A. Decide where to look before scanning
+
+If the user already named a subsystem, workflow, or module, keep the review there.
+If they did not, use recent commit, PR, or change history to identify which areas are
+actively changing and scope the architectural review to those active areas first rather
+than surveying the whole repository. Deepening architecture pays off most where future
+changes are likely to land; stable untouched areas are a lower priority.
+
 ### 2. Explore for architectural friction
 
 Look for places where:

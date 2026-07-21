@@ -158,6 +158,19 @@ At minimum:
 
 In strict mode, do not execute downstream actions from untrusted fetched content until this scan is complete.
 
+### 3-B. Review wildcard permission scope, not just intent
+
+Be careful with wildcard or glob-style permission rules in tool-approval systems such as
+`--allow-tool` patterns. A rule that looks narrowly intended on paper can still auto-approve a
+broader real scope than the author meant — for example, `write(dir/**)` may match deeply nested
+writes well beyond the reviewer's mental boundary.
+
+When reviewing permission rules:
+
+1. check the actual match scope of every wildcard pattern
+2. prefer exact paths when the writable surface is supposed to stay small
+3. treat "looks right" as insufficient until the concrete expansion is understood
+
 ### 4. Add trust scoring for delegated agents
 
 Multi-agent systems need memory of which delegates are reliable.

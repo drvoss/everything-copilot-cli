@@ -114,6 +114,24 @@ npm run setup -- --target /path/to/your-project
 
 setup はプロジェクトの instructions を `.github/copilot-instructions.md` に書き込み、custom agents を `.github/agents/` に、project skills を `.github/skills/` に、rules を `.github/copilot/rules/` にインストールします。`full` profile では contexts も `.github/copilot/contexts/` に配置されます。
 
+このリポジトリの `npm run setup` は、instructions・rules・contexts・agents・skills をまとめて一度に入れるための最速ルートとして引き続き有効です。個別の skill だけを追加・削除したい場合は、GitHub Copilot CLI v1.0.72+ のネイティブな skill 管理も使えます:
+
+```bash
+# ローカルファイルからこのリポジトリへ skill をインストール
+copilot plugins install --skill ./skills/development/fix-build-errors/SKILL.md --scope project
+
+# URL からこのリポジトリへ skill をインストール
+copilot plugins install --skill https://example.com/path/to/SKILL.md --scope project
+
+# ローカルディレクトリから skill をインストール
+copilot plugins install --skill ./skills/development/fix-build-errors
+
+# インストール済み skill を名前で削除
+copilot plugins remove --skill fix-build-errors
+```
+
+このリポジトリの instructions・rules・contexts・agents・skills をまとめて導入したいときは `npm run setup` を使ってください。CLI から skill を 1 つずつ追加・削除したいときは、ネイティブの `copilot plugins install/remove --skill` を使います。`--scope project` はリポジトリへ入れる file / URL install に対してのみドキュメント化されているため、上の directory install 例では意図的に付けていません。
+
 その後、project にインストールした agent・skill・rule を使って Copilot CLI を開始します。
 
 ```bash

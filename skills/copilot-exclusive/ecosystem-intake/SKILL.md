@@ -107,6 +107,18 @@ Capture at minimum:
 - source section
 - short description
 - evidence that it is new, noteworthy, or community-validated
+- manifest version plus marketplace/registry version when the candidate is a packaged plugin or tool
+
+### 2-A. Externalize selection rationale as audit evidence
+
+Do not leave the choice buried as an implicit judgment call inside a PR description.
+For any external plugin, skill, or tool that reaches serious consideration, create a
+written evidence artifact that records:
+
+- what capability need triggered the evaluation
+- which source evidence made the candidate worth reviewing
+- why the selected candidate won over the alternatives
+- any unresolved risks, tradeoffs, or follow-up checks
 
 ### 3. Load Candidates into SQL
 
@@ -172,6 +184,22 @@ Use `fit_score` as a forcing function:
 - **3** — plausible but needs stronger differentiation
 - **1-2** — reject unless a real user need appears
 
+### 4-A. Build a capability ledger before adopting
+
+Before adopting an external plugin, skill, or tool, enumerate the capabilities you
+actually need and compare every candidate against **each** capability explicitly.
+For every capability, either:
+
+- mark it as covered by a specific candidate, or
+- record it as an explicit catalog gap if no candidate covers it
+
+Do not silently drop uncovered capabilities just because no candidate satisfies them.
+The ledger should make missing coverage visible so the intake result stays auditable.
+
+For packaged plugins, also verify **version parity** before adoption: check that the
+version declared in the manifest matches the version shown in the marketplace or
+registry, so stale or mismatched packaging is caught before it enters the catalog.
+
 ### 5. Decide: Adopt, Adapt, or Reject
 
 For each candidate, record one action and one reason:
@@ -202,8 +230,8 @@ Do not stop at observations. Produce an execution-ready backlog:
 | built-in review chaining | claude-code | adapt | skills/workflow/sprint-workflow/ | review step already exists locally, but upstream added a stronger composition pattern | if Copilot adds comparable programmatic built-in chaining |
 | make-pdf | gstack | reject | n/a | heavy renderer/runtime dependency for a markdown-first repo | if a markdown-first or low-dependency variant becomes reusable here |
 | prompt-injection-defense | gstack | reject | n/a | upstream approach depends on a local model stack we do not ship | if a rules-first or lightweight variant emerges |
-| PreCompact hook helper | claude-code | reject | n/a | Claude-specific primitive, not user-facing in Copilot | if Copilot exposes an equivalent lifecycle hook |
-| hooks parity in `--agent` | claude-code | reject | n/a | already covered locally in `guides/hooks-to-github-actions.md`; no repo edit needed this pass | if Copilot adds session hook equivalents or Claude expands parity beyond the current guidance |
+| PreCompact hook helper | claude-code | reject | n/a | Copilot's `preCompact` hook exists but is notification-only (cannot act before compaction like Claude's) | if Copilot's `preCompact` gains the ability to act (inject state) before compaction, not just observe |
+| hooks parity in `--agent` | claude-code | adapt (2026-07-20) | hooks-to-github-actions.md, migration-from-claude-code.md, copilot-vs-claude-code.md | v1.0.72 shipped a native 14-event hook system (preToolUse/postToolUse/agentStop/subagentStop/preCompact/etc.) — trigger fired, re-review happened | if Copilot's `preCompact` becomes able to act, not just observe |
 ```
 
 If there are enough concrete items, add SQL todos for the top actions.
@@ -268,6 +296,9 @@ Use this especially with rejected issues or stale PRs from curated-list ecosyste
 - [ ] Every candidate ends in adopt, adapt, or reject
 - [ ] Adapt items name an existing target skill or file path
 - [ ] Rejections include a concrete reason, not just "not now"
+- [ ] Adopted or adapted external candidates have a written audit-evidence record
+- [ ] Required capabilities are tracked in a ledger with every capability marked as covered or reported as a gap
+- [ ] Packaged plugin candidates passed a manifest-versus-marketplace version parity check
 - [ ] The final output is backlog-ready rather than a loose research note
 
 ## Tips

@@ -15,8 +15,10 @@ everything else as read-only unless you reopen the scope.
 
 ## Why This is Copilot-Exclusive
 
-Copilot CLI does not expose Claude-style hook permissions, but it does combine several useful
-primitives:
+Copilot CLI now has native `preToolUse`/`postToolUse` hooks that can allow/deny tool calls (see
+[`guides/hooks-to-github-actions.md`](../../../guides/hooks-to-github-actions.md)), but scope-guard
+is still the right pattern when you want a boundary enforced through the planning/approval flow
+itself rather than a separate hook script. It combines several useful primitives:
 
 - **Plan Mode approval** before execution starts
 - **Task delegation** where each agent gets its own brief
@@ -107,6 +109,10 @@ Do not execute until that scope is approved.
 ```
 
 This turns the plan itself into the first guardrail.
+
+Approval scope is now enforced per location by the CLI itself. In a repository that means the
+current repo root, so if you switch repos with `/cd`, command approvals do not carry over —
+re-approve in the new repo instead of assuming the previous boundary still applies.
 
 ### 4. Re-brief each delegated agent separately
 

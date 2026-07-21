@@ -1,34 +1,86 @@
 # Hooks to GitHub Actions (and Alternatives)
 
 > **Claude Code → Copilot CLI Migration Guide: Hooks Edition**
+>
+> **⚠️ Updated 2026-07-20 (Copilot CLI v1.0.72+ / weekly cycle correction):** earlier revisions of
+> this guide said Copilot CLI has no in-session hook system. **That is no longer accurate.**
+> Copilot CLI now ships a real, documented hook system with 14 events — including a `preCompact`
+> hook (yes, Copilot now has this too) and a `notification` hook — configured via JSON files,> with a `preToolUse` hook that can **allow or deny tool executions**, a direct first-party
+> equivalent to Claude Code's `PreToolUse`. See
+> [Copilot CLI's Native Hook System](#copilot-clis-native-hook-system) below before reaching for
+> Git hooks, GitHub Actions, or prompt-level guards as a workaround. The Git/Actions/prompt-guard
+> alternatives further down in this guide are still valid — but as *infrastructure-level*
+> complements (e.g., CI-enforced team-wide gates), not as the only option for in-session events.
+> **Source verified directly against `docs.github.com/en/copilot/reference/hooks-reference` on
+> 2026-07-21** — a first pass at this rewrite under-counted the event list (8 vs the real 14) and
+> wrongly said `preCompact`/`notification` don't exist; corrected below.
 
-Claude Code **Hooks** are scripts that run on events within an AI session.
-Copilot CLI does not have the same in-session hook system, but depending on the purpose,
-there are three alternatives.
+Claude Code **Hooks** are scripts that run on events within an AI session. Copilot CLI now has
+its own in-session hook system with a different event set and JSON config format — this guide
+maps Claude Code's hooks to Copilot CLI's native hooks first, then covers Git/GitHub Actions/
+prompt-guard alternatives for anything with no native hook equivalent (or for team-wide
+enforcement that should live in CI regardless of hooks).
 
 ---
 
-## Claude Code Hooks Overview
+## Copilot CLI's Native Hook System
 
-Claude Code supports hooks for the following events:
+Copilot CLI hooks are JSON files with a `version: 1` field and a `hooks` object. They can live in:
 
-| Hook type | When it runs |
-|---------|----------|
-| `PreToolUse` | Right before the AI uses a tool (file edits, command execution, etc.) |
-| `PostToolUse` | Right after the AI uses a tool |
-| `Notification` | When the AI session requests attention |
-| `Stop` | When the AI session completes |
-| `SubagentStop` | When a subagent completes |
-| `PreCompact` | Right before Claude Code compacts a long-running session |
+- `.github/hooks/*.json` — repository-level, applies to anyone using Copilot CLI/cloud agent in the repo
+- `~/.copilot/hooks/*.json` (or `%USERPROFILE%\.copilot\hooks\` on Windows) — user-level, personal
+- an inline `hooks` field inside `.github/copilot/settings.json` / `~/.copilot/settings.json`
+- hooks bundled by an installed plugin (`hooks.json` inside the plugin's install directory)
+- machine-wide policy hook files (`/etc/github-copilot/policy.d/*.json` or the Windows registry) — admin-managed, cannot be disabled
 
-**Key difference**: Claude Code Hooks respond to *AI session lifecycle* events.
-Copilot CLI does not have a direct equivalent mechanism in its currently documented feature set.
+Full supported event list (14 events):
 
-If you are migrating from a current Claude Code setup, note that newer Claude Code releases also
-apply `hooks:` frontmatter in `--agent` main-thread runs, not only in interactive sessions. That
-changes where Claude-side hook policies fire, but the migration rule here stays the same: carry
-over the hook's purpose into Git, GitHub Actions, or prompt-level guardrails rather than copying
-hook behavior literally.
+| Copilot CLI hook | Fires when |
+|---|---|
+| `sessionStart` | A new or resumed session begins |
+| `sessionEnd` | The session terminates |
+| `userPromptSubmitted` | The user submits a prompt |
+| `userPromptTransformed` | After the runtime transforms a submitted prompt into model-facing content (mutation-only) |
+| `preToolUse` | Before each tool executes — **can allow, deny, or modify** |
+| `permissionRequest` | Before the permission service runs — can allow/deny programmatically, short-circuiting the normal approval flow |
+| `postToolUse` | After a tool completes successfully |
+| `postToolUseFailure` | After a tool completes with a failure — can supply recovery guidance |
+| `preCompact` | Context compaction is about to begin (manual or automatic) — notification only, cannot block |
+| `agentStop` | The main agent finishes a turn — can block and force continuation |
+| `subagentStart` | A subagent is spawned, before it runs (not emitted by the built-in `general-purpose` agent) |
+| `subagentStop` | A subagent completes, before results return to the parent |
+| `notification` | Fire-and-forget system notifications (shell/agent completion or idle, permission prompts, elicitation) |
+| `errorOccurred` | An error occurs during agent execution |
+
+Command hook entries run a script (`bash`/`powershell`/cross-platform `command`, plus optional
+`cwd`, `env`, `timeoutSec`); HTTP hook entries POST the event payload to a URL instead. A
+`preToolUse` hook script controls the outcome by printing a final JSON decision object to stdout,
+e.g. `{"permissionDecision": "allow"}` or `{"permissionDecision": "deny"}` — this is the direct
+Copilot-native equivalent of Claude Code's `PreToolUse` approve/deny hooks (see
+[Alternative 4](#alternative-4-ast-based-safe-command-auto-approval-dippy-pattern) below for how
+this supersedes the old allowlist-only workaround). Command `preToolUse` hooks are fail-closed on
+errors (a crash or non-zero exit denies the call); a **timed-out** hook is always fail-open
+regardless of hook type, letting the tool call fall through to the normal permission flow.
+
+As of CLI v1.0.72, an `agentStop` hook that always blocks no longer loops forever: the CLI ends
+the turn after 8 consecutive blocks, and the hook receives a `stop_hook_active` flag so it can
+detect a forced continuation and self-limit instead of relying on the CLI's cap alone.
+
+### Direct hook mapping (Claude Code → Copilot CLI)
+
+| Claude Code hook | Copilot CLI native hook | Notes |
+|---|---|---|
+| `PreToolUse` | `preToolUse` | Can allow/deny/modify, same intent as Claude — see decision JSON above |
+| `PostToolUse` | `postToolUse` (+ `postToolUseFailure`) | Copilot splits success and failure into two separate events |
+| `Notification` | `notification` | Fire-and-forget, never blocks the session; can inject `additionalContext` |
+| `Stop` | `agentStop` | Fires when the main agent finishes a turn |
+| `SubagentStop` | `subagentStop` (+ `subagentStart`) | Copilot also has a pre-spawn `subagentStart` event Claude doesn't expose the same way |
+| `PreCompact` | `preCompact` | Notification-only (cannot block compaction), fires for manual or automatic compaction |
+
+All six Claude Code hook types now have a native Copilot CLI equivalent — prefer the native hook
+for anything that must react inside the session. The Git/GitHub Actions/prompt-guard alternatives
+below remain useful for CI-level, team-wide enforcement that should apply regardless of whether an
+individual's local hooks are configured.
 
 Related but separate primitive: Claude Code v2.1.105+ also added a top-level `monitors:` manifest
 key. Unlike `hooks:`, which reacts to session events, `monitors:` declares background monitoring
@@ -39,35 +91,41 @@ with `on: schedule`, or an explicit session-start checklist like
 
 ---
 
-## Alternative Mapping (Alternatives, Not Equivalents)
+## Alternative Mapping (For CI-Enforced Team Gates Alongside Native Hooks)
 
-The table below shows ways to achieve similar effects in the Copilot ecosystem based on the
-*purpose* of Claude Code Hooks.
+The table below shows ways to achieve similar effects using Git hooks/GitHub Actions/prompt
+guards. Since every Claude Code hook type now has a native Copilot equivalent (see above), use
+these mainly when you want enforcement at the CI level in addition to — not instead of — the
+local hook.
 
-| Claude Code Hook | Main use case | Copilot alternative 1 | Copilot alternative 2 | Copilot alternative 3 |
-|-----------------|---------------|---------------|---------------|---------------|
-| `PreToolUse` | Run lint/validation before changes | [Git Pre-commit Hook](#alternative-1-git-pre-commit-hooks) | [GitHub Actions (PR)](#alternative-2-github-actions) | [Pre-task Checklist in Prompt](#alternative-3-prompt-level-guards) |
-| `PostToolUse` | Run tests/formatting after changes | [Git Post-commit Hook](#alternative-1-git-pre-commit-hooks) | [GitHub Actions (push)](#alternative-2-github-actions) | — |
-| `Stop` | Generate a summary after the AI session ends | GitHub Actions (when PR is created) | Manual | — |
-| `Notification` | Send notifications | GitHub Actions (Slack/Email) | `gh` CLI notification | — |
-| `SubagentStop` | Aggregate subagent results | [Fleet + GitHub Actions](#alternative-2-github-actions) | Orchestration pattern | — |
-| `PreCompact` | Save state before context resets | Session artifacts or session SQL notes | [Prompt-Level Guard](#alternative-3-prompt-level-guards) | — |
+| Claude Code Hook | Main use case | Native Copilot hook | Copilot alternative (CI/team-wide) |
+|-----------------|---------------|---------------|---------------|
+| `PreToolUse` | Run lint/validation before changes | [`preToolUse`](#copilot-clis-native-hook-system) | [Git Pre-commit Hook](#alternative-1-git-pre-commit-hooks) / [GitHub Actions (PR)](#alternative-2-github-actions) |
+| `PostToolUse` | Run tests/formatting after changes | [`postToolUse`](#copilot-clis-native-hook-system) | [Git Post-commit Hook](#alternative-1-git-pre-commit-hooks) / [GitHub Actions (push)](#alternative-2-github-actions) |
+| `Stop` | Generate a summary after the AI session ends | [`agentStop`](#copilot-clis-native-hook-system) | GitHub Actions (when PR is created) |
+| `Notification` | Send notifications | [`notification`](#copilot-clis-native-hook-system) | GitHub Actions (Slack/Email) / `gh` CLI notification |
+| `SubagentStop` | Aggregate subagent results | [`subagentStop`](#copilot-clis-native-hook-system) | [Fleet + GitHub Actions](#alternative-2-github-actions) |
+| `PreCompact` | Save state before context resets | [`preCompact`](#copilot-clis-native-hook-system) (notification-only) | Session artifacts, SQL notes, or a [Prompt-Level Guard](#alternative-3-prompt-level-guards) checkpoint |
 
 ---
 
 ## PreCompact Pattern: Save State Before Context Resets
 
-Claude Code's `PreCompact` hook runs right before a long session is compacted. Copilot CLI does
-not have a lifecycle hook for that moment, so treat it as a **manual checkpointing pattern**
-instead of a direct equivalent.
+Claude Code's `PreCompact` hook and Copilot CLI's `preCompact` hook both run right before context
+compaction (manual or automatic) — but Copilot's `preCompact` is **notification-only**: it cannot
+block or modify the compaction, only observe it (e.g. write a log line before compaction happens).
+If you need to actually *save state* before compaction — not just be notified — pair a
+`preCompact` hook with a **manual checkpointing pattern**, since the hook itself has no way to
+inject a save action into the model's context.
 
-Useful Copilot equivalents:
+Useful Copilot equivalents/companions to a `preCompact` hook:
 
+- A `preCompact` command hook that writes a timestamped log line or triggers an external backup script
 - Save the current plan or working summary to a session artifact file
 - Update SQL todo state before a long context-heavy phase
 - Add a short prompt checkpoint before continuing a long-running task
 
-Example prompt:
+Example prompt-level checkpoint (still useful since the hook can't inject content itself):
 
 ```text
 Before we continue, summarize the current plan, completed steps, open blockers, and pending
@@ -311,7 +369,27 @@ After any code changes:
 }
 ```
 
-### Copilot alternative A: GitHub Actions (Slack notification on push)
+### Copilot alternative A: Native `agentStop` hook (closest direct equivalent)
+
+Save this as `.github/hooks/session-complete.json`:
+
+```json
+{
+  "version": 1,
+  "hooks": {
+    "agentStop": [
+      {
+        "type": "command",
+        "bash": "echo 'Session complete' | notify-send",
+        "powershell": "Write-Host 'Session complete'",
+        "timeoutSec": 10
+      }
+    ]
+  }
+}
+```
+
+### Copilot alternative B: GitHub Actions (Slack notification on push)
 
 ```yaml
 on:
@@ -325,7 +403,7 @@ jobs:
       # Slack notification step here
 ```
 
-### Copilot alternative B: Prompt Guard (pre-session checklist)
+### Copilot alternative C: Prompt Guard (pre-session checklist)
 
 ```markdown
 ## Session Wrap-Up (copilot-instructions.md)
@@ -343,8 +421,14 @@ At the end of each task:
 CLI commands
 
 Claude Code hooks could intercept `bash` commands before execution and judge safety using AST
-or pattern analysis. Copilot CLI does not have the same mechanism, but you can achieve a
-similar effect with an **allowlist + prompt guard** approach.
+or pattern analysis. **Copilot CLI's native `preToolUse` hook is now a direct equivalent**: a
+command hook script can inspect the pending tool call and print a final decision object to
+stdout — `{"permissionDecision": "allow"}` or `{"permissionDecision": "deny", "reason": "..."}` —
+to approve or deny it before it runs. If you need AST-level command analysis specifically (not
+just pattern matching), write that logic into the `preToolUse` script itself. For teams that
+prefer a simpler, version-controlled, non-scripted approach — or as a defense-in-depth layer
+alongside a `preToolUse` hook — the **allowlist + prompt guard** approach below is still a valid,
+lower-maintenance option.
 
 ### Allowlist-based approach
 

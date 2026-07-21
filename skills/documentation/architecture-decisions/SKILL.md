@@ -26,23 +26,62 @@ metadata:
 
 - 결정해야 할 기술적 선택지가 2개 이상 있음
 - 팀에 결정 내용을 전달해야 하거나, 나중에 이 결정의 근거가 필요한 상황
-- `docs/decisions/` 디렉토리 (없으면 생성)
+- 기존 ADR 위치를 찾을 수 있거나, 아무 관례가 없으면 fallback 위치로 `docs/decisions/` 를 만들 준비가 되어 있음
 
 ## Workflow
 
-### 1. ADR 파일 생성
+### 1. 기존 ADR 관례 먼저 탐지
+
+새 ADR을 쓰기 전에 **기본 템플릿부터 적용하지 말고**, 이 저장소가 이미 쓰고 있는
+ADR 관례를 먼저 찾는다. 기본 템플릿은 **아무 관례도 감지되지 않을 때만** fallback으로 사용한다.
+
+다음 4축을 확인:
+
+1. **위치**: `docs/adr/`, `docs/decisions/`, `adr/` 등 기존 ADR 디렉토리
+2. **형식/템플릿**: MADR 스타일, `adr-tools` 생성 형식, 자유 서술형 Markdown, reStructuredText 등
+3. **번호 체계**: 가장 큰 기존 번호를 찾아 그 다음 번호를 사용 (1부터 다시 시작하거나 추측 금지)
+4. **헤딩/섹션 스타일**: 기존 ADR의 제목, 상태 표기, 섹션 이름을 그대로 재사용
+
+로컬 저장소만 보지 말고, 접근 가능하다면 조직 공용 규칙도 함께 확인:
+
+- 조직 공용 템플릿 저장소나 문서 허브의 ADR 규칙 (GitHub 조직이라면 `.github` 저장소 포함)
+- 열려 있는 PR/리뷰 요청에서 새 ADR이 어떤 형식으로 추가되고 있는지
+
+예시 확인 방법:
 
 ```bash
-# ADR 디렉토리 확인 또는 생성
-ls docs/decisions/ 2>/dev/null || echo "docs/decisions 생성 필요"
+# 로컬 ADR 후보 위치 확인
+find . -type d \( -name adr -o -name adrs -o -name decisions \)
 
-# 다음 번호 확인
-ls docs/decisions/*.md 2>/dev/null | wc -l
+# 기존 ADR 파일과 번호/헤딩 스타일 확인
+find . -type f \( -name '*.md' -o -name '*.rst' \) | grep -Ei 'adr|decision'
+
+# 조직 공용 템플릿 저장소 / 문서 허브 / 열려 있는 PR에서 ADR 관례 확인
+# (GitHub를 쓰고 gh 접근이 가능하면 org-level .github repo와 open PR 확인 포함)
+gh repo view <org>/.github
+gh search prs --owner <org> --state open -- 'ADR OR "architecture decision"'
 ```
 
-파일명: `docs/decisions/NNN-decision-title.md` (예: `001-use-postgresql.md`)
+관례가 감지되면 **그 관례에 맞춰 작성**한다. 위치, 파일명, 번호, 헤딩을
+새로 발명하지 않는다. 위 원격 확인은 선택적 보강 단계이며, 특정 호스팅 도구가
+없어도 핵심 규칙은 **기존 관례 우선, 기본 템플릿 fallback**이다.
 
-### 2. ADR 작성 형식
+### 2. ADR 파일 생성
+
+```bash
+# 감지된 ADR 위치를 그대로 사용하고, 아무 관례가 없을 때만 fallback 사용
+ADR_DIR=<detected-adr-dir-or-docs/decisions>
+
+# 다음 번호는 "파일 개수"가 아니라 "가장 큰 기존 번호 + 1"
+NEXT_ADR_NUMBER=<highest-existing-number-plus-one>
+```
+
+파일명도 감지된 관례를 우선한다. fallback 예시는
+`docs/decisions/NNN-decision-title.md` (예: `001-use-postgresql.md`)
+
+> 위 형식은 **기본 fallback 예시**다. 저장소에 기존 ADR 관례가 있으면 그 형식과 번호 체계를 우선한다.
+
+### 3. ADR 작성 형식
 
 ```markdown
 # ADR-{NNN}: {결정 제목}
@@ -72,7 +111,7 @@ ls docs/decisions/*.md 2>/dev/null | wc -l
 - 관련 이슈, PR, 외부 자료 링크
 ```
 
-### 3. ADR 상태 관리
+### 4. ADR 상태 관리
 
 결정이 변경될 때:
 
@@ -86,7 +125,7 @@ ls docs/decisions/*.md 2>/dev/null | wc -l
 **상태**: Accepted (Supersedes [ADR-002](002-old-decision.md))
 ```
 
-### 4. COPILOT-INSTRUCTIONS.md에 연결
+### 5. COPILOT-INSTRUCTIONS.md에 연결
 
 중요한 ADR은 Copilot에게 미리 알림:
 
@@ -112,8 +151,9 @@ ls docs/decisions/*.md 2>/dev/null | wc -l
 
 ## Verification
 
-- [ ] ADR 파일이 `docs/decisions/` 에 번호 형식으로 존재
-- [ ] 모든 4개 필수 섹션 작성됨 (Context, Decision, Consequences, 상태)
+- [ ] 기존 ADR 관례를 먼저 조사했고, 감지되면 그 위치/형식/번호/헤딩 스타일을 재사용함
+- [ ] ADR 파일이 기존 ADR 위치에 맞게 존재하며, 번호는 최고 기존 번호 다음 값을 사용함
+- [ ] 감지된 ADR 관례의 필수 섹션을 모두 따랐거나, 관례가 없으면 fallback 템플릿의 핵심 섹션(Context, Decision, Consequences, 상태)을 작성함
 - [ ] 검토한 대안이 기록됨
 - [ ] 관련 PR 또는 이슈에서 ADR 링크됨
 

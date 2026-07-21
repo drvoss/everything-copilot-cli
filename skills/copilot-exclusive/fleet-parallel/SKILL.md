@@ -13,7 +13,9 @@ metadata:
 Copilot CLI's **Fleet mode** launches multiple autonomous agents in parallel, each working
 on an independent subtask in its own context window. This is a fundamentally different
 execution model — not just "run commands in parallel" but full AI agents running concurrently
-with their own tool access.
+with their own tool access. Those subagents are also steerable: if an in-flight agent starts
+drifting, you can send a follow-up message to correct course instead of waiting for the whole
+run to finish.
 
 ## When to Use
 
@@ -183,7 +185,36 @@ While fleet agents run, you can:
 
 - Check progress via `list_agents`
 - Read individual agent results via `read_agent`
+- Send a follow-up message to a running or waiting agent via `write_agent` when you need to
+  clarify scope, add a missing constraint, or redirect a subtask that is visibly drifting;
+  if an agent already completed with the wrong result, launch a new pass instead
 - Continue working on other tasks yourself
+
+### 6-A. Steer the Live Agent or Let It Finish?
+
+Treat follow-up messages as **course correction for the current agent**, not as a replacement
+for decomposition or a reflexive interrupt.
+
+**Intervene mid-flight when:**
+
+- The agent's early plan or partial output clearly diverges from the requested outcome
+- You notice a missed constraint or new dependency that changes the task without changing file
+  ownership
+- Redirecting now is cheap and prevents wasted edits, retries, or blocked dependent work
+- A monitor check shows the agent is stuck waiting on an assumption you can answer quickly
+
+**Let it run when:**
+
+- The task is short, well-scoped, and likely to finish before an interruption would help
+- The agent is broadly on track and any cleanup is cheaper to do in review after completion
+- You have no concrete new information to provide beyond the original brief
+- Interrupting would create churn without changing the outcome in a meaningful way
+
+If the existing agent is still the right owner and just needs better direction, **steer the live
+agent**. If file ownership must be reshuffled, follow the write-scope guard: stop the later agent
+and requeue with corrected ownership. If the current run is no longer valid while still in flight,
+stop it and launch a new pass; if it already completed with the wrong result, launch a new pass
+with the updated brief.
 
 ### 7. Observe Fleet Runs with OTel (Optional)
 
@@ -206,7 +237,7 @@ Every N minutes: check each active agent for DONE / ERROR / STUCK
 | Completion indicator or clean exit | DONE | Mark task complete, unlock dependents |
 | Error/failure output | ERROR | Capture logs, retry with error context, bounded retries |
 | Prompt waiting for input | STUCK | Send the expected response or surface to human |
-| No progress for threshold time | STALLED | Nudge or restart with context from prior attempt |
+| No progress for threshold time | STALLED | Send a concrete unblock/correction; otherwise restart with context from prior attempt or surface |
 
 **Bounded retry rule**: Do not retry indefinitely. After the configured retry limit, stop the task and surface the blocker — guessing at a fix compounds errors. Human review is the correct escalation.
 

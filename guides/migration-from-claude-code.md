@@ -16,7 +16,7 @@ Copilot CLI equivalent:
 | `CLAUDE.md` | `.github/copilot-instructions.md` | Runtime project instructions; optionally keep a fuller `COPILOT-INSTRUCTIONS.md` reference guide in the repo root |
 | `AGENTS.md` | `AGENTS.md` + skill files | Direct mapping; Copilot also uses `skills/` directory |
 | `/agent-name` (slash command) | `agent_type` parameter in task tool | Architecture differs — Copilot uses 4 agent types |
-| Hooks (pre-tool, post-tool) | Git Hooks / GitHub Actions / Prompt Guards | **No direct equivalent** — use [alternatives](./hooks-to-github-actions.md) depending on purpose |
+| Hooks (pre-tool, post-tool) | Native Copilot hooks (`preToolUse`/`postToolUse`/etc.) | Direct equivalent as of CLI v1.0.72+ — see [hooks guide](./hooks-to-github-actions.md); Git Hooks/Actions/prompt guards remain useful for CI-level, team-wide enforcement |
 | Skills (`.claude/skills/`) | Skills (`skills/` directory) | Nearly identical format! Markdown + YAML frontmatter |
 | Slash commands (`/help`, `/clear`) | Slash commands (`/help`, `/clear`) | Direct mapping for most commands |
 | MCP config (`.mcp.json`) | workspace `.mcp.json` / user `~/.copilot/mcp-config.json` | Similar file name, different schema and optional user-level config |
@@ -193,18 +193,49 @@ See orchestration/skills/delegate-to-claude.md
 Claude Code hooks (pre-tool, post-tool, notification, stop) are **AI session lifecycle
 callbacks** — they fire inside the AI session when the model calls a tool.
 
-Copilot CLI has **no direct equivalent**. Instead, choose the right alternative based
-on your use case:
+> **⚠️ Updated 2026-07-20:** Copilot CLI now has its own native in-session hook system
+> (`sessionStart`, `sessionEnd`, `userPromptSubmitted`, `preToolUse`, `postToolUse`, `agentStop`,
+> `subagentStop`, `errorOccurred` — JSON files in `.github/hooks/*.json` or
+> `~/.copilot/hooks/*.json`). `preToolUse` can allow/deny a tool call directly, which is a
+> first-party equivalent to Claude Code's `PreToolUse`. **Prefer the native hook first** for
+> anything that must react inside the session; use the Git/GitHub Actions/prompt-guard
+> alternatives below when there's no matching native event (e.g. `Notification`, `PreCompact`)
+> or when you want CI-level, team-wide enforcement in addition to the local hook.
 
-| Claude Code Hook Purpose | Copilot Alternative | Details |
+| Claude Code Hook Purpose | Copilot Native Hook | Copilot Alternative (if no native match, or for CI-wide enforcement) |
 |-------------------------|---------------------|---------|
-| Lint/validate before changes | Git Pre-commit Hook (Husky) | Runs locally on every commit |
-| Test/format after changes | Git Post-commit Hook | Same — runs locally |
-| PR gate before merge | GitHub Actions workflow | Team-wide enforcement |
-| Notify on session complete | GitHub Actions (push/merge event) | CI/CD notification |
-| Guard what AI can modify | Prompt-level instructions | Add rules to `copilot-instructions.md` |
+| Lint/validate before changes | `preToolUse` (allow/deny) | Git Pre-commit Hook (Husky) |
+| Test/format after changes | `postToolUse` | Git Post-commit Hook |
+| PR gate before merge | *(none — CI-level concern)* | GitHub Actions workflow |
+| Notify on session complete | `agentStop` | GitHub Actions (push/merge event) |
+| Guard what AI can modify | `preToolUse` (deny) | Prompt-level instructions in `copilot-instructions.md` |
 
-**Example: Pre-commit Hook (replaces PreToolUse validation)**
+**Example: Native `preToolUse` hook (direct replacement for `PreToolUse` validation)**
+
+Save this as `.github/hooks/guard-auth-config.json`:
+
+```json
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "./scripts/guard-auth-config.sh",
+        "powershell": "./scripts/guard-auth-config.ps1",
+        "timeoutSec": 15
+      }
+    ]
+  }
+}
+```
+
+The script inspects the pending tool call (received as JSON) and prints a single decision object
+to stdout, e.g. `{"permissionDecision": "deny"}`, to block it (or `{"permissionDecision": "allow"}`
+to let it through). Note that command `preToolUse` hooks are fail-closed on script errors, but a
+**timed-out** hook always fails open — the call falls through to the normal permission flow.
+
+**Example: Pre-commit Hook (Git-level alternative, for team-wide enforcement outside the session)**
 
 ```powershell
 # Install Husky for Node.js projects
@@ -217,7 +248,7 @@ npm run lint && npm run test -- --passWithNoTests
 "@ | Set-Content .husky/pre-commit
 ```
 
-**Example: Prompt Guard (replaces PreToolUse check)**
+**Example: Prompt Guard (lightweight alternative when a hook script is overkill)**
 
 Add to `.github/copilot-instructions.md`:
 
@@ -227,13 +258,8 @@ Add to `.github/copilot-instructions.md`:
 2. Never modify `auth/` or `config/` files without first reading them completely
 ```
 
-> **Why no direct equivalent?**
-> Claude Code Hooks fire inside the AI session at tool-call boundaries.
-> Copilot CLI's architecture doesn't expose session-level tool hooks externally.
-> Git Hooks and GitHub Actions solve the same *goals* but at different points in
-> the development lifecycle.
-
-For a comprehensive alternative mapping with examples, see:
+For a comprehensive mapping of every Claude Code hook to its native Copilot hook or alternative,
+with more examples, see:
 → **[guides/hooks-to-github-actions.md](./hooks-to-github-actions.md)**
 
 ## Slash Command to Copilot CLI Mapping
@@ -432,14 +458,20 @@ See [Claude MCP Bridge config](../orchestration/configs/claude-mcp-bridge.json) 
 
 ### Adapting Harness Files from Hook-Based Tools
 
-Claude Code harnesses often rely on session lifecycle hooks (`PreToolUse`, `PostToolUse`, `Stop`). When porting a harness to Copilot CLI:
+Claude Code harnesses often rely on session lifecycle hooks (`PreToolUse`, `PostToolUse`, `Stop`).
+Copilot CLI now has native equivalents for these three (`preToolUse`, `postToolUse`, `agentStop` —
+see [Step 5](#step-5-replace-hooks-with-alternatives) above and
+[`hooks-to-github-actions.md`](./hooks-to-github-actions.md)), so a harness built around them can
+often port as native Copilot hook JSON directly. For the remaining pieces that don't have a
+native hook event (or where you'd rather keep logic in-repo without a hook script), fall back to:
 
-1. **Replace hook triggers with SQL state transitions** — track workflow state explicitly in the session database rather than relying on event callbacks
-2. **Replace `PreToolUse` validation** with prompt-level guards in `copilot-instructions.md`
-3. **Replace `Stop` cleanup** with final SQL queries or post-task checklists in skill files
-4. **Replace `SubagentStop` aggregation** with `read_agent` polling after `task(mode: "background")` calls
+1. **Replace non-hook triggers with SQL state transitions** — track workflow state explicitly in the session database rather than relying on event callbacks, for events with no native hook
+2. **`PreToolUse` validation** — use a native `preToolUse` hook (preferred) or prompt-level guards in `copilot-instructions.md` as a lighter-weight fallback
+3. **`Stop` cleanup** — use a native `agentStop` hook (preferred), or final SQL queries/post-task checklists in skill files
+4. **`SubagentStop` aggregation** — use a native `subagentStop` hook (preferred), or `read_agent` polling after `task(mode: "background")` calls
 
-Example: a harness that ran lint on every file save (PreToolUse) becomes:
+Example: a harness that ran lint on every file save (PreToolUse) becomes either a native
+`preToolUse` hook script, or — if you'd rather avoid a hook script — a prompt-level guard:
 
 ```markdown
 <!-- In copilot-instructions.md -->
@@ -496,7 +528,7 @@ Use this checklist to track your migration progress:
 - [ ] Port custom skills to `.github/skills/<skill-name>/SKILL.md` with updated frontmatter
 - [ ] Convert MCP configs to workspace `.mcp.json` or user `~/.copilot/mcp-config.json`
 - [ ] Map agent invocations to Copilot CLI's 4 agent types
-- [ ] Replace hooks with Git Pre-commit Hooks, GitHub Actions, or Prompt Guards (see [hooks guide](./hooks-to-github-actions.md))
+- [ ] Port hooks to native Copilot hooks (`.github/hooks/*.json`), falling back to Git Pre-commit Hooks/GitHub Actions/Prompt Guards only where there's no native event (see [hooks guide](./hooks-to-github-actions.md))
 - [ ] Set up Claude Code as MCP bridge (if keeping both tools)
 - [ ] Test key workflows (build, test, PR creation, code review)
 - [ ] Train team on new features (fleet mode, plan mode, SQL database)

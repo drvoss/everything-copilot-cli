@@ -47,7 +47,7 @@ unique capabilities.
 | Autopilot Mode _(Experimental)_ | ✅ Native mode | ⚠️ `--dangerously-skip-permissions` / `--autoaccept` | Copilot's approach is more controlled; both require explicit activation |
 | SQL Task Tracking | ✅ Built-in SQLite | ❌ File-based | Query todos, track state with SQL |
 | Todo Dependencies | ✅ SQL dependency graph | ❌ Manual tracking | Automatically find "ready" tasks |
-| Context compression hook | ⚠️ No direct hook; use manual checkpoints | ✅ `PreCompact` hook (v2.1.105) | Claude exposes a lifecycle primitive; Copilot relies on prompt discipline, session files, and `/resume` |
+| Context compression hook | ✅ `preCompact` hook (notification-only, cannot block) | ✅ `PreCompact` hook (v2.1.105) | Both expose a compaction-lifecycle hook; Copilot's is observe-only, Claude's can act before compaction |
 | Existing worktree entry | ⚠️ Use the chosen checkout or prompt boundary | ✅ `EnterWorktree` (v2.1.105) | Claude has a first-class tool; Copilot uses normal Git worktree selection |
 | **Memory & State** | | | |
 | Session Database | ✅ SQL built-in | ❌ None | Structured state that survives compaction |
@@ -63,7 +63,7 @@ unique capabilities.
 | Agent Council | ✅ Multi-tool deliberation | ❌ Single-tool | Bring multiple AIs to decisions |
 | **Extensibility** | | | |
 | Skill Library | ✅ 105 curated skills in this collection | ⚠️ Community libraries vary by source | This repository currently ships 105 Copilot skills; cross-tool counts are not normalized |
-| Hook System | ⚠️ No direct in-session equivalent | ✅ Full lifecycle hooks | Copilot relies on Git hooks, GitHub Actions, and prompt guards instead |
+| Hook System | ✅ Native lifecycle hooks (14 events, v1.0.72+) | ✅ Full lifecycle hooks | Both have first-party hook systems now; Copilot's `preCompact` is notification-only while Claude's `PreCompact` can act before compaction |
 | Custom Commands | ✅ Slash commands + plugins | ✅ Slash commands | Both support custom commands |
 | Security Scanning | ⚠️ Via skills | ⚠️ Via skills | Both rely on security skill workflows |
 | **Configuration** | | | |
@@ -148,11 +148,17 @@ Controlled autonomous execution with safety guardrails — more structured than 
 Code's permission-skipping approach. Currently an experimental feature; activate with
 `/experimental on` or the `--experimental` flag.
 
-### 12. Hook Alternatives Through Git Tooling
+### 12. Native In-Session Hooks (Plus Git Tooling for Everything Else)
 
-Copilot CLI does not expose Claude-style in-session lifecycle hooks. Instead, teams
-typically combine Git hooks, GitHub Actions, and prompt-level guardrails to enforce
-checks before or after AI-assisted changes.
+> **⚠️ Updated 2026-07-20:** Copilot CLI now ships native in-session hooks
+> (`sessionStart`/`sessionEnd`/`userPromptSubmitted`/`preToolUse`/`postToolUse`/`agentStop`/
+> `subagentStop`/`errorOccurred`), configured as JSON files in `.github/hooks/*.json` or
+> `~/.copilot/hooks/*.json`. `preToolUse` can directly allow/deny a tool call, matching Claude
+> Code's `PreToolUse` approve/deny behavior. See
+> [`guides/hooks-to-github-actions.md`](./hooks-to-github-actions.md) for the full mapping.
+> Copilot's `preCompact` hook is notification-only (it can't act before compaction the way
+> Claude's can) — for actually saving state before that lifecycle moment, teams
+> still combine Git hooks, GitHub Actions, and prompt-level guardrails as described there.
 
 ---
 
@@ -169,10 +175,16 @@ This repository currently ships 105 Copilot skills. Claude Code's ecosystem may 
 feel more mature in some teams because its community has shared reusable skills and
 hook-based workflows for longer.
 
-### 3. Full Lifecycle Hooks
+### 3. `PreCompact` That Can Act, Not Just Observe
 
-Claude Code offers native AI-session lifecycle hooks. In Copilot CLI, similar guardrails
-are typically built with Git hooks, GitHub Actions, or prompt-level instructions instead.
+Both tools now offer native AI-session lifecycle hooks (see
+[`guides/hooks-to-github-actions.md`](./hooks-to-github-actions.md) for Copilot CLI's 14-event
+hook system). Claude Code's remaining edge is that its `PreCompact` hook can act (e.g. inject
+state) before compaction happens, while Copilot CLI's `preCompact` hook fires at the same
+lifecycle moment but is notification-only — it cannot block or modify the compaction. For
+actually saving state ahead of a Copilot compaction, that still relies on manual checkpointing
+(session artifacts, SQL todo state) alongside the notification hook, rather than the hook itself
+performing the save.
 
 ### 4. Security via Skills
 
@@ -234,8 +246,7 @@ See [Orchestration Patterns](../orchestration/README.md) for implementation deta
 |-----------|------------|------------|
 | Use GitHub heavily | Copilot CLI | Native GitHub integration saves setup time |
 | Need multiple AI models | Copilot CLI | 20+ models vs Claude-only |
-| Want a more mature hook-centered ecosystem | Claude Code | Native lifecycle hooks and longer-running community patterns |
-| Need full lifecycle hooks | Claude Code | Richer hook system |
+| Need a `PreCompact` hook that can act before compaction (not just observe) | Claude Code | Copilot's `preCompact` hook is notification-only |
 | Work across IDEs | Copilot CLI | VS Code + JetBrains integration |
 | Need parallel execution | Copilot CLI | Native fleet mode |
 | Want autonomous agents | Either | Both support autonomous execution |
@@ -263,8 +274,8 @@ improve developer productivity. The choice depends on your priorities:
 **Choose Copilot CLI if** you value GitHub integration, multi-model flexibility,
 IDE synergy, fleet parallelization, and the ability to orchestrate multiple AI tools.
 
-**Choose Claude Code if** you need the most mature skill library, comprehensive hooks,
-specialized agents, and deep integration with Claude's reasoning capabilities.
+**Choose Claude Code if** you need the most mature skill library, a `PreCompact` hook that can
+act before compaction (not just observe), specialized agents, and deep integration with Claude's reasoning capabilities.
 
 **Choose both if** you want the best of both worlds — and Copilot CLI makes this
 possible through its multi-AI orchestration capabilities.

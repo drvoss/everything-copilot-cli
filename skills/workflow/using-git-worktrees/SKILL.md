@@ -103,6 +103,12 @@ Use a dedicated branch and directory for each independent task:
 
 Do not send two independent agents into the same worktree. That defeats the isolation.
 
+After assigning a subagent to a worktree, verify its actual Git execution context
+instead of assuming path-passing was enough. Have the subagent run
+`git rev-parse --show-toplevel` (or run `git -C <worktree> rev-parse --show-toplevel`
+yourself) and confirm it resolves to the assigned worktree path, not the main/shared
+checkout.
+
 ### 4. Keep branch ownership clear
 
 - One worktree per checked-out branch
@@ -164,6 +170,8 @@ Operational rules:
 
 - Launch each background or delegated agent from the intended worktree, or give it commands that
   explicitly `Set-Location` into that path before it edits anything.
+- After handoff, confirm the agent's Git commands resolve to that same worktree path with
+  `git rev-parse --show-toplevel` before trusting branch or status output.
 - Keep one active branch and one primary owner per worktree.
 - If multiple agents need different branches, create multiple worktrees rather than sharing one.
 - Pair this with a narrow file brief when the worktree still contains too much writable surface.
@@ -192,6 +200,7 @@ Operational rules:
 - [ ] Each parallel task has its own directory and branch
 - [ ] No two active tasks are editing through the same worktree
 - [ ] `git worktree list` shows the expected layout
+- [ ] Each subagent's `git rev-parse --show-toplevel` resolves to its assigned worktree, not the shared checkout
 - [ ] Finished worktrees are removed and pruned
 - [ ] Any forced cleanup path was verified against the registered worktree list
 

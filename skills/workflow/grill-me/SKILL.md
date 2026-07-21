@@ -1,6 +1,6 @@
 ---
 name: grill-me
-description: Use when a plan still has hidden assumptions — run a one-question-at-a-time grilling session until dependencies, risks, and decisions are explicit before implementation starts
+description: Use when a plan still has hidden assumptions — default to one question at a time for dependent branches, batch only truly independent questions when it saves real round-trips, and keep stress-testing the plan until dependencies, risks, and decisions are explicit before implementation starts
 metadata:
   category: workflow
   agent_type: general-purpose
@@ -10,8 +10,13 @@ metadata:
 # Grill Me
 
 Grill Me is a focused pre-implementation interrogation loop. Instead of brainstorming broadly, it
-forces the plan through one concrete question at a time until the unknowns, dependencies, and
+forces the plan through one concrete question at a time when branches are dependent, or through a
+numbered batch when the open questions are independent, until the unknowns, dependencies, and
 tradeoffs are visible.
+
+Unlike `interview-me`, which is for gathering missing intent and can switch into an async
+questionnaire, Grill Me is for pressure-testing a plan that already exists through decision-focused
+dialogue.
 
 ## When to Use
 
@@ -42,7 +47,16 @@ Choose one target:
 Do not grill an entire vague conversation. First compress the target into the thing that needs
 pressure-testing.
 
-### 2. Ask one question at a time
+### 2. Default to linear questioning; batch only independent branches
+
+Choose the mode before each round:
+
+- **Linear mode (default):** use when one answer changes what you should ask next. Ask one question
+  at a time and fully resolve that branch before moving on.
+- **Batch mode:** use only when several questions are mutually independent and the extra round-trip
+  cost is high enough that asking them together will materially save time. Present the whole ready
+  set in one numbered round, with one decision per question and a recommended answer attached to
+  each.
 
 Each question should force a concrete decision or expose a real gap:
 
@@ -50,12 +64,17 @@ Each question should force a concrete decision or expose a real gap:
 - What happens if that assumption is false?
 - What must be decided before the next step can start?
 
-Do not batch five questions at once. Resolve one branch before moving to the next.
+Do not batch dependent questions. When a frontier of independent questions is ready, ask that
+frontier together; return to linear mode as soon as later questions depend on the answers.
 
 ### 3. Answer from evidence when possible
 
 If the codebase, tests, docs, or current repo structure can answer a question, inspect them instead
 of asking the user to guess.
+
+If validating several independent questions needs repo or doc checks, do that fact-finding in
+parallel when possible. Show the user the resulting decisions and recommendations, not the
+investigation legwork.
 
 Examples:
 
@@ -121,7 +140,8 @@ A grilling session is done when:
 ## Verification
 
 - [ ] Each major branch was resolved or clearly marked as open
-- [ ] Questions were asked one at a time
+- [ ] Linear mode was used for dependent branches, and batch mode only for truly independent
+      questions
 - [ ] Evidence from the repo was used where available
 - [ ] The output names the next implementation step or blocker
 

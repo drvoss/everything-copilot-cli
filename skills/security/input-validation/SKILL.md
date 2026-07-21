@@ -39,6 +39,19 @@ grep -rn "req\.body\|req\.query\|req\.params\|request\.json" src/ --include="*.t
 grep -rn "multer\|upload\|formidable\|busboy" src/ --include="*.ts"
 ```
 
+### 1-A. Layer boundary controls before validation
+
+Treat permission and access boundaries as the **first** control and application-level
+input validation as the **second**, independent control. Neither is sufficient alone:
+restricted credentials reduce blast radius when validation fails, and validation still
+matters even when the backing system is locked down.
+
+- Use least-privilege roles and restricted credentials (for example, read-only database roles where appropriate)
+- Restrict execution to a single statement where feasible
+- Prefer allowlists over denylists when validating identifiers, operations, or query shapes
+- Apply statement timeouts and max-row-count caps to limit abuse
+- Sanitize error messages so they never reveal credentials or connection details
+
 ### 2. SQL Injection Prevention
 
 ```powershell
@@ -197,7 +210,7 @@ export function validate(schema: ZodSchema) {
 ## Tips
 
 - **Validate at the boundary, trust internally** — validate once where input enters your system
-- Use allowlists over denylists — define what's allowed rather than what's blocked
+- Keep credentials and roles least-privileged even when validation is strong
 - Always validate type, length, format, and range
 - Use parameterized queries for **all** database access, no exceptions
 - Set `Content-Security-Policy` headers to prevent XSS at the browser level

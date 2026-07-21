@@ -93,6 +93,11 @@ Prefer a manual override when:
 
 Changes the model for your current interactive session.
 
+Prefer `/model --session` (or `/model -s`) when you want to try a different model,
+reasoning effort, or context window for just one session. It keeps the experiment local
+instead of polluting your global defaults, which matches this skill's broader advice not to
+lock yourself into one globally hardcoded model choice when the task should drive routing.
+
 ### 2. Per-Agent Model Override
 
 Assign different models to different sub-agents:

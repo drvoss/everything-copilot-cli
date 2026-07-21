@@ -2,8 +2,10 @@
 name: interview-me
 description: >
   Use when a request is underspecified and you need to discover what the user actually
-  wants before writing a plan, spec, or code - ask one question at a time, attach your
-  current hypothesis, and stop only after the intent is explicitly confirmed.
+  wants before writing a plan, spec, or code - default to one question at a time when
+  later questions depend on earlier answers, switch to a numbered batch only for
+  independent high-latency clarifications, attach your current hypothesis, and stop
+  only after the intent is explicitly confirmed.
 metadata:
   category: workflow
   agent_type: general-purpose
@@ -15,6 +17,10 @@ metadata:
 Interview Me is for intent discovery before work starts. It is the step before a spec,
 plan, or implementation, when the user's first ask may still be a proxy for the real
 goal.
+
+Unlike `grill-me`, which stress-tests an existing plan through dialogue, Interview Me is for
+gathering missing intent from the requester and can produce a questionnaire-style batch when
+interactive back-and-forth would be too slow.
 
 ## When to Use
 
@@ -35,8 +41,10 @@ goal.
 
 ## Loading Constraint
 
-This skill needs a live user. Do not invoke it in non-interactive contexts where no one
-can answer the questions.
+This skill needs an answerable user, but not always a live turn-by-turn exchange. If interactive
+back-and-forth is impractical, convert only the mutually independent unresolved questions into a
+questionnaire the requester can answer asynchronously. Do not invoke it when there is no
+responsible person who can answer.
 
 ## Workflow
 
@@ -49,7 +57,16 @@ Before asking anything, write down:
 
 If the number feels high but you cannot predict the next few answers, the number is too high.
 
-### 2. Ask one question at a time
+### 2. Default to linear questioning; batch only independent clarifications
+
+Choose the mode before each round:
+
+- **Linear mode (default):** use when one answer changes what you should ask next. Ask one focused
+  question at a time and resolve it before proceeding.
+- **Batch mode:** use only when several questions are mutually independent and the extra
+  round-trip cost is high enough that asking them together will materially save time. Present the
+  whole ready set in one numbered round, with one idea per question and your current hypothesis
+  attached to each.
 
 Every question should include:
 
@@ -57,7 +74,10 @@ Every question should include:
 - your current guess for the answer
 - the reasoning behind that guess
 
-Do not batch several questions. The later questions depend on the earlier answers.
+Do not batch dependent questions. When you switch to batch mode, order the questions by importance,
+group related topics together, and end with a catch-all or deadline item if the answers are being
+collected asynchronously. Return to linear mode as soon as later questions depend on earlier
+answers.
 
 ### 3. Listen for "want" vs "should want"
 
@@ -138,7 +158,8 @@ Confirmed by user: Yes
 ## Verification
 
 - [ ] The first turn included a hypothesis and confidence number
-- [ ] Questions were asked one at a time
+- [ ] Linear mode was used for dependent questions, and batch mode only for truly independent
+      clarifications
 - [ ] At least one probe tested for "want" vs "should want" when needed
 - [ ] The restated intent included outcome, user, why now, success, constraint, and out of scope
 - [ ] The user explicitly confirmed the restatement

@@ -152,6 +152,12 @@ Circuit breaker:
 Use the lightest level that still makes rollback easy. If the task can damage the current checkout,
 move it to a worktree or higher-isolation environment first.
 
+Treat credentials as part of the sandbox boundary, not as ambient defaults. Inside an OS sandbox,
+`git` and `gh` authentication should be enabled only when genuinely needed, and on macOS keychain
+access now defaults off for tighter isolation — re-enable it in `/sandbox` only for commands that
+actually require it. This reinforces the same least-privilege rule as the rest of this skill:
+start closed, then grant only the minimum extra access the delegated task needs.
+
 ### 4. Validate before accepting output
 
 Even successful sandboxed runs are only candidates. Review:

@@ -114,6 +114,24 @@ npm run setup -- --target /path/to/your-project
 
 setup 会把项目 instructions 写入 `.github/copilot-instructions.md`，并把 custom agents 安装到 `.github/agents/`、project skills 安装到 `.github/skills/`、rules 安装到 `.github/copilot/rules/`。`full` 配置还会把 contexts 安装到 `.github/copilot/contexts/`。
 
+这个仓库里的 `npm run setup` 仍然是一次性安装完整配置的最快方式：它会一起安装 instructions、rules、contexts、agents 和 skills。如果你只想单独添加或移除某一个 skill，也可以使用 GitHub Copilot CLI v1.0.72+ 提供的原生 skill 管理命令：
+
+```bash
+# 从本地文件把 skill 安装到这个仓库
+copilot plugins install --skill ./skills/development/fix-build-errors/SKILL.md --scope project
+
+# 从 URL 把 skill 安装到这个仓库
+copilot plugins install --skill https://example.com/path/to/SKILL.md --scope project
+
+# 从本地目录安装 skill
+copilot plugins install --skill ./skills/development/fix-build-errors
+
+# 按名称移除已安装的 skill
+copilot plugins remove --skill fix-build-errors
+```
+
+如果你想把这个仓库的 instructions、rules、contexts、agents 和 skills 一起装好，请使用 `npm run setup`。如果你只想通过 CLI 一次添加或移除一个 skill，请使用原生 `copilot plugins install/remove --skill` 命令。`--scope project` 目前只在安装到仓库的文件/URL 示例中有文档说明，因此上面的目录安装示例刻意没有带这个参数。
+
 随后打开终端，开始使用安装到项目中的 agent、skill 与规则：
 
 ```bash

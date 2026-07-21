@@ -198,6 +198,9 @@ stronger guarantee: it binds the publisher's identity to the artifact at signing
 
 This addresses OWASP AST01 (Skill Supply Chain Integrity) and AST02 (Unauthorized Skill Modification).
 
+Registry-layer trust signals answer who the registry believes published a package and whether
+its naming/ownership checks held; signing and pinning answer what artifact you verified.
+
 #### Publisher Identity Binding
 
 When a skill or plugin is published, the publisher signs the manifest with an asymmetric key.
@@ -208,6 +211,20 @@ Minimum requirements:
 - The signing key is associated with the publisher's verified identity (e.g., GitHub identity, GPG key)
 - The signature covers the manifest hash (not individual files)
 - The signature and public key fingerprint are shipped alongside `INTEGRITY.json`
+
+For MCP registry-backed packages, pair publisher identity binding with registry validation:
+
+- Treat an org namespace claim as a registry-layer authorization signal for that org namespace;
+  do not extend it to blanket trust for every member or package under the org. In MCP Registry
+  v1.8.0, org-namespace granting was tightened from all members to org Owners.
+- Require registry-specific anchored name matching (for example, PyPI/NuGet-specific rules)
+  together with the correct registry/package identifier, so similarly named packages do not slip
+  past the intended registry check.
+- Treat mangled or malformed publisher metadata as a red flag and reject it, not merely as
+  "metadata missing."
+- Distinguish "package not found" from "version not found": the former usually means a typo or
+  wrong package name, while the latter means the package exists but the pinned version must be
+  corrected to a real release.
 
 ```text
 INTEGRITY.json

@@ -65,7 +65,46 @@ Only after the full breadth-first pass is complete should any area get depth-fir
 Going deep on the first area you find is how large plans quietly narrow to whatever was
 convenient to start with.
 
-### 3. Write the Deferred section explicitly
+### 3. Incinerate researchable Fog immediately
+
+If a Fog item is blocking progress and can be resolved by investigation alone, convert it into an
+independent research ticket immediately instead of parking it for later.
+
+Convert a Fog item into a research ticket only when all of these are true:
+
+- the blocker can be answered from code, docs, prior artifacts, or web research without another
+  live user decision first
+- the question is concrete enough to investigate independently
+- the work is bounded to research, not implementation
+- the answer will change whether the area becomes In Scope, stays Fog, or moves to Deferred
+
+Ticket shape:
+
+```text
+Question: [what must be answered]
+Why blocked: [what this uncertainty is preventing]
+Suggested sources: [code paths, docs, tickets, web docs]
+Definition of done: [what finding would let the plan move]
+```
+
+Required subagent report-back format:
+
+- **Question** — restate the ticket in one line
+- **Answer** — best current conclusion
+- **Source / evidence** — concrete files, docs, or links
+- **Confidence** — high | medium | low
+- **Remaining uncertainty** — only what still needs a human decision or extra evidence
+
+Parallelism rule:
+
+- Dispatch up to **3** independent research tickets in parallel
+- If the session has exactly **1** research ticket and it looks small enough for a short inline
+  investigation, resolve it inline instead of paying subagent overhead
+- If there are **2+** independent tickets, or the single ticket will take enough digging that it
+  would stall other work, dispatch subagents immediately
+- As results return, fold them back into the Fog / In Scope / Deferred map before continuing
+
+### 4. Write the Deferred section explicitly
 
 Do not let out-of-scope discoveries disappear. Record them so a future pass — or a different
 session — can pick them up without rediscovering them:
@@ -79,14 +118,14 @@ session — can pick them up without rediscovering them:
 An item that is merely unaddressed is not the same as an item that was deliberately deferred.
 Only the second kind belongs here.
 
-### 4. Confirmation gate
+### 5. Confirmation gate
 
 Before any implementation starts, present the destination, the in-scope/fog/deferred split, and
 ask for explicit confirmation. Do not begin execution on an unconfirmed map — fog items in
 particular need a decision (investigate now vs. defer) before they can be scoped into or out of
 the plan.
 
-### 5. Self-grill the plan
+### 6. Self-grill the plan
 
 Before treating the plan as final, challenge it once from an adversarial angle:
 
@@ -110,12 +149,16 @@ Fold the answers back into the plan rather than leaving them as a detached appen
 ### Fog
 - [area] — [what's unknown, what investigation would resolve it]
 
+### Research Tickets
+- [question] — [owner: inline or subagent], [what answer would unblock]
+
 ### Deferred
 - [item] — [why excluded now, what would trigger revisiting it]
 
 ### Confirmation
 - [ ] Destination confirmed
 - [ ] Fog items have an investigate-now-vs-defer decision
+- [ ] Blocking Fog items were converted into research tickets or deliberately deferred
 - [ ] Ready to move to ticketing (`to-issues`) or direct execution
 ```
 
@@ -138,6 +181,7 @@ Fold the answers back into the plan rather than leaving them as a detached appen
 
 - [ ] The destination is written as an outcome, not a task list
 - [ ] Every area went through breadth-first triage before any depth-first work began
+- [ ] Researchable blocking Fog was converted into bounded tickets instead of being parked vaguely
 - [ ] Deferred items are recorded with a reason and a trigger for revisiting
 - [ ] The user confirmed the plan before implementation started
 
@@ -145,4 +189,5 @@ Fold the answers back into the plan rather than leaving them as a detached appen
 
 - [`to-issues`](../to-issues/SKILL.md) — slice an approved plan into dependency-aware tickets
 - [`deep-research`](../deep-research/SKILL.md) — gather evidence to resolve fog before scoping it
+- [`fleet-parallel`](../../copilot-exclusive/fleet-parallel/SKILL.md) — dispatch multiple independent research tickets in parallel when the map has more than one blocker
 - [`plan-mode-mastery`](../../copilot-exclusive/plan-mode-mastery/SKILL.md) — single-session plan.md workflow for smaller-scoped work

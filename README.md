@@ -114,6 +114,24 @@ During step 4, setup offers these profiles:
 
 Setup writes project instructions to `.github/copilot-instructions.md`, installs custom agents to `.github/agents/`, project skills to `.github/skills/`, and rules to `.github/copilot/rules/`. The `full` profile also installs contexts to `.github/copilot/contexts/`.
 
+This repository's `npm run setup` path is still the fastest way to install the full profile in one pass. If you only want to add or remove individual skills, GitHub Copilot CLI v1.0.72+ also supports native skill management:
+
+```bash
+# Install a skill from a local file into this repository
+copilot plugins install --skill ./skills/development/fix-build-errors/SKILL.md --scope project
+
+# Install a skill from a URL into this repository
+copilot plugins install --skill https://example.com/path/to/SKILL.md --scope project
+
+# Install a skill from a local directory
+copilot plugins install --skill ./skills/development/fix-build-errors
+
+# Remove an installed skill by name
+copilot plugins remove --skill fix-build-errors
+```
+
+Use `npm run setup` when you want this repository's instructions, rules, contexts, agents, and skills installed together. Use the native `copilot plugins install/remove --skill` commands when you want to manage one skill at a time through the CLI. The `--scope project` flag is documented for file and URL installs into the repository; the directory example above intentionally omits that flag.
+
 Then open a terminal and start using Copilot CLI with the installed agents, skills, and rules:
 
 ```bash
