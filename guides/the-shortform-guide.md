@@ -121,7 +121,7 @@ metadata:
 /diff               # Review current changes
 /review             # Review implementation against spec or plan
 /init               # Initialize Copilot setup for this project
-/plugins            # Open plugin, skill, MCP, and marketplace management
+/plugin install     # Install a community plugin
 /chronicle          # Standup reports & session history (experimental)
 /help               # Show all commands
 ```

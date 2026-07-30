@@ -33,44 +33,59 @@ Copilot CLI hooks are JSON files with a `version: 1` field and a `hooks` object.
 - hooks bundled by an installed plugin (`hooks.json` inside the plugin's install directory)
 - machine-wide policy hook files (`/etc/github-copilot/policy.d/*.json` or the Windows registry) — admin-managed, cannot be disabled
 
-Full supported event list (14 events):
+Full supported event list (14 events), including whether stdout output is processed:
 
-| Copilot CLI hook | Fires when |
-|---|---|
-| `sessionStart` | A new or resumed session begins |
-| `sessionEnd` | The session terminates |
-| `userPromptSubmitted` | The user submits a prompt |
-| `userPromptTransformed` | After the runtime transforms a submitted prompt into model-facing content (mutation-only) |
-| `preToolUse` | Before each tool executes — **can allow, deny, or modify** |
-| `permissionRequest` | Before the permission service runs — can allow/deny programmatically, short-circuiting the normal approval flow |
-| `postToolUse` | After a tool completes successfully |
-| `postToolUseFailure` | After a tool completes with a failure — can supply recovery guidance |
-| `preCompact` | Context compaction is about to begin (manual or automatic) — notification only, cannot block |
-| `agentStop` | The main agent finishes a turn — can block and force continuation |
-| `subagentStart` | A subagent is spawned, before it runs (not emitted by the built-in `general-purpose` agent) |
-| `subagentStop` | A subagent completes, before results return to the parent |
-| `notification` | Fire-and-forget system notifications (shell/agent completion or idle, permission prompts, elicitation) |
-| `errorOccurred` | An error occurs during agent execution |
+| Copilot CLI hook | Fires when | Output processed |
+|---|---|---|
+| `sessionStart` | A new or resumed session begins | Optional `additionalContext` injection |
+| `sessionEnd` | The session terminates | No |
+| `userPromptSubmitted` | The user submits a prompt | No |
+| `userPromptTransformed` | The runtime produces model-facing content | Yes — rewrite model-facing content |
+| `preToolUse` | Before each tool executes | Yes — allow, deny, ask, or modify |
+| `permissionRequest` | Before the permission service runs | Yes — allow or deny programmatically |
+| `postToolUse` | After a tool completes successfully | Yes — replace result or add context |
+| `postToolUseFailure` | After a tool fails | Yes — recovery guidance via `additionalContext` |
+| `preCompact` | Context compaction is about to begin | No — notification only |
+| `agentStop` | The main agent finishes a turn | Yes — allow or block and continue |
+| `subagentStart` | A subagent is spawned | Optional `additionalContext`; cannot block creation |
+| `subagentStop` | A subagent completes | Yes — allow, block, or replace response |
+| `notification` | The CLI emits a system notification | Optional `additionalContext` injection |
+| `errorOccurred` | An error occurs during execution | No |
 
 Command hook entries run a script (`bash`/`powershell`/cross-platform `command`, plus optional
 `cwd`, `env`, `timeoutSec`); HTTP hook entries POST the event payload to a URL instead. A
 `preToolUse` hook script controls the outcome by printing a final JSON decision object to stdout,
-e.g. `{"permissionDecision": "allow"}` or `{"permissionDecision": "deny"}` — this is the direct
+e.g. `{"permissionDecision": "allow"}` or
+`{"permissionDecision": "deny", "permissionDecisionReason": "unsafe command"}` — this is the direct
 Copilot-native equivalent of Claude Code's `PreToolUse` approve/deny hooks (see
 [Alternative 4](#alternative-4-ast-based-safe-command-auto-approval-dippy-pattern) below for how
 this supersedes the old allowlist-only workaround). Command `preToolUse` hooks are fail-closed on
 errors (a crash or non-zero exit denies the call); a **timed-out** hook is always fail-open
 regardless of hook type, letting the tool call fall through to the normal permission flow.
 
-Hook output is one JSON object on stdout, and each field has its own type contract:
+Hook output is one JSON object on stdout, and each event has its own field contract:
 
-| Event / use | Output field | Expected type | Verification status |
-|-------------|--------------|---------------|---------------------|
-| `preToolUse` decision | `permissionDecision` | `"allow"` / `"deny"` / `"ask"` | Official hooks reference |
-| Context injection | `additionalContext` | string | Official hooks reference |
-| `userPromptSubmitted` mutation | `modifiedPrompt` | string | CLI changelog; official field reference not yet confirmed |
-| `userPromptTransformed` mutation | `modifiedTransformedPrompt` | string | Official hooks reference |
-| Handled prompt response | `responseContent` | string | CLI changelog; official field reference not yet confirmed |
+| Event | Output field | Type or values | Contract |
+|-------|--------------|----------------|----------|
+| `preToolUse` | `permissionDecision` | `"allow"`, `"deny"`, `"ask"` | Whether the tool executes |
+| `preToolUse` | `permissionDecisionReason` | string | Required for `"deny"` |
+| `preToolUse` | `modifiedArgs` | object | Replacement tool arguments |
+| `postToolUse` | `modifiedResult` | object | Replacement with `resultType: "success"` |
+| `postToolUse` | `additionalContext` | string | Appended to tool output; combined output capped at 10 KB |
+| `postToolUseFailure` | `additionalContext` | string | Recovery guidance; exit 2 appends stdout |
+| `agentStop`, `subagentStop` | `decision` | `"block"`, `"allow"` | Block forces another turn |
+| `agentStop`, `subagentStop` | `reason` | string | Prompt used when blocking |
+| `subagentStop` | `modifiedResponse` | string | Replacement response returned to the parent |
+| `permissionRequest` | `behavior` | `"allow"`, `"deny"` | Permission decision |
+| `permissionRequest` | `message` | string | Denial reason returned to the model |
+| `permissionRequest` | `interrupt` | boolean | With deny, stop the agent entirely |
+| `userPromptTransformed` | `modifiedTransformedPrompt` | optional string | Replacement model-facing content |
+| `sessionStart`, `subagentStart`, `notification` | `additionalContext` | string | Context injected into the relevant session or subagent |
+
+CLI v1.0.76 release notes also mention `modifiedPrompt` and `responseContent` from a
+`userPromptSubmitted` hook, but the official reference says that event's output is not processed
+and documents neither field. Treat both as changelog-only and unsupported as a stable contract
+until runtime testing resolves the conflict.
 
 Validate output types before printing. When no mutation is needed, omit the field and return `{}`;
 do not substitute `null`. Let hook exceptions fail explicitly instead of swallowing them and
@@ -443,7 +458,8 @@ CLI commands
 Claude Code hooks could intercept `bash` commands before execution and judge safety using AST
 or pattern analysis. **Copilot CLI's native `preToolUse` hook is now a direct equivalent**: a
 command hook script can inspect the pending tool call and print a final decision object to
-stdout — `{"permissionDecision": "allow"}` or `{"permissionDecision": "deny", "reason": "..."}` —
+stdout — `{"permissionDecision": "allow"}` or
+`{"permissionDecision": "deny", "permissionDecisionReason": "unsafe command"}` —
 to approve or deny it before it runs. If you need AST-level command analysis specifically (not
 just pattern matching), write that logic into the `preToolUse` script itself. For teams that
 prefer a simpler, version-controlled, non-scripted approach — or as a defense-in-depth layer

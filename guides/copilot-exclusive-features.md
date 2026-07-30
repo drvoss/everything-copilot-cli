@@ -82,20 +82,36 @@ See [GitHub PR Workflow skill](../skills/copilot-exclusive/github-pr-workflow/SK
 
 ## Plugin and Marketplace Lifecycle
 
-Copilot exposes an interactive `/plugins` dashboard and scriptable `copilot plugins` commands.
-The installed CLI reports these lifecycle operations:
+The terminal forms `copilot plugin` and `copilot plugins` are interchangeable. This does not prove
+that the interactive slash forms `/plugin` and `/plugins` are aliases: official examples use
+`/plugin`, while current CLI help also advertises a `/plugins` dashboard. Verify slash behavior in
+the installed runtime before rewriting one form to the other.
 
-| Operation | Interactive surface | CLI subcommand |
-|-----------|---------------------|----------------|
-| Inspect configured resources | `/plugins` | `copilot plugins list` |
-| Register / list / remove marketplaces | `/plugins` | `copilot plugins marketplace add/list/remove` |
-| Browse / refresh a marketplace | `/plugins` | `copilot plugins marketplace browse/update` |
-| Install / update / remove a plugin | `/plugins` | `copilot plugins install/update/remove` |
-| Enable / disable a plugin, MCP server, or skill | `/plugins` | `copilot plugins enable/disable` with `--plugin`, `--mcp`, or `--skill` |
+| Operation | Terminal command |
+|-----------|------------------|
+| Install / uninstall / list | `copilot plugin install SPECIFICATION`, `uninstall NAME`, `list` |
+| Update | `copilot plugin update NAME` or `copilot plugin update --all` |
+| Enable / disable | `copilot plugin enable NAME`, `copilot plugin disable NAME` |
+| Register / list a marketplace | `copilot plugin marketplace add SOURCE`, `list` |
+| Browse / refresh | `copilot plugin marketplace browse NAME`, `update [NAME]` (`refresh` alias) |
+| Remove a marketplace | `copilot plugin marketplace remove NAME [--force]` |
 
-The Open Plugin Spec v1 manifest format is supported, including plugin-provided `mcp.json`
-configuration. Treat that as a portability promise only; verify the current specification before
-depending on particular manifest fields.
+`update NAME` and `update --all` are alternatives; do not combine a name with `--all`. Marketplace
+sources may be Git repositories, URLs, or local paths. The CLI checks marketplace manifests in
+this order:
+
+1. `marketplace.json`
+2. `.plugin/marketplace.json`
+3. `.github/plugin/marketplace.json`
+4. `.claude-plugin/marketplace.json`
+
+Agent Plugins (Open Plugin Spec) v1.0.0 is a published format supported through `plugin.json` at
+the plugin root. The only native required field is `name` (normally kebab-case, maximum 64
+characters). Optional `$schema` opts into the canonical v1.0.0 schema semantics and permits dots
+in names; do not invent the canonical URL when the documentation does not expose it. Other
+optional metadata and component fields include `description`, `version`, `author`, `agents`,
+`skills`, `hooks`, `mcpServers`, and `lspServers`. The meaning of `extensions` differs in Open
+Plugin Spec mode, so consult the current reference instead of guessing.
 
 Disabling is not uninstalling. Disabled skills remain visible in `copilot skill list` and its JSON
 output, so automation must inspect disabled state rather than treating name presence as proof that

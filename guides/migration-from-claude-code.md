@@ -231,7 +231,9 @@ Save this as `.github/hooks/guard-auth-config.json`:
 ```
 
 The script inspects the pending tool call (received as JSON) and prints a single decision object
-to stdout, e.g. `{"permissionDecision": "deny"}`, to block it (or `{"permissionDecision": "allow"}`
+to stdout, e.g.
+`{"permissionDecision": "deny", "permissionDecisionReason": "protected path"}`, to block it
+(or `{"permissionDecision": "allow"}`
 to let it through). Note that command `preToolUse` hooks are fail-closed on script errors, but a
 **timed-out** hook always fails open — the call falls through to the normal permission flow.
 
