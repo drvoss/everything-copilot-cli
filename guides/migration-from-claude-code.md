@@ -199,8 +199,9 @@ callbacks** — they fire inside the AI session when the model calls a tool.
 > `~/.copilot/hooks/*.json`). `preToolUse` can allow/deny a tool call directly, which is a
 > first-party equivalent to Claude Code's `PreToolUse`. **Prefer the native hook first** for
 > anything that must react inside the session; use the Git/GitHub Actions/prompt-guard
-> alternatives below when there's no matching native event (e.g. `Notification`, `PreCompact`)
-> or when you want CI-level, team-wide enforcement in addition to the local hook.
+> alternatives below when you want CI-level, team-wide enforcement in addition to the local
+> hook, or when the native event exists but cannot do what you need (for example `preCompact`
+> is notification-only and cannot block compaction).
 
 | Claude Code Hook Purpose | Copilot Native Hook | Copilot Alternative (if no native match, or for CI-wide enforcement) |
 |-------------------------|---------------------|---------|
@@ -231,7 +232,9 @@ Save this as `.github/hooks/guard-auth-config.json`:
 ```
 
 The script inspects the pending tool call (received as JSON) and prints a single decision object
-to stdout, e.g. `{"permissionDecision": "deny"}`, to block it (or `{"permissionDecision": "allow"}`
+to stdout, e.g.
+`{"permissionDecision": "deny", "permissionDecisionReason": "protected path"}`, to block it
+(or `{"permissionDecision": "allow"}`
 to let it through). Note that command `preToolUse` hooks are fail-closed on script errors, but a
 **timed-out** hook always fails open — the call falls through to the normal permission flow.
 
@@ -380,7 +383,7 @@ Be honest about what Claude Code does better:
 | # | Capability | Workaround in Copilot CLI |
 |---|-----------|--------------------------|
 | 1 | **16 Specialized Agents** | Use 4 types + model overrides + custom prompts |
-| 2 | **105 Curated Skills** | 105 curated skills in this repo; port your custom skills |
+| 2 | **109 Curated Skills** | 109 curated skills in this repo; port your custom skills |
 | 3 | **Full Lifecycle Hooks** | Use startup scripts + SQL logging |
 | 4 | **AgentShield Security** | Use security-reviewer agent + security skills |
 | 5 | **Claude-Optimized Integration** | Use Claude models via model override |

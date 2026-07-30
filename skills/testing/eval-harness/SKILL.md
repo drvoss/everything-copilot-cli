@@ -401,6 +401,21 @@ CREATE TABLE IF NOT EXISTS rejected_edits (
 Before applying another prompt or skill patch, check whether the same hypothesis already failed
 under comparable cases. If it did, change the hypothesis rather than repeating the edit.
 
+### Ratcheted gates: only ever improve
+
+A fixed threshold is a useful floor, but it can hide regression: a score can fall from 95% to 81%
+and still pass an 80% gate. A ratcheted gate is the next step after the fixed coverage thresholds
+described in [`test-coverage`](../test-coverage/SKILL.md): record the current result in a
+version-controlled baseline file and fail when a later result is worse.
+
+- Update the baseline only when the measured result improves.
+- Lower it only in an explicit, intentional commit that records why the regression is accepted.
+- Keep the baseline file in version control so reviewers can see every change.
+
+For trigger-routing evals, add a rank-1 floor: measure how often the correct skill is the first
+choice. Apply that floor across the existing three-tier promptfoo coverage so common, edge, and
+adversarial prompts cannot trade away first-choice routing quality unnoticed.
+
 ## Common Mistakes
 
 | Mistake | Fix |

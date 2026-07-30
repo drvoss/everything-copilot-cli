@@ -131,6 +131,7 @@ copilot plugins remove --skill fix-build-errors
 ```
 
 이 저장소의 instructions, rules, contexts, agents, skills를 함께 설치하려면 `npm run setup`을 사용하세요. CLI에서 skill을 하나씩 추가/제거하려면 네이티브 `copilot plugins install/remove --skill` 명령을 사용하면 됩니다. `--scope project` 플래그는 저장소에 설치하는 파일/URL 예시에만 문서화되어 있으므로, 위 디렉터리 예제에는 의도적으로 넣지 않았습니다.
+Copilot은 marketplace 관리와 리소스별 활성화/비활성화도 지원합니다. 자세한 내용은 [plugin 및 marketplace 생명주기 가이드](guides/copilot-exclusive-features.md#plugin-and-marketplace-lifecycle)를 참고하세요.
 
 이제 프로젝트에 설치한 에이전트, 스킬, 규칙과 함께 Copilot CLI를 사용해보세요:
 

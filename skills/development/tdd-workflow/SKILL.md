@@ -94,6 +94,19 @@ Run the test and confirm it **fails**:
 npm test -- --testPathPattern="parse.test" 2>&1 | Select-Object -Last 20
 ```
 
+Every test must name the break it catches: its name or a focused comment should answer which
+production regression makes it fail. Every test must also exercise the real behavior; a test that
+only verifies its mock can stay green while the implementation is broken.
+
+Avoid change-detector tests that can fail only when an intentional constant, exact message, or
+private structure changes; they fire on redesign and sleep through behavioral bugs. Likewise,
+asserting that a script, skill, or config contains an exact string proves only that the source
+contains that string. Exercise the consuming behavior, output, side effect, or exit code instead.
+
+Before finishing, perform a mutation check: deliberately make a safe, temporary break in the
+implementation and confirm that the relevant test fails, then restore it. If no test detects the
+mutation, the behavior is unprotected or the test is tautological.
+
 ### 3. Green — Write Minimal Code to Pass
 
 Implement only enough code to make the failing test pass. Resist the urge to add extras.

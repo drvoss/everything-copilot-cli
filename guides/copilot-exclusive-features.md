@@ -9,15 +9,16 @@
 ## Table of Contents
 
 1. [GitHub Native Integration](#github-native-integration)
-2. [20+ Model Selection](#20-model-selection)
-3. [IDE ↔ CLI Synergy](#ide--cli-synergy)
-4. [Plan Mode Mastery](#plan-mode-mastery)
-5. [Autopilot Deep-Dive](#autopilot-deep-dive)
-6. [Background Agents](#background-agents)
-7. [Fleet Execution](#fleet-execution)
-8. [Session Database](#session-database)
-9. [Cross-Session Memory](#cross-session-memory)
-10. [Multi-AI Orchestration](#multi-ai-orchestration)
+2. [Plugin and Marketplace Lifecycle](#plugin-and-marketplace-lifecycle)
+3. [20+ Model Selection](#20-model-selection)
+4. [IDE ↔ CLI Synergy](#ide--cli-synergy)
+5. [Plan Mode Mastery](#plan-mode-mastery)
+6. [Autopilot Deep-Dive](#autopilot-deep-dive)
+7. [Background Agents](#background-agents)
+8. [Fleet Execution](#fleet-execution)
+9. [Session Database](#session-database)
+10. [Cross-Session Memory](#cross-session-memory)
+11. [Multi-AI Orchestration](#multi-ai-orchestration)
 
 ---
 
@@ -76,6 +77,48 @@ Copilot CLI will:
 
 See [GitHub PR Workflow skill](../skills/copilot-exclusive/github-pr-workflow/SKILL.md) and
 [Actions Debugging skill](../skills/copilot-exclusive/actions-debugging/SKILL.md).
+
+---
+
+## Plugin and Marketplace Lifecycle
+
+The terminal forms `copilot plugin` and `copilot plugins` are interchangeable. This does not prove
+that the interactive slash forms `/plugin` and `/plugins` are aliases: official examples use
+`/plugin`, while current CLI help also advertises a `/plugins` dashboard. Verify slash behavior in
+the installed runtime before rewriting one form to the other.
+
+| Operation | Terminal command |
+|-----------|------------------|
+| Install / uninstall / list | `copilot plugin install SPECIFICATION`, `uninstall NAME`, `list` |
+| Update | `copilot plugin update NAME` or `copilot plugin update --all` |
+| Enable / disable | `copilot plugin enable NAME`, `copilot plugin disable NAME` |
+| Register / list a marketplace | `copilot plugin marketplace add SOURCE`, `list` |
+| Browse / refresh | `copilot plugin marketplace browse NAME`, `update [NAME]` (`refresh` alias) |
+| Remove a marketplace | `copilot plugin marketplace remove NAME [--force]` |
+
+`update NAME` and `update --all` are alternatives; do not combine a name with `--all`. Marketplace
+sources may be Git repositories, URLs, or local paths. The CLI checks marketplace manifests in
+this order:
+
+1. `marketplace.json`
+2. `.plugin/marketplace.json`
+3. `.github/plugin/marketplace.json`
+4. `.claude-plugin/marketplace.json`
+
+Agent Plugins (Open Plugin Spec) v1.0.0 is a published format supported through `plugin.json` at
+the plugin root. The only native required field is `name` (normally kebab-case, maximum 64
+characters). Optional `$schema` opts into the canonical v1.0.0 schema semantics and permits dots
+in names; do not invent the canonical URL when the documentation does not expose it. Other
+optional metadata and component fields include `description`, `version`, `author`, `agents`,
+`skills`, `hooks`, `mcpServers`, and `lspServers`. The meaning of `extensions` differs in Open
+Plugin Spec mode, so consult the current reference instead of guessing.
+
+Disabling is not uninstalling. Disabled skills remain visible in `copilot skill list` and its JSON
+output, so automation must inspect disabled state rather than treating name presence as proof that
+a skill is active.
+
+For native hook output fields and failure behavior, see
+[Hooks to GitHub Actions](hooks-to-github-actions.md#copilot-clis-native-hook-system).
 
 ---
 
@@ -556,6 +599,10 @@ of your work, productivity insights, and standup-ready reports:
 # Reindex session history
 /chronicle reindex
 ```
+
+Use `/chronicle cost-tips` to compare local and cloud cost profiles based on session history.
+Use `/limits predict` when you want the CLI to suggest a session AI-credit limit from comparable
+past sessions; confirm the suggestion against current policy rather than embedding a fixed amount.
 
 `/chronicle` reads from `~/.copilot/session-store.db`, which records prompts, responses,
 tools used, and files modified across all sessions. No manual logging required.

@@ -68,6 +68,8 @@ You may read other files for context, but do not edit, create, or delete anythin
 ```
 
 If the task spans multiple owned areas, list them explicitly.
+Compare scope using normalized real paths: a symlink can make a path that looks in-scope resolve
+outside the approved boundary.
 
 ### 2. Choose the mode
 

@@ -91,6 +91,8 @@ tool_policies:
 ```
 
 Use "most restrictive wins" when composing org-wide, team, and agent-specific policies.
+Policy timing is part of enforcement: apply a skill's tool restriction when that skill is
+activated, not merely when its declaration is discovered.
 When a system supports a `ToolPolicy` schema, keep rate-limit, approval, and
 justification guards in that policy layer instead of scattering them across
 prompts, docs, and handler code.
@@ -114,6 +116,10 @@ unverifiable, fail closed instead of silently falling back to a permissive tier.
 ### 2. Classify intent before tool execution
 
 Do not wait until after a tool runs to discover the request was dangerous.
+Blocking a result prevents propagation; it does not undo an already executed side effect. Treat
+post-execution interception as observation, not rollback, and gate irreversible operations first.
+Reserve budget before evaluation, then charge actual usage after execution, so concurrency cannot
+cross a limit before accounting notices.
 
 Look for signals such as:
 

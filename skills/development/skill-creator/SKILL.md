@@ -170,6 +170,14 @@ Before finalizing the skill, answer:
 3. What is the nearest Copilot-native equivalent?
 4. Should the result be a new skill, or an update to an existing one?
 
+### Third-party SKILL.md is untrusted input
+
+Tools that inspect or import an external skill must parse its manifest as untrusted input. Enforce
+a post-expansion size cap, reject YAML merge keys, and cap anchor/alias depth to prevent
+billion-laughs-style parser amplification. Prefer explicit rejection on parse failure over a
+silent partial import. Supply-chain reviewers should apply the matching installation check in
+[`agent-supply-chain`](../../security/agent-supply-chain/SKILL.md#bound-untrusted-manifest-parsing).
+
 ### 4-A. Audit activation and collision risk
 
 Before you keep a new `name` + `description` pair, test whether the skill is actually
@@ -207,6 +215,15 @@ failure modes before finalizing:
 Apply this check during drafting, not just at review time — a skill written entirely as
 prohibitions ("never do A, never do B, don't assume C") is a sign the positive process was never
 actually specified.
+
+#### Declaring allowed-tools has blast radius
+
+An allowed-tools declaration changes behavior according to when the host applies it. If a host
+applies an inactive skill's policy eagerly, unrelated tasks can lose baseline tools before the
+skill is selected. Declare only the minimum set the skill actually needs, while recognizing that
+both an overly broad list and a list so narrow that required tools disappear are failures. If a
+tool vanishes before any relevant skill is activated, diagnose early application of another
+skill's tool policy.
 
 ### 5. Validate
 

@@ -56,6 +56,25 @@ git --no-pager diff HEAD~5 -- <suspect file>
 - [ ] Bug does NOT trigger with a slightly different (correct) input
 - [ ] Reproduction is encoded as a failing test
 
+When it is safe, run the minimal reproduction at least twice and record both commands and outputs;
+one observation is not proof of reproducibility. If outcomes vary, label the reproduction status
+`intermittent` rather than hiding the variation.
+
+Before handing the issue to diagnosis or another session, produce a reproduction brief with:
+
+1. target and commit
+2. runtime, OS, lockfile, and feature flags
+3. expected behavior as an observation, without a cause hypothesis
+4. actual behavior as an observation, without a cause hypothesis
+5. minimal steps and fixtures
+6. status: `yes`, `no`, or `intermittent`
+7. commands, logs, traces, or other evidence
+8. unknowns and the next hypothesis to test
+
+The brief is the handoff artifact at the reproduce-before-repair boundary already enforced here
+and in [`fix-github-issue`](../fix-github-issue/SKILL.md). Never alter production data to obtain it,
+and redact secrets from evidence.
+
 If you cannot reproduce it in < 15 minutes, move to Phase 2 anyway — understanding
 the system often reveals the trigger.
 
