@@ -9,15 +9,16 @@
 ## Table of Contents
 
 1. [GitHub Native Integration](#github-native-integration)
-2. [20+ Model Selection](#20-model-selection)
-3. [IDE ↔ CLI Synergy](#ide--cli-synergy)
-4. [Plan Mode Mastery](#plan-mode-mastery)
-5. [Autopilot Deep-Dive](#autopilot-deep-dive)
-6. [Background Agents](#background-agents)
-7. [Fleet Execution](#fleet-execution)
-8. [Session Database](#session-database)
-9. [Cross-Session Memory](#cross-session-memory)
-10. [Multi-AI Orchestration](#multi-ai-orchestration)
+2. [Plugin and Marketplace Lifecycle](#plugin-and-marketplace-lifecycle)
+3. [20+ Model Selection](#20-model-selection)
+4. [IDE ↔ CLI Synergy](#ide--cli-synergy)
+5. [Plan Mode Mastery](#plan-mode-mastery)
+6. [Autopilot Deep-Dive](#autopilot-deep-dive)
+7. [Background Agents](#background-agents)
+8. [Fleet Execution](#fleet-execution)
+9. [Session Database](#session-database)
+10. [Cross-Session Memory](#cross-session-memory)
+11. [Multi-AI Orchestration](#multi-ai-orchestration)
 
 ---
 
@@ -76,6 +77,32 @@ Copilot CLI will:
 
 See [GitHub PR Workflow skill](../skills/copilot-exclusive/github-pr-workflow/SKILL.md) and
 [Actions Debugging skill](../skills/copilot-exclusive/actions-debugging/SKILL.md).
+
+---
+
+## Plugin and Marketplace Lifecycle
+
+Copilot exposes an interactive `/plugins` dashboard and scriptable `copilot plugins` commands.
+The installed CLI reports these lifecycle operations:
+
+| Operation | Interactive surface | CLI subcommand |
+|-----------|---------------------|----------------|
+| Inspect configured resources | `/plugins` | `copilot plugins list` |
+| Register / list / remove marketplaces | `/plugins` | `copilot plugins marketplace add/list/remove` |
+| Browse / refresh a marketplace | `/plugins` | `copilot plugins marketplace browse/update` |
+| Install / update / remove a plugin | `/plugins` | `copilot plugins install/update/remove` |
+| Enable / disable a plugin, MCP server, or skill | `/plugins` | `copilot plugins enable/disable` with `--plugin`, `--mcp`, or `--skill` |
+
+The Open Plugin Spec v1 manifest format is supported, including plugin-provided `mcp.json`
+configuration. Treat that as a portability promise only; verify the current specification before
+depending on particular manifest fields.
+
+Disabling is not uninstalling. Disabled skills remain visible in `copilot skill list` and its JSON
+output, so automation must inspect disabled state rather than treating name presence as proof that
+a skill is active.
+
+For native hook output fields and failure behavior, see
+[Hooks to GitHub Actions](hooks-to-github-actions.md#copilot-clis-native-hook-system).
 
 ---
 
@@ -556,6 +583,10 @@ of your work, productivity insights, and standup-ready reports:
 # Reindex session history
 /chronicle reindex
 ```
+
+Use `/chronicle cost-tips` to compare local and cloud cost profiles based on session history.
+Use `/limits predict` when you want the CLI to suggest a session AI-credit limit from comparable
+past sessions; confirm the suggestion against current policy rather than embedding a fixed amount.
 
 `/chronicle` reads from `~/.copilot/session-store.db`, which records prompts, responses,
 tools used, and files modified across all sessions. No manual logging required.

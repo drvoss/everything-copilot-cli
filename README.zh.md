@@ -131,6 +131,7 @@ copilot plugins remove --skill fix-build-errors
 ```
 
 如果你想把这个仓库的 instructions、rules、contexts、agents 和 skills 一起装好，请使用 `npm run setup`。如果你只想通过 CLI 一次添加或移除一个 skill，请使用原生 `copilot plugins install/remove --skill` 命令。`--scope project` 目前只在安装到仓库的文件/URL 示例中有文档说明，因此上面的目录安装示例刻意没有带这个参数。
+Copilot 还支持 marketplace 管理以及按资源启用或禁用；详情请参阅 [plugin 与 marketplace 生命周期指南](guides/copilot-exclusive-features.md#plugin-and-marketplace-lifecycle)。
 
 随后打开终端，开始使用安装到项目中的 agent、skill 与规则：
 

@@ -49,6 +49,12 @@ All skills in this repository follow the **[agentskills.io](https://agentskills.
 
 ## Installing Skills
 
+> **Installation destination is not runtime discovery.** A third-party installer such as `ctx7`
+> may copy files to a "universal" destination such as `.agents/skills`, but that convention can
+> differ from the paths a CLI scans natively. Confirm loading with the target CLI. Antigravity
+> sources currently disagree between `.agent/skills` and `.agents/skills`, so treat that
+> singular/plural path as unconfirmed rather than a portable rule.
+
 ### GitHub Copilot CLI
 
 ```bash

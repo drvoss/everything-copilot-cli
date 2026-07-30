@@ -39,6 +39,9 @@ You: "Refactor the authentication system to use JWT tokens instead of sessions"
 ### 3. Copilot Creates a Structured Plan
 
 Copilot analyzes the codebase, creates SQL todos, and presents a plan:
+Built-in workspace-mutating tool calls are hard-blocked in Plan Mode. Planning artifacts may still
+be written inside the session folder, so this is a workspace mutation boundary rather than a claim
+that Plan Mode cannot write anything anywhere.
 
 ```sql
 INSERT INTO todos (id, title, description, status) VALUES

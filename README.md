@@ -131,6 +131,7 @@ copilot plugins remove --skill fix-build-errors
 ```
 
 Use `npm run setup` when you want this repository's instructions, rules, contexts, agents, and skills installed together. Use the native `copilot plugins install/remove --skill` commands when you want to manage one skill at a time through the CLI. The `--scope project` flag is documented for file and URL installs into the repository; the directory example above intentionally omits that flag.
+Copilot also supports marketplace management and per-resource enable/disable controls; see the [plugin and marketplace lifecycle guide](guides/copilot-exclusive-features.md#plugin-and-marketplace-lifecycle).
 
 Then open a terminal and start using Copilot CLI with the installed agents, skills, and rules:
 

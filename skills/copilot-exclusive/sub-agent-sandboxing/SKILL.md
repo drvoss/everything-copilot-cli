@@ -74,6 +74,10 @@ When inline changes are genuinely needed (annotated suggestions):
 
 ## The Three Guardrails
 
+These guardrails constrain one agent's execution. Fan-out width and nesting depth are a separate
+boundary; verify them as described in
+[`fleet-parallel`](../fleet-parallel/SKILL.md#fan-out-is-bounded-by-the-product-not-by-your-prompt).
+
 ### 1. Loop Detection
 
 Track repetition at the orchestrator boundary, not inside the agent prompt.
@@ -121,6 +125,25 @@ Increase isolation as risk increases:
 If the safer environment is not available, stop and report that limitation rather than silently
 downgrading the isolation level.
 
+An administrator may enforce a restrictive sandbox floor. Never try to lower or bypass that floor;
+if it excludes a required permission, report the failure explicitly.
+
+## Who Owns This Sandbox?
+
+Treat sandbox ownership as a renewable lease, not as a permanent fact inferred from who created
+the resource:
+
+1. **Takeover and conditional claim are different operations.** Claim only when there is no current
+   owner or its lease has expired. Unconditional takeover can destroy a peer worker's live sandbox.
+2. **Mark teardown in progress.** A sandbox being destroyed is not a claim candidate; the marker
+   closes the destroy/create race.
+3. **Fail closed when ownership cannot be read.** Do not hand an unverified sandbox to an agent.
+   Even a newly created sandbox should be destroyed if its ownership cannot be registered.
+4. **Renew independently of idle cleanup.** If lease renewal shares the cleanup loop, disabling
+   cleanup can silently expire ownership.
+5. **Apply the same rule to worktrees and background sessions.** When sessions can reuse them,
+   verify ownership instead of assuming "I created it, so it is mine."
+
 ## Workflow
 
 ### 1. Classify the delegated task
@@ -167,6 +190,16 @@ Even successful sandboxed runs are only candidates. Review:
 - test/build result
 - schema or format constraints
 - secrets or credential leaks in logs
+
+#### Path policy must be enforced on the resolved path
+
+Apply allow and deny rules to each normalized real path, not to the submitted string. Check three
+bypass vectors: a symlink from an allowed path into a denied path, `../` traversal, and a working
+directory that is itself a symlink. Before accepting the run, resolve every changed path and verify
+that none points outside the authorized worktree. Copilot's documented symlink enforcement has
+been platform-specific, so verify Windows behavior separately rather than assuming parity.
+Application-level path input validation is a different boundary; see
+[`input-validation`](../../security/input-validation/SKILL.md).
 
 ### 5. Escalate cleanly
 

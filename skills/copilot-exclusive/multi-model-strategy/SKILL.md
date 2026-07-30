@@ -98,6 +98,11 @@ reasoning effort, or context window for just one session. It keeps the experimen
 instead of polluting your global defaults, which matches this skill's broader advice not to
 lock yourself into one globally hardcoded model choice when the task should drive routing.
 
+Model availability changes frequently, so treat the current session's `/model` output as the
+single source of truth rather than maintaining a waiting list in documentation. Use `/model plan`
+to choose the model used specifically for Plan Mode; unlike `/model --session`, which scopes a
+general model choice to the current session, the plan setting scopes the choice by mode.
+
 ### 2. Per-Agent Model Override
 
 Assign different models to different sub-agents:

@@ -124,6 +124,20 @@ Task E (depends on A, B) ──► waits for A and B
 Where possible, Copilot parallelizes the independent work and keeps dependent follow-up tasks
 behind the orchestrator.
 
+### Fan-out is bounded by the product, not by your prompt
+
+Sub-agent nesting has a product-level default limit that can change between CLI releases. For
+example, the Copilot CLI v1.0.71 changelog records that its default maximum nesting depth changed
+from 6 to 4; this is release evidence, not a value a brief should enforce. A concurrent-agent cap
+may also exist, but do not infer a Copilot value from another product's limit.
+
+Before dispatch, use the current session's `/help`, settings, and `copilot --help` to verify the
+effective limits instead of trusting a remembered documentation value. State that a batch needs
+depth N and concurrency M without assuming either is available, so an exceeded limit is observable
+rather than mistaken for the serialization behavior described below. A sequential dependency chain
+is still the correct execution plan when tasks genuinely depend on one another; it is not a fan-out
+failure.
+
 ### Writing dependency-aware fleet briefs
 
 ```text
@@ -174,6 +188,14 @@ review before moving on, and do the final review only once at the end.
   continue?". Keep executing the remaining tasks. The only valid reasons to stop are: a task
   reports BLOCKED and you cannot resolve it, a genuine ambiguity prevents progress, or all tasks
   are done.
+
+For review-requested fixes to the same task, resume the original implementer with a prompt narrowed
+to the findings instead of redispatching a fresh agent that has lost the implementation rationale.
+Fresh context applies between independent tasks; resume applies only to fix rounds within the same
+task. Bound the review/fix loop (five rounds is an example, not a required value), and have the
+controller or a human adjudicate when the limit is reached instead of retrying automatically.
+Keep the review workspace scoped to the plan and remove it after approval; the durable record is
+the Git history, not stale intermediate state.
 
 This differs from full `/fleet` batches in one way: tasks run one after another in the same
 session rather than as concurrent agents, which is the right trade when task N's brief needs

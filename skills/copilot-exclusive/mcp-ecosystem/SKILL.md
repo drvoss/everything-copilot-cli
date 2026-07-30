@@ -171,6 +171,10 @@ Copilot automatically discovers and can use all registered MCP tools.
 If a configured server is missing, check `copilot mcp list`, then inspect the specific entry with
 `copilot mcp get <name>`.
 
+Disable or disconnect unused MCP servers and providers. A larger tool surface simultaneously
+reduces tool-selection accuracy and consumes more context tokens; keep only resources needed by
+the current workflow.
+
 ### 5-A. Transport-specific cautions
 
 Not every transport should reuse sessions the same way:

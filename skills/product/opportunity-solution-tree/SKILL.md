@@ -44,6 +44,11 @@ Desired Outcome
 > Context: Our goal is [business context]. Key metric: [current baseline].
 ```
 
+Keep one outcome metric, then decompose it into two to four leading input metrics the team can move
+weekly. The outcome is usually lagging; for each input, state the causal contribution you expect
+and how the team can influence it. This preserves one outcome at a time while allowing several
+diagnostic and actionable inputs beneath it.
+
 ### Step 2: Map the Opportunity Space
 
 ```text

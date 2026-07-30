@@ -78,6 +78,9 @@ Prefer names that read as standalone behavior statements:
 
 Flag names like `test1`, `works`, or implementation-detail phrasing that makes
 failures harder to interpret.
+Use the break-naming, real-behavior, and mutation-check criteria from
+[`tdd-workflow`](../../development/tdd-workflow/SKILL.md#2-red--write-a-failing-test) to verify
+that each test can detect the regression it claims to cover.
 
 For assertions:
 

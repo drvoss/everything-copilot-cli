@@ -84,6 +84,9 @@ and begins working on GitHub.
 ### 2. Continue Local Work
 
 Your terminal is free. Keep coding locally while the agent works on GitHub.
+For unattended local runs, do not assume that the end of an agent turn means every background
+shell or child agent has exited; verify child-process completion because surviving children have
+caused real prompt-mode hangs.
 
 ### 3. Review the Branch or PR
 

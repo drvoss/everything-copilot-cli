@@ -166,7 +166,7 @@ These commands work inside any Copilot CLI session:
 /diff               # Review current changes
 /review             # Review implementation against spec or plan
 /init               # Initialize Copilot setup for this project
-/plugin install     # Install a community plugin
+/plugins            # Open plugin, skill, MCP, and marketplace management
 /chronicle          # Standup reports & session history (experimental: /experimental on)
 /help               # Show all available commands
 ```

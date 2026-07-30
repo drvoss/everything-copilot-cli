@@ -62,6 +62,26 @@ this supersedes the old allowlist-only workaround). Command `preToolUse` hooks a
 errors (a crash or non-zero exit denies the call); a **timed-out** hook is always fail-open
 regardless of hook type, letting the tool call fall through to the normal permission flow.
 
+Hook output is one JSON object on stdout, and each field has its own type contract:
+
+| Event / use | Output field | Expected type | Verification status |
+|-------------|--------------|---------------|---------------------|
+| `preToolUse` decision | `permissionDecision` | `"allow"` / `"deny"` / `"ask"` | Official hooks reference |
+| Context injection | `additionalContext` | string | Official hooks reference |
+| `userPromptSubmitted` mutation | `modifiedPrompt` | string | CLI changelog; official field reference not yet confirmed |
+| `userPromptTransformed` mutation | `modifiedTransformedPrompt` | string | Official hooks reference |
+| Handled prompt response | `responseContent` | string | CLI changelog; official field reference not yet confirmed |
+
+Validate output types before printing. When no mutation is needed, omit the field and return `{}`;
+do not substitute `null`. Let hook exceptions fail explicitly instead of swallowing them and
+emitting ambiguous empty output. Objects, numbers, or nulls in string fields have caused session
+corruption (fixed in CLI v1.0.76).
+
+Hook configuration failure is also scoped. For directory-loaded hook files, a malformed entry is
+dropped while valid sibling entries remain active; structural JSON/version/list errors reject the
+file, and inline settings remain strict. Diagnose per entry and source rather than assuming that
+one bad hook disables every hook.
+
 As of CLI v1.0.72, an `agentStop` hook that always blocks no longer loops forever: the CLI ends
 the turn after 8 consecutive blocks, and the hook receives a `stop_hook_active` flag so it can
 detect a forced continuation and self-limit instead of relying on the CLI's cap alone.

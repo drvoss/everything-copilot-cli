@@ -131,6 +131,7 @@ copilot plugins remove --skill fix-build-errors
 ```
 
 このリポジトリの instructions・rules・contexts・agents・skills をまとめて導入したいときは `npm run setup` を使ってください。CLI から skill を 1 つずつ追加・削除したいときは、ネイティブの `copilot plugins install/remove --skill` を使います。`--scope project` はリポジトリへ入れる file / URL install に対してのみドキュメント化されているため、上の directory install 例では意図的に付けていません。
+Copilot は marketplace 管理とリソースごとの有効化・無効化にも対応しています。詳しくは [plugin と marketplace のライフサイクルガイド](guides/copilot-exclusive-features.md#plugin-and-marketplace-lifecycle) を参照してください。
 
 その後、project にインストールした agent・skill・rule を使って Copilot CLI を開始します。
 

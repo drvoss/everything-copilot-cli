@@ -101,6 +101,37 @@ explicitly in the task instead of assuming `/allow-all` covers it.
 2. Inspect the current diff before continuing
 3. Continue with a corrective instruction if the next step needs tighter guidance
 
+## Unattended Runs: The Exit-Code Contract
+
+CI, cron jobs, and orchestrators need a machine-readable result. Judge prompt-mode success by the
+process exit code, never by parsing model prose from stdout. Copilot CLI release notes explicitly
+confirm a failure exit when a prompt is blocked before responding and a non-zero exit when
+`--share` or `--share-gist` export fails. Malformed `--allow-tool` and `--deny-tool` patterns are
+reported as errors, but their exit code is not yet confirmed; keep that case out of automation
+until the installed runtime is tested.
+
+Branch immediately on the captured code:
+
+```powershell
+copilot -p --autopilot "Run the approved maintenance task"
+$copilotExitCode = $LASTEXITCODE
+if ($copilotExitCode -ne 0) {
+  throw "Copilot failed with exit code $copilotExitCode"
+}
+```
+
+```bash
+if ! copilot -p --autopilot "Run the approved maintenance task"; then
+  echo "Copilot failed" >&2
+  exit 1
+fi
+```
+
+Values supplied to `--max-autopilot-continues` must be integers; reject computed NaN, negative, or
+fractional values before invocation. Also set an error budget for repeated permission denial or
+policy blocking (for example, stop after three consecutive failures) and decide where to record
+the diagnosis. Never retry an unattended denial indefinitely.
+
 ### Safety Patterns
 
 #### Pattern 1: Branch-First Autopilot
