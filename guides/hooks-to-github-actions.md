@@ -40,16 +40,16 @@ Full supported event list (14 events), including whether stdout output is proces
 | `sessionStart` | A new or resumed session begins | Optional `additionalContext` injection |
 | `sessionEnd` | The session terminates | No |
 | `userPromptSubmitted` | The user submits a prompt | No |
-| `userPromptTransformed` | The runtime produces model-facing content | Yes — rewrite model-facing content |
+| `userPromptTransformed` | After the runtime transforms a submitted prompt into model-facing content | Yes — mutation-only: rewrites content, cannot block or handle the turn |
 | `preToolUse` | Before each tool executes | Yes — allow, deny, ask, or modify |
-| `permissionRequest` | Before the permission service runs | Yes — allow or deny programmatically |
+| `permissionRequest` | Before the permission service runs (rules engine, session approvals, auto-allow/auto-deny, user prompting) | Yes — allow or deny programmatically, short-circuiting the normal permission flow |
 | `postToolUse` | After a tool completes successfully | Yes — replace result or add context |
 | `postToolUseFailure` | After a tool fails | Yes — recovery guidance via `additionalContext` |
-| `preCompact` | Context compaction is about to begin | No — notification only |
+| `preCompact` | Context compaction is about to begin (manual or automatic) | No — notification only, cannot block compaction |
 | `agentStop` | The main agent finishes a turn | Yes — allow or block and continue |
-| `subagentStart` | A subagent is spawned | Optional `additionalContext`; cannot block creation |
-| `subagentStop` | A subagent completes | Yes — allow, block, or replace response |
-| `notification` | The CLI emits a system notification | Optional `additionalContext` injection |
+| `subagentStart` | A subagent is spawned, before it runs (not emitted by the built-in `general-purpose` agent) | Optional `additionalContext` prepended to the subagent's prompt; cannot block creation |
+| `subagentStop` | A subagent completes (not emitted by the built-in `general-purpose` agent) | Yes — allow, block, or replace the response returned to the parent |
+| `notification` | Fire-and-forget system notifications (shell completion, agent completion or idle, permission prompts, elicitation dialogs) | Optional `additionalContext` injection |
 | `errorOccurred` | An error occurs during execution | No |
 
 Command hook entries run a script (`bash`/`powershell`/cross-platform `command`, plus optional
