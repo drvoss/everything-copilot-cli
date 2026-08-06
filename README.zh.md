@@ -453,7 +453,7 @@ everything-copilot-cli/
 | **Copilot Exclusive Features** | 仅在 Copilot CLI 中提供的功能 |
 | **Copilot vs Claude Code** | 比较两种工具的优势、取舍与协作方式 |
 | **Migration from Claude Code** | 含概念映射的分步迁移路径 |
-| **Hooks to GitHub Actions** | Claude Code Hooks 替代方案（Git Hooks / Actions / Prompt Guards） |
+| **Native Hooks + GitHub Actions** | 用 Git Hooks / Actions / Prompt Guards 补充 Copilot 会话内 Hooks |
 | **Orchestration Guide** | 多AI协同编排模式与配置 |
 | **Skill Writing Best Practices** | 编写真正能触发的 trigger-first 描述 |
 | **Skill Testing Guide** | 为 promptware 测试触发准确性与输出质量，并将 Promptfoo 作为可选的输出质量补充工具 |
@@ -571,7 +571,7 @@ Copilot CLI 围绕你的 GitHub 工作流而构建。以下能力开箱即用：
 CLAUDE.md rules        →  .github/copilot-instructions.md
 .claude/commands/      →  .github/skills/
 .claude/settings.json  →  mcp-configs/ & contexts/
-Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
+Claude Code Hooks      →  Native Copilot Hooks + Git Hooks / GitHub Actions / Prompt Guards
 ```
 
 迁移脚本可自动完成大部分工作：
@@ -580,7 +580,7 @@ Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 node scripts/migrate-from-claude.js /path/to/your/project
 ```
 
-> 请参阅完整的[迁移指南](guides/migration-from-claude-code.md)与[Hooks Alternatives Guide](guides/hooks-to-github-actions.md)。
+> 请参阅完整的[迁移指南](guides/migration-from-claude-code.md)与[Hooks Guide](guides/hooks-to-github-actions.md)。
 
 ---
 

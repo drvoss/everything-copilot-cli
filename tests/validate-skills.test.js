@@ -2,7 +2,12 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, extname, resolve, basename, dirname, posix as pathPosix } from "node:path";
-import { VALID_SKILL_CATEGORIES, getSkillCategory, parseFrontmatter } from "../scripts/skill-metadata.js";
+import {
+  VALID_SKILL_CATEGORIES,
+  getNonStringMetadataEntries,
+  getSkillCategory,
+  parseFrontmatter,
+} from "../scripts/skill-metadata.js";
 
 const ROOT = resolve(import.meta.dirname, "..");
 const SKILLS_DIR = join(ROOT, "skills");
@@ -132,4 +137,25 @@ describe("skills/README.md catalog", () => {
       );
     });
   }
+});
+
+describe("metadata values", () => {
+  for (const [fixture, expectedType] of [
+    ["metadata-array.md", "array"],
+    ["metadata-object.md", "object"],
+    ["metadata-boolean.md", "boolean"],
+    ["metadata-number.md", "number"],
+  ]) {
+    it(`rejects ${expectedType} metadata values`, () => {
+      const content = readFileSync(join(ROOT, "tests", "fixtures", fixture), "utf-8");
+      assert.deepEqual(getNonStringMetadataEntries(content), [
+        { key: "invalid", type: expectedType },
+      ]);
+    });
+  }
+
+  it("accepts quoted scalar metadata values", () => {
+    const content = `---\nname: valid\ndescription: valid fixture\nmetadata:\n  category: testing\n  literal: "[]"\n---`;
+    assert.deepEqual(getNonStringMetadataEntries(content), []);
+  });
 });

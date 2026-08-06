@@ -103,6 +103,15 @@ For each finding, classify it as one of:
 
 Re-read the artifact before deciding. Reviewer output is input, not verdict.
 
+Keep a typed evidence graph while reconciling:
+
+- label evidence edges `supports`, `contradicts`, `qualifies`, or `missing`
+- preserve contradictory evidence instead of smoothing it away in prose
+- represent uncertainty with an `unknown` node that names what is missing, rather than an
+  unsupported confidence percentage
+
+`qualifies` is especially important: evidence may support a claim only under stated conditions.
+
 ### 6. STOP - keep the loop bounded
 
 Stop when:

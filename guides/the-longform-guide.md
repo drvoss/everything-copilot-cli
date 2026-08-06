@@ -95,6 +95,10 @@ Copilot CLI offers 20+ models spanning three tiers. Choose based on task complex
 | **Standard** | `claude-sonnet-4.6`, `claude-sonnet-4.5`, `claude-sonnet-4`, `gpt-5.4`, `gpt-5.3-codex`, `gpt-5.2-codex`, `gpt-5.2`, `gpt-5.1-codex-max`, `gpt-5.1-codex`, `gpt-5.1`, `gemini-3-pro-preview`, `gemini-3.1-pro-preview`, `grok-code-fast-1` | General development, code review, multi-file changes | Medium |
 | **Fast/Cheap** | `gpt-5.4-mini`, `gpt-5.1-codex-mini`, `gpt-5-mini`, `gpt-4.1`, `claude-haiku-4.5`, `gemini-3-flash` | Exploration, simple edits, boilerplate, formatting | Low |
 
+The v1.0.74 and v1.0.76 release notes add `gemini-3.6-flash` and `grok-4.5`, respectively,
+but do not publish their tier or recommended use. They are intentionally omitted from the tier
+rows until `/model` or another authoritative source supplies that classification.
+
 ### Agent Type Costs
 
 Each agent type has a different cost profile based on its default model and capabilities:

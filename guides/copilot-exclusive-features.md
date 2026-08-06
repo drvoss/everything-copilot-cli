@@ -82,19 +82,19 @@ See [GitHub PR Workflow skill](../skills/copilot-exclusive/github-pr-workflow/SK
 
 ## Plugin and Marketplace Lifecycle
 
-The terminal forms `copilot plugin` and `copilot plugins` are interchangeable. This does not prove
-that the interactive slash forms `/plugin` and `/plugins` are aliases: official examples use
-`/plugin`, while current CLI help also advertises a `/plugins` dashboard. Verify slash behavior in
-the installed runtime before rewriting one form to the other.
+The terminal forms `copilot plugin` and `copilot plugins` are interchangeable. The current command
+reference also documents interactive `/plugin` as an alias of `/plugins`; keep terminal and slash
+syntax distinct when copying commands between surfaces.
 
-| Operation | Terminal command |
-|-----------|------------------|
-| Install / uninstall / list | `copilot plugin install SPECIFICATION`, `uninstall NAME`, `list` |
-| Update | `copilot plugin update NAME` or `copilot plugin update --all` |
-| Enable / disable | `copilot plugin enable NAME`, `copilot plugin disable NAME` |
-| Register / list a marketplace | `copilot plugin marketplace add SOURCE`, `list` |
-| Browse / refresh | `copilot plugin marketplace browse NAME`, `update [NAME]` (`refresh` alias) |
-| Remove a marketplace | `copilot plugin marketplace remove NAME [--force]` |
+| Operation | Terminal command | Interactive slash surface |
+|-----------|------------------|---------------------------|
+| Install / uninstall / list | `copilot plugin install SPECIFICATION`, `uninstall NAME`, `list` | `/plugins install SOURCE`, `/plugins uninstall PLUGIN[@MARKETPLACE]`, `/plugins list` |
+| Update | `copilot plugin update NAME` or `copilot plugin update --all` | `/plugins update PLUGIN[@MARKETPLACE]` |
+| Enable / disable non-MCP resources | Plugins or skills only: `copilot plugins enable NAME [--plugin\|--skill]`, `copilot plugins disable NAME [--plugin\|--skill]` | `/plugins` controls for plugins, instructions, agents, LSP servers, and hooks (documented in the v1.0.76 release notes) |
+| Enable / disable MCP servers | `copilot plugins enable NAME --mcp`, `copilot plugins disable NAME --mcp` | `/mcp disable`, `/mcp enable` (also `/plugins enable\|disable --mcp NAME`) |
+| Register / list a marketplace | `copilot plugin marketplace add SOURCE`, `list` | `/plugins marketplace add SOURCE`, `/plugins marketplace list` |
+| Browse / refresh | `copilot plugin marketplace browse NAME`, `update [NAME]` (`refresh` alias) | `/plugins marketplace browse NAME` |
+| Remove a marketplace | `copilot plugin marketplace remove NAME [--force]` | `/plugins marketplace remove NAME` |
 
 `update NAME` and `update --all` are alternatives; do not combine a name with `--all`. Marketplace
 sources may be Git repositories, URLs, or local paths. The CLI checks marketplace manifests in
@@ -104,6 +104,11 @@ this order:
 2. `.plugin/marketplace.json`
 3. `.github/plugin/marketplace.json`
 4. `.claude-plugin/marketplace.json`
+
+The non-interactive `copilot plugins enable` and `disable` commands accept only `--plugin`, `--mcp`,
+or `--skill`. Instructions are session-scoped and cannot be toggled with these commands; language
+servers, agents, and hooks are managed elsewhere. `copilot plugins list --kind` can still discover
+instructions and language servers, so listability does not imply that a resource is toggleable.
 
 Agent Plugins (Open Plugin Spec) v1.0.0 is a published format supported through `plugin.json` at
 the plugin root. The only native required field is `name` (normally kebab-case, maximum 64
@@ -115,7 +120,9 @@ Plugin Spec mode, so consult the current reference instead of guessing.
 
 Disabling is not uninstalling. Disabled skills remain visible in `copilot skill list` and its JSON
 output, so automation must inspect disabled state rather than treating name presence as proof that
-a skill is active.
+a skill is active. Separately, v1.0.78 release notes document that first-party plugins update to
+the latest version at session start; that automatic refresh is distinct from the manual
+`copilot plugin update` command.
 
 For native hook output fields and failure behavior, see
 [Hooks to GitHub Actions](hooks-to-github-actions.md#copilot-clis-native-hook-system).
@@ -170,7 +177,15 @@ task(agent_type="general-purpose", model="claude-opus-4.6", prompt="Redesign aut
 | `gemini-3-pro-preview` | Google | Standard | Multimodal, large context |
 | `gemini-3.1-pro-preview` | Google | Standard | Latest Gemini multimodal |
 | `gemini-3-flash` | Google | Fast/Cheap | Fast multimodal tasks |
+| `gemini-3.6-flash` | Google | — | — |
 | `grok-code-fast-1` | xAI | Standard | Code-focused tasks |
+| `grok-4.5` | xAI | — | — |
+
+Model availability varies by plan, region, and organization policy. The v1.0.75 release notes add
+support for **Claude Opus 5**, but do not publish its model ID; verify the ID in `/model` before
+adding it to this catalog. Likewise, re-check `/model` before relying on any catalog entry in
+automation. The v1.0.74 and v1.0.76 release notes add `gemini-3.6-flash` and `grok-4.5`,
+respectively, but publish neither a tier nor a recommended use, so those cells remain unclassified.
 
 ### Example: Cost-Aware Routing
 
@@ -183,6 +198,22 @@ Phase 5 — Arch review (premium): claude-opus-4.6      → $$$  (only if needed
 ```
 
 See [Multi-Model Strategy skill](../skills/copilot-exclusive/multi-model-strategy/SKILL.md).
+
+---
+
+## Turn-Level Rewind and Tool Timing
+
+`/rewind` (alias `/undo`) rewinds the last conversation turn and can revert its file changes. The
+v1.0.78 release notes document that it no longer requires a Git repository, offers conversation-only
+or conversation-and-files rollback, and restores only files Copilot changed. A file is skipped when
+its current contents no longer match what Copilot last wrote, protecting later user edits.
+
+This tool is a turn-level recovery aid, not a replacement for version control. The release notes do
+not define durable snapshot retention or complete behavior for renames, deletions, binaries, or
+newline normalization; use commits for recoverable project history.
+
+Timeline headers also show a live, right-aligned duration for tool calls that run for at least five
+seconds. This is on by default in v1.0.78 and can be disabled with `/settings showToolDurations`.
 
 ---
 

@@ -453,7 +453,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | **Copilot 전용 기능** | Copilot CLI에서만 가능한 기능 |
 | **Copilot vs Claude Code** | 두 도구의 강점, 한계, 함께 쓰는 방법 비교 |
 | **Claude Code에서 마이그레이션** | 개념 매핑이 포함된 단계별 전환 가이드 |
-| **Hooks to GitHub Actions** | Claude Code Hooks 대안 (Git Hooks / Actions / Prompt Guards) |
+| **Native Hooks + GitHub Actions** | Copilot 세션 내 훅을 Git Hooks / Actions / Prompt Guards로 보완 |
 | **오케스트레이션 가이드** | Multi-AI 오케스트레이션 패턴 및 설정 |
 | **스킬 작성 모범 사례** | 실제로 동작하는 트리거 우선 description 작성법 |
 | **스킬 테스팅 가이드** | 프롬프트웨어의 트리거 정확도 및 출력 품질을 테스트하며, Promptfoo는 선택적 출력 품질 보조 도구로 활용 |
@@ -571,7 +571,7 @@ Copilot CLI는 GitHub 워크플로우를 중심으로 설계된 도구입니다.
 CLAUDE.md 규칙         →  .github/copilot-instructions.md
 .claude/commands/      →  .github/skills/
 .claude/settings.json  →  mcp-configs/ & contexts/
-Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
+Claude Code Hooks      →  Native Copilot Hooks + Git Hooks / GitHub Actions / Prompt Guards
 ```
 
 마이그레이션 스크립트가 대부분의 작업을 자동화합니다:
@@ -580,7 +580,7 @@ Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
 node scripts/migrate-from-claude.js /path/to/your/project
 ```
 
-> [마이그레이션 가이드](guides/migration-from-claude-code.md)와 [Hooks 대안 가이드](guides/hooks-to-github-actions.md)를 참고하세요.
+> [마이그레이션 가이드](guides/migration-from-claude-code.md)와 [Hooks 가이드](guides/hooks-to-github-actions.md)를 참고하세요.
 
 ---
 

@@ -4,7 +4,7 @@ description: Use when adding or improving tests in a React project that uses Vit
 metadata:
   category: development
   agent_type: general-purpose
-  combo: ["react", "vitest"]
+  combo: "react, vitest"
 ---
 
 # React + Vitest Combo Skill

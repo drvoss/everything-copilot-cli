@@ -100,6 +100,15 @@ prompts, docs, and handler code.
 If the policy file is missing, unreadable, or fails validation, fail closed:
 apply the strict profile and stop instead of falling through to a more permissive default.
 
+Close policy paths where "nothing was checked" can be mistaken for "policy passed":
+
+- Treat a missing required value and an absent constraint as different states. Avoid truthy chains
+  that let an empty string bypass the check; use explicit presence tests.
+- Reject a rule with an empty match set when emptiness would otherwise match everything and silence
+  an escalation backstop.
+- Reject supervisor or delegate registration above the deterministic trust root. Delegated
+  authority cannot exceed its root.
+
 ### 1-A. Keep dynamic conditions in policy, not prompts
 
 When your policy layer supports dynamic conditions, keep them declarative and
@@ -260,6 +269,8 @@ of burying them in one prose blob.
 - [ ] Untrusted fetched content is scanned before it can steer tool use or persistence
 - [ ] Export an append-only audit trail
 - [ ] Fail closed when governance checks error
+- [ ] Empty values and empty match sets cannot turn skipped checks into successful checks
+- [ ] Delegated authority cannot register above the deterministic trust root
 
 ## Common Rationalizations
 
@@ -276,6 +287,7 @@ of burying them in one prose blob.
 - Rate limits are absent or unenforced
 - Trust between agents is assumed rather than measured
 - Audit logs can be edited or discarded after the fact
+- A policy reports success even though an empty value or match set caused it to inspect nothing
 
 ## Verification
 

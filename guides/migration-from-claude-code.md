@@ -188,7 +188,7 @@ orchestration to delegate to Claude Code:
 See orchestration/skills/delegate-to-claude.md
 ```
 
-### Step 5: Replace Hooks with Alternatives
+### Step 5: Complement Native Hooks with Git Hooks and GitHub Actions
 
 Claude Code hooks (pre-tool, post-tool, notification, stop) are **AI session lifecycle
 callbacks** — they fire inside the AI session when the model calls a tool.
@@ -285,7 +285,7 @@ If you're coming from `awesome-claude-code` slash commands, here's how each comm
 | `/todo` | SQL `todos` table | `sql` tool |
 | `/evaluate-repository` | `evaluate-repository` skill | `skills/security/evaluate-repository/` |
 | CLAUDE.md | `.github/copilot-instructions.md` | See Step 1 above |
-| Hooks (pre/post-tool) | Git Hooks / GitHub Actions | See Step 5 above |
+| Hooks (pre/post-tool) | Native Copilot hooks + Git Hooks / GitHub Actions | Native hooks handle the session; see Step 5 for team-wide complements |
 
 ### Installing a Skill
 
@@ -384,7 +384,7 @@ Be honest about what Claude Code does better:
 |---|-----------|--------------------------|
 | 1 | **16 Specialized Agents** | Use 4 types + model overrides + custom prompts |
 | 2 | **109 Curated Skills** | 109 curated skills in this repo; port your custom skills |
-| 3 | **Full Lifecycle Hooks** | Use startup scripts + SQL logging |
+| 3 | **Full Lifecycle Hooks** | Use Copilot's 14 native events first; complement them with startup scripts + SQL logging |
 | 4 | **AgentShield Security** | Use security-reviewer agent + security skills |
 | 5 | **Claude-Optimized Integration** | Use Claude models via model override |
 | 6 | **Mature Community Configs** | This repo provides comprehensive configs |
@@ -463,7 +463,7 @@ See [Claude MCP Bridge config](../orchestration/configs/claude-mcp-bridge.json) 
 
 Claude Code harnesses often rely on session lifecycle hooks (`PreToolUse`, `PostToolUse`, `Stop`).
 Copilot CLI now has native equivalents for these three (`preToolUse`, `postToolUse`, `agentStop` —
-see [Step 5](#step-5-replace-hooks-with-alternatives) above and
+see [Step 5](#step-5-complement-native-hooks-with-git-hooks-and-github-actions) above and
 [`hooks-to-github-actions.md`](./hooks-to-github-actions.md)), so a harness built around them can
 often port as native Copilot hook JSON directly. For the remaining pieces that don't have a
 native hook event (or where you'd rather keep logic in-repo without a hook script), fall back to:

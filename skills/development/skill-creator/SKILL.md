@@ -85,9 +85,9 @@ metadata:
 
 ## When to Use
 
-- [Concrete trigger scenario 1]
-- [Concrete trigger scenario 2]
-- [Concrete trigger scenario 3]
+- [Concrete post-activation usage scenario 1]
+- [Concrete post-activation usage scenario 2]
+- [Concrete post-activation usage scenario 3]
 
 ## When NOT to Use
 
@@ -252,7 +252,7 @@ After generating a new skill, verify:
 - [ ] The `name` + `description` pair is specific enough to trigger on real user phrasing
 - [ ] The `description` includes at least one positive usage trigger, not only exclusions about when *not* to use the skill
 - [ ] Adjacent skills were checked for collisions or silent shadowing before adding a new one
-- [ ] "When to Use" section has ≥ 3 concrete trigger scenarios
+- [ ] "When to Use" section has ≥ 3 concrete post-activation usage scenarios; routing triggers are in `description`
 - [ ] Any heading scan ignores fenced code blocks first, so `#` lines inside examples are not treated as real sections
 - [ ] "When NOT to Use" table directs to alternatives
 - [ ] Workflow has numbered steps with concrete commands or examples
@@ -285,8 +285,9 @@ metadata:
 
 ## Usage Tips
 
-- **Start with triggers**: the "When to Use" section determines whether agents will
-  actually reach for this skill. Make triggers concrete and scenario-specific.
+- **Put selection triggers in `description`**: only frontmatter `name` and `description` are
+  available when the model decides whether to load a skill. "When to Use" guides behavior after
+  activation; it is not a selection signal.
 - **Treat the description like routing metadata**: it is short, but it carries the most
   leverage. If it does not clearly beat adjacent skills on specificity, rewrite it.
 - **Verification criteria drive quality**: vague verifications like "it works" are useless.
