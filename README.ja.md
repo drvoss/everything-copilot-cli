@@ -453,7 +453,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | **Copilot Exclusive Features** | Copilot CLI でのみ利用できる機能です |
 | **Copilot vs Claude Code** | 両ツールの強み・制約・併用方針を比較します |
 | **Migration from Claude Code** | 概念対応表付きの段階的 migration パスです |
-| **Hooks to GitHub Actions** | Claude Code Hooks の代替（Git Hooks / Actions / Prompt Guards）です |
+| **Native Hooks + GitHub Actions** | Copilot のセッション内 Hooks を Git Hooks / Actions / Prompt Guards で補完します |
 | **Orchestration Guide** | マルチAIオーケストレーションのパターンと設定方法です |
 | **Skill Writing Best Practices** | 実際に発火する trigger-first 記述の書き方です |
 | **Skill Testing Guide** | promptware 向けに trigger 精度と出力品質を検証し、Promptfoo を任意の出力品質補助として使う方法です |
@@ -571,7 +571,7 @@ Copilot CLI は GitHub workflow に最適化されて設計されています。
 CLAUDE.md rules        →  .github/copilot-instructions.md
 .claude/commands/      →  .github/skills/
 .claude/settings.json  →  mcp-configs/ & contexts/
-Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
+Claude Code Hooks      →  Native Copilot Hooks + Git Hooks / GitHub Actions / Prompt Guards
 ```
 
 migration script により、多くの作業を自動化できます。
@@ -580,7 +580,7 @@ migration script により、多くの作業を自動化できます。
 node scripts/migrate-from-claude.js /path/to/your/project
 ```
 
-> 詳細は [Migration Guide](guides/migration-from-claude-code.md) と [Hooks Alternatives Guide](guides/hooks-to-github-actions.md) を参照してください。
+> 詳細は [Migration Guide](guides/migration-from-claude-code.md) と [Hooks Guide](guides/hooks-to-github-actions.md) を参照してください。
 
 ---
 

@@ -75,6 +75,16 @@ adding a custom MCP server:
 
 - `search_users` — Find GitHub users
 
+When GitHub MCP tools overlap with `gh`, the CLI normally steers toward `gh`. The v1.0.78 release
+notes document that an explicit GitHub MCP toolset or tool configuration preserves the overlapping
+MCP tools and honors that opt-in instead.
+
+With multiple MCP servers, use per-server prefixes to make tool names readable and collision-free,
+but route calls by the source server's identity rather than by parsing the displayed prefix. A
+prefix is a human-facing label and can be renamed; it is not a stable routing key. Copilot's
+`github-mcp-server-<tool>` naming is one concrete example—do not substitute another runtime's
+prefix convention.
+
 ### 2. Add Custom MCP Servers
 
 #### Global Configuration

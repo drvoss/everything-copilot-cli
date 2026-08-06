@@ -206,6 +206,21 @@ Operational rules:
 
 ## Runtime Notes
 
+### GitHub Copilot CLI: Create a Worktree In-Session
+
+Copilot CLI provides three create-and-switch surfaces; none is a dedicated way to enter an
+already-existing worktree:
+
+| Command | Behavior |
+|---------|----------|
+| `/worktree [branch\|task]` | Create a worktree from `HEAD`, switch to it, and leave uncommitted changes in the original checkout |
+| `/move [branch\|task]` | Create a worktree, move the current uncommitted changes into it, and switch to it |
+| `/new-worktree` | **Experimental:** create a worktree, switch to it, and start a new conversation there |
+
+Use these when creation inside the session is the desired operation. For an existing checkout,
+keep using the explicit path-boundary flow in [For Copilot Orchestrators](#for-copilot-orchestrators-direct-agents-into-the-right-worktree).
+The Git-native `git worktree add` workflow remains the stable default.
+
 ### Claude Code: Enter an Existing Worktree
 
 Claude Code v2.1.105+ exposes `EnterWorktree(path)` for switching into an

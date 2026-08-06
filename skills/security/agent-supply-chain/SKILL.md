@@ -126,6 +126,13 @@ Check for:
 - `requirements.txt` lower bounds with no upper bound
 - MCP launch arguments that pull `@latest`
 - missing lock files for ecosystems that rely on them
+- manifest versions that are not valid semver, including prerelease syntax such as `1.2.3-beta.1`
+- free-form license values that are not SPDX identifiers or expressions (warn for review; do not
+  block solely on this signal)
+- unknown keys at the top level or under `author` and `source`, which often indicate a typo and
+  should be surfaced rather than silently ignored
+- a manifest that provides both a ref and commit SHA but resolves them to different commits; fail
+  with an error that shows both resolved identities
 
 ```powershell
 git --no-pager grep -n "\"\\^|\"~|\"\\*|latest" -- "package.json"
@@ -223,7 +230,9 @@ for authoring and validator guidance.
 Use the audit findings above to assign installation handling by risk: ordinary review for
 read-only/documentation items, additional approval for shell or network access, and an isolated
 environment plus explicit usage approval for offensive tools. Do not route external or offensive
-items through the same installation path as ordinary workflow guidance.
+items through the same installation path as ordinary workflow guidance. Before installation, show
+the user the audit result and risk summary so approval is based on the reviewed package rather than
+on a catalog label alone.
 
 ### 5. Gate promotion with explicit criteria
 
@@ -361,6 +370,8 @@ Official sources can be compromised; the signature proves the publisher's key wa
 - [ ] All manifest entries hash cleanly with SHA-256
 - [ ] Modified, missing, and untracked files are classified explicitly
 - [ ] Dependency manifests were checked for floating versions
+- [ ] Manifest versions, SPDX license values, unknown fields, and ref-to-SHA consistency were checked
+- [ ] The audit result and risk summary were shown before installation
 - [ ] Static content pattern scan run; every INJECTION/EXFIL/CRED_ACCESS hit is explained in review notes
 - [ ] Promotion is blocked when integrity or pinning checks fail
 - [ ] Publisher signature is verified against a pinned key fingerprint

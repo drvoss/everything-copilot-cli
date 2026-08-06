@@ -453,7 +453,7 @@ The Multi-AI Orchestration system (see [dedicated section](#multi-ai-orchestrati
 | **Copilot Exclusive Features** | Features only available in Copilot CLI |
 | **Copilot vs Claude Code** | Compare strengths, tradeoffs, and when to use each tool |
 | **Migration from Claude Code** | Step-by-step migration path with concept mapping |
-| **Hooks to GitHub Actions** | Claude Code Hooks alternatives (Git Hooks / Actions / Prompt Guards) |
+| **Native Hooks + GitHub Actions** | Complement Copilot's in-session hooks with Git Hooks / Actions / Prompt Guards |
 | **Orchestration Guide** | Multi-AI orchestration patterns and setup |
 | **Skill Writing Best Practices** | Write trigger-first descriptions that actually fire |
 | **Skill Testing Guide** | Test trigger accuracy and output quality for promptware, with Promptfoo as an optional output-quality supplement |
@@ -571,7 +571,7 @@ Coming from another AI coding tool? The skill format is nearly identical, so mig
 CLAUDE.md rules        →  .github/copilot-instructions.md
 .claude/commands/      →  .github/skills/
 .claude/settings.json  →  mcp-configs/ & contexts/
-Claude Code Hooks      →  Git Hooks / GitHub Actions / Prompt Guards
+Claude Code Hooks      →  Native Copilot Hooks + Git Hooks / GitHub Actions / Prompt Guards
 ```
 
 The migration script automates most of the work:
@@ -580,7 +580,7 @@ The migration script automates most of the work:
 node scripts/migrate-from-claude.js /path/to/your/project
 ```
 
-> See the full [Migration Guide](guides/migration-from-claude-code.md) and [Hooks Alternatives Guide](guides/hooks-to-github-actions.md).
+> See the full [Migration Guide](guides/migration-from-claude-code.md) and [Hooks Guide](guides/hooks-to-github-actions.md).
 
 ---
 

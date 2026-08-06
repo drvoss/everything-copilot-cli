@@ -127,6 +127,15 @@ downgrading the isolation level.
 
 An administrator may enforce a restrictive sandbox floor. Never try to lower or bypass that floor;
 if it excludes a required permission, report the failure explicitly.
+CLI v1.0.77 release notes document that this managed floor can be delivered through native macOS
+and Windows MDM settings.
+
+CLI v1.0.78 also documents `allowDevToolCaches`, enabled by default, so sandboxed builds can use
+development-tool caches, registries, and installation locations without additional setup. Set it
+to `false` for tighter isolation. The release notes do not define exact directories or access
+modes, so verify them in the installed runtime. Because the default broadens the sandbox surface
+and can expose registry access, include it in the supply-chain review described by
+[`agent-supply-chain`](../../security/agent-supply-chain/SKILL.md).
 
 ## Who Owns This Sandbox?
 

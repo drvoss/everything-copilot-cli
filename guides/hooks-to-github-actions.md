@@ -85,7 +85,9 @@ Hook output is one JSON object on stdout, and each event has its own field contr
 CLI v1.0.76 release notes also mention `modifiedPrompt` and `responseContent` from a
 `userPromptSubmitted` hook, but the official reference says that event's output is not processed
 and documents neither field. Treat both as changelog-only and unsupported as a stable contract
-until runtime testing resolves the conflict.
+until runtime testing resolves the conflict. Earlier v1.0.44 and v1.0.65 release notes also describe
+handling the request directly and injecting `additionalContext`, so this is a longer changelog-only
+history rather than a single recent claim.
 
 Validate output types before printing. When no mutation is needed, omit the field and return `{}`;
 do not substitute `null`. Let hook exceptions fail explicitly instead of swallowing them and
@@ -100,6 +102,17 @@ one bad hook disables every hook.
 As of CLI v1.0.72, an `agentStop` hook that always blocks no longer loops forever: the CLI ends
 the turn after 8 consecutive blocks, and the hook receives a `stop_hook_active` flag so it can
 detect a forced continuation and self-limit instead of relying on the CLI's cap alone.
+
+For prompts piped through stdin, v1.0.78 release notes document `sessionEnd` behavior matching
+`-p`: it fires after each completed agent turn with `reason` set to `complete` (or `error` on
+failure), rather than once at process exit with `user_exit`. It does not fire when the process exits
+without completing a turn. CI integrations must therefore avoid assuming one hook invocation per
+process.
+
+The current hooks reference documents matcher values only for tool names, notification types,
+compaction triggers, and subagent names; it does not document a declarative path filter. Hook
+scripts still receive `toolArgs` and can inspect paths themselves, but that is runtime argument
+validation rather than pre-execution declarative filtering.
 
 ### Direct hook mapping (Claude Code → Copilot CLI)
 

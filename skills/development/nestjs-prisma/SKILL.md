@@ -4,7 +4,7 @@ description: Use when building a NestJS application with Prisma — covers Prism
 metadata:
   category: development
   agent_type: general-purpose
-  combo: ["nestjs", "prisma"]
+  combo: "nestjs, prisma"
 ---
 
 # NestJS + Prisma Combo Skill

@@ -78,6 +78,11 @@ Once inside, run the login command:
 
 Follow the browser prompt to authenticate with your GitHub account.
 
+The v1.0.77-v1.0.78 release notes document browser OAuth as the default for local interactive
+terminals and local desktop child processes, including IDE integrations. They document device-code
+flow as the default for remote or headless terminals. For `copilot login`, use `--web-flow` or
+`--device-code` to force a flow; interactive `/login` also lets you choose.
+
 ---
 
 ## Step 3: Your First Session

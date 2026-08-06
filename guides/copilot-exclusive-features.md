@@ -87,14 +87,15 @@ that the interactive slash forms `/plugin` and `/plugins` are aliases: official 
 `/plugin`, while current CLI help also advertises a `/plugins` dashboard. Verify slash behavior in
 the installed runtime before rewriting one form to the other.
 
-| Operation | Terminal command |
-|-----------|------------------|
-| Install / uninstall / list | `copilot plugin install SPECIFICATION`, `uninstall NAME`, `list` |
-| Update | `copilot plugin update NAME` or `copilot plugin update --all` |
-| Enable / disable | `copilot plugin enable NAME`, `copilot plugin disable NAME` |
-| Register / list a marketplace | `copilot plugin marketplace add SOURCE`, `list` |
-| Browse / refresh | `copilot plugin marketplace browse NAME`, `update [NAME]` (`refresh` alias) |
-| Remove a marketplace | `copilot plugin marketplace remove NAME [--force]` |
+| Operation | Terminal command | Interactive slash surface |
+|-----------|------------------|---------------------------|
+| Install / uninstall / list | `copilot plugin install SPECIFICATION`, `uninstall NAME`, `list` | `/plugins` dashboard |
+| Update | `copilot plugin update NAME` or `copilot plugin update --all` | `/plugins` dashboard |
+| Enable / disable plugins, instructions, agents, LSP servers, and hooks | `copilot plugin enable NAME`, `copilot plugin disable NAME` | `/plugins` controls (documented in the v1.0.76 release notes) |
+| Enable / disable MCP servers | `copilot mcp` configuration commands | `/mcp disable`, `/mcp enable` |
+| Register / list a marketplace | `copilot plugin marketplace add SOURCE`, `list` | — |
+| Browse / refresh | `copilot plugin marketplace browse NAME`, `update [NAME]` (`refresh` alias) | `/plugins` dashboard |
+| Remove a marketplace | `copilot plugin marketplace remove NAME [--force]` | — |
 
 `update NAME` and `update --all` are alternatives; do not combine a name with `--all`. Marketplace
 sources may be Git repositories, URLs, or local paths. The CLI checks marketplace manifests in
@@ -115,7 +116,9 @@ Plugin Spec mode, so consult the current reference instead of guessing.
 
 Disabling is not uninstalling. Disabled skills remain visible in `copilot skill list` and its JSON
 output, so automation must inspect disabled state rather than treating name presence as proof that
-a skill is active.
+a skill is active. Separately, v1.0.78 release notes document that first-party plugins update to
+the latest version at session start; that automatic refresh is distinct from the manual
+`copilot plugin update` command.
 
 For native hook output fields and failure behavior, see
 [Hooks to GitHub Actions](hooks-to-github-actions.md#copilot-clis-native-hook-system).
@@ -170,7 +173,14 @@ task(agent_type="general-purpose", model="claude-opus-4.6", prompt="Redesign aut
 | `gemini-3-pro-preview` | Google | Standard | Multimodal, large context |
 | `gemini-3.1-pro-preview` | Google | Standard | Latest Gemini multimodal |
 | `gemini-3-flash` | Google | Fast/Cheap | Fast multimodal tasks |
+| `gemini-3.6-flash` | Google | Fast/Cheap | Fast multimodal tasks |
 | `grok-code-fast-1` | xAI | Standard | Code-focused tasks |
+| `grok-4.5` | xAI | Standard | General-purpose tasks |
+
+Model availability varies by plan, region, and organization policy. The v1.0.75 release notes add
+support for **Claude Opus 5**, but do not publish its model ID; verify the ID in `/model` before
+adding it to this catalog. Likewise, re-check `/model` before relying on any catalog entry in
+automation.
 
 ### Example: Cost-Aware Routing
 
@@ -183,6 +193,22 @@ Phase 5 — Arch review (premium): claude-opus-4.6      → $$$  (only if needed
 ```
 
 See [Multi-Model Strategy skill](../skills/copilot-exclusive/multi-model-strategy/SKILL.md).
+
+---
+
+## Turn-Level Rewind and Tool Timing
+
+`/rewind` (alias `/undo`) rewinds the last conversation turn and can revert its file changes. The
+v1.0.78 release notes document that it no longer requires a Git repository, offers conversation-only
+or conversation-and-files rollback, and restores only files Copilot changed. A file is skipped when
+its current contents no longer match what Copilot last wrote, protecting later user edits.
+
+This tool is a turn-level recovery aid, not a replacement for version control. The release notes do
+not define durable snapshot retention or complete behavior for renames, deletions, binaries, or
+newline normalization; use commits for recoverable project history.
+
+Timeline headers also show a live, right-aligned duration for tool calls that run for at least five
+seconds. This is on by default in v1.0.78 and can be disabled with `/settings showToolDurations`.
 
 ---
 

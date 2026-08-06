@@ -4,7 +4,7 @@ description: Use when working on a Next.js App Router project that uses Prisma a
 metadata:
   category: development
   agent_type: general-purpose
-  combo: ["next", "prisma"]
+  combo: "next, prisma"
 ---
 
 # Next.js + Prisma Combo Skill

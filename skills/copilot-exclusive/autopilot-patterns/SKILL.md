@@ -95,6 +95,20 @@ It also does **not** grant standing approval for irreversible commands. If the r
 discard local work, rewrite Git history, or destroy infrastructure, spell out that permission
 explicitly in the task instead of assuming `/allow-all` covers it.
 
+As documented in the v1.0.77 release notes, unconditional autopilot approval also disables the
+sandbox for the current session when bypass is allowed. Treat approval convenience and loss of
+isolation as one risk decision; see [`sub-agent-sandboxing`](../sub-agent-sandboxing/SKILL.md).
+
+Use `/permissions show` to inspect in-memory tool and path approvals for the current session and
+`/permissions reset` to clear them. Although the v1.0.78 release notes describe `/permissions` as
+switching approval modes, the command reference documents only `show` and `reset`; do not rely on
+it for mode switching until the installed runtime confirms that behavior. The same release notes
+say the `/allow-all` safety-judge model is now selected automatically rather than configured by the
+user.
+
+Autopilot remains selected after `task_complete` by default as of v1.0.76. Set
+`stayInAutopilot` to `false` when each completed task should return to interactive mode.
+
 ### If autopilot pauses or stops mid-task
 
 1. Check which todo is still `in_progress`

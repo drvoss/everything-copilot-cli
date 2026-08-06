@@ -7,7 +7,12 @@
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, resolve, extname } from "node:path";
-import { VALID_SKILL_CATEGORIES, getSkillCategory, parseFrontmatter } from "./skill-metadata.js";
+import {
+  VALID_SKILL_CATEGORIES,
+  getNonStringMetadataEntries,
+  getSkillCategory,
+  parseFrontmatter,
+} from "./skill-metadata.js";
 
 const ROOT = resolve(import.meta.dirname, "..");
 
@@ -103,6 +108,13 @@ function validateSkills() {
       report("error", file, `Missing required field: metadata.category (known categories: ${VALID_SKILL_CATEGORIES.join(", ")})`);
     } else if (!VALID_SKILL_CATEGORIES.includes(category)) {
       report("error", file, `Unrecognized category "${category}". Known: ${VALID_SKILL_CATEGORIES.join(", ")}`);
+    }
+    try {
+      for (const { key, type } of getNonStringMetadataEntries(content)) {
+        report("error", file, `metadata.${key} must be a YAML string, received ${type}`);
+      }
+    } catch (error) {
+      report("error", file, `Invalid YAML frontmatter: ${error.message}`);
     }
     if (fm.name) {
       if (names.has(fm.name)) report("error", file, `Duplicate skill name: "${fm.name}"`);
