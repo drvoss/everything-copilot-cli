@@ -85,9 +85,9 @@ metadata:
 
 ## When to Use
 
-- [Concrete trigger scenario 1]
-- [Concrete trigger scenario 2]
-- [Concrete trigger scenario 3]
+- [Concrete post-activation usage scenario 1]
+- [Concrete post-activation usage scenario 2]
+- [Concrete post-activation usage scenario 3]
 
 ## When NOT to Use
 

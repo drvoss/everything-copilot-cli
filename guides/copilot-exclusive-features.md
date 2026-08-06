@@ -82,20 +82,19 @@ See [GitHub PR Workflow skill](../skills/copilot-exclusive/github-pr-workflow/SK
 
 ## Plugin and Marketplace Lifecycle
 
-The terminal forms `copilot plugin` and `copilot plugins` are interchangeable. This does not prove
-that the interactive slash forms `/plugin` and `/plugins` are aliases: official examples use
-`/plugin`, while current CLI help also advertises a `/plugins` dashboard. Verify slash behavior in
-the installed runtime before rewriting one form to the other.
+The terminal forms `copilot plugin` and `copilot plugins` are interchangeable. The current command
+reference also documents interactive `/plugin` as an alias of `/plugins`; keep terminal and slash
+syntax distinct when copying commands between surfaces.
 
 | Operation | Terminal command | Interactive slash surface |
 |-----------|------------------|---------------------------|
-| Install / uninstall / list | `copilot plugin install SPECIFICATION`, `uninstall NAME`, `list` | `/plugins` dashboard |
-| Update | `copilot plugin update NAME` or `copilot plugin update --all` | `/plugins` dashboard |
+| Install / uninstall / list | `copilot plugin install SPECIFICATION`, `uninstall NAME`, `list` | `/plugins install SOURCE`, `/plugins uninstall PLUGIN[@MARKETPLACE]`, `/plugins list` |
+| Update | `copilot plugin update NAME` or `copilot plugin update --all` | `/plugins update PLUGIN[@MARKETPLACE]` |
 | Enable / disable plugins, instructions, agents, LSP servers, and hooks | `copilot plugin enable NAME`, `copilot plugin disable NAME` | `/plugins` controls (documented in the v1.0.76 release notes) |
-| Enable / disable MCP servers | `copilot mcp` configuration commands | `/mcp disable`, `/mcp enable` |
-| Register / list a marketplace | `copilot plugin marketplace add SOURCE`, `list` | — |
-| Browse / refresh | `copilot plugin marketplace browse NAME`, `update [NAME]` (`refresh` alias) | `/plugins` dashboard |
-| Remove a marketplace | `copilot plugin marketplace remove NAME [--force]` | — |
+| Enable / disable MCP servers | `copilot plugins enable NAME --mcp`, `copilot plugins disable NAME --mcp` | `/mcp disable`, `/mcp enable` (also `/plugins enable\|disable --mcp NAME`) |
+| Register / list a marketplace | `copilot plugin marketplace add SOURCE`, `list` | `/plugins marketplace add SOURCE`, `/plugins marketplace list` |
+| Browse / refresh | `copilot plugin marketplace browse NAME`, `update [NAME]` (`refresh` alias) | `/plugins marketplace browse NAME` |
+| Remove a marketplace | `copilot plugin marketplace remove NAME [--force]` | `/plugins marketplace remove NAME` |
 
 `update NAME` and `update --all` are alternatives; do not combine a name with `--all`. Marketplace
 sources may be Git repositories, URLs, or local paths. The CLI checks marketplace manifests in
@@ -173,14 +172,15 @@ task(agent_type="general-purpose", model="claude-opus-4.6", prompt="Redesign aut
 | `gemini-3-pro-preview` | Google | Standard | Multimodal, large context |
 | `gemini-3.1-pro-preview` | Google | Standard | Latest Gemini multimodal |
 | `gemini-3-flash` | Google | Fast/Cheap | Fast multimodal tasks |
-| `gemini-3.6-flash` | Google | Fast/Cheap | Fast multimodal tasks |
+| `gemini-3.6-flash` | Google | — | — |
 | `grok-code-fast-1` | xAI | Standard | Code-focused tasks |
-| `grok-4.5` | xAI | Standard | General-purpose tasks |
+| `grok-4.5` | xAI | — | — |
 
 Model availability varies by plan, region, and organization policy. The v1.0.75 release notes add
 support for **Claude Opus 5**, but do not publish its model ID; verify the ID in `/model` before
 adding it to this catalog. Likewise, re-check `/model` before relying on any catalog entry in
-automation.
+automation. The v1.0.74 and v1.0.76 release notes add `gemini-3.6-flash` and `grok-4.5`,
+respectively, but publish neither a tier nor a recommended use, so those cells remain unclassified.
 
 ### Example: Cost-Aware Routing
 

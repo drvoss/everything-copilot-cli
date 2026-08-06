@@ -463,7 +463,7 @@ See [Claude MCP Bridge config](../orchestration/configs/claude-mcp-bridge.json) 
 
 Claude Code harnesses often rely on session lifecycle hooks (`PreToolUse`, `PostToolUse`, `Stop`).
 Copilot CLI now has native equivalents for these three (`preToolUse`, `postToolUse`, `agentStop` —
-see [Step 5](#step-5-replace-hooks-with-alternatives) above and
+see [Step 5](#step-5-complement-native-hooks-with-git-hooks-and-github-actions) above and
 [`hooks-to-github-actions.md`](./hooks-to-github-actions.md)), so a harness built around them can
 often port as native Copilot hook JSON directly. For the remaining pieces that don't have a
 native hook event (or where you'd rather keep logic in-repo without a hook script), fall back to:

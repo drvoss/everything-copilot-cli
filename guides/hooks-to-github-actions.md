@@ -1,4 +1,4 @@
-# Hooks to GitHub Actions (and Alternatives)
+# Native Copilot Hooks, Complemented by GitHub Actions
 
 > **Claude Code → Copilot CLI Migration Guide: Hooks Edition**
 >
