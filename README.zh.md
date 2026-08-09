@@ -86,6 +86,18 @@
 
 ## 快速开始
 
+安装下面两个插件中的一个：
+
+```bash
+# 一行安装（推荐）
+copilot plugin install drvoss/everything-copilot-cli
+
+# 仅安装特定工作流
+copilot plugin install drvoss/everything-copilot-cli:plugins/copilot-native-workflows
+```
+
+请只选择其中一个。完整集合已经包含这 9 个特定工作流 skill，同时安装两者会造成名称重叠。插件只安装 skills；如果还要把 instructions、rules、contexts 和 agents 写入目标项目，请继续使用原有的 clone + setup 流程：
+
 ```bash
 # 1. Install GitHub Copilot CLI
 npm install -g @github/copilot
