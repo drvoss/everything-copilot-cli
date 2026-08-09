@@ -26,9 +26,14 @@
     "eval": "node scripts/run-promptfoo-eval.js",
     "validate": "node scripts/validate-config.js",
     "lint:md": "markdownlint \"**/*.md\" --ignore node_modules --ignore _tmp",
-    "setup": "node scripts/setup.js"
+    "setup": "node scripts/setup.js",
+    "build:plugins": "node scripts/build-plugin-bundles.mjs",
+    "check:plugins": "node scripts/build-plugin-bundles.mjs --check",
+    "lint:skills": "node scripts/vally-gate.mjs",
+    "lint:plugins": "node scripts/vally-gate.mjs --root plugins/copilot-native-workflows/skills --strict-all"
   },
   "devDependencies": {
+    "@microsoft/vally": "0.13.0",
     "js-yaml": "5.2.3",
     "markdownlint-cli": "0.47.0"
   },

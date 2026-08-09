@@ -1,0 +1,242 @@
+{
+  "note": "Known-failing skills for `vally lint`. Ratchet only: entries may be removed, never added without review.",
+  "root": "skills",
+  "total": 109,
+  "failing": {
+    "add-to-changelog": [
+      "valid-refs"
+    ],
+    "agent-governance": [
+      "valid-refs"
+    ],
+    "agent-owasp-check": [
+      "valid-refs"
+    ],
+    "agent-supply-chain": [
+      "valid-refs"
+    ],
+    "agentic-engineering": [
+      "valid-refs"
+    ],
+    "api-and-interface-design": [
+      "valid-refs"
+    ],
+    "code-tour": [
+      "valid-refs"
+    ],
+    "commit-workflow": [
+      "valid-refs"
+    ],
+    "context-engineering": [
+      "valid-refs"
+    ],
+    "context-prime": [
+      "valid-refs"
+    ],
+    "conventional-branch": [
+      "valid-refs"
+    ],
+    "copilot-memory": [
+      "valid-refs"
+    ],
+    "cost-audit": [
+      "valid-refs"
+    ],
+    "council": [
+      "valid-refs"
+    ],
+    "cpp-debugging": [
+      "valid-refs"
+    ],
+    "create-prd": [
+      "valid-refs"
+    ],
+    "deep-research": [
+      "valid-refs"
+    ],
+    "deployment-canary": [
+      "valid-refs"
+    ],
+    "diagnose": [
+      "valid-refs"
+    ],
+    "document-generate": [
+      "valid-refs"
+    ],
+    "doubt-driven-development": [
+      "valid-refs"
+    ],
+    "ecosystem-intake": [
+      "valid-refs"
+    ],
+    "eval-harness": [
+      "spec-compliance",
+      "valid-refs"
+    ],
+    "evaluate-repository": [
+      "valid-refs"
+    ],
+    "finishing-a-development-branch": [
+      "valid-refs"
+    ],
+    "fix-github-issue": [
+      "valid-refs"
+    ],
+    "fleet-parallel": [
+      "valid-refs"
+    ],
+    "gha-security-review": [
+      "valid-refs"
+    ],
+    "github-actions-efficiency": [
+      "valid-refs"
+    ],
+    "github-code-search": [
+      "valid-refs"
+    ],
+    "github-codespaces-efficiency": [
+      "valid-refs"
+    ],
+    "github-issue-triage": [
+      "valid-refs"
+    ],
+    "grill-me": [
+      "valid-refs"
+    ],
+    "grill-with-docs": [
+      "valid-refs"
+    ],
+    "handoff": [
+      "valid-refs"
+    ],
+    "implement": [
+      "valid-refs"
+    ],
+    "implementation-review": [
+      "valid-refs"
+    ],
+    "improve-codebase-architecture": [
+      "valid-refs"
+    ],
+    "interview-me": [
+      "valid-refs"
+    ],
+    "knowledge-curator": [
+      "valid-refs"
+    ],
+    "llm-wiki": [
+      "valid-refs"
+    ],
+    "mcp-builder": [
+      "valid-refs"
+    ],
+    "mcp-ecosystem": [
+      "valid-refs"
+    ],
+    "mcp-implementation-security-review": [
+      "valid-refs"
+    ],
+    "multi-model-strategy": [
+      "valid-refs"
+    ],
+    "outside-voice": [
+      "valid-refs"
+    ],
+    "performance-optimization": [
+      "valid-refs"
+    ],
+    "pr-multi-perspective-review": [
+      "valid-refs"
+    ],
+    "pr-security-review": [
+      "valid-refs"
+    ],
+    "product-capability": [
+      "valid-refs"
+    ],
+    "prompt-optimizer": [
+      "valid-refs"
+    ],
+    "prototype": [
+      "valid-refs"
+    ],
+    "qa-review": [
+      "valid-refs"
+    ],
+    "receiving-code-review": [
+      "valid-refs"
+    ],
+    "release": [
+      "valid-refs"
+    ],
+    "review": [
+      "valid-refs"
+    ],
+    "scope-guard": [
+      "valid-refs"
+    ],
+    "security-audit": [
+      "valid-refs"
+    ],
+    "security-bounty-hunter": [
+      "valid-refs"
+    ],
+    "security-scan": [
+      "valid-refs"
+    ],
+    "seo": [
+      "valid-refs"
+    ],
+    "skill-creator": [
+      "valid-refs"
+    ],
+    "source-driven-development": [
+      "valid-refs"
+    ],
+    "sprint-retro": [
+      "valid-refs"
+    ],
+    "sprint-workflow": [
+      "valid-refs"
+    ],
+    "sub-agent-sandboxing": [
+      "valid-refs"
+    ],
+    "systematic-debugging": [
+      "valid-refs"
+    ],
+    "task-intake-router": [
+      "valid-refs"
+    ],
+    "team-planner": [
+      "valid-refs"
+    ],
+    "threat-model-analyst": [
+      "valid-refs"
+    ],
+    "to-issues": [
+      "valid-refs"
+    ],
+    "token-cost-optimizer": [
+      "valid-refs"
+    ],
+    "triage": [
+      "valid-refs"
+    ],
+    "using-git-worktrees": [
+      "valid-refs"
+    ],
+    "ux-audit": [
+      "valid-refs"
+    ],
+    "verification-before-completion": [
+      "valid-refs"
+    ],
+    "wayfinder": [
+      "valid-refs"
+    ],
+    "zoom-out": [
+      "valid-refs"
+    ]
+  }
+}

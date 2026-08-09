@@ -1,0 +1,24 @@
+{
+  "name": "copilot-native-workflows",
+  "description": "Turns GitHub Copilot CLI's own features into working procedures: Plan Mode, Autopilot, background delegation, session and cross-session memory, IDE-to-CLI switching, plus Actions failure triage, PR workflow, and stack detection.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Everything Copilot CLI Contributors",
+    "url": "https://github.com/drvoss"
+  },
+  "homepage": "https://github.com/drvoss/everything-copilot-cli",
+  "repository": "https://github.com/drvoss/everything-copilot-cli",
+  "license": "MIT",
+  "keywords": [
+    "copilot-cli",
+    "github-copilot",
+    "agent-skills",
+    "plan-mode",
+    "autopilot",
+    "background-agent",
+    "session-management",
+    "github-actions",
+    "pull-request"
+  ],
+  "skills": "./skills/"
+}

@@ -13,3 +13,4 @@ Thumbs.db
 .vscode/
 *.bak
 _tmp/
+plugins/.*.check/

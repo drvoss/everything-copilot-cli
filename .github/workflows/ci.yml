@@ -36,6 +36,15 @@ jobs:
       - name: Validate skills
         run: npm run validate
 
+      - name: Check generated plugin bundles are current
+        run: npm run check:plugins
+
+      - name: Vally lint (skills, baseline ratchet)
+        run: npm run lint:skills
+
+      - name: Vally lint (probe bundle, must be 100%)
+        run: npm run lint:plugins
+
       - name: Lint Markdown
         run: npm run lint:md
 
