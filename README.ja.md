@@ -89,11 +89,14 @@ Copilot CLI が multi-AI 開発 workflow のハブとして強い理由は、次
 次のプラグインのどちらか一方をインストールします:
 
 ```bash
-# 1行インストール（推奨）
-copilot plugin install drvoss/everything-copilot-cli
+# このリポジトリの marketplace を追加
+copilot plugin marketplace add drvoss/everything-copilot-cli
+
+# フルコレクションをインストール（推奨）
+copilot plugin install everything-copilot-cli@everything-copilot-cli
 
 # 特定のワークフローのみ
-copilot plugin install drvoss/everything-copilot-cli:plugins/copilot-native-workflows
+copilot plugin install copilot-native-workflows@everything-copilot-cli
 ```
 
 どちらか一方だけを選んでください。フルコレクションには対象のワークフロー skill 9個がすでに含まれているため、両方をインストールすると名前が重複します。プラグインがインストールするのは skills のみです。対象プロジェクトへ instructions・rules・contexts・agents も配置する場合は、従来の clone + setup フローを引き続き使ってください:

@@ -89,11 +89,14 @@ Three capabilities make Copilot CLI a strong hub for multi-AI development workfl
 Install one of the following plugins:
 
 ```bash
-# One-line install (recommended)
-copilot plugin install drvoss/everything-copilot-cli
+# Add this repository's marketplace
+copilot plugin marketplace add drvoss/everything-copilot-cli
+
+# Install the full collection (recommended)
+copilot plugin install everything-copilot-cli@everything-copilot-cli
 
 # Focused workflows only
-copilot plugin install drvoss/everything-copilot-cli:plugins/copilot-native-workflows
+copilot plugin install copilot-native-workflows@everything-copilot-cli
 ```
 
 Choose only one: the full collection already includes the nine focused workflow skills, so installing both causes name overlap. Plugins install skills only. To also seed instructions, rules, contexts, and agents into a target project, keep using the clone + setup flow:

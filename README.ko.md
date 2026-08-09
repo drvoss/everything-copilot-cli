@@ -89,11 +89,14 @@ Copilot CLI가 multi-AI 개발 워크플로우의 허브로 강한 이유는 세
 다음 플러그인 중 하나를 설치합니다:
 
 ```bash
-# 한 줄 설치 (권장)
-copilot plugin install drvoss/everything-copilot-cli
+# 이 저장소의 marketplace 추가
+copilot plugin marketplace add drvoss/everything-copilot-cli
+
+# 전체 컬렉션 설치 (권장)
+copilot plugin install everything-copilot-cli@everything-copilot-cli
 
 # 특정 워크플로만
-copilot plugin install drvoss/everything-copilot-cli:plugins/copilot-native-workflows
+copilot plugin install copilot-native-workflows@everything-copilot-cli
 ```
 
 둘 중 하나만 선택하세요. 전체 컬렉션에 특정 워크플로 스킬 9개가 이미 포함되어 있어 둘 다 설치하면 이름이 겹칩니다. 플러그인은 스킬만 설치합니다. 대상 프로젝트에 instructions, rules, contexts, agents까지 심으려면 기존 clone + setup 흐름을 계속 사용하세요:

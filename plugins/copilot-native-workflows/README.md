@@ -8,9 +8,8 @@ Turns GitHub Copilot CLI's own features into working procedures: Plan Mode, Auto
 ## Install
 
 ```bash
-copilot plugin install copilot-native-workflows@awesome-copilot
-# or, straight from this repository:
-copilot plugin install drvoss/everything-copilot-cli:plugins/copilot-native-workflows
+copilot plugin marketplace add drvoss/everything-copilot-cli
+copilot plugin install copilot-native-workflows@everything-copilot-cli
 ```
 
 ## Skills (9)
