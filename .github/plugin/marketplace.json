@@ -1,0 +1,11 @@
+{
+  "name": "everything-copilot-cli",
+  "owner": { "name": "Everything Copilot CLI Contributors" },
+  "metadata": {
+    "description": "Copilot-first operating kit: full collection plus focused bundles."
+  },
+  "plugins": [
+    { "name": "everything-copilot-cli", "source": "." },
+    { "name": "copilot-native-workflows", "source": "./plugins/copilot-native-workflows" }
+  ]
+}
