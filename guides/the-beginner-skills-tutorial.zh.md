@@ -47,7 +47,7 @@ category: guide
 下面命令里的这个路径如果需要可以自行替换：
 
 ```text
-C:\work-copilot\test
+C:\copilot-lab
 ```
 
 ---
@@ -57,7 +57,7 @@ C:\work-copilot\test
 在新的 PowerShell 窗口里运行：
 
 ```powershell
-New-Item -ItemType Directory -Force C:\work-copilot\test\skills-lab-template | Out-Null
+New-Item -ItemType Directory -Force C:\copilot-lab\skills-lab-template | Out-Null
 ```
 
 ---
@@ -67,9 +67,9 @@ New-Item -ItemType Directory -Force C:\work-copilot\test\skills-lab-template | O
 在 `everything-copilot-cli` 仓库根目录运行：
 
 ```powershell
-cd C:\work-copilot\everything-copilot-cli
+cd (git rev-parse --show-toplevel)
 npm install
-npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile recommended
+npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
 如果安装摘要里出现下面这些路径，就说明成功了：
@@ -88,7 +88,7 @@ npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile rec
 先运行：
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-template
+cd C:\copilot-lab\skills-lab-template
 npm init -y
 npm pkg set scripts.test="node --test"
 New-Item -ItemType Directory -Force src | Out-Null
@@ -143,7 +143,7 @@ npm test
 在模板项目里启动 Copilot：
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-template
+cd C:\copilot-lab\skills-lab-template
 copilot
 ```
 
@@ -168,10 +168,10 @@ copilot
 运行：
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force -ErrorAction SilentlyContinue
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force -ErrorAction SilentlyContinue
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 现在两个目录都处于完全相同的初始状态。
@@ -185,7 +185,7 @@ Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-l
 在 `skills-lab-plain` 中启动 Copilot：
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-plain
+cd C:\copilot-lab\skills-lab-plain
 copilot
 ```
 
@@ -202,7 +202,7 @@ Tests are failing. Fix the bug.
 在 `skills-lab-guided` 中启动 Copilot：
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-guided
+cd C:\copilot-lab\skills-lab-guided
 copilot
 ```
 
@@ -225,10 +225,10 @@ Tests are failing. Use the systematic-debugging skill. First reproduce the failu
 先把两个目录重置回初始状态：
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 ### 目录 A — 普通 prompt
@@ -260,10 +260,10 @@ Update divide() so dividing by zero throws an error. Use the tdd-workflow skill:
 再次把两个目录重置回初始状态：
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 ### 目录 A — 普通 prompt
@@ -332,8 +332,8 @@ Use the planner agent and plan mode. Break this work into tasks with dependencie
 如果你只能看到 built-in skills，看不到 project agents，请重新运行：
 
 ```powershell
-cd C:\work-copilot\everything-copilot-cli
-npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile recommended
+cd (git rev-parse --show-toplevel)
+npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
 ---

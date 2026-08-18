@@ -47,7 +47,7 @@ category: guide
 以下のコマンドでは必要に応じてこの path を置き換えてください。
 
 ```text
-C:\work-copilot\test
+C:\copilot-lab
 ```
 
 ---
@@ -57,7 +57,7 @@ C:\work-copilot\test
 新しい PowerShell window で実行します。
 
 ```powershell
-New-Item -ItemType Directory -Force C:\work-copilot\test\skills-lab-template | Out-Null
+New-Item -ItemType Directory -Force C:\copilot-lab\skills-lab-template | Out-Null
 ```
 
 ---
@@ -67,9 +67,9 @@ New-Item -ItemType Directory -Force C:\work-copilot\test\skills-lab-template | O
 `everything-copilot-cli` の repository root で実行します。
 
 ```powershell
-cd C:\work-copilot\everything-copilot-cli
+cd (git rev-parse --show-toplevel)
 npm install
-npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile recommended
+npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
 インストール結果に次が含まれていれば OK です。
@@ -88,7 +88,7 @@ npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile rec
 まず次を実行します。
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-template
+cd C:\copilot-lab\skills-lab-template
 npm init -y
 npm pkg set scripts.test="node --test"
 New-Item -ItemType Directory -Force src | Out-Null
@@ -143,7 +143,7 @@ npm test
 template project で Copilot を起動します。
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-template
+cd C:\copilot-lab\skills-lab-template
 copilot
 ```
 
@@ -168,10 +168,10 @@ Copilot の中で次を実行します。
 次を実行します。
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force -ErrorAction SilentlyContinue
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force -ErrorAction SilentlyContinue
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 これで 2 つの folder は同じ壊れた初期状態になります。
@@ -185,7 +185,7 @@ Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-l
 `skills-lab-plain` で Copilot を起動します。
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-plain
+cd C:\copilot-lab\skills-lab-plain
 copilot
 ```
 
@@ -202,7 +202,7 @@ Copilot がどの順番で進めるかを見てください。
 `skills-lab-guided` で Copilot を起動します。
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-guided
+cd C:\copilot-lab\skills-lab-guided
 copilot
 ```
 
@@ -225,10 +225,10 @@ Tests are failing. Use the systematic-debugging skill. First reproduce the failu
 まず 2 つの folder を初期状態に戻します。
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 ### Folder A — 通常の prompt
@@ -260,10 +260,10 @@ Update divide() so dividing by zero throws an error. Use the tdd-workflow skill:
 もう一度 2 つの folder を初期状態に戻します。
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 ### Folder A — 通常の prompt
@@ -332,8 +332,8 @@ Copilot がインストールした collection を認識していないような
 built-in skill しか見えず project agent もない場合は、次を再実行してください。
 
 ```powershell
-cd C:\work-copilot\everything-copilot-cli
-npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile recommended
+cd (git rev-parse --show-toplevel)
+npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
 ---

@@ -47,7 +47,7 @@ Make sure all of these are true:
 In the commands below, replace this path if needed:
 
 ```text
-C:\work-copilot\test
+C:\copilot-lab
 ```
 
 ---
@@ -57,7 +57,7 @@ C:\work-copilot\test
 Run this from a new PowerShell window:
 
 ```powershell
-New-Item -ItemType Directory -Force C:\work-copilot\test\skills-lab-template | Out-Null
+New-Item -ItemType Directory -Force C:\copilot-lab\skills-lab-template | Out-Null
 ```
 
 ---
@@ -67,9 +67,9 @@ New-Item -ItemType Directory -Force C:\work-copilot\test\skills-lab-template | O
 Run this from the `everything-copilot-cli` repository root:
 
 ```powershell
-cd C:\work-copilot\everything-copilot-cli
+cd (git rev-parse --show-toplevel)
 npm install
-npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile recommended
+npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
 You should see an install summary that includes:
@@ -88,7 +88,7 @@ You should see an install summary that includes:
 Run this:
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-template
+cd C:\copilot-lab\skills-lab-template
 npm init -y
 npm pkg set scripts.test="node --test"
 New-Item -ItemType Directory -Force src | Out-Null
@@ -143,7 +143,7 @@ You should see failures. That is expected.
 Start Copilot in the template project:
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-template
+cd C:\copilot-lab\skills-lab-template
 copilot
 ```
 
@@ -168,10 +168,10 @@ Exit Copilot after the check.
 Run this:
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force -ErrorAction SilentlyContinue
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force -ErrorAction SilentlyContinue
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 Now both folders start from the same broken state.
@@ -185,7 +185,7 @@ Now both folders start from the same broken state.
 Open Copilot in `skills-lab-plain`:
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-plain
+cd C:\copilot-lab\skills-lab-plain
 copilot
 ```
 
@@ -202,7 +202,7 @@ Watch what Copilot does.
 Open another Copilot session in `skills-lab-guided`:
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-guided
+cd C:\copilot-lab\skills-lab-guided
 copilot
 ```
 
@@ -227,10 +227,10 @@ Look for these differences:
 First, reset both folders:
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 ### Folder A — plain prompt
@@ -262,10 +262,10 @@ Update divide() so dividing by zero throws an error. Use the tdd-workflow skill:
 Reset both folders again:
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 ### Folder A — plain prompt
@@ -333,8 +333,8 @@ If Copilot does not seem to see the installed collection:
 If you only see built-in skills and no project agents, re-run:
 
 ```powershell
-cd C:\work-copilot\everything-copilot-cli
-npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile recommended
+cd (git rev-parse --show-toplevel)
+npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
 ---
