@@ -47,7 +47,7 @@ category: guide
 아래 명령에서는 필요하면 이 경로를 바꿔서 사용하세요.
 
 ```text
-C:\work-copilot\test
+C:\copilot-lab
 ```
 
 ---
@@ -57,7 +57,7 @@ C:\work-copilot\test
 새 PowerShell 창에서 실행하세요.
 
 ```powershell
-New-Item -ItemType Directory -Force C:\work-copilot\test\skills-lab-template | Out-Null
+New-Item -ItemType Directory -Force C:\copilot-lab\skills-lab-template | Out-Null
 ```
 
 ---
@@ -67,9 +67,8 @@ New-Item -ItemType Directory -Force C:\work-copilot\test\skills-lab-template | O
 `everything-copilot-cli` 저장소 루트에서 실행하세요.
 
 ```powershell
-cd C:\work-copilot\everything-copilot-cli
 npm install
-npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile recommended
+npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
 설치 요약에 다음이 보이면 됩니다.
@@ -88,7 +87,7 @@ npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile rec
 먼저 이 명령을 실행하세요.
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-template
+cd C:\copilot-lab\skills-lab-template
 npm init -y
 npm pkg set scripts.test="node --test"
 New-Item -ItemType Directory -Force src | Out-Null
@@ -143,7 +142,7 @@ npm test
 실습 템플릿 프로젝트에서 Copilot을 실행하세요.
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-template
+cd C:\copilot-lab\skills-lab-template
 copilot
 ```
 
@@ -168,10 +167,10 @@ Copilot 안에서 다음을 실행하세요.
 이 명령을 실행하세요.
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force -ErrorAction SilentlyContinue
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force -ErrorAction SilentlyContinue
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 이제 두 폴더는 완전히 같은 시작 상태입니다.
@@ -185,7 +184,7 @@ Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-l
 `skills-lab-plain`에서 Copilot을 실행하세요.
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-plain
+cd C:\copilot-lab\skills-lab-plain
 copilot
 ```
 
@@ -202,7 +201,7 @@ Copilot이 어떤 순서로 작업하는지 봅니다.
 `skills-lab-guided`에서 Copilot을 실행하세요.
 
 ```powershell
-cd C:\work-copilot\test\skills-lab-guided
+cd C:\copilot-lab\skills-lab-guided
 copilot
 ```
 
@@ -227,10 +226,10 @@ Tests are failing. Use the systematic-debugging skill. First reproduce the failu
 먼저 두 폴더를 초기 상태로 되돌립니다.
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 ### 폴더 A — 일반 프롬프트
@@ -262,10 +261,10 @@ Update divide() so dividing by zero throws an error. Use the tdd-workflow skill:
 다시 두 폴더를 초기 상태로 되돌립니다.
 
 ```powershell
-Remove-Item C:\work-copilot\test\skills-lab-plain -Recurse -Force
-Remove-Item C:\work-copilot\test\skills-lab-guided -Recurse -Force
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-plain -Recurse
-Copy-Item C:\work-copilot\test\skills-lab-template C:\work-copilot\test\skills-lab-guided -Recurse
+Remove-Item C:\copilot-lab\skills-lab-plain -Recurse -Force
+Remove-Item C:\copilot-lab\skills-lab-guided -Recurse -Force
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-plain -Recurse
+Copy-Item C:\copilot-lab\skills-lab-template C:\copilot-lab\skills-lab-guided -Recurse
 ```
 
 ### 폴더 A — 일반 프롬프트
@@ -331,11 +330,10 @@ Copilot이 설치한 컬렉션을 못 읽는 것 같다면:
    - `.github/skills/`
    - `.github/agents/`
 
-built-in skills만 보이고 project agents가 안 보이면 아래를 다시 실행하세요.
+built-in skills만 보이고 project agents가 안 보이면 `everything-copilot-cli` 저장소 루트로 돌아가서 아래를 다시 실행하세요.
 
 ```powershell
-cd C:\work-copilot\everything-copilot-cli
-npm run setup -- --target C:\work-copilot\test\skills-lab-template --profile recommended
+npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
 ---

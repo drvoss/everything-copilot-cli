@@ -26,7 +26,7 @@ Verify that a fresh project can be bootstrapped from this repository and that Gi
 2. From the repository root, run:
 
    ```powershell
-   npm run setup -- --target C:\work-copilot\test\quizquiz2 --profile recommended
+   npm run setup -- --target C:\copilot-lab\quizquiz2 --profile recommended
    ```
 
 3. Confirm the install summary reports:
@@ -38,7 +38,7 @@ Verify that a fresh project can be bootstrapped from this repository and that Gi
 4. Start Copilot in the target directory:
 
    ```powershell
-   cd C:\work-copilot\test\quizquiz2
+   cd C:\copilot-lab\quizquiz2
    copilot
    ```
 
