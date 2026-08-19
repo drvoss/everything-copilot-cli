@@ -67,7 +67,6 @@ New-Item -ItemType Directory -Force C:\copilot-lab\skills-lab-template | Out-Nul
 `everything-copilot-cli` 저장소 루트에서 실행하세요.
 
 ```powershell
-cd (git rev-parse --show-toplevel)
 npm install
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
@@ -331,10 +330,9 @@ Copilot이 설치한 컬렉션을 못 읽는 것 같다면:
    - `.github/skills/`
    - `.github/agents/`
 
-built-in skills만 보이고 project agents가 안 보이면 아래를 다시 실행하세요.
+built-in skills만 보이고 project agents가 안 보이면 `everything-copilot-cli` 저장소 루트로 돌아가서 아래를 다시 실행하세요.
 
 ```powershell
-cd (git rev-parse --show-toplevel)
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 

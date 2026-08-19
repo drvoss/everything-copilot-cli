@@ -67,7 +67,6 @@ New-Item -ItemType Directory -Force C:\copilot-lab\skills-lab-template | Out-Nul
 Run this from the `everything-copilot-cli` repository root:
 
 ```powershell
-cd (git rev-parse --show-toplevel)
 npm install
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
@@ -330,10 +329,9 @@ If Copilot does not seem to see the installed collection:
    - `.github/skills/`
    - `.github/agents/`
 
-If you only see built-in skills and no project agents, re-run:
+If you only see built-in skills and no project agents, go back to the `everything-copilot-cli` repository root and re-run:
 
 ```powershell
-cd (git rev-parse --show-toplevel)
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 

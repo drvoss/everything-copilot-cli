@@ -67,7 +67,6 @@ New-Item -ItemType Directory -Force C:\copilot-lab\skills-lab-template | Out-Nul
 在 `everything-copilot-cli` 仓库根目录运行：
 
 ```powershell
-cd (git rev-parse --show-toplevel)
 npm install
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
@@ -329,10 +328,9 @@ Use the planner agent and plan mode. Break this work into tasks with dependencie
    - `.github/skills/`
    - `.github/agents/`
 
-如果你只能看到 built-in skills，看不到 project agents，请重新运行：
+如果你只能看到 built-in skills，看不到 project agents，请返回 `everything-copilot-cli` 仓库根目录并重新运行：
 
 ```powershell
-cd (git rev-parse --show-toplevel)
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 

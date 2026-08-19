@@ -67,7 +67,6 @@ New-Item -ItemType Directory -Force C:\copilot-lab\skills-lab-template | Out-Nul
 `everything-copilot-cli` の repository root で実行します。
 
 ```powershell
-cd (git rev-parse --show-toplevel)
 npm install
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
@@ -329,10 +328,9 @@ Copilot がインストールした collection を認識していないような
    - `.github/skills/`
    - `.github/agents/`
 
-built-in skill しか見えず project agent もない場合は、次を再実行してください。
+built-in skill しか見えず project agent もない場合は、`everything-copilot-cli` の repository root に戻って、次を再実行してください。
 
 ```powershell
-cd (git rev-parse --show-toplevel)
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
