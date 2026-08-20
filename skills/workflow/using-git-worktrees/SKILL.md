@@ -208,18 +208,20 @@ Operational rules:
 
 ### GitHub Copilot CLI: Experimental Worktree Entry Points
 
-Copilot CLI's worktree feature is experimental and provides three entry points:
+Copilot CLI's worktree feature is experimental and provides these entry points:
 
 | Command | Behavior |
 |---------|----------|
-| `/worktree [branch\|task]` | Create a worktree for an optional branch or task and switch to it |
+| `/worktree [branch\|task]` | Create a worktree for an optional branch or task and switch to it, leaving uncommitted changes behind |
 | `/worktree new [PROMPT]` | Start a new conversation in a newly created Git worktree, optionally using the prompt |
+| `/move [branch\|task]` | Move the current uncommitted changes into a new worktree and switch to it |
 | `-w`, `--worktree[=NAME]` | Create or reuse an isolated worktree under `<repo>.worktrees/`, optionally with a name |
 
-All three branch from the current checkout (`HEAD`) by default. This became consistent in CLI
-v1.0.79; previously, `--worktree` started from the remote default branch. To retain that older
-baseline intentionally, set `worktreeBaseRef` to `"defaultBranch"` so new worktrees branch from
-the remote default branch instead.
+`/worktree`, `/worktree new`, and `--worktree` branch from the current checkout (`HEAD`) by
+default. This became consistent in CLI v1.0.79; previously, `--worktree` started from the remote
+default branch. To retain that older baseline intentionally, set `worktreeBaseRef` to
+`"defaultBranch"` so new worktrees branch from the remote default branch instead. The reference
+does not document `worktreeBaseRef` for `/move`.
 
 `--worktree` conflicts with `--resume`, `--continue`, and `--connect`; do not combine those flags.
 Use these entry points when creation inside the session is the desired operation. For an existing
