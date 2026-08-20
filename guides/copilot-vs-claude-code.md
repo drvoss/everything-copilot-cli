@@ -48,14 +48,14 @@ unique capabilities.
 | SQL Task Tracking | ✅ Built-in SQLite | ❌ File-based | Query todos, track state with SQL |
 | Todo Dependencies | ✅ SQL dependency graph | ❌ Manual tracking | Automatically find "ready" tasks |
 | Context compression hook | ✅ `preCompact` hook (notification-only, cannot block) | ✅ `PreCompact` hook (v2.1.105) | Both expose a compaction-lifecycle hook; Copilot's is observe-only, Claude's can act before compaction |
-| Existing worktree entry | ⚠️ No command for entering an existing worktree; `/worktree`, `/move`, and experimental `/new-worktree` create and switch instead | ✅ `EnterWorktree` (v2.1.105) | Claude has a first-class existing-entry tool; Copilot has first-class create-and-switch surfaces |
+| Existing worktree entry | ⚠️ No command for entering an existing worktree; the experimental `/worktree`, `/worktree new`, and `/move` create and switch instead | ✅ `EnterWorktree` (v2.1.105) | Claude has a first-class existing-entry tool; Copilot has first-class create-and-switch surfaces |
 | **Memory & State** | | | |
 | Session Database | ✅ SQL built-in | ❌ None | Structured state that survives compaction |
 | Cross-Session Memory | ✅ `session_store` read-only DB (experimental) | ⚠️ `CLAUDE.md` + hooks + memory files | Both approaches are evolving; Claude Code has more options |
 | Session Resume | ✅ events.jsonl | ⚠️ Similar | Both support session continuation |
 | **Code Intelligence** | | | |
 | LSP Support | ✅ First-class | ❌ None | Language-aware navigation |
-| Code Search | ✅ ripgrep + glob | ✅ ripgrep + glob | Similar capabilities |
+| Code Search | ✅ tgrep in large monorepos + glob | ✅ ripgrep + glob | Similar capabilities |
 | GitHub Code Search | ✅ Native | ⚠️ MCP required | Search across all GitHub repos |
 | **Multi-AI Orchestration** | | | |
 | Multi-AI Hub | ⚠️ Community pattern (shell + MCP) | ❌ Claude only | Copilot can act as a hub via shell scripting and MCP — not a built-in native feature |
