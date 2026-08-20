@@ -206,19 +206,25 @@ Operational rules:
 
 ## Runtime Notes
 
-### GitHub Copilot CLI: Create a Worktree In-Session
+### GitHub Copilot CLI: Experimental Worktree Entry Points
 
-Copilot CLI provides three create-and-switch surfaces; none is a dedicated way to enter an
-already-existing worktree:
+Copilot CLI's worktree feature is experimental and provides three entry points:
 
 | Command | Behavior |
 |---------|----------|
-| `/worktree [branch\|task]` | Create a worktree from `HEAD`, switch to it, and leave uncommitted changes in the original checkout |
-| `/move [branch\|task]` | Create a worktree, move the current uncommitted changes into it, and switch to it |
-| `/new-worktree` | **Experimental:** create a worktree, switch to it, and start a new conversation there |
+| `/worktree [branch\|task]` | Create a worktree for an optional branch or task and switch to it |
+| `/worktree new [PROMPT]` | Start a new conversation in a newly created Git worktree, optionally using the prompt |
+| `-w`, `--worktree[=NAME]` | Create or reuse an isolated worktree under `<repo>.worktrees/`, optionally with a name |
 
-Use these when creation inside the session is the desired operation. For an existing checkout,
-keep using the explicit path-boundary flow in [For Copilot Orchestrators](#for-copilot-orchestrators-direct-agents-into-the-right-worktree).
+All three branch from the current checkout (`HEAD`) by default. This became consistent in CLI
+v1.0.79; previously, `--worktree` started from the remote default branch. To retain that older
+baseline intentionally, set `worktreeBaseRef` to `"defaultBranch"` so new worktrees branch from
+the remote default branch instead.
+
+`--worktree` conflicts with `--resume`, `--continue`, and `--connect`; do not combine those flags.
+Use these entry points when creation inside the session is the desired operation. For an existing
+checkout, keep using the explicit path-boundary flow in
+[For Copilot Orchestrators](#for-copilot-orchestrators-direct-agents-into-the-right-worktree).
 The Git-native `git worktree add` workflow remains the stable default.
 
 ### Claude Code: Enter an Existing Worktree

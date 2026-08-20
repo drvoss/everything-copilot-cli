@@ -50,21 +50,29 @@ All skills in this repository follow the **[agentskills.io](https://agentskills.
 ## Installing Skills
 
 > **Installation destination is not runtime discovery.** A third-party installer such as `ctx7`
-> may copy files to a "universal" destination such as `.agents/skills`, but that convention can
-> differ from the paths a CLI scans natively. Confirm loading with the target CLI. Antigravity
-> sources currently disagree between `.agent/skills` and `.agents/skills`, so treat that
-> singular/plural path as unconfirmed rather than a portable rule.
+> may copy files to a "universal" destination, but that convention can differ from the paths a CLI
+> scans natively. Confirm loading with the target CLI. Antigravity sources currently disagree
+> between `.agent/skills` and `.agents/skills`, so treat that singular/plural path as unconfirmed
+> for Antigravity rather than as a portable rule. Copilot CLI does natively discover
+> `.agents/skills/` as described below.
 
 ### GitHub Copilot CLI
 
-```bash
-# Install a single skill (project-level)
-# Copy each skill directory to: .github/skills/<skill-name>/SKILL.md
-# Example: skills/development/fix-build-errors/ -> .github/skills/fix-build-errors/
+Copilot CLI discovers skills from these locations in priority order:
 
-# Install user-level (available in all projects)
-# Copy to: ~/.copilot/skills/<category>/<skill-name>/SKILL.md
-```
+1. `.github/skills/` in the project
+2. `.agents/skills/` in the project (alternative project location)
+3. `.claude/skills/` in the project (Claude-compatible location)
+4. `.github/skills/` in parent directories (for monorepos)
+5. `~/.copilot/skills/` for personal skills
+6. `~/.agents/skills/` for personal skills shared across agents
+7. Plugin directories
+8. Additional comma-separated directories from `COPILOT_SKILLS_DIRS`
+9. Skills built into the CLI
+10. Organization or enterprise skills projected through the AHP relay and fetched when invoked
+
+Copy each skill directory beneath the chosen location, for example
+`.github/skills/<skill-name>/SKILL.md` or `~/.copilot/skills/<category>/<skill-name>/SKILL.md`.
 
 ### Codex CLI
 

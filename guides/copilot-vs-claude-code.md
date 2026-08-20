@@ -55,7 +55,7 @@ unique capabilities.
 | Session Resume | ✅ events.jsonl | ⚠️ Similar | Both support session continuation |
 | **Code Intelligence** | | | |
 | LSP Support | ✅ First-class | ❌ None | Language-aware navigation |
-| Code Search | ✅ ripgrep + glob | ✅ ripgrep + glob | Similar capabilities |
+| Code Search | ✅ tgrep in large monorepos + glob | ✅ ripgrep + glob | Similar capabilities |
 | GitHub Code Search | ✅ Native | ⚠️ MCP required | Search across all GitHub repos |
 | **Multi-AI Orchestration** | | | |
 | Multi-AI Hub | ⚠️ Community pattern (shell + MCP) | ❌ Claude only | Copilot can act as a hub via shell scripting and MCP — not a built-in native feature |

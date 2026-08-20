@@ -62,6 +62,20 @@ Ask (or determine from context):
 to load a skill. If it is vague, the skill may be correct but still fail to trigger when
 the user actually needs it.
 
+### Skill frontmatter reference
+
+Only `name` and `description` are selection signals. The other fields control behavior after a
+skill is selected or invoked.
+
+| Field | Type | Required | Description |
+|-------|------|:--------:|-------------|
+| `name` | string | Yes | Unique identifier using only letters, numbers, and hyphens; maximum 64 characters |
+| `description` | string | Yes | What the skill does and when to use it; maximum 1024 characters |
+| `argument-hint` | string | No | Expected argument hint shown in the skill picker, such as `"[target] [mode]"` |
+| `allowed-tools` | string or string[] | No | Tools automatically allowed while the skill is active; `"*"` allows all tools |
+| `user-invocable` | boolean | No | Whether users can invoke `/SKILL-NAME`; defaults to `true` |
+| `disable-model-invocation` | boolean | No | Whether to prevent automatic model invocation; defaults to `false` |
+
 ### 2. Generate the SKILL.md
 
 Use this template as a base and fill in the gathered information.
