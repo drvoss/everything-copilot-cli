@@ -1,13 +1,18 @@
-import { existsSync, readFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { homedir } from "node:os";
+import { basename, dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
 import {
+  buildSpawnSpec,
   buildInvocation,
   formatRunnerDiagnostic,
   parseJsonReport,
+  resolveLauncher,
   resolveGateTimeout,
   resolveToolTimeout,
   runRunnerWithRetry,
+  sanitizeReason,
 } from "./quad-cli-transport.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -23,6 +28,8 @@ const ALLOWED_MERGED_TOP_LEVEL_KEYS = new Set([
   "findings",
   "status",
   "reviewers_effective",
+  "reviewers",
+  "environment",
 ]);
 const ALLOWED_MERGED_FINDING_KEYS = new Set([
   "path",
@@ -60,8 +67,17 @@ export async function main() {
     }
 
     if (!diffResult.body.trim()) {
-      const emptyReport = createReport([]);
-      process.stdout.write(`${JSON.stringify(emptyReport, null, 2)}\n`);
+      const emptyReport = createReport([], {
+        reviewers: options.artifact ? { declared: [], effective: [], dropped: [] } : undefined,
+        environment: options.artifact ? buildEnvironment(options.mockDir) : undefined,
+      });
+      if (!validateMergedReport(emptyReport).ok) {
+        console.error(
+          "quad-cli-consensus-gate: internal error — merged report failed schemas/quad-cli-merged-report.json validation."
+        );
+        process.exit(2);
+      }
+      emitReport(emptyReport, options.artifact);
       console.error("quad-cli-consensus-gate: no eligible textual diff content to review.");
       process.exit(0);
     }
@@ -178,6 +194,8 @@ export async function main() {
     const finalReport = createReport(mergedFindings, {
       status: status !== "ok" ? status : undefined,
       reviewersEffective: validReviewerCount,
+      reviewers: options.artifact ? buildReviewerRoster(parsedResults, validReports) : undefined,
+      environment: options.artifact ? buildEnvironment(options.mockDir) : undefined,
     });
 
     // Defensive self-check: the merged/final report has a distinct shape from the raw
@@ -194,7 +212,7 @@ export async function main() {
       process.exit(2);
     }
 
-    process.stdout.write(`${JSON.stringify(finalReport, null, 2)}\n`);
+    emitReport(finalReport, options.artifact);
     console.error(
       `quad-cli-consensus-gate: ${blockingCount} blocking, ${advisoryCount} advisory, ${validReviewerCount} valid reviewers, ${erroredReviewers} errored reviewers.`
     );
@@ -239,6 +257,7 @@ function parseArgs(argv) {
     diffFile: null,
     minReviewers: 2,
     allowZeroReviewers: false,
+    artifact: null,
     mockDir: process.env.QUAD_CLI_MOCK_DIR ? resolve(process.env.QUAD_CLI_MOCK_DIR) : null,
   };
 
@@ -289,6 +308,9 @@ function parseArgs(argv) {
         break;
       case "--allow-zero-reviewers":
         options.allowZeroReviewers = true;
+        break;
+      case "--artifact":
+        options.artifact = resolve(requireValue(argv, ++index, "--artifact"));
         break;
       default:
         throw new Error(`Unknown argument: ${arg}`);
@@ -727,6 +749,14 @@ function validateMergedReport(report) {
     return { ok: false };
   }
 
+  if (Object.hasOwn(report, "reviewers") && !validateReviewerRoster(report.reviewers)) {
+    return { ok: false };
+  }
+
+  if (Object.hasOwn(report, "environment") && !validateEnvironment(report.environment)) {
+    return { ok: false };
+  }
+
   if (!Array.isArray(report.findings)) {
     return { ok: false };
   }
@@ -937,7 +967,121 @@ function createReport(findings, meta = {}) {
     report.reviewers_effective = meta.reviewersEffective;
   }
 
+  if (meta.reviewers) {
+    report.reviewers = meta.reviewers;
+  }
+
+  if (meta.environment) {
+    report.environment = meta.environment;
+  }
+
   return report;
+}
+
+function emitReport(report, artifactPath) {
+  const serializedReport = `${JSON.stringify(report, null, 2)}\n`;
+  if (artifactPath) writeFileSync(artifactPath, serializedReport, "utf8");
+  process.stdout.write(serializedReport);
+}
+
+function deriveFailureStage(result) {
+  if (result.class === "schema-invalid") return "schema";
+  if (result.class === "invalid-response") return "response";
+  if (result.launcherKind === "not-found") return "resolve";
+  if (result.class === "timeout" || result.timedOut) return "transport";
+  if (Number.isInteger(result.exitCode)) return "response";
+  return "spawn";
+}
+
+function redactResolvedPath(value, home = homedir()) {
+  if (!value) return "-";
+  const rawPath = String(value);
+  const normalizedPath = rawPath.replace(/\\/g, "/");
+  const normalizedHome = String(home).replace(/\\/g, "/").replace(/\/$/, "");
+  const foldedPath = normalizedPath.toLocaleLowerCase("en-US");
+  const foldedHome = normalizedHome.toLocaleLowerCase("en-US");
+  if (foldedPath === foldedHome || foldedPath.startsWith(`${foldedHome}/`)) {
+    return `~${normalizedPath.slice(normalizedHome.length)}`;
+  }
+  return isAbsolute(rawPath) ? basename(rawPath) : basename(normalizedPath);
+}
+
+function buildReviewerRoster(parsedResults, validReports) {
+  const effective = validReports.map(({ tool }) => tool);
+  const effectiveSet = new Set(effective);
+  return {
+    declared: parsedResults.map(({ tool }) => tool),
+    effective,
+    dropped: parsedResults.filter(({ tool }) => !effectiveSet.has(tool)).map((result) => ({
+      tool: result.tool,
+      stage: deriveFailureStage(result),
+      primary_cause: result.class ?? "internal",
+      observed_failure: sanitizeReason(result.reason || result.stderr || result.error || "-") || "-",
+      launcher_kind: result.launcherKind ?? "-",
+      resolved_path: redactResolvedPath(result.resolvedPath),
+      exit_code: Number.isInteger(result.exitCode) ? result.exitCode : null,
+      ms: Number.isInteger(result.ms) ? result.ms : 0,
+    })),
+  };
+}
+
+function readOrchestratorCommit() {
+  const result = spawnSync("git", ["rev-parse", "HEAD"], { cwd: ROOT, encoding: "utf8", windowsHide: true });
+  return result.status === 0 && result.stdout?.trim() ? result.stdout.trim() : "unknown";
+}
+
+function probeCliVersion(tool) {
+  const launcher = resolveLauncher(tool);
+  if (launcher.kind === "not-found") return null;
+  const spec = buildSpawnSpec(launcher, ["--version"]);
+  const result = spawnSync(spec.command, spec.args, {
+    cwd: ROOT,
+    encoding: "utf8",
+    timeout: 10_000,
+    windowsHide: true,
+    windowsVerbatimArguments: spec.windowsVerbatimArguments,
+  });
+  if (result.status !== 0) return null;
+  return sanitizeReason(result.stdout || result.stderr) || null;
+}
+
+function buildEnvironment(mockDir) {
+  const cliVersions = Object.fromEntries(
+    TOOL_ORDER.map((tool) => [tool, mockDir ? (existsSync(join(mockDir, `${tool}.json`)) ? "mock" : null) : probeCliVersion(tool)])
+  );
+  return {
+    orchestrator_commit: readOrchestratorCommit(),
+    os: `${process.platform}/${process.arch}`,
+    node: process.version,
+    cli_versions: cliVersions,
+  };
+}
+
+function validateReviewerRoster(reviewers) {
+  if (!reviewers || typeof reviewers !== "object" || Array.isArray(reviewers)) return false;
+  if (!Object.keys(reviewers).every((key) => ["declared", "effective", "dropped"].includes(key))) return false;
+  if (!Array.isArray(reviewers.declared) || !reviewers.declared.every((tool) => typeof tool === "string")) return false;
+  if (!Array.isArray(reviewers.effective) || !reviewers.effective.every((tool) => typeof tool === "string")) return false;
+  if (!Array.isArray(reviewers.dropped)) return false;
+  const allowedStages = ["resolve", "spawn", "transport", "response", "schema"];
+  const droppedKeys = ["tool", "stage", "primary_cause", "observed_failure", "launcher_kind", "resolved_path", "exit_code", "ms"];
+  return reviewers.dropped.every((entry) =>
+    entry && typeof entry === "object" && !Array.isArray(entry) &&
+    Object.keys(entry).length === droppedKeys.length && Object.keys(entry).every((key) => droppedKeys.includes(key)) &&
+    typeof entry.tool === "string" && allowedStages.includes(entry.stage) &&
+    typeof entry.primary_cause === "string" && typeof entry.observed_failure === "string" &&
+    typeof entry.launcher_kind === "string" && typeof entry.resolved_path === "string" &&
+    (entry.exit_code === null || Number.isInteger(entry.exit_code)) && Number.isInteger(entry.ms)
+  );
+}
+
+function validateEnvironment(environment) {
+  if (!environment || typeof environment !== "object" || Array.isArray(environment)) return false;
+  if (!Object.keys(environment).every((key) => ["orchestrator_commit", "os", "node", "cli_versions"].includes(key))) return false;
+  return typeof environment.orchestrator_commit === "string" && typeof environment.os === "string" &&
+    typeof environment.node === "string" && environment.cli_versions && typeof environment.cli_versions === "object" &&
+    !Array.isArray(environment.cli_versions) &&
+    Object.values(environment.cli_versions).every((version) => version === null || typeof version === "string");
 }
 
 export {
@@ -958,6 +1102,9 @@ export {
   normalizePath,
   normalizeRuleId,
   createReport,
+  deriveFailureStage,
+  redactResolvedPath,
+  buildReviewerRoster,
 };
 
 const isDirectRun = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);

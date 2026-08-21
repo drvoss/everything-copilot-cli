@@ -1,0 +1,7 @@
+diff --git a/src/smoke.js b/src/smoke.js
+index 257cc56..3bd1f0e 100644
+--- a/src/smoke.js
++++ b/src/smoke.js
+@@ -1 +1 @@
+-export const ready = false;
++export const ready = true;

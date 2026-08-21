@@ -153,12 +153,20 @@ If any cap is exceeded, the gate is **skipped with a warning on stderr** and exi
 | `--max-prompt-bytes <n>` | Skip gate above this prompt byte size; default `262144` |
 | `--advisory-only` | Never fail the gate outright for below-minimum reviewers; still exits `3` on total (zero-reviewer) outage unless `--allow-zero-reviewers` is also set |
 | `--min-reviewers <n>` | Minimum valid reviewers required to trust consensus; default `2`. Below this, the report is marked `status: "advisory-degraded"` |
+| `--artifact <path>` | Write the final validated report object to the given JSON file as well as stdout; omitted by default |
 | `--allow-zero-reviewers` | Allow a run with **zero** valid reviewers to exit `0` (marked `status: "no-reviewers"`) instead of exit `3`. Without this flag, zero reviewers always exits `3`, even under `--advisory-only` |
 | `--timeout <ms>` | Override every per-runner timeout. Defaults are Claude `120000`, Codex `240000`, Cursor Agent `240000`, and Antigravity `360000`; `QUAD_CLI_TIMEOUT_<TOOL>_MS` or `QUAD_CLI_TIMEOUT_MS` can override them without code changes |
 | `--gate-timeout <ms>` | Whole parallel gate deadline including one transient retry; default `725000`, also configurable with `QUAD_CLI_GATE_TIMEOUT_MS` |
 | `--diff-file <path>` | Test-only convenience flag to read a unified diff from a file instead of git |
 
 Mock/test execution is controlled solely by the `QUAD_CLI_MOCK_DIR` environment variable (see Usage Examples) — there is no separate test-mode flag to keep in sync with it.
+
+> `--min-reviewers` defaults to `2` and stays there. Four reviewers running successfully does not
+> raise the bar, because reviewer *availability* fails for reasons unrelated to review quality —
+> expired OAuth, transient network, a launcher that is not on this machine. Measurement supports
+> rejecting `4` as a gate threshold; it does not establish that any specific higher number is better.
+> What the contract requires instead is that a run records **which reviewers were declared, which
+> were effective, and why the rest dropped out**, so a degraded run is never mistaken for a healthy one.
 
 Timeout cleanup targets the runner's process tree (`taskkill /T /F` on Windows and a detached process group on POSIX). This is best-effort: PID reuse and process-snapshot races mean the orchestrator records what it attempted but does not claim that every descendant was certainly terminated.
 Antigravity's internal `--print-timeout` stays shorter than its outer timeout (five minutes under the default six-minute outer timeout), so diagnostics can distinguish which layer stopped the run.
@@ -201,6 +209,8 @@ The top-level report additionally carries, when relevant:
 
 - `status: "advisory-degraded" | "no-reviewers"` — present only when reviewer count is below `--min-reviewers` or zero
 - `reviewers_effective: N` — the number of CLIs that returned schema-valid output this run
+- `reviewers` — the declared and effective tool names plus structured stage/cause diagnostics for every dropped reviewer
+- `environment` — the orchestrator commit, OS/architecture, Node version, and per-tool CLI versions
 
 Normalized matching uses repo-relative paths with forward slashes. Paths are **not blindly lowercased** by default — `rule_id` normalization **is** lowercased (via `schemas/rule-aliases.json` alias resolution), since rule identifiers are conventionally case-insensitive across tools while file paths are not.
 
@@ -214,6 +224,17 @@ Normalized matching uses repo-relative paths with forward slashes. Paths are **n
 | `3` | Fewer than `--min-reviewers` (default `2`) returned schema-valid output. **Zero reviewers always exits `3` unless `--allow-zero-reviewers` is set — this is not suppressed by `--advisory-only` alone**, to avoid a total CLI outage silently reporting as a pass |
 
 With `--advisory-only`, a nonzero-but-below-minimum reviewer count exits `0` instead of `3` (with `status: "advisory-degraded"` in the report); a **zero**-reviewer outage still exits `3` unless `--allow-zero-reviewers` is also set.
+
+## Live Smoke Preflight
+
+The smoke scripts run a fixed small diff through the orchestrator. They are local preflight commands and are intentionally not part of `npm test` or CI.
+
+| Command | Code | Meaning |
+|---------|------|---------|
+| `npm run smoke:quad` | `0` | All four declared reviewers returned schema-valid output |
+| `npm run smoke:quad` | `1` | At least one declared reviewer was unavailable, unauthenticated, or non-compliant |
+| `npm run smoke:quad:available` | `0` | All four declared reviewers were available and returned schema-valid output |
+| `npm run smoke:quad:available` | `4` | At least one declared reviewer was missing or invalid; the command prints `status="degraded"` and names each dropped tool |
 
 ## Usage Examples
 
