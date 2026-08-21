@@ -134,9 +134,9 @@ describe("quad CLI transport regression matrix", () => {
     mkdirSync(tempRoot);
     const result = await spawnRunner(
       "agy",
-      PROMPT,
+      `HEAD-NONCE\n${"x".repeat(24_000)}\nTAIL-NONCE`,
       5_000,
-      runtimeFor("agy", { kind: "ps1-shim", resolvedPath: ps1Path }, {}, { tempRoot })
+      runtimeFor("agy", nativeLauncher(), {}, { tempRoot })
     );
     parseAndValidate(result, "agy");
     assert.equal(result.transport, "file-reference");
