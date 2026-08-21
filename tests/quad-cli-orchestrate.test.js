@@ -13,6 +13,7 @@ import {
   createReport,
   validateRawReport,
   validateMergedReport,
+  parseArgs,
 } from "../scripts/quad-cli-orchestrate.mjs";
 
 const ROOT = resolve(import.meta.dirname, "..");
@@ -310,5 +311,13 @@ describe("createReport", () => {
     const report = createReport([]);
     assert.ok(!("status" in report));
     assert.ok(!("reviewers_effective" in report));
+  });
+});
+
+describe("quad CLI timeout flags", () => {
+  it("parses global runner and whole-gate timeout overrides", () => {
+    const options = parseArgs(["--timeout", "3333", "--gate-timeout", "4444"]);
+    assert.equal(options.timeout, 3333);
+    assert.equal(options.gateTimeout, 4444);
   });
 });
