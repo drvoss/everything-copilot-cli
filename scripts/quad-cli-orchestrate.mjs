@@ -1,7 +1,14 @@
-import { execFileSync, spawn } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  buildInvocation,
+  formatRunnerDiagnostic,
+  parseJsonReport,
+  resolveGateTimeout,
+  resolveToolTimeout,
+  runRunnerWithRetry,
+} from "./quad-cli-transport.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
@@ -72,14 +79,36 @@ export async function main() {
 
     const hunkIndex = buildHunkIndex(diffResult.body);
 
-    const runnerResults = await Promise.allSettled(
-      TOOL_ORDER.map((tool) => runRunnerWithRetry(tool, prompt, options.timeout, options.mockDir))
-    );
+    const deadlineController = new AbortController();
+    const deadlineTimer = setTimeout(() => deadlineController.abort(), options.gateTimeout);
+    let runnerResults;
+    try {
+      runnerResults = await Promise.allSettled(
+        TOOL_ORDER.map((tool) =>
+          runRunnerWithRetry(tool, prompt, resolveToolTimeout(tool, options.timeout), options.mockDir, {
+            signal: deadlineController.signal,
+            cwd: ROOT,
+          })
+        )
+      );
+    } finally {
+      clearTimeout(deadlineTimer);
+    }
 
     const parsedResults = runnerResults.map((settled, index) => {
       const tool = TOOL_ORDER[index];
       if (settled.status !== "fulfilled") {
-        return { tool, status: "error", error: settled.reason?.message ?? "Unknown runner failure" };
+        return {
+          tool,
+          status: "error",
+          class: "internal",
+          error: settled.reason?.message ?? "Unknown runner failure",
+          exitCode: null,
+          ms: 0,
+          launcherKind: "-",
+          units: 0,
+          bytesOut: 0,
+        };
       }
       return settled.value;
     });
@@ -93,17 +122,26 @@ export async function main() {
         continue;
       }
 
-      const parsed = parseJsonReport(result.stdout);
+      const parsed = parseJsonReport(result.stdout, result.tool);
       if (!parsed.ok) {
+        result.status = "error";
+        result.class = "invalid-response";
+        result.reason = parsed.reason ?? "Reviewer output was not valid JSON";
         erroredReviewers += 1;
         continue;
       }
 
       const validation = validateRawReport(parsed.value);
       if (!validation.ok) {
+        result.status = "error";
+        result.class = "schema-invalid";
+        result.reason = validation.reason ?? "Reviewer output failed schema validation";
         erroredReviewers += 1;
         continue;
       }
+
+      result.findingsCount = parsed.value.findings.length;
+      result.ignoredTopLevelKeys = validation.ignoredTopLevelKeys;
 
       validReports.push({
         tool: result.tool,
@@ -112,6 +150,10 @@ export async function main() {
           source_cli: result.tool,
         })),
       });
+    }
+
+    for (const result of parsedResults) {
+      console.error(formatRunnerDiagnostic(result));
     }
 
     const mergedFindings = mergeFindings(
@@ -192,7 +234,8 @@ function parseArgs(argv) {
     maxFiles: 60,
     maxPromptBytes: DEFAULT_MAX_PROMPT_BYTES,
     advisoryOnly: false,
-    timeout: 120000,
+    timeout: null,
+    gateTimeout: resolveGateTimeout(),
     diffFile: null,
     minReviewers: 2,
     allowZeroReviewers: false,
@@ -231,6 +274,12 @@ function parseArgs(argv) {
         break;
       case "--timeout":
         options.timeout = parsePositiveInteger(requireValue(argv, ++index, "--timeout"), "--timeout");
+        break;
+      case "--gate-timeout":
+        options.gateTimeout = parsePositiveInteger(
+          requireValue(argv, ++index, "--gate-timeout"),
+          "--gate-timeout"
+        );
         break;
       case "--diff-file":
         options.diffFile = resolve(requireValue(argv, ++index, "--diff-file"));
@@ -599,218 +648,30 @@ function buildPrompt(diffBody) {
   ].join("\n");
 }
 
-async function runRunnerWithRetry(tool, prompt, timeout, mockDir) {
-  let lastResult = null;
-
-  for (let attempt = 1; attempt <= 2; attempt += 1) {
-    lastResult = mockDir ? await runMockRunner(tool, mockDir) : await spawnRunner(tool, prompt, timeout);
-    if (lastResult.status === "ok") {
-      return lastResult;
-    }
-  }
-
-  return lastResult ?? { tool, status: "error", error: "Runner did not produce a result" };
-}
-
-async function runMockRunner(tool, mockDir) {
-  const filePath = join(mockDir, `${tool}.json`);
-  if (!existsSync(filePath)) {
-    return { tool, status: "error", error: `Mock response not found: ${filePath}` };
-  }
-
-  return {
-    tool,
-    status: "ok",
-    stdout: readFileSync(filePath, "utf8"),
-    stderr: "",
-  };
-}
-
-function spawnRunner(tool, prompt, timeout) {
-  const invocation = buildInvocation(tool);
-
-  return new Promise((resolve) => {
-    let stdout = "";
-    let stderr = "";
-    let settled = false;
-    let timedOut = false;
-
-    // Prompt (which embeds the full diff) is sent over stdin rather than argv: argv has
-    // hard platform limits (~32K chars on Windows) that --max-lines does not bound, since
-    // it caps changed-line COUNT, not byte size. Only short static flags go in argv.
-    const child = spawn(invocation.command, invocation.args, {
-      cwd: ROOT,
-      stdio: ["pipe", "pipe", "pipe"],
-      windowsHide: true,
-      // detached on POSIX creates a new process group so killProcessTree can signal the
-      // whole group (including grandchildren) on timeout, not just the direct child.
-      detached: process.platform !== "win32",
-    });
-
-    const timer = setTimeout(() => {
-      timedOut = true;
-      killProcessTree(child);
-    }, timeout);
-
-    child.stdin.on("error", () => {
-      // Ignore EPIPE/ECONNRESET if the child exits before we finish writing the prompt;
-      // the close/error handlers below already report the failure.
-    });
-    child.stdin.write(prompt, "utf8");
-    child.stdin.end();
-
-    child.stdout.on("data", (chunk) => {
-      stdout += chunk.toString();
-    });
-
-    child.stderr.on("data", (chunk) => {
-      stderr += chunk.toString();
-    });
-
-    child.on("error", (error) => {
-      finish({
-        tool,
-        status: "error",
-        error: error.message,
-        stdout,
-        stderr,
-      });
-    });
-
-    child.on("close", (code, signal) => {
-      if (timedOut) {
-        finish({
-          tool,
-          status: "error",
-          error: `Timed out after ${timeout}ms`,
-          stdout,
-          stderr,
-        });
-        return;
-      }
-
-      if (code !== 0) {
-        finish({
-          tool,
-          status: "error",
-          error: `Exited with code ${code}${signal ? ` (${signal})` : ""}`,
-          stdout,
-          stderr,
-        });
-        return;
-      }
-
-      finish({
-        tool,
-        status: "ok",
-        stdout,
-        stderr,
-      });
-    });
-
-    function finish(result) {
-      if (settled) {
-        return;
-      }
-      settled = true;
-      clearTimeout(timer);
-      resolve(result);
-    }
-  });
-}
-
-// Terminates the runner's entire process tree, not just the direct child, so a timed-out
-// CLI cannot leave grandchild processes (or their held resources/pipes) running.
-function killProcessTree(child) {
-  if (process.platform === "win32") {
-    try {
-      execFileSync("taskkill", ["/PID", String(child.pid), "/T", "/F"], { stdio: "ignore" });
-    } catch {
-      try {
-        child.kill();
-      } catch {
-        // best-effort
-      }
-    }
-    return;
-  }
-
-  try {
-    // Negative pid targets the whole process group created by `detached: true` above.
-    process.kill(-child.pid, "SIGKILL");
-  } catch {
-    try {
-      child.kill("SIGKILL");
-    } catch {
-      // best-effort
-    }
-  }
-}
-
-function buildInvocation(tool) {
-  switch (tool) {
-    case "claude":
-      return { command: "claude", args: ["-p"] };
-    case "codex":
-      return { command: "codex", args: ["exec", "--skip-git-repo-check"] };
-    case "cursor-agent":
-      return { command: "cursor-agent", args: ["-f", "-p"] };
-    case "agy":
-      return { command: "agy", args: ["-p"] };
-    default:
-      throw new Error(`Unsupported tool: ${tool}`);
-  }
-}
-
-function parseJsonReport(stdout) {
-  const direct = tryParse(stdout);
-  if (direct.ok) {
-    return direct;
-  }
-
-  const firstBrace = stdout.indexOf("{");
-  const lastBrace = stdout.lastIndexOf("}");
-  if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
-    return tryParse(stdout.slice(firstBrace, lastBrace + 1));
-  }
-
-  return { ok: false };
-}
-
-function tryParse(value) {
-  try {
-    return { ok: true, value: JSON.parse(value) };
-  } catch {
-    return { ok: false };
-  }
-}
-
 function validateRawReport(report) {
   if (!report || typeof report !== "object" || Array.isArray(report)) {
-    return { ok: false };
+    return { ok: false, reason: "report must be an object" };
   }
 
   const topLevelKeys = Object.keys(report);
-  if (!topLevelKeys.every((key) => ALLOWED_TOP_LEVEL_KEYS.has(key))) {
-    return { ok: false };
-  }
+  const ignoredTopLevelKeys = topLevelKeys.filter((key) => !ALLOWED_TOP_LEVEL_KEYS.has(key));
 
   if (report.schema_version !== "1" || report.generated_by !== "quad-cli-orchestrate") {
-    return { ok: false };
+    return { ok: false, reason: "schema_version or generated_by is invalid", ignoredTopLevelKeys };
   }
 
   if (!Array.isArray(report.findings)) {
-    return { ok: false };
+    return { ok: false, reason: "findings must be an array", ignoredTopLevelKeys };
   }
 
   for (const finding of report.findings) {
     if (!finding || typeof finding !== "object" || Array.isArray(finding)) {
-      return { ok: false };
+      return { ok: false, reason: "each finding must be an object", ignoredTopLevelKeys };
     }
 
     const findingKeys = Object.keys(finding);
     if (!findingKeys.every((key) => ALLOWED_FINDING_KEYS.has(key))) {
-      return { ok: false };
+      return { ok: false, reason: "finding contains an unknown key", ignoredTopLevelKeys };
     }
 
     if (
@@ -819,19 +680,19 @@ function validateRawReport(report) {
       typeof finding.message !== "string" ||
       !Object.hasOwn(SEVERITY_RANK, finding.severity)
     ) {
-      return { ok: false };
+      return { ok: false, reason: "finding required fields are invalid", ignoredTopLevelKeys };
     }
 
     if (Object.hasOwn(finding, "line") && !Number.isInteger(finding.line)) {
-      return { ok: false };
+      return { ok: false, reason: "finding line must be an integer", ignoredTopLevelKeys };
     }
 
     if (Object.hasOwn(finding, "snippet") && typeof finding.snippet !== "string") {
-      return { ok: false };
+      return { ok: false, reason: "finding snippet must be a string", ignoredTopLevelKeys };
     }
   }
 
-  return { ok: true };
+  return { ok: true, ignoredTopLevelKeys };
 }
 
 // Validates the FINAL orchestrator output against schemas/quad-cli-merged-report.json's

@@ -60,23 +60,39 @@ Hunk anchoring fixes both: any line inside the same changed hunk maps to the sam
 
 ## Invocation Contract
 
-`scripts/quad-cli-orchestrate.mjs` uses these non-interactive commands. The diff-bearing prompt is sent over **stdin**, not argv — see "Why stdin, not argv" below.
+`scripts/quad-cli-orchestrate.mjs` resolves each command on `PATH` before spawning it. On Windows, launcher priority is `.exe` → `.cmd` → `.bat` → `.ps1`; command shims run through an explicit `cmd.exe` or PowerShell launcher, never `shell: true`.
 
-| Tool | Non-interactive invocation | Notes |
+| Tool | Non-interactive invocation | Prompt transport | Launcher notes |
+|---|---|---|---|
+| `claude` | `claude -p` | stdin | native executable or an explicitly resolved command shim |
+| `codex` | `codex exec --skip-git-repo-check` | stdin | Do not add `--output-schema`; the report schema has optional finding fields that Codex's schema mode cannot represent |
+| `cursor-agent` | `cursor-agent -f -p` | stdin | `-f` accepts workspace trust; `--force` is not needed for this read-only review |
+| `agy` | `agy -p <prompt> --mode plan --sandbox --print-timeout <internal>` | argv for a native executable below 24,000 rendered UTF-16 units; otherwise an isolated file reference | A `.cmd`/`.ps1` shim always uses file-reference transport. Do not add `--json-schema`; default output is the compatible mode |
+
+Launcher resolution produces one of `native-exe`, `cmd-shim`, `ps1-shim`, or `not-found`. Native executables run directly. Command shims run as `cmd.exe /d /s /c <serialized command>`; PowerShell shims run as `powershell.exe -NoProfile -ExecutionPolicy Bypass -File <path>`. Missing commands are reported as `unavailable` without a retry.
+
+### Why transport differs by tool
+
+Claude, Codex, and Cursor Agent accept the diff-bearing prompt on stdin. Antigravity's `-p` flag requires the prompt as its value and does not consume the prompt from stdin.
+A native Antigravity executable therefore uses argv only below 24,000 rendered UTF-16 code units. This is intentionally below Windows' command-line ceiling; an unexpected `ENAMETOOLONG` immediately falls back once to file-reference transport rather than retrying the same invocation.
+
+File-reference transport creates a dedicated temporary directory containing only one prompt file. The bootstrap includes that file's absolute path, UTF-8 byte count, and SHA-256 and grants Antigravity access only to that directory.
+Cleanup runs on success, failure, retry, and timeout; cleanup failures are reported rather than hidden. The prompt file is never placed in the repository and the system temp root is never granted wholesale.
+
+`--max-prompt-bytes` (default `262144`, or 256KB) remains the defensive payload cap. It bounds actual UTF-8 prompt bytes, while the Antigravity argv decision separately measures the fully serialized Windows command line in UTF-16 units.
+
+### Verified scope
+
+The transport behavior was verified on Windows on 2026-08-20, not on macOS or Linux.
+
+| Host | Node | CLI inventory used for the measurement |
 |---|---|---|
-| `claude` | `claude -p` (prompt on stdin) | Orchestrator/primary reasoning |
-| `codex` | `codex exec --skip-git-repo-check` (prompt on stdin) | Codex's `exec` subcommand reads and reports a `<stdin>` input block when piped; this is expected, not an error |
-| `cursor-agent` | `cursor-agent -f -p` (prompt on stdin) | `-f` (trust) is required or it exits with "Workspace Trust Required"; `--force` enables edits and is not needed for this read-only review |
-| `agy` | `agy -p` (prompt on stdin, optionally `--sandbox`) | Antigravity CLI, multi-model backend — see "Model Family Voting" below |
+| Four-CLI measurement host | `v26.4.0` | Claude `2.1.237`, Codex `0.146.1`, Antigravity `1.1.15`, Cursor Agent current as of 2026-08-20 |
+| npm-shim regression host | `v22.23.1` | Codex `0.148.0`; Claude, Cursor Agent, and Antigravity absent |
 
-Each CLI is spawned directly with `child_process.spawn(command, args, { stdio: ['pipe', 'pipe', 'pipe'] })` (no shell), and the prompt is written to `child.stdin` and closed with `.end()`. Verify stdin-prompt support for your installed CLI versions with `--help`; if a given CLI does not support stdin prompts, add a file-based (`--file`/`@path`) fallback for that tool rather than reverting to argv.
+Large Antigravity prompts use file-reference transport and can take substantially longer; the observed maximum was 219 seconds. These measurements are compatibility evidence, not a latency SLA.
 
-### Why stdin, not argv
-
-Passing the diff-bearing prompt as a single argv element is bounded by the OS argv limit (~32K characters on Windows) — and **`--max-lines` does not protect against this**, because it caps the changed-line *count*, not the prompt's *byte size*. A diff well under the line cap can still contain very long lines and blow past the argv limit. The orchestrator therefore:
-
-1. Sends the prompt over stdin (no OS argv limit).
-2. Additionally enforces `--max-prompt-bytes` (default `262144`, i.e. 256KB) as a defensive upper bound — if exceeded, the gate is skipped with a clear stderr warning and exit `0`, the same as the existing size caps.
+> **Release note:** restoring additional valid reviewers can increase the number of model-family pairs and therefore produce more BLOCKING findings; the repaired gate can be stricter than the degraded two-reviewer behavior.
 
 ## Model Family Voting (B2)
 
@@ -138,10 +154,14 @@ If any cap is exceeded, the gate is **skipped with a warning on stderr** and exi
 | `--advisory-only` | Never fail the gate outright for below-minimum reviewers; still exits `3` on total (zero-reviewer) outage unless `--allow-zero-reviewers` is also set |
 | `--min-reviewers <n>` | Minimum valid reviewers required to trust consensus; default `2`. Below this, the report is marked `status: "advisory-degraded"` |
 | `--allow-zero-reviewers` | Allow a run with **zero** valid reviewers to exit `0` (marked `status: "no-reviewers"`) instead of exit `3`. Without this flag, zero reviewers always exits `3`, even under `--advisory-only` |
-| `--timeout <ms>` | Per-runner timeout; default `120000`. On timeout the runner's entire process tree is terminated, not just the direct child |
+| `--timeout <ms>` | Override every per-runner timeout. Defaults are Claude `120000`, Codex `240000`, Cursor Agent `240000`, and Antigravity `360000`; `QUAD_CLI_TIMEOUT_<TOOL>_MS` or `QUAD_CLI_TIMEOUT_MS` can override them without code changes |
+| `--gate-timeout <ms>` | Whole parallel gate deadline including one transient retry; default `725000`, also configurable with `QUAD_CLI_GATE_TIMEOUT_MS` |
 | `--diff-file <path>` | Test-only convenience flag to read a unified diff from a file instead of git |
 
 Mock/test execution is controlled solely by the `QUAD_CLI_MOCK_DIR` environment variable (see Usage Examples) — there is no separate test-mode flag to keep in sync with it.
+
+Timeout cleanup targets the runner's process tree (`taskkill /T /F` on Windows and a detached process group on POSIX). This is best-effort: PID reuse and process-snapshot races mean the orchestrator records what it attempted but does not claim that every descendant was certainly terminated.
+Antigravity's internal `--print-timeout` stays shorter than its outer timeout (five minutes under the default six-minute outer timeout), so diagnostics can distinguish which layer stopped the run.
 
 ## Structured Output Contract
 
@@ -163,6 +183,12 @@ Each raw reviewer must emit JSON matching `schemas/quad-cli-report.json`:
   ]
 }
 ```
+
+The parser accepts one complete JSON value, one complete outer JSON Markdown fence, or a measured successful Cursor Agent/Antigravity envelope. It never guesses by slicing from the first `{` to the last `}`; narration containing a schema-valid fake report is rejected.
+Unknown top-level metadata is ignored and reported, while every finding remains strict—one malformed finding invalidates that reviewer's entire report.
+
+Each runner emits exactly one bounded stderr diagnostic with its resolved launcher, status, failure class, exit code, elapsed time, rendered command-line units, output bytes, and a sanitized reason. Only observed transient network failures receive one retry.
+Missing launchers, invalid invocations, authentication rejection, timeouts, and invalid/schema-invalid responses do not retry; Antigravity `ENAMETOOLONG` is a transport fallback rather than a retry.
 
 The merged orchestrator output extends each finding with:
 
