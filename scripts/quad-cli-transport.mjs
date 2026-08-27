@@ -307,7 +307,7 @@ function strictDecode(chunks) {
   return new TextDecoder("utf-8", { fatal: true }).decode(Buffer.concat(chunks));
 }
 
-function sanitizeReason(value, maxLength = 240) {
+export function sanitizeReason(value, maxLength = 240) {
   const firstLine = (String(value ?? "").split(/\r?\n/, 1)[0] ?? "")
     .replace(/[\u0000-\u001f\u007f]+/g, " ")
     .trim();
@@ -614,7 +614,7 @@ export function parseJsonReport(stdout, tool = null) {
 }
 
 export function formatRunnerDiagnostic(result) {
-  const reason = sanitizeReason(result.reason ?? result.stderr ?? result.error ?? "-");
+  const reason = sanitizeReason(result.reason || result.stderr || result.error || "-");
   const parts = [
     `tool=${result.tool}`,
     `status=${result.status}`,

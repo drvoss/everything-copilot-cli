@@ -30,7 +30,9 @@
     "build:plugins": "node scripts/build-plugin-bundles.mjs",
     "check:plugins": "node scripts/build-plugin-bundles.mjs --check",
     "lint:skills": "node scripts/vally-gate.mjs",
-    "lint:plugins": "node scripts/vally-gate.mjs --root plugins/copilot-native-workflows/skills --strict-all"
+    "lint:plugins": "node scripts/vally-gate.mjs --root plugins/copilot-native-workflows/skills --strict-all",
+    "smoke:quad": "node scripts/quad-cli-smoke.mjs",
+    "smoke:quad:available": "node scripts/quad-cli-smoke.mjs --available"
   },
   "devDependencies": {
     "@microsoft/vally": "0.13.0",

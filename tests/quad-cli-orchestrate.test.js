@@ -1,8 +1,9 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { homedir, tmpdir } from "node:os";
+import { join, resolve } from "node:path";
 import {
   buildHunkIndex,
   findHunkId,
@@ -14,6 +15,8 @@ import {
   validateRawReport,
   validateMergedReport,
   parseArgs,
+  deriveFailureStage,
+  redactResolvedPath,
 } from "../scripts/quad-cli-orchestrate.mjs";
 
 const ROOT = resolve(import.meta.dirname, "..");
@@ -319,5 +322,87 @@ describe("quad CLI timeout flags", () => {
     const options = parseArgs(["--timeout", "3333", "--gate-timeout", "4444"]);
     assert.equal(options.timeout, 3333);
     assert.equal(options.gateTimeout, 4444);
+  });
+});
+
+describe("reviewer roster and environment artifact", () => {
+  const validResponse = JSON.stringify({
+    schema_version: "1",
+    generated_by: "quad-cli-orchestrate",
+    findings: [],
+  });
+
+  function withTwoValidReviewers(callback) {
+    const tempDir = mkdtempSync(join(tmpdir(), "quad-cli-roster-"));
+    const mockDir = join(tempDir, "mocks");
+    const artifactPath = join(tempDir, "report.json");
+    try {
+      mkdirSync(mockDir);
+      writeFileSync(join(mockDir, "claude.json"), validResponse, "utf8");
+      writeFileSync(join(mockDir, "codex.json"), validResponse, "utf8");
+      writeFileSync(
+        join(mockDir, "cursor-agent.json"),
+        JSON.stringify({ schema_version: "1", generated_by: "quad-cli-orchestrate", findings: [{ path: 7 }] }),
+        "utf8"
+      );
+      const result = runScript(
+        ["--diff-file", resolve(FIXTURES_DIR, "smoke.diff"), "--artifact", artifactPath],
+        { QUAD_CLI_MOCK_DIR: mockDir }
+      );
+      callback({ result, report: JSON.parse(result.stdout), artifactPath, tempDir });
+    } finally {
+      rmSync(tempDir, { recursive: true, force: true });
+    }
+  }
+
+  it("records four declared, two effective, and two dropped reviewers", () => {
+    withTwoValidReviewers(({ result, report }) => {
+      assert.equal(result.code, 0);
+      assert.deepEqual(report.reviewers.declared, ["claude", "codex", "cursor-agent", "agy"]);
+      assert.deepEqual(report.reviewers.effective, ["claude", "codex"]);
+      assert.deepEqual(report.reviewers.dropped.map(({ tool }) => tool), ["cursor-agent", "agy"]);
+    });
+  });
+
+  it("records spawn and schema failures as different stages", () => {
+    withTwoValidReviewers(({ report }) => {
+      const stages = Object.fromEntries(report.reviewers.dropped.map(({ tool, stage }) => [tool, stage]));
+      assert.equal(stages["cursor-agent"], "schema");
+      assert.equal(stages.agy, "spawn");
+      assert.match(report.reviewers.dropped.find(({ tool }) => tool === "agy").observed_failure, /Mock response not found/);
+      assert.equal(deriveFailureStage({ class: "timeout", timedOut: true }), "transport");
+    });
+  });
+
+  it("redacts home paths and never retains the home directory string", () => {
+    const home = homedir();
+    const pathWithDifferentSeparators = `${home.replace(/\\/g, "/").toUpperCase()}/private/tool.cmd`;
+    const redacted = redactResolvedPath(pathWithDifferentSeparators, home);
+    assert.match(redacted, /^~\//);
+    assert.equal(redacted.toLowerCase().includes(home.replace(/\\/g, "/").toLowerCase()), false);
+    assert.equal(redactResolvedPath(resolve(ROOT, "outside", "tool.cmd"), join(ROOT, "not-home")), "tool.cmd");
+  });
+
+  it("does not create an artifact when --artifact is omitted", () => {
+    const tempDir = mkdtempSync(join(tmpdir(), "quad-cli-no-artifact-"));
+    try {
+      const stdout = execFileSync("node", [SCRIPT, "--diff-file", resolve(FIXTURES_DIR, "smoke.diff")], {
+        cwd: tempDir,
+        encoding: "utf8",
+        env: { ...process.env, QUAD_CLI_MOCK_DIR: MOCK_DIR },
+      });
+      assert.equal(readdirSync(tempDir).length, 0);
+      assert.equal("reviewers" in JSON.parse(stdout), false, "default report shape stays unchanged");
+    } finally {
+      rmSync(tempDir, { recursive: true, force: true });
+    }
+  });
+
+  it("writes the same validated report object to stdout and --artifact", () => {
+    withTwoValidReviewers(({ report, artifactPath }) => {
+      const artifact = JSON.parse(readFileSync(artifactPath, "utf8"));
+      assert.deepEqual(artifact, report);
+      assert.equal(validateMergedReport(report).ok, true);
+    });
   });
 });

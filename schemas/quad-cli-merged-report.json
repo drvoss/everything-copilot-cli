@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Quad CLI Merged Consensus Report",
-  "description": "Shape of the FINAL orchestrator output (after merging raw per-CLI reports). This is intentionally a separate schema from quad-cli-report.json, which models a single raw reviewer's input and forbids the extra fields (blocking/contributors/families/effective_votes/status/reviewers_effective) that the merge step adds. Validating orchestrator OUTPUT against the raw input schema will always fail once findings.length > 0 because of quad-cli-report.json's additionalProperties:false.",
+  "description": "Shape of the FINAL orchestrator output (after merging raw per-CLI reports). This is intentionally a separate schema from quad-cli-report.json, which models a single raw reviewer's input and forbids the extra fields (blocking/contributors/families/effective_votes/status/reviewers_effective/reviewers/environment) that the merge step adds. Validating orchestrator OUTPUT against the raw input schema will always fail once findings.length > 0 because of quad-cli-report.json's additionalProperties:false.",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "generated_by", "findings"],
@@ -18,6 +18,64 @@
     "reviewers_effective": {
       "type": "integer",
       "minimum": 0
+    },
+    "reviewers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["declared", "effective", "dropped"],
+      "properties": {
+        "declared": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "effective": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "dropped": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tool",
+              "stage",
+              "primary_cause",
+              "observed_failure",
+              "launcher_kind",
+              "resolved_path",
+              "exit_code",
+              "ms"
+            ],
+            "properties": {
+              "tool": { "type": "string" },
+              "stage": { "enum": ["resolve", "spawn", "transport", "response", "schema"] },
+              "primary_cause": { "type": "string" },
+              "observed_failure": { "type": "string" },
+              "launcher_kind": { "type": "string" },
+              "resolved_path": { "type": "string" },
+              "exit_code": { "type": ["integer", "null"] },
+              "ms": { "type": "integer" }
+            }
+          }
+        }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["orchestrator_commit", "os", "node", "cli_versions"],
+      "properties": {
+        "orchestrator_commit": { "type": "string" },
+        "os": { "type": "string" },
+        "node": { "type": "string" },
+        "cli_versions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["string", "null"]
+          }
+        }
+      }
     },
     "findings": {
       "type": "array",
