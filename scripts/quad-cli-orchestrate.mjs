@@ -691,15 +691,21 @@ function buildPrompt(diffBody, transportNonce = null) {
     "- findings may be empty.",
     "- Do not include source_cli; the orchestrator adds it.",
     "- Keep snippets short and focused.",
-    ...(transportNonce
-      ? [
-          `- This run's transport-integrity token is: ${transportNonce}`,
-          '- Set "transport_nonce" to that exact token, unmodified, so the orchestrator can confirm you received this whole prompt.',
-        ]
-      : []),
     "<diff>",
     diffBody,
     "</diff>",
+    // The transport-integrity instruction is deliberately placed AFTER the diff, not before
+    // it. The realistic transport failure this guards against is tail truncation of the
+    // (usually large) diff body, not truncation of the short instructions header. Putting the
+    // token/instruction here means a reviewer can only produce "confirmed" by having received
+    // this entire prompt, diff included; any truncation before this point yields "not-echoed"
+    // (never a false "confirmed").
+    ...(transportNonce
+      ? [
+          `This run's transport-integrity token is: ${transportNonce}`,
+          'Set "transport_nonce" to that exact token, unmodified, in your JSON response — this proves you received this entire prompt, including the diff above.',
+        ]
+      : []),
   ].join("\n");
 }
 

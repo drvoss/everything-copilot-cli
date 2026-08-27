@@ -232,9 +232,15 @@ transport, a stale cached response, or a model silently working from a partial p
 produce schema-valid JSON.
 
 Each run generates a random per-run token (`transport_nonce`, 16 hex characters) and instructs every
-reviewer to echo it back verbatim as a top-level `transport_nonce` string field. The orchestrator
-compares the echoed value against the token it issued and records one of three states per declared
-tool in `reviewers.nonce_status` (only present under `--artifact`, alongside the rest of `reviewers`):
+reviewer to echo it back verbatim as a top-level `transport_nonce` string field. The instruction and
+token are placed **after** the `<diff>...</diff>` block in the prompt, not before it — the realistic
+failure mode is tail truncation of the (usually large) diff body, not truncation of the short
+instructions header, so the token is only reachable once the reviewer has received the whole diff. Any
+truncation before that point yields `not-echoed`, never a false `confirmed`.
+
+The orchestrator compares the echoed value against the token it issued and records one of four states
+per declared tool in `reviewers.nonce_status` (only present under `--artifact`, alongside the rest of
+`reviewers`):
 
 | Status | Meaning |
 |--------|---------|
