@@ -1,3 +1,4 @@
+import { randomBytes } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, isAbsolute, join, resolve } from "node:path";
@@ -51,6 +52,16 @@ const SEVERITY_RANK = {
   blocker: 4,
 };
 const DEFAULT_MAX_PROMPT_BYTES = 256 * 1024;
+const NONCE_STATUSES = ["confirmed", "not-echoed", "mismatch", "unavailable"];
+
+// Test-only override so fixture mock responses (static JSON files) can deterministically
+// match this run's issued nonce; never set in production use. Mirrors the existing
+// QUAD_CLI_MOCK_DIR / QUAD_CLI_TIMEOUT_MS test-only environment variable convention.
+function generateTransportNonce() {
+  const override = process.env.QUAD_CLI_TRANSPORT_NONCE;
+  if (override) return override;
+  return randomBytes(8).toString("hex");
+}
 
 export async function main() {
   try {
@@ -68,7 +79,7 @@ export async function main() {
 
     if (!diffResult.body.trim()) {
       const emptyReport = createReport([], {
-        reviewers: options.artifact ? { declared: [], effective: [], dropped: [] } : undefined,
+        reviewers: options.artifact ? { declared: [], effective: [], dropped: [], nonce_status: {} } : undefined,
         environment: options.artifact ? buildEnvironment(options.mockDir) : undefined,
       });
       if (!validateMergedReport(emptyReport).ok) {
@@ -82,7 +93,8 @@ export async function main() {
       process.exit(0);
     }
 
-    const prompt = buildPrompt(diffResult.body);
+    const transportNonce = generateTransportNonce();
+    const prompt = buildPrompt(diffResult.body, transportNonce);
     const promptBytes = Buffer.byteLength(prompt, "utf8");
 
     if (promptBytes > options.maxPromptBytes) {
@@ -158,6 +170,20 @@ export async function main() {
 
       result.findingsCount = parsed.value.findings.length;
       result.ignoredTopLevelKeys = validation.ignoredTopLevelKeys;
+
+      const nonceStatus = deriveNonceStatus(parsed.value.transport_nonce, transportNonce);
+      result.nonceStatus = nonceStatus;
+      if (nonceStatus === "mismatch") {
+        // A wrong (but present) echo proves this reviewer did not faithfully receive/process
+        // this run's exact prompt — do not trust its findings for consensus, even though the
+        // JSON itself is schema-valid. A missing echo ("not-echoed") stays ambiguous (older
+        // CLI, or a model that ignored the instruction) and is NOT treated as a failure.
+        result.status = "error";
+        result.class = "transport-integrity";
+        result.reason = "transport_nonce did not match this run's issued token";
+        erroredReviewers += 1;
+        continue;
+      }
 
       validReports.push({
         tool: result.tool,
@@ -635,7 +661,7 @@ function countPatchLines(section) {
     .length;
 }
 
-function buildPrompt(diffBody) {
+function buildPrompt(diffBody, transportNonce = null) {
   return [
     "You are one reviewer in a four-CLI consensus gate.",
     "Review the diff for correctness, security, reliability, and maintainability issues that deserve structured findings.",
@@ -645,6 +671,7 @@ function buildPrompt(diffBody) {
       {
         schema_version: "1",
         generated_by: "quad-cli-orchestrate",
+        transport_nonce: "<echo this run's transport-integrity token here, verbatim>",
         findings: [
           {
             path: "path/to/file",
@@ -664,6 +691,12 @@ function buildPrompt(diffBody) {
     "- findings may be empty.",
     "- Do not include source_cli; the orchestrator adds it.",
     "- Keep snippets short and focused.",
+    ...(transportNonce
+      ? [
+          `- This run's transport-integrity token is: ${transportNonce}`,
+          '- Set "transport_nonce" to that exact token, unmodified, so the orchestrator can confirm you received this whole prompt.',
+        ]
+      : []),
     "<diff>",
     diffBody,
     "</diff>",
@@ -985,12 +1018,26 @@ function emitReport(report, artifactPath) {
 }
 
 function deriveFailureStage(result) {
+  if (result.class === "transport-integrity") return "response";
   if (result.class === "schema-invalid") return "schema";
   if (result.class === "invalid-response") return "response";
   if (result.launcherKind === "not-found") return "resolve";
   if (result.class === "timeout" || result.timedOut) return "transport";
   if (Number.isInteger(result.exitCode)) return "response";
   return "spawn";
+}
+
+// Compares a reviewer's echoed transport_nonce against the token this run issued.
+// - "confirmed": the reviewer echoed back the exact token — proves it received/processed
+//   this run's full prompt, not a truncated or stale one.
+// - "mismatch": the reviewer echoed a *different* value — proves the transport or the
+//   reviewer corrupted/altered the prompt; the report is not trustworthy for consensus.
+// - "not-echoed": the field is absent (or not a string). This is deliberately NOT treated
+//   as a failure: older CLIs and models that never learned this field will always land
+//   here, and that is indistinguishable from a model that silently ignored the instruction.
+function deriveNonceStatus(echoed, expected) {
+  if (typeof echoed !== "string" || echoed.length === 0) return "not-echoed";
+  return echoed === expected ? "confirmed" : "mismatch";
 }
 
 function redactResolvedPath(value, home = homedir()) {
@@ -1006,9 +1053,40 @@ function redactResolvedPath(value, home = homedir()) {
   return isAbsolute(rawPath) ? basename(rawPath) : basename(normalizedPath);
 }
 
+const TRAILING_PUNCTUATION = /[.,;:)\]]+$/;
+
+function looksLikePathToken(token) {
+  return isAbsolute(token) || /^[A-Za-z]:[\\/]/.test(token) || token.startsWith("/") || token.startsWith("\\\\");
+}
+
+// observed_failure is free-form text (a CLI's stderr/error first line) and can contain an
+// absolute path even though it already passed through sanitizeReason (which only strips
+// control characters and truncates length, not paths). Apply the same home-dir/basename
+// redaction as redactResolvedPath, but per whitespace-delimited token, so surrounding
+// diagnostic text (e.g. "Mock response not found: <path>") is preserved.
+function redactPathTokensInText(text, home = homedir()) {
+  if (!text) return text;
+  return text
+    .split(/(\s+)/)
+    .map((token) => {
+      if (!token || /^\s+$/.test(token)) return token;
+      const trailingMatch = token.match(TRAILING_PUNCTUATION);
+      const trailing = trailingMatch ? trailingMatch[0] : "";
+      const core = trailing ? token.slice(0, -trailing.length) : token;
+      if (!looksLikePathToken(core)) return token;
+      return `${redactResolvedPath(core, home)}${trailing}`;
+    })
+    .join("");
+}
+
 function buildReviewerRoster(parsedResults, validReports) {
   const effective = validReports.map(({ tool }) => tool);
   const effectiveSet = new Set(effective);
+  // "unavailable" covers every result that never reached JSON parsing (resolve/spawn/
+  // transport failures) — there was no response body to check for an echoed nonce at all.
+  const nonceStatus = Object.fromEntries(
+    parsedResults.map((result) => [result.tool, result.nonceStatus ?? "unavailable"])
+  );
   return {
     declared: parsedResults.map(({ tool }) => tool),
     effective,
@@ -1016,12 +1094,13 @@ function buildReviewerRoster(parsedResults, validReports) {
       tool: result.tool,
       stage: deriveFailureStage(result),
       primary_cause: result.class ?? "internal",
-      observed_failure: sanitizeReason(result.reason || result.stderr || result.error || "-") || "-",
+      observed_failure: redactPathTokensInText(sanitizeReason(result.reason || result.stderr || result.error || "-")) || "-",
       launcher_kind: result.launcherKind ?? "-",
       resolved_path: redactResolvedPath(result.resolvedPath),
       exit_code: Number.isInteger(result.exitCode) ? result.exitCode : null,
       ms: Number.isInteger(result.ms) ? result.ms : 0,
     })),
+    nonce_status: nonceStatus,
   };
 }
 
@@ -1059,10 +1138,20 @@ function buildEnvironment(mockDir) {
 
 function validateReviewerRoster(reviewers) {
   if (!reviewers || typeof reviewers !== "object" || Array.isArray(reviewers)) return false;
-  if (!Object.keys(reviewers).every((key) => ["declared", "effective", "dropped"].includes(key))) return false;
+  if (!Object.keys(reviewers).every((key) => ["declared", "effective", "dropped", "nonce_status"].includes(key)))
+    return false;
   if (!Array.isArray(reviewers.declared) || !reviewers.declared.every((tool) => typeof tool === "string")) return false;
   if (!Array.isArray(reviewers.effective) || !reviewers.effective.every((tool) => typeof tool === "string")) return false;
   if (!Array.isArray(reviewers.dropped)) return false;
+  if (
+    Object.hasOwn(reviewers, "nonce_status") &&
+    (!reviewers.nonce_status ||
+      typeof reviewers.nonce_status !== "object" ||
+      Array.isArray(reviewers.nonce_status) ||
+      !Object.values(reviewers.nonce_status).every((value) => NONCE_STATUSES.includes(value)))
+  ) {
+    return false;
+  }
   const allowedStages = ["resolve", "spawn", "transport", "response", "schema"];
   const droppedKeys = ["tool", "stage", "primary_cause", "observed_failure", "launcher_kind", "resolved_path", "exit_code", "ms"];
   return reviewers.dropped.every((entry) =>
@@ -1103,7 +1192,10 @@ export {
   normalizeRuleId,
   createReport,
   deriveFailureStage,
+  deriveNonceStatus,
+  generateTransportNonce,
   redactResolvedPath,
+  redactPathTokensInText,
   buildReviewerRoster,
 };
 
