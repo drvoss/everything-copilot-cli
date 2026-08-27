@@ -209,8 +209,49 @@ The top-level report additionally carries, when relevant:
 
 - `status: "advisory-degraded" | "no-reviewers"` — present only when reviewer count is below `--min-reviewers` or zero
 - `reviewers_effective: N` — the number of CLIs that returned schema-valid output this run
-- `reviewers` — the declared and effective tool names plus structured stage/cause diagnostics for every dropped reviewer
+
+The following two fields are **only** populated when the caller passes `--artifact <path>` — unlike
+`status`/`reviewers_effective`, which are always present when relevant, these carry an additional
+per-tool CLI re-invocation cost (see below) that is not paid on a default run:
+
+- `reviewers` — the declared and effective tool names, transport-integrity nonce status per declared
+  tool (see Transport-Integrity Nonce), plus structured stage/cause diagnostics for every dropped reviewer
 - `environment` — the orchestrator commit, OS/architecture, Node version, and per-tool CLI versions
+
+> **Cost of `--artifact`:** populating `environment.cli_versions` re-invokes every declared CLI with
+> `--version` (up to four sequential, 10-second-capped `spawnSync` calls) even for tools that already
+> ran successfully in the main review. This happens **after** the gate-timeout-bounded review phase, so
+> it can add up to ~40s of wall-clock time that is **not** covered by `--gate-timeout`. Mock runs
+> (`QUAD_CLI_MOCK_DIR`) skip the real spawn and resolve instantly.
+
+## Transport-Integrity Nonce
+
+A schema-valid JSON response only proves a reviewer returned *some* well-formed report — it does not
+prove the reviewer actually received and processed the *entire* prompt this run sent it. A truncated
+transport, a stale cached response, or a model silently working from a partial prompt can all still
+produce schema-valid JSON.
+
+Each run generates a random per-run token (`transport_nonce`, 16 hex characters) and instructs every
+reviewer to echo it back verbatim as a top-level `transport_nonce` string field. The instruction and
+token are placed **after** the `<diff>...</diff>` block in the prompt, not before it — the realistic
+failure mode is tail truncation of the (usually large) diff body, not truncation of the short
+instructions header, so the token is only reachable once the reviewer has received the whole diff. Any
+truncation before that point yields `not-echoed`, never a false `confirmed`.
+
+The orchestrator compares the echoed value against the token it issued and records one of four states
+per declared tool in `reviewers.nonce_status` (only present under `--artifact`, alongside the rest of
+`reviewers`):
+
+| Status | Meaning |
+|--------|---------|
+| `confirmed` | The reviewer echoed the exact token — positive proof it received this run's full, unmodified prompt. |
+| `mismatch` | The reviewer echoed a *different* value. This is unambiguous: the transport or the reviewer altered the prompt, so the report is dropped from consensus even though its JSON was otherwise schema-valid (`stage: "response"`, `primary_cause: "transport-integrity"`). |
+| `not-echoed` | No `transport_nonce` field was present. This is **deliberately not a failure** — an older CLI or a model that never echoes unrecognized fields is indistinguishable, from the orchestrator's side, from one that silently ignored the instruction. Recorded for observability only; does not affect `reviewers_effective` or `blocking`. |
+| `unavailable` | The reviewer never produced a parseable response at all (resolve/spawn/transport failure) — there was nothing to check the nonce against. |
+
+`QUAD_CLI_TRANSPORT_NONCE` overrides the generated token for deterministic test fixtures; it is
+test-only and must never be set for a production run (a fixed token defeats the transport-integrity
+guarantee the mechanism exists to provide).
 
 Normalized matching uses repo-relative paths with forward slashes. Paths are **not blindly lowercased** by default — `rule_id` normalization **is** lowercased (via `schemas/rule-aliases.json` alias resolution), since rule identifiers are conventionally case-insensitive across tools while file paths are not.
 

@@ -58,6 +58,12 @@
               "ms": { "type": "integer" }
             }
           }
+        },
+        "nonce_status": {
+          "type": "object",
+          "additionalProperties": {
+            "enum": ["confirmed", "not-echoed", "mismatch", "unavailable"]
+          }
         }
       }
     },

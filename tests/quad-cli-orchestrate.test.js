@@ -16,7 +16,9 @@ import {
   validateMergedReport,
   parseArgs,
   deriveFailureStage,
+  deriveNonceStatus,
   redactResolvedPath,
+  redactPathTokensInText,
 } from "../scripts/quad-cli-orchestrate.mjs";
 
 const ROOT = resolve(import.meta.dirname, "..");
@@ -403,6 +405,79 @@ describe("reviewer roster and environment artifact", () => {
       const artifact = JSON.parse(readFileSync(artifactPath, "utf8"));
       assert.deepEqual(artifact, report);
       assert.equal(validateMergedReport(report).ok, true);
+    });
+  });
+
+  it("redacts a home-directory path embedded inside free-form observed_failure text (does not just basename resolved_path)", () => {
+    const home = homedir();
+    const leaky = `Mock response not found: ${join(home, "private", "agy.json")}`;
+    const redacted = redactPathTokensInText(leaky, home);
+    assert.match(redacted, /^Mock response not found: ~[\\/]/);
+    assert.equal(redacted.toLowerCase().includes(home.replace(/\\/g, "/").toLowerCase()), false);
+    assert.equal(redactPathTokensInText("no path here at all", home), "no path here at all");
+  });
+});
+
+describe("quad-cli transport-integrity nonce (--diff-file fixture, mock-responses-nonce)", () => {
+  const NONCE_MOCK_DIR = resolve(FIXTURES_DIR, "mock-responses-nonce");
+  const TEST_NONCE = "test-fixture-nonce";
+
+  function withNonceFixture(callback) {
+    const tempDir = mkdtempSync(join(tmpdir(), "quad-cli-nonce-"));
+    const artifactPath = join(tempDir, "report.json");
+    try {
+      const result = runScript(["--diff-file", resolve(FIXTURES_DIR, "smoke.diff"), "--artifact", artifactPath], {
+        QUAD_CLI_MOCK_DIR: NONCE_MOCK_DIR,
+        QUAD_CLI_TRANSPORT_NONCE: TEST_NONCE,
+      });
+      callback({ result, report: JSON.parse(result.stdout) });
+    } finally {
+      rmSync(tempDir, { recursive: true, force: true });
+    }
+  }
+
+  it("deriveNonceStatus: exact match is confirmed, different value is mismatch, missing/non-string is not-echoed", () => {
+    assert.equal(deriveNonceStatus("abc123", "abc123"), "confirmed");
+    assert.equal(deriveNonceStatus("wrong", "abc123"), "mismatch");
+    assert.equal(deriveNonceStatus(undefined, "abc123"), "not-echoed");
+    assert.equal(deriveNonceStatus(42, "abc123"), "not-echoed");
+    assert.equal(deriveNonceStatus("", "abc123"), "not-echoed");
+  });
+
+  it("records confirmed/not-echoed/mismatch/unavailable per declared tool in reviewers.nonce_status", () => {
+    withNonceFixture(({ report }) => {
+      assert.deepEqual(report.reviewers.nonce_status, {
+        claude: "confirmed",
+        codex: "not-echoed",
+        "cursor-agent": "mismatch",
+        agy: "unavailable",
+      });
+    });
+  });
+
+  it("drops a reviewer whose echoed nonce mismatches, even though its JSON was schema-valid", () => {
+    withNonceFixture(({ report }) => {
+      assert.deepEqual(report.reviewers.effective, ["claude", "codex"]);
+      const dropped = report.reviewers.dropped.find(({ tool }) => tool === "cursor-agent");
+      assert.ok(dropped, "cursor-agent must be recorded as dropped");
+      assert.equal(dropped.stage, "response");
+      assert.equal(dropped.primary_cause, "transport-integrity");
+    });
+  });
+
+  it("does NOT drop a reviewer that simply never echoed the field (not-echoed stays effective)", () => {
+    withNonceFixture(({ report }) => {
+      assert.ok(report.reviewers.effective.includes("codex"));
+      assert.equal(report.reviewers.dropped.some(({ tool }) => tool === "codex"), false);
+    });
+  });
+
+  it("QUAD_CLI_TRANSPORT_NONCE override is test-only and produces a deterministic, non-empty nonce", () => {
+    withNonceFixture(({ report }) => {
+      // reviewers_effective reflects the two non-dropped reviewers (claude confirmed, codex not-echoed);
+      // this indirectly proves the same override value was used to build the prompt every declared
+      // reviewer saw, since claude's canned response only matches "test-fixture-nonce" by fixture design.
+      assert.equal(report.reviewers_effective, 2);
     });
   });
 });
