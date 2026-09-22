@@ -129,23 +129,29 @@ During step 4, setup offers these profiles:
 
 Setup writes project instructions to `.github/copilot-instructions.md`, installs custom agents to `.github/agents/`, project skills to `.github/skills/`, and rules to `.github/copilot/rules/`. The `full` profile also installs contexts to `.github/copilot/contexts/`.
 
-This repository's `npm run setup` path is still the fastest way to install the full profile in one pass. If you only want to add or remove individual skills, GitHub Copilot CLI v1.0.72+ also supports native skill management:
+This repository's `npm run setup` path is still the fastest way to install the full profile in one pass. If you only want to add or remove individual skills, GitHub Copilot CLI v1.0.85+ provides `copilot skill`:
 
 ```bash
 # Install a skill from a local file into this repository
-copilot plugins install --skill ./skills/development/fix-build-errors/SKILL.md --scope project
+copilot skill add --project ./skills/development/fix-build-errors/SKILL.md
 
 # Install a skill from a URL into this repository
-copilot plugins install --skill https://example.com/path/to/SKILL.md --scope project
+copilot skill add --project https://example.com/path/to/SKILL.md
 
-# Install a skill from a local directory
-copilot plugins install --skill ./skills/development/fix-build-errors
+# Register a local directory as a skill source (registered, not copied)
+copilot skill add ./skills/development/fix-build-errors
 
 # Remove an installed skill by name
-copilot plugins remove --skill fix-build-errors
+copilot skill remove fix-build-errors
 ```
 
-Use `npm run setup` when you want this repository's instructions, rules, contexts, agents, and skills installed together. Use the native `copilot plugins install/remove --skill` commands when you want to manage one skill at a time through the CLI. The `--scope project` flag is documented for file and URL installs into the repository; the directory example above intentionally omits that flag.
+Use `npm run setup` when you want this repository's instructions, rules, contexts, agents, and
+skills installed together. Use `copilot skill add/remove` when you want to manage one skill at a
+time through the CLI. A file or URL source is copied into `~/.copilot/skills/<name>/SKILL.md`, or
+into the project's `.github/skills` when `--project` is passed; a directory source is registered
+as a skill source instead of being copied, so `--project` does not apply to it. The older
+`copilot plugins install/remove --skill` form and its `--scope` flag were retired in Copilot CLI
+v1.0.85.
 Copilot also supports marketplace management and per-resource enable/disable controls; see the [plugin and marketplace lifecycle guide](guides/copilot-exclusive-features.md#plugin-and-marketplace-lifecycle).
 
 Then open a terminal and start using Copilot CLI with the installed agents, skills, and rules:

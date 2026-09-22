@@ -111,6 +111,18 @@ See the other files in this directory for ready-to-use MCP configurations:
 [Context7](https://github.com/upstash/context7) solves a common problem: LLMs have
 a training cutoff, so they produce code using outdated APIs.
 
+Context7 now ships a Copilot CLI setup target, so you can let its installer write the
+configuration instead of copying the JSON below:
+
+```bash
+npx ctx7 setup --copilot          # HTTP transport (default)
+npx ctx7 setup --copilot --stdio  # local stdio process, matching context7.json
+```
+
+The installer defaults to the hosted HTTP server; `--stdio` produces the local
+`npx @upstash/context7-mcp` shape that `context7.json` uses. Add `--project` to configure the
+current project rather than your user profile.
+
 **Setup (from `context7.json`):**
 
 ```json
@@ -164,7 +176,8 @@ patterns across sessions — especially useful for large codebases.
 
 ## Building Custom MCP Servers with fastmcp
 
-[fastmcp](https://github.com/jlowin/fastmcp) lets you build custom MCP servers with
+[fastmcp](https://github.com/PrefectHQ/fastmcp) (formerly `jlowin/fastmcp`; 4.0 went GA on
+2026-08-31) lets you build custom MCP servers with
 minimal Python code. Use it to expose internal tools, APIs, or databases to Copilot CLI.
 
 **Minimal custom server example:**

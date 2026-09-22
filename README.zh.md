@@ -129,23 +129,27 @@ npm run setup -- --target /path/to/your-project
 
 setup 会把项目 instructions 写入 `.github/copilot-instructions.md`，并把 custom agents 安装到 `.github/agents/`、project skills 安装到 `.github/skills/`、rules 安装到 `.github/copilot/rules/`。`full` 配置还会把 contexts 安装到 `.github/copilot/contexts/`。
 
-这个仓库里的 `npm run setup` 仍然是一次性安装完整配置的最快方式：它会一起安装 instructions、rules、contexts、agents 和 skills。如果你只想单独添加或移除某一个 skill，也可以使用 GitHub Copilot CLI v1.0.72+ 提供的原生 skill 管理命令：
+这个仓库里的 `npm run setup` 仍然是一次性安装完整配置的最快方式：它会一起安装 instructions、rules、contexts、agents 和 skills。如果你只想单独添加或移除某一个 skill，可以使用 GitHub Copilot CLI v1.0.85+ 的 `copilot skill` 命令：
 
 ```bash
 # 从本地文件把 skill 安装到这个仓库
-copilot plugins install --skill ./skills/development/fix-build-errors/SKILL.md --scope project
+copilot skill add --project ./skills/development/fix-build-errors/SKILL.md
 
 # 从 URL 把 skill 安装到这个仓库
-copilot plugins install --skill https://example.com/path/to/SKILL.md --scope project
+copilot skill add --project https://example.com/path/to/SKILL.md
 
-# 从本地目录安装 skill
-copilot plugins install --skill ./skills/development/fix-build-errors
+# 把本地目录注册为 skill 来源（是注册，不是复制）
+copilot skill add ./skills/development/fix-build-errors
 
 # 按名称移除已安装的 skill
-copilot plugins remove --skill fix-build-errors
+copilot skill remove fix-build-errors
 ```
 
-如果你想把这个仓库的 instructions、rules、contexts、agents 和 skills 一起装好，请使用 `npm run setup`。如果你只想通过 CLI 一次添加或移除一个 skill，请使用原生 `copilot plugins install/remove --skill` 命令。`--scope project` 目前只在安装到仓库的文件/URL 示例中有文档说明，因此上面的目录安装示例刻意没有带这个参数。
+如果你想把这个仓库的 instructions、rules、contexts、agents 和 skills 一起装好，请使用 `npm run setup`。
+如果你只想通过 CLI 一次添加或移除一个 skill，请使用 `copilot skill add/remove`。传入文件或 URL 时会
+**复制**到 `~/.copilot/skills/<name>/SKILL.md`，加上 `--project` 则复制到项目的 `.github/skills`；
+传入目录时不会复制，而是**注册为 skill 来源**，因此 `--project` 不适用。旧形式
+`copilot plugins install/remove --skill` 及其 `--scope` 参数已在 Copilot CLI v1.0.85 中退役。
 Copilot 还支持 marketplace 管理以及按资源启用或禁用；详情请参阅 [plugin 与 marketplace 生命周期指南](guides/copilot-exclusive-features.md#plugin-and-marketplace-lifecycle)。
 
 随后打开终端，开始使用安装到项目中的 agent、skill 与规则：

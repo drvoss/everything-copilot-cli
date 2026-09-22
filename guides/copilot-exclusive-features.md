@@ -82,19 +82,25 @@ See [GitHub PR Workflow skill](../skills/copilot-exclusive/github-pr-workflow/SK
 
 ## Plugin and Marketplace Lifecycle
 
-The terminal forms `copilot plugin` and `copilot plugins` are interchangeable. The current command
-reference also documents interactive `/plugin` as an alias of `/plugins`; keep terminal and slash
-syntax distinct when copying commands between surfaces.
+The singular `copilot plugin` is the command. `copilot plugins` still runs, but it routes to the
+singular form and reports plugins only — it is a legacy alias, not a separate command with its own
+flags. The interactive `/plugins` command was **removed**; its resources moved to `/plugin`,
+`/mcp`, and `/skills`. Keep terminal and slash syntax distinct when copying commands between
+surfaces.
 
 | Operation | Terminal command | Interactive slash surface |
 |-----------|------------------|---------------------------|
-| Install / uninstall / list | `copilot plugin install SPECIFICATION`, `uninstall NAME`, `list` | `/plugins install SOURCE`, `/plugins uninstall PLUGIN[@MARKETPLACE]`, `/plugins list` |
-| Update | `copilot plugin update NAME` or `copilot plugin update --all` | `/plugins update PLUGIN[@MARKETPLACE]` |
-| Enable / disable non-MCP resources | Plugins or skills only: `copilot plugins enable NAME [--plugin\|--skill]`, `copilot plugins disable NAME [--plugin\|--skill]` | `/plugins` controls for plugins, instructions, agents, LSP servers, and hooks (documented in the v1.0.76 release notes) |
-| Enable / disable MCP servers | `copilot plugins enable NAME --mcp`, `copilot plugins disable NAME --mcp` | `/mcp disable`, `/mcp enable` (also `/plugins enable\|disable --mcp NAME`) |
-| Register / list a marketplace | `copilot plugin marketplace add SOURCE`, `list` | `/plugins marketplace add SOURCE`, `/plugins marketplace list` |
-| Browse / refresh | `copilot plugin marketplace browse NAME`, `update [NAME]` (`refresh` alias) | `/plugins marketplace browse NAME` |
-| Remove a marketplace | `copilot plugin marketplace remove NAME [--force]` | `/plugins marketplace remove NAME` |
+| Install / uninstall / list | `copilot plugin install SOURCE`, `uninstall NAME`, `list` | `/plugin install SOURCE`, `/plugin uninstall PLUGIN[@MARKETPLACE]`, `/plugin list` |
+| Update | `copilot plugin update PLUGIN[@MARKETPLACE]` | `/plugin update PLUGIN[@MARKETPLACE]` |
+| Enable / disable a plugin | `copilot plugin enable NAME`, `copilot plugin disable NAME` | `/plugin` dashboard |
+| Enable / disable an MCP server | `copilot mcp enable NAME`, `copilot mcp disable NAME` | `/mcp enable`, `/mcp disable` |
+| Enable / disable a skill | `copilot skill enable NAME`, `copilot skill disable NAME` | `/skills` dashboard |
+| Register / list a marketplace | `copilot plugin marketplace add SOURCE`, `list` | `/plugin marketplace add SOURCE`, `/plugin marketplace list` |
+| Browse / refresh | `copilot plugin marketplace browse NAME`, `update [NAME]` | `/plugin marketplace browse NAME` |
+| Remove a marketplace | `copilot plugin marketplace remove NAME` | `/plugin marketplace remove NAME` |
+
+Two marketplaces ship by default: `copilot-plugins` (`github/copilot-plugins`) and
+`awesome-copilot` (`github/awesome-copilot`).
 
 `update NAME` and `update --all` are alternatives; do not combine a name with `--all`. Marketplace
 sources may be Git repositories, URLs, or local paths. The CLI checks marketplace manifests in
@@ -105,10 +111,15 @@ this order:
 3. `.github/plugin/marketplace.json`
 4. `.claude-plugin/marketplace.json`
 
-The non-interactive `copilot plugins enable` and `disable` commands accept only `--plugin`, `--mcp`,
-or `--skill`. Instructions are session-scoped and cannot be toggled with these commands; language
-servers, agents, and hooks are managed elsewhere. `copilot plugins list --kind` can still discover
-instructions and language servers, so listability does not imply that a resource is toggleable.
+The cross-kind `--plugin`, `--mcp`, `--skill`, `--kind`, and `--scope` flags were removed from
+`copilot plugins`. Each resource kind now has its own command: `copilot plugin`, `copilot mcp`,
+and `copilot skill` each carry their own `enable` and `disable`. Discovery moved too —
+`copilot instruction list` and `copilot lsp list` replace `copilot plugins list --kind instruction`
+and `--kind lsp`, and both are inspect-only. `copilot plugin list --json` now emits a flat array
+rather than a `{ plugins, errors }` object.
+
+Custom agents and session-scoped hooks are not covered by any of these commands; they require a
+live session.
 
 Agent Plugins (Open Plugin Spec) v1.0.0 is a published format supported through `plugin.json` at
 the plugin root. The only native required field is `name` (normally kebab-case, maximum 64

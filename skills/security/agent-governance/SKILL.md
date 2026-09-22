@@ -186,6 +186,23 @@ When reviewing permission rules:
 2. prefer exact paths when the writable surface is supposed to stay small
 3. treat "looks right" as insufficient until the concrete expansion is understood
 
+### 3-C. A denied tool is not a denied capability
+
+Denying one tool blocks that tool, not the outcome the tool produced. An agent that cannot use a
+file-writing tool may still reach the same result through a shell command, an MCP server, or a
+network fetch — and it may do so inconsistently, so a single passing test proves nothing.
+
+Measured on GitHub Copilot CLI 1.0.87: with only `--deny-tool=write`, the same prompt created the
+target file on one run and reported itself blocked on two others. Adding `--deny-tool=shell` and
+`--deny-tool=url` alongside it blocked the file on every run.
+
+When you deny a capability:
+
+1. enumerate every tool that can produce the outcome, not just the obviously named one
+2. deny the whole set together — shell and network access are the usual bypass routes
+3. verify by observing the outcome, never by the agent's own report that it was blocked
+4. repeat the check; a permission gate that passes only sometimes is not a gate
+
 ### 4. Add trust scoring for delegated agents
 
 Multi-agent systems need memory of which delegates are reliable.

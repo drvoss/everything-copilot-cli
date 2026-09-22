@@ -129,23 +129,28 @@ npm run setup -- --target /path/to/your-project
 
 setup는 프로젝트 instructions를 `.github/copilot-instructions.md`에 쓰고, custom agents는 `.github/agents/`에, project skills는 `.github/skills/`에, rules는 `.github/copilot/rules/`에 설치합니다. `full` 프로필은 contexts도 `.github/copilot/contexts/`에 설치합니다.
 
-이 저장소의 `npm run setup` 경로는 지금도 instructions, rules, contexts, agents, skills까지 전체 프로필을 한 번에 설치하는 가장 빠른 방법입니다. 반대로 개별 skill만 추가하거나 제거하고 싶다면 GitHub Copilot CLI v1.0.72+의 네이티브 skill 관리 명령을 사용할 수 있습니다:
+이 저장소의 `npm run setup` 경로는 지금도 instructions, rules, contexts, agents, skills까지 전체 프로필을 한 번에 설치하는 가장 빠른 방법입니다. 반대로 개별 skill만 추가하거나 제거하고 싶다면 GitHub Copilot CLI v1.0.85+의 `copilot skill` 명령을 사용할 수 있습니다:
 
 ```bash
 # 로컬 파일에서 이 저장소에 skill 설치
-copilot plugins install --skill ./skills/development/fix-build-errors/SKILL.md --scope project
+copilot skill add --project ./skills/development/fix-build-errors/SKILL.md
 
 # URL에서 이 저장소에 skill 설치
-copilot plugins install --skill https://example.com/path/to/SKILL.md --scope project
+copilot skill add --project https://example.com/path/to/SKILL.md
 
-# 로컬 디렉터리에서 skill 설치
-copilot plugins install --skill ./skills/development/fix-build-errors
+# 로컬 디렉터리를 skill 소스로 등록 (복사가 아니라 등록)
+copilot skill add ./skills/development/fix-build-errors
 
 # 설치된 skill을 이름으로 제거
-copilot plugins remove --skill fix-build-errors
+copilot skill remove fix-build-errors
 ```
 
-이 저장소의 instructions, rules, contexts, agents, skills를 함께 설치하려면 `npm run setup`을 사용하세요. CLI에서 skill을 하나씩 추가/제거하려면 네이티브 `copilot plugins install/remove --skill` 명령을 사용하면 됩니다. `--scope project` 플래그는 저장소에 설치하는 파일/URL 예시에만 문서화되어 있으므로, 위 디렉터리 예제에는 의도적으로 넣지 않았습니다.
+이 저장소의 instructions, rules, contexts, agents, skills를 함께 설치하려면 `npm run setup`을 사용하세요.
+CLI에서 skill을 하나씩 추가/제거하려면 `copilot skill add/remove`를 사용합니다. 파일이나 URL을 주면
+`~/.copilot/skills/<이름>/SKILL.md`로, `--project`를 붙이면 프로젝트의 `.github/skills`로 **복사**됩니다.
+반면 디렉터리를 주면 복사하지 않고 **skill 소스로 등록**하므로 `--project`가 적용되지 않습니다.
+구 형식 `copilot plugins install/remove --skill`과 `--scope` 플래그는 Copilot CLI v1.0.85에서
+퇴역했습니다.
 Copilot은 marketplace 관리와 리소스별 활성화/비활성화도 지원합니다. 자세한 내용은 [plugin 및 marketplace 생명주기 가이드](guides/copilot-exclusive-features.md#plugin-and-marketplace-lifecycle)를 참고하세요.
 
 이제 프로젝트에 설치한 에이전트, 스킬, 규칙과 함께 Copilot CLI를 사용해보세요:

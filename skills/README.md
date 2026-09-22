@@ -67,9 +67,13 @@ Copilot CLI discovers skills from these locations in priority order:
 5. `~/.copilot/skills/` for personal skills
 6. `~/.agents/skills/` for personal skills shared across agents
 7. Plugin directories
-8. Additional comma-separated directories from `COPILOT_SKILLS_DIRS`
-9. Skills built into the CLI
-10. Organization or enterprise skills projected through the AHP relay and fetched when invoked
+8. Additional directories — comma-separated paths in `COPILOT_SKILLS_DIRS`, and directories
+   registered with `copilot skill add <directory>`
+9. `.github/skills/` under any directory added with `--add-dir`, `/add-dir`, or the SDK's
+   `additionalDirectories`. This is a trust decision: those skills run with the same trust as
+   project skills
+10. Skills built into the CLI
+11. Organization or enterprise skills projected through the AHP relay and fetched when invoked
 
 Copy each skill directory beneath the chosen location, for example
 `.github/skills/<skill-name>/SKILL.md` or `~/.copilot/skills/<category>/<skill-name>/SKILL.md`.
