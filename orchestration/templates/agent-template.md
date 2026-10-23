@@ -2,7 +2,7 @@
 name: <agent-name>
 description: <one-line description of the specialist's focus>
 agent_type: general-purpose   # explore | task | general-purpose | code-review
-model: claude-sonnet-4.6      # see model selection guide below
+model: claude-sonnet-5.5      # see model selection guide below
 tools:
   - grep
   - glob
@@ -74,10 +74,10 @@ WHERE id = '<assignment-id>';
 
 | Recommended model | Reason |
 |-------------------|--------|
-| `claude-sonnet-4.6` | Default — strong reasoning, good for analysis and multi-step tasks |
-| `gpt-5-mini` | Fast iteration — good for boilerplate generation and simple transforms |
+| `claude-sonnet-5.5` | Default — strong reasoning, good for analysis and multi-step tasks |
+| `gpt-6-luna` | Fast iteration — good for boilerplate generation and simple transforms |
 | `claude-haiku-4.5` | Cheapest — good for large-scale scanning with simple output |
-| `claude-opus-4.6` | Deep analysis — use for security audits, architecture decisions |
+| `claude-opus-5.5` | Deep analysis — use for security audits, architecture decisions |
 
 ## Escalation
 

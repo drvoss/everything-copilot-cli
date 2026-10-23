@@ -24,9 +24,11 @@ Use the most capable model necessary — not the most capable model available.
 
 | Tier | Models | Best for |
 |------|--------|----------|
-| **Premium** | `claude-opus-4.7`, `claude-opus-4.6`, `claude-opus-4.5` | Architecture decisions, complex multi-file reasoning, security audits |
-| **Standard** | `claude-sonnet-4.6`, `claude-sonnet-4.5`, `gpt-5.2` | Most coding tasks, code review, test generation, documentation |
-| **Fast / Cheap** | `claude-haiku-4.5`, `gpt-5-mini`, `gpt-4.1` | File edits, boilerplate, classification, triage, simple summaries |
+| **Premium** | `claude-opus-5.5` | Architecture decisions, complex multi-file reasoning, security audits |
+| **Standard** | `claude-sonnet-5.5`, `gpt-6.1-sol`, `gpt-5.3-codex` | Most coding tasks, code review, test generation, documentation |
+| **Fast / Cheap** | `claude-haiku-4.5`, `claude-haiku-5.5`, `gpt-6-luna` | File edits, boilerplate, classification, triage, simple summaries |
+
+Tiers are a suggested routing, not an official GitHub classification; take model IDs from `/model`.
 
 ## Workflow
 
@@ -77,10 +79,10 @@ Scan for:
 For each change:
 
 ```text
-Change: Replace claude-opus-4.7 on doc-summary with claude-haiku
-Before: ~4,000 tokens × $0.015/1K = $0.06/call
-After:  ~4,000 tokens × $0.00025/1K = $0.001/call
-Savings: ~$0.059/call, ~$590/10K calls
+Change: Replace claude-opus-5.5 on doc-summary with claude-haiku-4.5
+Before: ~4,000 tokens × <premium price>/1K = <before>/call
+After:  ~4,000 tokens × <fast-tier price>/1K = <after>/call
+Savings: (<before> − <after>) × calls per period
 ```
 
 Use approximate public pricing for estimation. Actual prices vary; check your provider dashboard.
@@ -108,7 +110,7 @@ Top three opportunities: [list]
 
 #### [HIGH] Premium model for boilerplate generation
 Location: [file or workflow name]
-Issue: `claude-opus-4.7` used for all code generation including templates and stubs.
+Issue: `claude-opus-5.5` used for all code generation including templates and stubs.
 Recommendation: Use `claude-haiku-4.5` for boilerplate; reserve opus for complex tasks.
 Estimated savings: ~80% cost reduction on boilerplate tasks.
 

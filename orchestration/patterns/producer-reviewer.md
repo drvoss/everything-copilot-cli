@@ -119,7 +119,7 @@ $artifact
 
     $lastReview = task(
         agent_type: "code-review",
-        model: "claude-sonnet-4.6",
+        model: "claude-sonnet-5.5",
         name: "reviewer",
         description: "Review artifact (iteration $iteration)",
         prompt: $reviewerPrompt

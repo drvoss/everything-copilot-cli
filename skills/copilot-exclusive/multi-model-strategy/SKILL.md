@@ -59,36 +59,34 @@ Prefer a manual override when:
 
 | Model                        | Best For                                    |
 |------------------------------|---------------------------------------------|
-| `claude-opus-4.7`            | Frontier reasoning, most capable Claude     |
-| `claude-opus-4.6`            | Complex architecture, security analysis     |
-| `claude-opus-4.5`            | Deep reasoning, nuanced code review         |
+| `claude-opus-5.5`            | Complex architecture, security analysis, deep review |
 
 #### Standard Tier (General Purpose)
 
 | Model                        | Best For                                    |
 |------------------------------|---------------------------------------------|
-| `gpt-5.4`                    | Latest GPT, strong code generation          |
-| `gpt-5.3-codex`              | Code-optimized GPT                          |
-| `gpt-5.2-codex`              | Code-optimized GPT (previous gen)           |
-| `gpt-5.2`                    | General purpose                             |
-| `gpt-5.1`                    | General purpose                             |
-| `claude-sonnet-4.6`          | Balanced quality/speed                      |
-| `claude-sonnet-4.5`          | Balanced quality/speed (previous gen)       |
-| `claude-sonnet-4`            | Efficient standard reasoning                |
+| `claude-sonnet-5.5`          | General-purpose coding (CLI default)        |
+| `gpt-6.1-sol`                | Strong general reasoning and code generation (opt-in) |
+| `gpt-6-astra`                | General-purpose alternative (opt-in)        |
+| `gpt-5.3-codex`              | Code-focused tasks                          |
 
 #### Fast/Cheap Tier (High Volume)
 
 | Model                        | Best For                                    |
 |------------------------------|---------------------------------------------|
-| `gpt-5.4-mini`               | Fast implementation and transformation work |
-| `gpt-5-mini`                 | Quick general tasks                         |
-| `gpt-4.1`                    | Fast, low-cost utility work                 |
+| `gpt-6-luna`                 | Fast implementation and transformation work (opt-in) |
+| `claude-haiku-5.5`           | Fast, lightweight operations                |
 | `claude-haiku-4.5`           | Exploration, simple edits, high-volume      |
+| `gemini-3.8-flash`           | Fast Google Gemini responses                |
+
+Model IDs above follow the Copilot CLI command reference ("Supported models", checked
+2026-10-23); the tiers are this skill's suggested routing, not an official classification. Availability still varies by plan and organization policy, and models retire on a
+published schedule — check `/model` before pinning an ID in an agent file or automation.
 
 ### 1. Switch Your Main Model
 
 ```text
-/model claude-opus-4.7
+/model claude-opus-5.5
 ```
 
 Changes the model for your current interactive session.
@@ -113,11 +111,11 @@ task(agent_type: "explore", model: "claude-haiku-4.5",
      prompt: "Find all files that import the UserService class")
 
 # Premium model for security review
-task(agent_type: "code-review", model: "claude-opus-4.7",
+task(agent_type: "code-review", model: "claude-opus-5.5",
      prompt: "Review these auth changes for security vulnerabilities")
 
 # Fast model for test generation
-task(agent_type: "general-purpose", model: "gpt-5.4-mini",
+task(agent_type: "general-purpose", model: "gpt-6-luna",
      prompt: "Generate unit tests for src/utils/validator.ts")
 ```
 
@@ -125,10 +123,10 @@ task(agent_type: "general-purpose", model: "gpt-5.4-mini",
 
 ```text
 Phase 1 - Exploration (cheap):     claude-haiku-4.5
-Phase 2 - Planning (standard):     claude-sonnet-4.6
+Phase 2 - Planning (standard):     claude-sonnet-5.5
 Phase 3 - Implementation (code):   gpt-5.3-codex
-Phase 4 - Review (premium):        claude-opus-4.7
-Phase 5 - Test generation (fast):  gpt-5.4-mini
+Phase 4 - Review (premium):        claude-opus-5.5
+Phase 5 - Test generation (fast):  gpt-6-luna
 ```
 
 ### 4. Pair-Model Workflow
@@ -139,8 +137,8 @@ specialized roles:
 | Role | Recommended model | Why |
 |------|-------------------|-----|
 | Builder | `gpt-5.3-codex` | Strong code transformation and implementation speed |
-| Planner / synthesizer | `gpt-5.4` or `claude-sonnet-4.6` | Balanced reasoning and summarization |
-| Security / architecture reviewer | `claude-opus-4.7` or `claude-opus-4.6` | Stronger high-risk judgment |
+| Planner / synthesizer | `gpt-6.1-sol` or `claude-sonnet-5.5` | Balanced reasoning and summarization |
+| Security / architecture reviewer | `claude-opus-5.5` | Stronger high-risk judgment |
 | Scout / file search | `claude-haiku-4.5` | Fast, cheap exploration |
 
 This works especially well with [`task-intake-router`](../task-intake-router/SKILL.md)
@@ -187,7 +185,7 @@ models exist without verification.
 ### Security Audit with Premium Model
 
 ```text
-/model claude-opus-4.7
+/model claude-opus-5.5
 You: "Perform a security audit of the authentication system in src/auth/.
       Check for injection attacks, token handling issues, and OWASP Top 10."
 ```
@@ -198,11 +196,11 @@ Use the most capable model for security-critical analysis.
 
 ```text
 # Launch fleet with cheap model for high-volume doc generation
-task(agent_type: "general-purpose", model: "gpt-5-mini",
+task(agent_type: "general-purpose", model: "gpt-6-luna",
      prompt: "Add JSDoc to all exports in src/utils/string.ts")
-task(agent_type: "general-purpose", model: "gpt-5-mini",
+task(agent_type: "general-purpose", model: "gpt-6-luna",
      prompt: "Add JSDoc to all exports in src/utils/array.ts")
-task(agent_type: "general-purpose", model: "gpt-5-mini",
+task(agent_type: "general-purpose", model: "gpt-6-luna",
      prompt: "Add JSDoc to all exports in src/utils/date.ts")
 ```
 
@@ -211,9 +209,9 @@ task(agent_type: "general-purpose", model: "gpt-5-mini",
 Test the same task on different models:
 
 ```text
-task(agent_type: "general-purpose", model: "gpt-5.4",
+task(agent_type: "general-purpose", model: "gpt-6.1-sol",
      prompt: "Implement a rate limiter middleware...")
-task(agent_type: "general-purpose", model: "claude-sonnet-4.6",
+task(agent_type: "general-purpose", model: "claude-sonnet-5.5",
      prompt: "Implement a rate limiter middleware...")
 ```
 
@@ -225,7 +223,7 @@ Compare outputs to find which model produces better code for your use case.
 task(agent_type: "general-purpose", model: "gpt-5.3-codex",
      prompt: "Implement the pagination changes described in plan.md")
 
-task(agent_type: "code-review", model: "claude-sonnet-4.6",
+task(agent_type: "code-review", model: "claude-sonnet-5.5",
      prompt: "Review the pagination changes for correctness, test gaps, and API regressions")
 ```
 
@@ -233,7 +231,7 @@ task(agent_type: "code-review", model: "claude-sonnet-4.6",
 
 ```text
 # Step 1: classify the upstream signal
-task(agent_type: "general-purpose", model: "gpt-5.4",
+task(agent_type: "general-purpose", model: "gpt-6.1-sol",
      prompt: "Use ecosystem-intake and the ecosystem monitoring playbook to review the latest upstream changes and classify them into adopt/adapt/reject for this repository")
 
 # Step 2: only after approval, translate the approved doc change into precise edits
@@ -248,7 +246,7 @@ then a code-focused model for the actual repository edits.
 
 - **Default to Auto for mixed workloads**: it lowers model-picking overhead and keeps routing
   flexible when a session spans exploration, implementation, and review.
-- **Default to standard tier**: Models like `claude-sonnet-4.6` or `gpt-5.3-codex`
+- **Default to standard tier**: Models like `claude-sonnet-5.5` or `gpt-5.3-codex`
   handle 90% of tasks well. Only switch for specific reasons.
 - **Use Haiku for exploration**: The `explore` agent defaults to Haiku for a reason —
   it's fast, cheap, and great for codebase navigation.

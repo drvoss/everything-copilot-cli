@@ -113,9 +113,9 @@ src/
 |------|-----------|-------|
 | Navigate Clean Architecture layers | `explore` | default |
 | `dotnet build`, `dotnet test`, EF migrations | `task` | default |
-| Add new feature (Entity → Command → Handler → Controller) | `general-purpose` | claude-sonnet-4.6 |
-| Review PR for CQRS/Clean Architecture compliance | `code-review` | claude-sonnet-4.6 |
-| Architecture pattern decisions | `general-purpose` | claude-opus-4.6 |
+| Add new feature (Entity → Command → Handler → Controller) | `general-purpose` | claude-sonnet-5.5 |
+| Review PR for CQRS/Clean Architecture compliance | `code-review` | claude-sonnet-5.5 |
+| Architecture pattern decisions | `general-purpose` | claude-opus-5.5 |
 
 ### Recommended Skills
 

@@ -114,7 +114,7 @@ metadata:
 ```text
 /model [name]       # Switch AI model (20+ available)
 /skills             # List available skills
-/add-dir <path>     # Add directory to context
+/add-dir <path>     # Allow file access; trusts its .github/skills and .github/agents
 /clear              # Clear conversation history
 /compact            # Compress context to save tokens
 /login              # Authenticate with GitHub
@@ -224,19 +224,19 @@ The `session_store` database provides read-only access to history from previous 
 
 | Task | Recommended Model | Why |
 |---|---|---|
-| Quick questions | `gpt-5-mini` or `gpt-4.1` | Fast, cheap |
-| Code generation | `gpt-5.1-codex` | Optimized for code |
-| Balanced work | `claude-sonnet-4.6` | Good reasoning + speed |
-| Deep analysis | `claude-opus-4.6` | Best reasoning |
+| Quick questions | `gpt-6-luna` or `claude-haiku-5.5` | Fast, lightweight |
+| Code generation | `gpt-5.3-codex` | Optimized for code |
+| Balanced work | `claude-sonnet-5.5` | Good reasoning + speed |
+| Deep analysis | `claude-opus-5.5` | Best reasoning |
 | Bulk operations | `claude-haiku-4.5` | Cheapest per token |
-| Complex architecture | `claude-opus-4.6` | Premium reasoning |
-| Multimodal / images | `gemini-3.1-pro-preview` | Best visual understanding |
+| Complex architecture | `claude-opus-5.5` | Premium reasoning |
+| Fast Gemini responses | `gemini-3.8-flash` | Fast, Google model family |
 
 Switch models mid-session:
 
 ```text
-/model gpt-5-mini          # Switch to fast model for simple tasks
-/model claude-opus-4.6   # Switch to deep model for architecture decisions
+/model gpt-6-luna          # Switch to fast model for simple tasks
+/model claude-opus-5.5   # Switch to deep model for architecture decisions
 ```
 
 ---

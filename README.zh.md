@@ -69,10 +69,10 @@
 | # | 优势 | 说明 |
 |---|------|------|
 | 1 | **GitHub-Native Integration** | Issue、PR、Actions、代码搜索——全部通过内置 MCP 完成，无需额外配置。 |
-| 2 | **20+ Model Selection** | GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3.1 Pro——可按任务选择最合适模型。 |
+| 2 | **20+ Model Selection** | GPT-6.x、Claude Sonnet/Opus 5.5、Gemini 3.8 Flash——可按任务选择最合适模型（用 `/model` 查看当前列表）。 |
 | 3 | **IDE ↔ CLI Seamless Switching** | 在 VS Code、JetBrains 与终端中共享同一 Copilot 上下文。 |
 | 4 | **Plan Mode** | 结构化文本规划——在编写任何代码前先生成分步实施计划。 |
-| 5 | **Autopilot Mode** | 带护栏的自主任务执行。_（实验性功能）_ |
+| 5 | **Autopilot Mode** | 带护栏的自主任务执行。 |
 | 6 | **Background Agents** | 通过 `&` 或 `/delegate` 委托云端 Copilot agents；可随时用 `/resume` 恢复。 |
 | 7 | **Fleet Mode** | 并行 agent 执行——将工作同时分配给多个 agents。 |
 | 8 | **Session SQL Database** | 内置每会话 SQLite，用于结构化数据、todo 跟踪与状态管理。 |
@@ -567,10 +567,10 @@ Copilot CLI 围绕你的 GitHub 工作流而构建。以下能力开箱即用：
 | 能力 | 细节 |
 |------|------|
 | **GitHub-Native MCP** | Issue、PR、Actions 和代码搜索——零额外配置 |
-| **20+ Model Selection** | 可按任务在 GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3.1 Pro 间切换 |
+| **20+ Model Selection** | 可按任务在 GPT-6.x、Claude Sonnet/Opus 5.5、Gemini 3.8 Flash 间切换 |
 | **IDE ↔ CLI Context Sharing** | 在 VS Code、JetBrains 与终端间无缝切换上下文 |
 | **Plan Mode** | 在写代码前进行带审批流程的结构化文本规划 |
-| **Autopilot Mode** | 带护栏的自主任务执行 _（实验性功能）_ |
+| **Autopilot Mode** | 带护栏的自主任务执行 |
 | **Background Agents** | 通过 `&` / `/delegate` 委托云端 agents；用 `/resume` 恢复 |
 | **Fleet Mode** | 并行 agent 执行——同时将任务分配给多个 agents |
 | **Session SQL Database** | 每会话内置 SQLite，用于结构化状态与 todo 跟踪 |

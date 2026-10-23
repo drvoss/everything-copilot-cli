@@ -126,6 +126,46 @@ Return a structured report:
 
 ---
 
+## Rule 4: A Bug Fix Is Proven by Three Runs, Not One
+
+"The build passes" and "the new test passes" do not prove that a fix fixed anything. A test that
+passes on the broken code too is not evidence. For bug fixes, ask the QA agent for **three runs of
+the same test against three trees**:
+
+| Run | Tree | Expected | What it proves |
+|-----|------|----------|----------------|
+| 1 | Baseline (before the fix) | **Fails** | The test actually reproduces the bug |
+| 2 | Patched | **Passes** | The fix resolves it |
+| 3 | Patched with the fix reverted | **Fails again** | The fix — not an unrelated change — is what made it pass |
+
+Rules that keep the proof honest:
+
+- Use the **same test, same command, and same input** on every tree; keep stdout, stderr, and exit
+  codes from each run as receipts.
+- A timeout, setup failure, or "0 tests ran" is an **evidence gap**, not a pass. Report it as a
+  gap and stop; never relabel it.
+- Add the project's own checks (focused tests, regression and security checks) on the patched tree,
+  and list what is still unproven. An empty "unproven" list on a non-trivial fix is a warning sign.
+- The QA agent reviews the patch **without** the implementer's conclusion; give it the diff and the
+  bug report, not "this should fix it."
+
+Add the result to the report:
+
+```json
+"proof": {
+  "baseline": "fail",
+  "patched": "pass",
+  "reverted": "fail",
+  "gaps": [],
+  "unproven": ["concurrent requests not exercised"]
+}
+```
+
+This pattern is adapted from `trailofbits/skills` (`patching-bugs/prove-patch`, October 2026); the
+Copilot version keeps the three-arm check and drops the record schema and helper scripts.
+
+---
+
 ## When to Use This Guide
 
 - Designing a QA phase in a multi-agent team-planner workflow

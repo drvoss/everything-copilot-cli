@@ -122,15 +122,15 @@ Use `multi-model-strategy` for detailed guidance, but the default routing rule i
 
 | Task profile | Model suggestion |
 |-------------|------------------|
-| broad exploration, low stakes | `claude-haiku-4.5` or `gpt-5-mini` |
+| broad exploration, low stakes | `claude-haiku-4.5` or `gpt-6-luna` |
 | implementation, code transformation | `gpt-5.3-codex` |
-| balanced planning or synthesis | `gpt-5.4` or `claude-sonnet-4.6` |
-| security, architecture, high-risk review | `claude-opus-4.7` or `gpt-5.4` |
+| balanced planning or synthesis | `gpt-6.1-sol` or `claude-sonnet-5.5` |
+| security, architecture, high-risk review | `claude-opus-5.5` or `gpt-6.1-sol` |
 
 Use model **pairs** when that reduces risk:
 
 - **Implementer**: `gpt-5.3-codex`
-- **Reviewer**: `claude-sonnet-4.6` or `gpt-5.4`
+- **Reviewer**: `claude-sonnet-5.5` or `gpt-6.1-sol`
 
 ### 5. Decide Whether to Fan Out
 
@@ -216,7 +216,7 @@ Request: "Add JSDoc to all exports in src/utils/"
 Route:
 - Mode: /fleet
 - Agent type: general-purpose
-- Model: gpt-5-mini
+- Model: gpt-6-luna
 - Next skill: fleet-parallel
 - Why: many independent files with low coupling
 ```
@@ -229,7 +229,7 @@ Request: "Review this auth PR before merge"
 Route:
 - Mode: task delegation
 - Agent type: code-review
-- Model: claude-opus-4.7
+- Model: claude-opus-5.5
 - Next skill: pr-multi-perspective-review
 - Why: high-risk review deserves a specialized pass
 ```

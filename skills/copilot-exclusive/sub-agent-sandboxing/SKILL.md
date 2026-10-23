@@ -192,6 +192,19 @@ access now defaults off for tighter isolation — re-enable it in `/sandbox` onl
 actually require it. This reinforces the same least-privilege rule as the rest of this skill:
 start closed, then grant only the minimum extra access the delegated task needs.
 
+Two Copilot CLI defaults pull in opposite directions, so state both in the brief (v1.0.92 and
+v1.0.100 release notes):
+
+- **Closed by default:** sandboxed shells withhold the ambient `GITHUB_TOKEN` unless it is
+  configured explicitly. A delegated script that "worked locally" may fail here — that is the
+  boundary working, not a bug to bypass.
+- **Open by default:** local network access is enabled, so sandboxed commands can reach
+  `localhost` and private-network services. Disable it in `/sandbox` when the delegated task has
+  no reason to talk to local services.
+
+Since v1.0.102, sub-agents honor custom and MCP tool approvals instead of prompting again, so
+scope those approvals as narrowly as you scope the sandbox.
+
 ### 4. Validate before accepting output
 
 Even successful sandboxed runs are only candidates. Review:

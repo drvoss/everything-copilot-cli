@@ -125,9 +125,9 @@ steps:
 |------|-----------|-------|
 | Understand cross-package dependency graph | `explore` | default |
 | `pnpm turbo run build/test/lint` | `task` | default |
-| Add shared type + update all consumers | `general-purpose` | claude-sonnet-4.6 |
-| Review PR for package boundary violations | `code-review` | claude-sonnet-4.6 |
-| Turborepo pipeline redesign | `general-purpose` | claude-opus-4.6 |
+| Add shared type + update all consumers | `general-purpose` | claude-sonnet-5.5 |
+| Review PR for package boundary violations | `code-review` | claude-sonnet-5.5 |
+| Turborepo pipeline redesign | `general-purpose` | claude-opus-5.5 |
 
 ### Always Specify the Package
 

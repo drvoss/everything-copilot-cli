@@ -206,18 +206,21 @@ Operational rules:
 
 ## Runtime Notes
 
-### GitHub Copilot CLI: Experimental Worktree Entry Points
+### GitHub Copilot CLI: Worktree Entry Points
 
-Copilot CLI's worktree feature is experimental and provides these entry points:
+Copilot CLI provides these worktree entry points (command reference, checked 2026-10-23):
 
 | Command | Behavior |
 |---------|----------|
 | `/worktree [branch\|task]` | Create a worktree for an optional branch or task and switch to it, leaving uncommitted changes behind |
-| `/worktree new [PROMPT]` | Start a new conversation in a newly created Git worktree, optionally using the prompt |
+| `/new worktree [PROMPT]` | Start a new, empty conversation in a newly created Git worktree, leaving the current conversation and its directory unchanged |
+| `/fork worktree` | Fork the current session, keeping its conversation context, into a new worktree branched off `HEAD` |
 | `/move [branch\|task]` | Move the current uncommitted changes into a new worktree and switch to it |
-| `-w`, `--worktree[=NAME]` | Create or reuse an isolated worktree under `<repo>.worktrees/`, optionally with a name |
+| `-w`, `--worktree[=NAME]` | Create or reuse an isolated worktree, optionally with a name — under `<repo>.worktrees/` by default; the `worktreePathTemplate` setting changes the location |
 
-`/worktree`, `/worktree new`, and `--worktree` branch from the current checkout (`HEAD`) by
+`/worktree new [PROMPT]` still works but is **deprecated** — use `/new worktree` instead.
+
+`/worktree`, `/new worktree`, and `--worktree` branch from the current checkout (`HEAD`) by
 default. This became consistent in CLI v1.0.79; previously, `--worktree` started from the remote
 default branch. To retain that older baseline intentionally, set `worktreeBaseRef` to
 `"defaultBranch"` so new worktrees branch from the remote default branch instead. The reference

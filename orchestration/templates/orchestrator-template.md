@@ -81,8 +81,8 @@ Input
 sql(description="init jobs", query="CREATE TABLE IF NOT EXISTS jobs (...)")
 
 # 2. Dispatch agents (adapt agent_type and model for your use case)
-task(agent_type="general-purpose", model="claude-sonnet-4.6", name="agent-a", prompt="...")
-task(agent_type="code-review",     model="claude-sonnet-4.6", name="agent-b", prompt="...")
+task(agent_type="general-purpose", model="claude-sonnet-5.5", name="agent-a", prompt="...")
+task(agent_type="code-review",     model="claude-sonnet-5.5", name="agent-b", prompt="...")
 
 # 3. Poll completion
 # read_agent / sql query to check status

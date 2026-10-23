@@ -20,8 +20,9 @@ Copilot CLI equivalent:
 | Skills (`.claude/skills/`) | Skills (`skills/` directory) | Nearly identical format! Markdown + YAML frontmatter |
 | Slash commands (`/help`, `/clear`) | Slash commands (`/help`, `/clear`) | Direct mapping for most commands |
 | MCP config (`.mcp.json`) | workspace `.mcp.json` / user `~/.copilot/mcp-config.json` | Similar file name, different schema and optional user-level config |
-| `/compact` | `/clear` | Similar purpose — manage context window |
-| Git worktrees (parallel) | Fleet mode | Better in Copilot — native fleet orchestration |
+| `/compact` | `/compact` | Same name — summarizes history, optionally with focus instructions (`/clear` starts a new conversation instead) |
+| `.claude/rules/**/*.md` | Read as-is (v1.0.89+) | Copilot CLI treats them like `.github/instructions/**/*.instructions.md`; scope with `paths` or `applyTo` frontmatter |
+| Git worktrees (parallel) | `/worktree`, `/new worktree`, `/fork worktree`, `--worktree` | Native worktree commands; use Fleet mode when you want parallel orchestration on top |
 | `--dangerously-skip-permissions` | Autopilot mode | Better in Copilot — safer, more structured |
 | `CLAUDE.md` hierarchy | `.github/copilot-instructions.md` | Recommended migration target for project runtime instructions; Copilot can also read other instruction files such as `CLAUDE.md` and `AGENTS.md` |
 | Context files | `contexts/` directory | Reusable context definitions |
@@ -32,6 +33,15 @@ Copilot CLI equivalent:
 ---
 
 ## Step-by-Step Migration
+
+> **Before you copy anything:** Copilot CLI already reads several Claude Code locations directly —
+> `CLAUDE.md` and `AGENTS.md` (Git root and cwd), `.claude/rules/**/*.md` as path-scoped
+> instructions, `.claude/skills/` as project skills, `.claude/agents/` as project agents, and
+> `.claude/commands/*.md` as commands (command reference, checked 2026-10-23). The steps below
+> are for moving to the Copilot-native locations deliberately (`.github/…`), not because Copilot
+> cannot see the originals. If you keep both, instruction files are all merged (remove duplicates
+> so the same rule is not loaded twice), while an agent ID defined in both `.github/agents/` and
+> `.claude/agents/` resolves to the `.github/agents/` copy.
 
 ### Step 1: Migrate Instructions File
 
@@ -52,8 +62,8 @@ Copy-Item CLAUDE.md .github/copilot-instructions.md
 |-------------------|----------------------|
 | "You are Claude..." | Remove — Copilot has its own identity |
 | Tool references (`Bash`, `Read`) | Update to Copilot tools (`powershell`, `view`) |
-| `ultrathink` / `think harder` | Use model override: `model: "claude-opus-4.6"` |
-| Hook references | Replace with startup script references |
+| `ultrathink` / `think harder` | Use model override: `model: "claude-opus-5.5"` |
+| Hook references | Map to native Copilot hooks (`.github/hooks/*.json` or agent-scoped `hooks:` frontmatter) |
 | Claude-specific behaviors | Generalize for multi-model compatibility |
 
 **Example transformation:**
@@ -65,7 +75,7 @@ Think deeply about architecture decisions.
 
 <!-- copilot-instructions.md (after) -->
 When running tests, use powershell with `pytest` or the project's test command.
-For architecture decisions, use a premium model (claude-opus-4.6 or gpt-5.4).
+For architecture decisions, use a premium model (claude-opus-5.5 or gpt-6.1-sol).
 ```
 
 ### Step 2: Port Skills
@@ -178,7 +188,7 @@ overrides:
 | Code reviewer | `agent_type: "code-review"` |
 | Security scanner | `agent_type: "code-review"` + security prompt |
 | Documentation writer | `agent_type: "general-purpose"` + doc prompt |
-| Architect | `agent_type: "general-purpose"` + model: `"claude-opus-4.6"` |
+| Architect | `agent_type: "general-purpose"` + model: `"claude-opus-5.5"` |
 
 **For tasks that need Claude Code's deeper specialization,** use Copilot CLI's
 orchestration to delegate to Claude Code:
@@ -327,7 +337,7 @@ Get-ChildItem .ref/awesome-claude-code/resources/claude.md-files/
 # Key adaptations:
 # - Remove "You are Claude..." identity statements
 # - Replace Bash/Read/Write tool references with powershell/view/edit
-# - Generalize model hints (ultrathink → model: "claude-opus-4.6")
+# - Generalize model hints (ultrathink → model: "claude-opus-5.5")
 ```
 
 ### Adapt Slash Commands as Skills

@@ -2,7 +2,7 @@
 name: security-reviewer
 description: Vulnerability detection, secrets scanning, and security hardening review
 agent_type: code-review
-model: claude-sonnet-4.6
+model: claude-sonnet-5.5
 tools:
   - grep
   - glob

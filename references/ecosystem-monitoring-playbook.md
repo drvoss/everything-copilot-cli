@@ -198,9 +198,9 @@ Use multiple models only when their roles differ:
 | Role | Recommended model | Why |
 |------|-------------------|-----|
 | Scout | `claude-haiku-4.5` or built-in GitHub tools | fast collection of diffs, release notes, and repo structure |
-| Synthesizer | `gpt-5.4` or `claude-sonnet-4.6` | classifies signals into adopt/adapt/reject with good judgment |
+| Synthesizer | `gpt-6.1-sol` or `claude-sonnet-5.5` | classifies signals into adopt/adapt/reject with good judgment |
 | Builder | `gpt-5.3-codex` | turns approved doc or skill updates into precise edits |
-| Reviewer | `gpt-5.4` or `claude-opus-4.6` | checks whether the proposed change is durable and repo-safe |
+| Reviewer | `gpt-6.1-sol` or `claude-opus-5.5` | checks whether the proposed change is durable and repo-safe |
 
 Recommended flow:
 

@@ -44,11 +44,11 @@ unique capabilities.
 | Human-in-the-loop gate | ✅ Plan Mode approval | ✅ `defer` permission (v2.1.89) | Both gate risky work, but Claude does it with hook permissions and Copilot does it with plan approval |
 | **Planning & Execution** | | | |
 | Plan Mode | ✅ Structured text planning (Shift+Tab) | ⚠️ Basic `/plan` | Both are terminal text-based; Copilot builds a full implementation plan before coding |
-| Autopilot Mode _(Experimental)_ | ✅ Native mode | ⚠️ `--dangerously-skip-permissions` / `--autoaccept` | Copilot's approach is more controlled; both require explicit activation |
+| Autopilot Mode | ✅ Native mode (Shift+Tab, `/autopilot`, `--autopilot`) | ⚠️ `--dangerously-skip-permissions` / `--autoaccept` | Copilot's approach is more controlled; both require explicit activation |
 | SQL Task Tracking | ✅ Built-in SQLite | ❌ File-based | Query todos, track state with SQL |
 | Todo Dependencies | ✅ SQL dependency graph | ❌ Manual tracking | Automatically find "ready" tasks |
 | Context compression hook | ✅ `preCompact` hook (notification-only, cannot block) | ✅ `PreCompact` hook (v2.1.105) | Both expose a compaction-lifecycle hook; Copilot's is observe-only, Claude's can act before compaction |
-| Existing worktree entry | ⚠️ No command for entering an existing worktree; the experimental `/worktree`, `/worktree new`, and `/move` create and switch instead | ✅ `EnterWorktree` (v2.1.105) | Claude has a first-class existing-entry tool; Copilot has first-class create-and-switch surfaces |
+| Existing worktree entry | ⚠️ No command for entering an existing worktree; `/worktree`, `/new worktree`, `/fork worktree`, and `/move` create and switch instead (`/worktree new` is deprecated) | ✅ `EnterWorktree` (v2.1.105) | Claude has a first-class existing-entry tool; Copilot has first-class create-and-switch surfaces |
 | **Memory & State** | | | |
 | Session Database | ✅ SQL built-in | ❌ None | Structured state that survives compaction |
 | Cross-Session Memory | ✅ `session_store` read-only DB (experimental) | ⚠️ `CLAUDE.md` + hooks + memory files | Both approaches are evolving; Claude Code has more options |
@@ -92,10 +92,10 @@ advantage for teams using GitHub.
 Choose the right model for each task. Use cheap models for exploration, powerful models
 for architecture decisions:
 
-- **GPT-5.4** for cutting-edge reasoning
-- **Claude Opus 4.6** for deep analysis
-- **Claude Haiku 4.5** for fast, cheap exploration
-- **Gemini 3 Pro** for multimodal tasks
+- **GPT-6.1 Sol** (`gpt-6.1-sol`) for strong general reasoning
+- **Claude Opus 5.5** (`claude-opus-5.5`) for deep analysis
+- **Claude Haiku 5.5 / 4.5** for fast, lightweight exploration
+- **Gemini 3.8 Flash** (`gemini-3.8-flash`) for fast Gemini responses
 - And 16+ more options
 
 ### 3. IDE ↔ CLI Synergy
@@ -142,11 +142,13 @@ Find how you solved similar problems before.
 Route each sub-task to the cheapest model that can handle it. Exploration with Haiku ($),
 implementation with Sonnet ($$), architecture with Opus ($$$).
 
-### 11. Autopilot Mode _(Experimental)_
+### 11. Autopilot Mode
 
 Controlled autonomous execution with safety guardrails — more structured than Claude
-Code's permission-skipping approach. Currently an experimental feature; activate with
-`/experimental on` or the `--experimental` flag.
+Code's permission-skipping approach. Enter it with Shift+Tab, `/autopilot` (alias `/goal`,
+optionally with an objective and a `--max-ai-credits` cap), or the `--autopilot` flag. Under
+autopilot, a `preToolUse` hook that answers `"ask"` is denied rather than prompting, and with the
+local sandbox enabled any step that must escape the sandbox is denied.
 
 ### 12. Native In-Session Hooks (Plus Git Tooling for Everything Else)
 

@@ -110,6 +110,27 @@ Notes:
 - Provide the same user query and the full output you want graded.
 - If needed, add a short “repo context” block (but keep it consistent across runs).
 
+### No verdict is not a pass
+
+A grader, gate, or test run that produces **no usable verdict** must count as a failure, never as
+a pass. Several eval and governance projects fixed exactly this bug in October 2026: a rubric grader whose
+response omitted its verdict (`promptfoo/promptfoo` 37cfe71), a validator result with no outcome
+field (`microsoft/agent-governance-toolkit` 98a7773), a gate that went green because zero cases ran
+(`garrytan/gstack` 5b9b837), and behavioral grades accepted with blank evidence
+(`addyosmani/agent-skills` 7abea51). Apply the same rule to your skill tests:
+
+| Situation | Treat as |
+|-----------|----------|
+| Grader output is missing a score or is not valid JSON | **Fail** — rerun or fix the grader, do not default to a score |
+| A `reasoning` / evidence field is empty or whitespace | **Fail** — require the grader to cite the observed or missing behavior |
+| Zero test cases ran, or every case was skipped | **Fail** — "nothing failed" is not "it works" |
+| A case fails, then passes on one rerun | **Flaky** — report it separately; do not fold it into a clean pass |
+| A result came from cache | **Disclose it** — note which rows were not re-executed |
+| The gate or grader itself changed in the same diff as the skill | **Review the gate change first** — a weakened gate makes every later pass meaningless |
+
+For stability, run each important trigger or output case more than once (3 runs is a practical
+minimum) and record how many runs agreed, not just whether the last one passed.
+
 ## 5. Quick Checklist (before shipping a skill)
 
 - [ ] At least 8–10 should-trigger queries written and tested (aim for diversity: different phrasings, contexts, urgency levels)

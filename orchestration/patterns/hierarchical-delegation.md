@@ -90,15 +90,15 @@ VALUES
 
 INSERT INTO hierarchical_jobs (id, parent_id, level, name, agent_type, model, status)
 VALUES
-  ('$rootJobId-security',      '$rootJobId', 1, 'security-domain',      'general-purpose', 'claude-sonnet-4.6', 'pending'),
-  ('$rootJobId-performance',   '$rootJobId', 1, 'performance-domain',   'general-purpose', 'gemini-3.1-pro-preview', 'pending'),
-  ('$rootJobId-architecture',  '$rootJobId', 1, 'architecture-domain',  'general-purpose', 'claude-sonnet-4.6', 'pending');
+  ('$rootJobId-security',      '$rootJobId', 1, 'security-domain',      'general-purpose', 'claude-sonnet-5.5', 'pending'),
+  ('$rootJobId-performance',   '$rootJobId', 1, 'performance-domain',   'general-purpose', 'gemini-3.8-flash', 'pending'),
+  ('$rootJobId-architecture',  '$rootJobId', 1, 'architecture-domain',  'general-purpose', 'claude-sonnet-5.5', 'pending');
 "@)
 
 # 3) Dispatch domain orchestrators (mid-level), NOT leaf workers
 #    Each domain orchestrator is responsible for creating + tracking its specialist jobs.
 
-task(agent_type="general-purpose", name="security-orchestrator", model="claude-sonnet-4.6", prompt=@"
+task(agent_type="general-purpose", name="security-orchestrator", model="claude-sonnet-5.5", prompt=@"
 You are the Security Domain Orchestrator for a full codebase audit.
 
 Your responsibilities:
@@ -115,7 +115,7 @@ SQL conventions:
 Do the work using nested task(...) calls.
 "@)
 
-task(agent_type="general-purpose", name="performance-orchestrator", model="gemini-3.1-pro-preview", prompt=@"
+task(agent_type="general-purpose", name="performance-orchestrator", model="gemini-3.8-flash", prompt=@"
 You are the Performance Domain Orchestrator for a full codebase audit.
 
 Create specialist child jobs (level=2, parent_id='$rootJobId-performance') for:
@@ -126,7 +126,7 @@ Create specialist child jobs (level=2, parent_id='$rootJobId-performance') for:
 Run those specialists, then write a domain summary back to SQL.
 "@)
 
-task(agent_type="general-purpose", name="architecture-orchestrator", model="claude-sonnet-4.6", prompt=@"
+task(agent_type="general-purpose", name="architecture-orchestrator", model="claude-sonnet-5.5", prompt=@"
 You are the Architecture Domain Orchestrator for a full codebase audit.
 
 Create specialist child jobs (level=2, parent_id='$rootJobId-architecture') for:
@@ -146,7 +146,7 @@ ORDER BY name;
 "@)
 
 # Root synthesis prompt is usually short and cross-domain.
-task(agent_type="general-purpose", name="root-synthesis", model="claude-sonnet-4.6", prompt=@"
+task(agent_type="general-purpose", name="root-synthesis", model="claude-sonnet-5.5", prompt=@"
 Synthesize these domain summaries into one prioritized audit report.
 
 $domainSummaries
@@ -182,12 +182,12 @@ WHERE id = '$rootJobId-security';
 sql(description="Seed security specialists", query=@"
 INSERT INTO hierarchical_jobs (id, parent_id, level, name, agent_type, model, status)
 VALUES
-  ('$rootJobId-security-auth', '$rootJobId-security', 2, 'auth-and-threat-model', 'code-review', 'claude-opus-4.6', 'pending'),
-  ('$rootJobId-security-deps', '$rootJobId-security', 2, 'dependency-risk-scan',  'task',       'gpt-5-mini',      'pending'),
+  ('$rootJobId-security-auth', '$rootJobId-security', 2, 'auth-and-threat-model', 'code-review', 'claude-opus-5.5', 'pending'),
+  ('$rootJobId-security-deps', '$rootJobId-security', 2, 'dependency-risk-scan',  'task',       'gpt-6-luna',      'pending'),
   ('$rootJobId-security-secrets', '$rootJobId-security', 2, 'secrets-exposure-scan','explore',   'claude-haiku-4.5', 'pending');
 "@)
 
-task(agent_type="code-review", name="auth-and-threat-model", model="claude-opus-4.6", prompt=@"
+task(agent_type="code-review", name="auth-and-threat-model", model="claude-opus-5.5", prompt=@"
 Do a security review focused on authentication, authorization boundaries, and threat model.
 
 Return:
@@ -196,7 +196,7 @@ Return:
 - Files/areas to inspect next
 "@)
 
-task(agent_type="task", name="dependency-risk-scan", model="gpt-5-mini", prompt=@"
+task(agent_type="task", name="dependency-risk-scan", model="gpt-6-luna", prompt=@"
 Run dependency/security checks available in this repo (if any), summarize results.
 If no tooling exists, state that clearly and recommend the next best check.
 "@)

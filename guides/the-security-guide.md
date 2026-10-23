@@ -252,6 +252,25 @@ Copilot CLI has built-in security boundaries:
 - **Plan mode**: Shows full plan before executing — you review every change
 - **Autopilot mode**: More autonomous but still respects tool permission boundaries
 - **Tool allowlisting**: Configure which tools agents can use
+- **Local sandbox** (all users since v1.0.93): an OS-level boundary on filesystem and network
+  access for shell commands, local MCP servers, and repository/user/plugin command hooks
+
+Tool permissions decide *whether* a call runs; the sandbox decides *what the process can reach*
+when it does. Use both for unattended work:
+
+- Turn the sandbox on per run with `--sandbox` (for example in `-p` automation) or per session
+  with `/sandbox enable session`; inspect the effective grants with `/sandbox policy`.
+- Sandboxed shells do **not** inherit an ambient `GITHUB_TOKEN` unless it is configured
+  explicitly — scripts that silently relied on it will fail closed, which is the intended default.
+- Local network access is **on** by default, so `localhost` and private-network services are
+  reachable. Turn it off in `/sandbox` when the task does not need it.
+- Under autopilot, any step that must escape the sandbox is denied, and a `preToolUse` hook that
+  answers `"ask"` is denied too — there is no one to ask.
+- Machine-wide policy hooks always run on the host, outside the sandbox; an enterprise policy can
+  also enforce the sandbox so that `--no-sandbox` is overridden.
+
+See [Local Sandbox and Settings](./copilot-exclusive-features.md#local-sandbox-and-settings) for
+the command surface.
 
 ### Safe AI-Assisted Development Practices
 
@@ -382,11 +401,11 @@ Copilot CLI provides security features that enhance your development workflow:
 
 ```text
 # 1. Implement feature (Autopilot mode with fast model)
-/model gpt-5.1-codex
+/model gpt-5.3-codex
 > Implement the password reset flow
 
 # 2. Security review (code-review agent with strong model)
-/model claude-sonnet-4.6
+/model claude-sonnet-5.5
 > Review the password reset implementation for security vulnerabilities
 
 # 3. Run security scans

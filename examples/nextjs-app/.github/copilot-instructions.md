@@ -93,9 +93,9 @@ src/
 |------|-----------|-------|
 | Trace data flow through Server Components | `explore` | default |
 | Run `prisma migrate`, `npm run build` | `task` | default |
-| Add new feature (multi-file) | `general-purpose` | claude-sonnet-4.6 |
-| Review PR for Next.js-specific issues | `code-review` | claude-sonnet-4.6 |
-| Architecture decisions (App Router vs Pages) | `general-purpose` | claude-opus-4.6 |
+| Add new feature (multi-file) | `general-purpose` | claude-sonnet-5.5 |
+| Review PR for Next.js-specific issues | `code-review` | claude-sonnet-5.5 |
+| Architecture decisions (App Router vs Pages) | `general-purpose` | claude-opus-5.5 |
 
 ### Recommended Skills
 

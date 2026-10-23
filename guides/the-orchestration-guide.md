@@ -32,7 +32,7 @@ Copilot CLI is the ideal orchestrator for multi-AI workflows. Here's why:
 | **Background Agents** | Launch long-running tasks, check back later |
 | **Session SQL Database** | Track multi-step workflows with structured data |
 | **Fleet Mode** | Parallelize work across multiple agents |
-| **20+ Built-in Models** | GPT-5, Claude Opus/Sonnet/Haiku, Gemini — switch instantly |
+| **20+ Built-in Models** | GPT-6.x, Claude Opus/Sonnet/Haiku, Gemini — switch instantly |
 | **MCP Ecosystem** | Extend capabilities with any MCP server |
 | **IDE Integration** | Switch between CLI and VS Code seamlessly |
 
@@ -221,28 +221,28 @@ Use the right tool at the right price point for each task:
 | Tier | Tool / Model | Cost | Best For |
 |---|---|---|---|
 | **Free/Included** | Copilot CLI explore agent | $0 (included) | File search, codebase Q&A |
-| **Cheap** | Claude Haiku, GPT-4.1 | $0.25-1/M tokens | Routine tasks, formatting, simple edits |
-| **Standard** | Claude Sonnet, GPT-5.1-Codex | $3-15/M tokens | Feature implementation, code review |
+| **Cheap** | Claude Haiku, GPT-6 Luna | $0.25-1/M tokens | Routine tasks, formatting, simple edits |
+| **Standard** | Claude Sonnet, GPT-5.3-Codex | $3-15/M tokens | Feature implementation, code review |
 | **Premium** | Claude Opus | $15-75/M tokens | Architecture, security audit, complex reasoning |
 
 ### Cost-Effective Strategy
 
-> Model names below (e.g. `claude-opus-4.6`, `claude-sonnet-4.6`) are example tiers, not
+> Model names below (e.g. `claude-opus-5.5`, `claude-sonnet-5.5`) are example tiers, not
 > an exhaustive or permanent roster — check `/model` for what's currently available.
 
 ```text
 # ❌ Expensive: Using Opus for everything
-/model claude-opus-4.6
+/model claude-opus-5.5
 > Fix the typo in the README
 
 # ✅ Smart: Match model to task
-/model gpt-5-mini              # Typo fix — cheapest model
+/model gpt-6-luna              # Typo fix — fast, lightweight model
 > Fix the typo in the README
 
-/model claude-sonnet-4.6     # Feature work — balanced
+/model claude-sonnet-5.5     # Feature work — balanced
 > Implement the caching layer
 
-/model claude-opus-4.6       # Architecture — worth the premium
+/model claude-opus-5.5       # Architecture — worth the premium
 > Design the event-driven migration strategy
 ```
 

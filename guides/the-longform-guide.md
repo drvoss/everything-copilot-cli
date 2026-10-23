@@ -91,13 +91,13 @@ Copilot CLI offers 20+ models spanning three tiers. Choose based on task complex
 
 | Tier | Models | Best For | Cost |
 |------|--------|----------|------|
-| **Premium** | `claude-opus-4.6`, `claude-opus-4.6-fast`, `claude-opus-4.5` | Architecture decisions, complex refactors, subtle bugs | High |
-| **Standard** | `claude-sonnet-4.6`, `claude-sonnet-4.5`, `claude-sonnet-4`, `gpt-5.4`, `gpt-5.3-codex`, `gpt-5.2-codex`, `gpt-5.2`, `gpt-5.1-codex-max`, `gpt-5.1-codex`, `gpt-5.1`, `gemini-3-pro-preview`, `gemini-3.1-pro-preview`, `grok-code-fast-1` | General development, code review, multi-file changes | Medium |
-| **Fast/Cheap** | `gpt-5.4-mini`, `gpt-5.1-codex-mini`, `gpt-5-mini`, `gpt-4.1`, `claude-haiku-4.5`, `gemini-3-flash` | Exploration, simple edits, boilerplate, formatting | Low |
+| **Premium** | `claude-opus-5.5` | Architecture decisions, complex refactors, subtle bugs | High |
+| **Standard** | `claude-sonnet-5.5` (CLI default), `gpt-6.1-sol`, `gpt-6-astra`, `gpt-5.3-codex` | General development, code review, multi-file changes | Medium |
+| **Fast/Cheap** | `gpt-6-luna`, `claude-haiku-5.5`, `claude-haiku-4.5`, `gemini-3.8-flash` | Exploration, simple edits, boilerplate, formatting | Low |
 
-The v1.0.74 and v1.0.76 release notes add `gemini-3.6-flash` and `grok-4.5`, respectively,
-but do not publish their tier or recommended use. They are intentionally omitted from the tier
-rows until `/model` or another authoritative source supplies that classification.
+Model IDs follow the Copilot CLI command reference ("Supported models", checked 2026-10-23).
+Availability varies by plan and organization policy, and models retire on a published schedule —
+check `/model` before relying on a specific ID.
 
 ### Agent Type Costs
 
@@ -115,7 +115,7 @@ Each agent type has a different cost profile based on its default model and capa
 ```text
 Exploration (cheap)  →  Planning (standard)  →  Implementation (standard)  →  Review (standard)
     explore agent          main context            general-purpose             code-review
-    claude-haiku           default model           claude-sonnet               claude-sonnet
+    claude-haiku-4.5       default model           claude-sonnet-5.5           claude-sonnet-5.5
 ```
 
 ### Batch Operations to Reduce Turns
@@ -694,9 +694,9 @@ Route tasks to the cheapest model that can handle them:
 │                 Cost-Aware Router                     │
 ├──────────────────────────────────────────────────────┤
 │                                                      │
-│  Simple task?  ──→  Haiku / GPT-4.1    ($)          │
-│  Standard task? ──→  Sonnet / GPT-5.1  ($$)         │
-│  Complex task?  ──→  Opus / GPT-5.4    ($$$)        │
+│  Simple task?  ──→  Haiku / GPT Luna   ($)          │
+│  Standard task? ──→  Sonnet / GPT Sol  ($$)         │
+│  Complex task?  ──→  Opus              ($$$)        │
 │                                                      │
 │  Exploration?   ──→  explore agent     ($)          │
 │  Build/test?    ──→  task agent        ($)          │
@@ -712,10 +712,10 @@ Route tasks to the cheapest model that can handle them:
 |-----------|------------------|------------|-----|
 | Find files / search code | `claude-haiku-4.5` | explore | Cheap, fast, sufficient |
 | Run builds / tests | `claude-haiku-4.5` | task | Only need pass/fail |
-| Simple edits / boilerplate | `gpt-5-mini` | general-purpose | Fast generation |
-| Complex refactoring | `claude-sonnet-4.6` | general-purpose | Needs reasoning |
-| Architecture decisions | `claude-opus-4.6` | general-purpose | Deep analysis |
-| Security review | `claude-sonnet-4.6` | code-review | Specialized focus |
+| Simple edits / boilerplate | `gpt-6-luna` | general-purpose | Fast generation |
+| Complex refactoring | `claude-sonnet-5.5` | general-purpose | Needs reasoning |
+| Architecture decisions | `claude-opus-5.5` | general-purpose | Deep analysis |
+| Security review | `claude-sonnet-5.5` | code-review | Specialized focus |
 
 ### Conflict Resolution When Agents Disagree
 

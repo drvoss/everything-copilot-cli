@@ -114,6 +114,45 @@ compaction triggers, and subagent names; it does not document a declarative path
 scripts still receive `toolArgs` and can inspect paths themselves, but that is runtime argument
 validation rather than pre-execution declarative filtering.
 
+### Contract changes in CLI v1.0.88–v1.0.103 (reference re-checked 2026-10-23)
+
+- **Agent-scoped hooks (v1.0.97).** A custom agent can declare a `hooks` event map in its
+  frontmatter; those hooks run only while that agent is selected, in addition to session, user,
+  repository, plugin, and policy hooks. Runtime names (`postToolUse`) and aliases (`PostToolUse`)
+  are both accepted, `windows`/`linux`/`osx` override `command` per platform, and paths resolve
+  from the repository root. Remote or organization-hosted agent definitions do not run scoped hooks.
+
+  ```yaml
+  ---
+  name: formatter
+  description: Formats changed files
+  hooks:
+    PostToolUse:
+      - type: command
+        command: ./scripts/format-changed-files.sh
+        windows: ./scripts/format-changed-files.ps1
+  ---
+  ```
+
+- **`"ask"` under autopilot is a deny.** In autopilot mode no prompt is shown, so a `preToolUse`
+  decision of `"ask"` is denied and the agent is told the CLI could not ask the user. (Cloud agent
+  already treated `"ask"` as `"deny"`.) A guard that relies on `"ask"` to reach a human is a hard
+  block in unattended runs — design it that way on purpose.
+- **Hooks run inside the sandbox.** With the session sandbox enabled, repository, user, and plugin
+  command hooks get the same access as the agent's shell commands. A hook's `cwd` and `env` do not
+  widen that access. Policy hooks always run on the host and should not run workspace scripts.
+- **`~/.copilot/config.json` is no longer read for hooks** — keep inline user hooks in
+  `~/.copilot/settings.json`.
+- **Context accumulates.** Multiple `sessionStart` or `subagentStart` hooks that return a non-empty
+  `additionalContext` are joined in execution order with a blank line; an empty string does not
+  erase what earlier hooks contributed. Hooks fired inside a subagent also receive `agentId`,
+  `agentType`, and `parentAgentId`.
+- **`subagentStart` matchers match the whole agent name.** The value is wrapped as `^(?:matcher)$`;
+  an invalid regular expression skips the hook entirely.
+- **Prompt mode fires one `sessionEnd`** after any Stop-hook continuations complete (v1.0.92).
+- **Hooks without `cwd` run in the project root** again, not the session's current directory
+  (v1.0.88).
+
 ### Direct hook mapping (Claude Code → Copilot CLI)
 
 | Claude Code hook | Copilot CLI native hook | Notes |

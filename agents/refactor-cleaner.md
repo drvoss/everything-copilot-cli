@@ -2,7 +2,7 @@
 name: refactor-cleaner
 description: Dead code removal, code cleanup, and safe modernization without behavioral changes
 agent_type: general-purpose
-model: gpt-5-mini
+model: gpt-6-luna
 tools:
   - grep
   - glob

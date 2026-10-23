@@ -14,11 +14,12 @@
 4. [IDE ↔ CLI Synergy](#ide--cli-synergy)
 5. [Plan Mode Mastery](#plan-mode-mastery)
 6. [Autopilot Deep-Dive](#autopilot-deep-dive)
-7. [Background Agents](#background-agents)
-8. [Fleet Execution](#fleet-execution)
-9. [Session Database](#session-database)
-10. [Cross-Session Memory](#cross-session-memory)
-11. [Multi-AI Orchestration](#multi-ai-orchestration)
+7. [Local Sandbox and Settings](#local-sandbox-and-settings)
+8. [Background Agents](#background-agents)
+9. [Fleet Execution](#fleet-execution)
+10. [Session Database](#session-database)
+11. [Cross-Session Memory](#cross-session-memory)
+12. [Multi-AI Orchestration](#multi-ai-orchestration)
 
 ---
 
@@ -160,52 +161,47 @@ Override the default model for any agent with the `model` parameter:
 
 ```text
 task(agent_type="explore", model="claude-haiku-4.5", prompt="Find all test files")
-task(agent_type="general-purpose", model="claude-opus-4.6", prompt="Redesign auth")
+task(agent_type="general-purpose", model="claude-opus-5.5", prompt="Redesign auth")
 ```
 
-### Complete Model Catalog
+### Reference Model Catalog
+
+Tiers and one-line purposes below are this repository's suggested routing; the model IDs come from
+the reference table.
 
 | Model | Provider | Tier | Best For |
 |-------|----------|------|----------|
-| `gpt-5.4` | OpenAI | Standard | General-purpose coding |
-| `gpt-5.4-mini` | OpenAI | Fast/Cheap | Quick general tasks |
-| `gpt-4.1` | OpenAI | Fast/Cheap | Fast, cost-efficient tasks |
-| `gpt-5.3-codex` | OpenAI | Standard | Code generation |
-| `gpt-5.2-codex` | OpenAI | Standard | Code generation |
-| `gpt-5.2` | OpenAI | Standard | General-purpose |
-| `gpt-5.1-codex-max` | OpenAI | Standard | Maximum code quality |
-| `gpt-5.1-codex` | OpenAI | Standard | Code generation |
-| `gpt-5.1-codex-mini` | OpenAI | Fast/Cheap | Quick code tasks |
-| `gpt-5.1` | OpenAI | Standard | General-purpose |
-| `gpt-5-mini` | OpenAI | Fast/Cheap | Simple tasks |
-| `claude-opus-4.6` | Anthropic | Premium | Deep analysis, architecture |
-| `claude-opus-4.6-fast` | Anthropic | Premium | Premium quality, faster output |
-| `claude-opus-4.5` | Anthropic | Premium | Deep analysis |
-| `claude-sonnet-4.6` | Anthropic | Standard | Balanced quality + speed |
-| `claude-sonnet-4.5` | Anthropic | Standard | Reliable all-rounder |
-| `claude-sonnet-4` | Anthropic | Standard | Stable, proven |
+| `claude-opus-5.5` | Anthropic | Premium | High-capability complex tasks, architecture, deep review |
+| `claude-sonnet-5.5` | Anthropic | Standard | General-purpose coding (CLI default) |
+| `gpt-6.1-sol` | OpenAI | Standard | Strong general reasoning (opt-in) |
+| `gpt-6-astra` | OpenAI | Standard | General-purpose alternative (opt-in) |
+| `gpt-5.3-codex` | OpenAI | Standard | Code-focused tasks |
+| `gpt-6-luna` | OpenAI | Fast/Cheap | Fast general tasks (opt-in) |
+| `claude-haiku-5.5` | Anthropic | Fast/Cheap | Fast, lightweight operations |
 | `claude-haiku-4.5` | Anthropic | Fast/Cheap | Exploration, simple edits |
-| `gemini-3-pro-preview` | Google | Standard | Multimodal, large context |
-| `gemini-3.1-pro-preview` | Google | Standard | Latest Gemini multimodal |
-| `gemini-3-flash` | Google | Fast/Cheap | Fast multimodal tasks |
-| `gemini-3.6-flash` | Google | — | — |
-| `grok-code-fast-1` | xAI | Standard | Code-focused tasks |
-| `grok-4.5` | xAI | — | — |
+| `gemini-3.8-flash` | Google | Fast/Cheap | Fast Google Gemini responses |
 
-Model availability varies by plan, region, and organization policy. The v1.0.75 release notes add
-support for **Claude Opus 5**, but do not publish its model ID; verify the ID in `/model` before
-adding it to this catalog. Likewise, re-check `/model` before relying on any catalog entry in
-automation. The v1.0.74 and v1.0.76 release notes add `gemini-3.6-flash` and `grok-4.5`,
-respectively, but publish neither a tier nor a recommended use, so those cells remain unclassified.
+This catalog mirrors the **Supported models** table in the official Copilot CLI command reference
+(checked 2026-10-23), which highlights nine models with published IDs. GitHub's per-client model
+table lists about 25 models as available in Copilot CLI — including xAI Grok and Kimi models —
+so `/model` usually shows more than this catalog; take the exact ID from `/model` for those.
+"Opt-in" means the model is recommended but is not the automatic default.
+Pass `--model auto` (or choose Auto in `/model`) to let Copilot pick a model. Availability still
+varies by plan, region, and organization policy, and GitHub retires models on a published
+schedule — for example, `gpt-5-mini` and `gpt-5.4` retired on 2026-10-19 and
+`claude-sonnet-4.6` / `claude-opus-4.6` on 2026-09-01. Re-check `/model` before pinning an ID
+in an agent file or automation. A custom agent whose `model` cannot be honored **silently falls
+back to the session model** instead of failing, so a retired pin does not raise an error —
+use the `models:` priority list (or `modelPolicy: "required"` when a fallback is unacceptable).
 
 ### Example: Cost-Aware Routing
 
 ```text
 Phase 1 — Explore (cheap):     claude-haiku-4.5      → $
 Phase 2 — Plan (standard):     default model          → $$
-Phase 3 — Implement (standard): claude-sonnet-4.6     → $$
-Phase 4 — Review (standard):    claude-sonnet-4.6     → $$
-Phase 5 — Arch review (premium): claude-opus-4.6      → $$$  (only if needed)
+Phase 3 — Implement (standard): claude-sonnet-5.5     → $$
+Phase 4 — Review (standard):    claude-sonnet-5.5     → $$
+Phase 5 — Arch review (premium): claude-opus-5.5      → $$$  (only if needed)
 ```
 
 See [Multi-Model Strategy skill](../skills/copilot-exclusive/multi-model-strategy/SKILL.md).
@@ -405,6 +401,59 @@ Copilot autonomously:
 ```
 
 See [Autopilot Patterns skill](../skills/copilot-exclusive/autopilot-patterns/SKILL.md).
+
+---
+
+## Local Sandbox and Settings
+
+### What It Is
+
+Since v1.0.93, command sandboxing is available to all users. The OS-level sandbox restricts
+filesystem and network access for shell commands, local (stdio) MCP servers, and command hooks.
+Settings that used to be edited by hand now have a non-interactive command, `copilot config`.
+
+### Why It Matters
+
+Autopilot and unattended runs are only as safe as their boundary. The sandbox moves that
+boundary from "tool permissions" to the operating system, and `copilot config` makes the same
+settings reproducible in CI and on managed machines.
+
+### How to Use It
+
+| Surface | What it does |
+|---------|--------------|
+| `/sandbox` (or `/sandbox config`) | Settings dialog — enable for this session or as the default for new sessions |
+| `/sandbox enable session` · `/sandbox disable session` | Change only the current session; the saved default is untouched |
+| `/sandbox status` · `/sandbox policy [COMMAND]` | Show whether the session is sandboxed, its path grants, network settings, and developer-tool access |
+| `--sandbox` · `--no-sandbox` | Turn the sandbox on or off for one run without changing the saved setting (useful with `-p`) |
+| `/add-dir PATH` | Also grants the sandbox access to that directory for the current session |
+| `copilot sandbox ca …` | Manage the sandbox proxy CA outside a session (`create`, `trust`, `rotate`, `remove`, `status`) |
+| `copilot config KEY [VALUE]` | Read or change a setting from the command line; `--list`, `--rm KEY`, `--repo` |
+
+Behaviors worth knowing before you rely on it:
+
+- **Ambient `GITHUB_TOKEN` is withheld** from sandboxed shells unless you configure it explicitly
+  (v1.0.92).
+- **Local network access is on by default**, so commands can reach `localhost` and
+  private-network services (v1.0.100).
+- An **enterprise policy can enforce the sandbox** as a floor; `--no-sandbox` is then overridden.
+- Repository, user, and plugin **command** hooks run **inside** the sandbox; machine-wide policy
+  hooks always run on the host.
+- User settings are read only from `~/.copilot/settings.json`; user-setting keys left in
+  `~/.copilot/config.json` are ignored (v1.0.93).
+
+Path-specific instruction files in `.github/instructions/` are now applied automatically when the
+agent reads or edits a matching file (v1.0.100), alongside `.github/copilot-instructions.md`.
+
+### Example
+
+```text
+copilot --sandbox -p "Run the test suite and summarize failures"
+copilot config --repo --list --json
+```
+
+See [The Security Guide](./the-security-guide.md) for how the sandbox fits with permissions and
+hooks.
 
 ---
 
@@ -766,7 +815,7 @@ See the full [Orchestration Guide](../orchestration/README.md) and
 | 20+ Models | ✅ | ❌ | ❌ | ❌ | ❌ |
 | IDE Synergy | ✅ | ❌ | ❌ | ✅ | ❌ |
 | Plan Mode | ✅ | ⚠️ | ❌ | ❌ | ❌ |
-| Autopilot _(Experimental)_ | ✅ | ⚠️ | ⚠️ | ⚠️ | ❌ |
+| Autopilot | ✅ | ⚠️ | ⚠️ | ⚠️ | ❌ |
 | Background Agents | ✅ | ❌ | ❌ | ❌ | ❌ |
 | Fleet Execution | ✅ | ❌ | ❌ | ❌ | ❌ |
 | Session SQL DB | ✅ | ❌ | ❌ | ❌ | ❌ |

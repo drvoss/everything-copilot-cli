@@ -69,10 +69,10 @@ Copilot CLI が multi-AI 開発 workflow のハブとして強い理由は、次
 | # | 強み | 説明 |
 |---|-----------|-------------|
 | 1 | **GitHub ネイティブ統合** | Issue、PR、Actions、code search をすべて組み込み MCP で利用できます。追加設定は不要です。 |
-| 2 | **20+ モデル選択** | GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3.1 Pro から、task ごとに最適なモデルを選べます。 |
+| 2 | **20+ モデル選択** | GPT-6.x、Claude Sonnet/Opus 5.5、Gemini 3.8 Flash から、task ごとに最適なモデルを選べます（現在の一覧は `/model` で確認）。 |
 | 3 | **IDE ↔ CLI のシームレス切り替え** | VS Code、JetBrains、terminal で同じ Copilot context を共有できます。 |
 | 4 | **Plan Mode** | 構造化テキストで計画できます。Copilot はコードを書く前に段階的な実装計画を作成します。 |
-| 5 | **Autopilot Mode** | ガードレール付きの自律 task 実行。_（実験的機能）_ |
+| 5 | **Autopilot Mode** | ガードレール付きの自律 task 実行。 |
 | 6 | **Background Agents** | `&` または `/delegate` で cloud Copilot agent に委任し、`/resume` でいつでも再開できます。 |
 | 7 | **Fleet Mode** | 複数 agent を同時並列で実行し、作業を分割できます。 |
 | 8 | **Session SQL Database** | session ごとに組み込み SQLite を利用でき、構造化データ、todo 追跡、状態管理が可能です。 |
@@ -568,10 +568,10 @@ Copilot CLI は GitHub workflow に最適化されて設計されています。
 | 機能 | 詳細 |
 |-----------|---------|
 | **GitHub-Native MCP** | Issue、PR、Actions、code search を追加設定なしで利用できます |
-| **20+ Model Selection** | task ごとに GPT-5.x、Claude Sonnet/Opus 4.6、Gemini 3.1 Pro を切り替えられます |
+| **20+ Model Selection** | task ごとに GPT-6.x、Claude Sonnet/Opus 5.5、Gemini 3.8 Flash を切り替えられます |
 | **IDE ↔ CLI Context Sharing** | VS Code、JetBrains、terminal 間をシームレスに切り替えられます |
 | **Plan Mode** | code を書く前に承認 workflow 付きの構造化テキスト計画を行います |
-| **Autopilot Mode** | ガードレール付きの自律 task 実行 _（実験的機能）_ |
+| **Autopilot Mode** | ガードレール付きの自律 task 実行 |
 | **Background Agents** | `&` / `/delegate` で cloud agent に委任し、`/resume` で再開します |
 | **Fleet Mode** | 複数 agent を同時並列で実行し、作業を分割します |
 | **Session SQL Database** | session ごとの組み込み SQLite で構造化状態と todo を管理します |

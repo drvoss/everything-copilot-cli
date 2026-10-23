@@ -2,7 +2,7 @@
 name: tdd-guide
 description: Test-driven development workflow with Red-Green-Refactor cycle and coverage tracking
 agent_type: general-purpose
-model: gpt-5-mini
+model: gpt-6-luna
 tools:
   - sql
   - grep

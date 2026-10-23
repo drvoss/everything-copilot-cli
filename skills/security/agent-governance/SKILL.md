@@ -203,6 +203,25 @@ When you deny a capability:
 3. verify by observing the outcome, never by the agent's own report that it was blocked
 4. repeat the check; a permission gate that passes only sometimes is not a gate
 
+### 3-D. Judge the command behind the wrapper
+
+A command rule that matches only the first word is bypassed by wrapping. Before a shell command
+policy decides, normalize it to the command that will actually run:
+
+| Form | Check |
+|------|-------|
+| `sudo rm -rf …`, `doas …` | the wrapped command (`rm`) — and treat the privilege escalation itself as high-risk |
+| `xargs rm`, `find … -exec rm {} +` | the command `xargs` or `-exec` will run |
+| `FOO=1 rm …`, `env FOO=1 rm …` | the command after the assignments |
+| `bash -c "…"`, `pwsh -Command "…"` | the inner script, parsed again with the same rules |
+| text with zero-width or other invisible Unicode characters | strip default-ignorable characters before matching |
+
+If normalization fails or the command cannot be parsed, **fail closed**: deny or ask, never allow.
+`microsoft/agent-governance-toolkit` fixed each of these bypasses in October 2026 (wrappers and
+assignments 3b8bdfc, `sudo`/`doas`/`xargs` 86db460, invisible-character evasion e9ccebe), and Copilot CLI's Assisted
+permissions likewise look inside nested `bash -c` and PowerShell commands so the permission judge
+evaluates what will actually run (v1.0.100). Write `preToolUse` hooks to the same standard.
+
 ### 4. Add trust scoring for delegated agents
 
 Multi-agent systems need memory of which delegates are reliable.

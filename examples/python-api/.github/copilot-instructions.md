@@ -103,9 +103,9 @@ src/
 |------|-----------|-------|
 | Trace request flow route → repository | `explore` | default |
 | Run `pytest`, `alembic`, `docker compose` | `task` | default |
-| Implement new endpoint (schema → service → repo → route) | `general-purpose` | claude-sonnet-4.6 |
-| Security audit (JWT, input validation, SQL) | `code-review` | claude-sonnet-4.6 |
-| Async architecture decisions | `general-purpose` | claude-opus-4.6 |
+| Implement new endpoint (schema → service → repo → route) | `general-purpose` | claude-sonnet-5.5 |
+| Security audit (JWT, input validation, SQL) | `code-review` | claude-sonnet-5.5 |
+| Async architecture decisions | `general-purpose` | claude-opus-5.5 |
 
 ### Recommended Skills
 

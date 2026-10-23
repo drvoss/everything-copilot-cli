@@ -166,7 +166,7 @@ These commands work inside any Copilot CLI session:
 ```text
 /model              # Switch between 20+ available models
 /skills             # List available skills and workflows
-/add-dir ./src      # Add directories to context
+/add-dir ./src      # Allow file access; also trusts its .github/skills and .github/agents
 /clear              # Clear conversation history
 /diff               # Review current changes
 /review             # Review implementation against spec or plan
@@ -179,9 +179,9 @@ These commands work inside any Copilot CLI session:
 Quick model switching examples:
 
 ```text
-/model claude-sonnet-4.6    # Balanced reasoning
-/model gpt-5-mini           # Fast code generation
-/model claude-opus-4.6      # Deep analysis (premium)
+/model claude-sonnet-5.5    # Balanced reasoning
+/model gpt-6-luna           # Fast code generation
+/model claude-opus-5.5      # Deep analysis (premium)
 ```
 
 ---

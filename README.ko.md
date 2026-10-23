@@ -69,10 +69,10 @@ Copilot CLI가 multi-AI 개발 워크플로우의 허브로 강한 이유는 세
 | # | 장점 | 설명 |
 |---|------|------|
 | 1 | **GitHub 네이티브 통합** | Issues, PR, Actions, 코드 검색 — 내장 MCP로 별도 설정 없이 바로 사용 |
-| 2 | **20개 이상 모델 선택** | GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3.1 Pro — 작업별로 최적의 모델 선택 |
+| 2 | **20개 이상 모델 선택** | GPT-6.x, Claude Sonnet/Opus 5.5, Gemini 3.8 Flash — 작업별로 최적의 모델 선택 (`/model` 로 현재 목록 확인) |
 | 3 | **IDE ↔ CLI 원활한 전환** | VS Code, JetBrains, 터미널에서 동일한 Copilot 컨텍스트 유지 |
 | 4 | **Plan Mode** | 구조화된 텍스트 플래닝 — 코드를 작성하기 전에 단계별 구현 계획을 수립 |
-| 5 | **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 _(실험적 기능)_ |
+| 5 | **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 |
 | 6 | **Background Agents** | `&` 또는 `/delegate`로 클라우드 에이전트에 위임, `/resume`으로 재개 |
 | 7 | **Fleet Mode** | 병렬 에이전트 실행 — 여러 에이전트가 동시에 작업 분담 |
 | 8 | **Session SQL Database** | 세션별 내장 SQLite — 구조화된 데이터, 할일 추적, 상태 관리 |
@@ -568,10 +568,10 @@ Copilot CLI는 GitHub 워크플로우를 중심으로 설계된 도구입니다.
 | 기능 | 설명 |
 |-----|------|
 | **GitHub 네이티브 MCP** | Issues, PR, Actions, 코드 검색 — 별도 설정 없이 바로 사용 |
-| **20개 이상 모델 선택** | 작업별로 GPT-5.x, Claude Sonnet/Opus 4.6, Gemini 3.1 Pro 전환 |
+| **20개 이상 모델 선택** | 작업별로 GPT-6.x, Claude Sonnet/Opus 5.5, Gemini 3.8 Flash 전환 |
 | **IDE ↔ CLI 컨텍스트 공유** | VS Code, JetBrains, 터미널 간 원활한 전환 |
 | **Plan Mode** | 코드 작성 전 승인 워크플로우를 포함한 구조화된 텍스트 플래닝 |
-| **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 _(실험적 기능)_ |
+| **Autopilot Mode** | 가드레일이 있는 자율 작업 실행 |
 | **Background Agents** | `&` / `/delegate`로 클라우드 에이전트에 위임, `/resume`으로 재개 |
 | **Fleet Mode** | 병렬 에이전트 실행 — 여러 에이전트가 동시에 작업 분담 |
 | **Session SQL Database** | 세션별 내장 SQLite — 구조화된 상태 관리 및 할일 추적 |

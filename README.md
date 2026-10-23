@@ -72,7 +72,7 @@ Three capabilities make Copilot CLI a strong hub for multi-AI development workfl
 | 2 | **20+ Model Selection** | GPT, Claude, Gemini families (example tiers, not exhaustive) — pick the right model per task. Check `/model` for the current roster since it changes over time. |
 | 3 | **IDE ↔ CLI Seamless Switching** | Same Copilot context in VS Code, JetBrains, and the terminal. |
 | 4 | **Plan Mode** | Structured text planning — Copilot builds a step-by-step implementation plan before writing any code. |
-| 5 | **Autopilot Mode** | Autonomous task execution with guardrails. _(Experimental)_ |
+| 5 | **Autopilot Mode** | Autonomous task execution with guardrails. |
 | 6 | **Background Agents** | Delegate to cloud Copilot agents via `&` or `/delegate`; resume anytime with `/resume`. |
 | 7 | **Fleet Mode** | Parallel agent execution — split work across multiple agents simultaneously. |
 | 8 | **Session SQL Database** | Built-in SQLite per session for structured data, todo tracking, and state. |
@@ -572,7 +572,7 @@ Copilot CLI is purpose-built around your GitHub workflow. Here's what you get ou
 | **20+ Model Selection** | Switch between GPT, Claude, Gemini families (example tiers) per task — check `/model` for the current roster |
 | **IDE ↔ CLI Context Sharing** | Seamless switching between VS Code, JetBrains, and the terminal |
 | **Plan Mode** | Structured text planning with approval workflow before any code is written |
-| **Autopilot Mode** | Autonomous task execution with guardrails _(Experimental)_ |
+| **Autopilot Mode** | Autonomous task execution with guardrails |
 | **Background Agents** | Delegate to cloud agents via `&` / `/delegate`; resume with `/resume` |
 | **Fleet Mode** | Parallel agent execution — split work across multiple agents simultaneously |
 | **Session SQL Database** | Built-in SQLite per session for structured state and todo tracking |

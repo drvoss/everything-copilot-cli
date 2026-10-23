@@ -147,7 +147,7 @@ different roles:
 Good pairings:
 
 - `general-purpose` builder + `code-review` checker
-- `gpt-5.3-codex` implementer + `claude-sonnet-4.6` reviewer
+- `gpt-5.3-codex` implementer + `claude-sonnet-5.5` reviewer
 - `explore` researcher + `general-purpose` synthesizer
 
 If both agents need to edit the same files, do it sequentially rather than concurrently.
