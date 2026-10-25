@@ -162,6 +162,26 @@ mkdir "skills/[category]/[skill-name]" -Force
 # skills/[category]/[skill-name]/SKILL.md
 ```
 
+### 3-A. Keep the body lean
+
+A skill loads in layers: the `name` and `description` are always in context, the body loads when the
+skill triggers, and files under `references/` load only when the body points the agent at them. The
+context window is shared, so every paragraph in the body should justify its token cost.
+
+- Keep `SKILL.md` under about 500 lines. When a skill approaches that, cut or split whole sections —
+  do not trim sentences until it fits.
+- Keep the common path in the body: the steps most runs need and one short example.
+- What fewer runs need — advanced variants, long examples, alternative tools, deep background — is
+  the part to move out. Where the host supports it, that means a `references/<topic>.md` file next to
+  the skill, linked from the body with one line that says when to read it.
+- **Not yet in this collection.** `tests/validate-skills.test.js` treats every `.md` under `skills/`
+  (except `README.md`) as a skill: it must have frontmatter, its `name` must match its directory, its
+  category must match its grandparent folder, and it must appear in the catalog. A
+  `references/<topic>.md` file cannot pass those checks, so here, shorten the body or split the skill
+  instead, until the test exempts `references/`.
+
+Adapted from the progressive-disclosure guidance in `microsoft/skills` `skill-creator` (MIT).
+
 ### 4. Port External Skills Intentionally
 
 If the source came from Claude Code, an awesome list, or another skill collection,
@@ -270,6 +290,7 @@ After generating a new skill, verify:
 - [ ] Any heading scan ignores fenced code blocks first, so `#` lines inside examples are not treated as real sections
 - [ ] "When NOT to Use" table directs to alternatives
 - [ ] Workflow has numbered steps with concrete commands or examples
+- [ ] Body stays under ~500 lines; rarely needed detail is split out where the validators allow it (see 3-A)
 - [ ] "Verification" section has checkable (not vague) criteria
 - [ ] `npm run validate && npm run lint:md && npm test` passes
 

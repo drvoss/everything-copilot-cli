@@ -18,6 +18,7 @@ mean to promise.
 - Designing a new public HTTP API, CLI command, webhook, SDK surface, or plugin contract
 - Changing an existing interface that other teams, tools, or customers already consume
 - Clarifying breaking-change policy before implementation starts
+- Auditing a CLI or SDK that already shipped — see "Audit mode" below
 - Tightening the interface section of `spec-driven-development` for a compatibility-sensitive feature
 
 ## When NOT to Use
@@ -120,6 +121,27 @@ Once the contract is stable:
 1. Feed it into `spec-driven-development`
 2. Identify tests that prove the contract
 3. Implement the smallest slice that honors the contract exactly
+
+### Audit mode — checking a surface that already shipped
+
+When the interface exists and the question is "is this contract actually good?", audit it from evidence
+instead of redesigning it. Stay read-only unless asked to fix.
+
+1. Write a one-line scope receipt before reading code, so the audit cannot quietly widen:
+   `Scope: audit; surfaces: <commands/exports/config>; excludes: <UI, docs prose, private internals>`
+2. Run safe probes against a local build:
+   - **CLI**: `--help`, `--version`, one success path, one invalid-input path, and the same command
+     with stdout redirected to a new temporary file outside the worktree to see non-TTY output;
+     read it, then delete it. Use `--dry-run` where it exists; never trigger a real mutation to test
+     the experience.
+   - **Package**: check what `exports`/`bin` actually resolve to after a build. Packing can run
+     lifecycle scripts — read them first, or probe a disposable checkout.
+3. Check the developer-facing contract: consistent naming and argument order, one predictable return
+   shape, errors that say what failed and how to fix it, and exit codes a script or agent can branch on.
+4. Stop when each behavior is proven, disproven, private, or out of scope. Report findings tied to the
+   probe that showed them.
+
+Adapted from the `dx-audit` skill in `mblode/agent-skills` (MIT).
 
 ## Example
 

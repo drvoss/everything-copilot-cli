@@ -76,6 +76,25 @@ You do not need perfect diagrams before analysis, but you do need a concrete mod
 
 Represent the system as a lightweight DFD or component map if helpful.
 
+### 2-A. Tie every claim to evidence — and rank the evidence
+
+A threat model that states controls nobody checked reads as reassurance, not analysis. Give each
+piece of evidence an ID (`E001`, `E002`, …) and make every boundary, flow, and control in the sketch
+cite at least one — and hold every finding from step 3 onward to the same rule. When sources
+disagree, the higher one decides the modeled state and the lower one is recorded as drift:
+
+1. Deployed or runtime configuration
+2. Current implementation and generated configuration at the recorded commit
+3. Tests, schemas, and interface contracts
+4. Maintained runbooks and technical docs
+5. Design docs, tickets, and names
+6. Assumptions
+
+Never treat intent ("we enforce mTLS") as proof that a control is active. Mark controls
+`implemented`, `partial`, or `unknown`; a partial or unknown control must name its gap and cannot
+lower the risk score beyond what the evidence shows. When evidence is missing, record an `unknown`
+item saying what would settle it. Adapted from `hacks4snacks/tmforge` (MIT).
+
 ### 3. Apply STRIDE-A to each component and flow
 
 For each component or trust boundary, ask:
@@ -119,6 +138,11 @@ This is especially useful for:
 - new background jobs or agents
 - infrastructure moves
 - CI/CD or deployment changes
+
+Incremental comparison only works if the earlier model's identifiers still mean the same thing.
+Keep every element, flow, and threat ID stable: never renumber, reuse, or compact IDs after a
+deletion, and give new items new IDs. Renumbering silently re-attaches old findings, suppressions,
+and work-item links to the wrong elements.
 
 ### 6. Produce a concise decision-ready report
 

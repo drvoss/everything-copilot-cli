@@ -37,6 +37,16 @@ This is an ensemble/debate pattern: single-reviewer findings stay advisory, cons
 - Combine complementary model strengths
 - Keep the merge gate structured and machine-readable
 
+## Consensus Is Not Correctness
+
+Agreement decides whether a finding **blocks**; it does not prove the finding is **true**. Two model
+families can share a misreading of the same diff, and one reviewer alone can be right. Before acting
+on a blocking finding — or dismissing an advisory one — check it against the diff, the cited file and
+line, and a test run. A finding whose cited line or quoted text does not match the code is a
+transport or reading error, however many reviewers reported it. Record which findings were verified,
+so the next run does not treat the vote count as the evidence. (The "consensus ≠ correctness" rule
+follows `nyldn/claude-octopus` `skill-verification-gate`, MIT.)
+
 ## Cost Caveats
 
 This runs **4 external CLIs in parallel**, so it is slower and more expensive than a single review. Prefer it for:

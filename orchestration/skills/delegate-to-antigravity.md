@@ -134,6 +134,7 @@ Return:
 3. Keep GitHub-native actions in Copilot CLI even when Antigravity did the analysis
 4. Prefer the handoff protocol when the result must be reused across tools
 5. Confirm sandbox/permission behavior before relying on any migrated Gemini CLI plugin or hook
+6. **Land it yourself** — in one of this project's runs, `--mode plan --sandbox` did not stop `agy` from changing the repository; follow the [orchestrator's contract](multi-ai-handoff.md#landing-delegated-work-the-orchestrators-contract) and check `git status` after every run
 
 ## See Also
 

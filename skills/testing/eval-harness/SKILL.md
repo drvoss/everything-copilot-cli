@@ -332,6 +332,17 @@ CREATE TABLE IF NOT EXISTS stability_runs (
 A case with a high verdict-flip rate should block a ship decision even if its average pass rate
 looks acceptable — instability is itself the defect.
 
+#### Size the eval so it can return a verdict
+
+Repeated runs measure reliability; they do not add evidence. Five runs of one case are still one
+case. When comparing a candidate against a baseline, give each **distinct** case one vote (its
+majority direction across runs). A case is *eligible* when both variants run it and the rubric can
+score it — cases meant to check that the skill stays inactive do not count. Require at least five
+eligible distinct cases before the gate can return pass or fail; with fewer, report `underpowered` —
+never a pass and never a regression. Keep ties in the record: a tie is not a win, and because it leaves fewer
+decisive votes, it makes a win harder to claim. Do not drop ties to make the result look cleaner.
+Adapted from the eval sizing rules in `dotnet/skills` `CONTRIBUTING.md` (MIT).
+
 ### Trajectory argument matching
 
 When a trajectory check depends on tool inputs, compare normalized arguments rather

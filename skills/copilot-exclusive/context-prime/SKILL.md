@@ -33,7 +33,20 @@ Get-Content README.md | Select-Object -First 60
 if (Test-Path .github/copilot-instructions.md) {
     Get-Content .github/copilot-instructions.md
 }
+
+# Other agents' instruction files — read each one to compare it with the Copilot file
+'AGENTS.md', 'CLAUDE.md', '.cursorrules' | Where-Object { Test-Path $_ } | ForEach-Object {
+    Write-Host "=== $_ ==="
+    Get-Content $_
+}
 ```
+
+When a repository has several instruction files, check whether they agree. Duplicated guidance
+drifts. A **split** is worse and more common: each file holds different rules, and none is complete —
+the build commands live only in `AGENTS.md` and the conventions only in the Copilot file. Note any
+rule that appears in only one file before you rely on it, and suggest one canonical file (usually
+`AGENTS.md`) with the others as short pointers to it. Do not rewrite the files during priming.
+Adapted from `johnpapa/ai-ready` (MIT).
 
 ### 2. Understand the File Structure
 

@@ -229,6 +229,7 @@ if ($LASTEXITCODE -eq 0) {
 3. **Use suggest for sensitive code** — Auth, payments, data handling
 4. **Always verify** — Run build + tests after Codex generates code
 5. **Chain with Claude** — Use Codex to generate, Claude to review
+6. **Land it yourself** — verify the tree, not the report: follow the [orchestrator's contract](multi-ai-handoff.md#landing-delegated-work-the-orchestrators-contract)
 
 ## See Also
 

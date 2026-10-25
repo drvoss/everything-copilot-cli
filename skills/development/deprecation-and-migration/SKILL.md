@@ -25,6 +25,14 @@ metadata:
 
 ## Workflow
 
+### 0. 조직의 마이그레이션 규칙부터 읽는다
+
+목표 버전, 허용·금지 기술, 인증 방식, 단계화 원칙처럼 조직이 이미 정한 것이 있으면 에이전트의 분석
+결과보다 그것이 우선한다. 규칙을 저장소의 정해진 곳(예: `.github/modernize/rulebook/*.md`,
+`docs/migration-standards.md`)에 마크다운으로 두고, 계획을 세우기 전에 읽는다. 분석이 다른 선택을
+권하면 규칙을 따르고, 그 충돌을 계획에 적어 사람이 규칙을 바꿀지 판단하게 한다.
+`microsoft/github-copilot-modernization` (MIT) 의 rulebook 방식에서 개념을 가져왔다.
+
 ### 1. 사용처 파악 및 영향 분석
 
 ```bash

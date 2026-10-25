@@ -83,6 +83,22 @@ git commit -m "feat(feature-name): add spec and initial implementation"
 
 스펙은 코드와 함께 버전 관리된다. 구현이 스펙에서 벗어나면 스펙을 먼저 업데이트한다.
 
+### 3-A. 같은 기능을 계속 고치는 저장소라면 — 변경 단위로 쌓는다
+
+기능 하나에 `SPEC.md` 하나는 첫 구현에 맞는다. 같은 영역을 여러 번 고치면 스펙이 "지금의 동작" 인지
+"이번 변경" 인지 흐려진다. 그때는 둘을 나눈다:
+
+- **살아 있는 스펙** (`specs/<영역>.md`) — 현재 시스템이 하는 일. 요구사항마다 구체적 시나리오를 단다:
+  `The app SHALL …` + `WHEN … THEN …`
+- **변경 폴더** (`changes/<변경-이름>/`) — 이번 변경의 이유(`proposal.md`), 살아 있는 스펙에 대한 차이
+  (`## ADDED Requirements` · `## MODIFIED Requirements` · `## REMOVED Requirements` 를 각각 별도 절로),
+  설계, 작업 목록
+- **보관** — 구현과 검증이 끝나면 차이를 살아 있는 스펙에 합치고, 변경 폴더는
+  `changes/archive/YYYY-MM-DD-<변경-이름>/` 으로 옮긴다
+
+리뷰어는 코드 전에 변경 폴더의 차이만 보면 되고, 살아 있는 스펙은 언제나 현재 동작을 말한다.
+`fission-ai/openspec` (MIT) 의 변경 수명주기를 도구 없이 쓸 수 있게 옮겼다.
+
 ### 4. 스펙 사후 검토
 
 구현 완료 후: 스펙이 현실을 예측했는가? 다음번을 위한 교훈을 기록.

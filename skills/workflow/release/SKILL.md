@@ -22,6 +22,9 @@ metadata:
 
 ## Workflow
 
+The examples below use `v`-prefixed tags (`v1.3.0`). If the repository tags releases another way
+(`1.3.0`, `release-1.3.0`), substitute its pattern everywhere a tag appears; step 5 derives it.
+
 ### 1. Confirm CHANGELOG is Ready
 
 ```powershell
@@ -40,7 +43,10 @@ if ($unreleased -match 'Added|Changed|Fixed|Security|Removed|Deprecated') {
 
 ### 2. Determine the Next Version
 
-Use [Semantic Versioning](https://semver.org/):
+Use the versioning policy the repository already declares — `CONTRIBUTING.md`, a `RELEASING.md`,
+release tooling config (changesets, release-please), or the existing tag pattern. Do not impose
+SemVer, CalVer, or a shared catalog version on a repository that declares something else.
+If nothing is declared, propose [Semantic Versioning](https://semver.org/) and confirm it first:
 
 | Change type | Version bump | Example |
 |-------------|-------------|---------|
@@ -108,20 +114,67 @@ git add CHANGELOG.md
 git commit -m "🔖 chore(release): update changelog for v$version"
 ```
 
-### 5. Create and Push the Git Tag
+### 5. Approval Gate — Before Anything Leaves Your Machine
+
+Up to here every change is local and reviewable — including the version-bump commit from step 4,
+which has not been pushed. Tagging, pushing, and publishing are not reversible in the same way.
+
+1. Check the proposed tag locally **and** on the remote. A collision is a blocker — never overwrite it.
+2. Present one proposal: the exact version changes, tag, release title, full notes, the validation
+   evidence (test run, smoke result), and the commands you will run.
+3. Wait for explicit approval of **that exact proposal**, then present it again if anything changes:
+   - the version changed → set the new `$version` and re-run the block below (it recomputes `$tag`
+     and re-checks for collisions); correct the step 3–4 edits in place — do not promote
+     `[Unreleased]` a second time or add another commit; stage the files and run
+     `git commit --amend -m "<step 4 message with the new version>"`, stopping if
+     `$LASTEXITCODE` is not 0
+   - only the tag, title, or notes changed → leave the commit alone; they are not in it
 
 ```powershell
-$tag = "v$version"
+$version = "1.3.0"   # the version from step 2
+# Reuse the prefix in front of the version in the nearest tag ("v", "release-", "node18-v", or none).
+# git describe picks the nearest tag reachable from HEAD — check it is the release line you mean.
+$lastTag = git --no-pager describe --tags --abbrev=0 2>$null
+if ($LASTEXITCODE -ne 0 -or -not $lastTag) { throw "No existing tags — confirm the tag pattern first" }
+if ($lastTag -notmatch '^(?<prefix>.*?)\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$') {
+  throw "Cannot derive a tag pattern from '$lastTag' — ask before tagging"
+}
+$tag = "$($Matches['prefix'])$version"
 
-# Annotated tag (preferred — shows up in GitHub Releases)
-git tag -a $tag -m "Release $tag"
-
-# Push commits and tag
-git push origin main
-git push origin $tag
+$localHit = git tag --list $tag
+if ($LASTEXITCODE -ne 0) { throw "Could not list local tags" }
+if ($localHit) { throw "Tag already exists locally: $tag" }
+$remoteHit = git ls-remote --tags origin "refs/tags/$tag"
+if ($LASTEXITCODE -ne 0) { throw "Could not query origin for tags" }
+if ($remoteHit) { throw "Tag already exists on origin: $tag" }
+"Proposed tag: $tag"
 ```
 
-### 6. Create GitHub Release
+### 6. Create and Push the Git Tag
+
+```powershell
+# Keep the approved $tag from step 5; in a new session, set it to that exact value first
+if (-not $tag) { throw 'Set $tag to the tag approved in step 5' }
+
+# Annotated tag (preferred — shows up in GitHub Releases). On a resumed run the local tag may
+# already exist: reuse it only if it points at HEAD.
+git rev-parse -q --verify "refs/tags/$tag" | Out-Null
+if ($LASTEXITCODE -eq 0) {
+  if ((git rev-parse "$tag^{commit}") -ne (git rev-parse HEAD)) { throw "Local $tag points at another commit — stop" }
+  "Local $tag already on HEAD — resuming at push"
+} else {
+  git tag -a $tag -m "Release $tag"
+  if ($LASTEXITCODE -ne 0) { throw "git tag failed — nothing was pushed" }
+}
+
+# Push commits, then the tag — stop on the first failure and check the remote before retrying
+git push origin main
+if ($LASTEXITCODE -ne 0) { throw "Pushing main failed — the tag was not pushed" }
+git push origin $tag
+if ($LASTEXITCODE -ne 0) { throw "Pushing $tag failed — see Red Flags before retrying" }
+```
+
+### 7. Create GitHub Release
 
 **Via `gh` CLI (recommended):**
 
@@ -148,7 +201,7 @@ gh release create $tag `
 > [paste the version section content]
 ```
 
-### 7. Run Rollout or Smoke Verification
+### 8. Run Rollout or Smoke Verification
 
 After the tag and GitHub Release exist, verify the release in the smallest safe blast radius.
 
@@ -180,7 +233,7 @@ Pop-Location
 
 If the verification fails, fix the issue before public promotion.
 
-### 8. Publish Package (If Applicable)
+### 9. Publish Package (If Applicable)
 
 **npm:**
 
@@ -205,6 +258,10 @@ docker push myimage:latest
 ```
 
 ## Examples
+
+These condensed examples assume `v`-prefixed tags and leave out the step 5 approval gate, the
+collision checks, and the exit-code checks. In a real release, run steps 5–6 as written and use the
+`$tag` step 5 produced wherever a tag appears below.
 
 ### Full Node.js Release
 
@@ -255,13 +312,19 @@ gh release create "v1.2.0" --generate-notes
 - Deploying directly to main without a version tag
 - CHANGELOG filled only with vague entries like "various fixes"
 - No canary or smoke verification before wider rollout
-- Semantic versioning violations (bumping patch version for a breaking change)
+- A version bump that breaks the repository's declared policy (with SemVer, a patch bump for a breaking change)
+- Retrying a tag push or `gh release create` that returned an uncertain result without first checking
+  what the remote already has — check `git ls-remote --tags origin` and `gh release view $tag`, report
+  the partial state, and resume only the missing step. Never create a duplicate, and never delete or
+  move a published tag without explicit approval (approval gate and recovery rules adapted from
+  `levnikolaevich/claude-code-skills` `ln-62-release-publisher`, MIT)
 
 ## Verification
 
 - [ ] `npm test` (or CI) fully passes
 - [ ] CHANGELOG records this version's changes (breaking changes explicitly noted)
-- [ ] Git tag created in `v{version}` format
+- [ ] The user approved the exact tag, title, notes, and commands before anything was pushed
+- [ ] Git tag created in the format the repository declares (`v{version}` when nothing is declared)
 - [ ] GitHub Release notes written
 - [ ] Canary or smoke verification completed for the release type
 - [ ] npm/PyPI/Registry publish confirmed successful

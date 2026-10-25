@@ -205,6 +205,22 @@ v1.0.100 release notes):
 Since v1.0.102, sub-agents honor custom and MCP tool approvals instead of prompting again, so
 scope those approvals as narrowly as you scope the sandbox.
 
+When you define sub-agents in code with the Copilot SDK (`customAgents`), three runtime rules
+shape the boundary (`github/copilot-sdk` → `docs/features/custom-agents.md`):
+
+- **Skills are not inherited.** A custom agent starts with no skills, and sub-agents do not inherit
+  the parent's. Preload the ones it needs with its `skills` list instead of assuming the parent's
+  instructions follow it.
+- **Tools are an allowlist only when you set them.** Each agent runs in its own context. If its
+  `tools` list is omitted or `null`, it gets every tool the session has — so set the list
+  explicitly, and give a reviewer `view`/`grep`/`glob`, not `edit` or `bash`.
+- **Automatic selection is on by default.** The runtime may delegate to any custom agent whose
+  description matches the request. Set `infer: false` on agents that write, deploy, or spend, so
+  they run only when explicitly requested.
+
+These are SDK-level facts; check `copilot help` and your agent profile format before assuming the
+same fields behave identically in `.github/agents/` profiles.
+
 ### 4. Validate before accepting output
 
 Even successful sandboxed runs are only candidates. Review:
@@ -234,6 +250,20 @@ BLOCKER: sub-agent stopped by loop detection after repeated identical tool calls
 Last safe state: sandbox output preserved in worktree X.
 Next action: rewrite the brief or switch to a higher-isolation lane.
 ```
+
+Before retrying a stopped lane, capture the failure and name its class — a retry without a
+diagnosis usually repeats the same loop:
+
+| Class | Typical signal | Check before retrying |
+|-------|----------------|-----------------------|
+| Logic | tests still fail after the "fix" | isolate the failing test and re-derive the bug |
+| State | file missing after a write, stale diff | `cwd`, branch, `git status`, the real file on disk |
+| Environment | `ECONNREFUSED`, timeout, `429` | service health, port, retry spacing |
+| Policy | denied tool, sandbox or permission block | which rule denied it, and whether the task needs it |
+
+Record the last successful step, the last failed tool call, and the repeated pattern in the blocker,
+so the next attempt starts from evidence instead of the same brief. Adapted from
+`affaan-m/ECC` `agent-introspection-debugging` (MIT).
 
 ## Relationship to Other Skills
 

@@ -200,6 +200,7 @@ gh pr create --title "refactor: improve auth architecture" `
 3. **Request structure** — Ask for JSON, numbered lists, or tables for parseable output
 4. **Set scope** — Tell Claude which files/directories to focus on
 5. **Chain with Copilot** — Use Copilot CLI to act on Claude's recommendations
+6. **Land it yourself** — verify the tree, not the report: follow the [orchestrator's contract](multi-ai-handoff.md#landing-delegated-work-the-orchestrators-contract)
 
 ## See Also
 

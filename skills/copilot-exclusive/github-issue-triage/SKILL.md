@@ -162,6 +162,35 @@ CREATE TABLE IF NOT EXISTS triage_items (
 
 Load issues into the session database, then work through them systematically.
 
+## When the Report Is a Vulnerability
+
+A security report must not be triaged in public. If someone opens an issue describing a
+vulnerability, do not discuss the details in the thread — point the reporter to the repository's
+private vulnerability reporting (Security → Advisories), then close and lock the public issue.
+Neither makes its content private: if it contains exploit or other sensitive details, ask a
+repository admin to delete it — in an organization, an owner may first have to allow issue deletion.
+
+For the advisory itself, the agent prepares evidence and fixes; a maintainer accepts, merges,
+releases, and publishes:
+
+| Step | Who |
+|------|-----|
+| Verify the claim: who owns the code path, and which release lines are affected | agent, then a maintainer confirms |
+| Accept the advisory (the reporter sees this) | **human only** |
+| Fix in the advisory's temporary private fork and review there, not in a public PR | agent may prepare the fix |
+| Merge to **every** affected release line and release each one | agent lists the lines; a maintainer merges and releases |
+| Publish the advisory — there is no unpublish | **human only** |
+
+After publication, follow-up issues, labels, and board cards fall under the repository's normal
+triage rules.
+
+Do not copy the reproduction or proof of concept onto a project board or a tracking issue: people
+with project access are not necessarily advisory collaborators. Link to the advisory instead.
+Before publishing, check the credits and decide on a CVE. For reports that came in through private
+vulnerability reporting, GitHub adds the reporter as a credited user automatically; for an advisory a
+maintainer opened, add the credits explicitly. This mirrors the maintainer flow
+`modelcontextprotocol/inspector` keeps in its repository (documentation under CC-BY-4.0).
+
 ## Tips
 
 - **Parallel issue reads**: Call `issue_read` on multiple issues simultaneously

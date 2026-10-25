@@ -103,6 +103,11 @@ Check these patterns:
 ## Full Audit Workflow
 
 ```text
+# 0. Ask before you scan
+> Before auditing, ask what the workload must satisfy: data sensitivity, regulatory or
+> privacy obligations, who owns which layer (your code vs. the platform vs. a vendor),
+> accepted exceptions, and how the team currently proves its controls work.
+
 # 1. Get the lay of the land
 > Map the attack surface: list all public API endpoints, auth endpoints,
 > file upload handlers, and external service integrations.
@@ -127,6 +132,25 @@ npm audit --audit-level=high
 > - Medium/Low findings (backlog)
 > - Recommended next steps
 ```
+
+### Map findings to design principles
+
+The checklists find defects; the principles explain why the defect class keeps recurring.
+Tag each critical or high finding with the principle it violates, so the fix targets the
+process and not only the line:
+
+| Principle | Ask of each finding |
+|-----------|---------------------|
+| Security by design | Was a security requirement written down before the code? |
+| Zero trust | Was access granted by location or prior trust instead of verified each time? |
+| Shift-left | Could a pre-commit, CI, or review check have caught it earlier? |
+| Compliance and privacy | Does it break a stated obligation, not only a best practice? |
+| Shared responsibility | Is this layer ours to fix, or the platform's or a vendor's? |
+
+A cluster of findings under one principle points to a gap in the development process worth its own
+follow-up. A finding that fits none of these five is unclassified, not necessarily a one-off — this
+is a shortened list. Principles adapted from the Security pillar in `google/skills`
+`google-cloud-waf-security` (Apache-2.0), without the Google Cloud product guidance.
 
 ## Output Format
 

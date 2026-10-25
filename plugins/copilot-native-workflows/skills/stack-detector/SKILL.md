@@ -1,6 +1,6 @@
 ---
 name: stack-detector
-description: Scan the current project's tech stack (package.json, config files, lockfiles) and recommend the most relevant skills and rules from this collection for the detected technologies.
+description: Use when starting work on an unfamiliar codebase or onboarding a contributor and you need to know which skills and rules from this collection apply — scans the project's tech stack (package.json, config files, lockfiles) and recommends the most relevant ones for the detected technologies.
 metadata:
   category: copilot-exclusive
   copilot_feature: "File system inspection, git ls-files, package.json analysis"

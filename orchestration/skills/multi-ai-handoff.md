@@ -210,6 +210,32 @@ stays accountable for the final decision. This is especially useful for pre-merg
 code review and architecture challenges, where blindly forwarding a second model's
 opinion can mask disagreements that matter.
 
+## Landing Delegated Work: the Orchestrator's Contract
+
+A delegate did the typing; the orchestrating agent owns the judgment and the commit. Every
+`delegate-to-*` skill points here — run these five checks before you land a delegated change:
+
+1. **The brief stands alone.** The delegate sees only what you send — no repository memory, no chat
+   history. Put the goal, the files in scope, what must not change, and the exact gate commands in
+   the brief itself.
+2. **Verify the tree, not the report.** The delegate's summary is a claim. Run the project's real
+   test, lint, and build commands yourself on the final working tree and read their output.
+3. **Read test edits first.** A new skip, a deleted or commented-out case, or an assertion loosened
+   from an exact value to "contains" or "truthy" is a failure until the brief justifies it — a green
+   gate proves less if the yardstick was shortened.
+4. **Inspect the whole change.** `git status --short`, `git diff`, and `git diff --cached`, and open
+   every untracked file. Hold it against the brief: excluded files touched, required pieces missing,
+   and judgment calls nobody authorized.
+5. **Only the orchestrator commits.** Tell the delegate not to stage, commit, or push; review, then
+   land the change yourself.
+
+Treat read-only and sandbox modes as best effort unless you have verified them for the exact CLI
+version you run. In this project's own multi-CLI runs on 2026-08-19, an `agy` review launched with
+`--mode plan --sandbox` still ran `git checkout` in the repository and left it on a detached HEAD.
+Check `git status` and the current branch after every delegated run, read-only or not.
+
+Adapted from the review-and-land contract in `amelnagdy/delegate-skills` (MIT).
+
 ## Session Continuity for Multi-Turn Delegation
 
 When dispatching to the same external CLI multiple times in a session, assign a

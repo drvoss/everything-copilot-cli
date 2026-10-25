@@ -222,6 +222,18 @@ assignments 3b8bdfc, `sudo`/`doas`/`xargs` 86db460, invisible-character evasion 
 permissions likewise look inside nested `bash -c` and PowerShell commands so the permission judge
 evaluates what will actually run (v1.0.100). Write `preToolUse` hooks to the same standard.
 
+### 3-E. Separate the agent that reads from the step that writes
+
+Policy at the tool boundary decides *whether* a write is allowed; it cannot tell a legitimate PR
+from one an injected issue comment asked for. When an agent handles untrusted input, remove the
+direct write path altogether: the agent emits its intended writes (PR, comment, label, release) as
+data, a separate step inspects them, and only that step holds the write permission.
+`github/gh-aw` builds this in by default — agent jobs run read-only, and writes run in validated
+`safe-outputs` jobs with scoped permissions. Workflow authors can still grant direct write
+permissions or add custom jobs, so audit those as separate trust boundaries. See
+[`github-pr-workflow` → Staged Writes](../../copilot-exclusive/github-pr-workflow/SKILL.md#staged-writes-let-the-agent-propose-not-publish)
+for the interactive version.
+
 ### 4. Add trust scoring for delegated agents
 
 Multi-agent systems need memory of which delegates are reliable.

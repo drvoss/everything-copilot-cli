@@ -115,6 +115,26 @@ Autopilot remains selected after `task_complete` by default as of v1.0.76. Set
 2. Inspect the current diff before continuing
 3. Continue with a corrective instruction if the next step needs tighter guidance
 
+### Split the builder from the judge
+
+An autonomous run that grades its own work carries the same blind spots into both steps. For goals
+that take several iterations, separate the roles:
+
+1. **Write the goal first.** Before any work, record the goal, measurable acceptance criteria, and
+   what is out of scope in a file such as `.goals/<id>/goal.md`, and do not edit it during the run.
+2. **Builder** — a sub-agent implements and commits.
+3. **Inspector** — a different sub-agent with fresh context checks the result against the goal file,
+   the repository, and the quality gates. It never reads the builder's summary of what it did. It
+   writes a PASS or FAIL verdict with reasons to a file the next iteration can read.
+4. **Cap the loop.** Stop after a fixed number of FAIL verdicts (five is a reasonable default) and hand
+   back to a human with the open issues — do not keep iterating on a goal the inspector keeps
+   rejecting.
+
+Label the commits by role (for example `[B]` and `[I]` in the subject) so the history shows who
+claimed what. Adapted from `gsemet/copilot-goal-skill` (MIT), which runs this as a Copilot plugin.
+The hard stop is this collection's own rule: upstream has no iteration limit and only warns after
+five iterations.
+
 ## Unattended Runs: The Exit-Code Contract
 
 CI, cron jobs, and orchestrators need a machine-readable result. Judge prompt-mode success by the

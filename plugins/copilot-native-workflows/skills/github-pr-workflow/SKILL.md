@@ -208,3 +208,23 @@ For repositories where you lack Triage/Write permissions, run one iteration only
 - **Never auto-resolve threads marked as security-blocking** — check the thread body for "BLOCK" or severity markers
 - **Cap iterations at 5** to prevent runaway loops on PRs with continuously regenerated review comments
 - **Do not delete stale comments automatically** — reply and resolve instead; git blame and PR history should remain intact
+
+## Staged Writes: Let the Agent Propose, Not Publish
+
+An agent that reads untrusted text (issue bodies, review comments, fetched pages) and can also write
+to GitHub in the same step is one prompt injection away from posting or merging something nobody
+reviewed. GitHub Agentic Workflows (`github/gh-aw`) reduces this risk by default: agent jobs run
+read-only and sandboxed, and GitHub writes are sanitized and applied by separate `safe-outputs` jobs
+with scoped permissions. That isolates the write permission; it is not human review — writes still
+run automatically unless an environment approval rule requires a reviewer, and workflow authors can
+grant direct write permissions or add custom jobs. The same split works in an interactive session:
+
+1. **Generate read-only** — the agent drafts the PR body, review reply, or label change as a file or
+   as text in the session. It does not call `gh pr create`, `gh pr merge`, or a GraphQL mutation yet.
+2. **Inspect the draft** — check it for secrets, unexpected links or mentions, and a patch that touches
+   files outside the stated scope.
+3. **Apply in a separate step** — run the write command only after the inspection, ideally after a
+   human confirms. Merges and anything addressed to people outside the repository should always wait
+   for that confirmation.
+
+Use this split whenever the agent's input came from someone other than you.

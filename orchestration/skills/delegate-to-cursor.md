@@ -163,6 +163,7 @@ if ($LASTEXITCODE -eq 0) {
 3. **Use for repo-aware, multi-file changes** — Cursor CLI's advantage is IDE-shared context and consistency across many files, not raw generation speed.
 4. **Always verify** — run build + tests after Cursor edits, same as any other delegated CLI.
 5. **Chain with Claude for review** — use Cursor for the mechanical multi-file pass, Claude for a deeper correctness/security review of the result.
+6. **Land it yourself** — verify the tree, not the report: follow the [orchestrator's contract](multi-ai-handoff.md#landing-delegated-work-the-orchestrators-contract)
 
 ## See Also
 

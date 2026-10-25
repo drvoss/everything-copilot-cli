@@ -47,6 +47,23 @@ Rule: Same file = sequential. Different files = parallel.
 - Lockfiles, generated files, and shared config are treated the same as source files
 - If scope overlap is discovered mid-run, stop the later agent, let the earlier one finish, then requeue
 
+### Does Each Agent Boundary Earn Its Cost?
+
+Every place context crosses from one agent to another costs something: restated context (tokens and
+time), facts the sender held but did not pass, detail lost to summaries, and the work of checking
+the other agent's output. Count the crossings — a chain of three agents pays more than a star of three.
+
+A boundary is worth paying for only when it buys something one capable agent could not:
+
+- **Parallelism** — real wall-clock savings on independent work (the usual reason for `/fleet`)
+- **Specialization** — a genuinely different capability or toolset, not a new label on the same model
+- **Independent evidence** — a different model family or data source with different blind spots
+- **Adversarial review** — a seat whose job is to disagree
+
+The default comparison is one agent doing the whole task. If a split shows none of these gains — or two
+agents receive nearly the same input and return nearly the same answer — collapse them into one.
+Adapted from the agent topology audit in `nyldn/claude-octopus` (MIT).
+
 ## Workflow
 
 ### 1. Use the `/fleet` Slash Command (Recommended)
