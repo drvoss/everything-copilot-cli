@@ -1,6 +1,6 @@
 # docs/images
 
-Static image assets for README.md and README.ko.md.
+Static image assets for README.md, README.ko.md, README.ja.md and README.zh.md.
 
 ## Files
 
@@ -24,7 +24,7 @@ $svg = Invoke-WebRequest -Uri "https://img.shields.io/badge/skills-50-green" -Us
 $svg.Content | Set-Content docs/images/badge-skills.svg -Encoding UTF8
 ```
 
-Then update the `alt` attribute in README.md and README.ko.md to match.
+Then update the `alt` attribute in README.md, README.ko.md, README.ja.md and README.zh.md to match.
 
 ## Why local?
 

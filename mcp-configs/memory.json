@@ -1,13 +1,14 @@
 {
   "_description": "MCP server for persistent memory using a knowledge graph. Allows Copilot CLI to remember information across sessions — useful for long-running projects, user preferences, and accumulated context.",
 
-  "servers": {
+  "mcpServers": {
     "memory": {
       "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-memory"
       ],
+      "tools": ["*"],
       "env": {}
     }
   },

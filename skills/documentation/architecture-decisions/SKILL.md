@@ -144,9 +144,9 @@ ADR이 틀린 이유를 담으면 ADR이 없는 것보다 나쁘다. 특히 이�
 
 `oliver-zehentleitner/keep-the-why` (MIT) 의 근거 분류 규칙을 ADR 작성에 맞게 옮겼다.
 
-### 5. COPILOT-INSTRUCTIONS.md에 연결
+### 5. .github/copilot-instructions.md에 연결
 
-중요한 ADR은 Copilot에게 미리 알림:
+중요한 ADR은 `.github/copilot-instructions.md`(또는 `AGENTS.md`)에 링크해 Copilot에게 미리 알림:
 
 ```markdown
 ## Key Architecture Decisions

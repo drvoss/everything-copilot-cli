@@ -20,8 +20,8 @@
 ### Basic Non-Interactive Edit
 
 ```powershell
-# -f (trust) is required non-interactively, or cursor-agent exits with
-# "Workspace Trust Required". -p passes the prompt.
+# -f (= --force) skips the "Workspace Trust Required" prompt and force-allows commands;
+# --trust skips the prompt without force. -p runs non-interactively (print mode).
 cursor-agent -f -p "Add input validation to the login handler in src/auth/login.ts"
 ```
 
@@ -50,7 +50,7 @@ $parsed = $result | ConvertFrom-Json
 # Prefer stdin over shell string interpolation when the prompt includes
 # untrusted content (issue text, PR descriptions, diffs) — see
 # multi-ai-handoff.md's "Security: Pass Prompts via stdin" section.
-$promptText | cursor-agent -f -p -
+$promptText | cursor-agent.cmd -f -p   # omit the prompt argument; call the .cmd shim, the .ps1 shim drops piped stdin
 ```
 
 ## Method 2: MCP Bridge (Recommended for Teams)
@@ -59,12 +59,15 @@ $promptText | cursor-agent -f -p -
 
 Add to your MCP configuration:
 
+`cursor-bridge.js` is not shipped in this repository; supply your own bridge script at that path.
+
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "cursor-bridge": {
       "command": "node",
-      "args": ["orchestration/scripts/cursor-bridge.js"]
+      "args": ["orchestration/scripts/cursor-bridge.js"],
+      "tools": ["*"]
     }
   }
 }
@@ -138,9 +141,7 @@ if ($LASTEXITCODE -eq 0) {
     git add -A
     git commit -m "refactor: extract shared validation logic
 
-    Implemented by Cursor CLI, verified with existing test suite.
-
-    Co-authored-by: Cursor <cursor@anysphere.com>"
+    Implemented by Cursor CLI, verified with existing test suite."
     gh pr create --fill
 }
 ```
@@ -149,16 +150,16 @@ if ($LASTEXITCODE -eq 0) {
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `-f` | Trust the workspace non-interactively (required for headless/CI use) | `cursor-agent -f -p "..."` |
-| `-p` | Pass the prompt (or `-` to read from stdin) | `cursor-agent -f -p "..."` |
-| `--force` | Allow file edits without additional interactive confirmation | `cursor-agent -f --force -p "..."` |
+| `-f` / `--force` | Force-allow commands; also accepted for the workspace-trust prompt | `cursor-agent -f -p "..."` |
+| `-p` | Print mode (non-interactive); prompt is the positional argument, or piped stdin when omitted | `cursor-agent -f -p "..."` |
+| `--trust` | Trust the workspace without prompting (no force) | `cursor-agent --trust -p "..."` |
 
 > Flag names and availability vary by installed version — run `cursor-agent --help`
 > to confirm exact syntax before relying on it in scripts or CI.
 
 ## Best Practices
 
-1. **Always pass `-f`** for non-interactive/CI use, or the run will fail with "Workspace Trust Required".
+1. **Pass `-f` or `--trust`** for non-interactive/CI use, or the run will fail with "Workspace Trust Required".
 2. **Prefer stdin for untrusted prompt text** — see the security note in [multi-ai-handoff.md](multi-ai-handoff.md).
 3. **Use for repo-aware, multi-file changes** — Cursor CLI's advantage is IDE-shared context and consistency across many files, not raw generation speed.
 4. **Always verify** — run build + tests after Cursor edits, same as any other delegated CLI.

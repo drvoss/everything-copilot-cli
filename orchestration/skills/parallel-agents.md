@@ -28,7 +28,7 @@ Results are collected when all agents complete.
 
 ```text
 # Copilot CLI can launch multiple explore agents simultaneously:
-# These are safe to parallelize and run on the fast Haiku model
+# explore agents are built for this: fast, read-only, and safe to run in parallel
 
 Agent 1: "Find all authentication-related files and explain the auth flow"
 Agent 2: "List all API endpoints and their HTTP methods"  
@@ -41,7 +41,7 @@ Agent 3: "Identify all database models and their relationships"
 
 ```text
 # For highly parallelizable implementation work, Copilot CLI offers
-# autopilot_fleet mode that distributes work across multiple agents:
+# fleet mode (/fleet or --fleet) that distributes work across multiple agents:
 
 Copilot CLI creates todos:
   - todo-1: "Add validation to user endpoints"

@@ -21,15 +21,11 @@ retrospective. Go beyond "what went well / what didn't" — anchor the discussio
 
 ### `/chronicle` — Session History
 
-> ⚠️ Experimental feature — enable with `/experimental on` before using.
-
 ```text
-/experimental on
-/chronicle
+/chronicle standup
 ```
 
-`/chronicle` generates a timeline of your Copilot sessions: what you worked on,
-session durations, tool usage patterns, and key decisions made.
+`/chronicle standup` summarizes your recent Copilot sessions from session history.
 
 Use this to answer:
 
@@ -114,10 +110,9 @@ Generate concrete, owner-assigned improvements:
 
 ### Step 1: Gather Session Data
 
-```powershell
-# Enable experimental features and pull session chronicle
-/experimental on
-/chronicle
+```text
+# Pull a session summary
+/chronicle standup
 ```
 
 ### Step 2: Collect Git Metrics

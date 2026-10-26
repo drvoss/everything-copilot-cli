@@ -22,9 +22,10 @@ monorepo/
 │   ├── api/                      # Node.js + Fastify
 │   └── mobile/                   # React Native + Expo
 ├── packages/
+│   ├── shared/                   # Shared types & utilities
 │   ├── ui/                       # Shared React component library
-│   ├── config/                   # Shared ESLint / TypeScript configs
-│   └── utils/                    # Pure TypeScript utilities
+│   ├── config-typescript/        # Shared TS config
+│   └── config-eslint/            # Shared ESLint config
 ├── turbo.json                    # Pipeline: lint → build → test
 ├── pnpm-workspace.yaml
 └── package.json
@@ -50,11 +51,11 @@ simultaneously:
 
 ```powershell
 # Audit all packages in parallel (from orchestration/patterns/fan-out-parallel.md)
-$packages = @("apps/web", "apps/api", "packages/ui", "packages/utils")
+$packages = @("apps/web", "apps/api", "apps/mobile", "packages/shared", "packages/ui")
 $jobs = $packages | ForEach-Object {
     $pkg = $_
     Start-Job -ScriptBlock {
-        gh copilot suggest "Audit $using:pkg for security issues and outdated deps"
+        copilot -p "Audit $using:pkg for security issues and outdated deps" -s
     }
 }
 $jobs | Wait-Job -Timeout 180 | Receive-Job

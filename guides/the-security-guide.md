@@ -129,7 +129,7 @@ npm audit
 npm audit fix
 
 # Python
-pip audit
+pip install pip-audit && pip-audit
 pip install --upgrade safety && safety check
 
 # Go
@@ -393,8 +393,8 @@ Copilot CLI provides security features that enhance your development workflow:
 | **Plan review** | Full visibility into planned changes before execution |
 | **Tool allowlisting** | Restrict which tools agents can access |
 | **Session SQL database** | Audit trail of all actions taken during a session |
-| **Code-review agent** | Automated security-focused code review with high signal |
-| **GitHub MCP integration** | Direct access to Dependabot alerts, secret scanning, code scanning |
+| **Security-review agent** (`/security-review`) | Automated security-focused code review with high signal |
+| **GitHub MCP integration** | Security alerts need the matching GitHub MCP toolset (`--add-github-mcp-toolset` or `--enable-all-github-mcp-tools`); the default subset has no security tools |
 | **Multi-model support** | Use premium models for security-critical analysis |
 
 ### Recommended Security Workflow
@@ -404,9 +404,8 @@ Copilot CLI provides security features that enhance your development workflow:
 /model gpt-5.3-codex
 > Implement the password reset flow
 
-# 2. Security review (code-review agent with strong model)
-/model claude-sonnet-5.5
-> Review the password reset implementation for security vulnerabilities
+# 2. Security review (security-review agent via /security-review)
+/security-review Review the password reset implementation for security vulnerabilities
 
 # 3. Run security scans
 > Run npm audit and check for OWASP Top 10 issues

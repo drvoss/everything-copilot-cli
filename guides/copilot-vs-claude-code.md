@@ -37,14 +37,14 @@ unique capabilities.
 | Model Override per Agent | ✅ Per-agent model | ⚠️ Limited | Choose cheap/expensive per task |
 | Multi-Provider | ✅ OpenAI + Anthropic + Google | ❌ Anthropic only | Cost optimization via routing |
 | **Agent System** | | | |
-| Specialized Agent Types | ⚠️ 4 types | ✅ 16 types | Claude Code has more granularity |
+| Specialized Agent Types | ⚠️ 7 built-in types (plus custom agents) | ✅ 16 types | Claude Code has more granularity |
 | Background Agents | ✅ Native async (`&`/`/delegate` + `/resume`) | ❌ No support | Cloud delegation with resumable sessions |
 | Fleet Parallel Execution | ✅ Native fleet mode (`/fleet`) | ⚠️ Git worktrees | Copilot's fleet is more integrated |
 | Agent Multi-Turn | ✅ Background conversations | ⚠️ Limited | Send follow-ups to running agents |
 | Human-in-the-loop gate | ✅ Plan Mode approval | ✅ `defer` permission (v2.1.89) | Both gate risky work, but Claude does it with hook permissions and Copilot does it with plan approval |
 | **Planning & Execution** | | | |
 | Plan Mode | ✅ Structured text planning (Shift+Tab) | ⚠️ Basic `/plan` | Both are terminal text-based; Copilot builds a full implementation plan before coding |
-| Autopilot Mode | ✅ Native mode (Shift+Tab, `/autopilot`, `--autopilot`) | ⚠️ `--dangerously-skip-permissions` / `--autoaccept` | Copilot's approach is more controlled; both require explicit activation |
+| Autopilot Mode | ✅ Native mode (Shift+Tab, `/autopilot`, `--autopilot`) | ⚠️ `--dangerously-skip-permissions` / `--permission-mode acceptEdits` | Copilot's approach is more controlled; both require explicit activation |
 | SQL Task Tracking | ✅ Built-in SQLite | ❌ File-based | Query todos, track state with SQL |
 | Todo Dependencies | ✅ SQL dependency graph | ❌ Manual tracking | Automatically find "ready" tasks |
 | Context compression hook | ✅ `preCompact` hook (notification-only, cannot block) | ✅ `PreCompact` hook (v2.1.105) | Both expose a compaction-lifecycle hook; Copilot's is observe-only, Claude's can act before compaction |
@@ -63,7 +63,7 @@ unique capabilities.
 | Agent Council | ✅ Multi-tool deliberation | ❌ Single-tool | Bring multiple AIs to decisions |
 | **Extensibility** | | | |
 | Skill Library | ✅ 109 curated skills in this collection | ⚠️ Community libraries vary by source | This repository currently ships 109 Copilot skills; cross-tool counts are not normalized |
-| Hook System | ✅ Native lifecycle hooks (14 events, v1.0.72+) | ✅ Full lifecycle hooks | Both have first-party hook systems now; Copilot's `preCompact` is notification-only while Claude's `PreCompact` can act before compaction |
+| Hook System | ✅ Native lifecycle hooks (14 events) | ✅ Full lifecycle hooks | Both have first-party hook systems now; Copilot's `preCompact` is notification-only while Claude's `PreCompact` can act before compaction |
 | Custom Commands | ✅ Slash commands + plugins | ✅ Slash commands | Both support custom commands |
 | Security Scanning | ⚠️ Via skills | ⚠️ Via skills | Both rely on security skill workflows |
 | **Configuration** | | | |
@@ -153,8 +153,8 @@ local sandbox enabled any step that must escape the sandbox is denied.
 ### 12. Native In-Session Hooks (Plus Git Tooling for Everything Else)
 
 > **⚠️ Updated 2026-07-20:** Copilot CLI now ships native in-session hooks
-> (`sessionStart`/`sessionEnd`/`userPromptSubmitted`/`preToolUse`/`postToolUse`/`agentStop`/
-> `subagentStop`/`errorOccurred`), configured as JSON files in `.github/hooks/*.json` or
+> (14 events, including `sessionStart`, `userPromptSubmitted`, `preToolUse`, `postToolUse`, `preCompact`
+> and `agentStop` — see the [hooks guide](./hooks-to-github-actions.md)), configured as JSON files in `.github/hooks/*.json` or
 > `~/.copilot/hooks/*.json`. `preToolUse` can directly allow/deny a tool call, matching Claude
 > Code's `PreToolUse` approve/deny behavior. See
 > [`guides/hooks-to-github-actions.md`](./hooks-to-github-actions.md) for the full mapping.
@@ -168,7 +168,7 @@ local sandbox enabled any step that must escape the sandbox is denied.
 
 ### 1. Specialized Agent System (16 Types)
 
-Claude Code offers 16 specialized agent types compared to Copilot's 4. More granular
+Claude Code offers 16 specialized agent types compared to Copilot's 7 built-in types plus custom agents. More granular
 specialization means agents are more focused and effective at their specific tasks.
 
 ### 2. More Mature Community Skill Ecosystem

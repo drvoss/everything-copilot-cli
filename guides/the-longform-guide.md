@@ -105,8 +105,8 @@ Each agent type has a different cost profile based on its default model and capa
 
 | Agent Type | Default Model | Context Cost | Best For |
 |------------|--------------|--------------|----------|
-| `explore` | Haiku (cheap) | Separate window | Code search, file discovery, Q&A |
-| `task` | Haiku (cheap) | Separate window | Builds, tests, installs — success/fail only |
+| `explore` | GPT Luna (fast, cheap) | Separate window | Code search, file discovery, Q&A |
+| `task` | GPT Luna (falls back to Haiku) | Separate window | Builds, tests, installs — success/fail only |
 | `general-purpose` | Sonnet (standard) | Separate window | Complex multi-step implementation |
 | `code-review` | Sonnet (standard) | Separate window | Change analysis, bug detection |
 
@@ -115,7 +115,7 @@ Each agent type has a different cost profile based on its default model and capa
 ```text
 Exploration (cheap)  →  Planning (standard)  →  Implementation (standard)  →  Review (standard)
     explore agent          main context            general-purpose             code-review
-    claude-haiku-4.5       default model           claude-sonnet-5.5           claude-sonnet-5.5
+    default (Luna)         default model           claude-sonnet-5.5           claude-sonnet-5.5
 ```
 
 ### Batch Operations to Reduce Turns
@@ -349,7 +349,7 @@ Combine agent types for complex workflows:
 │ explore  │ →  │ planner  │ →  │ general-purpose│ →  │ code-review │
 │ (search) │    │ (plan)   │    │ (implement)    │    │ (verify)    │
 └──────────┘    └──────────┘    └────────────────┘    └─────────────┘
-   Haiku          Default          Sonnet               Sonnet
+   Luna           Default          Sonnet               Sonnet
    Cheap          Medium           Standard             Standard
 ```
 
@@ -408,7 +408,7 @@ When background agents are running, Copilot CLI provides four tools to manage th
 |------|---------|
 | `task` | Launch an agent (`sync` or `background` mode) — returns `agent_id` for background runs |
 | `read_agent` | Read output from a running or completed background agent |
-| `write_agent` | Send a follow-up message to an **idle** agent (waiting for input) |
+| `write_agent` | Send a message to a running or idle agent (a running agent is steered at its next opportunity) |
 | `list_agents` | List all active and completed background agents in the session |
 
 **Typical lifecycle:**
@@ -417,7 +417,7 @@ When background agents are running, Copilot CLI provides four tools to manage th
 1. task(..., mode="background")  → get agent_id
 2. [continue other work]         → notified automatically on completion
 3. read_agent(agent_id)          → retrieve full results
-4. write_agent(agent_id, msg)    → if agent is idle and needs more input
+4. write_agent(agent_id, msg)    → steer a running agent or answer an idle one
 5. list_agents()                 → rediscover agent IDs if lost
 ```
 
@@ -440,10 +440,10 @@ CREATE TABLE fleet_results (
 );
 
 -- After fleet completes, check for conflicts
-SELECT a.task_id, b.task_id, a.files_changed
-FROM fleet_results a, fleet_results b
+SELECT a.task_id, b.task_id, ja.value
+FROM fleet_results a, fleet_results b, json_each(a.files_changed) ja
 WHERE a.task_id < b.task_id
-AND json_each.value IN (SELECT value FROM json_each(b.files_changed));
+AND ja.value IN (SELECT value FROM json_each(b.files_changed));
 ```
 
 ---
@@ -490,7 +490,7 @@ The VS Code Copilot extension and CLI are complementary, not competing:
 Keep these configuration sources aligned across VS Code and CLI workflows:
 
 - `.github/copilot-instructions.md` — shared instructions
-- `AGENTS.md` — agent definitions
+- `AGENTS.md` — shared custom instructions (custom agents live in `.github/agents/`)
 - `.mcp.json` — workspace MCP server config for Copilot CLI
 - Git history — both can see commits, branches, diffs
 
@@ -562,7 +562,7 @@ npm run build && npm test
 | `name` | ✅ | string | Kebab-case identifier matching filename |
 | `description` | ✅ | string | One-line purpose statement |
 | `metadata.category` | ✅ | string | One of: development, security, testing, documentation, workflow, product, content, copilot-exclusive |
-| `metadata.agent_type` | ⚠️ | string | Recommended agent type (general-purpose, code-review, security-reviewer, etc.) |
+| `metadata.agent_type` | ⚠️ | string | Recommended agent type (general-purpose, code-review, security-review, etc.) |
 
 ### Testing Skills
 
@@ -587,12 +587,13 @@ An MCP server exposes tools that Copilot CLI can call. The simplest implementati
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "my-custom-server": {
       "command": "node",
       "args": ["path/to/my-server.js"],
+      "tools": ["*"],
       "env": {
-        "API_KEY": "${env:MY_API_KEY}"
+        "API_KEY": "${MY_API_KEY}"
       }
     }
   }
@@ -637,14 +638,16 @@ For Copilot CLI, configure workspace MCP servers in `.mcp.json`:
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "github": {
       "command": "github-mcp-server",
-      "args": ["--tools=all"]
+      "args": ["--tools=all"],
+      "tools": ["*"]
     },
     "custom-tools": {
       "command": "node",
-      "args": ["tools/mcp-server.js"]
+      "args": ["tools/mcp-server.js"],
+      "tools": ["*"]
     }
   }
 }
@@ -715,7 +718,7 @@ Route tasks to the cheapest model that can handle them:
 | Simple edits / boilerplate | `gpt-6-luna` | general-purpose | Fast generation |
 | Complex refactoring | `claude-sonnet-5.5` | general-purpose | Needs reasoning |
 | Architecture decisions | `claude-opus-5.5` | general-purpose | Deep analysis |
-| Security review | `claude-sonnet-5.5` | code-review | Specialized focus |
+| Security review | `claude-sonnet-5.5` | security-review | Specialized focus |
 
 ### Conflict Resolution When Agents Disagree
 
@@ -733,13 +736,13 @@ Transfer context between AI tools using file-based hand-off:
 
 ```powershell
 # Copilot CLI generates analysis
-copilot "Analyze auth system, write findings to analysis.md"
+copilot -p "Analyze auth system, write findings to analysis.md"
 
 # Claude Code continues with deep reasoning
 claude "Read analysis.md and propose architectural improvements"
 
 # Copilot CLI implements the chosen approach
-copilot-cli "Implement changes from analysis.md improvements"
+copilot -p "Implement changes from analysis.md improvements"
 ```
 
 See [Pipeline pattern](../orchestration/patterns/pipeline.md) for structured hand-off.
@@ -837,7 +840,7 @@ node path/to/server.js --help
 **Solution:**
 
 ```text
-1. Use /resume to check current status and partial output
+1. Check the agent's branch or PR on GitHub for current status (or /resume the session to continue it locally)
 2. If stuck, refine the prompt and re-delegate with &
 3. Break large tasks into smaller, well-defined chunks
 ```

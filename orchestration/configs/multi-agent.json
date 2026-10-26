@@ -11,7 +11,7 @@
         "role": "architect",
         "description": "Deep reasoning, architecture design, security analysis, large-context understanding",
         "command": "claude",
-        "args": ["mcp"],
+        "args": ["mcp", "serve"],
         "env": {
           "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
         },
@@ -19,7 +19,7 @@
         "contextWindow": 1000000,
         "timeout": 180,
         "costTier": "high",
-        "_note": "command/args updated from the legacy `npx @anthropic-ai/claude-code --mcp` invocation to the standalone `claude` binary; verify the exact MCP subcommand with `claude --help` for your installed version. contextWindow should be re-verified against current vendor docs, not hardcoded indefinitely."
+        "_note": "command/args updated from the legacy `npx @anthropic-ai/claude-code --mcp` invocation to the standalone `claude` binary; verify with `claude mcp --help` for your installed version. contextWindow should be re-verified against current vendor docs, not hardcoded indefinitely."
       },
       "codex-cli": {
         "name": "Codex CLI",
@@ -62,14 +62,14 @@
         "contextWindow": 128000,
         "timeout": 120,
         "costTier": "medium",
-        "_note": "New entry (4th external spoke). `-f` (trust) is required non-interactively or cursor-agent exits with 'Workspace Trust Required'; verify auth/env requirements with `cursor-agent --help`."
+        "_note": "New entry (4th external spoke). Non-interactively, pass `-f` (= `--force`: skips the 'Workspace Trust Required' prompt and force-allows commands) or `--trust` (trust only); verify auth/env requirements with `cursor-agent --help`."
       },
       "copilot-cli": {
         "name": "Copilot CLI",
         "role": "integrator",
         "description": "GitHub-native operations: PRs, Issues, Actions, code search, repository management",
-        "command": "gh",
-        "args": ["copilot"],
+        "command": "copilot",
+        "args": ["-s", "-p"],
         "strengths": ["github", "pr-management", "ci-cd", "code-search", "mcp"],
         "contextWindow": 128000,
         "timeout": 60,

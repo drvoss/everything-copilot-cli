@@ -334,6 +334,8 @@ Use the planner agent and plan mode. Break this work into tasks with dependencie
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
+然后重新执行第 5 步，让 plain 和 guided 两个副本也拿到重新安装的文件。
+
 ---
 
 ## 下一步

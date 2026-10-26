@@ -13,8 +13,8 @@ metadata:
 Copilot CLI's **Autopilot mode** lets the agent work autonomously through a plan without
 stopping for approval at each step. Combined with Plan Mode's structured todos and Fleet's
 parallelism, this creates a spectrum of autonomy levels — from fully interactive to fully
-autonomous — that you can dial in per task. Claude Code always requires you to approve
-every tool call (or use a limited "auto-accept" that lacks structured planning).
+autonomous — that you can dial in per task. Claude Code has auto and bypass permission modes
+too; Copilot's autopilot differs in continuing from an approved plan until the task is complete.
 
 ## When to Use
 
@@ -99,10 +99,7 @@ As documented in the v1.0.77 release notes, unconditional autopilot approval als
 sandbox for the current session when bypass is allowed. Treat approval convenience and loss of
 isolation as one risk decision; see the `sub-agent-sandboxing` skill.
 
-Use `/permissions show` to inspect in-memory tool and path approvals for the current session and
-`/permissions reset` to clear them. Although the v1.0.78 release notes describe `/permissions` as
-switching approval modes, the command reference documents only `show` and `reset`; do not rely on
-it for mode switching until the installed runtime confirms that behavior. The same release notes
+Use `/permissions default`, `/permissions assisted`, or `/permissions allow-all` to switch approval modes (`/allow-all` and `/yolo` are aliases), `/permissions show` to see the current mode, and `/permissions reset` to clear the in-memory tool and path approvals for the current session. The v1.0.78 release notes also
 say the `/allow-all` safety-judge model is now selected automatically rather than configured by the
 user.
 
@@ -147,7 +144,7 @@ until the installed runtime is tested.
 Branch immediately on the captured code:
 
 ```powershell
-copilot -p --autopilot "Run the approved maintenance task"
+copilot -p "Run the approved maintenance task" --autopilot --allow-tool='shell(npm test)'
 $copilotExitCode = $LASTEXITCODE
 if ($copilotExitCode -ne 0) {
   throw "Copilot failed with exit code $copilotExitCode"
@@ -155,11 +152,13 @@ if ($copilotExitCode -ne 0) {
 ```
 
 ```bash
-if ! copilot -p --autopilot "Run the approved maintenance task"; then
+if ! copilot -p "Run the approved maintenance task" --autopilot --allow-tool='shell(npm test)'; then
   echo "Copilot failed" >&2
   exit 1
 fi
 ```
+
+Grant only the tools the task needs with `--allow-tool` (or `--allow-all-tools` in a sandbox); prompt mode cannot show approval prompts.
 
 Values supplied to `--max-autopilot-continues` must be integers; reject computed NaN, negative, or
 fractional values before invocation. Also set an error budget for repeated permission denial or

@@ -77,7 +77,7 @@ $newContent = $changelog -replace '## \[Unreleased\]', "## [Unreleased]`n`n## [$
 Set-Content CHANGELOG.md $newContent
 
 # Add version comparison link at bottom (optional but recommended)
-$repoUrl = git remote get-url origin -replace '\.git$', ''
+$repoUrl = (git remote get-url origin) -replace '\.git$', ''
 $prevVersion = $currentTag -replace '^v', ''
 "`n[$version]: $repoUrl/compare/v$prevVersion...v$version" | Add-Content CHANGELOG.md
 ```
@@ -168,8 +168,9 @@ if ($LASTEXITCODE -eq 0) {
 }
 
 # Push commits, then the tag — stop on the first failure and check the remote before retrying
-git push origin main
-if ($LASTEXITCODE -ne 0) { throw "Pushing main failed — the tag was not pushed" }
+$targetBranch = 'main'   # set to your release branch
+git push origin $targetBranch
+if ($LASTEXITCODE -ne 0) { throw "Pushing $targetBranch failed — the tag was not pushed" }
 git push origin $tag
 if ($LASTEXITCODE -ne 0) { throw "Pushing $tag failed — see Red Flags before retrying" }
 ```
@@ -187,10 +188,11 @@ $match = [regex]::Match($changelog, $pattern)
 $releaseNotes = $match.Groups[1].Value.Trim()
 
 # Create the GitHub Release
+$targetBranch = 'main'   # set to your release branch (same value as step 6)
 gh release create $tag `
   --title "Release $tag" `
   --notes $releaseNotes `
-  --target main
+  --target $targetBranch
 ```
 
 **Via GitHub MCP (Copilot-native):**
@@ -283,10 +285,11 @@ $pkg | ConvertTo-Json -Depth 10 | Set-Content package.json
 git add CHANGELOG.md package.json
 git commit -m "🔖 chore(release): bump version to v$version"
 git tag -a "v$version" -m "Release v$version"
-git push origin main && git push origin "v$version"
+$targetBranch = 'main'   # set to your release branch
+git push origin $targetBranch; if ($LASTEXITCODE -eq 0) { git push origin "v$version" }
 
 # 4. GitHub Release
-gh release create "v$version" --generate-notes --title "Release v$version"
+gh release create "v$version" --generate-notes --title "Release v$version" --target $targetBranch
 ```
 
 ### Minimal Tag-Only Release (Go / CLI tools)

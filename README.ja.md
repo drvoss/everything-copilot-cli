@@ -15,7 +15,7 @@
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
   <a href="#"><img src="docs/images/badge-skills.svg" alt="109 Skills" /></a>
-  <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
+  <a href="#マルチaiオーケストレーション-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 
 <p align="center">
@@ -38,7 +38,7 @@
 
 その結果、このリポジトリは agent、skill、rule、MCP 設定、orchestration pattern をまとめて提供します。可能なものは portable に、Copilot の強みが重要な部分は Copilot-native に設計しています。
 
-> このリポジトリの community pattern が Claude Code、Codex CLI、Cursor CLI、Antigravity CLI (`agy`) のような外部 specialist worker をどう連携させるかは [Multi-AI Orchestration](#multi-ai-orchestration-) を参照してください。
+> このリポジトリの community pattern が Claude Code、Codex CLI、Cursor CLI、Antigravity CLI (`agy`) のような外部 specialist worker をどう連携させるかは [Multi-AI Orchestration](#マルチaiオーケストレーション-) を参照してください。
 
 ---
 
@@ -219,11 +219,11 @@ everything-copilot-cli/
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   11 orchestration patterns
 │   ├── configs/                   #   MCP bridge configs
-│   ├── skills/                    #   Orchestration skills (7)
+│   ├── skills/                    #   Orchestration skills (9)
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 16 comprehensive guides
+├── guides/                        # 17 comprehensive guides
 ├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
@@ -232,7 +232,7 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # Context presets
-├── references/                    # Checklist & pattern references (root + subdirectories, 13 files)
+├── references/                    # Checklist & pattern references (root + subdirectories, 14 files)
 │   ├── github-actions-efficiency/ #   Actions 効率監査リファレンス
 │   ├── github-codespaces-efficiency/ # Codespaces 最適化ガイド
 │   ├── security-scan/             #   スタック別セキュリティガイダンス
@@ -282,7 +282,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | `background-agent` | `&` / `/delegate` で cloud agent に委任します |
 | `fleet-parallel` | `/fleet` で並列 agent 実行を行います |
 | `github-code-search` | GitHub 全体のコード検索で実装例を探し、根拠付きコンテキストとして取り込みます |
-| `github-pr-workflow` | 組み込み GitHub MCP で PR ライフサイクル全体を扱います |
+| `github-pr-workflow` | PR ワークフロー — 組み込み GitHub MCP で読み取り、`/pr`・`gh` で作成・マージします |
 | `github-issue-triage` | Issue を一括分類・トリアージします |
 | `github-codespaces-efficiency` | GitHub Codespaces の起動時間、マシンサイズ、prebuild 範囲、コストを監査し、必要な開発ツールを残したまま最適化します |
 | `actions-debugging` | native Actions アクセスで CI failure をデバッグします |
@@ -453,12 +453,12 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 コーディングルールとガイドラインは、スコープごとに整理されています。
 
 - **Common Rules** — 汎用ベストプラクティス（エラーハンドリング、logging、命名規則）
-- **Language-Specific Rules** — TypeScript、Python、Go、C#、Java
+- **Language-Specific Rules** — TypeScript、Python、Go、C#、Java、C++
 - **Framework-Specific Rules** — Next.js、React、Vue、Prisma、Playwright、NestJS、Cloudflare Workers、Vitest
 
 ### オーケストレーション
 
-マルチAIオーケストレーションシステムです（下の [専用セクション](#multi-ai-orchestration-) を参照してください）。
+マルチAIオーケストレーションシステムです（下の [専用セクション](#マルチaiオーケストレーション-) を参照してください）。
 
 ---
 
@@ -473,6 +473,7 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 | **Copilot Exclusive Features** | Copilot CLI でのみ利用できる機能です |
 | **Copilot vs Claude Code** | 両ツールの強み・制約・併用方針を比較します |
 | **Migration from Claude Code** | 概念対応表付きの段階的 migration パスです |
+| **Migration from Gemini CLI** | Gemini CLI の workflow を Antigravity CLI (`agy`) へ移行します |
 | **Native Hooks + GitHub Actions** | Copilot のセッション内 Hooks を Git Hooks / Actions / Prompt Guards で補完します |
 | **Orchestration Guide** | マルチAIオーケストレーションのパターンと設定方法です |
 | **Skill Writing Best Practices** | 実際に発火する trigger-first 記述の書き方です |

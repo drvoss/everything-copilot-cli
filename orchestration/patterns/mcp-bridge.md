@@ -34,6 +34,8 @@ Instead of raw shell commands, Copilot CLI calls typed MCP tools like:
 
 This server wraps Codex CLI as an MCP tool server:
 
+Save it as `orchestration/scripts/codex-bridge.py` in your project — this repository does not ship the file.
+
 ```python
 #!/usr/bin/env python3
 """MCP Bridge Server for Codex CLI.
@@ -76,9 +78,9 @@ async def list_tools() -> list[Tool]:
                     },
                     "approval_mode": {
                         "type": "string",
-                        "enum": ["suggest", "auto-edit", "full-auto"],
-                        "default": "suggest",
-                        "description": "How much autonomy Codex has"
+                        "enum": ["read-only", "workspace-write"],
+                        "default": "read-only",
+                        "description": "Codex sandbox policy, passed to --sandbox"
                     }
                 },
                 "required": ["prompt"]
@@ -141,7 +143,7 @@ async def call_tool(name: str, arguments: dict[str, Any]) -> list[TextContent]:
 async def _run_codex_generate(args: dict) -> list[TextContent]:
     prompt = args["prompt"]
     language = args.get("language", "typescript")
-    mode = args.get("approval_mode", "suggest")
+    mode = args.get("approval_mode", "read-only")
 
     full_prompt = f"Generate {language} code: {prompt}. Output only the code."
 
@@ -155,7 +157,7 @@ async def _run_codex_edit(args: dict) -> list[TextContent]:
 
     prompt = f"Edit the file {file_path}: {instruction}"
 
-    result = await _exec_codex(prompt, "auto-edit")
+    result = await _exec_codex(prompt, "workspace-write")
     return [TextContent(type="text", text=result)]
 
 
@@ -165,7 +167,7 @@ async def _run_codex_explain(args: dict) -> list[TextContent]:
 
     prompt = f"Explain the code in {file_path}. Focus on: {focus}"
 
-    result = await _exec_codex(prompt, "suggest")
+    result = await _exec_codex(prompt, "read-only")
     return [TextContent(type="text", text=result)]
 
 
@@ -173,7 +175,8 @@ async def _exec_codex(prompt: str, approval_mode: str) -> str:
     """Execute Codex CLI and capture output."""
     try:
         proc = await asyncio.create_subprocess_exec(
-            "codex", "--quiet", "--approval-mode", approval_mode, prompt,
+            "codex", "exec", "--skip-git-repo-check", "--sandbox", approval_mode, prompt,
+            stdin=asyncio.subprocess.DEVNULL,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE
         )
@@ -208,19 +211,21 @@ if __name__ == "__main__":
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "codex-bridge": {
       "command": "python",
       "args": ["orchestration/scripts/codex-bridge.py"],
+      "tools": ["*"],
       "env": {
-        "OPENAI_API_KEY": "${env:OPENAI_API_KEY}"
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
       }
     },
     "claude-bridge": {
-      "command": "npx",
-      "args": ["@anthropic-ai/claude-code", "--mcp"],
+      "command": "claude",
+      "args": ["mcp", "serve"],
+      "tools": ["*"],
       "env": {
-        "ANTHROPIC_API_KEY": "${env:ANTHROPIC_API_KEY}"
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
       }
     }
   }
@@ -231,10 +236,11 @@ if __name__ == "__main__":
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "codex-bridge": {
       "command": "python",
-      "args": ["orchestration/scripts/codex-bridge.py"]
+      "args": ["orchestration/scripts/codex-bridge.py"],
+      "tools": ["*"]
     }
   }
 }
@@ -246,12 +252,13 @@ Claude Code has **native MCP server support**, making it the easiest to bridge:
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "claude-code": {
-      "command": "npx",
-      "args": ["@anthropic-ai/claude-code", "--mcp"],
+      "command": "claude",
+      "args": ["mcp", "serve"],
+      "tools": ["*"],
       "env": {
-        "ANTHROPIC_API_KEY": "${env:ANTHROPIC_API_KEY}"
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
       }
     }
   }
@@ -271,7 +278,7 @@ Copilot CLI internally calls:
 → codex_generate(
     prompt: "Create Express middleware for rate limiting with sliding window",
     language: "typescript",
-    approval_mode: "suggest"
+    approval_mode: "read-only"
   )
 
 Returns typed result with the generated code.

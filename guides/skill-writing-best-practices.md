@@ -203,8 +203,8 @@ npm run validate && npm run lint:md
 
 **What `npm run validate` checks:**
 
-- Required frontmatter fields present and non-empty (`name`, `description`, `metadata.category` for skills; `name`, `agent_type`, `model` for agents)
-- Frontmatter type correctness (e.g., `tools` is an array)
+- Required frontmatter fields present and non-empty (`name`, `description`, `metadata.category` for skills; `name`, `description`, `agent_type` for agents)
+- Frontmatter type correctness (`metadata.*` values must be YAML strings)
 - Counts and reports totals for skills, agents, rules, and MCP configs
 
 Add to your CI workflow to prevent broken agent/skill configs from being merged:

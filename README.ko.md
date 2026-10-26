@@ -219,11 +219,11 @@ everything-copilot-cli/
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   11가지 오케스트레이션 패턴
 │   ├── configs/                   #   MCP 브릿지 설정
-│   ├── skills/                    #   오케스트레이션 스킬 (7개)
+│   ├── skills/                    #   오케스트레이션 스킬 (9개)
 │   ├── templates/                 #   재사용 가능한 오케스트레이터 템플릿
 │   └── examples/                  #   실전 예제 (6개)
 │
-├── guides/                        # 종합 가이드 (16개)
+├── guides/                        # 종합 가이드 (17개)
 ├── mcp-configs/                   # MCP 서버 설정 (7개 파일; 설정 6개 + README)
 ├── examples/                      # 프로젝트별 copilot-instructions 예제
 │   ├── nextjs-app/
@@ -232,7 +232,7 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # 컨텍스트 프리셋
-├── references/                    # 체크리스트 & 패턴 레퍼런스 (루트/하위 디렉터리 포함 13개 파일)
+├── references/                    # 체크리스트 & 패턴 레퍼런스 (루트/하위 디렉터리 포함 14개 파일)
 │   ├── github-actions-efficiency/ #   Actions 효율성 감사 레퍼런스
 │   ├── github-codespaces-efficiency/ # Codespaces 최적화 가이드
 │   ├── security-scan/             #   스택별 보안 가이드
@@ -282,7 +282,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 | `background-agent` | `&` / `/delegate`로 클라우드 에이전트에 위임 |
 | `fleet-parallel` | `/fleet`으로 병렬 에이전트 실행 |
 | `github-code-search` | GitHub 전체 코드 검색을 활용해 실제 구현 예시를 찾고 컨텍스트로 주입 |
-| `github-pr-workflow` | 내장 GitHub MCP를 통한 전체 PR 라이프사이클 |
+| `github-pr-workflow` | PR 워크플로 — 내장 GitHub MCP로 읽고 `/pr`·`gh`로 생성·병합 |
 | `github-issue-triage` | 이슈 대량 분류 및 트리아지 |
 | `github-codespaces-efficiency` | GitHub Codespaces의 시작 시간, 머신 크기, prebuild 범위, 비용을 점검하고 필요한 개발 도구는 유지한 채 최적화 |
 | `actions-debugging` | 네이티브 Actions 접근으로 CI 실패 디버깅 |
@@ -453,7 +453,7 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 범위별로 정리된 코딩 규칙과 가이드라인입니다:
 
 - **Common Rules** — 범용 모범 사례 (에러 처리, 로깅, 네이밍 컨벤션)
-- **Language-Specific Rules** — TypeScript, Python, Go, C#, Java
+- **Language-Specific Rules** — TypeScript, Python, Go, C#, Java, C++
 - **Framework-Specific Rules** — Next.js, React, Vue, Prisma, Playwright, NestJS, Cloudflare Workers, Vitest
 
 ### 오케스트레이션
@@ -473,6 +473,7 @@ Multi-AI Orchestration 시스템 (아래 [전용 섹션](#multi-ai-orchestration
 | **Copilot 전용 기능** | Copilot CLI에서만 가능한 기능 |
 | **Copilot vs Claude Code** | 두 도구의 강점, 한계, 함께 쓰는 방법 비교 |
 | **Claude Code에서 마이그레이션** | 개념 매핑이 포함된 단계별 전환 가이드 |
+| **Gemini CLI에서 마이그레이션** | Gemini CLI 워크플로를 Antigravity CLI (`agy`)로 이전 |
 | **Native Hooks + GitHub Actions** | Copilot 세션 내 훅을 Git Hooks / Actions / Prompt Guards로 보완 |
 | **오케스트레이션 가이드** | Multi-AI 오케스트레이션 패턴 및 설정 |
 | **스킬 작성 모범 사례** | 실제로 동작하는 트리거 우선 description 작성법 |

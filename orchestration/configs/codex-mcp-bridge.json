@@ -3,11 +3,11 @@
   "_comment": "MCP Bridge configuration for connecting Copilot CLI to OpenAI Codex CLI",
   "name": "codex-bridge",
   "description": "Bridge to OpenAI Codex CLI for fast code generation powered by GPT-5. Use for rapid implementation, boilerplate generation, and multi-file scaffolding.",
-  "command": "node",
-  "args": ["orchestration/scripts/codex-bridge.js"],
+  "command": "codex",
+  "args": ["mcp-server"],
   "env": {
     "OPENAI_API_KEY": "${OPENAI_API_KEY}",
-    "CODEX_APPROVAL_MODE": "suggest",
+    "CODEX_APPROVAL_MODE": "read-only",
     "CODEX_TIMEOUT_SECONDS": "120"
   },
   "tools": [
@@ -52,8 +52,8 @@
           },
           "approvalMode": {
             "type": "string",
-            "enum": ["suggest", "auto-edit", "full-auto"],
-            "default": "suggest",
+            "enum": ["read-only", "workspace-write"],
+            "default": "read-only",
             "description": "Level of autonomy for applying changes"
           }
         },
@@ -82,13 +82,14 @@
   ],
   "_usage": {
     "registration": {
-      "userLevel": "Add to ~/.copilot/mcp.json under mcpServers.codex-bridge",
-      "projectLevel": "Add to .vscode/mcp.json or devcontainer.json",
+      "userLevel": "Add to ~/.copilot/mcp-config.json under mcpServers.codex-bridge",
+      "projectLevel": "Add to .mcp.json (or .github/mcp.json) in the repository under mcpServers",
       "example": {
         "mcpServers": {
           "codex-bridge": {
-            "command": "node",
-            "args": ["orchestration/scripts/codex-bridge.js"],
+            "command": "codex",
+            "args": ["mcp-server"],
+            "tools": ["*"],
             "env": {
               "OPENAI_API_KEY": "${OPENAI_API_KEY}"
             }
@@ -97,7 +98,7 @@
       }
     },
     "prerequisites": [
-      "npm install -g @openai/codex (currently v0.114.0)",
+      "npm install -g @openai/codex (check with codex --version)",
       "Set OPENAI_API_KEY environment variable"
     ]
   }

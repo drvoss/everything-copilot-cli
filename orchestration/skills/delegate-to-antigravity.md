@@ -29,13 +29,13 @@
 
 ```powershell
 $result = agy -p @"
-Analyze this architecture diagram.
+Analyze the architecture diagram at path/to/diagram.png.
 
 Return:
 1. the main components
 2. likely bottlenecks or single points of failure
 3. open questions Copilot should verify in the codebase
-"@ --image path/to/diagram.png
+"@
 
 Write-Output $result
 ```
@@ -44,20 +44,20 @@ Write-Output $result
 
 ```powershell
 $result = agy -p @"
-Read this large document and extract:
+Read path/to/large-spec.md and extract:
 1. key requirements
 2. constraints that affect implementation
 3. unanswered questions
 
 Return a concise bullet list for Copilot CLI to act on.
-"@ --file path/to/large-spec.md
+"@
 
 Write-Output $result
 ```
 
 ### Sandboxed Execution
 
-`agy` runs in a sandboxed shell by default. If you need it to touch files or the network directly (e.g., via a migrated Gemini CLI plugin), pass `--sandbox` explicitly and confirm the permission model — plugins that assumed ambient system permissions under Gemini CLI can fail silently under Antigravity's sandbox until permissions are re-granted. See [migration-from-gemini-cli.md](../../guides/migration-from-gemini-cli.md).
+`--sandbox` runs `agy` with terminal restrictions enabled; `--dangerously-skip-permissions` auto-approves every tool permission request. Plugins that assumed ambient system permissions under Gemini CLI can fail silently under Antigravity's sandbox until permissions are re-granted. See [migration-from-gemini-cli.md](../../guides/migration-from-gemini-cli.md).
 
 ```powershell
 agy -p "PROMPT" --sandbox

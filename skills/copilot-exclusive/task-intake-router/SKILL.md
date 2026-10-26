@@ -21,7 +21,7 @@ that can be combined in one session:
 
 - **Plan Mode** for structured decomposition
 - **Autopilot** for execution after approval
-- **`task` agents** for typed delegation (`explore`, `task`, `general-purpose`, `code-review`)
+- **`task` agents** for typed delegation (`explore`, `task`, `general-purpose`, `code-review`, `security-review`, `research`, `rubber-duck`)
 - **`/fleet`** for parallel fan-out
 - **Background delegation** for cloud execution on GitHub
 - **Per-agent model overrides** for cost/quality optimization
@@ -59,8 +59,8 @@ Every request should be classified on five dimensions:
 | Multi-file feature with unknown scope | Plan Mode → Autopilot | Clarify before editing |
 | Many independent subtasks | `/fleet` or multiple background agents | Parallelism pays off |
 | Build/test/lint failure | `task` agent of type `task` | Fast execution, low-context output |
-| Security-sensitive review | `code-review` agent + premium model | Higher reasoning quality for high-risk analysis |
-| Long-running implementation you do not need locally | Background delegation (`&` or `/delegate`) | GitHub branch diff or PR becomes the output |
+| Security-sensitive review | `security-review` agent + premium model | Higher reasoning quality for high-risk analysis |
+| Long-running implementation you do not need locally | Background delegation (`&` or `/delegate`) | The AI-generated PR becomes the output |
 | Runtime rollout / post-ship observation | `deployment-canary` | Shipping is not the end of the workflow |
 
 ## Workflow
@@ -108,7 +108,8 @@ Reason: multi-file implementation with ambiguous boundaries
 | Search, inspect, understand | `explore` |
 | Run builds, tests, installers | `task` |
 | Implement or refactor | `general-purpose` |
-| Review correctness or security | `code-review` |
+| Review correctness | `code-review` |
+| Review security | `security-review` |
 
 If one task needs multiple types, split it:
 
@@ -228,7 +229,7 @@ Request: "Review this auth PR before merge"
 
 Route:
 - Mode: task delegation
-- Agent type: code-review
+- Agent type: security-review
 - Model: claude-opus-5.5
 - Next skill: pr-multi-perspective-review
 - Why: high-risk review deserves a specialized pass

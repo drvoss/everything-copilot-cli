@@ -191,9 +191,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 # 7. Approved — commit
-git commit -m "refactor: migrate date.ts from moment to date-fns
-
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+git commit -m "refactor: migrate date.ts from moment to date-fns"
 Write-Host "✅ Sandboxed change approved and committed"
 ```
 
@@ -220,9 +218,7 @@ git --no-pager diff main...$branch --stat
 # 4. If satisfied, merge — otherwise discard
 $merge = Read-Host "Merge sandbox branch? (y/N)"
 if ($merge -eq 'y') {
-    git merge $branch --no-ff -m "feat: apply sandboxed refactor from $branch
-
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+    git merge $branch --no-ff -m "feat: apply sandboxed refactor from $branch"
 } else {
     Write-Host "Discarding sandbox branch"
 }

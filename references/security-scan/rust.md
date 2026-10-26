@@ -89,7 +89,7 @@ libraries this can be a DoS vector.
 # Common panic sources in production code
 grep -rn '\.unwrap()\|\.expect(' src/
 grep -rn 'index\[.*\]\|get_unchecked' src/
-# Integer arithmetic that panics on overflow in debug builds
+# Existing overflow-safe arithmetic (then review remaining raw +/-/* on untrusted input)
 grep -rn 'checked_add\|checked_sub\|checked_mul\|wrapping_add\|saturating_' src/
 ```
 

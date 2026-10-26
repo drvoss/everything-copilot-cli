@@ -224,7 +224,7 @@ everything-copilot-cli/
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 16 comprehensive guides
+├── guides/                        # 17 comprehensive guides
 ├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
@@ -283,7 +283,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 | `background-agent` | Delegate to cloud agents via `&` / `/delegate` |
 | `fleet-parallel` | Parallel agent execution with `/fleet` |
 | `github-code-search` | Search GitHub's global code index for real implementation examples and use the results as grounded context |
-| `github-pr-workflow` | Full PR lifecycle via built-in GitHub MCP |
+| `github-pr-workflow` | PR workflow — reads via built-in GitHub MCP, opens and merges with `/pr` or `gh` |
 | `github-issue-triage` | Bulk issue classification and triage |
 | `github-codespaces-efficiency` | Audit GitHub Codespaces startup time, machine sizing, prebuild scope, and spend without stripping required dev tools |
 | `actions-debugging` | Debug CI failures with native Actions access |
@@ -454,7 +454,7 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 Coding rules and guidelines, organized by scope:
 
 - **Common Rules** — Universal best practices (error handling, logging, naming conventions)
-- **Language-Specific Rules** — TypeScript, Python, Go, C#, Java
+- **Language-Specific Rules** — TypeScript, Python, Go, C#, Java, C++
 - **Framework-Specific Rules** — Next.js, React, Vue, Prisma, Playwright, NestJS, Cloudflare Workers, Vitest
 
 ### Orchestration
@@ -474,6 +474,7 @@ The Multi-AI Orchestration system (see [dedicated section](#multi-ai-orchestrati
 | **Copilot Exclusive Features** | Features only available in Copilot CLI |
 | **Copilot vs Claude Code** | Compare strengths, tradeoffs, and when to use each tool |
 | **Migration from Claude Code** | Step-by-step migration path with concept mapping |
+| **Migration from Gemini CLI** | Move Gemini CLI workflows to Antigravity CLI (`agy`) |
 | **Native Hooks + GitHub Actions** | Complement Copilot's in-session hooks with Git Hooks / Actions / Prompt Guards |
 | **Orchestration Guide** | Multi-AI orchestration patterns and setup |
 | **Skill Writing Best Practices** | Write trigger-first descriptions that actually fire |

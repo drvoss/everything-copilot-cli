@@ -29,8 +29,8 @@ metadata:
 
 Map the workflows that must always work:
 
-```powershell
-# Find existing E2E tests to understand what's covered
+```text
+# Copilot glob tool — find existing E2E tests to understand what's covered
 glob pattern="**/*.e2e.*"
 glob pattern="**/e2e/**/*.{ts,js}"
 glob pattern="**/cypress/**/*.{ts,js}"

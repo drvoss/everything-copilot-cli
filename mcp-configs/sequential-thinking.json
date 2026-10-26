@@ -1,13 +1,14 @@
 {
   "_description": "MCP server for structured, step-by-step reasoning. Helps Copilot CLI break down complex problems, revise its thinking, and explore multiple solution paths before committing to an approach.",
 
-  "servers": {
+  "mcpServers": {
     "sequential-thinking": {
       "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-sequential-thinking"
       ],
+      "tools": ["*"],
       "env": {}
     }
   },

@@ -44,7 +44,7 @@ Copilot Memory stores repository-specific facts that Copilot infers while workin
 
 Important properties:
 
-- repository-scoped, not personal chat memory
+- repository-scoped memories are shared with repository collaborators; Copilot CLI can also store user-scoped memories (this skill covers the repository scope)
 - validated against current code citations before reuse
 - shared across Copilot CLI, Copilot cloud agent, and Copilot code review for the repository
 - automatically deleted after 28 days unless refreshed by later validated use
@@ -130,8 +130,7 @@ Those belong in secure systems, ephemeral notes, or not in Copilot context at al
 ## Team Considerations
 
 - Admins control availability under **Repository Settings > Copilot > Memory**
-- Memory is repository-scoped, not user-scoped — all Copilot surfaces for the same repo share the
-  same memory layer
+- Repository-scoped memory is shared by all Copilot surfaces for the same repo; user-scoped memories stay with the user
 - To seed shared patterns explicitly, keep authoritative conventions in repo docs and instructions;
   Copilot learns from those as the canonical source
 

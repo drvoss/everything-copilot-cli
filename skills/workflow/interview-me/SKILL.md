@@ -150,7 +150,7 @@ Confirmed by user: Yes
 
 ## Red Flags
 
-- Three or more questions in one message
+- Three or more questions in one message outside batch mode, or any batch containing dependent questions
 - Questions without your current guess attached
 - Producing a plan or spec before confirmation
 - Skipping the out-of-scope line in the restatement

@@ -3,7 +3,7 @@ name: pr-security-review
 description: Use when reviewing a pull request for security issues — automatically analyzes the diff for vulnerabilities, hardcoded secrets, injection risks, and broken access control before merging
 metadata:
   category: security
-  agent_type: code-review
+  agent_type: security-review
   origin: inspired by anthropics/claude-code-security-review
 ---
 
@@ -232,6 +232,6 @@ Structure findings by severity:
 ## See Also
 
 - [`security-scan`](../security-scan/SKILL.md) — full codebase scan (not just PR diff)
-- [`evaluate-repository`](../evaluate-repository/SKILL.md) — 6-dimension repo security scorecard
+- [`evaluate-repository`](../evaluate-repository/SKILL.md) — 7-dimension repo security scorecard
 - [`secret-detection`](../secret-detection/SKILL.md) — dedicated secret scanning
 - [`input-validation`](../input-validation/SKILL.md) — sanitization patterns for fixing findings

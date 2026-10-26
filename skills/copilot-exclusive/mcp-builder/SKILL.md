@@ -99,10 +99,11 @@ server.tool(
 ```json
 // .mcp.json
 {
-  "servers": {
+  "mcpServers": {
     "my-service": {
       "command": "node",
-      "args": ["./tools/mcp-server.js"]
+      "args": ["./tools/mcp-server.js"],
+      "tools": ["*"]
     }
   }
 }

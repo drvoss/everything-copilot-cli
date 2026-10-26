@@ -335,6 +335,8 @@ If you only see built-in skills and no project agents, go back to the `everythin
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
+Then repeat Step 5 so the plain and guided copies pick up the reinstalled files.
+
 ---
 
 ## Next step

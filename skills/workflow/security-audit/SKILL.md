@@ -85,7 +85,7 @@ Check these patterns:
 ### Dependency Audit
 
 ```text
-> Audit our dependencies for known CVEs. Run npm audit / pip audit / 
+> Audit our dependencies for known CVEs. Run npm audit / pip-audit / 
 > bundler-audit and summarize critical and high severity issues.
 ```
 
@@ -175,7 +175,7 @@ Request a structured report:
 |-------|-------|------|
 | **security-audit** (this skill) | Full threat model: OWASP + STRIDE + auth + deps. Strategic/CSO view. | Pre-launch, quarterly, new auth feature |
 | [`security-scan`](../../security/security-scan/SKILL.md) | Code-level grep patterns + `npm audit`. Quick tactical scan. | Before every PR, CI integration |
-| [`evaluate-repository`](../../security/evaluate-repository/SKILL.md) | Repository-wide 6-dimension scorecard (secrets, deps, auth, error handling, supply chain). | Onboarding to unknown codebase |
+| [`evaluate-repository`](../../security/evaluate-repository/SKILL.md) | Repository-wide 7-dimension scorecard (secrets, deps, input validation, auth, error handling, supply chain, AI agent governance). | Onboarding to unknown codebase |
 
 Run `security-scan` every PR. Run `security-audit` every sprint or release. Run `evaluate-repository` once on unfamiliar codebases.
 

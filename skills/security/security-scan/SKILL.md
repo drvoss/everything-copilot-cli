@@ -81,10 +81,10 @@ inspection:
 npm audit 2>&1
 
 # Python
-pip audit 2>&1
+pip-audit 2>&1
 
 # Go
-go vuln check ./... 2>&1
+govulncheck ./... 2>&1
 ```
 
 Review findings by severity and fix critical/high issues:
@@ -312,7 +312,7 @@ For new features or significant changes, apply STRIDE before scanning:
 
 ## See Also
 
-- [`evaluate-repository`](../evaluate-repository/SKILL.md) — Full 6-dimension repository security scorecard
+- [`evaluate-repository`](../evaluate-repository/SKILL.md) — Full 7-dimension repository security scorecard
 - [`secret-detection`](../secret-detection/SKILL.md) — Dedicated secret and credential scanning
 - [`pr-multi-perspective-review`](../../development/pr-multi-perspective-review/SKILL.md) — Security Lens in PR review
 - [`input-validation`](../input-validation/SKILL.md) — Dedicated input sanitization patterns

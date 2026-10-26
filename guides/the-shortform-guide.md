@@ -34,7 +34,7 @@ Copilot CLI can spawn specialized sub-agents via the `task` tool:
 
 ### explore
 
-- **Model**: Claude Haiku (fast, cheap)
+- **Model**: GPT Luna (fast, cheap)
 - **Tools**: grep, glob, view, bash/powershell
 - **Use for**: Finding files, searching code, answering codebase questions
 - **Safe to parallelize**: ✅ Yes — launch multiple explore agents simultaneously
@@ -46,7 +46,7 @@ task(agent_type="explore", prompt="Find all API endpoints in src/")
 
 ### task
 
-- **Model**: Claude Haiku
+- **Model**: GPT Luna (falls back to Claude Haiku)
 - **Tools**: All CLI tools
 - **Use for**: Running builds, tests, linting, dependency installs
 - **Returns**: Brief summary on success, full output on failure
@@ -64,6 +64,8 @@ task(agent_type="explore", prompt="Find all API endpoints in src/")
 - **Tools**: All CLI tools (read-only behavior)
 - **Use for**: Reviewing staged/unstaged changes, branch diffs
 - **Signal**: Extremely high — only surfaces bugs, security issues, logic errors
+
+Other built-in agents: `research`, `rubber-duck`, and `security-review` (plus custom agents).
 
 ---
 
@@ -119,10 +121,10 @@ metadata:
 /compact            # Compress context to save tokens
 /login              # Authenticate with GitHub
 /diff               # Review current changes
-/review             # Review implementation against spec or plan
+/review             # Run the code-review agent on current changes
 /init               # Initialize Copilot setup for this project
 /plugin install     # Install a community plugin
-/chronicle          # Standup reports & session history (experimental)
+/chronicle standup  # Standup report from session history
 /help               # Show all commands
 ```
 
@@ -137,14 +139,15 @@ Rules define coding standards that Copilot follows automatically.
 | Type | Path | Scope |
 |---|---|---|
 | Common rules | `rules/common/` | Apply to all code (git workflow, error handling, security) |
-| Language rules | `rules/languages/` | Language-specific (TypeScript, Python, Java, Go, C#) |
+| Language rules | `rules/languages/` | Language-specific (TypeScript, Python, Java, Go, C#, C++) |
+| Framework rules | `rules/frameworks/` | Framework-specific (Next.js, React, Vue, NestJS, Prisma, Playwright, Vitest, Cloudflare Workers) |
 | Project rules | `.github/copilot-instructions.md` | Your project's specific conventions |
 
 ### How Rules Load
 
 1. Copilot reads `.github/copilot-instructions.md` from your project root
-2. Repository rules from `rules/` are available as context
-3. Rules are applied automatically — no manual activation needed
+2. `npm run setup` copies rules to `.github/copilot/rules/`, which Copilot CLI does not load on its own
+3. Reference the rules you want from `.github/copilot-instructions.md` (or place them under `.github/instructions/` as `*.instructions.md`)
 
 ---
 
@@ -167,12 +170,13 @@ Create workspace `.mcp.json` or `~/.copilot/mcp-config.json`:
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "my-server": {
       "command": "npx",
       "args": ["-y", "my-mcp-server"],
+      "tools": ["*"],
       "env": {
-        "API_KEY": "${env:API_KEY}"
+        "API_KEY": "${API_KEY}"
       }
     }
   }
@@ -201,13 +205,11 @@ CREATE TABLE test_results (id TEXT, passed BOOLEAN, duration_ms INTEGER);
 
 Sessions persist across restarts. Your conversation history, SQL data, and context carry over.
 
-### /chronicle — Standup Reports & History _(Experimental)_
+### /chronicle — Standup Reports & History
 
 Automatically summarizes your work from the session database.
-Requires `/experimental on` to activate:
 
 ```text
-/experimental on         # Enable experimental features
 /chronicle standup       # What did I work on today?
 /chronicle tips          # Tips based on session patterns
 ```
@@ -296,7 +298,7 @@ Copilot CLI can orchestrate other AI tools (Claude Code, Codex CLI, Antigravity 
 | [Shell Invocation](../orchestration/patterns/shell-invocation.md) | Low | Quick delegation to other tools |
 | [MCP Bridge](../orchestration/patterns/mcp-bridge.md) | Medium | Structured tool communication |
 | [Message IPC](../orchestration/patterns/message-ipc.md) | Medium | Real-time inter-process coordination |
-| [Pipeline](../orchestration/patterns/pipeline.md) | High | Sequential multi-stage workflows |
+| [Pipeline](../orchestration/patterns/pipeline.md) | Medium | Sequential multi-stage workflows |
 | [Agent Council](../orchestration/patterns/agent-council.md) | High | Multi-agent consensus and debate |
 
 See [The Orchestration Guide](the-orchestration-guide.md) for detailed workflows.

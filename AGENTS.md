@@ -12,7 +12,7 @@
 | 1 | [planner](#1-planner) | Break down complex features, identify dependencies | `general-purpose` | claude-sonnet-5.5 |
 | 2 | [architect](#2-architect) | System design, scalability decisions | `general-purpose` | claude-sonnet-5.5 |
 | 3 | [code-reviewer](#3-code-reviewer) | Quality, maintainability, best practices | `code-review` | claude-sonnet-5.5 |
-| 4 | [security-reviewer](#4-security-reviewer) | Vulnerability detection, hardened defaults | `code-review` | claude-sonnet-5.5 |
+| 4 | [security-reviewer](#4-security-reviewer) | Vulnerability detection, hardened defaults | `security-review` | claude-sonnet-5.5 |
 | 5 | [tdd-guide](#5-tdd-guide) | Test-driven development workflow | `general-purpose` | gpt-6-luna |
 | 6 | [build-error-resolver](#6-build-error-resolver) | Fix build/compilation errors | `task` | gpt-6-luna |
 | 7 | [doc-updater](#7-doc-updater) | Documentation sync | `general-purpose` | claude-haiku-4.5 |
@@ -170,7 +170,7 @@
 
 ### Agent Type Mapping
 
-- **Copilot agent type**: `code-review`
+- **Copilot agent type**: `security-review`
 - **Copilot mode**: Interactive (security findings need discussion)
 - **Fleet compatible**: Yes — can scan multiple files/components in parallel
 
@@ -353,7 +353,7 @@ CREATE TABLE test_cases (
 | Type | Location | Format |
 |------|----------|--------|
 | Project README | `README.md` | Markdown |
-| Agent catalog | `AGENTS.md` | Markdown with frontmatter |
+| Agent catalog | `AGENTS.md` | Markdown |
 | Usage guides | `guides/` | Markdown |
 | API docs | Inline or `docs/` | JSDoc / docstrings |
 | Copilot instructions | `.github/copilot-instructions.md` (runtime) and `COPILOT-INSTRUCTIONS.md` (full reference) | Markdown |

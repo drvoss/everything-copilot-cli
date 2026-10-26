@@ -58,7 +58,7 @@ function validateAgents() {
     return;
   }
 
-  const validTypes = ["explore", "task", "general-purpose", "code-review"];
+  const validTypes = ["explore", "task", "general-purpose", "code-review", "research", "security-review", "rubber-duck"];
   const names = new Set();
 
   for (const file of files) {

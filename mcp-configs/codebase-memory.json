@@ -1,12 +1,14 @@
 {
-  "servers": {
+  "mcpServers": {
     "codebase-memory": {
       "command": "npx",
       "args": ["-y", "@deusdata/codebase-memory-mcp@latest"],
+      "tools": ["*"],
       "env": {
-        "CODEBASE_ROOT": "${workspaceFolder}",
-        "MEMORY_DB_PATH": "${userHome}/.copilot/codebase-memory.db"
+        "CODEBASE_ROOT": "/absolute/path/to/repo",
+        "MEMORY_DB_PATH": "${HOME}/.copilot/codebase-memory.db"
       },
+      "_note": "Replace CODEBASE_ROOT with the absolute path of your repository. Copilot CLI expands only environment variables ($VAR, ${VAR}, ${VAR:-default}), not editor variables.",
       "_description": "Codebase Memory — converts your codebase into a persistent knowledge graph stored in SQLite. Enables cross-session memory of file relationships, symbols, and architectural patterns.",
       "_features": [
         "Persistent knowledge graph across sessions",

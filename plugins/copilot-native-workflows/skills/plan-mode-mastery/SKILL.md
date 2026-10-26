@@ -13,8 +13,8 @@ metadata:
 Copilot CLI has a **dedicated Plan Mode** activated by Shift+Tab that fundamentally changes
 how you interact with the agent. Instead of executing immediately, Copilot creates a structured
 plan with SQL-backed todo tracking, presents it in the terminal for review, and lets you choose
-between interactive execution, autopilot, or fleet mode. Claude Code has no dedicated planning mode — it
-either executes immediately or you manually structure your requests.
+between interactive execution, autopilot, or fleet mode. Claude Code also has a plan permission mode;
+Copilot's differs in linking the plan to SQL todos and to the autopilot/fleet hand-off.
 
 ## When to Use
 
@@ -28,7 +28,7 @@ either executes immediately or you manually structure your requests.
 
 ### 1. Enter Plan Mode
 
-Press **Shift+Tab** to toggle Plan Mode on. The mode indicator appears in your prompt.
+Press **Shift+Tab** to cycle from standard to Plan Mode (pressing it again moves on to autopilot). The mode indicator appears in your prompt.
 
 ### 2. Describe Your Task
 

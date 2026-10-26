@@ -239,7 +239,7 @@ claude -p `
   "Design a refactoring plan to extract shared logic from src/services/ into reusable utilities" `
   > .pipeline/refactor-plan.json
 
-codex exec --skip-git-repo-check --full-auto `
+codex exec --skip-git-repo-check --sandbox workspace-write `
   "Execute this refactoring plan: $(Get-Content .pipeline/refactor-plan.json)" `
   > .pipeline/refactor-result.txt
 
@@ -306,7 +306,7 @@ Use this when different phases require fundamentally different expertise (e.g., 
 
 # Phase 2: Architecture team (different agents, same session SQL for continuity)
 # task: agent_type="general-purpose", name="architect", prompt="Design solution based on phase1-findings.md. Save to phase2-design.md"
-# task: agent_type="code-review",     name="security",  prompt="Review design in phase2-design.md for security risks."
+# task: agent_type="security-review", name="security",  prompt="Review design in phase2-design.md for security risks."
 ```
 
 > **Key difference from hierarchical-delegation:** In Phase Reconstruction, teams are **sequential** (one phase completes before the next starts) and the team composition **changes** each time. In hierarchical-delegation, all sub-agents run in **parallel** under one orchestrator.

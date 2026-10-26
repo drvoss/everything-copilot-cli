@@ -156,7 +156,7 @@ is still uncertain, stop after a thin vertical slice and get feedback before wid
 npm test -- --coverage --collectCoverageFrom="src/utils/parse.ts"
 ```
 
-Aim for **≥80% line coverage** on new code, **100% branch coverage** on critical paths.
+Aim for **≥80% line coverage** on new code, **≥90% branch coverage** on critical paths.
 
 ## Examples
 

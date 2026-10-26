@@ -1,7 +1,7 @@
 ---
 name: security-reviewer
 description: Vulnerability detection, secrets scanning, and security hardening review
-agent_type: code-review
+agent_type: security-review
 model: claude-sonnet-5.5
 tools:
   - grep
@@ -51,7 +51,7 @@ references established vulnerability taxonomies (OWASP Top 10, CWE).
 
 ## Copilot CLI Integration
 
-- **agent_type**: `code-review` – read-only analysis, will not modify code.
+- **agent_type**: `security-review` – read-only analysis, will not modify code.
 - **Rules reference**: Works in conjunction with `rules/common/security.md` which defines
   project-specific security standards and approved patterns.
 - **GitHub MCP tools**: Use PR and commit tools to review security-relevant changes

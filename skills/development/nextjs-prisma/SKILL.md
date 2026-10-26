@@ -22,12 +22,10 @@ metadata:
 
 Ensure Prisma client is instantiated only once across hot reloads:
 
-> **Next.js version note**: The `global` cache pattern below is recommended for Next.js 13/14.
-> In Next.js 15 (with React 19), module-level singletons are stable across hot reloads —
-> you can use `export const prisma = new PrismaClient(...)` directly in `lib/prisma.ts`.
+> Use the `global` cache pattern below (same as `rules/frameworks/prisma.md`) so development hot reloads reuse one `PrismaClient`.
 
 ```typescript
-// lib/prisma.ts  (Next.js 13/14 pattern)
+// lib/prisma.ts
 import { PrismaClient } from "@prisma/client"
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient }

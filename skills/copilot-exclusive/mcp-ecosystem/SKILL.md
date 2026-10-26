@@ -102,17 +102,19 @@ Equivalent JSON:
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "postgres": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "tools": ["*"],
       "env": {
-        "DATABASE_URL": "postgresql://user:pass@localhost:5432/mydb"
+        "DATABASE_URL": "${DATABASE_URL}"
       }
     },
     "filesystem": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/docs"]
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/docs"],
+      "tools": ["*"]
     }
   }
 }
@@ -124,12 +126,13 @@ Create `.mcp.json` in your repo:
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "my-api": {
       "command": "node",
       "args": ["./tools/mcp-server.js"],
+      "tools": ["*"],
       "env": {
-        "API_KEY": "${env:MY_API_KEY}"
+        "API_KEY": "${MY_API_KEY}"
       }
     }
   }
@@ -165,11 +168,11 @@ copilot mcp get my-api
 
 ### 4. Load Servers into a Session
 
-Copilot loads MCP servers from three sources:
+Besides the built-in servers, Copilot merges MCP servers from these sources (highest priority first; on a name clash the higher one wins):
 
-- user config: `~/.copilot/mcp-config.json`
-- workspace config: `.mcp.json`
+- `--additional-mcp-config` (this session only)
 - installed plugins that expose MCP servers
+- workspace config: `.mcp.json` and `.github/mcp.json`, read from the working directory up to the Git root — only in a trusted folder, and not in `-p` unless `GITHUB_COPILOT_PROMPT_MODE_WORKSPACE_MCP=true`- user config: `~/.copilot/mcp-config.json`
 
 Inside a running session, use `/env` to inspect which MCP servers were loaded for that session.
 
@@ -238,7 +241,7 @@ add the HTTP MCP server and pass your key as a header:
 copilot mcp add --transport http context7 https://mcp.context7.com/mcp
 ```
 
-Then set `CONTEXT7_API_KEY` in your environment (or via `${env:CONTEXT7_API_KEY}` in
+Then set `CONTEXT7_API_KEY` in your environment (or via `${CONTEXT7_API_KEY}` in
 `.mcp.json`) so the server can authenticate.
 
 #### MCP tools (called automatically by the agent)
@@ -291,11 +294,12 @@ This pattern is especially useful when:
 ```json
 // .mcp.json
 {
-  "servers": {
+  "mcpServers": {
     "postgres": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-postgres"],
-      "env": { "DATABASE_URL": "${env:DATABASE_URL}" }
+      "tools": ["*"],
+      "env": { "DATABASE_URL": "${DATABASE_URL}" }
     }
   }
 }
@@ -310,14 +314,15 @@ Now Copilot can query your database directly:
 
 ```json
 {
-  "servers": {
-    "github": "built-in",
-    "postgres": { "command": "npx", "args": ["-y", "@mcp/server-postgres"] },
-    "redis": { "command": "npx", "args": ["-y", "@mcp/server-redis"] },
-    "slack": { "command": "npx", "args": ["-y", "@mcp/server-slack"] }
+  "mcpServers": {
+    "postgres": { "command": "npx", "args": ["-y", "@mcp/server-postgres"], "tools": ["*"] },
+    "redis": { "command": "npx", "args": ["-y", "@mcp/server-redis"], "tools": ["*"] },
+    "slack": { "command": "npx", "args": ["-y", "@mcp/server-slack"], "tools": ["*"] }
   }
 }
 ```
+
+The built-in `github-mcp-server` is always loaded and is not declared in `mcpServers`.
 
 Copilot can now coordinate across GitHub, your database, cache, and
 communication channels — all through native tool calls.
@@ -354,7 +359,7 @@ copilot mcp get <name>
 
 | Symptom | Likely cause | What to check |
 |---------|--------------|---------------|
-| Server missing from `copilot mcp list` | Wrong config path or invalid JSON | Confirm the file is `.mcp.json` in the workspace root or `~/.copilot/mcp-config.json` for user config |
+| Server missing from `copilot mcp list` | Wrong config path or invalid JSON | Confirm the file is `.mcp.json` or `.github/mcp.json` between the working directory and the Git root (folder trusted), or `~/.copilot/mcp-config.json` for user config |
 | Server is listed but tools are unavailable in-session | Session loaded a different config state | Use `/env` to inspect loaded MCP servers for the current session |
 | Remote server fails to respond | URL, auth header, or timeout issue | Re-check the remote endpoint and any `--header` values |
 | Local stdio server fails | Command path or dependencies are missing | Run the command manually and inspect its stderr outside Copilot |
@@ -369,7 +374,7 @@ copilot mcp get <name>
   and can be committed to the repo for team use.
 - **Use `~/.copilot/mcp-config.json` for personal tools**: Global configs for
   tools only you use (personal databases, API keys).
-- **Environment variables**: Use `${env:VAR_NAME}` syntax to keep secrets out
+- **Environment variables**: Use `${VAR_NAME}` (or `${VAR_NAME:-default}`) syntax to keep secrets out
   of config files.
 - **Inspect before you trust**: `copilot mcp list` and `copilot mcp get` are the
   fastest way to verify that Copilot is seeing the server definition you expect.

@@ -42,10 +42,10 @@ git --no-pager diff --cached --stat
 
 ```powershell
 # Node.js projects
-npm run lint && npm run build
+npm run lint; if ($LASTEXITCODE -eq 0) { npm run build }
 
 # Python projects
-ruff check . && pytest --tb=short -q
+ruff check .; if ($LASTEXITCODE -eq 0) { pytest --tb=short -q }
 
 # Generic pre-commit hooks
 pre-commit run --all-files
@@ -126,7 +126,7 @@ git commit -m "♻️ refactor(utils): extract page-size validation into shared 
 
 ## Examples
 
-### Feature with Co-authored Docs
+### Feature with Docs
 
 ```powershell
 git add -A
@@ -134,9 +134,7 @@ git commit -m "✨ feat(notifications): add real-time push alerts via WebSocket
 
 - Implement WebSocket connection pool
 - Add client-side reconnect logic with exponential backoff
-- Write integration tests for disconnect/reconnect scenarios
-
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+- Write integration tests for disconnect/reconnect scenarios"
 ```
 
 ### Hotfix
@@ -174,7 +172,7 @@ Update .env files and CI secrets before deploying."
 
 ## Verification
 
-- [ ] Commit message follows Conventional Commits format (`type(scope): description`)
+- [ ] Commit message follows the format above (`<emoji> <type>(<scope>): description`)
 - [ ] Each commit contains exactly one logical change
 - [ ] Breaking changes are marked with `BREAKING CHANGE:`
 - [ ] `git log --oneline` tells a readable story of the changes
@@ -185,7 +183,7 @@ Update .env files and CI secrets before deploying."
 - **One commit = one revert**: if reverting a commit breaks something unrelated, it wasn't atomic
 - **Use `git commit --amend`** to fix the last message before pushing
 - **`git add -p` is your friend** for splitting mixed diffs without stashing
-- **CI conventional commit lint**: add `commitlint` to `husky` to enforce format automatically
+- **CI commit lint**: if you enforce the format with `commitlint`, configure it to accept the leading emoji
 
 ## See Also
 

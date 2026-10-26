@@ -169,9 +169,7 @@ git commit -m "fix: <what was wrong and why>
 
 Root cause: <explanation of the actual bug>
 Fix: <what was changed and why it resolves the root cause>
-Regression test: <name of the test that now covers this>
-
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+Regression test: <name of the test that now covers this>"
 ```
 
 **Prevention checklist:**

@@ -13,12 +13,11 @@ Content is Markdown and JSON configuration, not application code.
 
 ## Essential Rules
 
-1. **Use YAML frontmatter** in all agent, skill, and rule files
+1. **Use YAML frontmatter** in all agent and skill files
 2. **Use kebab-case** for all filenames (e.g., `build-error-resolver.md`)
 3. **Use conventional commits** (`feat:`, `fix:`, `docs:`, `chore:`)
-4. **Include Co-authored-by trailer** in commits when Copilot assists
-5. **Run validation before committing**: `npm run validate && npm run lint:md && npm test`
-6. **Don't mix concerns** — one agent/skill/rule per file, one topic per PR
+4. **Run validation before committing**: `npm run validate && npm run lint:md && npm test`
+5. **Don't mix concerns** — one agent/skill/rule per file, one topic per PR
 
 ## Directory Structure
 
@@ -34,7 +33,7 @@ Content is Markdown and JSON configuration, not application code.
 | `orchestration/` | Multi-agent coordination (`patterns/`, `configs/`, `examples/`, `skills/`, `templates/`) |
 | `contexts/` | Execution context definitions |
 | `mcp-configs/` | MCP server configurations |
-| `examples/` | Complete example projects (`nextjs-app/`, `python-api/`, `dotnet-webapp/`, `monorepo/`) |
+| `examples/` | Example copilot-instructions per project type (`nextjs-app/`, `python-api/`, `dotnet-webapp/`, `monorepo/`) |
 
 ## Agent Type Selection
 
@@ -59,7 +58,7 @@ Recommended frontmatter: `model`, `tools`, `escalation`
 
 Required frontmatter: `name`, `description`, `metadata.category`
 Recommended frontmatter: `metadata.agent_type`
-Optional frontmatter: `keep-coding-instructions: true`, `disable-model-invocation: true`
+Optional frontmatter: `disable-model-invocation: true`
 Must include a "When to Use" section.
 
 ### Rule files (`rules/**/*.md`)
@@ -80,7 +79,7 @@ Current repository convention: document the pattern, setup, examples, tradeoffs,
 ## Validation
 
 ```bash
-npm run validate   # Check configs against schemas
+npm run validate   # Check required frontmatter fields
 npm run lint:md    # Lint all Markdown
 npm test           # Run test suite
 ```

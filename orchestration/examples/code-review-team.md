@@ -181,7 +181,7 @@ $diff
 } -ArgumentList $styleDiff
 
 # 5) UX reviewer — conditional: only if UI files touched
-if ($using:needUx) {
+if ($needUx) {
     $jobs += Start-Job -Name "ux" -ScriptBlock {
         param($diff)
         claude -p @"

@@ -21,15 +21,8 @@ Inspired by Garry Tan's gstack approach — each step feeds the next, nothing fa
 
 ## Prerequisites
 
-- Copilot CLI authenticated (`gh auth status`)
+- Copilot CLI authenticated (`copilot login`, or `/login` in a session; in automation set `COPILOT_GITHUB_TOKEN`)
 - For the **Review step**: standard mode (no extra setup)
-- For the **sprint-retro** skill after this sprint: enable experimental features first:
-
-  ```text
-  /experimental on
-  ```
-
-  > ⚠️ `/chronicle` (used in `sprint-retro`) requires `/experimental on` to be run in the **same session**.
 
 ## The Sprint
 
@@ -102,7 +95,7 @@ v2.1.108+ can discover and invoke built-in review commands through its `Skill` t
 relying on a human to type them manually. In Copilot CLI, keep the same intent explicit by
 invoking `/review` directly or dispatching the equivalent review agent as a planned handoff.
 
-You can also check the diff:
+You can also check the diff (`/diff` is experimental — run `/experimental on` first, or use `git --no-pager diff`):
 
 ```text
 /diff
@@ -189,7 +182,7 @@ Each step produces verifiable output:
 |------|--------|---------------|
 | Think | Written problem statement | Challenge at least one assumption |
 | Plan | `plan.md` with numbered tasks + file list | Confirm scope before approving |
-| Build | File changes | `/diff` — confirm only planned files changed |
+| Build | File changes | `/diff` (experimental) or `git --no-pager diff` — confirm only planned files changed |
 | Review | `[PASS]`/`[CONCERN]`/`[BLOCK]` per category | Address all BLOCKs before continuing |
 | Test | Test run output (pass count, coverage delta) | Zero regressions; new tests for new behaviour |
 | Ship | PR URL + description | PR description references the plan |

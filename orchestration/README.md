@@ -163,7 +163,7 @@ Each external CLI has its own quirks when called non-interactively (e.g., from a
 |---|---|---|
 | `claude` | `claude -p "PROMPT"` | Primary reasoning/orchestrator calls |
 | `codex` | Linux/macOS/Git Bash: `codex exec --skip-git-repo-check "PROMPT" < /dev/null` · PowerShell: `Get-Content -Raw prompt.txt \| codex exec --skip-git-repo-check -` or `cmd /c 'codex exec --skip-git-repo-check "PROMPT" < NUL'` | PowerShell has no `<` stdin redirect; must close/pipe stdin or Codex blocks on "Reading additional input from stdin...". `codex exec` accepts `-` to read the prompt from stdin. |
-| `cursor-agent` | `cursor-agent -f -p "PROMPT"` | `-f` (trust) is required or it exits with "Workspace Trust Required"; add `--force` to allow file edits |
+| `cursor-agent` | `cursor-agent -f -p "PROMPT"` | `-f` (= `--force`) skips the "Workspace Trust Required" prompt and force-allows commands; use `--trust` instead for a trust-only (no force) run |
 | `agy` | `agy -p "PROMPT"` (optionally `--sandbox`) | Antigravity CLI — runs multiple models (Gemini 3.x/Claude/GPT-OSS) behind one CLI |
 
 > Recommended practice: after editing, cross-review the diff with a second CLI (e.g., `cursor-agent -f -p` for an independent audit, `codex exec ... < /dev/null` for a schema/consistency pass) and only apply changes ≥2 tools agree on. See [Quad-CLI Consensus Gate](skills/quad-cli-consensus-gate.md) for an automated version of this pattern.
@@ -179,7 +179,7 @@ agy --version
 
 # 2. Try the simplest orchestration (Pattern 1)
 # From within a Copilot CLI session, delegate to Codex:
-codex "Generate a TypeScript function that validates email addresses"
+'Generate a TypeScript function that validates email addresses' | codex exec --skip-git-repo-check -
 
 # 3. Try multi-agent review (see examples/full-workflow.md)
 ```

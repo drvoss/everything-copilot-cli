@@ -10,7 +10,7 @@ tools:
   - view
   - edit
   - create
-  - task (explore)
+  - task
   - exit_plan_mode
 ---
 
@@ -31,7 +31,7 @@ components. It is the first agent to invoke before delegating to specialized age
 - A refactor spans many files and needs a safe ordering
 - You need to coordinate work across several sub-agents (architect, TDD, etc.)
 - The user explicitly asks to "plan", "break down", or "scope" a task
-- Copilot's Plan Mode (Shift+Tab) is activated and needs structured input
+- Copilot's Plan Mode (Shift+Tab cycle, `/plan`, or `--plan`) is activated and needs structured input
 
 ## How It Works
 
@@ -122,7 +122,7 @@ Parallel (both depend on api-endpoint but not each other):
 
 ## Copilot CLI Integration
 
-- **Plan Mode**: When the user presses Shift+Tab, Copilot enters plan mode. This agent
+- **Plan Mode**: When the user cycles into plan mode with Shift+Tab (or runs `/plan`), this agent
   produces the structured plan that feeds into that workflow.
 - **agent_type**: `general-purpose` – needs full tool access to explore, write plans,
   and manage SQL state.

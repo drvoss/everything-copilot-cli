@@ -1,8 +1,9 @@
 {
-  "servers": {
+  "mcpServers": {
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"],
+      "tools": ["*"],
       "env": {},
       "_description": "Context7 — injects up-to-date library documentation into the LLM context. Add 'use context7' to any prompt to activate. No API key required for basic use.",
       "_usage": "In any Copilot CLI prompt, append 'use context7' to get current docs for the library you are using.",

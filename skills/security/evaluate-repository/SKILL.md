@@ -1,6 +1,6 @@
 ---
 name: evaluate-repository
-description: Use when you need a comprehensive health scorecard of a codebase — scores security, code quality, test coverage, documentation, and AI agent governance across 7 dimensions with a prioritized remediation plan.
+description: Use when you need a security health scorecard of a codebase — scores 7 dimensions (secrets, dependencies, input validation, auth, error handling, supply chain, and AI agent governance) with a prioritized remediation plan.
 metadata:
   category: security
   agent_type: code-review

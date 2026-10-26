@@ -1,7 +1,7 @@
 ---
 name: <agent-name>
 description: <one-line description of the specialist's focus>
-agent_type: general-purpose   # explore | task | general-purpose | code-review
+agent_type: general-purpose   # explore | task | general-purpose | code-review | research | security-review | rubber-duck
 model: claude-sonnet-5.5      # see model selection guide below
 tools:
   - grep

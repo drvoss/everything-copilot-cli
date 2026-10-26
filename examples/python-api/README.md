@@ -14,11 +14,11 @@ auth. The instructions prevent AI from generating synchronous SQLAlchemy pattern
 python-api/
 ├── .github/
 │   └── copilot-instructions.md   ← copy this to your project
-├── app/
+├── src/
 │   ├── api/
 │   │   └── v1/
-│   │       ├── endpoints/        # FastAPI routers
-│   │       └── deps.py           # Dependency injection (get_db, get_current_user)
+│   │       ├── routes/           # FastAPI routers
+│   │       └── dependencies.py   # Dependency injection (get_db, get_current_user)
 │   ├── core/
 │   │   ├── config.py             # Pydantic Settings
 │   │   └── security.py           # JWT utilities

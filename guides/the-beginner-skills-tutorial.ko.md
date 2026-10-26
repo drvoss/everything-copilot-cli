@@ -336,6 +336,8 @@ built-in skills만 보이고 project agents가 안 보이면 `everything-copilot
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
+그다음 5단계를 다시 수행해 plain/guided 복사본에도 다시 설치한 파일이 반영되게 하세요.
+
 ---
 
 ## 다음 읽을거리

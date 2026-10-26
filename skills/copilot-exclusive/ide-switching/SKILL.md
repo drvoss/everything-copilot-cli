@@ -13,8 +13,7 @@ metadata:
 GitHub Copilot exists in **both VS Code and the terminal** under a single subscription and
 unified platform. You can start a conversation in VS Code's Copilot Chat, switch to the CLI
 for batch automation, and return to VS Code for visual debugging — all with the same model
-access, same MCP servers, and same GitHub integration. Claude Code is terminal-only with no
-IDE counterpart; switching contexts means losing your AI assistant entirely.
+access, same MCP servers, and same GitHub integration. Claude Code can connect to an IDE from the terminal, but Copilot is one product with native chat in both VS Code and the CLI.
 
 ## When to Use
 
@@ -67,11 +66,12 @@ editor-specific config you standardize on:
 ```json
 // .mcp.json
 {
-  "servers": {
+  "mcpServers": {
     "my-api": {
       "command": "npx",
       "args": ["my-api-mcp-server"],
-      "env": { "API_KEY": "${env:MY_API_KEY}" }
+      "tools": ["*"],
+      "env": { "API_KEY": "${MY_API_KEY}" }
     }
   }
 }

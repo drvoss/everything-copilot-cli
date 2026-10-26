@@ -14,7 +14,7 @@ Copilot CLI maintains a **cross-session history store** — a read-only SQLite d
 (`session_store`) that contains conversation history, file references, and full-text search
 across all your past sessions. Combined with `/resume` to continue previous sessions and
 session artifacts stored in `files/`, this creates persistent memory across your development
-workflow. Claude Code sessions are ephemeral — when a session ends, its context is gone.
+workflow. Claude Code can also continue and resume sessions; this skill covers Copilot's own session history, artifacts, and Chronicle.
 
 ## When to Use
 
@@ -44,14 +44,12 @@ including conversation history, file state, and session database.
 Start broad with natural-language history lookup:
 
 ```text
-/experimental on
-/chronicle "authentication work from last week"
-/chronicle "Redis caching setup"
-/chronicle "what did we decide about the payment module architecture?"
+/chronicle search authentication work from last week
+/chronicle search Redis caching setup
+/chronicle search payment module architecture decision
 ```
 
-If `/chronicle` is unavailable in your current build, enable experimental commands first.
-Use `/chronicle` to find the most relevant sessions, decisions, or artifacts quickly. Once you
+Use `/chronicle search` to find the most relevant sessions, decisions, or artifacts quickly. Once you
 know which session matters, switch to SQL when you need exact filtering or reproducible queries.
 
 #### Option B: SQL via `session_store`
@@ -216,7 +214,7 @@ Guardrails:
 
 - **Use /resume for continuity**: Don't re-explain context. Resume picks up
   your full conversation and state.
-- **Start with /chronicle, drill with SQL**: use `/chronicle` for fast discovery, then query
+- **Start with /chronicle, drill with SQL**: use `/chronicle search` for fast discovery, then query
   `search_index` or session tables when you need precision.
 - **Name your sessions**: Use descriptive first messages so sessions are easy
   to find later. "Set up payment processing" is better than "help me code."

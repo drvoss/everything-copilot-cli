@@ -36,7 +36,7 @@ Write like a teammate handing off to another builder:
 | `contexts/` | Context definitions for scoped execution |
 | `mcp-configs/` | Model Context Protocol server configurations |
 | `guides/` | Documentation and usage guides |
-| `examples/` | Complete example projects (Next.js, Python, .NET, monorepo) |
+| `examples/` | Example copilot-instructions per project type (Next.js, Python, .NET, monorepo) |
 | `scripts/` | Validation, setup, and utility scripts |
 | `tests/` | Configuration validation tests |
 
@@ -69,7 +69,7 @@ Skills are composable capabilities that agents can invoke. They are organized by
 
 Skills follow the [agentskills.io](https://agentskills.io) spec: each skill lives in a
 `skill-name/SKILL.md` directory, not a flat `.md` file. This ensures compatibility with
-`agy skills install`, Codex CLI, and other skill-compatible tools.
+Antigravity CLI (`agy`), Codex CLI, and other skill-compatible tools.
 
 See [`skills/README.md`](skills/README.md) for the full catalog and installation instructions.
 
@@ -143,7 +143,7 @@ Create a Markdown file in `agents/` with this structure:
 ---
 name: agent-name
 description: One-line description of what this agent does
-agent_type: general-purpose | explore | task | code-review
+agent_type: general-purpose | explore | task | code-review | research | security-review | rubber-duck
 model: claude-sonnet-5.5 | gpt-6-luna | claude-haiku-4.5
 tools:
   - grep
@@ -216,13 +216,6 @@ Create a Markdown file in the appropriate `rules/` subdirectory:
 - `rules/languages/` for language-specific rules (e.g., `typescript.md`, `python.md`)
 
 ````markdown
----
-name: rule-name
-scope: common | language-specific
-language: typescript | python | go | csharp  # only for language-specific
-severity: error | warning | info
----
-
 # Rule Name
 
 ## Description
@@ -332,8 +325,9 @@ Map repository agents to Copilot CLI's built-in agent types:
 |-------------------|----------|-------------------|
 | `explore` | Codebase understanding, file discovery, reading configs | Used by: planner (analysis phase), doc-updater (discovery) |
 | `task` | Builds, tests, linting, dependency installs | Used by: build-error-resolver, tdd-guide (test runs) |
-| `general-purpose` | Complex multi-step implementation, refactoring | Used by: architect, refactor-cleaner, security-reviewer |
-| `code-review` | Reviewing changes, PR feedback | Used by: code-reviewer, security-reviewer |
+| `general-purpose` | Complex multi-step implementation, refactoring | Used by: architect, planner, tdd-guide, doc-updater, refactor-cleaner |
+| `code-review` | Reviewing changes, PR feedback | Used by: code-reviewer |
+| `security-review` | Security-focused review of changes | Used by: security-reviewer |
 
 ### Agent Type Selection Guide
 
@@ -428,7 +422,7 @@ All contributions must follow the rules defined in `rules/`:
 
 - **Commit format**: Use conventional commits (`feat:`, `fix:`, `docs:`, `chore:`)
 - **File naming**: Use kebab-case for all Markdown files (e.g., `build-error-resolver.md`)
-- **Frontmatter**: All agent, skill, and rule files must include YAML frontmatter
+- **Frontmatter**: Agent and skill files must include YAML frontmatter; rule files are plain Markdown
 - **Line length**: Markdown lines should wrap at 100 characters for readability
 - **Links**: Use relative links within the repository
 
@@ -450,7 +444,7 @@ Language rules apply when writing example code or scripts:
 Run the validation suite before committing:
 
 ```bash
-# Validate all configuration files against schemas
+# Validate required frontmatter fields in all configuration files
 npm run validate
 
 # Lint all Markdown files
@@ -463,9 +457,7 @@ npm test
 ### What Gets Validated
 
 - **Frontmatter**: Required fields present and correctly typed
-- **Internal links**: All cross-references resolve to existing files
-- **Agent references**: Agents referenced in orchestration patterns exist in `agents/`
-- **Skill references**: Skills referenced by agents exist in `skills/`
+- **Internal links**: All cross-references resolve to existing files (`npm test`, tests/markdown-links.test.js)
 
 ### Adding Tests
 
@@ -502,12 +494,6 @@ feat(agents): add security-reviewer agent definition
 fix(rules): correct TypeScript rule for strict null checks
 docs(guides): add getting-started guide for new contributors
 chore(schemas): update agent schema with model field
-```
-
-Always include the Co-authored-by trailer when Copilot assists:
-
-```text
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
 ```
 
 ### Pull Request Guidelines

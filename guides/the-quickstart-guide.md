@@ -111,14 +111,9 @@ Try these basic commands:
 
 ## Step 4: Try Agent Modes
 
-Copilot CLI always includes Interactive and Plan modes. Autopilot is currently an
-experimental mode, so enable experimental features first if you want to try it:
+Copilot CLI includes Interactive, Plan, and Autopilot modes.
 
-```text
-/experimental on
-```
-
-Then switch between modes with **Shift+Tab**:
+Switch between modes with **Shift+Tab**:
 
 | Mode | When to Use | Behavior |
 |---|---|---|
@@ -169,10 +164,10 @@ These commands work inside any Copilot CLI session:
 /add-dir ./src      # Allow file access; also trusts its .github/skills and .github/agents
 /clear              # Clear conversation history
 /diff               # Review current changes
-/review             # Review implementation against spec or plan
+/review             # Run the code-review agent on current changes
 /init               # Initialize Copilot setup for this project
 /plugin install     # Install a community plugin
-/chronicle          # Standup reports & session history (experimental: /experimental on)
+/chronicle standup  # Standup report from session history
 /help               # Show all available commands
 ```
 

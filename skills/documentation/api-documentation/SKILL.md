@@ -144,7 +144,7 @@ npx ts-to-openapi --input src/types/ --output docs/openapi.yaml
 
 ```powershell
 # 1. Find all route files
-glob pattern="src/routes/**/*.ts"
+# (Copilot glob tool) pattern="src/routes/**/*.ts"
 
 # 2. For each route file, extract endpoints and their handlers
 grep -rn "router\." src/routes/users.ts -A 3

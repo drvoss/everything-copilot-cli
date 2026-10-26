@@ -93,7 +93,7 @@ This guide starts with five cross-AI orchestration patterns, from simple to comp
 | 1 | [Shell Invocation](../orchestration/patterns/shell-invocation.md) | Low | None | Quick delegation to another tool |
 | 2 | [MCP Bridge](../orchestration/patterns/mcp-bridge.md) | Medium | Config file | Structured tool communication |
 | 3 | [Message IPC](../orchestration/patterns/message-ipc.md) | Medium | File/pipe setup | Real-time inter-process coordination |
-| 4 | [Pipeline](../orchestration/patterns/pipeline.md) | High | Script setup | Sequential multi-stage workflows |
+| 4 | [Pipeline](../orchestration/patterns/pipeline.md) | Medium | Script setup | Sequential multi-stage workflows |
 | 5 | [Agent Council](../orchestration/patterns/agent-council.md) | High | Multi-tool setup | Multi-agent consensus and debate |
 
 **Start with Pattern 1.** Graduate to higher patterns only when you need the extra capability. For the full 11-pattern catalog, see `orchestration/README.md`.

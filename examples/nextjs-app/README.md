@@ -26,7 +26,7 @@ nextjs-app/
 │   ├── lib/
 │   │   ├── db.ts                 # Prisma client singleton
 │   │   └── auth.ts               # Auth.js configuration
-│   ├── server/                   # Server-only code (actions, queries)
+│   ├── actions/                  # Server Actions
 │   └── types/
 ├── prisma/
 │   └── schema.prisma

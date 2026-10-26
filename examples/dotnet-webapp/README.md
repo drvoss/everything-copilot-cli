@@ -26,7 +26,7 @@ dotnet-webapp/
 │   ├── Infrastructure/           # EF Core, external services (refs Application)
 │   │   ├── Persistence/
 │   │   └── Services/
-│   └── WebApi/                   # Controllers, middleware, DI registration
+│   └── Api/                      # Controllers, middleware, DI registration
 │       ├── Controllers/
 │       └── Program.cs
 ├── tests/

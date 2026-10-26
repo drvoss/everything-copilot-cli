@@ -7,7 +7,6 @@ metadata:
   category: development
   agent_type: general-purpose
   origin: mattpocock/skills
-keep-coding-instructions: true
 ---
 
 # Implement

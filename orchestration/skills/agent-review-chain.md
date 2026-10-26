@@ -33,7 +33,7 @@ Implement a rate limiting middleware for Express with:
 - TypeScript with full type safety
 "@
 
-$implementation = codex exec --approval-mode suggest $spec
+$implementation = codex exec --skip-git-repo-check --sandbox read-only $spec
 
 # Save checkpoint
 $implementation | Out-File .review-chain/01-implementation.ts -Encoding utf8
@@ -139,10 +139,7 @@ git commit -m "feat: add sliding window rate limiter
 - Redis-based sliding window algorithm
 - Configurable per-route limits
 - IP and API-key based limiting
-- Full TypeScript types
-
-Co-authored-by: Codex <codex@openai.com>
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+- Full TypeScript types"
 
 # Create PR with review context
 $prBody = @"
@@ -188,7 +185,7 @@ New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
 
 # ─── Stage 1: Implementation (Codex) ───
 Write-Host "`n🔨 Stage 1/4: Implementation (Codex CLI)" -ForegroundColor Green
-$code = codex exec --approval-mode suggest $Spec
+$code = codex exec --skip-git-repo-check --sandbox read-only $Spec
 $code | Out-File "$OutputDir/implementation.ts" -Encoding utf8
 
 # ─── Stage 2: Architecture Review (Claude) ───

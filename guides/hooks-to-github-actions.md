@@ -2,7 +2,7 @@
 
 > **Claude Code → Copilot CLI Migration Guide: Hooks Edition**
 >
-> **⚠️ Updated 2026-07-20 (Copilot CLI v1.0.72+ / weekly cycle correction):** earlier revisions of
+> **⚠️ Updated 2026-07-20 (weekly cycle correction, checked against Copilot CLI v1.0.72):** earlier revisions of
 > this guide said Copilot CLI has no in-session hook system. **That is no longer accurate.**
 > Copilot CLI now ships a real, documented hook system with 14 events — including a `preCompact`
 > hook (yes, Copilot now has this too) and a `notification` hook — configured via JSON files,> with a `preToolUse` hook that can **allow or deny tool executions**, a direct first-party
@@ -39,7 +39,7 @@ Full supported event list (14 events), including whether stdout output is proces
 |---|---|---|
 | `sessionStart` | A new or resumed session begins | Optional `additionalContext` injection |
 | `sessionEnd` | The session terminates | No |
-| `userPromptSubmitted` | The user submits a prompt | No |
+| `userPromptSubmitted` | The user submits a prompt | No for command/HTTP hooks (`modifiedPrompt` is SDK-only) |
 | `userPromptTransformed` | After the runtime transforms a submitted prompt into model-facing content | Yes — mutation-only: rewrites content, cannot block or handle the turn |
 | `preToolUse` | Before each tool executes | Yes — allow, deny, ask, or modify |
 | `permissionRequest` | Before the permission service runs (rules engine, session approvals, auto-allow/auto-deny, user prompting) | Yes — allow or deny programmatically, short-circuiting the normal permission flow |
@@ -83,9 +83,9 @@ Hook output is one JSON object on stdout, and each event has its own field contr
 | `sessionStart`, `subagentStart`, `notification` | `additionalContext` | string | Context injected into the relevant session or subagent |
 
 CLI v1.0.76 release notes also mention `modifiedPrompt` and `responseContent` from a
-`userPromptSubmitted` hook, but the official reference says that event's output is not processed
-and documents neither field. Treat both as changelog-only and unsupported as a stable contract
-until runtime testing resolves the conflict. Earlier v1.0.44 and v1.0.65 release notes also describe
+`userPromptSubmitted` hook. The reference documents `modifiedPrompt` for `userPromptSubmitted`, but
+only SDK programmatic hooks honor it; command and HTTP config-file hooks have their output dropped
+(`responseContent` is mentioned only as a value that is ignored). Earlier v1.0.44 and v1.0.65 release notes also describe
 handling the request directly and injecting `additionalContext`, so this is a longer changelog-only
 history rather than a single recent claim.
 

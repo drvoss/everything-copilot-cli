@@ -61,7 +61,7 @@ claude -p `
 
 ```powershell
 # Best for: Rapid implementation
-codex exec --skip-git-repo-check --full-auto `
+codex exec --skip-git-repo-check --sandbox workspace-write `
   "Implement a complete CRUD API for the User model:
    - GET/POST/PUT/DELETE endpoints
    - Input validation with Zod
@@ -244,7 +244,7 @@ async def _invoke_agent(agent: Agent, prompt: str) -> TaskResult:
         Agent.CLAUDE: ["claude", "-p", prompt],
         Agent.CODEX: ["codex", "exec", "--skip-git-repo-check", prompt],
         Agent.AGY: ["agy", "-p", prompt],
-        Agent.COPILOT: ["gh", "copilot", "suggest", prompt],
+        Agent.COPILOT: ["copilot", "-p", prompt, "-s"],
     }
 
     cmd = commands[agent]

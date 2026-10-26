@@ -1,6 +1,6 @@
 # Example: Full Multi-AI Workflow
 
-> **Scenario:** Building a complete real-time notification system from scratch — from planning to PR — using all four AI tools in a coordinated workflow.
+> **Scenario:** Building a complete real-time notification system from scratch — from planning to PR — using three AI tools (Copilot, Claude, Codex) in a coordinated workflow.
 
 ## The Workflow
 
@@ -191,8 +191,8 @@ Copilot CLI delegates implementation to Codex CLI, feeding it Claude's architect
 # Read Claude's architecture
 $arch = Get-Content .workflow/02-architecture.md -Raw
 
-# Codex implements the full design in full-auto mode
-codex exec --skip-git-repo-check --full-auto @"
+# Codex implements the full design (workspace-write sandbox)
+codex exec --skip-git-repo-check --sandbox workspace-write @"
 Implement the notification system based on this architecture document.
 
 ## Architecture
@@ -347,7 +347,7 @@ Copilot CLI creates the branch, commits, runs CI, and opens a PR:
 
 ```powershell
 # Generate tests first
-codex exec --skip-git-repo-check --full-auto `
+codex exec --skip-git-repo-check --sandbox workspace-write `
   "Generate comprehensive Jest tests for the notification system. 
    Cover: notificationService, all channels, routes, WebSocket server.
    Mock Redis and Prisma. Include edge cases."
@@ -383,14 +383,12 @@ Multi-AI Workflow:
 - Architecture: Claude Code (200K context analysis)
 - Implementation: Codex CLI (GPT-5 generation)
 - Security Review: Claude Code (vulnerability audit)
-- Shipping: Copilot CLI (PR management)
-
-Co-authored-by: Codex <codex@openai.com>
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+- Shipping: Copilot CLI (PR management)"
 
 # Create PR with full context
 $archDoc = Get-Content .workflow/02-architecture.md -Raw | Select-Object -First 50
 $secReview = Get-Content .workflow/04-security-review.json -Raw
+$fence = '```'   # literal fence for the PR body (single quotes keep the backticks)
 
 gh pr create `
   --title "feat: real-time notification system (WebSocket + Email + In-App)" `
@@ -420,9 +418,9 @@ $archDoc
 <details>
 <summary>Click to expand security review</summary>
 
-\`\`\`json
+${fence}json
 $secReview
-\`\`\`
+$fence
 
 </details>
 
@@ -436,13 +434,13 @@ $secReview
 | 5. Ship | Copilot CLI | This PR | ✅ |
 
 ### Files Changed
-- \`src/types/notification.ts\` — TypeScript interfaces
-- \`src/services/notificationService.ts\` — Core notification router
-- \`src/services/channels/\` — WebSocket, Email, In-App channels
-- \`src/routes/notifications.ts\` — REST API endpoints
-- \`src/ws/notificationServer.ts\` — WebSocket server
-- \`src/jobs/emailDigest.ts\` — Email digest cron job
-- \`tests/\` — Comprehensive test suite
+- ``src/types/notification.ts`` — TypeScript interfaces
+- ``src/services/notificationService.ts`` — Core notification router
+- ``src/services/channels/`` — WebSocket, Email, In-App channels
+- ``src/routes/notifications.ts`` — REST API endpoints
+- ``src/ws/notificationServer.ts`` — WebSocket server
+- ``src/jobs/emailDigest.ts`` — Email digest cron job
+- ``tests/`` — Comprehensive test suite
 "@
 
 Write-Host "✅ Phase 5 complete: PR created!"

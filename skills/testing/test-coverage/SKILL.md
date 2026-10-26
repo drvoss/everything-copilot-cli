@@ -68,7 +68,7 @@ Focus testing effort where it matters most:
 
 For each uncovered function or branch:
 
-```powershell
+```text
 # View the uncovered code
 # Coverage report shows line numbers — use view tool to see the code
 
@@ -162,7 +162,7 @@ prompt: "Run 'npm test -- --coverage' and report the coverage summary. List any 
 | Rationalization | Reality |
 |----------------|---------|
 | "80% coverage is good enough" | 80% is the minimum. What matters more is which 20% isn't covered. |
-| "100% coverage is impractical" | Core business logic and security-critical code should target 100% branch coverage. |
+| "100% coverage is impractical" | Core business logic and security-critical code should still target 90%+ branch coverage. |
 | "High coverage means high quality" | Coverage measures lines executed, not assertion quality. |
 | "This file is hard to test" | Hard-to-test code is a signal of poor design. Improve the interface. |
 

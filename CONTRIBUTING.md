@@ -12,7 +12,7 @@ Thank you for your interest in contributing! This project aims to be the definit
    ---
    name: my-agent
    description: What this agent does
-   agent_type: explore | task | general-purpose | code-review
+   agent_type: explore | task | general-purpose | code-review | research | security-review | rubber-duck
    model: recommended-model
    tools:
      - list of tools
@@ -28,8 +28,7 @@ Thank you for your interest in contributing! This project aims to be the definit
 2. Include YAML frontmatter with `name`, `description`, and `metadata.category`
 3. Recommended: add `metadata.agent_type` for agent-specific skills
 4. Valid categories: `development`, `testing`, `security`, `documentation`, `copilot-exclusive`, `workflow`, `product`, `content`
-5. For development-category skills, consider `keep-coding-instructions: true` when the skill should keep applying during implementation
-6. Run `npm run validate && npm run lint:md && npm test` to validate
+5. Run `npm run validate && npm run lint:md && npm test` to validate
 
 ### Adding a New Rule
 

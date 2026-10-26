@@ -82,7 +82,8 @@ $newSection = @"
 "@
 
 $changelog = Get-Content CHANGELOG.md -Raw
-$changelog = $changelog -replace '(## \[Unreleased\])', "$newSection`$1"
+# Insert after the whole [Unreleased] block, before the first released version heading
+$changelog = [regex]::new('(?m)^(?=## \[\d)').Replace($changelog, ($newSection.Trim() + "`n`n"), 1)
 Set-Content CHANGELOG.md $changelog
 ```
 

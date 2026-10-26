@@ -11,8 +11,9 @@ metadata:
 ## What It Is
 
 **Background Delegation** hands off tasks to a cloud-based Copilot coding agent on GitHub.
-Your terminal is immediately freed. The agent works on a branch in GitHub, and you review the
-result there — as a branch diff or as a PR when you ask Copilot to create one.
+Your terminal is immediately freed. The agent works on a branch in GitHub and opens an
+AI-generated pull request (against the current branch by default; choose another target with
+/delegate --base). You review the result in that PR.
 
 This is distinct from async PowerShell (for local long-running processes like builds/servers),
 which still uses `mode: "async"` in the powershell tool.
@@ -90,8 +91,7 @@ caused real prompt-mode hangs.
 
 ### 3. Review the Branch or PR
 
-By default, review the resulting work on GitHub. Depending on how you prompted the task,
-Copilot may leave the work on a branch for diff review or create a PR when you ask for one.
+By default, review the resulting pull request on GitHub.
 Do not treat terminal polling as the primary review path; the GitHub branch or PR is the
 canonical output.
 

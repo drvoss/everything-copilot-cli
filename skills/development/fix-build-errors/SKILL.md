@@ -65,7 +65,7 @@ For import errors:
 
 ```powershell
 # Check if the module exists
-glob pattern="**/*moduleName*"
+# (Copilot glob tool) pattern="**/*moduleName*"
 
 # Check if it's installed
 npm ls module-name 2>&1

@@ -223,8 +223,8 @@ Copilot CLI provides these worktree entry points (command reference, checked 202
 `/worktree`, `/new worktree`, and `--worktree` branch from the current checkout (`HEAD`) by
 default. This became consistent in CLI v1.0.79; previously, `--worktree` started from the remote
 default branch. To retain that older baseline intentionally, set `worktreeBaseRef` to
-`"defaultBranch"` so new worktrees branch from the remote default branch instead. The reference
-does not document `worktreeBaseRef` for `/move`.
+`"defaultBranch"` so new worktrees branch from the remote default branch instead. The setting
+also applies to `/move`; `/fork worktree` always branches off `HEAD` regardless of it.
 
 `--worktree` conflicts with `--resume`, `--continue`, and `--connect`; do not combine those flags.
 Use these entry points when creation inside the session is the desired operation. For an existing

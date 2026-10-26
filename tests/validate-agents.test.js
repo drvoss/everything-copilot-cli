@@ -12,6 +12,7 @@ const VALID_TYPES = [
   "code-review",
   "research",
   "security-review",
+  "rubber-duck",
 ];
 
 function parseFrontmatter(content) {

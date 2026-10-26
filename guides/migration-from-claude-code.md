@@ -15,15 +15,15 @@ Copilot CLI equivalent:
 |------------|------------|-------|
 | `CLAUDE.md` | `.github/copilot-instructions.md` | Runtime project instructions; optionally keep a fuller `COPILOT-INSTRUCTIONS.md` reference guide in the repo root |
 | `AGENTS.md` | `AGENTS.md` + skill files | Direct mapping; Copilot also uses `skills/` directory |
-| `/agent-name` (slash command) | `agent_type` parameter in task tool | Architecture differs — Copilot uses 4 agent types |
-| Hooks (pre-tool, post-tool) | Native Copilot hooks (`preToolUse`/`postToolUse`/etc.) | Direct equivalent as of CLI v1.0.72+ — see [hooks guide](./hooks-to-github-actions.md); Git Hooks/Actions/prompt guards remain useful for CI-level, team-wide enforcement |
+| `/agent-name` (slash command) | `agent_type` parameter in task tool | Architecture differs — Copilot uses 7 built-in agent types (plus custom agents) |
+| Hooks (pre-tool, post-tool) | Native Copilot hooks (`preToolUse`/`postToolUse`/etc.) | Direct equivalent — see [hooks guide](./hooks-to-github-actions.md); Git Hooks/Actions/prompt guards remain useful for CI-level, team-wide enforcement |
 | Skills (`.claude/skills/`) | Skills (`skills/` directory) | Nearly identical format! Markdown + YAML frontmatter |
 | Slash commands (`/help`, `/clear`) | Slash commands (`/help`, `/clear`) | Direct mapping for most commands |
-| MCP config (`.mcp.json`) | workspace `.mcp.json` / user `~/.copilot/mcp-config.json` | Similar file name, different schema and optional user-level config |
+| MCP config (`.mcp.json`) | workspace `.mcp.json` / user `~/.copilot/mcp-config.json` | Same file name and `mcpServers` root key; add a `tools` list per server; optional user-level config |
 | `/compact` | `/compact` | Same name — summarizes history, optionally with focus instructions (`/clear` starts a new conversation instead) |
 | `.claude/rules/**/*.md` | Read as-is (v1.0.89+) | Copilot CLI treats them like `.github/instructions/**/*.instructions.md`; scope with `paths` or `applyTo` frontmatter |
 | Git worktrees (parallel) | `/worktree`, `/new worktree`, `/fork worktree`, `--worktree` | Native worktree commands; use Fleet mode when you want parallel orchestration on top |
-| `--dangerously-skip-permissions` | Autopilot mode | Better in Copilot — safer, more structured |
+| `--dangerously-skip-permissions` | `--allow-all` / `--yolo` | Same permission bypass; add `--autopilot` for unattended continuation |
 | `CLAUDE.md` hierarchy | `.github/copilot-instructions.md` | Recommended migration target for project runtime instructions; Copilot can also read other instruction files such as `CLAUDE.md` and `AGENTS.md` |
 | Context files | `contexts/` directory | Reusable context definitions |
 | Todo tracking (file-based) | SQL `todos` table | Better in Copilot — queryable, dependency-aware |
@@ -112,7 +112,6 @@ description: >
 metadata:
   category: development
   agent_type: general-purpose
-keep-coding-instructions: true
 ---
 ```
 
@@ -150,11 +149,12 @@ source path format here is `skills/<category>/<skill-name>/SKILL.md`.
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "github": {
       "command": "github-mcp-server",
       "args": ["--tools=all"],
-      "env": { "GITHUB_TOKEN": "${env:GITHUB_TOKEN}" }
+      "tools": ["*"],
+      "env": { "GITHUB_TOKEN": "${GITHUB_TOKEN}" }
     }
   }
 }
@@ -162,8 +162,8 @@ source path format here is `skills/<category>/<skill-name>/SKILL.md`.
 
 **Key differences:**
 
-- Root key changes from `mcpServers` to `servers`
-- Environment variables use `${env:VAR_NAME}` syntax
+- Root key stays `mcpServers` (only VS Code's `.vscode/mcp.json` uses `servers`)
+- Environment variables use `$VAR`, `${VAR}`, or `${VAR:-default}`; each local server needs a `tools` list (`["*"]` for all)
 - Root-level workspace config stays `.mcp.json`; user-specific config can move to `~/.copilot/mcp-config.json`
 
 Claude Code v2.1.117 notes that **agent** frontmatter `mcpServers` can load during `--agent`
@@ -177,7 +177,7 @@ separate GitHub MCP server at all.
 
 ### Step 4: Map Agent Invocations
 
-Claude Code uses named agents (16 types); Copilot CLI uses 4 agent types with model
+Claude Code uses named agents (16 types); Copilot CLI uses 7 built-in agent types (plus custom agents) with model
 overrides:
 
 | Claude Code Agent | Copilot CLI Equivalent |
@@ -186,7 +186,7 @@ overrides:
 | Test runner | `agent_type: "task"` |
 | Code implementer | `agent_type: "general-purpose"` |
 | Code reviewer | `agent_type: "code-review"` |
-| Security scanner | `agent_type: "code-review"` + security prompt |
+| Security scanner | `agent_type: "security-review"` |
 | Documentation writer | `agent_type: "general-purpose"` + doc prompt |
 | Architect | `agent_type: "general-purpose"` + model: `"claude-opus-5.5"` |
 
@@ -204,9 +204,9 @@ Claude Code hooks (pre-tool, post-tool, notification, stop) are **AI session lif
 callbacks** — they fire inside the AI session when the model calls a tool.
 
 > **⚠️ Updated 2026-07-20:** Copilot CLI now has its own native in-session hook system
-> (`sessionStart`, `sessionEnd`, `userPromptSubmitted`, `preToolUse`, `postToolUse`, `agentStop`,
-> `subagentStop`, `errorOccurred` — JSON files in `.github/hooks/*.json` or
-> `~/.copilot/hooks/*.json`). `preToolUse` can allow/deny a tool call directly, which is a
+> (14 events, including `sessionStart`, `userPromptSubmitted`, `preToolUse`, `postToolUse`, `preCompact`
+> and `agentStop` — JSON files in `.github/hooks/*.json` or `~/.copilot/hooks/*.json`; see the
+> [hooks guide](./hooks-to-github-actions.md)). `preToolUse` can allow/deny a tool call directly, which is a
 > first-party equivalent to Claude Code's `PreToolUse`. **Prefer the native hook first** for
 > anything that must react inside the session; use the Git/GitHub Actions/prompt-guard
 > alternatives below when you want CI-level, team-wide enforcement in addition to the local
@@ -379,7 +379,7 @@ Migrating to Copilot CLI unlocks 11 capabilities not available in Claude Code:
 | 5 | **Background Agents** | Async agents with completion notifications |
 | 6 | **SQL Session Database** | Structured state that survives compaction |
 | 7 | **Plan Mode** | Structured text planning with autopilot transition |
-| 8 | **Autopilot Mode** | Safer autonomous execution *(Experimental)* |
+| 8 | **Autopilot Mode** | Safer autonomous execution |
 | 9 | **Multi-AI Orchestration** | Use Claude Code, Codex, Hermes, Antigravity CLI (`agy`) as workers |
 | 10 | **Cross-Session Search** | FTS5 search across previous sessions |
 | 11 | **LSP Support** | Language-aware code navigation |
@@ -392,7 +392,7 @@ Be honest about what Claude Code does better:
 
 | # | Capability | Workaround in Copilot CLI |
 |---|-----------|--------------------------|
-| 1 | **16 Specialized Agents** | Use 4 types + model overrides + custom prompts |
+| 1 | **16 Specialized Agents** | Use 7 built-in agent types (plus custom agents) + model overrides + custom prompts |
 | 2 | **109 Curated Skills** | 109 curated skills in this repo; port your custom skills |
 | 3 | **Full Lifecycle Hooks** | Use Copilot's 14 native events first; complement them with startup scripts + SQL logging |
 | 4 | **AgentShield Security** | Use security-reviewer agent + security skills |
@@ -430,12 +430,13 @@ The recommended approach for teams in transition: **use both, with Copilot CLI a
 ```json
 // .mcp.json
 {
-  "servers": {
+  "mcpServers": {
     "claude-code": {
       "command": "claude",
-      "args": ["--mcp-server"],
+      "args": ["mcp", "serve"],
+      "tools": ["*"],
       "env": {
-        "ANTHROPIC_API_KEY": "${env:ANTHROPIC_API_KEY}"
+        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
       }
     }
   }
@@ -540,7 +541,7 @@ Use this checklist to track your migration progress:
 - [ ] Copy and adapt `CLAUDE.md` → `.github/copilot-instructions.md`
 - [ ] Port custom skills to `.github/skills/<skill-name>/SKILL.md` with updated frontmatter
 - [ ] Convert MCP configs to workspace `.mcp.json` or user `~/.copilot/mcp-config.json`
-- [ ] Map agent invocations to Copilot CLI's 4 agent types
+- [ ] Map agent invocations to Copilot CLI's 7 built-in agent types (plus custom agents)
 - [ ] Port hooks to native Copilot hooks (`.github/hooks/*.json`), falling back to Git Pre-commit Hooks/GitHub Actions/Prompt Guards only where there's no native event (see [hooks guide](./hooks-to-github-actions.md))
 - [ ] Set up Claude Code as MCP bridge (if keeping both tools)
 - [ ] Test key workflows (build, test, PR creation, code review)

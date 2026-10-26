@@ -334,6 +334,8 @@ built-in skill しか見えず project agent もない場合は、`everything-co
 npm run setup -- --target C:\copilot-lab\skills-lab-template --profile recommended
 ```
 
+その後 Step 5 をもう一度行い、plain と guided の copy にも再インストールしたファイルを反映させてください。
+
 ---
 
 ## 次に読むもの

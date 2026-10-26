@@ -10,7 +10,7 @@ tools:
   - edit
   - create
   - powershell
-  - task (explore)
+  - task
   - github-mcp-server-pull_request_read
   - github-mcp-server-list_commits
 ---

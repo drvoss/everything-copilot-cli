@@ -146,12 +146,11 @@ When giving Copilot context, always specify which package you are working in:
 - **`context-prime`** — Load cross-package type definitions before deep work
 - **`fix-github-issue`** — Trace the affected package(s) before implementing a fix
 - **`pr-multi-perspective-review`** — Critical for shared type changes (affects all consumers)
-- **`fan-out-parallel`** — Run the same audit across all packages simultaneously
 - **`commit-workflow`** — Scope commits to the affected package: `feat(@app/api): ...`
 
 ### Fan-Out Pattern for Monorepo Audits
 
-Use `fan-out-parallel` to audit all packages simultaneously:
+Use the fan-out-parallel pattern (`orchestration/patterns/fan-out-parallel.md`) to audit all packages simultaneously:
 
 ```powershell
 $packages = @("web", "api", "shared", "ui", "mobile")

@@ -11,8 +11,7 @@ tools:
   - edit
   - create
   - powershell
-  - task (explore)
-  - task (task)
+  - task
 ---
 
 # TDD Guide Agent

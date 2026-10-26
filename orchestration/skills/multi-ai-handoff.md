@@ -184,7 +184,7 @@ WHERE id = 'auth-refactor';
 | Capability Needed | Delegate To | Why |
 |-------------------|-------------|-----|
 | 200K context (full codebase) | Claude Code | Largest context window |
-| Fast code generation / boilerplate | Codex CLI | GPT-5 speed, full-auto mode |
+| Fast code generation / boilerplate | Codex CLI | GPT-5 speed, `--sandbox workspace-write` |
 | Image/diagram analysis | Antigravity CLI (`agy`) | Multimodal input |
 | Large document / screenshot digestion | Antigravity CLI (`agy`) | Multi-model backend, Google grounding |
 | GitHub PR / Issue / Actions | Stay in Copilot CLI | Native integration |

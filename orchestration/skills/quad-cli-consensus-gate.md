@@ -76,7 +76,7 @@ Hunk anchoring fixes both: any line inside the same changed hunk maps to the sam
 |---|---|---|---|
 | `claude` | `claude -p` | stdin | native executable or an explicitly resolved command shim |
 | `codex` | `codex exec --skip-git-repo-check` | stdin | Do not add `--output-schema`; the report schema has optional finding fields that Codex's schema mode cannot represent |
-| `cursor-agent` | `cursor-agent -f -p` | stdin | `-f` accepts workspace trust; `--force` is not needed for this read-only review |
+| `cursor-agent` | `cursor-agent -f -p` | stdin | `-f` (alias `--force`) clears the workspace-trust prompt and force-allows commands |
 | `agy` | `agy -p <prompt> --mode plan --sandbox --print-timeout <internal>` | argv for a native executable below 24,000 rendered UTF-16 units; otherwise an isolated file reference | A `.cmd`/`.ps1` shim always uses file-reference transport. Do not add `--json-schema`; default output is the compatible mode |
 
 Launcher resolution produces one of `native-exe`, `cmd-shim`, `ps1-shim`, or `not-found`. Native executables run directly. Command shims run as `cmd.exe /d /s /c <serialized command>`; PowerShell shims run as `powershell.exe -NoProfile -ExecutionPolicy Bypass -File <path>`. Missing commands are reported as `unavailable` without a retry.

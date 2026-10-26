@@ -8,7 +8,7 @@
 
 ```bash
 # 시크릿 스캔
-git diff --cached | grep -E "(?i)(api[_-]?key|password|secret|token)\s*[:=]\s*['\"][^'\"]{8,}"
+git diff --cached | grep -iE "(api[_-]?key|password|secret|token)\s*[:=]\s*['\"][^'\"]{8,}"
 
 # npm audit
 npm audit --audit-level=high

@@ -103,10 +103,11 @@ mockSend.mockResolvedValue({ id: 'mock-id' });
 jest.spyOn(logger, 'error').mockImplementation(() => {});
 
 // Date mock
+jest.useFakeTimers();
 jest.setSystemTime(new Date('2024-01-15'));
 
 // 복원
-afterEach(() => jest.restoreAllMocks());
+afterEach(() => { jest.restoreAllMocks(); jest.useRealTimers(); });
 ```
 
 ---

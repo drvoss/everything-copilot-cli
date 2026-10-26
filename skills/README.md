@@ -17,12 +17,12 @@ All skills in this repository follow the **[agentskills.io](https://agentskills.
 
 - **Portable**: Skills written here can be used in Claude Code, Hermes, and other agentskills.io-compatible runtimes with minimal adaptation
 - **Standard format**: The `SKILL.md` subdirectory layout (`skills/<category>/<skill-name>/SKILL.md`) is the canonical agentskills.io path
-- **Install from GitHub**: Any agentskills.io-compatible tool can install skills directly:
+- **Install from GitHub**: Install a skill from this repository into another agentskills.io-compatible runtime:
 
   ```bash
-  # Antigravity CLI (agy) — verify exact skill-install subcommand with `agy --help`;
-  # official successor to the retired standalone Gemini CLI (individual/free tier retired 2026-06-18)
-  agy skills install github:drvoss/everything-copilot-cli/skills/development/fix-github-issue
+  # Antigravity CLI (agy) — agy 1.4.7 has no `skills` subcommand (see `agy --help`);
+  # copy the skill directory manually, as for Claude Code below.
+  # Official successor to the retired standalone Gemini CLI.
 
   # Claude Code (manual copy — claude does not have a shell-level skills install command)
   # Copy the skill directory to your project's .claude/skills/ or user-level ~/.claude/skills/
@@ -76,7 +76,7 @@ Copilot CLI discovers skills from these locations in priority order:
 11. Organization or enterprise skills projected through the AHP relay and fetched when invoked
 
 Copy each skill directory beneath the chosen location, for example
-`.github/skills/<skill-name>/SKILL.md` or `~/.copilot/skills/<category>/<skill-name>/SKILL.md`.
+`.github/skills/<skill-name>/SKILL.md` or `~/.copilot/skills/<skill-name>/SKILL.md`.
 
 ### Codex CLI
 
@@ -91,8 +91,7 @@ Copy each skill directory beneath the chosen location, for example
 ### Antigravity CLI (agy)
 
 ```bash
-# Install directly from this repo using the skills command (verify exact subcommand with `agy --help`)
-agy skills install github:drvoss/everything-copilot-cli/skills/<category>/<skill-name>
+# agy 1.4.7 has no `skills` subcommand (see `agy --help`) — copy the skill directory manually.
 ```
 
 ---
@@ -145,9 +144,9 @@ fleet mode, plan mode, and GitHub integration.
 | [`copilot-memory`](copilot-exclusive/copilot-memory/SKILL.md) | Use when you need to understand, review, or curate GitHub Copilot's repository-level memory across CLI, cloud agent, and code review |
 | [`fleet-parallel`](copilot-exclusive/fleet-parallel/SKILL.md) | Use when you need to run the same task across many files or contexts in parallel — triggers /fleet mode for batch operations |
 | [`github-code-search`](copilot-exclusive/github-code-search/SKILL.md) | Use when you need real-world implementation examples or cross-repository context — search GitHub's global code index and reuse the results as grounded context |
-| [`github-issue-triage`](copilot-exclusive/github-issue-triage/SKILL.md) | Use when you have a backlog of unorganized GitHub Issues — bulk-labels, prioritizes, and assigns at scale |
+| [`github-issue-triage`](copilot-exclusive/github-issue-triage/SKILL.md) | Use when you have a backlog of unorganized GitHub Issues — bulk-labels and prioritizes at scale, and proposes assignees |
 | [`github-codespaces-efficiency`](copilot-exclusive/github-codespaces-efficiency/SKILL.md) | Use when optimizing GitHub Codespaces — faster startup, lower spend, slimmer devcontainers, right-sized machines, and tighter prebuild scope |
-| [`github-pr-workflow`](copilot-exclusive/github-pr-workflow/SKILL.md) | Use when creating, reviewing, or merging a PR — runs the full PR lifecycle through Copilot's built-in GitHub MCP |
+| [`github-pr-workflow`](copilot-exclusive/github-pr-workflow/SKILL.md) | Use when creating, updating, or managing a PR — reads PRs and reviews through Copilot's built-in GitHub MCP, and opens or merges them with `/pr` or `gh` |
 | [`ide-switching`](copilot-exclusive/ide-switching/SKILL.md) | Use when moving between VS Code and Copilot CLI — transfers context so you don't lose state when switching environments |
 | [`knowledge-curator`](copilot-exclusive/knowledge-curator/SKILL.md) | Use when recurring project lessons should be promoted from session context into durable instructions, docs, or decision records |
 | [`mcp-builder`](copilot-exclusive/mcp-builder/SKILL.md) | Use when you need to build a new MCP server — plan, implement, validate, reload, and test it end to end |
@@ -339,4 +338,4 @@ If you add a new category, update the shared allowlist in
 2. Add `SKILL.md` with required frontmatter (`name`, `description`, `metadata.category`)
 3. Follow the pattern of existing skills for content structure
 4. Add to this README's catalog table
-5. Run `npm run validate && npm run lint:md && npm test` before submitting a PR
+5. Run `npm run validate && npm run check:plugins && npm run lint:skills && npm run lint:plugins && npm run lint:md && npm test` (the same gates as CI) before submitting a PR

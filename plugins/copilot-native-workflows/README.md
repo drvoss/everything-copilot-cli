@@ -12,6 +12,8 @@ copilot plugin marketplace add drvoss/everything-copilot-cli
 copilot plugin install copilot-native-workflows@everything-copilot-cli
 ```
 
+Some skills refer to other skills and to `rules/` from the full collection; install `everything-copilot-cli@everything-copilot-cli` for those.
+
 ## Skills (9)
 
 - `plan-mode-mastery`

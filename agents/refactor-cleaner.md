@@ -9,8 +9,7 @@ tools:
   - view
   - edit
   - powershell
-  - task (explore)
-  - task (task)
+  - task
 ---
 
 # Refactor & Cleaner Agent

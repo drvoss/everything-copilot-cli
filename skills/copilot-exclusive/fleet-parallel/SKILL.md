@@ -145,8 +145,9 @@ behind the orchestrator.
 
 Sub-agent nesting has a product-level default limit that can change between CLI releases. For
 example, the Copilot CLI v1.0.71 changelog records that its default maximum nesting depth changed
-from 6 to 4; this is release evidence, not a value a brief should enforce. A concurrent-agent cap
-may also exist, but do not infer a Copilot value from another product's limit.
+from 6 to 4; this is release evidence, not a value a brief should enforce. Concurrency is also capped
+per plan (the command reference lists Free 2, Pro/Pro+ 4, Max 8, Business 16, Enterprise 32); new
+subagents are rejected until one finishes.
 
 Before dispatch, use the current session's `/help`, settings, and `copilot --help` to verify the
 effective limits instead of trusting a remembered documentation value. State that a batch needs
@@ -304,7 +305,7 @@ Fleet assigns one agent per file. Each agent:
 4. Writes the test file
 5. Runs the tests to verify they pass
 
-8 files × ~2 minutes each = ~2 minutes total (vs ~16 minutes sequential).
+8 files × ~2 minutes each = ~2 minutes total when your plan allows 8 concurrent subagents (about 4 minutes in two waves at the Pro cap of 4), vs ~16 minutes sequential.
 
 ### Parallel PR Review
 

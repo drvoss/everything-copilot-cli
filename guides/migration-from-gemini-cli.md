@@ -19,7 +19,7 @@
 | Binary name | `gemini` | `agy` |
 | Prompt flag | `--prompt "PROMPT"` | `-p "PROMPT"` |
 | Backend | Single model (Gemini) | Multi-model: Gemini 3.x, Claude, or GPT-OSS, selectable via `--model` |
-| Sandbox | Ambient system permissions by default | Sandboxed shell by default; `--sandbox` needed for file/network access |
+| Sandbox | Ambient system permissions by default | Tool permission prompts by default; `--sandbox` adds terminal restrictions (it does not grant access) |
 | Free tier | Individual tier retired 2026-06-18 | Current — check Google's official docs for licensing details |
 | Strengths documented here | Performance analysis, general prompting | Multimodal (screenshots/diagrams), large-document digestion, multi-model backend, Google grounding, background subagents |
 
@@ -39,13 +39,13 @@ output for anything it could not translate automatically.
 
 ## Step 2: Re-Verify Sandbox / Permission Behavior
 
-`agy` runs in a sandboxed shell by default, unlike Gemini CLI's ambient system permissions.
+`agy` asks for tool permissions, unlike Gemini CLI's ambient system permissions.
 A migrated plugin or hook that assumed it could touch files or the network directly **can fail
-silently** under Antigravity's sandbox until permissions are explicitly re-granted:
+silently** under Antigravity until its permission prompts are approved:
 
 ```powershell
-# If a migrated plugin needs file/network access, pass --sandbox explicitly
-agy -p "PROMPT" --sandbox
+# --sandbox only adds restrictions; if a migrated plugin is blocked, approve its permission prompts (or, in trusted automation only, use --dangerously-skip-permissions)
+agy -p "PROMPT"
 ```
 
 Do not assume a migrated plugin "just works" — re-test it once, in a low-stakes context,
@@ -94,7 +94,7 @@ accounts for that.
 | Symptom | Likely Cause | Fix |
 |---------|--------------|-----|
 | `agy: command not found` | Antigravity CLI not installed | Install per current Google documentation; this repo does not bundle it |
-| Migrated plugin silently does nothing | Sandbox blocking file/network access | Re-run with `--sandbox` and re-check permissions |
+| Migrated plugin silently does nothing | Permission prompt not approved, or `--sandbox` restricting access | Run without `--sandbox` and approve the permission prompts |
 | `agy --help` shows different flags than this guide | CLI version drift | Trust `agy --help` over this document; flags may change between releases |
 | Need the old single-model (Gemini-only) behavior | Multi-model backend defaults to a different model | Pin explicitly with `--model gemini` |
 

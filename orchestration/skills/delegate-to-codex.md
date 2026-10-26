@@ -28,8 +28,8 @@ codex exec --skip-git-repo-check "Create a TypeScript Express middleware for req
 ### Multi-File Scaffolding
 
 ```powershell
-# Generate multiple related files with full-auto mode
-codex exec --skip-git-repo-check --full-auto `
+# Generate multiple related files (workspace-write sandbox)
+codex exec --skip-git-repo-check --sandbox workspace-write `
   "Create a complete CRUD API for a 'Product' resource:
    - src/models/product.ts (Prisma model + TypeScript types)
    - src/routes/products.ts (Express routes: GET, POST, PUT, DELETE)
@@ -40,21 +40,17 @@ codex exec --skip-git-repo-check --full-auto `
    Use proper error handling, input validation, and TypeScript types throughout."
 ```
 
-### With Approval Modes
+### With Sandbox Modes
 
 ```powershell
-# suggest (default) — non-interactive preview only; codex exec has no --ask-for-approval flag
-# (that flag is top-level `codex` only and requires a value) — use --sandbox read-only
-# (the exec default) for a preview without applying changes. For real interactive
-# approval prompts, use the interactive `codex` command instead of `exec`.
+# read-only (the exec default) — preview without applying changes. codex exec has no
+# --ask-for-approval flag (that flag is top-level `codex` only and requires a value);
+# for real interactive approval prompts, use the interactive `codex` command instead of `exec`.
 codex exec --skip-git-repo-check --sandbox read-only "Add pagination to the users endpoint"
 
-# auto-edit — Codex applies changes automatically but doesn't run commands
-# workspace-write allows file edits without full command-execution auto-run; verify exact semantics with codex exec --help
+# workspace-write — model-generated commands may write inside the workspace (replaces the deprecated --full-auto)
+# --sandbox sets the policy for commands Codex runs; verify exact semantics with codex exec --help
 codex exec --skip-git-repo-check --sandbox workspace-write "Add error handling to all service methods"
-
-# full-auto — Codex applies changes and runs commands (tests, etc.)
-codex exec --skip-git-repo-check --full-auto "Add input validation and write tests for it"
 ```
 
 ### Capture Output for Pipeline
@@ -80,12 +76,13 @@ Add to your MCP configuration:
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "codex-bridge": {
-      "command": "node",
-      "args": ["orchestration/scripts/codex-bridge.js"],
+      "command": "codex",
+      "args": ["mcp-server"],
+      "tools": ["*"],
       "env": {
-        "OPENAI_API_KEY": "${env:OPENAI_API_KEY}"
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
       }
     }
   }
@@ -160,7 +157,7 @@ Add appropriate indexes for query performance.
 
 ```powershell
 # After Codex generates code, verify it compiles
-codex exec --skip-git-repo-check --full-auto "Generate the user service"
+codex exec --skip-git-repo-check --sandbox workspace-write "Generate the user service"
 
 # Check TypeScript compilation
 npx tsc --noEmit
@@ -174,7 +171,7 @@ if ($LASTEXITCODE -ne 0) {
 
 ```powershell
 # Generate tests and immediately verify they pass
-codex exec --skip-git-repo-check --full-auto `
+codex exec --skip-git-repo-check --sandbox workspace-write `
   "Generate unit tests for src/services/auth.ts"
 
 # Run the tests
@@ -191,7 +188,7 @@ if ($LASTEXITCODE -ne 0) {
 
 ```powershell
 # Full flow: Codex implements → verify → Copilot ships
-codex exec --skip-git-repo-check --full-auto "Implement the notification service"
+codex exec --skip-git-repo-check --sandbox workspace-write "Implement the notification service"
 
 # Verify
 npm run build && npm test
@@ -202,9 +199,7 @@ if ($LASTEXITCODE -eq 0) {
     git add -A
     git commit -m "feat: add notification service
 
-    Implemented by Codex CLI, verified with existing test suite.
-
-    Co-authored-by: Codex <codex@openai.com>"
+    Implemented by Codex CLI, verified with existing test suite."
     gh pr create --fill
 }
 ```
@@ -217,16 +212,14 @@ if ($LASTEXITCODE -eq 0) {
 |----------------|-------------|---------|
 | `exec` | Non-interactive command execution | `codex exec --skip-git-repo-check "prompt"` |
 | `--sandbox read-only` | Preview only, non-interactive (exec default) — no changes applied | `codex exec --skip-git-repo-check --sandbox read-only "prompt"` |
-| `--sandbox workspace-write` | Allow file edits without full command-execution auto-run | `codex exec --skip-git-repo-check --sandbox workspace-write "prompt"` |
-| `--full-auto` | Apply edits and run commands automatically | `codex exec --skip-git-repo-check --full-auto "prompt"` |
+| `--sandbox workspace-write` | Sandbox policy that lets Codex's commands write inside the workspace | `codex exec --skip-git-repo-check --sandbox workspace-write "prompt"` |
 | `--model` | Choose model variant | `codex exec --skip-git-repo-check --model o4-mini` |
-| `--notify` | Desktop notification on completion | `codex exec --skip-git-repo-check --notify "long task"` |
 
 ## Best Practices
 
 1. **Be specific about patterns** — Reference existing code files so Codex follows conventions
-2. **Use full-auto for trusted tasks** — Boilerplate, tests, and well-defined implementations
-3. **Use suggest for sensitive code** — Auth, payments, data handling
+2. **Use `--sandbox workspace-write` for trusted tasks** — Boilerplate, tests, and well-defined implementations
+3. **Use `--sandbox read-only` for sensitive code** — Auth, payments, data handling
 4. **Always verify** — Run build + tests after Codex generates code
 5. **Chain with Claude** — Use Codex to generate, Claude to review
 6. **Land it yourself** — verify the tree, not the report: follow the [orchestrator's contract](multi-ai-handoff.md#landing-delegated-work-the-orchestrators-contract)

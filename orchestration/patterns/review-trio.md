@@ -31,7 +31,7 @@ $content = Get-Content $Target -Raw
 
 $copilot = Start-Job {
     # Copilot CLI: GitHub-native context (issues, PRs, history)
-    gh copilot suggest "Review this for correctness and GitHub workflow integration: $using:content"
+    copilot -p "Review this for correctness and GitHub workflow integration: $using:content" -s
 }
 
 $claude = Start-Job {

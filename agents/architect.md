@@ -7,7 +7,7 @@ tools:
   - grep
   - glob
   - view
-  - task (explore)
+  - task
   - sql
   - create
   - edit

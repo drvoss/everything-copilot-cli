@@ -218,7 +218,7 @@ Find: missing edge cases in the Verification checklist
 | Task instruction | 100-500 tokens | Low |
 
 For multi-model pipelines with the same shared context, pass context by reference
-(file path + MCP `view` tool) rather than inline copy-pasting.
+(file path + the built-in `view` tool) rather than inline copy-pasting.
 
 ### Latent Briefing
 

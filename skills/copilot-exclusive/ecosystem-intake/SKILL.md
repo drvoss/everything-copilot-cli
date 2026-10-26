@@ -231,7 +231,7 @@ Do not stop at observations. Produce an execution-ready backlog:
 | make-pdf | gstack | reject | n/a | heavy renderer/runtime dependency for a markdown-first repo | if a markdown-first or low-dependency variant becomes reusable here |
 | prompt-injection-defense | gstack | reject | n/a | upstream approach depends on a local model stack we do not ship | if a rules-first or lightweight variant emerges |
 | PreCompact hook helper | claude-code | reject | n/a | Copilot's `preCompact` hook exists but is notification-only (cannot act before compaction like Claude's) | if Copilot's `preCompact` gains the ability to act (inject state) before compaction, not just observe |
-| hooks parity in `--agent` | claude-code | adapt (2026-07-20) | hooks-to-github-actions.md, migration-from-claude-code.md, copilot-vs-claude-code.md | v1.0.72 shipped a native 14-event hook system (preToolUse/postToolUse/agentStop/subagentStop/preCompact/etc.) — trigger fired, re-review happened | if Copilot's `preCompact` becomes able to act, not just observe |
+| hooks parity in `--agent` | claude-code | adapt (2026-07-20) | hooks-to-github-actions.md, migration-from-claude-code.md, copilot-vs-claude-code.md | re-reviewed against the 14-event hook system (preToolUse/agentStop/preCompact/etc.) after v1.0.72 capped agentStop block loops — trigger fired, re-review happened | if Copilot's `preCompact` becomes able to act, not just observe |
 ```
 
 If there are enough concrete items, add SQL todos for the top actions.

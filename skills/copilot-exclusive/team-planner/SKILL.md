@@ -14,7 +14,7 @@ A Copilot CLI-native redesign of the “harness meta-skill” concept.
 It does **not** assume Claude Code primitives like TeamCreate/TaskCreate exist. Instead, it uses
 Copilot CLI’s actual primitives:
 
-- `task` tool (agent types: `explore`, `task`, `general-purpose`, `code-review`)
+- `task` tool (agent types: `explore`, `task`, `general-purpose`, `code-review`, `security-review`, `research`, `rubber-duck`)
 - `/fleet` for parallel sub-agent execution
 - SQL **session database** for tracking (`sql` tool)
 - `read_agent` / `write_agent` for monitoring and follow-ups
@@ -71,14 +71,14 @@ Create a team roster in SQL.
 CREATE TABLE IF NOT EXISTS team (
   id TEXT PRIMARY KEY,
   role TEXT NOT NULL,
-  agent_type TEXT NOT NULL,     -- explore | task | general-purpose | code-review
+  agent_type TEXT NOT NULL,     -- explore | task | general-purpose | code-review | research | security-review | rubber-duck
   focus TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'ready'  -- ready | running | done | blocked
 );
 
 INSERT INTO team (id, role, agent_type, focus, status) VALUES
   ('lead', 'Coordinator', 'general-purpose', 'Decompose, dispatch, synthesize', 'ready'),
-  ('sec', 'Security reviewer', 'code-review', 'Auth, injection, secrets, unsafe defaults', 'ready'),
+  ('sec', 'Security reviewer', 'security-review', 'Auth, injection, secrets, unsafe defaults', 'ready'),
   ('perf', 'Performance scout', 'explore', 'Hot paths, expensive ops, caching opportunities', 'ready'),
   ('arch', 'Architecture analyst', 'general-purpose', 'Boundaries, API contracts, maintainability', 'ready');
 ```
@@ -165,7 +165,7 @@ Run each assignment as a **background** agent so you can keep working while they
 
 ```text
 task:
-  agent_type: "code-review"
+  agent_type: "security-review"
   name: "security-review"
   mode: "background"
   prompt: "Review the repository for security vulnerabilities. Prioritize exploitable issues and list concrete remediations."
@@ -200,7 +200,7 @@ Copilot CLI tool calls aren’t executed *from* PowerShell, but you can use Powe
 
 # 2) Paste the rows into a PS structure (example):
 $assignments = @(
-  @{ id = 'a-sec-1';  agent_type = 'code-review';      name='security-review';      prompt = 'Review repo security. Focus on auth, injection, secrets. Provide fixes.' },
+  @{ id = 'a-sec-1';  agent_type = 'security-review';  name='security-review';      prompt = 'Review repo security. Focus on auth, injection, secrets. Provide fixes.' },
   @{ id = 'a-perf-1'; agent_type = 'explore';          name='performance-scout';    prompt = 'Find perf hotspots. List top 5 and how to measure.' },
   @{ id = 'a-arch-1'; agent_type = 'general-purpose';  name='architecture-analyst'; prompt = 'Assess architecture. Identify coupling and propose refactors.' }
 )

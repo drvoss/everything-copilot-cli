@@ -248,7 +248,7 @@ then a code-focused model for the actual repository edits.
   flexible when a session spans exploration, implementation, and review.
 - **Default to standard tier**: Models like `claude-sonnet-5.5` or `gpt-5.3-codex`
   handle 90% of tasks well. Only switch for specific reasons.
-- **Use Haiku for exploration**: The `explore` agent defaults to Haiku for a reason —
+- **Use a fast model for exploration**: The built-in `explore` agent defaults to a fast, light model (the reference lists gpt-5.6-luna) for a reason —
   it's fast, cheap, and great for codebase navigation.
 - **Route first, then choose models**: decide the execution path with `task-intake-router`
   before spending premium tokens.

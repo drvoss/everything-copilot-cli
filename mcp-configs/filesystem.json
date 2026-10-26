@@ -1,7 +1,7 @@
 {
   "_description": "MCP server for local filesystem operations. Useful when Copilot CLI needs to work with files outside the current workspace or perform batch file operations.",
 
-  "servers": {
+  "mcpServers": {
     "filesystem": {
       "command": "npx",
       "args": [
@@ -9,6 +9,7 @@
         "@modelcontextprotocol/server-filesystem",
         "${workspaceFolder}"
       ],
+      "tools": ["*"],
       "env": {}
     }
   },

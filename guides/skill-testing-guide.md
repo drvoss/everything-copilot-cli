@@ -53,7 +53,7 @@ Tip: Keep the evaluation prompts and the compared outputs side-by-side so review
 
 Regression testing ensures skill edits don’t silently degrade behavior.
 
-- Keep a `_workspace/` dir (gitignored) per skill for test artifacts
+- Keep a `_workspace/` dir per skill for test artifacts (add it to `.gitignore`)
 - Re-run the baseline comparison after editing a skill’s description or workflow
 
 Focus regression testing on:
@@ -69,14 +69,14 @@ Use this per-skill sandbox to store test prompts, before/after outputs, and eval
 ```text
 skills/<category>/<skill-name>/
   SKILL.md
-  _workspace/          ← gitignored test sandbox
+  _workspace/          ← test sandbox (add to .gitignore)
     baseline.md        ← output WITHOUT skill
     with-skill.md      ← output WITH skill
     test-queries.md    ← should-trigger + should-not-trigger list
     notes.md           ← evaluator observations
 ```
 
-Add `_workspace/` to `.gitignore` (already present in repo).
+Add `_workspace/` to `.gitignore` (not yet present in this repo).
 
 ## 4. Grader Agent Pattern
 

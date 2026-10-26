@@ -12,7 +12,7 @@
 | Complex refactoring with side effects | ✅ Yes |
 | Simple code generation | ❌ Use Codex |
 | GitHub PR/Issue operations | ❌ Use Copilot |
-| Image or diagram analysis | ❌ Use Gemini |
+| Image or diagram analysis | ❌ Use Antigravity (`agy`) |
 
 ## Method 1: Shell Invocation (Quick)
 
@@ -79,10 +79,11 @@ Add to your MCP configuration (`.mcp.json` in the workspace root or `~/.copilot/
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "claude-code": {
       "command": "claude",
-      "args": ["mcp"],
+      "args": ["mcp", "serve"],
+      "tools": ["*"],
       "env": {
         "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
       }

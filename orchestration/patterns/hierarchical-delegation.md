@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS hierarchical_jobs (
   parent_id TEXT,
   level INTEGER NOT NULL,         -- 0=root, 1=domain orchestrator, 2=specialist
   name TEXT NOT NULL,
-  agent_type TEXT,               -- explore|task|general-purpose|code-review|research|security-review
+  agent_type TEXT,               -- explore|task|general-purpose|code-review|research|security-review|rubber-duck
   model TEXT,
   status TEXT NOT NULL DEFAULT 'pending',
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
@@ -182,12 +182,12 @@ WHERE id = '$rootJobId-security';
 sql(description="Seed security specialists", query=@"
 INSERT INTO hierarchical_jobs (id, parent_id, level, name, agent_type, model, status)
 VALUES
-  ('$rootJobId-security-auth', '$rootJobId-security', 2, 'auth-and-threat-model', 'code-review', 'claude-opus-5.5', 'pending'),
+  ('$rootJobId-security-auth', '$rootJobId-security', 2, 'auth-and-threat-model', 'security-review', 'claude-opus-5.5', 'pending'),
   ('$rootJobId-security-deps', '$rootJobId-security', 2, 'dependency-risk-scan',  'task',       'gpt-6-luna',      'pending'),
   ('$rootJobId-security-secrets', '$rootJobId-security', 2, 'secrets-exposure-scan','explore',   'claude-haiku-4.5', 'pending');
 "@)
 
-task(agent_type="code-review", name="auth-and-threat-model", model="claude-opus-5.5", prompt=@"
+task(agent_type="security-review", name="auth-and-threat-model", model="claude-opus-5.5", prompt=@"
 Do a security review focused on authentication, authorization boundaries, and threat model.
 
 Return:
@@ -249,7 +249,7 @@ CREATE TABLE hierarchical_jobs (
   parent_id TEXT,
   level INTEGER NOT NULL,         -- 0=root, 1=domain orchestrator, 2=specialist
   name TEXT NOT NULL,
-  agent_type TEXT,               -- explore|task|general-purpose|code-review|research|security-review
+  agent_type TEXT,               -- explore|task|general-purpose|code-review|research|security-review|rubber-duck
   model TEXT,
   status TEXT NOT NULL DEFAULT 'pending',
   created_at TEXT NOT NULL DEFAULT (datetime('now')),

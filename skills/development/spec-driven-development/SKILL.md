@@ -34,7 +34,7 @@ metadata:
 
 ```bash
 # 관련 기존 파일 파악
-glob pattern="src/**/*.ts" # 유사 기능 찾기
+# (Copilot glob 도구) pattern="src/**/*.ts" — 유사 기능 찾기
 grep -rn "관련_키워드" src/
 ```
 

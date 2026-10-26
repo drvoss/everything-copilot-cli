@@ -28,7 +28,7 @@ metadata:
 
 ```powershell
 # Find all documentation files
-glob pattern="**/*.md"
+# (Copilot glob tool) pattern="**/*.md"
 
 # Find inline documentation (JSDoc, docstrings)
 grep -rn "/\*\*" src/ --include="*.ts" | Measure-Object -Line

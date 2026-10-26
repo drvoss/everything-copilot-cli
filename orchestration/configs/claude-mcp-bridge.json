@@ -4,12 +4,12 @@
   "name": "claude-bridge",
   "description": "Bridge to Claude Code for deep reasoning, architecture design, security analysis, and large-context code understanding. Leverages Claude's 200K token context window.",
   "command": "claude",
-  "args": ["mcp"],
+  "args": ["mcp", "serve"],
   "env": {
     "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
     "CLAUDE_CODE_TIMEOUT": "180"
   },
-  "_note": "command/args updated from the legacy `npx @anthropic-ai/claude-code --mcp` invocation to the standalone `claude` binary (`claude mcp`); verify the exact MCP subcommand with `claude --help` for your installed version.",
+  "_note": "command/args updated from the legacy `npx @anthropic-ai/claude-code --mcp` invocation to the standalone `claude` binary (`claude mcp serve`); verify with `claude mcp --help` for your installed version.",
   "tools": [
     {
       "name": "claude_reason",
@@ -89,14 +89,15 @@
   ],
   "_usage": {
     "registration": {
-      "userLevel": "Add to ~/.copilot/mcp.json under mcpServers.claude-bridge",
-      "projectLevel": "Add to .vscode/mcp.json or devcontainer.json",
-      "note": "Claude Code has native MCP server support — the `mcp` subcommand exposes its tools directly",
+      "userLevel": "Add to ~/.copilot/mcp-config.json under mcpServers.claude-code",
+      "projectLevel": "Add to .mcp.json (or .github/mcp.json) in the repository under mcpServers",
+      "note": "Claude Code has native MCP server support — the `mcp serve` subcommand exposes its tools directly",
       "example": {
         "mcpServers": {
           "claude-code": {
             "command": "claude",
-            "args": ["mcp"],
+            "args": ["mcp", "serve"],
+            "tools": ["*"],
             "env": {
               "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}"
             }

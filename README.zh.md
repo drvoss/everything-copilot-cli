@@ -218,11 +218,11 @@ everything-copilot-cli/
 ├── orchestration/                 # ★ Multi-AI Orchestration
 │   ├── patterns/                  #   11 orchestration patterns
 │   ├── configs/                   #   MCP bridge configs
-│   ├── skills/                    #   Orchestration skills (7)
+│   ├── skills/                    #   Orchestration skills (9)
 │   ├── templates/                 #   Reusable orchestrator templates
 │   └── examples/                  #   Real-world examples (6)
 │
-├── guides/                        # 16 comprehensive guides
+├── guides/                        # 17 comprehensive guides
 ├── mcp-configs/                   # MCP server configurations (7 files; 6 configs + README)
 ├── examples/                      # Project-specific copilot-instructions
 │   ├── nextjs-app/
@@ -231,7 +231,7 @@ everything-copilot-cli/
 │   └── monorepo/
 │
 ├── contexts/                      # Context presets
-├── references/                    # Checklist & pattern references（根目录 + 子目录共 13 个文件）
+├── references/                    # Checklist & pattern references（根目录 + 子目录共 14 个文件）
 │   ├── github-actions-efficiency/ #   Actions 效率审计参考
 │   ├── github-codespaces-efficiency/ # Codespaces 优化指南
 │   ├── security-scan/             #   按技术栈拆分的安全参考
@@ -281,7 +281,7 @@ everything-copilot-cli/
 | `background-agent` | 通过 `&` / `/delegate` 委托云端 agents |
 | `fleet-parallel` | 使用 `/fleet` 进行并行 agent 执行 |
 | `github-code-search` | 使用 GitHub 全局代码搜索查找真实实现示例，并将结果注入为上下文 |
-| `github-pr-workflow` | 通过内置 GitHub MCP 完成完整 PR 生命周期 |
+| `github-pr-workflow` | PR 工作流 — 通过内置 GitHub MCP 读取，用 `/pr` 或 `gh` 创建和合并 |
 | `github-issue-triage` | 批量 Issue 分类与分诊 |
 | `github-codespaces-efficiency` | 审计 GitHub Codespaces 的启动时间、机器规格、prebuild 范围与成本，并在保留必要开发工具的前提下优化 |
 | `actions-debugging` | 利用原生 Actions 访问能力调试 CI 失败 |
@@ -452,7 +452,7 @@ everything-copilot-cli/
 按范围组织的编码规则与指南：
 
 - **通用规则** —— 通用最佳实践（错误处理、日志、命名规范）
-- **语言特定规则** —— TypeScript、Python、Go、C#、Java
+- **语言特定规则** —— TypeScript、Python、Go、C#、Java、C++
 - **框架特定规则** —— Next.js、React、Vue、Prisma、Playwright、NestJS、Cloudflare Workers、Vitest
 
 ### 编排
@@ -472,6 +472,7 @@ everything-copilot-cli/
 | **Copilot Exclusive Features** | 仅在 Copilot CLI 中提供的功能 |
 | **Copilot vs Claude Code** | 比较两种工具的优势、取舍与协作方式 |
 | **Migration from Claude Code** | 含概念映射的分步迁移路径 |
+| **Migration from Gemini CLI** | 将 Gemini CLI 工作流迁移到 Antigravity CLI（`agy`） |
 | **Native Hooks + GitHub Actions** | 用 Git Hooks / Actions / Prompt Guards 补充 Copilot 会话内 Hooks |
 | **Orchestration Guide** | 多AI协同编排模式与配置 |
 | **Skill Writing Best Practices** | 编写真正能触发的 trigger-first 描述 |

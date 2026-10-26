@@ -100,8 +100,9 @@ surfaces.
 | Browse / refresh | `copilot plugin marketplace browse NAME`, `update [NAME]` | `/plugin marketplace browse NAME` |
 | Remove a marketplace | `copilot plugin marketplace remove NAME` | `/plugin marketplace remove NAME` |
 
-Two marketplaces ship by default: `copilot-plugins` (`github/copilot-plugins`) and
-`awesome-copilot` (`github/awesome-copilot`).
+One marketplace ships by default: `awesome-copilot` (`github/awesome-copilot`). `copilot-plugins`
+(`github/copilot-plugins`) is now an ordinary marketplace; register it with
+`copilot plugin marketplace add github/copilot-plugins` before installing from it.
 
 `update NAME` and `update --all` are alternatives; do not combine a name with `--all`. Marketplace
 sources may be Git repositories, URLs, or local paths. The CLI checks marketplace manifests in
@@ -122,12 +123,14 @@ rather than a `{ plugins, errors }` object.
 Custom agents and session-scoped hooks are not covered by any of these commands; they require a
 live session.
 
-Agent Plugins (Open Plugin Spec) v1.0.0 is a published format supported through `plugin.json` at
-the plugin root. The only native required field is `name` (normally kebab-case, maximum 64
-characters). Optional `$schema` opts into the canonical v1.0.0 schema semantics and permits dots
-in names; do not invent the canonical URL when the documentation does not expose it. Other
-optional metadata and component fields include `description`, `version`, `author`, `agents`,
-`skills`, `hooks`, `mcpServers`, and `lspServers`. The meaning of `extensions` differs in Open
+Agent Plugins (Open Plugin Spec) v1.0.0 and v1.1.0 are supported through `plugin.json` at
+the plugin root. An Agent Plugins manifest requires `$schema`
+(`https://agent-plugins.org/schemas/1.0.0/plugin.schema.json` or the 1.1.0 URL) and `name`
+(kebab-case, at most 64 characters; periods allowed). Optional fields are `version`, `description`,
+`author`, `homepage`, `repository`, `license`, `keywords` and `extensions`. Components live at fixed
+paths (`skills/`, root `mcp.json`, and `com.github.copilot/` for agents, commands, rules and hooks);
+component path fields such as `agents`, `skills`, `hooks`, `mcpServers` and `lspServers` belong to
+the legacy manifest only. The meaning of `extensions` differs in Open
 Plugin Spec mode, so consult the current reference instead of guessing.
 
 Disabling is not uninstalling. Disabled skills remain visible in `copilot skill list` and its JSON
@@ -210,7 +213,7 @@ See [Multi-Model Strategy skill](../skills/copilot-exclusive/multi-model-strateg
 
 ## Turn-Level Rewind and Tool Timing
 
-`/rewind` (alias `/undo`) rewinds the last conversation turn and can revert its file changes. The
+`/rewind` (alias `/undo`) opens a picker to roll the session back to an earlier user turn and can revert the file changes made since. The
 v1.0.78 release notes document that it no longer requires a Git repository, offers conversation-only
 or conversation-and-files rollback, and restores only files Copilot changed. A file is skipped when
 its current contents no longer match what Copilot last wrote, protecting later user edits.
@@ -242,7 +245,7 @@ No other AI coding tool offers this integration depth.
 **Shared workflow artifacts (keep these aligned across both tools):**
 
 - `.github/copilot-instructions.md` — project instructions
-- `AGENTS.md` — agent definitions
+- `AGENTS.md` — shared custom instructions (custom agents live in `.github/agents/`)
 - `.mcp.json` — workspace MCP server configuration for Copilot CLI
 
 **IDE-first workflow:**
@@ -670,17 +673,12 @@ UPDATE test_cases SET status = 'passing' WHERE id = 'login-valid';
 SELECT status, COUNT(*) as count FROM test_cases GROUP BY status;
 ```
 
-### /chronicle — Session History & Standup Reports (Experimental)
-
-> ⚠️ **Experimental feature** — requires `/experimental on` to activate.
+### /chronicle — Session History & Standup Reports
 
 The `/chronicle` command leverages the session database to generate automatic summaries
 of your work, productivity insights, and standup-ready reports:
 
 ```text
-# Enable experimental features first
-/experimental on
-
 # What did I do today?
 /chronicle standup
 

@@ -36,10 +36,11 @@ Copilot CLI reads MCP servers from:
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "my-server": {
       "command": "npx",
       "args": ["-y", "@my-org/mcp-server"],
+      "tools": ["*"],
       "env": {
         "API_KEY": ""
       }
@@ -52,10 +53,11 @@ Copilot CLI reads MCP servers from:
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "my-server": {
       "command": "node",
       "args": ["/path/to/server.js"],
+      "tools": ["*"],
       "env": {}
     }
   }
@@ -64,17 +66,19 @@ Copilot CLI reads MCP servers from:
 
 ### Transport Types
 
-MCP supports two transport mechanisms:
+MCP supports three transport mechanisms:
 
 1. **stdio** (default) — server runs as a subprocess, communicates via stdin/stdout
-2. **SSE** — server runs remotely, communicates via Server-Sent Events over HTTP
+2. **http** — remote server over streamable HTTP (`streamable-http` is an accepted alias)
+3. **SSE** — server runs remotely, communicates via Server-Sent Events over HTTP
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "remote-server": {
       "type": "sse",
       "url": "https://mcp.example.com/sse",
+      "tools": ["*"],
       "headers": {
         "Authorization": "Bearer ${MCP_TOKEN}"
       }
@@ -127,10 +131,11 @@ current project rather than your user profile.
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "context7": {
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@latest"]
+      "args": ["-y", "@upstash/context7-mcp@latest"],
+      "tools": ["*"]
     }
   }
 }
@@ -158,18 +163,21 @@ codebase into a persistent SQLite knowledge graph that survives across sessions.
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "codebase-memory": {
       "command": "npx",
       "args": ["-y", "@deusdata/codebase-memory-mcp@latest"],
+      "tools": ["*"],
       "env": {
-        "CODEBASE_ROOT": "${workspaceFolder}",
-        "MEMORY_DB_PATH": "${userHome}/.copilot/codebase-memory.db"
+        "CODEBASE_ROOT": "/absolute/path/to/repo",
+        "MEMORY_DB_PATH": "${HOME}/.copilot/codebase-memory.db"
       }
     }
   }
 }
 ```
+
+Copilot CLI expands only environment variables (`$VAR`, `${VAR}`, `${VAR:-default}`), not editor variables.
 
 **Use when:** You want Copilot to remember relationships between files, symbols, and
 patterns across sessions — especially useful for large codebases.
@@ -208,10 +216,11 @@ if __name__ == "__main__":
 
 ```json
 {
-  "servers": {
+  "mcpServers": {
     "my-dev-tools": {
       "command": "python",
-      "args": ["my_tools_server.py"]
+      "args": ["my_tools_server.py"],
+      "tools": ["*"]
     }
   }
 }

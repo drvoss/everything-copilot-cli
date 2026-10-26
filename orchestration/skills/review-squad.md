@@ -27,7 +27,7 @@ This orchestration skill runs a **true multi-agent parallel review** where each 
 
 | Specialist | Focus | Invocation |
 |---|---|---|
-| Security Analyst | Auth, injection, secrets, OWASP | `task` — `code-review` agent type |
+| Security Analyst | Auth, injection, secrets, OWASP | `task` — `security-review` agent type |
 | Performance Analyst | N+1 queries, O(n²), memory allocs | `task` — `explore` agent type |
 | Architecture Reviewer | Coupling, SOLID, module boundaries | `task` — `general-purpose` agent type |
 | Style Inspector | Conventions, naming, dead code, lint | `task` — `task` agent type |
@@ -68,7 +68,7 @@ PowerShell implementation using `Start-Job` for parallel dispatch.
 - This script assumes you are in a git repo and the PR is available via `gh`.
 - It uses:
   - `gh pr diff` to fetch the diff
-  - `gh copilot suggest` to run each specialist prompt (in parallel)
+  - `copilot -p` to run each specialist prompt (in parallel)
   - `gh pr review --comment` to post the consolidated report
 - The UX reviewer is **conditional**: run only when the diff includes UI-facing files.
 
@@ -99,7 +99,7 @@ $uiFiles = @(
     Where-Object { $_ -match '\.(tsx|jsx|vue|svelte|html|css|scss)$' }
 ) | Select-Object -Unique
 
-# Helper: run gh copilot suggest in a job
+# Helper: run copilot -p in a job
 function Start-ReviewJob {
   param(
     [Parameter(Mandatory=$true)][string]$Name,
@@ -134,18 +134,16 @@ $Diff
 
   Start-Job -Name $Name -ScriptBlock {
     param($p)
-    # NOTE: gh copilot suggest is interactive by default and --no-interactive is not an
-    # officially documented flag. This script is illustrative.
+    # Non-interactive Copilot CLI call (-s prints only the response).
     # Preferred: run review-squad INSIDE a Copilot CLI session using the task tool.
-    # Outside a session, check `gh copilot suggest --help` for supported flags in your version.
-    gh copilot suggest "$p"
+    copilot -p "$p" -s
   } -ArgumentList $prompt
 }
 
 # 2) Dispatch specialists in parallel
 $jobs = @()
 
-$jobs += Start-ReviewJob -Name 'security' -SystemRole 'Security Analyst' -Focus 'Auth, injection, secrets, OWASP' -AgentHint 'task — code-review agent type' -Diff $diff
+$jobs += Start-ReviewJob -Name 'security' -SystemRole 'Security Analyst' -Focus 'Auth, injection, secrets, OWASP' -AgentHint 'task — security-review agent type' -Diff $diff
 $jobs += Start-ReviewJob -Name 'performance' -SystemRole 'Performance Analyst' -Focus 'N+1 queries, O(n^2), memory allocs' -AgentHint 'task — explore agent type' -Diff $diff
 $jobs += Start-ReviewJob -Name 'architecture' -SystemRole 'Architecture Reviewer' -Focus 'Coupling, SOLID, module boundaries' -AgentHint 'task — general-purpose agent type' -Diff $diff
 $jobs += Start-ReviewJob -Name 'style' -SystemRole 'Style Inspector' -Focus 'Conventions, naming, dead code, lint' -AgentHint 'task — task agent type' -Diff $diff
@@ -218,9 +216,9 @@ $($results['style'])
 $($results['ux'])
 "@
 
-# NOTE: In a Copilot CLI session, use the task tool for synthesis (preferred over gh copilot suggest).
+# NOTE: In a Copilot CLI session, use the task tool for synthesis (preferred over copilot -p).
 # See: skills/copilot-exclusive/team-planner/SKILL.md for the task-tool pattern.
-$commentBody = gh copilot suggest "$synthPrompt"
+$commentBody = copilot -p "$synthPrompt" -s
 
 # 5) Post as PR comment review
 gh pr review $Pr --comment --body $commentBody

@@ -69,7 +69,7 @@ skill is selected or invoked.
 
 | Field | Type | Required | Description |
 |-------|------|:--------:|-------------|
-| `name` | string | Yes | Unique identifier using only letters, numbers, and hyphens; maximum 64 characters |
+| `name` | string | Yes | Unique identifier; must start with a letter or number and use only letters, numbers, hyphens, underscores, dots, colons, and spaces; maximum 64 characters |
 | `description` | string | Yes | What the skill does and when to use it; maximum 1024 characters |
 | `argument-hint` | string | No | Expected argument hint shown in the skill picker, such as `"[target] [mode]"` |
 | `allowed-tools` | string or string[] | No | Tools automatically allowed while the skill is active; `"*"` allows all tools |

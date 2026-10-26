@@ -68,7 +68,7 @@ PRD:
 $prd
 
 Current codebase structure:
-$(git --no-pager ls-files src/ | head -50)
+$(git --no-pager ls-files src/ | Select-Object -First 50)
 
 Produce:
 1. Component diagram (ASCII or Mermaid)
@@ -216,10 +216,9 @@ if ($LASTEXITCODE -ne 0) {
 # Clean up team artifacts (optional — keep for audit trail)
 # Remove-Item ".team" -Recurse
 
+$featureBranch = git branch --show-current   # the branch the team worked on
 git checkout main
-git merge --no-ff HEAD -m "feat: [FEATURE NAME]
-
-Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>"
+git merge --no-ff $featureBranch -m "feat: [FEATURE NAME]"
 
 Write-Host "✅ Feature merged to main"
 ```

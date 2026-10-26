@@ -91,10 +91,10 @@ Keep the menu terse — do not pad it with explanation.
 
 | Option | Action | Worktree cleanup |
 |--------|--------|-------------------|
-| Merge locally | See **Merging from a worktree** below, then delete the branch | Yes — remove after merge succeeds |
+| Merge locally | See **Merging from a worktree** below, remove the worktree, then delete the branch | Yes — remove after merge succeeds |
 | Push + PR | Named branch: `git push -u origin <branch>`. Detached HEAD: `git checkout -b <new-branch-name>` first, then `git push -u origin <new-branch-name>`. Either way, hand off to `github-pr-workflow` | No — the worktree must stay alive for review iteration |
 | Keep as-is | Report the branch name (or commit SHA, if detached) and worktree path; do nothing else | No |
-| Discard | Require the user to type the literal word `discard` to confirm, listing the commits and worktree path that will be deleted. Named branch: force-delete the branch, then remove the worktree. Detached HEAD: this workspace is externally managed (see Step 2) — do not remove it or the branch; report which commits are being abandoned and let the host harness reclaim the workspace | Named branch only — remove before/instead of deleting the branch. Never for detached HEAD |
+| Discard | Require the user to type the literal word `discard` to confirm, listing the commits and worktree path that will be deleted. Named branch: remove the worktree (git worktree remove, then git worktree prune), then force-delete the branch. Detached HEAD: this workspace is externally managed (see Step 2) — do not remove it or the branch; report which commits are being abandoned and let the host harness reclaim the workspace | Named branch only — remove it before deleting the branch. Never for detached HEAD |
 
 Never remove a worktree for "Push + PR" or "Keep as-is" — the whole point of those two options is
 that the workspace must remain usable afterward. Never remove a detached-HEAD workspace yourself

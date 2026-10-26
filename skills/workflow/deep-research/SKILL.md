@@ -29,9 +29,13 @@ Conduct systematic multi-source research with traceable citations and structured
 
 ## Tooling
 
-**Native (always available):**
+**Native (built in, unless the session's tool policy excludes them):**
 
 - `web_fetch` — fetch a URL and read its content
+- `research` agent — built-in subagent for thorough searches across GitHub and the web
+
+The user can also start Copilot's built-in deep-research run directly with the `/research TOPIC`
+slash command.
 
 **Optional local tools (if installed):**
 
@@ -57,7 +61,7 @@ defuddle parse <url> --md
 
 Do not use this for URLs that already end in `.md`, authenticated pages, or JSON/API endpoints.
 
-See `mcp-configs/` for MCP server configuration if you want Firecrawl or Exa.
+To add a search MCP server such as Firecrawl or Exa, register it with `copilot mcp add` (see `mcp-ecosystem`); this repository does not ship configs for them.
 
 ## Workflow
 
@@ -300,4 +304,4 @@ detached appendix that the reader can ignore.
 
 - [council](../council/SKILL.md) — adversarial deliberation for decisions informed by research
 - [content-strategy](../../content/content-strategy/SKILL.md) — research applied to content planning
-- `mcp-configs/` — configuring Firecrawl or Exa for enhanced web research
+- [mcp-ecosystem](../../copilot-exclusive/mcp-ecosystem/SKILL.md) — adding MCP servers for enhanced web research
