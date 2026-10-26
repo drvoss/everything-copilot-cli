@@ -443,8 +443,8 @@ planner → architect → tdd-guide → code-reviewer → doc-updater
 Parallel review with merged feedback:
 
 ```text
-                ┌→ code-reviewer ──┐
-implementation ─┤                  ├→ merged feedback
+                ┌→ code-reviewer ───┐
+implementation ─┤                   ├→ merged feedback
                 └→ security-reviewer┘
 ```
 

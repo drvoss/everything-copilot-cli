@@ -8,26 +8,26 @@ The Agent Council is the most sophisticated orchestration pattern. A dispatcher 
 
 ```text
                          ┌──────────────────────┐
-                         │    Copilot CLI        │
-                         │    (Dispatcher)       │
+                         │     Copilot CLI      │
+                         │     (Dispatcher)     │
                          │                      │
-                         │  • Route tasks        │
-                         │  • Aggregate results  │
-                         │  • Resolve conflicts  │
-                         │  • Ship to GitHub     │
+                         │  • Route tasks       │
+                         │  • Aggregate results │
+                         │  • Resolve conflicts │
+                         │  • Ship to GitHub    │
                          └──────────┬───────────┘
                                     │
                ┌────────────────────┼────────────────────┐
                │                    │                    │
-    ┌──────────▼──────────┐ ┌──────▼──────────┐ ┌──────▼──────────┐
-    │    Claude Code       │ │   Codex CLI      │ │ Antigravity CLI │
-    │    (Architect)       │ │   (Builder)      │ │   (Analyst)     │
-    │                      │ │                  │ │                 │
-    │  • Architecture      │ │  • Fast code gen │ │  • Multimodal   │
-    │  • Security review   │ │  • Boilerplate   │ │  • Performance  │
-    │  • Deep reasoning    │ │  • Multi-file    │ │  • Large context│
-    │  • 200K context      │ │  • GPT-5 speed   │ │  • Diagrams     │
-    └─────────────────────┘ └──────────────────┘ └─────────────────┘
+    ┌──────────▼──────────┐ ┌───────▼─────────┐ ┌────────▼────────┐
+    │     Claude Code     │ │    Codex CLI    │ │ Antigravity CLI │
+    │     (Architect)     │ │    (Builder)    │ │    (Analyst)    │
+    │                     │ │                 │ │                 │
+    │  • Architecture     │ │  • Fast code gen│ │  • Multimodal   │
+    │  • Security review  │ │  • Boilerplate  │ │  • Performance  │
+    │  • Deep reasoning   │ │  • Multi-file   │ │  • Large context│
+    │  • 200K context     │ │  • GPT-5 speed  │ │  • Diagrams     │
+    └─────────────────────┘ └─────────────────┘ └─────────────────┘
 ```
 
 ## Agent Specializations

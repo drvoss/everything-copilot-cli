@@ -97,37 +97,37 @@ Orchestration defines how multiple agents collaborate:
 
 ```text
 ┌─────────────────────────────────────────────────┐
-│                   User Request                   │
+│                  User Request                   │
 └─────────────────────┬───────────────────────────┘
                       │
                       ▼
 ┌─────────────────────────────────────────────────┐
-│              Orchestration Layer                  │
-│  (patterns/ configs/ — decides agent routing)    │
+│               Orchestration Layer               │
+│  (patterns/ configs/ — decides agent routing)   │
 └──────┬──────────┬──────────┬──────────┬─────────┘
        │          │          │          │
        ▼          ▼          ▼          ▼
-┌──────────┐┌──────────┐┌──────────┐┌──────────┐
-│  Agent 1 ││  Agent 2 ││  Agent 3 ││  Agent N │
+┌──────────┐┌───────────┐┌──────────┐┌──────────┐
+│ Agent 1  ││  Agent 2  ││ Agent 3  ││ Agent N  │
 │(planner) ││(architect)││(reviewer)││  (...)   │
-└────┬─────┘└────┬─────┘└────┬─────┘└────┬─────┘
-     │           │           │           │
-     ▼           ▼           ▼           ▼
+└────┬─────┘└─────┬─────┘└────┬─────┘└────┬─────┘
+     │            │           │           │
+     ▼            ▼           ▼           ▼
 ┌─────────────────────────────────────────────────┐
-│                  Skills Layer                    │
-│  (composable capabilities agents can invoke)     │
+│                  Skills Layer                   │
+│  (composable capabilities agents can invoke)    │
 └─────────────────────┬───────────────────────────┘
                       │
                       ▼
 ┌─────────────────────────────────────────────────┐
-│                  Rules Layer                     │
-│  (behavioral constraints & coding standards)     │
+│                   Rules Layer                   │
+│  (behavioral constraints & coding standards)    │
 └─────────────────────┬───────────────────────────┘
                       │
                       ▼
 ┌─────────────────────────────────────────────────┐
-│              MCP / Tool Layer                    │
-│  (GitHub API, filesystem, build tools, etc.)     │
+│                MCP / Tool Layer                 │
+│  (GitHub API, filesystem, build tools, etc.)    │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -398,18 +398,18 @@ Use MCP configurations in `mcp-configs/` to bridge between AI systems:
 - **Custom MCP Servers** — project-specific integrations
 
 ```text
-┌──────────────┐     ┌─────────────┐     ┌──────────────┐
-│  Copilot CLI │────▶│  MCP Bridge │◀────│  Claude Code │
-│  (orchestrate)│     │  (shared     │     │  (deep       │
-│              │     │   context)   │     │   reasoning) │
-└──────────────┘     └─────────────┘     └──────────────┘
-                           ▲
-                           │
-                     ┌─────────────┐
-                     │    Codex    │
-                     │  (fast code │
-                     │   gen)      │
-                     └─────────────┘
+┌───────────────┐     ┌─────────────┐     ┌──────────────┐
+│  Copilot CLI  │────▶│ MCP Bridge  │◀────│ Claude Code  │
+│ (orchestrate) │     │   (shared   │     │    (deep     │
+│               │     │  context)   │     │  reasoning)  │
+└───────────────┘     └─────────────┘     └──────────────┘
+                            ▲
+                            │
+                      ┌─────────────┐
+                      │    Codex    │
+                      │ (fast code  │
+                      │    gen)     │
+                      └─────────────┘
 ```
 
 ---

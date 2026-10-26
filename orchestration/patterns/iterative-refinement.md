@@ -17,13 +17,13 @@ Iterative Refinement is a **quality-criteria-driven loop** where the *same* agen
 
 ```text
 Generate → Measure → ┌───────────────┐
-                    │ Pass?          │
-                    ├───────┬───────┤
-                    │ Yes   │ No    │
-                    ▼       ▼
-                  Ship   Refine with feedback
-                          │
-                          └────────────→ Generate
+                     │     Pass?     │
+                     ├───────┬───────┤
+                     │ Yes   │ No    │
+                     ▼       ▼
+                   Ship   Refine with feedback
+                           │
+                           └────────────→ Generate
 ```
 
 ## Implementation

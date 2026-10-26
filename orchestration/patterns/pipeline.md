@@ -7,10 +7,10 @@ The Pipeline pattern follows the Unix philosophy: each AI tool does one thing we
 ## How It Works
 
 ```text
-┌──────────┐    stdout    ┌──────────┐    stdout    ┌──────────┐    stdout    ┌──────────┐
-│  Claude   │ ──────────► │  Codex   │ ──────────► │Antigravity│ ──────────► │  Copilot │
-│  analyze  │    pipe     │  implement│    pipe     │  review  │    pipe     │  ship    │
-└──────────┘             └──────────┘             └──────────┘             └──────────┘
+┌────────────┐    stdout    ┌────────────┐    stdout    ┌────────────┐    stdout    ┌────────────┐
+│   Claude   │ ───────────► │   Codex    │ ───────────► │Antigravity │ ───────────► │  Copilot   │
+│  analyze   │     pipe     │ implement  │     pipe     │   review   │     pipe     │    ship    │
+└────────────┘              └────────────┘              └────────────┘              └────────────┘
 ```
 
 Each stage:

@@ -15,13 +15,13 @@ Instead of choosing one tool, orchestrate them:
 ┌──────────────────────────────────────────────────────────────────┐
 │                       Copilot CLI (Hub)                          │
 │              GitHub Issues • PRs • Actions • MCP                 │
-├──────────┬──────────┬──────────┬──────────┬──────────────────────┤
-│ Claude   │ Codex    │ Cursor   │Antigravity│ Other AI            │
-│ Code     │ CLI      │ CLI      │ (`agy`)   │ Tools               │
-│          │          │          │           │                     │
-│Large ctx │ Fast gen │ Repo-    │ Multi-    │ Extensible          │
-│ Reason   │          │ aware edit│ model/vis│ via MCP             │
-└──────────┴──────────┴──────────┴──────────┴──────────────────────┘
+├──────────┬──────────┬────────────┬────────────┬──────────────────┤
+│ Claude   │ Codex    │ Cursor     │ Antigravity│ Other AI         │
+│ Code     │ CLI      │ CLI        │ (`agy`)    │ Tools            │
+│          │          │            │            │                  │
+│Large ctx │ Fast gen │ Repo-      │ Multi-     │ Extensible       │
+│ Reason   │          │ aware edit │ model/vis  │ via MCP          │
+└──────────┴──────────┴────────────┴────────────┴──────────────────┘
 ```
 
 ## Tool Strength Matrix

@@ -8,8 +8,8 @@ The MCP (Model Context Protocol) Bridge pattern wraps other AI CLIs as MCP tool 
 
 ```text
 ┌──────────────┐    MCP Protocol     ┌──────────────┐    shell exec    ┌──────────────┐
-│  Copilot CLI  │ ◄════════════════► │  MCP Bridge   │ ──────────────► │  Codex CLI   │
-│  (MCP client) │   JSON-RPC/stdio  │  Server       │ ◄────────────── │  (AI worker)  │
+│ Copilot CLI  │ ◄═════════════════► │  MCP Bridge  │ ───────────────► │  Codex CLI   │
+│ (MCP client) │    JSON-RPC/stdio   │    Server    │ ◄─────────────── │ (AI worker)  │
 └──────────────┘                     └──────────────┘   stdout/stderr  └──────────────┘
 ```
 

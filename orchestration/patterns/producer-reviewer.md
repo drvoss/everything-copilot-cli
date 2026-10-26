@@ -23,20 +23,20 @@ This is distinct from:
 
 ```text
   ┌──────────────────────────────┐
-  │        Copilot CLI            │
-  │   (Orchestrator / Gate)       │
+  │         Copilot CLI          │
+  │    (Orchestrator / Gate)     │
   └──────────────┬───────────────┘
                  │
                  ▼
         ┌─────────────────┐
-        │  Producer Agent  │
-        │  (build artifact)│
+        │ Producer Agent  │
+        │(build artifact) │
         └────────┬────────┘
                  │  artifact
                  ▼
         ┌─────────────────┐
-        │  Reviewer Agent  │
-        │ (grade vs rubric)│
+        │ Reviewer Agent  │
+        │(grade vs rubric)│
         └────────┬────────┘
                  │  PASS / REVISE + feedback
                  ├───────────────┐

@@ -410,17 +410,17 @@ orchestration — you can still invoke Claude Code for tasks where it excels.
 The recommended approach for teams in transition: **use both, with Copilot CLI as hub.**
 
 ```text
-┌─────────────────────────────────────────────────────┐
-│                  Copilot CLI (Hub)                    │
-│                                                      │
-│  GitHub workflows ──→ Copilot handles natively       │
-│  Planning/todos   ──→ SQL database + plan mode       │
-│  Parallel work    ──→ Fleet mode                     │
-│  Deep analysis    ──→ Delegate to Claude Code        │
-│  Fast generation  ──→ Delegate to Codex CLI          │
+┌───────────────────────────────────────────────────────────┐
+│                     Copilot CLI (Hub)                     │
+│                                                           │
+│  GitHub workflows ──→ Copilot handles natively            │
+│  Planning/todos   ──→ SQL database + plan mode            │
+│  Parallel work    ──→ Fleet mode                          │
+│  Deep analysis    ──→ Delegate to Claude Code             │
+│  Fast generation  ──→ Delegate to Codex CLI               │
 │  Visual analysis  ──→ Delegate to Antigravity CLI (`agy`) │
-│                                                      │
-└─────────────────────────────────────────────────────┘
+│                                                           │
+└───────────────────────────────────────────────────────────┘
 ```
 
 ### Setting Up the Bridge

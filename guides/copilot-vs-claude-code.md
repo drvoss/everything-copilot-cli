@@ -215,12 +215,12 @@ This is where Copilot CLI fundamentally differs from Claude Code:
                     │   (Meta-Hub)    │
                     └────────┬────────┘
                              │
-           ┌─────────┬──────┴───────┬──────────┐
-           │         │              │           │
-    ┌──────┴──┐ ┌────┴────┐ ┌──────┴──┐ ┌─────┴─────┐
-    │ Claude  │ │ Codex   │ │Antigravity│ │  Custom   │
-    │ Code    │ │ CLI     │ │ CLI (`agy`)│ │  MCP      │
-    └─────────┘ └─────────┘ └─────────┘ └───────────┘
+           ┌─────────┬───────┴─────┬──────────────┐
+           │         │             │              │
+    ┌──────┴──┐ ┌────┴────┐ ┌──────┴──────┐ ┌─────┴─────┐
+    │ Claude  │ │  Codex  │ │ Antigravity │ │  Custom   │
+    │  Code   │ │   CLI   │ │ CLI (`agy`) │ │    MCP    │
+    └─────────┘ └─────────┘ └─────────────┘ └───────────┘
 ```
 
 **Claude Code can only use Claude models.** It's excellent at what it does, but it's

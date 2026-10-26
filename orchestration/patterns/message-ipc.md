@@ -8,15 +8,15 @@ The Message IPC pattern uses inter-process communication to let multiple AI agen
 
 ```text
 Terminal 1              Terminal 2              Terminal 3
-┌──────────────┐       ┌──────────────┐       ┌──────────────┐
-│  Copilot CLI  │       │  Claude Code  │       │  Codex CLI   │
-│  (coordinator)│       │  (reviewer)   │       │  (generator)  │
-└──────┬───────┘       └──────┬───────┘       └──────┬───────┘
-       │                      │                      │
-       ▼                      ▼                      ▼
+┌────────────────┐     ┌──────────────┐       ┌──────────────┐
+│  Copilot CLI   │     │ Claude Code  │       │  Codex CLI   │
+│ (coordinator)  │     │  (reviewer)  │       │ (generator)  │
+└───────┬────────┘     └──────┬───────┘       └──────┬───────┘
+        │                     │                      │
+        ▼                     ▼                      ▼
   ┌─────────────────────────────────────────────────────────┐
-  │                    Message Bus (hcom)                     │
-  │  Channels: #tasks  #reviews  #results  #coordination     │
+  │                   Message Bus (hcom)                    │
+  │  Channels: #tasks  #reviews  #results  #coordination    │
   └─────────────────────────────────────────────────────────┘
 ```
 

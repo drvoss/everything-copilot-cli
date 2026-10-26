@@ -456,16 +456,16 @@ The VS Code Copilot extension and CLI are complementary, not competing:
 
 ```text
 ┌─────────────────────────────┐    ┌─────────────────────────────┐
-│      VS Code Extension      │    │        Copilot CLI          │
+│      VS Code Extension      │    │         Copilot CLI         │
 ├─────────────────────────────┤    ├─────────────────────────────┤
-│ ✅ Inline completions       │    │ ✅ Multi-file batch changes  │
-│ ✅ Visual diff review       │    │ ✅ Autonomous workflows      │
-│ ✅ Debugging integration    │    │ ✅ Background agents         │
-│ ✅ UI component preview     │    │ ✅ Fleet parallelization     │
-│ ✅ Interactive refactoring  │    │ ✅ Multi-AI orchestration    │
-│ ✅ Chat with file context   │    │ ✅ Session SQL database      │
-│ ⚠️ Single-file focused     │    │ ⚠️ No visual feedback       │
-│ ⚠️ Manual approval each    │    │ ⚠️ No inline completions    │
+│ ✅ Inline completions       │    │ ✅ Multi-file batch changes │
+│ ✅ Visual diff review       │    │ ✅ Autonomous workflows     │
+│ ✅ Debugging integration    │    │ ✅ Background agents        │
+│ ✅ UI component preview     │    │ ✅ Fleet parallelization    │
+│ ✅ Interactive refactoring  │    │ ✅ Multi-AI orchestration   │
+│ ✅ Chat with file context   │    │ ✅ Session SQL database     │
+│ ⚠️ Single-file focused      │    │ ⚠️ No visual feedback       │
+│ ⚠️ Manual approval each     │    │ ⚠️ No inline completions    │
 └─────────────────────────────┘    └─────────────────────────────┘
 ```
 
@@ -620,12 +620,12 @@ MCP bridges enable Copilot CLI to invoke other AI tools as if they were native t
 
 ```text
 ┌──────────────┐     MCP      ┌──────────────┐
-│  Copilot CLI │ ──────────── │  Claude Code  │
-│  (hub)       │   bridge     │  (worker)     │
+│ Copilot CLI  │ ──────────── │ Claude Code  │
+│    (hub)     │   bridge     │   (worker)   │
 └──────────────┘              └──────────────┘
        │            MCP       ┌──────────────┐
-       └──────────────────── │  Codex CLI    │
-                   bridge     │  (worker)     │
+       └───────────────────── │  Codex CLI   │
+                   bridge     │   (worker)   │
                               └──────────────┘
 ```
 
@@ -665,7 +665,7 @@ The Agent Council brings multiple AI perspectives to complex decisions:
 
 ```text
 ┌─────────────────────────────────────────────────────────┐
-│                    Agent Council                         │
+│                      Agent Council                      │
 ├──────────┬──────────┬───────────┬───────────────────────┤
 │ Copilot  │  Claude  │  Codex    │  Antigravity          │
 │ CLI      │  Code    │  CLI      │  CLI (`agy`)          │
@@ -694,17 +694,17 @@ Route tasks to the cheapest model that can handle them:
 
 ```text
 ┌──────────────────────────────────────────────────────┐
-│                 Cost-Aware Router                     │
+│                  Cost-Aware Router                   │
 ├──────────────────────────────────────────────────────┤
 │                                                      │
-│  Simple task?  ──→  Haiku / GPT Luna   ($)          │
-│  Standard task? ──→  Sonnet / GPT Sol  ($$)         │
-│  Complex task?  ──→  Opus              ($$$)        │
+│  Simple task?  ──→  Haiku / GPT Luna   ($)           │
+│  Standard task? ──→  Sonnet / GPT Sol  ($$)          │
+│  Complex task?  ──→  Opus              ($$$)         │
 │                                                      │
-│  Exploration?   ──→  explore agent     ($)          │
-│  Build/test?    ──→  task agent        ($)          │
-│  Implementation ──→  general-purpose   ($$)         │
-│  Review?        ──→  code-review       ($$)         │
+│  Exploration?   ──→  explore agent     ($)           │
+│  Build/test?    ──→  task agent        ($)           │
+│  Implementation ──→  general-purpose   ($$)          │
+│  Review?        ──→  code-review       ($$)          │
 │                                                      │
 └──────────────────────────────────────────────────────┘
 ```

@@ -40,15 +40,15 @@ Copilot CLI is the ideal orchestrator for multi-AI workflows. Here's why:
 
 ```text
                     ┌─────────────┐
-                    │  Copilot CLI │
-                    │  (Meta-Hub)  │
+                    │ Copilot CLI │
+                    │ (Meta-Hub)  │
                     └──────┬──────┘
-         ┌──────────────┬──┴───┬──────────────┐
-         │              │      │              │
-   ┌─────┴─────┐  ┌─────┴┐  ┌──┴────┐   ┌─────┴─────┐
-   │ Claude Code│  │ Codex│  │Cursor │   │Antigravity│
-   │  (Analyze) │  │(Build)│  │(Edit) │   │ (`agy`)   │
-   └───────────┘  └──────┘  └───────┘   └───────────┘
+        ┌──────────────┬───┴────────┬──────────────┐
+        │              │            │              │
+ ┌──────┴──────┐  ┌────┴────┐  ┌────┴────┐  ┌──────┴──────┐
+ │ Claude Code │  │  Codex  │  │ Cursor  │  │ Antigravity │
+ │  (Analyze)  │  │ (Build) │  │ (Edit)  │  │   (`agy`)   │
+ └─────────────┘  └─────────┘  └─────────┘  └─────────────┘
 ```
 
 Copilot CLI delegates tasks to specialized tools, collects results, and coordinates the workflow — all while maintaining context in its session database.

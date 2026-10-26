@@ -23,12 +23,12 @@ safely orchestrate sub-agents at scale.
 
 ```text
 ┌────────────────────────────────────────────────┐
-│              Orchestrator (Copilot CLI)          │
-│  1. Define task + constraints                    │
-│  2. Spawn sandboxed sub-agent                    │
-│  3. Validate output before accepting             │
-│  4. Rollback or reject if constraints violated   │
-└──────────────────┬──────────────────────────────┘
+│           Orchestrator (Copilot CLI)           │
+│  1. Define task + constraints                  │
+│  2. Spawn sandboxed sub-agent                  │
+│  3. Validate output before accepting           │
+│  4. Rollback or reject if constraints violated │
+└──────────────────┬─────────────────────────────┘
                    │ constrained task
                    ▼
          ┌─────────────────────┐

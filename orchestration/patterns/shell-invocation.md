@@ -7,11 +7,11 @@ The simplest orchestration pattern. Copilot CLI spawns other AI CLIs as child pr
 ## How It Works
 
 ```text
-┌──────────────┐     shell exec      ┌──────────────┐
-│  Copilot CLI  │ ──────────────────► │  Codex CLI   │
-│  (orchestrator)│ ◄──────────────── │  (worker)     │
-│              │    stdout/stderr    │              │
-└──────────────┘                     └──────────────┘
+┌─────────────────┐     shell exec      ┌──────────────┐
+│   Copilot CLI   │ ──────────────────► │  Codex CLI   │
+│ (orchestrator)  │ ◄────────────────── │   (worker)   │
+│                 │    stdout/stderr    │              │
+└─────────────────┘                     └──────────────┘
 ```
 
 Copilot CLI uses its `powershell` tool to:
