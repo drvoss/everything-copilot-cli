@@ -502,18 +502,18 @@ All guides are in the [`guides/`](guides/) directory.
 No single AI is best at everything. Claude excels at reasoning, Codex at rapid implementation, Cursor at repo-aware multi-file editing, Antigravity (`agy`) at multi-model/multimodal analysis, and Copilot at GitHub integration. What if you could use **all of them** from one place?
 
 ```text
-┌────────────────────────────────────────────────────────────────┐
+┌─────────────────────────────────────────────────────────────────┐
 │                       GitHub Copilot CLI                        │
-│                   (Orchestrator / Meta-Hub)                     │
-├────────────────────────────────────────────────────────────────┤
-│                                                                  │
+│                    (Orchestrator / Meta-Hub)                    │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
 │  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐ │
-│  │ Claude Code│  │  Codex CLI │  │ Cursor CLI │  │ Antigravity│ │
-│  │ (Reasoning)│  │(Impl./Gen.)│  │(Repo edits)│  │(agy·multi- │ │
+│  │Claude Code │  │ Codex CLI  │  │ Cursor CLI │  │Antigravity │ │
+│  │(Reasoning) │  │(Impl./Gen.)│  │(Repo edits)│  │(agy·multi- │ │
 │  │            │  │            │  │            │  │model/vision│ │
 │  └────────────┘  └────────────┘  └────────────┘  └────────────┘ │
-│                                                                  │
-└────────────────────────────────────────────────────────────────┘
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ### 5 Orchestration Patterns (Patterns 1–5: cross-AI)
