@@ -54,8 +54,12 @@ references established vulnerability taxonomies (OWASP Top 10, CWE).
 - **agent_type**: `security-review` – read-only analysis, will not modify code.
 - **Rules reference**: Works in conjunction with `rules/common/security.md` which defines
   project-specific security standards and approved patterns.
-- **GitHub MCP tools**: Use PR and commit tools to review security-relevant changes
+- **GitHub MCP tools** (when exposed): Use PR and commit tools to review security-relevant changes
   in context.
+- **If `gh` is on PATH** (default): Copilot CLI omits `pull_request_read` and `get_commit` and the model is expected to use
+  `gh` instead, e.g. `gh pr diff <n>`, `gh api repos/{owner}/{repo}/commits/<sha>`. To call the MCP tools, start the session with `--add-github-mcp-tool=<name>` for
+  every GitHub MCP tool you need (it replaces the default set, so include `get_file_contents`), or
+  `--enable-all-github-mcp-tools`, which also enables write tools (avoid for read-only review).
 - **Delegation**: After findings are reported, delegate fixes to a `general-purpose`
   or `task` agent.
 

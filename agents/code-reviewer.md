@@ -55,8 +55,12 @@ performance, security, or maintainability.
 
 - **agent_type**: `code-review` – the native Copilot CLI agent type designed for reviews.
   It has read-only access (will NOT modify code) and all CLI investigation tools.
-- **GitHub MCP tools**: Use `pull_request_read` with method `get_diff`, `get_files`,
+- **GitHub MCP tools** (when exposed): Use `pull_request_read` with method `get_diff`, `get_files`,
   `get_review_comments` to review PRs directly.
+- **If `gh` is on PATH** (default): Copilot CLI omits `pull_request_read` and `get_commit` and the model is expected to use `gh`
+  instead, e.g. `gh pr diff <n>`, `gh pr view <n> --json files`, `gh api repos/{owner}/{repo}/commits/<sha>`. To call the MCP tools, start the session with
+  `--add-github-mcp-tool=<name>` for every GitHub MCP tool you need (it replaces the default set, so include `get_file_contents`),
+  or `--enable-all-github-mcp-tools`, which also enables write tools (avoid for read-only review).
 - **Branch diffs**: Use `git diff main..HEAD` to review all changes on a feature branch.
 - **Staged changes**: Use `git diff --cached` to review what's about to be committed.
 
@@ -68,8 +72,8 @@ performance, security, or maintainability.
 User: "Review PR #42"
 
 Code Reviewer actions:
-1. pull_request_read(get_diff) → get the full diff
-2. pull_request_read(get_files) → list changed files
+1. gh pr diff 42 → get the full diff                 (when exposed: pull_request_read(get_diff))
+2. gh pr view 42 --json files → list changed files    (when exposed: pull_request_read(get_files))
 3. For each changed file, read the full file for context
 4. Analyze changes against the patterns above
 5. Report findings:

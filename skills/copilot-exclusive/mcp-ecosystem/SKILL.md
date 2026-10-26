@@ -11,7 +11,8 @@ metadata:
 ## Why This is Copilot-Exclusive
 
 Copilot CLI ships with a **built-in GitHub MCP server** providing 20+ tools for Issues, PRs,
-Actions, code search, and repository management — zero configuration required. Beyond that, it
+Actions, code search, and repository management — zero configuration required (with `gh` on PATH,
+only a small default subset is exposed and the model is expected to use `gh` for the rest). Beyond that, it
 has a practical MCP management flow through `copilot mcp add`, `copilot mcp list`,
 `copilot mcp get`, user config at `~/.copilot/mcp-config.json`, workspace config in `.mcp.json`,
 and plugin-provided MCP servers. Claude Code supports MCP but has no built-in GitHub server and a
@@ -28,8 +29,8 @@ different configuration workflow.
 
 | Instead of mcp-ecosystem | Use |
 |--------------------------|-----|
-| Reading GitHub issues, PRs, Actions, or repository metadata already covered by the built-in MCP | Use the built-in GitHub MCP tools directly |
-| Reviewing PRs, checking CI failures, or searching repository code | Use the built-in GitHub MCP and normal repo tools directly |
+| Reading GitHub issues, PRs, Actions, or repository metadata already covered by the built-in MCP | Use the built-in GitHub MCP tools (or `gh`, when it is on PATH) directly |
+| Reviewing PRs, checking CI failures, or searching repository code | Use the built-in GitHub MCP (or `gh` when it is on PATH) and normal repo tools directly |
 | Pure code search, code review, or coding tasks with no external service dependency | Use the normal repo tools or the most relevant skill for that task |
 | Adding an untrusted third-party server without validating permissions and secret handling | Review the server first and prefer least-privilege configuration |
 
@@ -46,8 +47,17 @@ These are the kinds of services that usually justify this skill:
 
 ### 1. Built-In GitHub MCP (Zero Config)
 
-These tools work immediately — no setup required. Check this built-in coverage first before
-adding a custom MCP server:
+These tools need no MCP setup, but which of them are exposed depends on whether `gh` is installed
+(see the note below). Check this built-in coverage first before adding a custom MCP server:
+
+> **`gh` on PATH shrinks this list.** Copilot CLI changelog: "When gh CLI is on PATH, GitHub MCP server now omits redundant
+> gh-replaceable tools by default, reducing token usage." Only `get_file_contents`, `search_code`, `get_copilot_space`,
+> `list_copilot_spaces`, `web_search`, and `search_users` stay exposed; the issue, PR, Actions, commit, branch, and
+> repository-search tools below are omitted and the model is expected to use `gh` instead (e.g. `gh pr view <n>`, `gh issue view <n>`, `gh run view <id> --log-failed`).
+> To restore them, start the session with `--add-github-mcp-tool=<name>` (repeatable) — it **replaces** the default subset, so
+> name every tool you need, including defaults such as `get_file_contents`; no write tools are enabled this way — or with
+> `--enable-all-github-mcp-tools` (same as `--add-github-mcp-tool=*`), which restores everything **including write tools**
+> (`add_issue_comment`, `actions_run_trigger`, …). Prefer named tools for read-only sessions. (Measured on Copilot CLI 1.0.103.)
 
 **Repository & Code:**
 
@@ -75,9 +85,10 @@ adding a custom MCP server:
 
 - `search_users` — Find GitHub users
 
-When GitHub MCP tools overlap with `gh`, the CLI normally steers toward `gh`. The v1.0.78 release
-notes document that an explicit GitHub MCP toolset or tool configuration preserves the overlapping
-MCP tools and honors that opt-in instead.
+When GitHub MCP tools overlap with `gh`, the CLI omits them by default and steers toward `gh`. The
+v1.0.78 release notes document that an explicit GitHub MCP toolset or tool configuration preserves
+the overlapping MCP tools and honors that opt-in; with `--add-github-mcp-tool=<name>` exactly the named
+tools are kept (they replace the default subset, as measured above).
 
 With multiple MCP servers, use per-server prefixes to make tool names readable and collision-free,
 but route calls by the source server's identity rather than by parsing the displayed prefix. A

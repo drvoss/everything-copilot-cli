@@ -27,9 +27,10 @@
 
 ### What It Is
 
-Copilot CLI includes built-in MCP tools for the entire GitHub platform — pull requests,
-issues, Actions workflows, code search, commits, branches, and repositories. No
-additional MCP server setup required.
+Copilot CLI covers core GitHub development workflows out of the box — pull requests, issues,
+Actions workflows, code search, commits, branches, and repositories — through its built-in
+GitHub MCP tools or, when `gh` is on PATH, mostly through `gh` (it omits the overlapping MCP
+tools by default). No additional MCP server setup required.
 
 ### Why It Matters
 
@@ -39,7 +40,8 @@ setup time and eliminating configuration drift.
 
 ### How to Use It
 
-The GitHub tools are automatically available. Just ask:
+GitHub access is automatically available — the default MCP subset plus `gh` when it is on PATH, or the
+full MCP tool set otherwise. Just ask:
 
 ```text
 "List open PRs with failing CI checks"
@@ -61,15 +63,23 @@ The GitHub tools are automatically available. Just ask:
 | **Branches** | List branches, compare branches |
 | **Repositories** | Search repos, get file contents |
 
+> **When `gh` is on PATH, most of this table is served by `gh`, not MCP.** Copilot CLI changelog: "When gh CLI is on PATH,
+> GitHub MCP server now omits redundant gh-replaceable tools by default, reducing token usage." The default subset is then
+> `get_file_contents`, `search_code`, `get_copilot_space`, `list_copilot_spaces`, `web_search`, `search_users`; PR, issue, Actions,
+> commit, branch, and repo-search tools are omitted and the model is expected to use `gh`, e.g. `gh pr view <n>`, `gh pr checks <n>`, `gh run view <id> --log-failed`.
+> To restore MCP tools, start with `--add-github-mcp-tool=<name>` (repeatable; it **replaces** the default subset, so name every
+> tool you need, including defaults; enables no write tools) or `--enable-all-github-mcp-tools` (= `--add-github-mcp-tool=*`),
+> which restores everything **including write tools** such as `add_issue_comment`. Measured on Copilot CLI 1.0.103.
+
 ### Example
 
 ```text
 > "The CI is failing on PR #87. Diagnose and fix it."
 
 Copilot CLI will:
-1. Fetch PR #87 details (github-mcp-server-pull_request_read)
-2. Get failing check runs (get_check_runs)
-3. Download job logs (get_job_logs)
+1. Fetch PR #87 details (with gh: gh pr view 87; when exposed: github-mcp-server-pull_request_read)
+2. Get failing check runs (with gh: gh pr checks 87; when exposed: get_check_runs)
+3. Download job logs (with gh: gh run view <run-id> --log-failed; when exposed: get_job_logs)
 4. Identify the failing test
 5. Read the relevant source code
 6. Fix the bug

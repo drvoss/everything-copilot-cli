@@ -77,7 +77,10 @@ if (Test-Path .github/copilot-instructions.md) {
 # Any existing product docs?
 Get-ChildItem -Recurse -Include "*.md" | Where-Object { $_.Name -match 'product|spec|prd|requirements' }
 
-# Related GitHub issues
+# Related GitHub issues -- default with gh on PATH (Copilot CLI omits search_issues; e.g.):
+gh search issues "feature-keyword" --repo my-org/my-app --state open
+# When the MCP tools are exposed (no gh on PATH, or --add-github-mcp-tool=<name> for every GitHub MCP
+# tool you need -- it replaces the default set -- or --enable-all-github-mcp-tools, which also enables write tools):
 # Tool: github-mcp-server-search_issues
 #   query: "feature-keyword in:title is:open"
 #   owner: "my-org"

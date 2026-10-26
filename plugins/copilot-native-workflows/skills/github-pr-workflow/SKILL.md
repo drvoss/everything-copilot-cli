@@ -1,6 +1,6 @@
 ---
 name: github-pr-workflow
-description: Use when creating, updating, or managing pull requests — reads PRs and reviews through the built-in GitHub MCP server, and opens, updates, or merges them with /pr or gh
+description: Use when creating, updating, or managing pull requests — reads PRs and reviews with `gh` (the default when installed) or the built-in GitHub MCP server when exposed, and opens, updates, or merges them with /pr or gh
 metadata:
   category: copilot-exclusive
   copilot_feature: "Built-in GitHub MCP server (pull_request_read, list_pull_requests, search_pull_requests)"
@@ -10,11 +10,14 @@ metadata:
 
 ## Why This is Copilot-Exclusive
 
-Copilot CLI ships with a **built-in GitHub MCP server** that provides native, authenticated access
-to the GitHub API — no tokens to configure, no extensions to install. You can list, search, read,
-diff, and check CI status on pull requests using structured tool calls. Claude Code has no
-equivalent built-in integration; it must shell out to `gh` CLI or raw `curl` commands with
-manual token management.
+GitHub access is built into Copilot CLI with no extra setup: the built-in GitHub MCP server (full
+tool set when `gh` is absent, or when restored with the flags in the note below) or `gh`, which
+the model is expected to use when it is installed. Either way you can list,
+search, read, diff, and check CI status on pull requests in one conversation. What is exclusive is the built-in GitHub MCP server, which needs no token or extension setup; when `gh` is installed, the model mostly uses `gh`, which any agent with a shell can also run.
+
+> **Note:** When `gh` is on PATH, Copilot CLI omits the PR read tools (`list_pull_requests`, `search_pull_requests`, `pull_request_read`) and the model is expected to use `gh`
+> instead, e.g. `gh pr list`, `gh pr diff <n>`, `gh pr checks <n>`. To call the MCP tools,
+> start the session with `--add-github-mcp-tool=<name>` for every GitHub MCP tool you need (it replaces the default set, so include default ones you still use), or `--enable-all-github-mcp-tools`, which also enables write tools.
 
 ## When to Use
 
@@ -28,7 +31,8 @@ manual token management.
 
 ### 1. List Open PRs in a Repository
 
-Use `list_pull_requests` to see what needs attention:
+See what needs attention — with `gh` on PATH (default), e.g. `gh pr list --repo my-org/my-app --state open --limit 10`.
+When the MCP tools are exposed, use `list_pull_requests`:
 
 ```text
 Tool: github-mcp-server-list_pull_requests
@@ -42,7 +46,8 @@ Tool: github-mcp-server-list_pull_requests
 
 ### 2. Read a Specific PR's Diff
 
-Dive into the code changes with `pull_request_read`:
+Dive into the code changes — with `gh` on PATH (default), e.g. `gh pr diff 142 --repo my-org/my-app`.
+When the MCP tools are exposed, use `pull_request_read`:
 
 ```text
 Tool: github-mcp-server-pull_request_read
@@ -54,7 +59,8 @@ Tool: github-mcp-server-pull_request_read
 
 ### 3. Check CI Status
 
-See if all checks are passing before you review:
+See if all checks are passing before you review.
+With `gh` on PATH (default), e.g. `gh pr checks 142 --repo my-org/my-app`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-pull_request_read
@@ -66,7 +72,8 @@ Tool: github-mcp-server-pull_request_read
 
 ### 4. Read Review Comments
 
-Pull up the review conversation:
+Pull up the review conversation.
+With `gh` on PATH (default), e.g. `gh api repos/my-org/my-app/pulls/142/comments`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-pull_request_read
@@ -78,7 +85,8 @@ Tool: github-mcp-server-pull_request_read
 
 ### 5. Search PRs by Author or Label
 
-Find PRs from a specific contributor:
+Find PRs from a specific contributor.
+With `gh` on PATH (default), e.g. `gh search prs --author octocat --repo my-org/my-app --state open`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-search_pull_requests
@@ -94,8 +102,9 @@ Tool: github-mcp-server-search_pull_requests
 > "List all open PRs in my-org/api-service sorted by most recently updated,
 > then for each one show me the CI status and a one-line summary of changes."
 
-Copilot calls `list_pull_requests`, iterates results, calls `get_check_runs` and
-`get_files` on each, and returns a concise triage report.
+Copilot runs `gh search prs --repo my-org/api-service --state open --sort updated --order desc`, then
+`gh pr checks <n> --repo my-org/api-service` and `gh pr view <n> --repo my-org/api-service --json files` on each (when exposed: `list_pull_requests`,
+`get_check_runs`, `get_files`), and returns a concise triage report.
 
 ### Create a PR from Current Branch
 
@@ -115,6 +124,8 @@ to open it — all without you writing a single line of markdown.
 
 > "Find all open PRs across my-org that mention 'database migration' in the title"
 
+With `gh` on PATH (default), e.g. `gh search prs "database migration in:title" --owner my-org --state open`. When the MCP tools are exposed:
+
 ```text
 Tool: github-mcp-server-search_pull_requests
   query: "database migration in:title is:open org:my-org"
@@ -123,14 +134,15 @@ Tool: github-mcp-server-search_pull_requests
 ## Tips
 
 - **Batch parallel reads**: Copilot can call `get_diff`, `get_check_runs`, and
-  `get_review_comments` in parallel for the same PR — much faster than sequential `gh` calls.
-- **Use search over list**: `search_pull_requests` supports GitHub's full search syntax
+  `get_review_comments` in parallel for the same PR when the MCP tools are exposed; with `gh` on PATH the
+  model is expected to use `gh pr diff`, `gh pr checks`, and `gh api` instead.
+- **Use search over list**: `search_pull_requests` (with `gh`: `gh search prs`) supports GitHub's full search syntax
   including labels, milestones, review status, and date ranges.
 - **Combine with fleet mode**: Launch fleet agents to review multiple PRs simultaneously,
   each agent handling one PR and producing a summary.
-- **CI-aware reviews**: Always check `get_check_runs` before diving into a diff review.
+- **CI-aware reviews**: Always check `get_check_runs` (with `gh`: `gh pr checks <n>`) before diving into a diff review.
   If CI is red, focus on the failure first.
-- **Paginate large results**: Use `page` and `perPage` parameters to handle repositories
+- **Paginate large results**: Use `page` and `perPage` parameters (with `gh`: `--limit`) to handle repositories
   with hundreds of open PRs without overwhelming your context window.
 
 ## Automated Review-Loop (copilot-pr-autopilot)

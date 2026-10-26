@@ -86,11 +86,16 @@ to local conventions.
 ```text
 search_code
   -> get_file_contents
-  -> search_repositories
-  -> optionally inspect commits or PRs for evolution
+  -> search_repositories          (with gh on PATH: gh search repos <query>)
+  -> optionally inspect commits or PRs for evolution   (with gh: gh pr view <n>, gh api .../commits)
 ```
 
 This works especially well when you need examples plus surrounding repository context.
+
+> **Note:** `search_code` and `get_file_contents` stay available when `gh` is on PATH, but Copilot CLI omits `search_repositories`
+> and the commit/PR tools and the model is expected to use `gh` instead, e.g. `gh search repos <query>`, `gh pr view <n>`, `gh api repos/{owner}/{repo}/commits`.
+> To call them via MCP, start the session with `--add-github-mcp-tool=<name>` for every GitHub MCP tool you need (it replaces the
+> default set, so include `search_code` and `get_file_contents`), or `--enable-all-github-mcp-tools`, which also enables write tools.
 
 ## Quality Check
 

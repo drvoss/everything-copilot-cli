@@ -10,11 +10,15 @@ metadata:
 
 ## Why This is Copilot-Exclusive
 
-Copilot CLI provides **structured access to GitHub Actions** through its built-in MCP server.
-You can list workflows, inspect run details, download job logs, and analyze failures — all via
-typed tool calls that return structured data. Claude Code has no GitHub Actions integration
-whatsoever; debugging CI requires manually navigating the GitHub web UI or parsing raw
-`gh run view` output.
+GitHub access is built into Copilot CLI with no extra setup: the built-in GitHub MCP server (full
+tool set when `gh` is absent, or when restored with the flags in the note below) or `gh`, which
+the model is expected to use when it is installed. Either way you can list workflows, inspect run details, download job logs,
+and analyze failures in one conversation.
+What is exclusive is the built-in GitHub MCP server, which needs no token or extension setup; when `gh` is installed, the model mostly uses `gh`, which any agent with a shell can also run.
+
+> **Note:** When `gh` is on PATH, Copilot CLI omits the Actions MCP tools (`actions_list`, `actions_get`, `get_job_logs`) and the model is expected to use `gh` instead,
+> e.g. `gh run list --workflow <file>`, `gh run view <run-id> --log-failed`, `gh run view --job <job-id> --log`. To call the MCP tools,
+> start the session with `--add-github-mcp-tool=<name>` for every GitHub MCP tool you need (it replaces the default set, so include default ones you still use), or `--enable-all-github-mcp-tools`, which also enables write tools.
 
 ## When to Use
 
@@ -28,6 +32,8 @@ whatsoever; debugging CI requires manually navigating the GitHub web UI or parsi
 
 ### 1. List Workflows in a Repository
 
+With `gh` on PATH (default), e.g. `gh workflow list --repo my-org/my-app`. When the MCP tools are exposed:
+
 ```text
 Tool: github-mcp-server-actions_list
   method: "list_workflows"
@@ -36,6 +42,8 @@ Tool: github-mcp-server-actions_list
 ```
 
 ### 2. List Recent Runs for a Workflow
+
+With `gh` on PATH (default), e.g. `gh run list --repo my-org/my-app --workflow ci.yml --branch main --status completed`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-actions_list
@@ -48,7 +56,8 @@ Tool: github-mcp-server-actions_list
 
 ### 3. Get Failed Job Logs
 
-This is the killer feature — pull logs directly for analysis:
+This is the killer feature — pull logs directly for analysis.
+With `gh` on PATH (default), e.g. `gh run view 12345678 --repo my-org/my-app --log-failed`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-get_job_logs
@@ -62,6 +71,8 @@ Tool: github-mcp-server-get_job_logs
 
 ### 4. Inspect a Specific Job
 
+With `gh` on PATH (default), e.g. `gh run view --job 98765432 --repo my-org/my-app`. When the MCP tools are exposed:
+
 ```text
 Tool: github-mcp-server-actions_get
   method: "get_workflow_job"
@@ -71,6 +82,8 @@ Tool: github-mcp-server-actions_get
 ```
 
 ### 5. Check Run Usage and Timing
+
+With `gh` on PATH (default), e.g. `gh api repos/my-org/my-app/actions/runs/12345678/timing`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-actions_get
@@ -88,10 +101,10 @@ Tool: github-mcp-server-actions_get
 
 Copilot workflow:
 
-1. `list_workflow_runs` filtered by branch `feature/auth-refactor`
+1. `gh run list --branch feature/auth-refactor` (when exposed: `list_workflow_runs` filtered by that branch)
 2. Takes the most recent failed run
-3. `list_workflow_jobs` to find which job(s) failed
-4. `get_job_logs` with `failed_only: true` to pull the error output
+3. `gh run view <run-id>` to find which job(s) failed (when exposed: `list_workflow_jobs`)
+4. `gh run view <run-id> --log-failed` to pull the error output (when exposed: `get_job_logs` with `failed_only: true`)
 5. Analyzes the logs, identifies the root cause, suggests a fix
 
 All in one conversational turn — no browser tabs needed.
@@ -100,6 +113,8 @@ All in one conversational turn — no browser tabs needed.
 
 > "The 'integration-tests' workflow has been flaky on main this week.
 > Show me the failure pattern."
+
+With `gh` on PATH (default), e.g. `gh run list --repo my-org/my-app --workflow integration-tests.yml --branch main --limit 20`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-actions_list
@@ -128,20 +143,21 @@ Copilot lists runs, checks usage/timing for each, and highlights anomalies.
 2. Identifies the broken test or build step
 3. Makes the fix in your local codebase
 4. You push the fix
-5. Copilot monitors the new run via `list_workflow_runs`
+5. Copilot monitors the new run via `gh run list` / `gh run watch <run-id>` (when exposed: `list_workflow_runs`)
 6. Confirms the fix worked or continues debugging
 
 ## Tips
 
-- **Use `failed_only: true`**: Skip successful job logs and go straight to the
+- **Use `failed_only: true`** (with `gh`: `--log-failed`): Skip successful job logs and go straight to the
   failures. Saves context window space.
-- **Tail the logs**: Use `tail_lines: 100-300` to focus on the end of the log
-  where errors typically appear.
+- **Tail the logs** (MCP only): Use `tail_lines: 100-300` to focus on the end of the log
+  where errors typically appear. With `gh`, `gh run view <run-id> --log-failed` already limits
+  output to the failed steps.
 - **Parallel job analysis**: When a run has multiple failed jobs, call
-  `get_job_logs` on each in parallel.
+  `get_job_logs` (with `gh`: `gh run view --job <job-id> --log`) on each in parallel.
 - **Compare runs**: Pull logs from both a passing and failing run to diff them
   and isolate what changed.
 - **Combine with PR tools**: After fixing a CI failure, use `pull_request_read`
-  with `get_check_runs` to verify the fix passes on the PR.
+  with `get_check_runs` (with `gh`: `gh pr checks <n>`) to verify the fix passes on the PR.
 - **Track flaky tests in SQL**: Store failure patterns in the session database
   to build a flakiness report over time.

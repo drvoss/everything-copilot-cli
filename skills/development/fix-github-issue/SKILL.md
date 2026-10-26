@@ -21,15 +21,23 @@ PR). `github-issue-triage` is for *organizing and classifying* issues in bulk.
 ## Prerequisites
 
 - GitHub MCP server available (built-in to Copilot CLI)
+- If `gh` is on PATH, Copilot CLI omits `issue_read` and `search_issues` and the model is expected to use `gh` instead (e.g.
+  `gh issue view <n> --comments`, `gh search issues "<error text>"`). To call the MCP tools, start the session with `--add-github-mcp-tool=<name>` for every
+  GitHub MCP tool you need (it replaces the default set, so include default ones you still use), or
+  `--enable-all-github-mcp-tools`, which also enables write tools
 - Write access to the repository for creating a branch and PR
-- `gh` CLI installed (for branch creation and PR fallback)
+- `gh` CLI installed (for issue inspection, branch creation, and PR fallback)
 
 ## Workflow
 
 ### 1. Read the Issue
 
 ```powershell
-# Via Copilot MCP (structured data, no token needed):
+# Default with gh on PATH:
+gh issue view 123 --repo my-org/my-app --comments
+
+# When the MCP tools are exposed (no gh on PATH, or --add-github-mcp-tool=<name> for every GitHub MCP
+# tool you need -- it replaces the default set -- or --enable-all-github-mcp-tools, which also enables write tools):
 # Tool: github-mcp-server-issue_read
 #   method: "get"
 #   owner: "my-org"
@@ -145,7 +153,7 @@ Actual: TypeError: Cannot read property 'title' of null
 
 **Copilot workflow:**
 
-1. `issue_read` → get full issue context
+1. `gh issue view 89 --comments` (when exposed: `issue_read`) → get full issue context
 2. `grep -n "Cannot read property"` → find where null is accessed
 3. Create branch `fix/issue-89-null-post`
 4. Write test: `expect(response.status).toBe(404)`
@@ -163,7 +171,7 @@ Actual: field not present
 
 **Copilot workflow:**
 
-1. `issue_read` + `get_comments` → clarify which endpoint and format
+1. `gh issue view 102 --comments` (when exposed: `issue_read` + `get_comments`) → clarify which endpoint and format
 2. Search for the serializer/transformer function
 3. Add `updatedAt` field
 4. Update API docs/types
@@ -175,7 +183,7 @@ Actual: field not present
 - **Label check**: if issue is labeled `needs-repro`, ask for reproduction steps before fixing
 - **Small PRs fix faster**: keep fix PRs minimal — reference the issue for full context
 - **Use `Fixes #N` in commit**: GitHub will auto-close the issue on merge
-- **Check for duplicates**: search for related issues before starting — `search_issues` with the error message
+- **Check for duplicates**: search for related issues before starting — `search_issues` (with `gh`: `gh search issues "<error message>"`) with the error message
 
 ## See Also
 

@@ -58,8 +58,12 @@ drift by systematically identifying what docs need updating after code changes.
 - **agent_type**: `general-purpose` – needs write access to update documentation files
   and run commands to verify examples.
 - **explore agent**: Use to find all documentation files and map code→doc relationships.
-- **GitHub MCP tools**: Use `list_commits` and `pull_request_read` to understand what
+- **GitHub MCP tools** (when exposed): Use `list_commits` and `pull_request_read` to understand what
   changed since the last release or documentation update.
+- **If `gh` is on PATH** (default): Copilot CLI omits `list_commits` and `pull_request_read` and the model is expected to use `gh`
+  instead, e.g. `gh pr list --state merged`, `gh pr view <n> --json files`, `gh api repos/{owner}/{repo}/commits`. To call the MCP tools, start the session with
+  `--add-github-mcp-tool=<name>` for every GitHub MCP tool you need (it replaces the default set, so include default ones you
+  still use), or `--enable-all-github-mcp-tools`, which also enables write tools.
 - **Post-workflow step**: Often the last agent in a chain. After the planner, implementer,
   and TDD guide finish, the doc-updater runs to sync everything.
 
@@ -157,7 +161,7 @@ User: "Generate changelog for v2.1.0"
 
 Doc Updater actions:
 
-1. list_commits since last release tag (v2.0.0)
+1. gh api repos/{owner}/{repo}/compare/v2.0.0...HEAD → commits since last release tag (when exposed: list_commits)
 2. Categorize commits:
    - Features (feat: commits)
    - Bug fixes (fix: commits)

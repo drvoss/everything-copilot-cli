@@ -91,7 +91,11 @@ Get-ChildItem -Recurse -Filter "*.csproj" | Select-Object -First 3 | Get-Content
 git --no-pager log --oneline -5
 git --no-pager status --short
 
-# Any open issues or PRs being worked on (Copilot MCP)
+# Any open issues or PRs being worked on -- default with gh on PATH (Copilot CLI omits list_issues and list_pull_requests):
+gh issue list --state open
+gh pr list
+# When the MCP tools are exposed (no gh on PATH, or --add-github-mcp-tool=<name> for every GitHub MCP
+# tool you need -- it replaces the default set -- or --enable-all-github-mcp-tools, which also enables write tools):
 # Tool: github-mcp-server-list_issues  owner: ... repo: ... state: OPEN
 ```
 

@@ -181,7 +181,10 @@ gh pr view $pr --json files | ConvertFrom-Json | Select-Object -ExpandProperty f
 - Is rollback safe? Does this require a migration or feature flag?
 
 ```powershell
-# Check CI status on the PR
+# Check CI status on the PR -- default with gh on PATH (Copilot CLI omits pull_request_read):
+gh pr checks $pr
+# When the MCP tools are exposed (no gh on PATH, or --add-github-mcp-tool=<name> for every GitHub MCP
+# tool you need -- it replaces the default set -- or --enable-all-github-mcp-tools, which also enables write tools):
 # Tool: github-mcp-server-pull_request_read
 #   method: "get_check_runs"
 #   owner: "my-org"  repo: "my-app"  pullNumber: 123

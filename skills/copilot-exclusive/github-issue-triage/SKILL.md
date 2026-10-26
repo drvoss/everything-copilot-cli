@@ -1,6 +1,6 @@
 ---
 name: github-issue-triage
-description: Use when you have a backlog of unorganized GitHub Issues — bulk-reads, prioritizes, and labels issues at scale using Copilot's built-in GitHub MCP tools, and proposes assignees
+description: Use when you have a backlog of unorganized GitHub Issues — bulk-reads, prioritizes, and labels issues at scale using `gh` (the default when installed) or Copilot's built-in GitHub MCP tools when exposed, and proposes assignees
 metadata:
   category: copilot-exclusive
   copilot_feature: "Built-in GitHub MCP server (list_issues, search_issues, issue_read)"
@@ -10,10 +10,14 @@ metadata:
 
 ## Why This is Copilot-Exclusive
 
-Copilot CLI has **native GitHub Issue tools** baked into its MCP server — `list_issues`,
-`search_issues`, `issue_read` with sub-methods for comments, labels, and sub-issues. These
-structured tool calls return rich, typed data that Copilot can reason over directly. Claude Code
-has no built-in GitHub integration and must rely on `gh issue list` with fragile text parsing.
+GitHub access is built into Copilot CLI with no extra setup: the built-in GitHub MCP server (full
+tool set when `gh` is absent, or when restored with the flags in the note below) or `gh`, which
+the model is expected to use when it is installed. When exposed, the MCP issue tools add sub-methods for comments,
+labels, and sub-issues. Either way Copilot reasons over the results directly. What is exclusive is the built-in GitHub MCP server, which needs no token or extension setup; when `gh` is installed, the model mostly uses `gh`, which any agent with a shell can also run.
+
+> **Note:** When `gh` is on PATH, Copilot CLI omits these issue tools (`list_issues`, `search_issues`, `issue_read`) and the model is expected to use `gh` instead,
+> e.g. `gh issue list --state open --label <label>`, `gh issue view <n> --comments`, `gh search issues "<query>"`. To call the MCP tools,
+> start the session with `--add-github-mcp-tool=<name>` for every GitHub MCP tool you need (it replaces the default set, so include default ones you still use), or `--enable-all-github-mcp-tools`, which also enables write tools.
 
 ## When to Use
 
@@ -28,6 +32,8 @@ has no built-in GitHub integration and must rely on `gh issue list` with fragile
 
 ### 1. List Open Issues with Filters
 
+With `gh` on PATH (default), e.g. `gh issue list --repo my-org/my-app --state open --label bug --limit 25`. When the MCP tools are exposed:
+
 ```text
 Tool: github-mcp-server-list_issues
   owner: "my-org"
@@ -41,7 +47,8 @@ Tool: github-mcp-server-list_issues
 
 ### 2. Search Across Repositories
 
-Find issues matching a keyword across your entire org:
+Find issues matching a keyword across your entire org.
+With `gh` on PATH (default), e.g. `gh search issues "memory leak" --owner my-org --state open`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-search_issues
@@ -50,6 +57,8 @@ Tool: github-mcp-server-search_issues
 ```
 
 ### 3. Read Issue Details and Comments
+
+With `gh` on PATH (default), e.g. `gh issue view 87 --repo my-org/my-app --comments`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-issue_read
@@ -67,7 +76,8 @@ Tool: github-mcp-server-issue_read
 
 ### 4. Check Sub-Issues
 
-For tracking epics and parent/child relationships:
+For tracking epics and parent/child relationships.
+With `gh` on PATH (default), e.g. `gh api repos/my-org/my-app/issues/42/sub_issues`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-issue_read
@@ -78,6 +88,8 @@ Tool: github-mcp-server-issue_read
 ```
 
 ### 5. Get Labels for Classification
+
+With `gh` on PATH (default), e.g. `gh issue view 87 --repo my-org/my-app --json labels`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-issue_read
@@ -116,13 +128,15 @@ the authoritative issue or PR, and avoid creating a second parallel thread for t
 > grouped by label. For unlabeled issues, suggest a category based on the title
 > and body."
 
-Copilot calls `list_issues` with a `since` filter, reads each issue's labels,
+Copilot runs `gh issue list --repo my-org/api-service --search "created:>=<date>"` (when exposed: `list_issues` with a `since` filter), reads each issue's labels,
 groups them, and uses the issue body to suggest labels for uncategorized ones.
 
 ### Duplicate Detection
 
 > "Before I file a bug about 'WebSocket disconnects on idle timeout', check
 > if there's already an issue about this."
+
+With `gh` on PATH (default), e.g. `gh search issues "WebSocket disconnect idle timeout" --repo my-org/my-app`. When the MCP tools are exposed:
 
 ```text
 Tool: github-mcp-server-search_issues
@@ -147,7 +161,7 @@ and produces a sprint board summary right in the terminal.
 > "Show me new outside-contributor PRs and new unlabeled issues from the last week, then tell me
 > which ones need triage first."
 
-Copilot lists issues with the MCP issue tools, pulls in external PRs with `gh pr list`, then routes
+Copilot lists issues with `gh issue list` (or the MCP issue tools when exposed), pulls in external PRs with `gh pr list`, then routes
 the highest-signal items into the same triage queue instead of treating PRs as a separate inbox.
 
 ### Batch Categorization with SQL Tracking
@@ -193,13 +207,13 @@ maintainer opened, add the credits explicitly. This mirrors the maintainer flow
 
 ## Tips
 
-- **Parallel issue reads**: Call `issue_read` on multiple issues simultaneously
+- **Parallel issue reads**: Call `issue_read` (with `gh`: `gh issue view`) on multiple issues simultaneously
   to build a triage report fast.
-- **Use `search_issues` for cross-repo queries**: The search syntax supports
+- **Use `search_issues` (with `gh`: `gh search issues`) for cross-repo queries**: The search syntax supports
   `org:`, `repo:`, `label:`, `assignee:`, `milestone:`, and date ranges.
 - **Combine with session SQL**: Store triage results in the session database
   to track which issues you've reviewed and what actions you took.
-- **Sub-issues for epic tracking**: Use `get_sub_issues` to check progress on
+- **Sub-issues for epic tracking**: Use `get_sub_issues` (with `gh`: `gh api .../issues/<n>/sub_issues`) to check progress on
   large features broken into subtasks.
 - **Link to PRs**: After identifying an issue, ask Copilot to search for PRs
   that reference it — closing the loop between issues and code changes.
