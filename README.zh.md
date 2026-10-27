@@ -216,7 +216,7 @@ npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
 agy plugin install https://github.com/drvoss/everything-copilot-cli
 ```
 
-我们在 Cursor Agent CLI 2026.10.22 和 Antigravity CLI 1.4.7（Windows 11）上做了验证：109 个技能全部被发现，`/conventional-branch` 这样的斜杠调用在两个工具中都能工作。Cursor 通过本地插件文件夹和 `npx skills` 路径测试，Marketplace 路径尚未验证。
+我们在 Cursor Agent CLI 2026.10.22 和 Antigravity CLI 1.4.7（Windows 11）上做了验证：109 个技能全部被发现，`/conventional-branch` 这样的斜杠调用在两个工具中都能工作。Cursor 通过本地插件文件夹和 `npx skills` 路径测试。Cursor 也会读取我们的 `.claude-plugin/marketplace.json`：用 `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` 注册并索引市场，然后在 Cursor 应用的 Customize → Plugins 中安装插件（CLI 没有插件安装命令）。最后这一步安装尚未验证。
 
 需要了解：
 
@@ -231,6 +231,7 @@ agy plugin install https://github.com/drvoss/everything-copilot-cli
 | Copilot CLI 市场 | `copilot plugin marketplace add drvoss/everything-copilot-cli` | 可用 |
 | Claude Code 市场 | `claude plugin marketplace add drvoss/everything-copilot-cli` | 可用（仅技能） |
 | Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | 可用 |
+| Cursor 市场 | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`，然后在 Customize → Plugins 中安装 | 注册已验证；应用内安装步骤尚未验证 |
 | skills.sh（`npx skills`） | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | 已收录；可安装到 Cursor、Antigravity 等 |
 | GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | 已发布；`v*` 标签受保护 |
 
