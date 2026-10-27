@@ -1,0 +1,20 @@
+{
+  "name": "everything-copilot-cli",
+  "description": "Agent skills kit originally built for GitHub Copilot CLI: full collection plus a focused bundle.",
+  "owner": {
+    "name": "Everything Copilot CLI Contributors",
+    "url": "https://github.com/drvoss"
+  },
+  "plugins": [
+    {
+      "name": "everything-copilot-cli",
+      "source": "./",
+      "description": "Full collection: 109 agent skills across development, testing, security, documentation, workflow, product, and content."
+    },
+    {
+      "name": "copilot-native-workflows",
+      "source": "./plugins/copilot-native-workflows",
+      "description": "Focused bundle of 9 skills: Plan Mode, Autopilot, background delegation, session memory, Actions triage, and PR workflow."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "everything-copilot-cli",
+  "description": "Agent skills kit originally built for GitHub Copilot CLI: 109 skills across development, testing, security, documentation, workflow, product, and content, plus multi-AI orchestration patterns.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Everything Copilot CLI Contributors",
+    "url": "https://github.com/drvoss"
+  },
+  "homepage": "https://github.com/drvoss/everything-copilot-cli",
+  "repository": "https://github.com/drvoss/everything-copilot-cli",
+  "license": "MIT",
+  "keywords": ["agent-skills", "copilot-cli", "orchestration", "multi-ai", "mcp"],
+  "skills": [
+    "./skills/development",
+    "./skills/testing",
+    "./skills/security",
+    "./skills/documentation",
+    "./skills/copilot-exclusive",
+    "./skills/workflow",
+    "./skills/product",
+    "./skills/content"
+  ]
+}
