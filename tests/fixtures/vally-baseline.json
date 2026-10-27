@@ -70,7 +70,6 @@
       "valid-refs"
     ],
     "eval-harness": [
-      "spec-compliance",
       "valid-refs"
     ],
     "evaluate-repository": [

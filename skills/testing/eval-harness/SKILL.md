@@ -219,21 +219,7 @@ Do not use the same model for both generation and evaluation when you can avoid 
 | Worker | faster, cheaper model | generate candidate outputs at scale |
 | Judge | stronger, more reliable model | score quality with less self-consistency bias |
 
-Example split:
-
-- Worker: generate 100 candidate responses
-- Judge: evaluate those responses against a fixed rubric
-
-**Copilot CLI tip:** When practical, run the Worker and Judge on different model
-families or providers so one model's bias does not dominate both generation and
-evaluation. Prefer a faster/cheaper worker lane and a stronger judge lane, using
-`/model` or per-agent model overrides when the workflow allows it.
-
-Benefits:
-
-- reduces model self-grading bias
-- improves cost efficiency
-- makes scoring behavior easier to reason about
+**Copilot CLI tip:** When practical, run the Worker and Judge on different model families or providers so one model's bias does not dominate both generation and evaluation, using `/model` or per-agent model overrides when the workflow allows it. This reduces self-grading bias and keeps cost down.
 
 ### Common judge patterns
 
@@ -335,29 +321,16 @@ looks acceptable — instability is itself the defect.
 
 #### Size the eval so it can return a verdict
 
-Repeated runs measure reliability; they do not add evidence. Five runs of one case are still one
-case. When comparing a candidate against a baseline, give each **distinct** case one vote (its
-majority direction across runs). A case is *eligible* when both variants run it and the rubric can
-score it — cases meant to check that the skill stays inactive do not count. Require at least five
-eligible distinct cases before the gate can return pass or fail; with fewer, report `underpowered` —
-never a pass and never a regression. Keep ties in the record: a tie is not a win, and because it leaves fewer
-decisive votes, it makes a win harder to claim. Do not drop ties to make the result look cleaner.
-Adapted from the eval sizing rules in `dotnet/skills` `CONTRIBUTING.md` (MIT).
+Repeated runs measure reliability; they do not add evidence. Five runs of one case are still one case. When comparing a candidate against a baseline, give each **distinct** case one vote (its majority direction across runs).
+A case is *eligible* when both variants run it and the rubric can score it — cases meant to check that the skill stays inactive do not count. Require at least five eligible distinct cases before the gate can return pass or fail; with fewer, report `underpowered` — never a pass and never a regression.
+Keep ties in the record: a tie is not a win, and because it leaves fewer decisive votes, it makes a win harder to claim. Do not drop ties to make the result look cleaner. Adapted from the eval sizing rules in `dotnet/skills` `CONTRIBUTING.md` (MIT).
 
 ### Trajectory argument matching
 
 When a trajectory check depends on tool inputs, compare normalized arguments rather
 than raw payloads when possible.
 
-Good ignore candidates:
-
-- timestamps
-- request IDs
-- signatures or auth headers
-- optional defaults injected by the runtime
-
-If the same volatile field appears in repeated nested structures, support glob-style
-ignore paths so the matcher stays maintainable instead of listing every index by hand.
+Good ignore candidates include timestamps, request IDs, signatures or auth headers, and optional defaults injected by the runtime. If the same volatile field appears in repeated nested structures, support glob-style ignore paths so the matcher stays maintainable instead of listing every index by hand.
 
 Example shape:
 
@@ -375,17 +348,8 @@ Example shape:
 
 ### Failure-driven improvement loop
 
-When the same eval cases fail repeatedly, turn the failures into **bounded edit hypotheses** for
-the prompt, policy, or skill instead of making broad speculative rewrites.
-
-Good bounded edit types:
-
-- add one missing instruction
-- delete one conflicting instruction
-- replace one ambiguous step with a clearer constraint
-
-Accept an edit only if it improves held-out or regression-tracked cases, not just the failure that
-inspired it.
+When the same eval cases fail repeatedly, turn the failures into **bounded edit hypotheses** for the prompt, policy, or skill instead of making broad speculative rewrites. Good bounded edits add one missing instruction, delete one conflicting instruction, or replace one ambiguous step with a clearer constraint.
+Accept an edit only if it improves held-out or regression-tracked cases, not just the failure that inspired it.
 
 ### Rejected edit buffer
 
