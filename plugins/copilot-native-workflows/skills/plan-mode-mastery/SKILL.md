@@ -17,6 +17,11 @@ plan with SQL-backed todo tracking, presents it in the terminal for review, and 
 between interactive execution, autopilot, or fleet mode. Claude Code also has a plan permission mode;
 Copilot's differs in linking the plan to SQL todos and to the autopilot/fleet hand-off.
 
+> **Using another tool?** This skill describes Copilot CLI's own features (Plan Mode, the
+> `exit_plan_mode` tool, SQL todos, Autopilot, Fleet). Cursor, Antigravity, and Claude Code do not
+> have these, so there use only the general ideas — plan first, track steps, checkpoint — and
+> ignore the tool-specific commands.
+
 ## When to Use
 
 - Complex multi-step tasks that benefit from upfront planning

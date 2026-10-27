@@ -204,6 +204,27 @@ Claude Code 2.1.311（Windows 11）で確認しました。109 個のスキル�
   ずれていく 2 セットを保守するより、Copilot CLI に合わせた 1 セットを維持する方針とし、動かないエージェントが一覧に出ないよう Claude Code 用プラグインからは外しています。Claude Code 向けエージェントセットの貢献は歓迎します。
 - **一部のスキルは Copilot CLI の機能を前提に書かれています。** `copilot-exclusive` のスキル（Plan Mode、Autopilot、`/delegate`）や一部の PowerShell 例は Copilot CLI のワークフローを説明しています。Claude Code でも読み込まれますが、その部分は Copilot CLI で最も役立ちます。
 
+### Cursor と Antigravity でスキルを使う
+
+どちらのツールも同じ Agent Skills 形式を読み込みます。好みの方法を選んでください。
+
+```bash
+# Cursor Agent CLI または Antigravity CLI — プロジェクトの .agents/skills にインストール
+npx skills add drvoss/everything-copilot-cli --agent cursor
+npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
+
+# Antigravity CLI — GitHub からネイティブプラグインとしてインストール
+agy plugin install https://github.com/drvoss/everything-copilot-cli
+```
+
+Cursor Agent CLI 2026.10.22 と Antigravity CLI 1.4.7（Windows 11）で確認しました。109 個のスキルがすべて検出され、`/conventional-branch` のようなスラッシュ呼び出しが両ツールで動作しました。Cursor はローカルプラグインフォルダーと `npx skills` 経由で試験しており、Marketplace 経由は未検証です。
+
+知っておいていただきたい点：
+
+- **エージェントは読み込まれません。** Claude Code と同様、Copilot 形式のエージェント 8 個はどちらのツールでも認識されません。スキルは通常どおりインストールして実行できます。
+- **Antigravity のヘッドレスモードは既定でシェルコマンドを拒否します。** `agy -p` で「このプロジェクトのスタックを検出して」のような自然言語の依頼をすると、PowerShell を使うスキルにコマンド権限が必要なため、空の応答になることがあります。スラッシュ呼び出しや対話実行を使うか、権限を自分で許可してください。
+- **`copilot-exclusive` のスキルは Copilot CLI の機能を説明しています。** たとえば `plan-mode-mastery` は Copilot CLI にしかない Plan Mode と SQL todo を扱います。
+
 ---
 
 ## リポジトリ構造

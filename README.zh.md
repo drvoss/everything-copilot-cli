@@ -203,6 +203,27 @@ claude plugin install everything-copilot-cli@everything-copilot-cli
   与其维护两套逐渐分歧的副本，我们选择维护一套面向 Copilot CLI 的智能体，并在 Claude Code 插件中去掉它们，以免出现无法运行的智能体。欢迎贡献面向 Claude Code 的智能体集合。
 - **部分技能是围绕 Copilot CLI 功能编写的。** `copilot-exclusive` 中的技能（Plan Mode、Autopilot、`/delegate`）以及少数 PowerShell 示例描述的是 Copilot CLI 的工作流。它们在 Claude Code 中也能加载，但这些部分在 Copilot CLI 中最有用。
 
+### 在 Cursor 和 Antigravity 中使用这些技能
+
+两个工具读取的都是同一种 Agent Skills 格式，可按喜好选择方式：
+
+```bash
+# Cursor Agent CLI 或 Antigravity CLI — 安装到项目的 .agents/skills
+npx skills add drvoss/everything-copilot-cli --agent cursor
+npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
+
+# Antigravity CLI — 从 GitHub 以原生插件方式安装
+agy plugin install https://github.com/drvoss/everything-copilot-cli
+```
+
+我们在 Cursor Agent CLI 2026.10.22 和 Antigravity CLI 1.4.7（Windows 11）上做了验证：109 个技能全部被发现，`/conventional-branch` 这样的斜杠调用在两个工具中都能工作。Cursor 通过本地插件文件夹和 `npx skills` 路径测试，Marketplace 路径尚未验证。
+
+需要了解：
+
+- **智能体不会被加载。** 与 Claude Code 一样，这两个工具都不会识别 Copilot 格式的 8 个智能体；技能仍可正常安装和运行。
+- **Antigravity 的无头模式默认拒绝 shell 命令。** 在 `agy -p` 下用自然语言请求（如"检测这个项目的技术栈"）时，使用 PowerShell 的技能需要命令权限，因此可能返回空响应。请使用斜杠调用或交互式运行，或自行授予权限。
+- **`copilot-exclusive` 中的技能描述的是 Copilot CLI 功能。** 例如 `plan-mode-mastery` 讲的是仅 Copilot CLI 才有的 Plan Mode 和 SQL todo。
+
 ---
 
 ## 仓库结构

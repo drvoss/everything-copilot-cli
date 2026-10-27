@@ -26,6 +26,11 @@ to this specific collection's skills and rules — not the file-scanning mechani
 
 ## Workflow
 
+> **No shell access?** In tools that deny shell commands by default (for example headless
+> `agy -p` or Cursor `--mode=ask`), skip the PowerShell snippets below. List the project root with
+> your file-listing tool and read `package.json`, lockfiles, and config files directly; the
+> detection rules and the recommendation table apply unchanged.
+
 ### 1. Detect Runtime & Package Manager
 
 ```powershell

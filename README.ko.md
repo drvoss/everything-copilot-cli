@@ -204,6 +204,27 @@ Claude Code 2.1.311(Windows 11)에서 확인했습니다. 109개 스킬이 모�
   서로 어긋나는 사본 두 벌을 관리하기보다 Copilot CLI에 맞춘 한 벌을 유지하기로 했고, 실행되지 않는 에이전트가 목록에 보이지 않도록 Claude Code 플러그인에서는 뺐습니다. Claude Code용 에이전트 세트를 기여해 주신다면 환영합니다.
 - **일부 스킬은 Copilot CLI 기능을 기준으로 쓰여 있습니다.** `copilot-exclusive`의 스킬(Plan Mode, Autopilot, `/delegate`)과 일부 PowerShell 예시는 Copilot CLI 워크플로를 설명합니다. Claude Code에서도 로드되지만 그 부분은 Copilot CLI에서 가장 유용합니다.
 
+### Cursor와 Antigravity에서 스킬 사용하기
+
+두 도구 모두 같은 Agent Skills 형식을 읽습니다. 편한 방법을 고르세요.
+
+```bash
+# Cursor Agent CLI 또는 Antigravity CLI — 프로젝트의 .agents/skills에 설치
+npx skills add drvoss/everything-copilot-cli --agent cursor
+npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
+
+# Antigravity CLI — GitHub에서 네이티브 플러그인으로 설치
+agy plugin install https://github.com/drvoss/everything-copilot-cli
+```
+
+Cursor Agent CLI 2026.10.22와 Antigravity CLI 1.4.7(Windows 11)에서 확인했습니다. 109개 스킬이 모두 발견되었고 `/conventional-branch` 같은 슬래시 호출이 두 도구에서 동작했습니다. Cursor는 로컬 플러그인 폴더와 `npx skills` 경로로 시험했고, Marketplace 경로는 아직 검증하지 않았습니다.
+
+알아 두실 점:
+
+- **에이전트는 로드되지 않습니다.** Claude Code와 마찬가지로 Copilot 형식의 에이전트 8개는 두 도구에서 인식되지 않습니다. 스킬은 정상적으로 설치되어 실행됩니다.
+- **Antigravity 헤드리스 모드는 기본적으로 셸 명령을 거부합니다.** `agy -p`에서 "이 프로젝트의 스택을 감지해 줘" 같은 자연어 요청은 PowerShell을 쓰는 스킬에 명령 권한이 필요해 빈 응답이 나올 수 있습니다. 슬래시 호출이나 대화형 실행을 쓰거나 권한을 직접 허용하세요.
+- **`copilot-exclusive` 스킬은 Copilot CLI 기능을 설명합니다.** 예를 들어 `plan-mode-mastery`는 Copilot CLI에만 있는 Plan Mode와 SQL todo를 다룹니다.
+
 ---
 
 ## 저장소 구조

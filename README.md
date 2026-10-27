@@ -205,6 +205,27 @@ Two things to know:
   We keep one agent set tuned for Copilot CLI rather than two diverging copies, and leave the agents out of the Claude Code plugin so you never see agents that cannot run. A Claude Code agent set would make a welcome contribution.
 - **Some skills are written around Copilot CLI features.** Skills in `copilot-exclusive` (Plan Mode, Autopilot, `/delegate`) and a few PowerShell snippets describe Copilot CLI workflows. They load in Claude Code, but those parts are most useful in Copilot CLI.
 
+### Using the skills in Cursor and Antigravity
+
+Both tools read the same Agent Skills format. Pick whichever route suits you:
+
+```bash
+# Cursor Agent CLI or Antigravity CLI — installs into your project's .agents/skills
+npx skills add drvoss/everything-copilot-cli --agent cursor
+npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
+
+# Antigravity CLI — native plugin install from GitHub
+agy plugin install https://github.com/drvoss/everything-copilot-cli
+```
+
+We tested this on Cursor Agent CLI 2026.10.22 and Antigravity CLI 1.4.7 (Windows 11). All 109 skills were discovered, and explicit slash calls such as `/conventional-branch` worked in both tools. Cursor was tested through a local plugin folder and the `npx skills` route; its Marketplace route has not been verified yet.
+
+Good to know:
+
+- **Agents are not loaded.** As with Claude Code, neither tool picks up the 8 Copilot-format agents; the skills still install and run normally.
+- **Antigravity headless mode denies shell commands by default.** A natural-language request such as "detect this project's stack" may return an empty answer under `agy -p` because skills that use PowerShell need command permission. Use a slash call, run it interactively, or grant the permission yourself.
+- **`copilot-exclusive` skills describe Copilot CLI features.** For example, `plan-mode-mastery` explains Plan Mode and SQL todos, which exist only in Copilot CLI.
+
 ---
 
 ## Repository Structure
