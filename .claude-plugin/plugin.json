@@ -10,6 +10,7 @@
   "repository": "https://github.com/drvoss/everything-copilot-cli",
   "license": "MIT",
   "keywords": ["agent-skills", "copilot-cli", "orchestration", "multi-ai", "mcp"],
+  "agents": [],
   "skills": [
     "./skills/development",
     "./skills/testing",
