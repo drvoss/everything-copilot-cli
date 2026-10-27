@@ -2,6 +2,8 @@
 
 > Catalog of all core agents in the everything-copilot-cli system.
 > Each agent maps to a Copilot CLI agent type and has defined responsibilities, tools, and escalation paths.
+> These definitions use Copilot CLI's agent format (tool names and model IDs), so Claude Code, Cursor, and
+> Antigravity do not load them; the skills in this repository work in those tools without them.
 
 ---
 

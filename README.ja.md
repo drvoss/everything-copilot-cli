@@ -225,12 +225,27 @@ Cursor Agent CLI 2026.10.22 と Antigravity CLI 1.4.7（Windows 11）で確認�
 - **Antigravity のヘッドレスモードは既定でシェルコマンドを拒否します。** `agy -p` で「このプロジェクトのスタックを検出して」のような自然言語の依頼をすると、PowerShell を使うスキルにコマンド権限が必要なため、空の応答になることがあります。スラッシュ呼び出しや対話実行を使うか、権限を自分で許可してください。
 - **`copilot-exclusive` のスキルは Copilot CLI の機能を説明しています。** たとえば `plan-mode-mastery` は Copilot CLI にしかない Plan Mode と SQL todo を扱います。
 
+### 入手方法
+
+| チャネル | コマンドまたはリンク | 状況 |
+|---|---|---|
+| Copilot CLI マーケットプレイス | `copilot plugin marketplace add drvoss/everything-copilot-cli` | 利用可能 |
+| Claude Code マーケットプレイス | `claude plugin marketplace add drvoss/everything-copilot-cli` | 利用可能（スキルのみ） |
+| Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | 利用可能 |
+| skills.sh（`npx skills`） | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | 登録済み。Cursor、Antigravity などへインストール |
+| GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | 公開済み。`v*` タグは保護 |
+
+Claude ディレクトリと awesome-copilot への申請はまだ行っていません。
+
 ---
 
 ## リポジトリ構造
 
 ```text
 everything-copilot-cli/
+├── .github/plugin/                # Copilot CLI マーケットプレイスのマニフェスト
+├── .claude-plugin/                # Claude Code プラグイン + マーケットプレイスのマニフェスト
+├── plugins/                       # 生成された絞り込みバンドル (copilot-native-workflows)
 ├── agents/                        # Agent definitions (8 core agents)
 │   ├── planner.md
 │   ├── architect.md

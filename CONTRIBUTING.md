@@ -25,10 +25,14 @@ Thank you for your interest in contributing! This project aims to be the definit
 ### Adding a New Skill
 
 1. Create `skills/<category>/<skill-name>/SKILL.md` (each skill gets its own directory)
-2. Include YAML frontmatter with `name`, `description`, and `metadata.category`
+2. Include YAML frontmatter with `name`, `description`, `license: MIT`, and `metadata.category`
 3. Recommended: add `metadata.agent_type` for agent-specific skills
 4. Valid categories: `development`, `testing`, `security`, `documentation`, `copilot-exclusive`, `workflow`, `product`, `content`
-5. Run `npm run validate && npm run lint:md && npm test` to validate
+5. If the skill is part of the focused bundle (`plugins/bundles.json`), run `node scripts/build-plugin-bundles.mjs` to regenerate `plugins/copilot-native-workflows/`; never edit the generated copies. `npm run check:plugins` fails on drift.
+6. Run `npm run validate && npm run lint:md && npm test` to validate (`npm run lint:skills` and `npm run lint:plugins` must also keep exit code 0)
+7. Skills are shared with Claude Code, Cursor, and Antigravity. Where a skill depends on a Copilot CLI feature or on shell access, say so and describe a fallback so it stays useful elsewhere
+
+> **Agents are Copilot-format.** Files in `agents/` use Copilot CLI tool names and models, so the Claude Code plugin (`.claude-plugin/plugin.json`) leaves them out on purpose. Agent sets for other tools are welcome as separate contributions.
 
 ### Adding a New Rule
 

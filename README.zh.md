@@ -224,12 +224,27 @@ agy plugin install https://github.com/drvoss/everything-copilot-cli
 - **Antigravity 的无头模式默认拒绝 shell 命令。** 在 `agy -p` 下用自然语言请求（如"检测这个项目的技术栈"）时，使用 PowerShell 的技能需要命令权限，因此可能返回空响应。请使用斜杠调用或交互式运行，或自行授予权限。
 - **`copilot-exclusive` 中的技能描述的是 Copilot CLI 功能。** 例如 `plan-mode-mastery` 讲的是仅 Copilot CLI 才有的 Plan Mode 和 SQL todo。
 
+### 获取方式
+
+| 渠道 | 命令或链接 | 状态 |
+|---|---|---|
+| Copilot CLI 市场 | `copilot plugin marketplace add drvoss/everything-copilot-cli` | 可用 |
+| Claude Code 市场 | `claude plugin marketplace add drvoss/everything-copilot-cli` | 可用（仅技能） |
+| Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | 可用 |
+| skills.sh（`npx skills`） | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | 已收录；可安装到 Cursor、Antigravity 等 |
+| GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | 已发布；`v*` 标签受保护 |
+
+尚未向 Claude 目录和 awesome-copilot 提交。
+
 ---
 
 ## 仓库结构
 
 ```text
 everything-copilot-cli/
+├── .github/plugin/                # Copilot CLI 市场清单
+├── .claude-plugin/                # Claude Code 插件 + 市场清单
+├── plugins/                       # 生成的精选包 (copilot-native-workflows)
 ├── agents/                        # Agent definitions (8 core agents)
 │   ├── planner.md
 │   ├── architect.md

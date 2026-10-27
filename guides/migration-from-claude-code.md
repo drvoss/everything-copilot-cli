@@ -405,6 +405,23 @@ orchestration — you can still invoke Claude Code for tasks where it excels.
 
 ---
 
+## Using This Repository's Skills in Claude Code
+
+If you keep Claude Code in your workflow, you do not have to copy skills by hand. The 109 skills
+install as a Claude Code plugin, verified on Claude Code 2.1.311:
+
+```bash
+claude plugin marketplace add drvoss/everything-copilot-cli
+claude plugin install everything-copilot-cli@everything-copilot-cli
+```
+
+The plugin carries skills only. The 8 agents use Copilot CLI's agent format (tool names and model
+IDs), which Claude Code does not accept, so they stay Copilot-only; see
+[Using the skills in Claude Code](../README.md#using-the-skills-in-claude-code) for the reasoning.
+Skills in `copilot-exclusive` describe Copilot CLI features and are most useful there.
+
+---
+
 ## Using Both Together
 
 The recommended approach for teams in transition: **use both, with Copilot CLI as hub.**

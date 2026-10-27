@@ -123,6 +123,10 @@ this order:
 3. `.github/plugin/marketplace.json`
 4. `.claude-plugin/marketplace.json`
 
+This repository ships both `.github/plugin/marketplace.json` and `.claude-plugin/marketplace.json`.
+Copilot CLI reads the first one it finds (`.github/plugin/`), so the Claude Code manifest does not
+affect Copilot installs. For installing the same skills in Claude Code, Cursor, or Antigravity, see
+the [README](../README.md#using-the-skills-in-claude-code).
 The cross-kind `--plugin`, `--mcp`, `--skill`, `--kind`, and `--scope` flags were removed from
 `copilot plugins`. Each resource kind now has its own command: `copilot plugin`, `copilot mcp`,
 and `copilot skill` each carry their own `enable` and `disable`. Discovery moved too —

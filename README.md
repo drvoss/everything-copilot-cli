@@ -226,12 +226,27 @@ Good to know:
 - **Antigravity headless mode denies shell commands by default.** A natural-language request such as "detect this project's stack" may return an empty answer under `agy -p` because skills that use PowerShell need command permission. Use a slash call, run it interactively, or grant the permission yourself.
 - **`copilot-exclusive` skills describe Copilot CLI features.** For example, `plan-mode-mastery` explains Plan Mode and SQL todos, which exist only in Copilot CLI.
 
+### Where to get it
+
+| Channel | Command or link | Status |
+|---|---|---|
+| Copilot CLI marketplace | `copilot plugin marketplace add drvoss/everything-copilot-cli` | Available |
+| Claude Code marketplace | `claude plugin marketplace add drvoss/everything-copilot-cli` | Available (skills only) |
+| Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | Available |
+| skills.sh (`npx skills`) | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | Listed; installs into Cursor, Antigravity, and other tools |
+| GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | Published; `v*` tags are protected |
+
+Submissions to the Claude directory and awesome-copilot have not been made yet.
+
 ---
 
 ## Repository Structure
 
 ```text
 everything-copilot-cli/
+├── .github/plugin/                # Copilot CLI marketplace manifest
+├── .claude-plugin/                # Claude Code plugin + marketplace manifests
+├── plugins/                       # Generated focused bundle (copilot-native-workflows)
 ├── agents/                        # Agent definitions (8 core agents)
 │   ├── planner.md
 │   ├── architect.md
