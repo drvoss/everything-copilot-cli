@@ -186,6 +186,24 @@ copilot
 > 자세한 안내는 [빠른 시작 가이드](guides/the-quickstart-guide.md)를 참고하세요.
 > 그대로 따라 해보는 쉬운 실습은 [입문자용 스킬 실습 가이드](guides/the-beginner-skills-tutorial.ko.md)를 이용하세요.
 
+### Claude Code에서 스킬 사용하기
+
+이 스킬들은 공개 Agent Skills 형식이라 Claude Code에서도 쓸 수 있습니다.
+
+```bash
+claude plugin marketplace add drvoss/everything-copilot-cli
+claude plugin install everything-copilot-cli@everything-copilot-cli
+```
+
+Claude Code 2.1.311(Windows 11)에서 확인했습니다. 109개 스킬이 모두 설치되어 실행되고, `/everything-copilot-cli:stack-detector` 같은 슬래시 호출과 Claude가 스스로 고르는 자동 호출이 모두 동작합니다. 플러그인 스킬 이름에는 플러그인 접두사가 붙으므로, 전체 컬렉션과 `copilot-native-workflows`를 함께 설치해도 Claude Code에서는 충돌하지 않습니다.
+
+알아 두실 점이 두 가지 있습니다.
+
+- **커스텀 에이전트는 Copilot 전용으로 둡니다.** Claude Code 플러그인에는 스킬만 들어 있습니다. 품질 차이가 아니라 형식 차이 때문입니다. 도구마다 에이전트를 정의하는 프런트매터가 다릅니다. 우리 에이전트는 Copilot CLI의 도구(`view`, `grep`, `task`)와 모델을 지정하는데, Claude Code는 자체 도구 이름(`Read`, `Grep`, `Agent`)을 기대하고 도구 목록이 맞지 않는 서브에이전트는 시작하지 않습니다.
+
+  서로 어긋나는 사본 두 벌을 관리하기보다 Copilot CLI에 맞춘 한 벌을 유지하기로 했고, 실행되지 않는 에이전트가 목록에 보이지 않도록 Claude Code 플러그인에서는 뺐습니다. Claude Code용 에이전트 세트를 기여해 주신다면 환영합니다.
+- **일부 스킬은 Copilot CLI 기능을 기준으로 쓰여 있습니다.** `copilot-exclusive`의 스킬(Plan Mode, Autopilot, `/delegate`)과 일부 PowerShell 예시는 Copilot CLI 워크플로를 설명합니다. Claude Code에서도 로드되지만 그 부분은 Copilot CLI에서 가장 유용합니다.
+
 ---
 
 ## 저장소 구조
@@ -252,7 +270,7 @@ everything-copilot-cli/
 
 ### 에이전트 (8개 코어)
 
-역할, 시스템 프롬프트, 도구 세트가 사전 설정된 에이전트 정의입니다.
+역할, 시스템 프롬프트, 도구 세트가 사전 설정된 에이전트 정의입니다. Copilot CLI의 에이전트 형식에 맞춰 작성되어 있습니다. Claude Code 플러그인에 스킬만 들어 있는 이유는 [Claude Code에서 스킬 사용하기](#claude-code에서-스킬-사용하기)를 참고하세요.
 
 | 에이전트 | 역할 |
 |----------|------|

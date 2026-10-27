@@ -186,6 +186,24 @@ copilot
 > 詳細な手順は [Quick Start Guide](guides/the-quickstart-guide.md) を参照してください。
 > コピペで試せるやさしい実習は [Beginner Skills Tutorial](guides/the-beginner-skills-tutorial.ja.md) を参照してください。
 
+### Claude Code でスキルを使う
+
+これらのスキルは公開の Agent Skills 形式なので、Claude Code でも使えます。
+
+```bash
+claude plugin marketplace add drvoss/everything-copilot-cli
+claude plugin install everything-copilot-cli@everything-copilot-cli
+```
+
+Claude Code 2.1.311（Windows 11）で確認しました。109 個のスキルがすべてインストールされて動作し、`/everything-copilot-cli:stack-detector` のようなスラッシュ呼び出しも、Claude が自分で選ぶ自動呼び出しも使えます。プラグインのスキル名にはプラグイン名の接頭辞が付くため、フルコレクションと `copilot-native-workflows` を同時に入れても Claude Code では衝突しません。
+
+知っておいていただきたい点が 2 つあります。
+
+- **カスタムエージェントは Copilot 専用のままにしています。** Claude Code 用プラグインにはスキルだけが入っています。品質の差ではなく形式の違いによるものです。ツールごとにエージェントの frontmatter が異なります。私たちのエージェントは Copilot CLI のツール名（`view`、`grep`、`task`）とモデルを指定していますが、Claude Code は独自のツール名（`Read`、`Grep`、`Agent`）を前提にし、ツール一覧が解決できないサブエージェントは起動しません。
+
+  ずれていく 2 セットを保守するより、Copilot CLI に合わせた 1 セットを維持する方針とし、動かないエージェントが一覧に出ないよう Claude Code 用プラグインからは外しています。Claude Code 向けエージェントセットの貢献は歓迎します。
+- **一部のスキルは Copilot CLI の機能を前提に書かれています。** `copilot-exclusive` のスキル（Plan Mode、Autopilot、`/delegate`）や一部の PowerShell 例は Copilot CLI のワークフローを説明しています。Claude Code でも読み込まれますが、その部分は Copilot CLI で最も役立ちます。
+
 ---
 
 ## リポジトリ構造
@@ -252,7 +270,7 @@ everything-copilot-cli/
 
 ### エージェント（8 Core）
 
-事前設定済みの agent 定義です。それぞれが特定の役割、system prompt、tool セットを持ちます。
+事前設定済みの agent 定義です。それぞれが特定の役割、system prompt、tool セットを持ちます。Copilot CLI の agent 形式で書かれています。Claude Code 用プラグインがスキルのみの理由は [Claude Code でスキルを使う](#claude-code-でスキルを使う) を参照してください。
 
 | Agent | 目的 |
 |-------|---------|

@@ -187,6 +187,24 @@ After `copilot` starts, you can quickly check whether the installation was picke
 > For detailed instructions, see the [Quick Start Guide](guides/the-quickstart-guide.md).
 > Want a copy-paste beginner lab? Try the [Beginner Skills Tutorial](guides/the-beginner-skills-tutorial.md).
 
+### Using the skills in Claude Code
+
+The skills use the open Agent Skills format, so Claude Code can use them too:
+
+```bash
+claude plugin marketplace add drvoss/everything-copilot-cli
+claude plugin install everything-copilot-cli@everything-copilot-cli
+```
+
+We checked this on Claude Code 2.1.311 (Windows 11): all 109 skills install and run, both with a slash command such as `/everything-copilot-cli:stack-detector` and when Claude picks a skill on its own. Plugin skill names carry the plugin prefix, so installing `copilot-native-workflows` next to the full collection does not clash in Claude Code.
+
+Two things to know:
+
+- **Custom agents stay Copilot-only.** The Claude Code plugin ships skills only. This is a format difference, not a quality gap: each tool defines agents with its own frontmatter. Our agents name Copilot CLI tools (`view`, `grep`, `task`) and models, while Claude Code expects its own tool names (`Read`, `Grep`, `Agent`) and will not start a subagent whose tool list does not resolve.
+
+  We keep one agent set tuned for Copilot CLI rather than two diverging copies, and leave the agents out of the Claude Code plugin so you never see agents that cannot run. A Claude Code agent set would make a welcome contribution.
+- **Some skills are written around Copilot CLI features.** Skills in `copilot-exclusive` (Plan Mode, Autopilot, `/delegate`) and a few PowerShell snippets describe Copilot CLI workflows. They load in Claude Code, but those parts are most useful in Copilot CLI.
+
 ---
 
 ## Repository Structure
@@ -253,7 +271,7 @@ everything-copilot-cli/
 
 ### Agents (8 Core)
 
-Pre-configured agent definitions — each with a specific role, system prompt, and tool set.
+Pre-configured agent definitions — each with a specific role, system prompt, and tool set. They are written for Copilot CLI's agent format; see [Using the skills in Claude Code](#using-the-skills-in-claude-code) for why the Claude Code plugin ships skills only.
 
 | Agent | Purpose |
 |-------|---------|

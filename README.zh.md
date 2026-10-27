@@ -185,6 +185,24 @@ copilot
 > 详细说明请参见[快速入门指南](guides/the-quickstart-guide.md)。
 > 如果你想直接复制粘贴完成一套入门实操，请参见 [Beginner Skills Tutorial](guides/the-beginner-skills-tutorial.zh.md)。
 
+### 在 Claude Code 中使用这些技能
+
+这些技能采用开放的 Agent Skills 格式，因此 Claude Code 也可以使用：
+
+```bash
+claude plugin marketplace add drvoss/everything-copilot-cli
+claude plugin install everything-copilot-cli@everything-copilot-cli
+```
+
+我们在 Claude Code 2.1.311（Windows 11）上做了验证：109 个技能全部可以安装并运行，既支持 `/everything-copilot-cli:stack-detector` 这样的斜杠调用，也支持 Claude 自行选择技能的自动调用。插件中的技能名带有插件前缀，因此在 Claude Code 中同时安装完整集合与 `copilot-native-workflows` 不会冲突。
+
+有两点需要说明：
+
+- **自定义智能体仍保持为 Copilot 专用。** Claude Code 插件只包含技能。这是格式差异，而不是质量差距：每个工具定义智能体所用的 frontmatter 各不相同。我们的智能体指定的是 Copilot CLI 的工具名（`view`、`grep`、`task`）和模型，而 Claude Code 要求使用自己的工具名（`Read`、`Grep`、`Agent`），并且不会启动工具列表无法解析的子智能体。
+
+  与其维护两套逐渐分歧的副本，我们选择维护一套面向 Copilot CLI 的智能体，并在 Claude Code 插件中去掉它们，以免出现无法运行的智能体。欢迎贡献面向 Claude Code 的智能体集合。
+- **部分技能是围绕 Copilot CLI 功能编写的。** `copilot-exclusive` 中的技能（Plan Mode、Autopilot、`/delegate`）以及少数 PowerShell 示例描述的是 Copilot CLI 的工作流。它们在 Claude Code 中也能加载，但这些部分在 Copilot CLI 中最有用。
+
 ---
 
 ## 仓库结构
@@ -251,7 +269,7 @@ everything-copilot-cli/
 
 ### 智能体（Agent）（8 个核心）
 
-预配置的 agent 定义——每个都包含特定角色、system prompt 与工具集。
+预配置的 agent 定义——每个都包含特定角色、system prompt 与工具集。它们按 Copilot CLI 的 agent 格式编写；Claude Code 插件为何只包含技能，请参见 [在 Claude Code 中使用这些技能](#在-claude-code-中使用这些技能)。
 
 | Agent | 用途 |
 |-------|------|
