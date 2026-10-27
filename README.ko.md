@@ -217,7 +217,9 @@ npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
 agy plugin install https://github.com/drvoss/everything-copilot-cli
 ```
 
-Cursor Agent CLI 2026.10.22와 Antigravity CLI 1.4.7(Windows 11)에서 확인했습니다. 109개 스킬이 모두 발견되었고 `/conventional-branch` 같은 슬래시 호출이 두 도구에서 동작했습니다. Cursor는 로컬 플러그인 폴더와 `npx skills` 경로로 시험했습니다. Cursor는 우리 `.claude-plugin/marketplace.json`도 읽습니다. `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`로 마켓플레이스를 등록·인덱싱한 뒤, Cursor 앱의 Customize → Plugins에서 플러그인을 설치합니다(CLI에는 플러그인 설치 명령이 없습니다). 이 마지막 설치 단계는 아직 검증하지 않았습니다.
+Cursor Agent CLI 2026.10.22와 Antigravity CLI 1.4.7(Windows 11)에서 확인했습니다. 109개 스킬이 모두 발견되었고 `/conventional-branch` 같은 슬래시 호출이 두 도구에서 동작했습니다. Cursor는 로컬 플러그인 폴더와 `npx skills` 경로로 시험했습니다.
+
+Cursor는 우리 `.claude-plugin/marketplace.json`도 읽습니다. `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`로 마켓플레이스를 등록·인덱싱한 뒤, Cursor 앱의 Customize → Plugins에서 플러그인을 설치합니다(CLI에는 플러그인 설치 명령이 없습니다). 이 마지막 설치 단계는 아직 검증하지 않았습니다.
 
 알아 두실 점:
 

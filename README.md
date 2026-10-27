@@ -218,7 +218,9 @@ npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
 agy plugin install https://github.com/drvoss/everything-copilot-cli
 ```
 
-We tested this on Cursor Agent CLI 2026.10.22 and Antigravity CLI 1.4.7 (Windows 11). All 109 skills were discovered, and explicit slash calls such as `/conventional-branch` worked in both tools. Cursor was tested through a local plugin folder and the `npx skills` route. Cursor also reads our `.claude-plugin/marketplace.json`: `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` registers and indexes the marketplace, and you then install the plugin from Customize → Plugins in the Cursor app (the CLI has no plugin install command). That last install step has not been verified yet.
+We tested this on Cursor Agent CLI 2026.10.22 and Antigravity CLI 1.4.7 (Windows 11). All 109 skills were discovered, and explicit slash calls such as `/conventional-branch` worked in both tools. Cursor was tested through a local plugin folder and the `npx skills` route.
+
+Cursor also reads our `.claude-plugin/marketplace.json`: `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` registers and indexes the marketplace, and you then install the plugin from Customize → Plugins in the Cursor app (the CLI has no plugin install command). That last install step has not been verified yet.
 
 Good to know:
 
