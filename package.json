@@ -1,6 +1,6 @@
 {
   "name": "everything-copilot-cli",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "The definitive guide & configuration system for GitHub Copilot CLI — agents, skills, rules, orchestration, and more",
   "keywords": [
     "github-copilot",

@@ -47,6 +47,17 @@ describe("Claude Code plugin manifests", () => {
     }
   });
 
+  it("versions agree across package, Copilot, Claude, and bundle manifests", () => {
+    const versions = {
+      package: readJson("package.json").version,
+      copilot: readJson("plugin.json").version,
+      claude: plugin.version,
+      bundleCopilot: readJson("plugins", "copilot-native-workflows", "plugin.json").version,
+      bundleClaude: readJson("plugins", "copilot-native-workflows", ".claude-plugin", "plugin.json").version,
+    };
+    assert.equal(new Set(Object.values(versions)).size, 1, JSON.stringify(versions));
+  });
+
   it("bundle manifest matches the Copilot manifest without a skills path", () => {
     const bundleDir = join(ROOT, "plugins", "copilot-native-workflows");
     const copilot = JSON.parse(readFileSync(join(bundleDir, "plugin.json"), "utf8"));
