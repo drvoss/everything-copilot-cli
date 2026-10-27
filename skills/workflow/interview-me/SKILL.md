@@ -1,5 +1,6 @@
 ---
 name: interview-me
+license: MIT
 description: >
   Use when a request is underspecified and you need to discover what the user actually
   wants before writing a plan, spec, or code - default to one question at a time when

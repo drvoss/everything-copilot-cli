@@ -1,5 +1,6 @@
 ---
 name: seo
+license: MIT
 description: Use when the user wants better search visibility, SEO remediation, schema markup, sitemap/robots work, or keyword mapping — audits and implements technical SEO, on-page optimization, Core Web Vitals, and structured data
 metadata:
   category: content

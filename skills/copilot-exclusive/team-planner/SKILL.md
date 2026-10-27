@@ -1,5 +1,6 @@
 ---
 name: team-planner
+license: MIT
 description: Use when a task is too large or multi-domain for a single agent — assemble a specialist team, assign work via SQL tracking, dispatch with /fleet or task tool, and synthesize results
 metadata:
   category: copilot-exclusive

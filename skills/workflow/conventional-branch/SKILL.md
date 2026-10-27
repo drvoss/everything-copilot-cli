@@ -1,5 +1,6 @@
 ---
 name: conventional-branch
+license: MIT
 description: >
   Use when creating or validating a Git branch name so the branch follows a
   conventional type/description format, matches the work being done, and starts

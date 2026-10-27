@@ -1,5 +1,6 @@
 ---
 name: fix-build-errors
+license: MIT
 description: Use when a build, compilation, or type-check fails — diagnose the error, identify root cause, and apply the minimal fix to get green
 metadata:
   category: development

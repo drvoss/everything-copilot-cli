@@ -1,5 +1,6 @@
 ---
 name: release
+license: MIT
 description: Use when a sprint or feature is complete and ready to ship — tags the version, generates GitHub Release notes, runs rollout or smoke verification, and publishes to npm/PyPI/Docker registries.
 metadata:
   category: workflow

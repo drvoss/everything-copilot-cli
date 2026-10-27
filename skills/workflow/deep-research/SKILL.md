@@ -1,5 +1,6 @@
 ---
 name: deep-research
+license: MIT
 description: Use when a question requires comprehensive evidence gathering from multiple sources, systematic synthesis, and traceable citations — produces a structured research brief rather than a quick answer
 metadata:
   category: workflow

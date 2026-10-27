@@ -1,5 +1,6 @@
 ---
 name: architecture-decisions
+license: MIT
 description: Use when making significant, hard-to-reverse technical decisions to document context, rationale, and consequences as Architecture Decision Records (ADRs)
 metadata:
   category: documentation

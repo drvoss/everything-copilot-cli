@@ -1,5 +1,6 @@
 ---
 name: github-issue-triage
+license: MIT
 description: Use when you have a backlog of unorganized GitHub Issues — bulk-reads, prioritizes, and labels issues at scale using `gh` (the default when installed) or Copilot's built-in GitHub MCP tools when exposed, and proposes assignees
 metadata:
   category: copilot-exclusive

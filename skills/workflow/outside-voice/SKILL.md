@@ -1,5 +1,6 @@
 ---
 name: outside-voice
+license: MIT
 description: Use when you need an independent second opinion before, during, or after implementation — run challenge, consult, or review mode in a direct builder-to-builder voice
 metadata:
   category: workflow

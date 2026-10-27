@@ -1,5 +1,6 @@
 ---
 name: sprint-retro
+license: MIT
 description: Use at the end of a sprint to run a data-driven retrospective — analyzes session history and git metrics to surface what shipped, what slowed you down, and concrete improvements.
 metadata:
   category: workflow

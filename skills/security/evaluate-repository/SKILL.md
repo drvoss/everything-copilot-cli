@@ -1,5 +1,6 @@
 ---
 name: evaluate-repository
+license: MIT
 description: Use when you need a security health scorecard of a codebase — scores 7 dimensions (secrets, dependencies, input validation, auth, error handling, supply chain, and AI agent governance) with a prioritized remediation plan.
 metadata:
   category: security

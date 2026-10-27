@@ -1,5 +1,6 @@
 ---
 name: triage
+license: MIT
 description: Use when a single issue or external-contributor pull request needs structured triage — classify it, verify the claim if needed, request missing information, and leave a durable brief or close-out note in the tracker.
 metadata:
   category: workflow

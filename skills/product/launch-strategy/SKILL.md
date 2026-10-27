@@ -1,5 +1,6 @@
 ---
 name: launch-strategy
+license: MIT
 description: Use when you're preparing to launch a product or feature publicly — builds a structured checklist covering positioning, distribution, messaging, and success metrics from private beta to GA.
 metadata:
   category: product

@@ -1,5 +1,6 @@
 ---
 name: agent-supply-chain
+license: MIT
 description: >
   Use when auditing an AI agent plugin, skill bundle, or MCP tool package for supply
   chain integrity — generate deterministic SHA-256 manifests, detect modified or

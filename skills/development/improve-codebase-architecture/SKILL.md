@@ -1,5 +1,6 @@
 ---
 name: improve-codebase-architecture
+license: MIT
 description: Use when a codebase feels hard to change, test, or navigate — surface architectural friction, identify deeper module seams, and walk one candidate into a concrete refactoring direction.
 metadata:
   category: development

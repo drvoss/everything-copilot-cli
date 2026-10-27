@@ -1,5 +1,6 @@
 ---
 name: refactor-clean
+license: MIT
 description: Use when code has grown complex, duplicated, or cluttered — clean up structure and remove dead code without changing observable behavior
 metadata:
   category: development

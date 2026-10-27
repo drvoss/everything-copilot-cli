@@ -1,5 +1,6 @@
 ---
 name: using-git-worktrees
+license: MIT
 description: Use when you need multiple branches checked out at once — create isolated working directories for parallel development without cloning the repository repeatedly
 metadata:
   category: workflow

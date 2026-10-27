@@ -1,5 +1,6 @@
 ---
 name: eval-harness
+license: MIT
 description: Use when you need to evaluate an LLM pipeline or AI feature systematically — sets up an eval harness with test cases, scoring rubrics, and pass/fail tracking rather than one-off manual spot-checks
 metadata:
   category: testing

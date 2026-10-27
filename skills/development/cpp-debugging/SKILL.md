@@ -1,5 +1,6 @@
 ---
 name: cpp-debugging
+license: MIT
 description: Use when a C++ failure involves memory lifetime, undefined behavior, native crashes, or debugger-only state — debug with symbols, sanitizers, and platform-native debuggers before patching symptoms
 metadata:
   category: development

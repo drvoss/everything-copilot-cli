@@ -1,5 +1,6 @@
 ---
 name: agentic-engineering
+license: MIT
 description: Use when designing or decomposing a task for agent execution — applies 15-minute task units, eval-first loops, and explicit input/output contracts so agents work reliably without implicit state
 metadata:
   category: copilot-exclusive

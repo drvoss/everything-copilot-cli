@@ -1,5 +1,6 @@
 ---
 name: autopilot-patterns
+license: MIT
 description: Use when you're ready to let Copilot execute a multi-step plan autonomously — configures appropriate guardrails, handles plan-to-autopilot transitions, and sets safety boundaries.
 metadata:
   category: copilot-exclusive

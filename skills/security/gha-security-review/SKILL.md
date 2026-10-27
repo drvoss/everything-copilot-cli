@@ -1,5 +1,6 @@
 ---
 name: gha-security-review
+license: MIT
 description: >
   Use when reviewing GitHub Actions workflows for exploitable vulnerabilities — finds
   pwn-request patterns, expression injection, credential escalation, config poisoning,

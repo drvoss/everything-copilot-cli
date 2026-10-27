@@ -1,5 +1,6 @@
 ---
 name: wayfinder
+license: MIT
 description: Use when a task is too large or ambiguous to finish in one session — build a destination-centric plan with a breadth-first triage pass, an explicit Deferred/out-of-scope section, and a confirmation gate before implementation starts
 metadata:
   category: workflow

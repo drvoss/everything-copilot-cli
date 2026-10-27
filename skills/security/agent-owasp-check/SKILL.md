@@ -1,5 +1,6 @@
 ---
 name: agent-owasp-check
+license: MIT
 description: Use when auditing an AI agent system against the OWASP Agentic Security Initiative Top 10 — checks tool access, prompt boundaries, memory handling, and operational safeguards across the agent pipeline.
 metadata:
   category: security

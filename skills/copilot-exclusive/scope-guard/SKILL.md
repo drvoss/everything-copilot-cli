@@ -1,5 +1,6 @@
 ---
 name: scope-guard
+license: MIT
 description: Use when a task must stay inside a narrow file or directory boundary, or when risky commands need an explicit stop rule — define the writable surface first so the agent does not drift.
 metadata:
   category: copilot-exclusive

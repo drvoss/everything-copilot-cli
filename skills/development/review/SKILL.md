@@ -1,5 +1,6 @@
 ---
 name: review
+license: MIT
 description: Use when you want to check whether a code change follows the repository's documented conventions (Standards) and aligns with the originating issue or PRD (Spec) — compared against a pinned git reference
 metadata:
   category: development

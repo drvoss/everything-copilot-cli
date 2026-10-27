@@ -1,5 +1,6 @@
 ---
 name: context-prime
+license: MIT
 description: Invoke when starting a session (or resuming after a break) on a repo before making changes, to load live project context (structure, recent commits, test status)
 metadata:
   category: copilot-exclusive

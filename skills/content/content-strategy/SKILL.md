@@ -1,5 +1,6 @@
 ---
 name: content-strategy
+license: MIT
 description: Use when you need a content plan to grow organic traffic for a product or new area — produces keyword research, topic clusters, and a content calendar targeting your category.
 metadata:
   category: content

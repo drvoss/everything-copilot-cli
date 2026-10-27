@@ -1,5 +1,6 @@
 ---
 name: sub-agent-sandboxing
+license: MIT
 description: Use when delegated work needs runtime guardrails — constrain sub-agents with loop detection, circuit breakers, and escalating sandbox levels before accepting their output
 metadata:
   category: copilot-exclusive

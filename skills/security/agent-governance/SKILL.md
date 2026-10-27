@@ -1,5 +1,6 @@
 ---
 name: agent-governance
+license: MIT
 description: >
   Use when designing or reviewing an AI agent system that needs policy-based access
   controls, intent classification, tool-level rate limiting, trust scoring for

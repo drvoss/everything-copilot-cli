@@ -1,5 +1,6 @@
 ---
 name: background-agent
+license: MIT
 description: Use when a task is too long to block the current session or should run autonomously — delegates to a cloud background agent via & or /delegate so work can continue on GitHub while you keep moving locally, not in a local async PowerShell session.
 metadata:
   category: copilot-exclusive

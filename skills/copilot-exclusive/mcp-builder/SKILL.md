@@ -1,5 +1,6 @@
 ---
 name: mcp-builder
+license: MIT
 description: Use when you need to build a new MCP server — plan the tool surface, implement the server, register it in Copilot CLI, inspect the config, and test the tools end to end.
 metadata:
   category: copilot-exclusive

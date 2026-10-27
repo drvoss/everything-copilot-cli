@@ -1,5 +1,6 @@
 ---
 name: github-pr-workflow
+license: MIT
 description: Use when creating, updating, or managing pull requests — reads PRs and reviews with `gh` (the default when installed) or the built-in GitHub MCP server when exposed, and opens, updates, or merges them with /pr or gh
 metadata:
   category: copilot-exclusive

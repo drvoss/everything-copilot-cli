@@ -1,5 +1,6 @@
 ---
 name: implementation-review
+license: MIT
 description: Use after an implementation pass lands — compare the original task spec or handoff against the delivered diff, classify each requested item, and produce an actionable follow-up report.
 metadata:
   category: workflow

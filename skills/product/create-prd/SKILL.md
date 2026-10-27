@@ -1,5 +1,6 @@
 ---
 name: create-prd
+license: MIT
 description: Use when you're ready to define a feature before building it — generates a structured PRD using Jobs-to-be-Done thinking, success metrics, and explicit scope boundaries.
 metadata:
   category: product

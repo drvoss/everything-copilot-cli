@@ -1,5 +1,6 @@
 ---
 name: copilot-memory
+license: MIT
 description: Use when you need to understand, review, or curate GitHub Copilot's repository-level memory — the persistent facts Copilot reuses across CLI, cloud agent, and code review for the same repository
 metadata:
   category: copilot-exclusive

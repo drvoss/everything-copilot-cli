@@ -1,5 +1,6 @@
 ---
 name: grill-with-docs
+license: MIT
 description: Use when a plan must be stress-tested against the codebase's existing language and decisions — grill it against current docs, glossary terms, and ADRs before implementation begins
 metadata:
   category: workflow

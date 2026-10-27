@@ -1,5 +1,6 @@
 ---
 name: api-and-interface-design
+license: MIT
 description: Use when defining a public API, CLI, webhook, or SDK surface — lock the contract first so compatibility, validation, and versioning stay intentional instead of accidental
 metadata:
   category: development

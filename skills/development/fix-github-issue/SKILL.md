@@ -1,5 +1,6 @@
 ---
 name: fix-github-issue
+license: MIT
 description: Use when you have a GitHub Issue number or link and want it resolved end-to-end — reads the issue, locates the bug, applies a fix, writes tests, and opens a PR from the terminal.
 metadata:
   category: development

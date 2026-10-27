@@ -1,5 +1,6 @@
 ---
 name: doubt-driven-development
+license: MIT
 description: >
   Use when a non-trivial decision should not stand without a fresh-context challenge -
   isolate the artifact and contract, run an adversarial review before committing, and

@@ -1,5 +1,6 @@
 ---
 name: react-vitest
+license: MIT
 description: Use when adding or improving tests in a React project that uses Vitest — covers component testing with Testing Library, mocking hooks, and coverage configuration.
 metadata:
   category: development

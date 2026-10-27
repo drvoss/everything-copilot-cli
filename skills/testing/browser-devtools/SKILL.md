@@ -1,5 +1,6 @@
 ---
 name: browser-devtools
+license: MIT
 description: Use when verifying frontend behavior at runtime — DOM validation, network inspection, performance profiling with browser DevTools
 metadata:
   category: testing

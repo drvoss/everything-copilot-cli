@@ -1,5 +1,6 @@
 ---
 name: grill-me
+license: MIT
 description: Use when a plan still has hidden assumptions — default to one question at a time for dependent branches, batch only truly independent questions when it saves real round-trips, and keep stress-testing the plan until dependencies, risks, and decisions are explicit before implementation starts
 metadata:
   category: workflow

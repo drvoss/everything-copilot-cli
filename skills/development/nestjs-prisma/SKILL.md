@@ -1,5 +1,6 @@
 ---
 name: nestjs-prisma
+license: MIT
 description: Use when building a NestJS application with Prisma — covers PrismaService setup as an injectable singleton, repository pattern integration, and testing with Prisma mocks.
 metadata:
   category: development

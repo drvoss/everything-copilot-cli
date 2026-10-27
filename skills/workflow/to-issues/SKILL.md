@@ -1,5 +1,6 @@
 ---
 name: to-issues
+license: MIT
 description: Use when a plan, spec, or PRD must become an actionable backlog — break it into thin dependency-aware issues that each deliver a verifiable vertical slice
 metadata:
   category: workflow

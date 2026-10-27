@@ -1,5 +1,6 @@
 ---
 name: sprint-workflow
+license: MIT
 description: Use when starting a new feature, refactor, or multi-step dev task — runs the full sprint cycle (Think → Plan → Build → Review → Test → Ship → Monitor) using Copilot CLI's plan/autopilot modes.
 metadata:
   category: workflow

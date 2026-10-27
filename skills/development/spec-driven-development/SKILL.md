@@ -1,5 +1,6 @@
 ---
 name: spec-driven-development
+license: MIT
 description: Use before starting any non-trivial feature to write a technical spec first — prevents misaligned implementation and scope creep
 metadata:
   category: development

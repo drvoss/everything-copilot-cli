@@ -1,5 +1,6 @@
 ---
 name: mcp-implementation-security-review
+license: MIT
 description: Use when reviewing the source code of an MCP server or client implementation — not just its runtime config — for authentication, session, rate-limit, schema-validation, and SDK-usage vulnerabilities, with file/line-cited findings mapped to OWASP Top 10
 metadata:
   category: security

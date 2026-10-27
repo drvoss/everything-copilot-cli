@@ -1,5 +1,6 @@
 ---
 name: context-engineering
+license: MIT
 description: Use when designing prompts or agent tasks to optimize information delivery — minimize noise, maximize signal for AI agents
 metadata:
   category: development

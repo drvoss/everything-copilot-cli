@@ -1,5 +1,6 @@
 ---
 name: product-capability
+license: MIT
 description: Use when engineering needs testable, implementable technical requirements — not a PRD but a capability spec with acceptance criteria, task breakdown, and traceability from requirement to implementation ticket
 metadata:
   category: product

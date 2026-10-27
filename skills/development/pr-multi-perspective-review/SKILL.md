@@ -1,5 +1,6 @@
 ---
 name: pr-multi-perspective-review
+license: MIT
 description: Review a pull request from 6 perspectives (PM, Dev, QA, Security, DevOps, UX) for comprehensive, bias-free feedback
 metadata:
   category: development

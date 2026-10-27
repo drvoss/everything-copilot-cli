@@ -1,5 +1,6 @@
 ---
 name: code-tour
+license: MIT
 description: Use when a user asks for a code tour, onboarding walkthrough, architecture tour, or PR tour — creates persona-targeted, step-by-step `.tour` files with real file and line anchors
 metadata:
   category: documentation

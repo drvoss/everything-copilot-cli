@@ -1,5 +1,6 @@
 ---
 name: handoff
+license: MIT
 description: >
   Use when work is changing sessions, agents, or machines and the next pass needs a
   compact handoff document with current state, open questions, and next steps instead

@@ -1,5 +1,6 @@
 ---
 name: cost-audit
+license: MIT
 description: Use when AI inference costs are growing unexpectedly, when comparing model choices by cost/quality ratio, or when optimizing token usage across a multi-model pipeline — produces an actionable cost reduction plan
 metadata:
   category: workflow

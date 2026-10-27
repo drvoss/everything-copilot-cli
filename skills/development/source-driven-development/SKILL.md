@@ -1,5 +1,6 @@
 ---
 name: source-driven-development
+license: MIT
 description: Use when implementing framework-specific or library-specific code — verify non-trivial APIs against official documentation before writing them, and record the source in task notes, docs, or the PR.
 metadata:
   category: development

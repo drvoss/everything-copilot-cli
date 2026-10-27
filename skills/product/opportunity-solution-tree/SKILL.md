@@ -1,5 +1,6 @@
 ---
 name: opportunity-solution-tree
+license: MIT
 description: Use when you need to ensure every feature in the backlog connects to a measurable business outcome — applies Teresa Torres' OST framework to map outcomes → opportunities → solutions → experiments.
 metadata:
   category: product

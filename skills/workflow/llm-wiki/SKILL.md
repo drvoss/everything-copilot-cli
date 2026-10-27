@@ -1,5 +1,6 @@
 ---
 name: llm-wiki
+license: MIT
 description: Use when research or domain knowledge keeps getting rediscovered across sessions — build a supplementary markdown wiki that compounds synthesized knowledge without replacing GitHub or committed project guidance
 metadata:
   category: workflow

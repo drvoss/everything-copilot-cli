@@ -1,5 +1,6 @@
 ---
 name: ai-visibility
+license: MIT
 description: Use when you want your product to surface in AI-generated answers (ChatGPT, Perplexity, Gemini) — creates llms.txt, optimizes structured data, and configures AI crawler access for GEO.
 metadata:
   category: content

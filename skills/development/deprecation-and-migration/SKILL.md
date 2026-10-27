@@ -1,5 +1,6 @@
 ---
 name: deprecation-and-migration
+license: MIT
 description: Use when removing old APIs, migrating to new patterns, or cleaning up legacy code — treats code as liability and follows a structured removal process
 metadata:
   category: development

@@ -1,5 +1,6 @@
 ---
 name: test-coverage
+license: MIT
 description: Use when test coverage falls below target or a new module has no tests — identifies untested code paths and writes targeted unit or integration tests to close the coverage gap.
 metadata:
   category: testing

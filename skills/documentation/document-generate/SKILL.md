@@ -1,5 +1,6 @@
 ---
 name: document-generate
+license: MIT
 description: >
   Use when a feature, module, or whole project needs missing documentation created
   from scratch - read the codebase, map the public surface with Diataxis

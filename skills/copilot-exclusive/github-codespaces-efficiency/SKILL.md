@@ -1,5 +1,6 @@
 ---
 name: github-codespaces-efficiency
+license: MIT
 description: >
   Use when optimizing GitHub Codespaces — faster startup times, lower spend,
   slimmer devcontainers, right-sizing machines, or scoping prebuilds.

@@ -1,5 +1,6 @@
 ---
 name: implement
+license: MIT
 description: >
   Use when starting implementation work from a PRD, spec, or set of issues — to follow
   a structured TDD → validate → review → commit loop.

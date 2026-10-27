@@ -1,5 +1,6 @@
 ---
 name: session-management
+license: MIT
 description: Use when a task spans multiple steps or sessions and needs structured state tracking — leverages the built-in SQLite session database for todos, dependencies, and batch operation progress.
 metadata:
   category: copilot-exclusive

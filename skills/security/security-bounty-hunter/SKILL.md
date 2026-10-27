@@ -1,5 +1,6 @@
 ---
 name: security-bounty-hunter
+license: MIT
 description: Use when the goal is practical vulnerability discovery for responsible disclosure or bounty submission — focuses on remotely reachable, exploitable issues that qualify for real reports rather than a broad best-practices review
 metadata:
   category: security

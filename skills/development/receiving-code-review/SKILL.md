@@ -1,5 +1,6 @@
 ---
 name: receiving-code-review
+license: MIT
 description: Use when you have just received code review feedback (human or agent) and are about to act on it — verify each item against the codebase before implementing, and push back with technical reasoning instead of performative agreement
 metadata:
   category: development

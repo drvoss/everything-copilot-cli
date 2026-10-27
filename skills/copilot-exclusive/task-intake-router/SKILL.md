@@ -1,5 +1,6 @@
 ---
 name: task-intake-router
+license: MIT
 description: Use when a request arrives and the right execution path is unclear — routes the work to the correct mode, agent type, model tier, and delegation pattern before implementation starts.
 metadata:
   category: copilot-exclusive

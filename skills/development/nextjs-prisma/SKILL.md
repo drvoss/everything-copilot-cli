@@ -1,5 +1,6 @@
 ---
 name: nextjs-prisma
+license: MIT
 description: Use when working on a Next.js App Router project that uses Prisma as the ORM — covers server component data fetching, singleton client setup, and type-safe query patterns.
 metadata:
   category: development

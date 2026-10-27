@@ -1,5 +1,6 @@
 ---
 name: skill-creator
+license: MIT
 description: Use when you want to create a new SKILL.md file — describe a workflow and this skill generates a properly structured, frontmatter-complete SKILL.md that follows this repository's conventions
 metadata:
   category: development

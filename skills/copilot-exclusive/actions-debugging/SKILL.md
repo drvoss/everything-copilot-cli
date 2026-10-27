@@ -1,5 +1,6 @@
 ---
 name: actions-debugging
+license: MIT
 description: Use when a GitHub Actions workflow fails — diagnose the run log, identify the root cause, and apply a targeted fix
 metadata:
   category: copilot-exclusive

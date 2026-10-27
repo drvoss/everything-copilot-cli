@@ -1,5 +1,6 @@
 ---
 name: code-review
+license: MIT
 description: Use when reviewing code changes for quality, correctness, and security — runs a structured checklist with severity-rated findings
 metadata:
   category: development

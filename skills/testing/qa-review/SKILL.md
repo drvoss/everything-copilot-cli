@@ -1,5 +1,6 @@
 ---
 name: qa-review
+license: MIT
 description: >
   Use when reviewing or planning QA strategy for a feature, PR, or release so
   test coverage, test quality, reliability, and defect reporting are handled as

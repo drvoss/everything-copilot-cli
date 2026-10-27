@@ -1,5 +1,6 @@
 ---
 name: input-validation
+license: MIT
 description: Use when writing or reviewing code that processes user input — validates and sanitizes to prevent SQL injection, XSS, CSRF, and other injection attacks. NOT when the code path doesn't touch user-supplied data.
 metadata:
   category: security

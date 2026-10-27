@@ -1,5 +1,6 @@
 ---
 name: prototype
+license: MIT
 description: Use when a design question is still fuzzy — build a throwaway logic or UI prototype that answers one question fast, stays easy to run, and is meant to be deleted or absorbed.
 metadata:
   category: development

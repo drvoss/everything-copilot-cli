@@ -1,5 +1,6 @@
 ---
 name: ux-audit
+license: MIT
 description: Use when a page or component needs a structured UX audit — quick scan applies 6 Krug-inspired usability checks; deep audit covers 15 design dimensions with Jobs/Ive philosophy
 metadata:
   category: testing

@@ -1,5 +1,6 @@
 ---
 name: verification-before-completion
+license: MIT
 description: Use before claiming any task is done — run the exact command that proves the fix works, read the output, and only then report success.
 metadata:
   category: workflow

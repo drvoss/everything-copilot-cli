@@ -1,5 +1,6 @@
 ---
 name: e2e-testing
+license: MIT
 description: Use when you need end-to-end tests for critical user flows that unit tests can't cover — scaffolds Playwright/Cypress tests from the happy path through edge cases.
 metadata:
   category: testing

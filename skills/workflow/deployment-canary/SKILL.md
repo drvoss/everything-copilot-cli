@@ -1,5 +1,6 @@
 ---
 name: deployment-canary
+license: MIT
 description: Use when a release has been deployed to a limited audience and must be observed before full rollout — defines success signals, watch windows, rollback triggers, and investigate handoffs.
 metadata:
   category: workflow

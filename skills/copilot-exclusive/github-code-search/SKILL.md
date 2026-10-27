@@ -1,5 +1,6 @@
 ---
 name: github-code-search
+license: MIT
 description: Use when you need real-world implementation examples or cross-repository context — search GitHub's global code index with the built-in MCP tools and reuse the results as grounded context.
 metadata:
   category: copilot-exclusive

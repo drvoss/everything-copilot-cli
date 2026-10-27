@@ -1,5 +1,6 @@
 ---
 name: diagnose
+license: MIT
 description: Use when a bug or performance issue is still fuzzy — build the fastest feedback loop first, rank the leading hypotheses, and instrument only what narrows the search
 metadata:
   category: development

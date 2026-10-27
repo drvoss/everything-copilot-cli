@@ -1,5 +1,6 @@
 ---
 name: plan-mode-mastery
+license: MIT
 description: Use when starting a complex multi-step task to create an approved plan, track todos in SQL, and execute with checkpoints
 metadata:
   category: copilot-exclusive

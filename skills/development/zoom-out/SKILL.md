@@ -1,5 +1,6 @@
 ---
 name: zoom-out
+license: MIT
 description: Use when you are lost in local code details — step one abstraction level up, map the owning modules and callers, and restate the system in project vocabulary
 disable-model-invocation: true
 metadata:

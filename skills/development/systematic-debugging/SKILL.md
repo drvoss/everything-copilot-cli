@@ -1,5 +1,6 @@
 ---
 name: systematic-debugging
+license: MIT
 description: Use when a bug is non-obvious or has resisted quick fixes — applies a 4-phase root cause analysis to find and permanently resolve the issue rather than patching symptoms
 metadata:
   category: development

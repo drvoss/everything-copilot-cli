@@ -1,5 +1,6 @@
 ---
 name: knowledge-curator
+license: MIT
 description: Use when repeated lessons, pitfalls, or decisions should move from temporary session context into durable project guidance — curate what to keep, what to discard, and where it belongs.
 metadata:
   category: copilot-exclusive

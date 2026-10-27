@@ -1,5 +1,6 @@
 ---
 name: ecosystem-intake
+license: MIT
 description: Use when monitoring a curated ecosystem source and you need to turn new items into concrete adopt/adapt/reject backlog candidates — combines GitHub-native reading with SQL triage and repository-fit scoring.
 metadata:
   category: copilot-exclusive

@@ -1,5 +1,6 @@
 ---
 name: performance-optimization
+license: MIT
 description: Use when performance is a real concern — measure first, isolate the bottleneck, and prove the improvement instead of guessing
 metadata:
   category: development

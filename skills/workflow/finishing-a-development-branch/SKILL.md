@@ -1,5 +1,6 @@
 ---
 name: finishing-a-development-branch
+license: MIT
 description: Use when implementation is complete and tests pass but the branch itself is not yet resolved — verify tests, detect worktree vs. normal checkout, then present merge/PR/keep/discard options and execute the chosen cleanup
 metadata:
   category: workflow

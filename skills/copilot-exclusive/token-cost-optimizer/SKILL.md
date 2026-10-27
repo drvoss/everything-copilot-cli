@@ -1,5 +1,6 @@
 ---
 name: token-cost-optimizer
+license: MIT
 description: Use before a large Copilot task when model choice, context size, or parallelism could drive up billed usage — estimate cost pressure early and apply Copilot-specific reduction tactics before you run
 metadata:
   category: copilot-exclusive

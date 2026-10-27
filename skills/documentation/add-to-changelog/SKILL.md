@@ -1,5 +1,6 @@
 ---
 name: add-to-changelog
+license: MIT
 description: Use when you've shipped a feature, fix, or breaking change and need to update CHANGELOG.md — follows Keep a Changelog format and syncs version numbers across package manifests.
 metadata:
   category: documentation

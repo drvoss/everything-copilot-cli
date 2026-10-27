@@ -1,5 +1,6 @@
 ---
 name: cross-session-memory
+license: MIT
 description: Use when you need to recover context, decisions, or artifacts across multiple Copilot CLI sessions — search prior session history and resume with the right files, notes, and state.
 metadata:
   category: copilot-exclusive

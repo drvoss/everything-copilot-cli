@@ -15,6 +15,7 @@
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
   <a href="#"><img src="docs/images/badge-skills.svg" alt="109 Skills" /></a>
+  <a href="https://skills.sh/drvoss/everything-copilot-cli"><img src="https://skills.sh/b/drvoss/everything-copilot-cli" alt="skills.sh installs" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
 

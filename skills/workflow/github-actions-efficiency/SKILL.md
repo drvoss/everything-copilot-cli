@@ -1,5 +1,6 @@
 ---
 name: github-actions-efficiency
+license: MIT
 description: >
   Use when auditing GitHub Actions workflows for efficiency — reducing CI minutes,
   cutting costs, eliminating redundant runs, or optimizing caching and concurrency.

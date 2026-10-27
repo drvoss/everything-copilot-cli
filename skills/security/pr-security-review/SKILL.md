@@ -1,5 +1,6 @@
 ---
 name: pr-security-review
+license: MIT
 description: Use when reviewing a pull request for security issues — automatically analyzes the diff for vulnerabilities, hardcoded secrets, injection risks, and broken access control before merging
 metadata:
   category: security

@@ -1,5 +1,6 @@
 ---
 name: mcp-ecosystem
+license: MIT
 description: Use when Copilot CLI's built-in tools do not cover a service you need — for example PostgreSQL, Redis, Jira, Slack, or an internal API — and you need to add an MCP server beyond the default GitHub MCP. NOT when the built-in tools already cover the task.
 metadata:
   category: copilot-exclusive

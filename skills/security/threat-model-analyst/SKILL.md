@@ -1,5 +1,6 @@
 ---
 name: threat-model-analyst
+license: MIT
 description: >
   Use when a repository, system, or major change needs a structured STRIDE-A threat
   model — map architecture, data flows, trust boundaries, abuse cases, and prioritized

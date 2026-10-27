@@ -1,5 +1,6 @@
 ---
 name: fleet-parallel
+license: MIT
 description: Use when you need to run the same task across many files, components, or contexts in parallel — triggers /fleet mode for batch refactoring, mass testing, or bulk review. NOT when sequential order matters.
 metadata:
   category: copilot-exclusive

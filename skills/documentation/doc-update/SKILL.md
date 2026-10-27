@@ -1,5 +1,6 @@
 ---
 name: doc-update
+license: MIT
 description: Use when code has changed and documentation may be out of date — identifies stale docs, finds gaps between implementation and docs, and applies targeted updates.
 metadata:
   category: documentation

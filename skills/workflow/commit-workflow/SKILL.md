@@ -1,5 +1,6 @@
 ---
 name: commit-workflow
+license: MIT
 description: Use when you're about to commit (especially with a mixed diff) to stage changes, split into atomic commits, and write Conventional Commit messages with emoji
 metadata:
   category: workflow

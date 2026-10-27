@@ -1,5 +1,6 @@
 ---
 name: council
+license: MIT
 description: Use when a decision has multiple credible paths and no obvious winner — convene a four-voice council (Architect, Skeptic, Pragmatist, Critic) for structured adversarial deliberation before choosing
 metadata:
   category: workflow

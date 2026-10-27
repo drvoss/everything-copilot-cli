@@ -1,5 +1,6 @@
 ---
 name: ide-switching
+license: MIT
 description: Use when moving between VS Code and Copilot CLI in the same session — transfers context between environments so you don't lose state when switching from editor to terminal.
 metadata:
   category: copilot-exclusive

@@ -1,5 +1,6 @@
 ---
 name: prompt-optimizer
+license: MIT
 description: >
   Use when a rough prompt, vague idea, or task description needs to become a finished
   copy-pasteable prompt for a chat-based LLM - rewrite it into one ready-to-send
