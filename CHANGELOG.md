@@ -10,8 +10,12 @@ The version is kept in sync across `package.json`, `plugin.json`,
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-28
+
 ### Added
 
+- `THIRD-PARTY-NOTICES.md` with the copyright notices and licenses of the projects that ported or
+  adapted skills come from.
 - Claude Code plugin and marketplace manifests (`.claude-plugin/`), including a manifest for the
   focused `copilot-native-workflows` bundle so `plugin update` keeps a stable version.
 - README sections for using the skills in Claude Code, Cursor, and Antigravity, with a table of
@@ -39,5 +43,6 @@ The version is kept in sync across `package.json`, `plugin.json`,
 - `license: MIT` in the frontmatter of every skill, and the skills.sh badge in the READMEs.
 - Protection for `v*` tags through a repository ruleset.
 
-[Unreleased]: https://github.com/drvoss/everything-copilot-cli/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/drvoss/everything-copilot-cli/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/drvoss/everything-copilot-cli/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0

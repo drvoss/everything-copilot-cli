@@ -1,7 +1,7 @@
 {
   "name": "everything-copilot-cli",
   "description": "Agent skills kit originally built for GitHub Copilot CLI: 109 skills across development, testing, security, documentation, workflow, product, and content, plus multi-AI orchestration patterns.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Everything Copilot CLI Contributors",
     "url": "https://github.com/drvoss"

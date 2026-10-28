@@ -242,7 +242,7 @@ Cursor Agent CLI 2026.10.22 と Antigravity CLI 1.4.7（Windows 11）で確認�
 | Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | 利用可能 |
 | Cursor マーケットプレイス | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` の後、Customize → Plugins でインストール | 登録とアプリでのインストールを確認済み。ローカルのアプリと CLI でスキルは読み込まれ、エージェントは読み込まれない |
 | skills.sh（`npx skills`） | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | 登録済み。Cursor、Antigravity などへインストール |
-| GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | 公開済み。`v*` タグは保護 |
+| GitHub Release | [v0.1.1](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.1) | 公開済み。`v*` タグは保護 |
 
 Claude ディレクトリと awesome-copilot への申請はまだ行っていません。
 

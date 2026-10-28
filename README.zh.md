@@ -241,7 +241,7 @@ agy plugin install https://github.com/drvoss/everything-copilot-cli
 | Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | 可用 |
 | Cursor 市场 | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`，然后在 Customize → Plugins 中安装 | 注册和应用内安装已验证；本地应用和 CLI 可加载技能，代理不会加载 |
 | skills.sh（`npx skills`） | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | 已收录；可安装到 Cursor、Antigravity 等 |
-| GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | 已发布；`v*` 标签受保护 |
+| GitHub Release | [v0.1.1](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.1) | 已发布；`v*` 标签受保护 |
 
 尚未向 Claude 目录和 awesome-copilot 提交。
 

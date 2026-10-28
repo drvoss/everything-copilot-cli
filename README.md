@@ -247,7 +247,7 @@ Good to know:
 | Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | Available |
 | Cursor marketplace | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`, then install from Customize → Plugins | Registration and app install verified; skills load in the local app and CLI, agents do not |
 | skills.sh (`npx skills`) | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | Listed; installs into Cursor, Antigravity, and other tools |
-| GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | Published; `v*` tags are protected |
+| GitHub Release | [v0.1.1](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.1) | Published; `v*` tags are protected |
 
 Submissions to the Claude directory and awesome-copilot have not been made yet.
 

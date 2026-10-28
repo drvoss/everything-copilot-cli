@@ -244,7 +244,7 @@ Cursor는 우리 `.claude-plugin/marketplace.json`도 읽습니다. `cursor-agen
 | Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | 이용 가능 |
 | Cursor 마켓플레이스 | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` 후 Customize → Plugins에서 설치 | 등록·앱 설치 확인됨. 로컬 앱과 CLI에서 스킬 로드, 에이전트는 미로드 |
 | skills.sh (`npx skills`) | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | 등록됨. Cursor, Antigravity 등에 설치 |
-| GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | 배포됨. `v*` 태그는 보호됨 |
+| GitHub Release | [v0.1.1](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.1) | 배포됨. `v*` 태그는 보호됨 |
 
 Claude 디렉터리와 awesome-copilot 제출은 아직 하지 않았습니다.
 
