@@ -216,7 +216,11 @@ npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
 agy plugin install https://github.com/drvoss/everything-copilot-cli
 ```
 
-我们在 Cursor Agent CLI 2026.10.22 和 Antigravity CLI 1.4.7（Windows 11）上做了验证：109 个技能全部被发现，`/conventional-branch` 这样的斜杠调用在两个工具中都能工作。Cursor 通过本地插件文件夹和 `npx skills` 路径测试。Cursor 也会读取我们的 `.claude-plugin/marketplace.json`：用 `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` 注册并索引市场，然后在 Cursor 应用的 Customize → Plugins 中安装插件（CLI 没有插件安装命令）。最后这一步安装尚未验证。
+我们在 Cursor Agent CLI 2026.10.22 和 Antigravity CLI 1.4.7（Windows 11）上做了验证：109 个技能全部被发现，`/conventional-branch` 这样的斜杠调用在两个工具中都能工作。Cursor 通过本地插件文件夹和 `npx skills` 路径测试。Cursor 也会读取我们的 `.claude-plugin/marketplace.json`：用 `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` 注册并索引市场，然后在 Cursor 应用的 Customize → Plugins 中安装插件（CLI 没有插件安装命令）。
+
+我们在应用中验证了安装：安装 `copilot-native-workflows` 后，技能会出现在 Customize → Skills 中，`cursor-agent -p "..." --mode=ask --trust` 无需 `--plugin-dir` 即可从插件缓存加载 `stack-detector`。8 个 Copilot 格式的代理不会被加载（Subagents 标签页为空）。在一次运行于远程环境（`/home/ubuntu/.cursor/skills-cursor`）的聊天中，该技能不可用，因此请使用本地 Agent 或 CLI。插件技能是否出现在 `/` 斜杠列表中尚未验证，请按名称请求。
+
+市场注册会固定在添加时的提交上，`marketplace update` 只刷新索引时间。要获取更新的提交，请先运行 `cursor-agent plugin marketplace remove everything-copilot-cli`，再不带 `--git-ref` 重新运行 `marketplace add drvoss/everything-copilot-cli`。
 
 需要了解：
 
@@ -231,7 +235,7 @@ agy plugin install https://github.com/drvoss/everything-copilot-cli
 | Copilot CLI 市场 | `copilot plugin marketplace add drvoss/everything-copilot-cli` | 可用 |
 | Claude Code 市场 | `claude plugin marketplace add drvoss/everything-copilot-cli` | 可用（仅技能） |
 | Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | 可用 |
-| Cursor 市场 | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`，然后在 Customize → Plugins 中安装 | 注册已验证；应用内安装步骤尚未验证 |
+| Cursor 市场 | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`，然后在 Customize → Plugins 中安装 | 注册和应用内安装已验证；本地应用和 CLI 可加载技能，代理不会加载 |
 | skills.sh（`npx skills`） | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | 已收录；可安装到 Cursor、Antigravity 等 |
 | GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | 已发布；`v*` 标签受保护 |
 

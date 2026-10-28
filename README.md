@@ -220,7 +220,13 @@ agy plugin install https://github.com/drvoss/everything-copilot-cli
 
 We tested this on Cursor Agent CLI 2026.10.22 and Antigravity CLI 1.4.7 (Windows 11). All 109 skills were discovered, and explicit slash calls such as `/conventional-branch` worked in both tools. Cursor was tested through a local plugin folder and the `npx skills` route.
 
-Cursor also reads our `.claude-plugin/marketplace.json`: `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` registers and indexes the marketplace, and you then install the plugin from Customize → Plugins in the Cursor app (the CLI has no plugin install command). That last install step has not been verified yet.
+Cursor also reads our `.claude-plugin/marketplace.json`: `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` registers and indexes the marketplace, and you then install the plugin from Customize → Plugins in the Cursor app (the CLI has no plugin install command).
+
+We verified the install from the app: after installing `copilot-native-workflows`, the skills appear under Customize → Skills, and `cursor-agent -p "..." --mode=ask --trust` loads `stack-detector` from the plugin cache without `--plugin-dir`. The 8 Copilot-format agents are not loaded (the Subagents tab stays empty).
+In one chat that ran in a remote environment (`/home/ubuntu/.cursor/skills-cursor`), the skill was not available, so use the local Agent or CLI.
+Whether plugin skills show up in the `/` slash list is not verified; ask for them by name instead.
+
+A marketplace registration is pinned to the commit it was added at, and `marketplace update` only refreshes the index time. To pick up a newer commit, run `cursor-agent plugin marketplace remove everything-copilot-cli`, then `marketplace add drvoss/everything-copilot-cli` again without `--git-ref`.
 
 Good to know:
 
@@ -235,7 +241,7 @@ Good to know:
 | Copilot CLI marketplace | `copilot plugin marketplace add drvoss/everything-copilot-cli` | Available |
 | Claude Code marketplace | `claude plugin marketplace add drvoss/everything-copilot-cli` | Available (skills only) |
 | Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | Available |
-| Cursor marketplace | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`, then install from Customize → Plugins | Registration verified; app install step not yet verified |
+| Cursor marketplace | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`, then install from Customize → Plugins | Registration and app install verified; skills load in the local app and CLI, agents do not |
 | skills.sh (`npx skills`) | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | Listed; installs into Cursor, Antigravity, and other tools |
 | GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | Published; `v*` tags are protected |
 

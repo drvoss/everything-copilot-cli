@@ -219,7 +219,11 @@ agy plugin install https://github.com/drvoss/everything-copilot-cli
 
 Cursor Agent CLI 2026.10.22와 Antigravity CLI 1.4.7(Windows 11)에서 확인했습니다. 109개 스킬이 모두 발견되었고 `/conventional-branch` 같은 슬래시 호출이 두 도구에서 동작했습니다. Cursor는 로컬 플러그인 폴더와 `npx skills` 경로로 시험했습니다.
 
-Cursor는 우리 `.claude-plugin/marketplace.json`도 읽습니다. `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`로 마켓플레이스를 등록·인덱싱한 뒤, Cursor 앱의 Customize → Plugins에서 플러그인을 설치합니다(CLI에는 플러그인 설치 명령이 없습니다). 이 마지막 설치 단계는 아직 검증하지 않았습니다.
+Cursor는 우리 `.claude-plugin/marketplace.json`도 읽습니다. `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`로 마켓플레이스를 등록·인덱싱한 뒤, Cursor 앱의 Customize → Plugins에서 플러그인을 설치합니다(CLI에는 플러그인 설치 명령이 없습니다).
+
+앱에서 설치를 확인했습니다. `copilot-native-workflows`를 설치하면 Customize → Skills에 스킬이 나타나고, `cursor-agent -p "..." --mode=ask --trust`가 `--plugin-dir` 없이 플러그인 캐시에서 `stack-detector`를 로드했습니다. Copilot 형식 에이전트 8개는 로드되지 않습니다(Subagents 탭이 비어 있음). 원격 환경(`/home/ubuntu/.cursor/skills-cursor`)에서 실행된 채팅 한 건에서는 스킬을 쓸 수 없었으므로 로컬 Agent나 CLI를 사용하세요. 플러그인 스킬이 `/` 슬래시 목록에 나타나는지는 검증하지 않았으니 이름으로 요청하세요.
+
+마켓플레이스 등록은 추가한 시점의 커밋에 고정되며, `marketplace update`는 인덱싱 시각만 갱신합니다. 새 커밋을 받으려면 `cursor-agent plugin marketplace remove everything-copilot-cli`를 실행한 뒤 `--git-ref` 없이 `marketplace add drvoss/everything-copilot-cli`를 다시 실행하세요.
 
 알아 두실 점:
 
@@ -234,7 +238,7 @@ Cursor는 우리 `.claude-plugin/marketplace.json`도 읽습니다. `cursor-agen
 | Copilot CLI 마켓플레이스 | `copilot plugin marketplace add drvoss/everything-copilot-cli` | 이용 가능 |
 | Claude Code 마켓플레이스 | `claude plugin marketplace add drvoss/everything-copilot-cli` | 이용 가능 (스킬만) |
 | Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | 이용 가능 |
-| Cursor 마켓플레이스 | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` 후 Customize → Plugins에서 설치 | 등록 확인됨. 앱 설치 단계는 미검증 |
+| Cursor 마켓플레이스 | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` 후 Customize → Plugins에서 설치 | 등록·앱 설치 확인됨. 로컬 앱과 CLI에서 스킬 로드, 에이전트는 미로드 |
 | skills.sh (`npx skills`) | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | 등록됨. Cursor, Antigravity 등에 설치 |
 | GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | 배포됨. `v*` 태그는 보호됨 |
 

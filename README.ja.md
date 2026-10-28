@@ -217,7 +217,11 @@ npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
 agy plugin install https://github.com/drvoss/everything-copilot-cli
 ```
 
-Cursor Agent CLI 2026.10.22 と Antigravity CLI 1.4.7（Windows 11）で確認しました。109 個のスキルがすべて検出され、`/conventional-branch` のようなスラッシュ呼び出しが両ツールで動作しました。Cursor はローカルプラグインフォルダーと `npx skills` 経由で試験しました。Cursor は私たちの `.claude-plugin/marketplace.json` も読み込みます。`cursor-agent plugin marketplace add drvoss/everything-copilot-cli` でマーケットプレイスを登録・インデックスし、その後 Cursor アプリの Customize → Plugins からプラグインをインストールします（CLI にプラグインのインストールコマンドはありません）。この最後のインストール手順は未検証です。
+Cursor Agent CLI 2026.10.22 と Antigravity CLI 1.4.7（Windows 11）で確認しました。109 個のスキルがすべて検出され、`/conventional-branch` のようなスラッシュ呼び出しが両ツールで動作しました。Cursor はローカルプラグインフォルダーと `npx skills` 経由で試験しました。Cursor は私たちの `.claude-plugin/marketplace.json` も読み込みます。`cursor-agent plugin marketplace add drvoss/everything-copilot-cli` でマーケットプレイスを登録・インデックスし、その後 Cursor アプリの Customize → Plugins からプラグインをインストールします（CLI にプラグインのインストールコマンドはありません）。
+
+アプリからのインストールを確認しました。`copilot-native-workflows` をインストールすると Customize → Skills にスキルが表示され、`cursor-agent -p "..." --mode=ask --trust` が `--plugin-dir` なしでプラグインキャッシュから `stack-detector` を読み込みました。Copilot 形式のエージェント 8 個は読み込まれません（Subagents タブは空です）。リモート環境（`/home/ubuntu/.cursor/skills-cursor`）で実行されたチャット 1 件ではスキルを使えなかったため、ローカルの Agent か CLI を使ってください。プラグインのスキルが `/` スラッシュ一覧に表示されるかは未検証なので、名前を指定して依頼してください。
+
+マーケットプレイスの登録は追加時点のコミットに固定され、`marketplace update` はインデックス時刻を更新するだけです。新しいコミットを取り込むには、`cursor-agent plugin marketplace remove everything-copilot-cli` を実行し、`--git-ref` なしで `marketplace add drvoss/everything-copilot-cli` をやり直してください。
 
 知っておいていただきたい点：
 
@@ -232,7 +236,7 @@ Cursor Agent CLI 2026.10.22 と Antigravity CLI 1.4.7（Windows 11）で確認�
 | Copilot CLI マーケットプレイス | `copilot plugin marketplace add drvoss/everything-copilot-cli` | 利用可能 |
 | Claude Code マーケットプレイス | `claude plugin marketplace add drvoss/everything-copilot-cli` | 利用可能（スキルのみ） |
 | Antigravity CLI | `agy plugin install https://github.com/drvoss/everything-copilot-cli` | 利用可能 |
-| Cursor マーケットプレイス | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` の後、Customize → Plugins でインストール | 登録は確認済み。アプリでのインストールは未検証 |
+| Cursor マーケットプレイス | `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` の後、Customize → Plugins でインストール | 登録とアプリでのインストールを確認済み。ローカルのアプリと CLI でスキルは読み込まれ、エージェントは読み込まれない |
 | skills.sh（`npx skills`） | [skills.sh/drvoss/everything-copilot-cli](https://skills.sh/drvoss/everything-copilot-cli) | 登録済み。Cursor、Antigravity などへインストール |
 | GitHub Release | [v0.1.0](https://github.com/drvoss/everything-copilot-cli/releases/tag/v0.1.0) | 公開済み。`v*` タグは保護 |
 

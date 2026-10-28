@@ -24,6 +24,9 @@ The version is kept in sync across `package.json`, `plugin.json`,
   Claude Code, Cursor, and Antigravity do not load their tool names and model IDs.
 - `stack-detector` explains how to work without shell access, and `plan-mode-mastery` states that
   its tooling is specific to Copilot CLI.
+- Cursor docs now record the verified marketplace install: skills load in the local app and CLI,
+  agents do not, and a registration is pinned to its commit, so refresh it with
+  `marketplace remove` then `marketplace add` (no `--git-ref`).
 - `eval-harness` was trimmed below 500 lines.
 - `package.json` version aligned with the published plugin version, 0.1.0.
 
