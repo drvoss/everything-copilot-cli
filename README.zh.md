@@ -196,6 +196,8 @@ claude plugin install everything-copilot-cli@everything-copilot-cli
 
 我们在 Claude Code 2.1.311（Windows 11）上做了验证：109 个技能全部可以安装并运行，既支持 `/everything-copilot-cli:stack-detector` 这样的斜杠调用，也支持 Claude 自行选择技能的自动调用。插件中的技能名带有插件前缀，因此在 Claude Code 中同时安装完整集合与 `copilot-native-workflows` 不会冲突。
 
+该装哪个插件：完整集合（`everything-copilot-cli`，109 个技能）或精简包（`copilot-native-workflows`，9 个技能），二选一即可。如果两个都装，让 Claude 自行选择时，同名技能会选用完整集合中的那一份。更新时运行 `claude plugin update everything-copilot-cli@everything-copilot-cli` 并重启 Claude Code；两个插件的版本都保持 0.1.0。
+
 有两点需要说明：
 
 - **自定义智能体仍保持为 Copilot 专用。** Claude Code 插件只包含技能。这是格式差异，而不是质量差距：每个工具定义智能体所用的 frontmatter 各不相同。我们的智能体指定的是 Copilot CLI 的工具名（`view`、`grep`、`task`）和模型，而 Claude Code 要求使用自己的工具名（`Read`、`Grep`、`Agent`），并且不会启动工具列表无法解析的子智能体。
@@ -221,6 +223,8 @@ agy plugin install https://github.com/drvoss/everything-copilot-cli
 我们在应用中验证了安装：安装 `copilot-native-workflows` 后，技能会出现在 Customize → Skills 中，`cursor-agent -p "..." --mode=ask --trust` 无需 `--plugin-dir` 即可从插件缓存加载 `stack-detector`。8 个 Copilot 格式的代理不会被加载（Subagents 标签页为空）。在一次运行于远程环境（`/home/ubuntu/.cursor/skills-cursor`）的聊天中，该技能不可用，因此请使用本地 Agent 或 CLI。插件技能是否出现在 `/` 斜杠列表中尚未验证，请按名称请求。
 
 市场注册会固定在添加时的提交上，`marketplace update` 只刷新索引时间。要获取更新的提交，请先运行 `cursor-agent plugin marketplace remove everything-copilot-cli`，再不带 `--git-ref` 重新运行 `marketplace add drvoss/everything-copilot-cli`。
+
+该装哪个插件：市场中有完整集合（109 个技能）和精简包 `copilot-native-workflows`（9 个技能），安装其中一个即可。
 
 需要了解：
 

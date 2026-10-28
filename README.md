@@ -198,6 +198,8 @@ claude plugin install everything-copilot-cli@everything-copilot-cli
 
 We checked this on Claude Code 2.1.311 (Windows 11): all 109 skills install and run, both with a slash command such as `/everything-copilot-cli:stack-detector` and when Claude picks a skill on its own. Plugin skill names carry the plugin prefix, so installing `copilot-native-workflows` next to the full collection does not clash in Claude Code.
 
+Which plugin to install: the full collection (`everything-copilot-cli`, 109 skills) or the focused bundle (`copilot-native-workflows`, 9 skills). If you install both, Claude picked the full collection's copy of a same-named skill when we let it choose. To update, run `claude plugin update everything-copilot-cli@everything-copilot-cli` and restart Claude Code; both plugins stay at version 0.1.0.
+
 Two things to know:
 
 - **Custom agents stay Copilot-only.** The Claude Code plugin ships skills only. This is a format difference, not a quality gap: each tool defines agents with its own frontmatter. Our agents name Copilot CLI tools (`view`, `grep`, `task`) and models, while Claude Code expects its own tool names (`Read`, `Grep`, `Agent`) and will not start a subagent whose tool list does not resolve.
@@ -227,6 +229,8 @@ In one chat that ran in a remote environment (`/home/ubuntu/.cursor/skills-curso
 Whether plugin skills show up in the `/` slash list is not verified; ask for them by name instead.
 
 A marketplace registration is pinned to the commit it was added at, and `marketplace update` only refreshes the index time. To pick up a newer commit, run `cursor-agent plugin marketplace remove everything-copilot-cli`, then `marketplace add drvoss/everything-copilot-cli` again without `--git-ref`.
+
+Which plugin to install: the marketplace lists the full collection (109 skills) and the focused bundle `copilot-native-workflows` (9 skills). Install one of them.
 
 Good to know:
 

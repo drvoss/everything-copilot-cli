@@ -197,6 +197,8 @@ claude plugin install everything-copilot-cli@everything-copilot-cli
 
 Claude Code 2.1.311(Windows 11)에서 확인했습니다. 109개 스킬이 모두 설치되어 실행되고, `/everything-copilot-cli:stack-detector` 같은 슬래시 호출과 Claude가 스스로 고르는 자동 호출이 모두 동작합니다. 플러그인 스킬 이름에는 플러그인 접두사가 붙으므로, 전체 컬렉션과 `copilot-native-workflows`를 함께 설치해도 Claude Code에서는 충돌하지 않습니다.
 
+어떤 플러그인을 설치할까요? 전체 컬렉션(`everything-copilot-cli`, 스킬 109개)과 집중 번들(`copilot-native-workflows`, 스킬 9개) 중에서 고르면 됩니다. 둘 다 설치하면 Claude가 직접 고를 때 이름이 같은 스킬은 전체 컬렉션 쪽이 선택됐습니다. 갱신은 `claude plugin update everything-copilot-cli@everything-copilot-cli`를 실행하고 Claude Code를 다시 시작하세요. 두 플러그인 모두 버전은 0.1.0으로 유지됩니다.
+
 알아 두실 점이 두 가지 있습니다.
 
 - **커스텀 에이전트는 Copilot 전용으로 둡니다.** Claude Code 플러그인에는 스킬만 들어 있습니다. 품질 차이가 아니라 형식 차이 때문입니다. 도구마다 에이전트를 정의하는 프런트매터가 다릅니다. 우리 에이전트는 Copilot CLI의 도구(`view`, `grep`, `task`)와 모델을 지정하는데, Claude Code는 자체 도구 이름(`Read`, `Grep`, `Agent`)을 기대하고 도구 목록이 맞지 않는 서브에이전트는 시작하지 않습니다.
@@ -224,6 +226,8 @@ Cursor는 우리 `.claude-plugin/marketplace.json`도 읽습니다. `cursor-agen
 앱에서 설치를 확인했습니다. `copilot-native-workflows`를 설치하면 Customize → Skills에 스킬이 나타나고, `cursor-agent -p "..." --mode=ask --trust`가 `--plugin-dir` 없이 플러그인 캐시에서 `stack-detector`를 로드했습니다. Copilot 형식 에이전트 8개는 로드되지 않습니다(Subagents 탭이 비어 있음). 원격 환경(`/home/ubuntu/.cursor/skills-cursor`)에서 실행된 채팅 한 건에서는 스킬을 쓸 수 없었으므로 로컬 Agent나 CLI를 사용하세요. 플러그인 스킬이 `/` 슬래시 목록에 나타나는지는 검증하지 않았으니 이름으로 요청하세요.
 
 마켓플레이스 등록은 추가한 시점의 커밋에 고정되며, `marketplace update`는 인덱싱 시각만 갱신합니다. 새 커밋을 받으려면 `cursor-agent plugin marketplace remove everything-copilot-cli`를 실행한 뒤 `--git-ref` 없이 `marketplace add drvoss/everything-copilot-cli`를 다시 실행하세요.
+
+어떤 플러그인을 설치할까요? 마켓플레이스에는 전체 컬렉션(스킬 109개)과 집중 번들 `copilot-native-workflows`(스킬 9개)가 있으며, 둘 중 하나를 설치하면 됩니다.
 
 알아 두실 점:
 

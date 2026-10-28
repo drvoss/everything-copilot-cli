@@ -197,6 +197,8 @@ claude plugin install everything-copilot-cli@everything-copilot-cli
 
 Claude Code 2.1.311（Windows 11）で確認しました。109 個のスキルがすべてインストールされて動作し、`/everything-copilot-cli:stack-detector` のようなスラッシュ呼び出しも、Claude が自分で選ぶ自動呼び出しも使えます。プラグインのスキル名にはプラグイン名の接頭辞が付くため、フルコレクションと `copilot-native-workflows` を同時に入れても Claude Code では衝突しません。
 
+どのプラグインを入れるか：フルコレクション（`everything-copilot-cli`、スキル 109 個）か、集中バンドル（`copilot-native-workflows`、スキル 9 個）のどちらかを選びます。両方入れた場合、Claude に選ばせたときは同名スキルのうちフルコレクション側が使われました。更新は `claude plugin update everything-copilot-cli@everything-copilot-cli` を実行し、Claude Code を再起動してください。どちらのプラグインもバージョンは 0.1.0 のままです。
+
 知っておいていただきたい点が 2 つあります。
 
 - **カスタムエージェントは Copilot 専用のままにしています。** Claude Code 用プラグインにはスキルだけが入っています。品質の差ではなく形式の違いによるものです。ツールごとにエージェントの frontmatter が異なります。私たちのエージェントは Copilot CLI のツール名（`view`、`grep`、`task`）とモデルを指定していますが、Claude Code は独自のツール名（`Read`、`Grep`、`Agent`）を前提にし、ツール一覧が解決できないサブエージェントは起動しません。
@@ -222,6 +224,8 @@ Cursor Agent CLI 2026.10.22 と Antigravity CLI 1.4.7（Windows 11）で確認�
 アプリからのインストールを確認しました。`copilot-native-workflows` をインストールすると Customize → Skills にスキルが表示され、`cursor-agent -p "..." --mode=ask --trust` が `--plugin-dir` なしでプラグインキャッシュから `stack-detector` を読み込みました。Copilot 形式のエージェント 8 個は読み込まれません（Subagents タブは空です）。リモート環境（`/home/ubuntu/.cursor/skills-cursor`）で実行されたチャット 1 件ではスキルを使えなかったため、ローカルの Agent か CLI を使ってください。プラグインのスキルが `/` スラッシュ一覧に表示されるかは未検証なので、名前を指定して依頼してください。
 
 マーケットプレイスの登録は追加時点のコミットに固定され、`marketplace update` はインデックス時刻を更新するだけです。新しいコミットを取り込むには、`cursor-agent plugin marketplace remove everything-copilot-cli` を実行し、`--git-ref` なしで `marketplace add drvoss/everything-copilot-cli` をやり直してください。
+
+どのプラグインを入れるか：マーケットプレイスにはフルコレクション（スキル 109 個）と集中バンドル `copilot-native-workflows`（スキル 9 個）があります。どちらか一方をインストールしてください。
 
 知っておいていただきたい点：
 
