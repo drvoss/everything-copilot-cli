@@ -97,6 +97,20 @@ prefix is a human-facing label and can be renamed; it is not a stable routing ke
 `github-mcp-server-<tool>` naming is one concrete example—do not substitute another runtime's
 prefix convention.
 
+### 1-A. Check for a GitHub-verified connector first
+
+Before installing a custom MCP server for a SaaS service, run `/mcp` and open the **Connectors**
+tab. GitHub-verified MCP servers (connectors) need no local install and no credentials to manage:
+you sign in once and the connection works across Copilot CLI, the Copilot app, VS Code, Copilot
+cloud agent, and GitHub Mobile. About 26 services were available at launch, including Slack,
+Figma, Notion, Sentry, Linear, Atlassian Rovo, Cloudflare, and Vercel.
+
+Connectors are in public preview. On Copilot Business or Enterprise an admin must enable the Editor
+preview features policy first. If managed settings use an MCP allowlist, an admin must also add
+GitHub-verified MCP servers to it, and some services, such as Slack, need an admin to allow MCP
+access on their side. Use a custom server (below) for services without a connector, internal
+APIs, and servers whose deployment and credentials you need to control yourself.
+
 ### 2. Add Custom MCP Servers
 
 #### Global Configuration
@@ -262,6 +276,12 @@ Then set `CONTEXT7_API_KEY` in your environment (or via `${CONTEXT7_API_KEY}` in
 |------|---------|
 | `resolve-library-id` | Map a library name to a Context7 ID (e.g. `/vercel/next.js`) |
 | `query-docs` | Fetch version-specific docs for a given library ID and question |
+
+A requested version is a lookup target, not a strict pin. If that release is not indexed, the
+Context7 API still answers with the closest documentation it has — a matching tag, a newer release
+of the same line, or the library's current docs. Check the version note at the top of a text
+response (or the `version` object in JSON) before relying on an API signature. An unindexed branch
+or channel name, such as `/vercel/next.js/canary`, still returns `404 version_not_found`.
 
 #### Prompt patterns
 

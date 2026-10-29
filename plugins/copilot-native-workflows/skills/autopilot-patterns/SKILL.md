@@ -100,9 +100,17 @@ As documented in the v1.0.77 release notes, unconditional autopilot approval als
 sandbox for the current session when bypass is allowed. Treat approval convenience and loss of
 isolation as one risk decision; see the `sub-agent-sandboxing` skill.
 
-Use `/permissions default`, `/permissions assisted`, or `/permissions allow-all` to switch approval modes (`/allow-all` and `/yolo` are aliases), `/permissions show` to see the current mode, and `/permissions reset` to clear the in-memory tool and path approvals for the current session. The v1.0.78 release notes also
-say the `/allow-all` safety-judge model is now selected automatically rather than configured by the
-user.
+Use `/permissions default`, `/permissions assisted`, or `/permissions allow-all` to switch approval
+modes (`/allow-all` and `/yolo` are aliases that take `on`, `off`, or `show`), `/permissions show`
+to see the current mode, and `/permissions reset` to clear the in-memory tool and path approvals for
+the current session. `/reset-allowed-tools` goes further: it also returns the session to manual
+approval and clears the approvals saved for the current location.
+
+Allow-all grants blanket permission with no model safety review. The safety review belongs to
+assisted permissions (`/permissions assisted`), generally available without experimental mode as of
+v1.0.104: requests the review classifies as clearly safe proceed, and the rest still ask you. The
+v1.0.78 note that the safety-judge model is selected automatically referred to the former
+`/allow-all auto` argument, which the current command reference no longer lists.
 
 Autopilot remains selected after `task_complete` by default as of v1.0.76. Set
 `stayInAutopilot` to `false` when each completed task should return to interactive mode.
@@ -160,6 +168,13 @@ fi
 ```
 
 Grant only the tools the task needs with `--allow-tool` (or `--allow-all-tools` in a sandbox); prompt mode cannot show approval prompts.
+
+As of v1.0.104, `--assisted-approval` (or `COPILOT_ASSISTED_APPROVAL=true`) turns on assisted
+permissions for a non-interactive run, so a safety review can approve eligible requests without a
+prompt. It is valid only with `-p` or when no terminal is attached. When it is enabled, it takes
+precedence over `--allow-all-tools` but does not affect `--allow-all-paths` or `--allow-all-urls`.
+Keep explicit `--allow-tool` grants for anything the run must be able to do, because a request the
+review does not approve cannot fall back to asking you.
 
 Values supplied to `--max-autopilot-continues` must be integers; reject computed NaN, negative, or
 fractional values before invocation. Also set an error budget for repeated permission denial or

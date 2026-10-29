@@ -45,10 +45,16 @@ Copilot Memory stores repository-specific facts that Copilot infers while workin
 
 Important properties:
 
-- repository-scoped memories are shared with repository collaborators; Copilot CLI can also store user-scoped memories (this skill covers the repository scope)
+- repository-level facts are shared with repository collaborators; Copilot can also store
+  user-level preferences that follow you across repositories (this skill covers the repository
+  scope)
 - validated against current code citations before reuse
 - shared across Copilot CLI, Copilot cloud agent, and Copilot code review for the repository
-- automatically deleted after 28 days unless refreshed by later validated use
+- expire after 90 days without reinforcement by default; enterprise and organization owners can
+  set the expiry for repository-level facts anywhere from 7 to 180 days, and the lower value wins
+  when both set one
+- the expiry resets only when Copilot upvotes a memory after using it — retrieving a memory does
+  not reset it, and a downvote does not shorten it
 
 ## Workflow
 
@@ -56,10 +62,19 @@ Important properties:
 
 Copilot Memory availability depends on plan and policy:
 
-- Copilot Pro / Pro+ users have it enabled by default
+- user-level preferences are on by default for Copilot Pro, Pro+, and Max, and off for Copilot
+  Business and Enterprise until an organization or enterprise owner enables them
+- repository-level facts have a separate default: allowed unless enterprise, organization, or
+  repository settings restrict them
 - organizations and enterprises can enable or disable it centrally
 
 Before relying on it, verify the feature is enabled for the user or organization.
+
+In Copilot CLI, interactive sessions follow your GitHub settings by default. Use `/memory` (or
+`/memory show`) to check the local setting, `/memory off` to stop storing and retrieving memories
+in the CLI, and `/memory on` to remove that local opt-out. Prompt-mode runs (`copilot -p`) have
+memory off by default; add `--enable-memory` to a run that should use it. Account, repository,
+and tool-permission restrictions still apply either way.
 
 ### 2. Treat memory as validated repository knowledge
 
@@ -75,7 +90,9 @@ That means:
 ### 3. Review and curate memories on GitHub
 
 Repository owners can review stored memories on GitHub and delete ones that are wrong, outdated, or
-misleading.
+misleading. The repository's Memory settings page lists facts only for users with write access who
+also have user-level preferences enabled for their own account. Copilot cannot delete a memory
+because you ask it to forget something; delete it from the settings page instead.
 
 Use this when:
 
@@ -93,7 +110,29 @@ If you want Copilot to keep learning the right things:
 
 Copilot Memory works best when the repository already has reliable evidence to cite.
 
-### 5. Keep secrets and temporary states out of memory candidates
+### 5. Seed reviewed facts with `copilot memories import`
+
+When a team already knows facts it wants Copilot to start with, import them from a JSONL file
+instead of waiting for Copilot to rediscover them. Each line is one versioned memory object with
+the required fields `type`, `version`, `scope`, `subject`, `fact`, `reason`, and `citations`; a
+repository-level fact names the repository in its `scope`, and you need permission to write
+memories for that repository.
+
+```bash
+copilot memories import memories.jsonl --dry-run   # validate the whole file; nothing is submitted
+copilot memories import memories.jsonl --output json
+```
+
+- The dry run checks the file format only, not whether your account may store the memories.
+- If any line fails validation, nothing is submitted. After validation, records are submitted one
+  at a time, so a service failure can leave a partial import. Read the per-record results and
+  retry only the failed records — repeating the whole import can create duplicate memories.
+- A conflict is an error by default; `--on-conflict skip` skips repeated `externalId` values in the
+  file and conflicts the memory service reports, but does not make a rerun safe.
+- Running the command counts as approval for every record. Authentication, policy, repository
+  permission, scope validation, and secret scanning still apply.
+
+### 6. Keep secrets and temporary states out of memory candidates
 
 Do not rely on Copilot Memory for:
 
@@ -110,7 +149,7 @@ Those belong in secure systems, ephemeral notes, or not in Copilot context at al
 | Scope | Repository-wide Copilot memory | Local CLI session history |
 | Shared by | CLI, cloud agent, code review | Your local Copilot CLI sessions |
 | Storage model | GitHub-managed repository memory | Local session data and `session_store` |
-| Retention | 28 days unless refreshed | Local historical session record |
+| Retention | 90 days by default, reset when upvoted | Local historical session record |
 | Best use | Stable repository patterns | Recovering past work and artifacts |
 
 ## Common Rationalizations
@@ -133,7 +172,8 @@ Those belong in secure systems, ephemeral notes, or not in Copilot context at al
 - Admins control availability under **Repository Settings > Copilot > Memory**
 - Repository-scoped memory is shared by all Copilot surfaces for the same repo; user-scoped memories stay with the user
 - To seed shared patterns explicitly, keep authoritative conventions in repo docs and instructions;
-  Copilot learns from those as the canonical source
+  Copilot learns from those as the canonical source. Use `copilot memories import` (step 5) only
+  for reviewed facts you also want available before Copilot rediscovers them
 
 ## Verification
 

@@ -54,6 +54,24 @@ Prefer a manual override when:
 | Strict reproducibility matters | Auto can route to different supported models over time | lock a specific model |
 | You are comparing two models intentionally | A/B testing requires a stable choice | pick exact model names |
 
+### Copilot Fusion
+
+Copilot Fusion is generally available in `/model`. It is not a single model:
+for each prompt it either answers with one model, drafts with an efficient model and escalates
+when a quality check fails (cascade), or has one model draft, another review, and the first revise
+(critique). You pick the effort level — Fusion Standard, Fusion High, or Fusion Max — instead of a
+model.
+
+| Choose | When |
+|--------|------|
+| Auto | You want one routed model per response with the least setup |
+| Fusion | You want Copilot to route, and when useful orchestrate, models for you |
+| An exact model | You need reproducibility, a known model identity, or a fair comparison |
+
+Fusion only uses models your organization and enterprise policies allow, and you are billed for
+each model it uses at that model's standard rate. Administrators can set Fusion, at any effort
+level, as the default model through enterprise managed settings.
+
 ### Model Tiers and Strengths
 
 #### Premium Tier (Deep Reasoning)

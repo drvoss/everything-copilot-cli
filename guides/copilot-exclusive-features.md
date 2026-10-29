@@ -127,6 +127,33 @@ This repository ships both `.github/plugin/marketplace.json` and `.claude-plugin
 Copilot CLI reads the first one it finds (`.github/plugin/`), so the Claude Code manifest does not
 affect Copilot installs. For installing the same skills in Claude Code, Cursor, or Antigravity, see
 the [README](../README.md#using-the-skills-in-claude-code).
+
+Repository plugin defaults are generally available. A maintainer can make this marketplace and the
+full collection a default for everyone who works in a project by committing
+`.github/copilot/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "everything-copilot-cli": {
+      "source": { "source": "github", "repo": "drvoss/everything-copilot-cli" }
+    }
+  },
+  "enabledPlugins": {
+    "everything-copilot-cli@everything-copilot-cli": true
+  }
+}
+```
+
+A plugin enabled only this way is scoped to that repository: it installs and activates there and
+stays disabled everywhere else. To opt out in Copilot CLI, a contributor sets the same key to
+`false` in `.github/copilot/settings.local.json` (never committed), saves it, and starts a new
+session. While the repository setting decides a plugin's state, `copilot plugin enable` and
+`disable` are rejected with an error that names the controlling file. Enterprise-managed required
+or blocked entries always win, and an `autoUpdate: true` on a repository-level marketplace entry is
+ignored. Copilot cloud agent also reads these two keys, so the same file can set the default for
+both, subject to managed policy.
+
 The cross-kind `--plugin`, `--mcp`, `--skill`, `--kind`, and `--scope` flags were removed from
 `copilot plugins`. Each resource kind now has its own command: `copilot plugin`, `copilot mcp`,
 and `copilot skill` each carry their own `enable` and `disable`. Discovery moved too —

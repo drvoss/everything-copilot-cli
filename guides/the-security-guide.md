@@ -248,7 +248,10 @@ When using AI tools in production workflows:
 
 Copilot CLI has built-in security boundaries:
 
-- **Interactive mode**: Asks permission before every file edit, command execution
+- **Interactive mode**: How often it asks depends on the permission mode — the default mode asks
+  before file edits and command execution that no rule or earlier approval covers, assisted
+  permissions let a safety review approve requests it classifies as clearly safe, and allow-all
+  grants tool, path, and URL permissions without individual prompts
 - **Plan mode**: Shows full plan before executing — you review every change
 - **Autopilot mode**: More autonomous but still respects tool permission boundaries
 - **Tool allowlisting**: Configure which tools agents can use
@@ -337,6 +340,12 @@ jobs:
       - uses: github/codeql-action/analyze@v3
 ```
 
+A low or zero finding count is not proof that every source path was analyzed. For compiled
+languages, autobuild or manual extraction covers only the code that was built, so unbuilt files and
+disabled conditional-compilation branches are absent. Buildless extraction reaches unbuilt files
+but still drops disabled branches and gives weaker data flow. Check the extraction mode before
+treating a sparse result as clean, and broaden the build instead of switching analyzers.
+
 ### Using Copilot CLI with GitHub Security
 
 ```text
@@ -389,7 +398,7 @@ Copilot CLI provides security features that enhance your development workflow:
 
 | Feature | Security Benefit |
 |---|---|
-| **Permission dialogs** | Every file edit and command requires explicit approval (Interactive mode) |
+| **Permission dialogs** | Default mode waits for approval; assisted and allow-all prompt less |
 | **Plan review** | Full visibility into planned changes before execution |
 | **Tool allowlisting** | Restrict which tools agents can access |
 | **Session SQL database** | Audit trail of all actions taken during a session |
