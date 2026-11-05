@@ -66,19 +66,38 @@ Even in autopilot, you can:
 ## Continuation Boundaries and Permissions
 
 Autopilot keeps working until the task completes, you interrupt it, a blocker stops progress,
-or a configured continuation limit is reached.
+or it reaches the continuation limit.
 
 ### Set explicit checkpoints when you want them
 
-If you want autopilot to pause after a bounded number of autonomous steps, set a continuation
-limit up front:
+The limit counts automatic continuation messages, not tool calls or plan phases. The command
+reference gives a default of 5 continuations outside an active autopilot objective; it does not
+say how the limit applies while an objective is active. To stop earlier outside an objective, set
+a lower value:
 
 ```text
 copilot --max-autopilot-continues 3
 ```
 
-Use this when you want a review checkpoint after a risky phase instead of letting the run continue
-indefinitely.
+A lower value gives you an earlier review checkpoint outside an objective, but it will not stop
+exactly at a phase boundary. Reaching the limit is a different stop from finishing the task, so
+confirm what was completed before you trust the result.
+
+### Give autopilot an explicit objective
+
+`/autopilot OBJECTIVE` (alias `/goal OBJECTIVE`) starts or refocuses autopilot on a stated goal.
+Without one, autopilot infers intent from context and shows your last prompt as the inferred
+objective. Add `--max-ai-credits N` to cap what the objective may spend:
+
+```text
+/goal Refactor the auth module --max-ai-credits 5
+```
+
+When the cap is reached, autopilot pauses and opens a panel with the credits used. Enter a new
+amount to resume, or dismiss the panel to stay paused. You can also resume without the panel by
+running the option alone, for example `/goal --max-ai-credits 5`. Either way the amount is a
+fresh window of that size, not an increment. `/goal on` and `/goal off` toggle autopilot without
+setting an objective and do not accept `--max-ai-credits`.
 
 ### `/allow-all` changes permissions, not task structure
 
@@ -144,9 +163,10 @@ five iterations.
 ## Unattended Runs: The Exit-Code Contract
 
 CI, cron jobs, and orchestrators need a machine-readable result. Judge prompt-mode success by the
-process exit code, never by parsing model prose from stdout. Copilot CLI release notes explicitly
-confirm a failure exit when a prompt is blocked before responding and a non-zero exit when
-`--share` or `--share-gist` export fails. Malformed `--allow-tool` and `--deny-tool` patterns are
+process exit code, never by parsing model prose from stdout. The command reference states that
+`-p` exits with a non-zero status if the run is interrupted, and Copilot CLI release notes confirm a
+failure exit when a prompt is blocked before responding and a non-zero exit when `--share` or
+`--share-gist` export fails. Malformed `--allow-tool` and `--deny-tool` patterns are
 reported as errors, but their exit code is not yet confirmed; keep that case out of automation
 until the installed runtime is tested.
 
@@ -180,6 +200,12 @@ Values supplied to `--max-autopilot-continues` must be integers; reject computed
 fractional values before invocation. Also set an error budget for repeated permission denial or
 policy blocking (for example, stop after three consecutive failures) and decide where to record
 the diagnosis. Never retry an unattended denial indefinitely.
+
+Consecutive failures are not the only loop signal: also stop and escalate when the same normalized
+error keeps coming back, or when two fixes alternate (fix A causes error B, fix B brings back
+error A). Put this rule in your own wrapper or task instructions — it is not a documented Copilot
+CLI feature — and choose the thresholds yourself. The exit code alone cannot show these patterns;
+read them from the session log or your run report.
 
 ### Safety Patterns
 
@@ -378,7 +404,7 @@ UPDATE loop_state SET
 - **Treat irreversible commands as separate consent**: `/allow-all` is not permission to discard
   work, rewrite history, or destroy infrastructure without an explicit request.
 - **Set a continuation limit for risky runs**: use `--max-autopilot-continues` when you want
-  an explicit review checkpoint after a fixed number of autonomous steps.
+  an explicit review checkpoint after a fixed number of automatic continuations.
 - **Start small**: First time using autopilot? Try it on a 3-todo task.
   Build confidence before running 20-todo autopilot sessions.
 - **Know when NOT to autopilot**: Security-critical code, database migrations,

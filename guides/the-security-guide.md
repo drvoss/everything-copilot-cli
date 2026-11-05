@@ -274,6 +274,12 @@ when it does. Use both for unattended work:
 
 See [Local Sandbox and Settings](./copilot-exclusive-features.md#local-sandbox-and-settings) for
 the command surface.
+**Content exclusion is a guardrail, not a filesystem boundary.** When an organization excludes
+files from Copilot, an agent in Copilot CLI, an IDE, or the Copilot app cannot read them through
+Copilot tools, and identifiable file paths in commands and scripts are checked before they run —
+but indirect file access might not be detected, and third-party MCP servers or clients are not
+guaranteed to respect it. Keep real secrets out of reach with operating-system permissions or the
+sandbox, not with an exclusion list.
 
 ### Safe AI-Assisted Development Practices
 

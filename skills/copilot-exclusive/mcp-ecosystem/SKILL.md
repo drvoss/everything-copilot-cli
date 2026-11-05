@@ -319,6 +319,15 @@ This pattern is especially useful when:
 - a framework recently changed APIs
 - you need official docs instead of secondary tutorials
 
+When you do not know which library holds the answer, `ctx7 search` (ctx7 0.9.0+) searches
+documentation across all libraries in one step, without a library ID. `--library` (repeat it for
+up to four libraries) and `--library-version` narrow the search, `--language` prefers results in
+the language you write in, and `--json` returns structured output:
+
+```text
+ctx7 search "how do I stream a response?" --library Next.js
+```
+
 ## Examples
 
 ### Database-Aware Development

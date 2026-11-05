@@ -218,6 +218,7 @@ the reference table.
 | `claude-opus-5.5` | Anthropic | Premium | High-capability complex tasks, architecture, deep review |
 | `claude-sonnet-5.5` | Anthropic | Standard | General-purpose coding (CLI default) |
 | `gpt-6.1-sol` | OpenAI | Standard | Strong general reasoning (opt-in) |
+| `gpt-6.1-terra` | OpenAI | Standard | Recommended alternative (opt-in) |
 | `gpt-6-astra` | OpenAI | Standard | General-purpose alternative (opt-in) |
 | `gpt-5.3-codex` | OpenAI | Standard | Code-focused tasks |
 | `gpt-6-luna` | OpenAI | Fast/Cheap | Fast general tasks (opt-in) |
@@ -226,7 +227,7 @@ the reference table.
 | `gemini-3.8-flash` | Google | Fast/Cheap | Fast Google Gemini responses |
 
 This catalog mirrors the **Supported models** table in the official Copilot CLI command reference
-(checked 2026-10-23), which highlights nine models with published IDs. GitHub's per-client model
+(checked 2026-11-04), which highlights ten models with published IDs. GitHub's per-client model
 table lists about 25 models as available in Copilot CLI — including xAI Grok and Kimi models —
 so `/model` usually shows more than this catalog; take the exact ID from `/model` for those.
 "Opt-in" means the model is recommended but is not the automatic default.

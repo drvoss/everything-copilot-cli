@@ -7,8 +7,9 @@
 ## Pre-Commit 보안 체크
 
 ```bash
-# 시크릿 스캔
-git diff --cached | grep -iE "(api[_-]?key|password|secret|token)\s*[:=]\s*['\"][^'\"]{8,}"
+# 시크릿 후보 점검 — 일치한 줄 대신 파일 이름만 출력한다. diff 출력을 grep으로 거르면 비밀값이
+# 터미널과 에이전트 도구 로그에 남는다. 출력은 검토할 파일 후보다(출력 없음 ≠ 시크릿 없음)
+git diff --cached -i -G"(api[_-]?key|password|secret|token)[[:space:]]*[:=][[:space:]]*['\"][^'\"]{8,}" --name-only
 
 # npm audit
 npm audit --audit-level=high

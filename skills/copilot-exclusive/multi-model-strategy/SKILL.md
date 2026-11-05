@@ -72,6 +72,10 @@ Fusion only uses models your organization and enterprise policies allow, and you
 each model it uses at that model's standard rate. Administrators can set Fusion, at any effort
 level, as the default model through enterprise managed settings.
 
+Fusion Max often relies on frontier models. If an administrator disables any model it requires,
+Fusion Max is not available in the model picker — check the enabled models (and the enterprise
+"Configure Copilot Fusion models" setting) before treating a missing Fusion Max as a bug.
+
 ### Model Tiers and Strengths
 
 #### Premium Tier (Deep Reasoning)
