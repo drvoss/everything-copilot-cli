@@ -108,6 +108,18 @@ List any stale, duplicated, or contradictory guidance before editing.
 
 If a note is no longer true, remove or rewrite it instead of layering on exceptions.
 
+Leave a trace of why it changed. A correction that only deletes text looks the same as an
+accident, and the old claim can come back from an earlier session or a stale copy. Record each
+correction in the change description or a changelog entry:
+
+```text
+Correction: <topic>
+- Previously claimed: <old guidance, quoted>
+- True now: <current guidance>
+- Evidence: <file, commit, command output, or doc checked>
+- Supersedes: <where the old guidance lived>
+```
+
 ### 5. Export a compact handoff when needed
 
 At the end of a sprint or migration, create a concise handoff artifact:
@@ -158,6 +170,8 @@ Promote an insight when it is:
 - stable enough that you want it applied by default
 
 Keep it as session-only context when it is still experimental, one-off, or weakly supported.
+An initiative that is still in flight stays one living session note with a status; promote its
+lessons once it is done or abandoned, not while the plan is still moving.
 
 ## Related Skills
 

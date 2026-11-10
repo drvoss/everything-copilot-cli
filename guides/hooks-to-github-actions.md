@@ -90,7 +90,8 @@ handling the request directly and injecting `additionalContext`, so this is a lo
 history rather than a single recent claim.
 
 Validate output types before printing. When no mutation is needed, omit the field and return `{}`;
-do not substitute `null`. Let hook exceptions fail explicitly instead of swallowing them and
+do not substitute `null` (since CLI 1.0.106 a `preToolUse` `"modifiedArgs": null` is accepted as
+"unchanged", but omitting the field works on every version). Let hook exceptions fail explicitly instead of swallowing them and
 emitting ambiguous empty output. Objects, numbers, or nulls in string fields have caused session
 corruption (fixed in CLI v1.0.76).
 
@@ -102,6 +103,11 @@ one bad hook disables every hook.
 As of CLI v1.0.72, an `agentStop` hook that always blocks no longer loops forever: the CLI ends
 the turn after 8 consecutive blocks, and the hook receives a `stop_hook_active` flag so it can
 detect a forced continuation and self-limit instead of relying on the CLI's cap alone.
+
+A hook that starts another Copilot session can also recurse across sessions: each new session
+fires its own `agentStop`. Since CLI 1.0.106, command hooks receive `COPILOT_HOOK_DEPTH` — `1`
+when the CLI was not itself started from a hook, higher for each hook launch in the chain — so the
+hook can refuse to launch another session past a depth you choose.
 
 For prompts piped through stdin, v1.0.78 release notes document `sessionEnd` behavior matching
 `-p`: it fires after each completed agent turn with `reason` set to `complete` (or `error` on
@@ -152,6 +158,22 @@ validation rather than pre-execution declarative filtering.
 - **Prompt mode fires one `sessionEnd`** after any Stop-hook continuations complete (v1.0.92).
 - **Hooks without `cwd` run in the project root** again, not the session's current directory
   (v1.0.88).
+
+### Reference updates (re-checked 2026-11-09)
+
+- **Parallel tool calls run their `preToolUse` hooks concurrently.** When the model sends a batch
+  of parallel tool calls, the hooks for different calls run at the same time; hooks for a single
+  call still run in order. A guard that counts calls, appends to a shared log, or assumes it sees
+  one tool at a time needs its own locking, or it should not depend on cross-call ordering at all.
+- **A sandboxed hook's access is fixed when it starts.** With **Allow dev tool access** enabled,
+  extra access depends on the tools named in the hook command and on your project files. The CLI
+  does not inspect the scripts a hook runs, so a tool called from inside a script can lack access
+  to its configuration or cache even though running it directly works. Name the tool in the hook
+  command, or grant the paths it needs in the sandbox settings.
+- **Invalid hook entries are reported.** An entry with an invalid `matcher` regex, or a malformed
+  item in a hook file, is still skipped, but the CLI now prints
+  `! Invalid hook configuration in FILE: REASON` when repository hooks load at startup or after
+  `/cd`. Check for that line before assuming a hook silently stopped firing.
 
 ### Direct hook mapping (Claude Code → Copilot CLI)
 
@@ -223,6 +245,40 @@ trimmed or the session restarts.
 This pairs well with
 [`cross-session-memory`](../skills/copilot-exclusive/cross-session-memory/SKILL.md),
 which helps you find and resume prior session context later.
+
+---
+
+## Memory Injection Pattern: Recall at Prompt Time, Write Back at Stop
+
+A long-term memory add-on can be built from three native hooks. One example is the third-party
+`@vectorize-io/hindsight-coding-agents` package (0.8.6), which wires Copilot CLI this way:
+
+| Hook | Role in the pattern |
+|---|---|
+| `sessionStart` | Resolve which memory store belongs to this repository and start the package's background ingestion |
+| `userPromptTransformed` | Rewrite the model-facing prompt to include recalled project context (`modifiedTransformedPrompt`) |
+| `agentStop` | Save the session transcript to the memory store |
+
+The same three-hook shape works for a homegrown version that keeps its notes in local files. Before
+you install or build one, check these points:
+
+- **Injected memory is model input you did not write.** Anything recalled is placed in front of the
+  model as if it were part of the prompt. Keep it short, label where it came from, and treat stale
+  or wrong entries as something to correct (see
+  [`cross-session-memory`](../skills/copilot-exclusive/cross-session-memory/SKILL.md)), not
+  something to trust.
+- **Every turn pays for it.** Context added on each prompt costs tokens and can crowd out the task
+  itself. Bound its size, and prefer injecting once per session when that is enough.
+- **User-level hooks follow you into every repository.** Hooks in `~/.copilot/hooks/` and servers in
+  `~/.copilot/mcp-config.json` apply to every repository you open, including client or private code.
+  Prefer a tool that only records repositories you opt in by path.
+- **Write-back sends conversations somewhere.** Find out whether transcripts go to a hosted service,
+  a self-hosted server, or a local process, and whether uninstalling deletes the stored data or only
+  the hooks. The example package defaults to its hosted cloud; choose the backend when you install.
+- **Turn off self-updates in your hooks.** A hook runtime that updates itself from a package registry
+  changes the code that sees every prompt, and pinning the install version alone does not stop it —
+  the example package checks for updates daily unless `autoUpdate` is set to `false`. Disable it and
+  review updates on a schedule.
 
 ---
 

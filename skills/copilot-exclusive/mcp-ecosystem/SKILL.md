@@ -146,6 +146,11 @@ Equivalent JSON:
 }
 ```
 
+To browse instead of typing a config, run `/mcp search` in an interactive session. It searches the
+[GitHub MCP Registry](https://github.com/mcp) (or your organization's custom registry, when one is
+configured) and saves the server you pick to `mcp-config.json`. It no longer needs `--experimental`.
+Review what you install there the same way as any other server (see 2-A below).
+
 #### Project-Level Configuration
 
 Create `.mcp.json` in your repo:
@@ -198,7 +203,20 @@ Besides the built-in servers, Copilot merges MCP servers from these sources (hig
 
 - `--additional-mcp-config` (this session only)
 - installed plugins that expose MCP servers
-- workspace config: `.mcp.json` and `.github/mcp.json`, read from the working directory up to the Git root — only in a trusted folder, and not in `-p` unless `GITHUB_COPILOT_PROMPT_MODE_WORKSPACE_MCP=true`- user config: `~/.copilot/mcp-config.json`
+- workspace config: `.mcp.json` and `.github/mcp.json`, read from the working directory up to the Git root (when a directory has a `.mcp.json`, that directory's `.github/mcp.json` is ignored rather than merged) — only in a trusted folder, and not in `-p` unless `GITHUB_COPILOT_PROMPT_MODE_WORKSPACE_MCP=true`
+- user config: `~/.copilot/mcp-config.json`
+
+A local server that needs the session's working directory — for example a filesystem or code
+index server started from a user-level config — can reference `${COPILOT_SESSION_CWD}` in its
+configuration (CLI 1.0.106 and later) instead of a hard-coded absolute path.
+
+Not every built-in server is on by default (command reference, re-checked 2026-11-09). `github-mcp-server` is
+configured automatically when you are signed in, unless you disable it or supply your own
+configuration. `WorkIQ` (after a Microsoft Entra sign-in), `browser-use`, and `computer-use` (local
+sessions on macOS and Windows) depend on your account, platform, and CLI version, and start
+disabled. `--disable-builtin-mcps` turns off `github-mcp-server`, `WorkIQ`, `browser-use`, and the
+legacy `github-copilot-browser` for one run but **not** `computer-use`; use `--disable-mcp-server computer-use` for one run, or
+`/computer off` to save the preference. Managed settings can block enabling a server.
 
 Inside a running session, use `/env` to inspect which MCP servers were loaded for that session.
 
@@ -363,7 +381,8 @@ Now Copilot can query your database directly:
 }
 ```
 
-The built-in `github-mcp-server` is always loaded and is not declared in `mcpServers`.
+You do not declare the built-in `github-mcp-server` in `mcpServers`; it is configured
+automatically when you are signed in.
 
 Copilot can now coordinate across GitHub, your database, cache, and
 communication channels — all through native tool calls.

@@ -265,8 +265,14 @@ when it does. Use both for unattended work:
   with `/sandbox enable session`; inspect the effective grants with `/sandbox policy`.
 - Sandboxed shells do **not** inherit an ambient `GITHUB_TOKEN` unless it is configured
   explicitly — scripts that silently relied on it will fail closed, which is the intended default.
-- Local network access is **on** by default, so `localhost` and private-network services are
-  reachable. Turn it off in `/sandbox` when the task does not need it.
+- Host loopback (`localhost`) access is **on** by default, and so is outbound access, which
+  includes private-network addresses. Since v1.0.106 the local network switch covers loopback
+  only; private-network destinations follow the outbound setting and host rules, so restrict those
+  in `/sandbox` when the task does not need them.
+- Helper processes have their own switches: `sandbox.sandboxMcpServers`,
+  `sandbox.sandboxLspServers`, and `sandbox.sandboxExtensions` decide whether local (stdio) MCP
+  servers, language servers, and extensions start inside the sandbox (extensions default to on).
+  Remote (HTTP/SSE) MCP servers are never sandboxed, so treat their tools as outside the boundary.
 - Under autopilot, any step that must escape the sandbox is denied, and a `preToolUse` hook that
   answers `"ask"` is denied too — there is no one to ask.
 - Machine-wide policy hooks always run on the host, outside the sandbox; an enterprise policy can
@@ -274,6 +280,7 @@ when it does. Use both for unattended work:
 
 See [Local Sandbox and Settings](./copilot-exclusive-features.md#local-sandbox-and-settings) for
 the command surface.
+
 **Content exclusion is a guardrail, not a filesystem boundary.** When an organization excludes
 files from Copilot, an agent in Copilot CLI, an IDE, or the Copilot app cannot read them through
 Copilot tools, and identifiable file paths in commands and scripts are checked before they run —

@@ -25,6 +25,28 @@ metadata:
 
 ### 1. Stage and Inspect
 
+First make sure no merge, cherry-pick, revert, rebase, or `git am` is in progress. During one of
+those, the index holds the operation's state: unstaging or splitting files can discard resolutions
+already staged and blur which changes belong to the operation, and staging a conflicted file marks
+it resolved even if it still has conflict markers.
+
+```powershell
+# Each prints a commit ID only while that operation is in progress
+git rev-parse -q --verify MERGE_HEAD
+git rev-parse -q --verify CHERRY_PICK_HEAD
+git rev-parse -q --verify REVERT_HEAD
+# Unmerged (conflicted) files
+git --no-pager diff --name-only --diff-filter=U
+# Also reports "rebase in progress" or "am session"
+git --no-pager status --long
+```
+
+If any of these show an operation in progress, do not use the split or stage-all steps below.
+Resolve conflicts with the user, check each resolved file with `git diff --check` before staging
+it, and finish with the operation's own command (`git merge --continue`,
+`git cherry-pick --continue`, `git revert --continue`). For a rebase or `git am`, stop and ask the
+user before going further.
+
 If nothing is staged, stage everything and inspect what changed:
 
 ```powershell

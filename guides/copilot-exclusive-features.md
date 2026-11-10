@@ -238,6 +238,8 @@ schedule — for example, `gpt-5-mini` and `gpt-5.4` retired on 2026-10-19 and
 in an agent file or automation. A custom agent whose `model` cannot be honored **silently falls
 back to the session model** instead of failing, so a retired pin does not raise an error —
 use the `models:` priority list (or `modelPolicy: "required"` when a fallback is unacceptable).
+An explicit `--model` on the command line also takes precedence over a custom agent's `model`
+unless that agent sets the required policy.
 
 ### Example: Cost-Aware Routing
 
@@ -479,8 +481,9 @@ Behaviors worth knowing before you rely on it:
 
 - **Ambient `GITHUB_TOKEN` is withheld** from sandboxed shells unless you configure it explicitly
   (v1.0.92).
-- **Local network access is on by default**, so commands can reach `localhost` and
-  private-network services (v1.0.100).
+- **Host loopback access is on by default** (`allowLocalNetwork`, v1.0.100), so commands can reach
+  `localhost`. Since v1.0.106 that switch covers loopback only: private-network destinations follow
+  the outbound network setting and host allow/block rules.
 - An **enterprise policy can enforce the sandbox** as a floor; `--no-sandbox` is then overridden.
 - Repository, user, and plugin **command** hooks run **inside** the sandbox; machine-wide policy
   hooks always run on the host.

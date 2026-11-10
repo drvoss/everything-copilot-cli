@@ -177,7 +177,10 @@ codebase into a persistent SQLite knowledge graph that survives across sessions.
 }
 ```
 
-Copilot CLI expands only environment variables (`$VAR`, `${VAR}`, `${VAR:-default}`), not editor variables.
+Copilot CLI expands only environment variables, not editor variables. Write them as `${VAR}`: the
+command reference lists `$VAR`, `${VAR}`, and `${VAR:-default}`, but the CLI 1.0.108 release notes
+say interactive sessions pass local MCP server `env` values literally and use `${NAME}` to reference
+a host variable. Check any other form in an interactive session before relying on it.
 
 **Use when:** You want Copilot to remember relationships between files, symbols, and
 patterns across sessions — especially useful for large codebases.

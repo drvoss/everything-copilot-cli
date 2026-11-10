@@ -9,7 +9,9 @@
 ```bash
 # 시크릿 후보 점검 — 일치한 줄 대신 파일 이름만 출력한다. diff 출력을 grep으로 거르면 비밀값이
 # 터미널과 에이전트 도구 로그에 남는다. 출력은 검토할 파일 후보다(출력 없음 ≠ 시크릿 없음)
-git diff --cached -i -G"(api[_-]?key|password|secret|token)[[:space:]]*[:=][[:space:]]*['\"][^'\"]{8,}" --name-only
+# --text 가 없으면 git 이 바이너리로 보는 파일(NUL 바이트가 든 파일·-diff 속성 파일)은 검사하지 않고 지나간다.
+# UTF-16 으로 저장된 값은 --text 로도 이 정규식에 걸리지 않는다 — 전용 시크릿 스캐너를 함께 쓴다
+git diff --cached --text -i -G"(api[_-]?key|password|secret|token)[[:space:]]*[:=][[:space:]]*['\"][^'\"]{8,}" --name-only
 
 # npm audit
 npm audit --audit-level=high

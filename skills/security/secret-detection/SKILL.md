@@ -114,7 +114,10 @@ echo "*.key" >> .gitignore
 ```bash
 #!/bin/sh
 # .git/hooks/pre-commit
-if git diff --cached | grep -qiE "AKIA[0-9A-Z]{16}|ghp_[a-zA-Z0-9]{36}|BEGIN.*PRIVATE KEY"; then
+# --text: without it, files git treats as binary (a NUL byte, a -diff attribute) show only
+# "Binary files differ" and a token inside them passes unchecked. UTF-16 text still will not
+# match these ASCII patterns, so keep a dedicated scanner (gitleaks, trufflehog) in CI too.
+if git diff --cached --text | grep -qaiE "AKIA[0-9A-Z]{16}|ghp_[a-zA-Z0-9]{36}|BEGIN.*PRIVATE KEY"; then
   echo "ERROR: Potential secret detected in staged changes. Aborting commit."
   exit 1
 fi

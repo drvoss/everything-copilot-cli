@@ -68,7 +68,9 @@ Copilot Memory availability depends on plan and policy:
   repository settings restrict them
 - organizations and enterprises can enable or disable it centrally
 
-Before relying on it, verify the feature is enabled for the user or organization.
+Before relying on it, verify the feature is enabled for the user or organization. A session can
+still have Memory turned off by an experiment even when plan and policy allow it; since CLI 1.0.106,
+`/memory` says so when that happens.
 
 In Copilot CLI, interactive sessions follow your GitHub settings by default. Use `/memory` (or
 `/memory show`) to check the local setting, `/memory off` to stop storing and retrieving memories

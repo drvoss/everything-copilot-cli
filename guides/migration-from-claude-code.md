@@ -163,7 +163,7 @@ source path format here is `skills/<category>/<skill-name>/SKILL.md`.
 **Key differences:**
 
 - Root key stays `mcpServers` (only VS Code's `.vscode/mcp.json` uses `servers`)
-- Environment variables use `$VAR`, `${VAR}`, or `${VAR:-default}`; each local server needs a `tools` list (`["*"]` for all)
+- Environment variables: write `${VAR}` (since CLI 1.0.108, interactive sessions pass local server `env` values literally unless written as `${NAME}`; check `$VAR` or `${VAR:-default}` before relying on them); each local server needs a `tools` list (`["*"]` for all)
 - Root-level workspace config stays `.mcp.json`; user-specific config can move to `~/.copilot/mcp-config.json`
 
 Claude Code v2.1.117 notes that **agent** frontmatter `mcpServers` can load during `--agent`

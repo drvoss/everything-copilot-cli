@@ -129,6 +129,24 @@ Session 3: /resume → Execute Phase 2 (pick up from SQL state)
 Session 4: /resume → Final verification and cleanup
 ```
 
+### 6. Trust Recalled Context Carefully
+
+Anything recalled from an earlier session is a claim about the past, not a fact about the current
+code. Three habits keep it from quietly steering work in the wrong direction:
+
+- **Credit what you used.** When a past session or artifact shapes an answer, name it — the
+  session ID or date, or the artifact path — so the user can check it. Do not cite history that
+  did not actually contribute to the answer.
+- **Record corrections instead of ignoring them.** When recalled context turns out to be wrong or
+  stale once you check the code, `git`, or an external source, write a short correction note:
+  what the old note claimed, what is true now, the evidence you checked (with any token, key, or
+  connection string redacted), and which note it supersedes. `session_store` is read-only, so the correction belongs in a session artifact or in
+  durable project documentation. Silently skipping the
+  bad note leaves the same trap for the next session.
+- **Keep one living note per initiative.** When a plan is agreed, record it once with a status
+  (`active`, `done`, or `abandoned`). When its goal, scope, or rationale changes materially,
+  update that same note instead of starting a second one; small course corrections do not count.
+
 ## Examples
 
 ### Multi-Day Feature Development

@@ -199,12 +199,19 @@ v1.0.100 release notes):
 - **Closed by default:** sandboxed shells withhold the ambient `GITHUB_TOKEN` unless it is
   configured explicitly. A delegated script that "worked locally" may fail here — that is the
   boundary working, not a bug to bypass.
-- **Open by default:** local network access is enabled, so sandboxed commands can reach
-  `localhost` and private-network services. Disable it in `/sandbox` when the delegated task has
-  no reason to talk to local services.
+- **Open by default:** host loopback access is enabled, so sandboxed commands can reach
+  `localhost`, and outbound connections — including private-network addresses — are allowed unless
+  you restrict them. Turning off local network access in `/sandbox` blocks loopback only (since
+  v1.0.106); block outbound access or add host rules when the delegated task has no reason to
+  reach other machines.
 
 Since v1.0.102, sub-agents honor custom and MCP tool approvals instead of prompting again, so
 scope those approvals as narrowly as you scope the sandbox.
+
+Since v1.0.106, nested sub-agents inherit and can use the MCP tools the session policy allows, so
+those tools are available at every level of delegation, not only to the first sub-agent. A custom sub-agent with its own private MCP
+connections no longer starts inherited servers that its resolved tool list excludes, so a narrow
+`tools` list also limits which inherited servers it starts.
 
 When you define sub-agents in code with the Copilot SDK (`customAgents`), three runtime rules
 shape the boundary (`github/copilot-sdk` → `docs/features/custom-agents.md`):
