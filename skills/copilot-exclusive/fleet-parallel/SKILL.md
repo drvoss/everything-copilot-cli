@@ -148,7 +148,9 @@ Sub-agent nesting has a product-level default limit that can change between CLI 
 example, the Copilot CLI v1.0.71 changelog records that its default maximum nesting depth changed
 from 6 to 4; this is release evidence, not a value a brief should enforce. Concurrency is also capped
 per plan (the command reference lists Free 2, Pro/Pro+ 4, Max 8, Business 16, Enterprise 32); new
-subagents are rejected until one finishes.
+subagents are rejected until one finishes. The `subagents.maxConcurrency` and `subagents.maxDepth`
+settings are ignored on plans without usage-based billing (v1.0.109 setting descriptions), so on
+those plans a value set there does not change the limits.
 
 Before dispatch, use the current session's `/help`, settings, and `copilot --help` to verify the
 effective limits instead of trusting a remembered documentation value. State that a batch needs
@@ -261,7 +263,10 @@ with the updated brief.
 
 If Copilot CLI OpenTelemetry is enabled, subagent invocations are linked into the same trace via
 context propagation. That makes it easier to attribute latency, token usage, and failures across a
-fleet run without inventing your own correlation IDs.
+fleet run without inventing your own correlation IDs. The environment variables, span attributes,
+and metrics are documented in the
+[OpenTelemetry reference](https://docs.github.com/en/copilot/reference/enterprise-administrators/opentelemetry-reference)
+(moved out of the CLI command reference in November 2026).
 
 ### 8. Heartbeat Monitoring for Long-Running Fleets
 

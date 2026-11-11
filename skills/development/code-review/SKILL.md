@@ -81,6 +81,18 @@ npm test 2>&1 | Select-Object -Last 20
 - **🟢 Suggestion** — Nice to have (naming, style, minor optimization)
 - **💡 Nitpick** — Optional, low priority (formatting, comment wording)
 
+**Calibrate severity from evidenced impact, not from the pattern** (concept adapted from
+hyhmrright/brooks-lint):
+
+- A Blocker states what breaks, for whom, and the evidence you inspected. A hypothetical worst
+  case, a rule name, or a missing test on its own is not enough.
+- A recommendation to prevent recurrence does not inherit the defect's severity; report it
+  separately at the tier its own evidence supports.
+- Do not downgrade an evidenced high-impact defect because the code is short.
+- When impact evidence is missing, say so and use the lowest tier the inspected code supports —
+  do not invent production scale, exposure, or urgency.
+- Check that each finding's label, emoji, and wording agree before you submit the review.
+
 ### 6. Check for Breaking Changes
 
 ```powershell

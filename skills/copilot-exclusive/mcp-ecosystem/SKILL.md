@@ -226,7 +226,11 @@ Once the session has loaded your config, new tools appear alongside the built-in
 Copilot automatically discovers and can use all registered MCP tools.
 
 If a configured server is missing, check `copilot mcp list`, then inspect the specific entry with
-`copilot mcp get <name>`.
+`copilot mcp get <name>`. Pass the same `--additional-mcp-config` and `--plugin-dir` flags you use for
+the session: since v1.0.109 both commands honor them. They show configuration, not live status — use
+`/mcp list` inside the session for that. A built-in server cannot be removed with
+`copilot mcp remove` or `/mcp delete`; disable it with `copilot mcp disable <name>` (or
+`/mcp disable <name>` in a session) instead.
 
 Disable or disconnect unused MCP servers and providers. A larger tool surface simultaneously
 reduces tool-selection accuracy and consumes more context tokens; keep only resources needed by
@@ -389,7 +393,9 @@ communication channels — all through native tool calls.
 
 ### Building a Custom MCP Server
 
-Create a project-specific MCP server for your domain:
+Create a project-specific MCP server for your domain. The example uses the TypeScript SDK v1 API
+(`@modelcontextprotocol/sdk`); new servers should start on v2 (`@modelcontextprotocol/server`) —
+see `mcp-builder` for choosing and migrating:
 
 ```javascript
 // tools/mcp-server.js

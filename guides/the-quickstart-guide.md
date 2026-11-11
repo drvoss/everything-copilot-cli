@@ -165,7 +165,7 @@ These commands work inside any Copilot CLI session:
 /clear              # Clear conversation history
 /diff               # Review current changes
 /review             # Run the code-review agent on current changes
-/init               # Initialize Copilot setup for this project
+/init [guidance]    # Create instructions; text after /init guides what it writes
 /plugin install     # Install a community plugin
 /chronicle standup  # Standup report from session history
 /help               # Show all available commands

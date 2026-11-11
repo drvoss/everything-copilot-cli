@@ -36,7 +36,8 @@ Conduct systematic multi-source research with traceable citations and structured
 - `research` agent — built-in subagent for thorough searches across GitHub and the web
 
 The user can also start Copilot's built-in deep-research run directly with the `/research TOPIC`
-slash command.
+slash command. Since v1.0.109, running it again on the same topic saves a new report instead of
+overwriting the earlier one, so compare the two reports rather than assuming the old one is gone.
 
 **Optional local tools (if installed):**
 

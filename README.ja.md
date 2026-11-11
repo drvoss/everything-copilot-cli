@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="109 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="112 Skills" /></a>
   <a href="https://skills.sh/drvoss/everything-copilot-cli"><img src="https://skills.sh/b/drvoss/everything-copilot-cli" alt="skills.sh installs" /></a>
   <a href="#マルチaiオーケストレーション-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
@@ -195,9 +195,9 @@ claude plugin marketplace add drvoss/everything-copilot-cli
 claude plugin install everything-copilot-cli@everything-copilot-cli
 ```
 
-Claude Code 2.1.311（Windows 11）で確認しました。109 個のスキルがすべてインストールされて動作し、`/everything-copilot-cli:stack-detector` のようなスラッシュ呼び出しも、Claude が自分で選ぶ自動呼び出しも使えます。プラグインのスキル名にはプラグイン名の接頭辞が付くため、フルコレクションと `copilot-native-workflows` を同時に入れても Claude Code では衝突しません。
+Claude Code 2.1.311（Windows 11）で確認しました。当時の 109 個のスキルがすべてインストールされて動作し、`/everything-copilot-cli:stack-detector` のようなスラッシュ呼び出しも、Claude が自分で選ぶ自動呼び出しも使えます。プラグインのスキル名にはプラグイン名の接頭辞が付くため、フルコレクションと `copilot-native-workflows` を同時に入れても Claude Code では衝突しません。
 
-どのプラグインを入れるか：フルコレクション（`everything-copilot-cli`、スキル 109 個）か、集中バンドル（`copilot-native-workflows`、スキル 9 個）のどちらかを選びます。両方入れた場合、Claude に選ばせたときは同名スキルのうちフルコレクション側が使われました。更新は `claude plugin update everything-copilot-cli@everything-copilot-cli` を実行し、Claude Code を再起動してください。どちらのプラグインもバージョンは 0.1.0 のままです。
+どのプラグインを入れるか：フルコレクション（`everything-copilot-cli`、スキル 112 個）か、集中バンドル（`copilot-native-workflows`、スキル 9 個）のどちらかを選びます。両方入れた場合、Claude に選ばせたときは同名スキルのうちフルコレクション側が使われました。更新は `claude plugin update everything-copilot-cli@everything-copilot-cli` を実行し、Claude Code を再起動してください。どちらのプラグインもバージョンは 0.1.0 のままです。
 
 知っておいていただきたい点が 2 つあります。
 
@@ -219,13 +219,13 @@ npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
 agy plugin install https://github.com/drvoss/everything-copilot-cli
 ```
 
-Cursor Agent CLI 2026.10.22 と Antigravity CLI 1.4.7（Windows 11）で確認しました。109 個のスキルがすべて検出され、`/conventional-branch` のようなスラッシュ呼び出しが両ツールで動作しました。Cursor はローカルプラグインフォルダーと `npx skills` 経由で試験しました。Cursor は私たちの `.claude-plugin/marketplace.json` も読み込みます。`cursor-agent plugin marketplace add drvoss/everything-copilot-cli` でマーケットプレイスを登録・インデックスし、その後 Cursor アプリの Customize → Plugins からプラグインをインストールします（CLI にプラグインのインストールコマンドはありません）。
+Cursor Agent CLI 2026.10.22 と Antigravity CLI 1.4.7（Windows 11）で確認しました。当時の 109 個のスキルがすべて検出され、`/conventional-branch` のようなスラッシュ呼び出しが両ツールで動作しました。Cursor はローカルプラグインフォルダーと `npx skills` 経由で試験しました。Cursor は私たちの `.claude-plugin/marketplace.json` も読み込みます。`cursor-agent plugin marketplace add drvoss/everything-copilot-cli` でマーケットプレイスを登録・インデックスし、その後 Cursor アプリの Customize → Plugins からプラグインをインストールします（CLI にプラグインのインストールコマンドはありません）。
 
 アプリからのインストールを確認しました。`copilot-native-workflows` をインストールすると Customize → Skills にスキルが表示され、`cursor-agent -p "..." --mode=ask --trust` が `--plugin-dir` なしでプラグインキャッシュから `stack-detector` を読み込みました。Copilot 形式のエージェント 8 個は読み込まれません（Subagents タブは空です）。リモート環境（`/home/ubuntu/.cursor/skills-cursor`）で実行されたチャット 1 件ではスキルを使えなかったため、ローカルの Agent か CLI を使ってください。プラグインのスキルが `/` スラッシュ一覧に表示されるかは未検証なので、名前を指定して依頼してください。
 
 マーケットプレイスの登録は追加時点のコミットに固定され、`marketplace update` はインデックス時刻を更新するだけです。新しいコミットを取り込むには、`cursor-agent plugin marketplace remove everything-copilot-cli` を実行し、`--git-ref` なしで `marketplace add drvoss/everything-copilot-cli` をやり直してください。
 
-どのプラグインを入れるか：マーケットプレイスにはフルコレクション（スキル 109 個）と集中バンドル `copilot-native-workflows`（スキル 9 個）があります。どちらか一方をインストールしてください。
+どのプラグインを入れるか：マーケットプレイスにはフルコレクション（スキル 112 個）と集中バンドル `copilot-native-workflows`（スキル 9 個）があります。どちらか一方をインストールしてください。
 
 知っておいていただきたい点：
 
@@ -265,13 +265,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (109 total)
+├── skills/                        # Reusable workflow skills (112 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
-│   ├── development/               #   Dev skills (25)
+│   ├── development/               #   Dev skills (27)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (12)
 │   ├── testing/                   #   Test skills (6)
-│   ├── workflow/                  #   Workflow skills (26)
+│   ├── workflow/                  #   Workflow skills (27)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -328,7 +328,7 @@ everything-copilot-cli/
 | **doc-updater** | code 変更に合わせて documentation を同期します |
 | **refactor-cleaner** | 安全な refactoring 機会を特定し、実行します |
 
-### スキル（合計109・8カテゴリ）
+### スキル（合計112・8カテゴリ）
 
 カテゴリ別に整理された再利用可能なワークフロースキルです。すべて [agentskills.io](https://agentskills.io) 仕様に従っています。
 
@@ -369,11 +369,13 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>開発 Skills（25）</strong></summary>
+<summary><strong>開発 Skills（27）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
 | `api-and-interface-design` | 公開 API / CLI / webhook / SDK の契約を実装前に定義します |
+| `design-to-code` | Figma フレーム・スクリーンショット・handoff を既存の token と component で本番 UI にし、breakpoint ごとにデザインと比較します |
+| `go-runtime-debugging` | Go の panic・hang・deadlock・goroutine/メモリリーク・data race を -race、goroutine dump、pprof、trace、Delve で診断します |
 | `tdd-workflow` | Red → Green → Refactor サイクル |
 | `code-review` | 重大度レベル付きの構造化 review |
 | `cpp-debugging` | C++ の失敗が寿命、未定義動作、native crash、debugger でしか見えない状態を含むときに、symbol、sanitizer、platform-native debugger で症状パッチ前に原因を追跡します |
@@ -441,13 +443,14 @@ GitHub Copilot CLI 固有の機能を活用する skill です。
 </details>
 
 <details>
-<summary><strong>ワークフロー Skills（26）</strong></summary>
+<summary><strong>ワークフロー Skills（27）</strong></summary>
 
 | Skill | 説明 |
 |-------|-------------|
 | `commit-workflow` | Conventional commit + emoji、atomic split ガイダンス |
 | `conventional-branch` | 並列作業の前に Git branch 名を conventional な type/description 形式で作成または検証します |
 | `doubt-driven-development` | 非自明な判断を確定させる前に fresh-context の adversarial review で揺さぶります |
+| `incident-response` | 本番障害の対応：severity と役割、単一の timeline、まず緩和、定期的な状況報告、担当者付きの blameless review |
 | `release` | tag → GitHub Release → publish（npm/PyPI/Docker） |
 | `finishing-a-development-branch` | テスト検証後にワークツリー状態を検出し、merge/PR/保持/破棄の選択肢を提示して実行します |
 | `verification-before-completion` | 完了を主張する前に新しい command 出力で本当に終わったことを証明します |

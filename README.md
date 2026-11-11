@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="109 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="112 Skills" /></a>
   <a href="https://skills.sh/drvoss/everything-copilot-cli"><img src="https://skills.sh/b/drvoss/everything-copilot-cli" alt="skills.sh installs" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
@@ -196,9 +196,9 @@ claude plugin marketplace add drvoss/everything-copilot-cli
 claude plugin install everything-copilot-cli@everything-copilot-cli
 ```
 
-We checked this on Claude Code 2.1.311 (Windows 11): all 109 skills install and run, both with a slash command such as `/everything-copilot-cli:stack-detector` and when Claude picks a skill on its own. Plugin skill names carry the plugin prefix, so installing `copilot-native-workflows` next to the full collection does not clash in Claude Code.
+We checked this on Claude Code 2.1.311 (Windows 11): all 109 skills (the count at the time) install and run, both with a slash command such as `/everything-copilot-cli:stack-detector` and when Claude picks a skill on its own. Plugin skill names carry the plugin prefix, so installing `copilot-native-workflows` next to the full collection does not clash in Claude Code.
 
-Which plugin to install: the full collection (`everything-copilot-cli`, 109 skills) or the focused bundle (`copilot-native-workflows`, 9 skills). If you install both, Claude picked the full collection's copy of a same-named skill when we let it choose. To update, run `claude plugin update everything-copilot-cli@everything-copilot-cli` and restart Claude Code; both plugins stay at version 0.1.0.
+Which plugin to install: the full collection (`everything-copilot-cli`, 112 skills) or the focused bundle (`copilot-native-workflows`, 9 skills). If you install both, Claude picked the full collection's copy of a same-named skill when we let it choose. To update, run `claude plugin update everything-copilot-cli@everything-copilot-cli` and restart Claude Code; both plugins stay at version 0.1.0.
 
 Two things to know:
 
@@ -220,7 +220,7 @@ npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
 agy plugin install https://github.com/drvoss/everything-copilot-cli
 ```
 
-We tested this on Cursor Agent CLI 2026.10.22 and Antigravity CLI 1.4.7 (Windows 11). All 109 skills were discovered, and explicit slash calls such as `/conventional-branch` worked in both tools. Cursor was tested through a local plugin folder and the `npx skills` route.
+We tested this on Cursor Agent CLI 2026.10.22 and Antigravity CLI 1.4.7 (Windows 11). All 109 skills (the count at the time) were discovered, and explicit slash calls such as `/conventional-branch` worked in both tools. Cursor was tested through a local plugin folder and the `npx skills` route.
 
 Cursor also reads our `.claude-plugin/marketplace.json`: `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` registers and indexes the marketplace, and you then install the plugin from Customize → Plugins in the Cursor app (the CLI has no plugin install command).
 
@@ -230,7 +230,7 @@ Whether plugin skills show up in the `/` slash list is not verified; ask for the
 
 A marketplace registration is pinned to the commit it was added at, and `marketplace update` only refreshes the index time. To pick up a newer commit, run `cursor-agent plugin marketplace remove everything-copilot-cli`, then `marketplace add drvoss/everything-copilot-cli` again without `--git-ref`.
 
-Which plugin to install: the marketplace lists the full collection (109 skills) and the focused bundle `copilot-native-workflows` (9 skills). Install one of them.
+Which plugin to install: the marketplace lists the full collection (112 skills) and the focused bundle `copilot-native-workflows` (9 skills). Install one of them.
 
 Good to know:
 
@@ -270,13 +270,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (109 total)
+├── skills/                        # Reusable workflow skills (112 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
-│   ├── development/               #   Dev skills (25)
+│   ├── development/               #   Dev skills (27)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (12)
 │   ├── testing/                   #   Test skills (6)
-│   ├── workflow/                  #   Workflow skills (26)
+│   ├── workflow/                  #   Workflow skills (27)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -333,7 +333,7 @@ Pre-configured agent definitions — each with a specific role, system prompt, a
 | **doc-updater** | Keeps documentation in sync with code changes |
 | **refactor-cleaner** | Identifies and executes safe refactoring opportunities |
 
-### Skills (109 Total · 8 Categories)
+### Skills (112 Total · 8 Categories)
 
 Reusable, composable workflows organized by category. All follow the [agentskills.io](https://agentskills.io) spec.
 
@@ -374,11 +374,13 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Development Skills (25)</strong></summary>
+<summary><strong>Development Skills (27)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `api-and-interface-design` | Define public APIs, CLIs, webhooks, or SDK contracts before implementation |
+| `design-to-code` | Turn a Figma frame, screenshot, or handoff into production UI with existing tokens and components, compared at every breakpoint |
+| `go-runtime-debugging` | Diagnose Go panics, hangs, deadlocks, goroutine or memory leaks, and races with -race, goroutine dumps, pprof, traces, and Delve |
 | `tdd-workflow` | Red → Green → Refactor cycle |
 | `code-review` | Structured review with severity levels |
 | `cpp-debugging` | Use when a C++ failure involves memory lifetime, undefined behavior, native crashes, or debugger-only state — debug with symbols, sanitizers, and platform-native debuggers before patching symptoms |
@@ -446,13 +448,14 @@ Skills that leverage capabilities unique to GitHub Copilot CLI:
 </details>
 
 <details>
-<summary><strong>Workflow Skills (26)</strong></summary>
+<summary><strong>Workflow Skills (27)</strong></summary>
 
 | Skill | Description |
 |-------|-------------|
 | `commit-workflow` | Conventional commits + emoji, atomic split guidance |
 | `conventional-branch` | Create or validate Git branch names that follow a conventional type/description format before parallel work starts |
 | `doubt-driven-development` | Challenge a non-trivial decision with a fresh-context adversarial review before it stands |
+| `incident-response` | Run a production incident: severity and roles, one timeline, mitigate first, status cadence, blameless review with owned actions |
 | `release` | tag → GitHub Release → publish (npm/PyPI/Docker) |
 | `finishing-a-development-branch` | Verify tests, detect worktree state, then present merge/PR/keep/discard options and execute cleanup |
 | `verification-before-completion` | Prove a task is done with fresh command output before claiming success |

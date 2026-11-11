@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="109 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="112 Skills" /></a>
   <a href="https://skills.sh/drvoss/everything-copilot-cli"><img src="https://skills.sh/b/drvoss/everything-copilot-cli" alt="skills.sh installs" /></a>
   <a href="#multi-ai-orchestration-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
@@ -195,9 +195,9 @@ claude plugin marketplace add drvoss/everything-copilot-cli
 claude plugin install everything-copilot-cli@everything-copilot-cli
 ```
 
-Claude Code 2.1.311(Windows 11)에서 확인했습니다. 109개 스킬이 모두 설치되어 실행되고, `/everything-copilot-cli:stack-detector` 같은 슬래시 호출과 Claude가 스스로 고르는 자동 호출이 모두 동작합니다. 플러그인 스킬 이름에는 플러그인 접두사가 붙으므로, 전체 컬렉션과 `copilot-native-workflows`를 함께 설치해도 Claude Code에서는 충돌하지 않습니다.
+Claude Code 2.1.311(Windows 11)에서 확인했습니다. 당시 109개 스킬이 모두 설치되어 실행되고, `/everything-copilot-cli:stack-detector` 같은 슬래시 호출과 Claude가 스스로 고르는 자동 호출이 모두 동작합니다. 플러그인 스킬 이름에는 플러그인 접두사가 붙으므로, 전체 컬렉션과 `copilot-native-workflows`를 함께 설치해도 Claude Code에서는 충돌하지 않습니다.
 
-어떤 플러그인을 설치할까요? 전체 컬렉션(`everything-copilot-cli`, 스킬 109개)과 집중 번들(`copilot-native-workflows`, 스킬 9개) 중에서 고르면 됩니다. 둘 다 설치하면 Claude가 직접 고를 때 이름이 같은 스킬은 전체 컬렉션 쪽이 선택됐습니다. 갱신은 `claude plugin update everything-copilot-cli@everything-copilot-cli`를 실행하고 Claude Code를 다시 시작하세요. 두 플러그인 모두 버전은 0.1.0으로 유지됩니다.
+어떤 플러그인을 설치할까요? 전체 컬렉션(`everything-copilot-cli`, 스킬 112개)과 집중 번들(`copilot-native-workflows`, 스킬 9개) 중에서 고르면 됩니다. 둘 다 설치하면 Claude가 직접 고를 때 이름이 같은 스킬은 전체 컬렉션 쪽이 선택됐습니다. 갱신은 `claude plugin update everything-copilot-cli@everything-copilot-cli`를 실행하고 Claude Code를 다시 시작하세요. 두 플러그인 모두 버전은 0.1.0으로 유지됩니다.
 
 알아 두실 점이 두 가지 있습니다.
 
@@ -219,7 +219,7 @@ npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
 agy plugin install https://github.com/drvoss/everything-copilot-cli
 ```
 
-Cursor Agent CLI 2026.10.22와 Antigravity CLI 1.4.7(Windows 11)에서 확인했습니다. 109개 스킬이 모두 발견되었고 `/conventional-branch` 같은 슬래시 호출이 두 도구에서 동작했습니다. Cursor는 로컬 플러그인 폴더와 `npx skills` 경로로 시험했습니다.
+Cursor Agent CLI 2026.10.22와 Antigravity CLI 1.4.7(Windows 11)에서 확인했습니다. 당시 109개 스킬이 모두 발견되었고 `/conventional-branch` 같은 슬래시 호출이 두 도구에서 동작했습니다. Cursor는 로컬 플러그인 폴더와 `npx skills` 경로로 시험했습니다.
 
 Cursor는 우리 `.claude-plugin/marketplace.json`도 읽습니다. `cursor-agent plugin marketplace add drvoss/everything-copilot-cli`로 마켓플레이스를 등록·인덱싱한 뒤, Cursor 앱의 Customize → Plugins에서 플러그인을 설치합니다(CLI에는 플러그인 설치 명령이 없습니다).
 
@@ -227,7 +227,7 @@ Cursor는 우리 `.claude-plugin/marketplace.json`도 읽습니다. `cursor-agen
 
 마켓플레이스 등록은 추가한 시점의 커밋에 고정되며, `marketplace update`는 인덱싱 시각만 갱신합니다. 새 커밋을 받으려면 `cursor-agent plugin marketplace remove everything-copilot-cli`를 실행한 뒤 `--git-ref` 없이 `marketplace add drvoss/everything-copilot-cli`를 다시 실행하세요.
 
-어떤 플러그인을 설치할까요? 마켓플레이스에는 전체 컬렉션(스킬 109개)과 집중 번들 `copilot-native-workflows`(스킬 9개)가 있으며, 둘 중 하나를 설치하면 됩니다.
+어떤 플러그인을 설치할까요? 마켓플레이스에는 전체 컬렉션(스킬 112개)과 집중 번들 `copilot-native-workflows`(스킬 9개)가 있으며, 둘 중 하나를 설치하면 됩니다.
 
 알아 두실 점:
 
@@ -267,13 +267,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # 재사용 가능한 워크플로우 스킬 (109개)
+├── skills/                        # 재사용 가능한 워크플로우 스킬 (112개)
 │   ├── copilot-exclusive/         #   ★ Copilot 전용 스킬 (26개)
-│   ├── development/               #   개발 스킬 (25개)
+│   ├── development/               #   개발 스킬 (27개)
 │   ├── documentation/             #   문서화 스킬 (6개)
 │   ├── security/                  #   보안 스킬 (12개)
 │   ├── testing/                   #   테스팅 스킬 (6개)
-│   ├── workflow/                  #   워크플로우 스킬 (26개)
+│   ├── workflow/                  #   워크플로우 스킬 (27개)
 │   ├── product/                   #   프로덕트 스킬 (5개)
 │   └── content/                   #   콘텐츠 & GEO 스킬 (3개)
 │
@@ -330,7 +330,7 @@ everything-copilot-cli/
 | **doc-updater** | 코드 변경에 맞춰 문서를 동기화 |
 | **refactor-cleaner** | 안전한 리팩토링 기회를 식별하고 실행 |
 
-### 스킬 (총 109개 · 8개 카테고리)
+### 스킬 (총 112개 · 8개 카테고리)
 
 에이전트가 호출할 수 있는 재사용 가능하고 조합 가능한 워크플로우입니다. 모두 [agentskills.io](https://agentskills.io) 스펙을 따릅니다.
 
@@ -371,11 +371,13 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>개발 스킬 (25개)</strong></summary>
+<summary><strong>개발 스킬 (27개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `api-and-interface-design` | 공개 API/CLI/webhook/SDK 계약을 구현 전에 먼저 정의 |
+| `design-to-code` | Figma 프레임·스크린샷·핸드오프를 기존 토큰과 컴포넌트로 실제 UI 로 구현하고 브레이크포인트마다 시안과 대조 |
+| `go-runtime-debugging` | Go 의 panic·hang·deadlock·goroutine/메모리 누수·data race 를 -race·goroutine 덤프·pprof·trace·Delve 로 진단 |
 | `tdd-workflow` | Red → Green → Refactor 사이클 |
 | `code-review` | 심각도 수준이 포함된 구조화된 코드 리뷰 |
 | `cpp-debugging` | C++ 오류가 객체 수명, 정의되지 않은 동작, 네이티브 크래시, 디버거에서만 드러나는 상태를 포함할 때 심볼, sanitizer, 플랫폼별 디버거로 증상을 패치하기 전에 원인을 추적 |
@@ -443,13 +445,14 @@ GitHub Copilot CLI 고유 기능을 활용하는 스킬입니다:
 </details>
 
 <details>
-<summary><strong>워크플로우 스킬 (26개)</strong></summary>
+<summary><strong>워크플로우 스킬 (27개)</strong></summary>
 
 | 스킬 | 설명 |
 |------|------|
 | `commit-workflow` | 컨벤셔널 커밋 + 이모지, 원자적 분할 가이드 |
 | `conventional-branch` | 병렬 작업 전에 Git 브랜치 이름을 컨벤셔널 타입/설명 형식으로 생성하거나 검증 |
 | `doubt-driven-development` | 비사소한 결정을 굳히기 전에 fresh-context 적대적 리뷰로 검증 |
+| `incident-response` | 운영 장애 대응: 심각도와 역할 지정, 단일 타임라인, 완화 우선, 정기 상황 공지, 담당자가 있는 비난 없는 회고 |
 | `release` | 태그 → GitHub Release → 배포 (npm/PyPI/Docker) |
 | `finishing-a-development-branch` | 테스트 검증 후 워크트리 상태를 감지하고 merge/PR/유지/폐기 옵션을 제시·실행 |
 | `verification-before-completion` | 완료 주장 전에 새 명령 출력으로 작업 완료를 증명 |

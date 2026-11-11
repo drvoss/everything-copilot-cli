@@ -269,6 +269,17 @@ npm run validate && npm run lint:md && npm test
 
 Fix any markdownlint errors before committing.
 
+To improve a draft beyond "it validates", run a bounded refinement loop (concept adapted from
+nyldn/claude-octopus `skill-refine`):
+
+- Freeze the rubric before the first score and do not change it mid-run.
+- Give two independent judges (different models, for example through `outside-voice`) the same
+  draft and rubric, without the target score, earlier scores, or each other's output.
+- Keep the lower of the two scores, and accept an edit only when the rescored draft improves.
+- Set a budget up front (rounds, minutes, model calls) and stop after two rounds without a verified
+  improvement.
+- Edit a copy; keep the original and the best-scoring draft so a bad round can be discarded.
+
 ### 6. Register in skills/README.md
 
 Add a row to the skills catalog table:

@@ -95,6 +95,22 @@ npm test
 npm test -- --coverage
 ```
 
+### 6. Slim a Fresh Diff by Ablation (optional)
+
+When the code to clean is the current PR or working-tree change rather than old code, cut it down
+to the smallest correct diff (concept adapted from antfu/skills `antfu-simplify`):
+
+1. Write the change's goal in one sentence. Every remaining line must be explained by it.
+2. List each piece the diff adds — helper, parameter, branch, type, file, dependency, comment, test.
+3. For each piece, try deleting, inlining, or hardcoding it and run the focused checks. Keep it if
+   something that matters breaks. If no check covers it, keep it unless you can show the case it
+   guards is unreachable.
+4. Revert drive-by edits that the goal does not explain. Do not change behavior or public APIs.
+5. Report what was cut or kept and why, with `git diff --stat` before and after.
+
+Cut speculative options, pass-through wrappers, one-use helpers, and guards against impossible
+input. Keep handling for real edge cases and the general fix over a special case.
+
 ## Examples
 
 ### Extract Repeated Logic

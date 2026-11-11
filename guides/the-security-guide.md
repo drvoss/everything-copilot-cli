@@ -265,6 +265,9 @@ when it does. Use both for unattended work:
   with `/sandbox enable session`; inspect the effective grants with `/sandbox policy`.
 - Sandboxed shells do **not** inherit an ambient `GITHUB_TOKEN` unless it is configured
   explicitly — scripts that silently relied on it will fail closed, which is the intended default.
+  With `sandbox.auth.git`, sandboxed git gets a masked credential that the sandbox proxy swaps for
+  the real one only at that HTTPS origin; hosts other than GitHub use your own git credential helper
+  (v1.0.109 setting description).
 - Host loopback (`localhost`) access is **on** by default, and so is outbound access, which
   includes private-network addresses. Since v1.0.106 the local network switch covers loopback
   only; private-network destinations follow the outbound setting and host rules, so restrict those

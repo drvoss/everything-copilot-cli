@@ -188,6 +188,9 @@ fi
 ```
 
 Grant only the tools the task needs with `--allow-tool` (or `--allow-all-tools` in a sandbox); prompt mode cannot show approval prompts.
+For an MCP tool, name it the way its server advertises it, for example
+`--allow-tool='weather(weather.lookup)'`; since v1.0.109 allow rules match those names (including
+names longer than 64 characters) the same way deny rules already did.
 
 As of v1.0.104, `--assisted-approval` (or `COPILOT_ASSISTED_APPROVAL=true`) turns on assisted
 permissions for a non-interactive run, so a safety review can approve eligible requests without a

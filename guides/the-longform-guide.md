@@ -600,7 +600,9 @@ An MCP server exposes tools that Copilot CLI can call. The simplest implementati
 }
 ```
 
-Your server implements the MCP protocol to expose tools:
+Your server implements the MCP protocol to expose tools. This minimal example uses the TypeScript
+SDK v1 API (`@modelcontextprotocol/sdk`); for a new server use v2 (`@modelcontextprotocol/server`),
+the stable release line:
 
 ```typescript
 // my-server.ts — minimal MCP server

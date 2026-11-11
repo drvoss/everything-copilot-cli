@@ -91,7 +91,9 @@ history rather than a single recent claim.
 
 Validate output types before printing. When no mutation is needed, omit the field and return `{}`;
 do not substitute `null` (since CLI 1.0.106 a `preToolUse` `"modifiedArgs": null` is accepted as
-"unchanged", but omitting the field works on every version). Let hook exceptions fail explicitly instead of swallowing them and
+"unchanged", and since CLI 1.0.109 `"additionalContext": null` from `sessionStart` or `preToolUse`
+is treated as absent instead of sending the text `null` to the model, but omitting the field works
+on every version). Let hook exceptions fail explicitly instead of swallowing them and
 emitting ambiguous empty output. Objects, numbers, or nulls in string fields have caused session
 corruption (fixed in CLI v1.0.76).
 
@@ -143,7 +145,9 @@ validation rather than pre-execution declarative filtering.
 - **`"ask"` under autopilot is a deny.** In autopilot mode no prompt is shown, so a `preToolUse`
   decision of `"ask"` is denied and the agent is told the CLI could not ask the user. (Cloud agent
   already treated `"ask"` as `"deny"`.) A guard that relies on `"ask"` to reach a human is a hard
-  block in unattended runs — design it that way on purpose.
+  block in unattended runs — design it that way on purpose. In ACP mode (Copilot driven by an
+  editor or other ACP client), `"ask"` is passed to that client to allow or deny since CLI 1.0.109,
+  instead of being denied as host policy.
 - **Hooks run inside the sandbox.** With the session sandbox enabled, repository, user, and plugin
   command hooks get the same access as the agent's shell commands. A hook's `cwd` and `env` do not
   widen that access. Policy hooks always run on the host and should not run workspace scripts.

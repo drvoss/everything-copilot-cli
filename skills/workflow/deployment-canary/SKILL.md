@@ -26,7 +26,7 @@ rollback fast when the evidence says to.
 | Instead of deployment-canary | Use |
 |------------------------------|-----|
 | Packaging a library with no runtime environment | `release` plus smoke install checks |
-| Diagnosing an already-confirmed incident | `systematic-debugging` |
+| Running the response to a confirmed incident that affects users | `incident-response`, then `systematic-debugging` for the root cause |
 | Deciding whether to ship at all | `council` or `launch-strategy` |
 
 ## Prerequisites

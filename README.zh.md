@@ -14,7 +14,7 @@
   <a href="#"><img src="docs/images/badge-copilot-cli-ready.svg" alt="Copilot CLI Ready" /></a>
   <a href="#"><img src="docs/images/badge-models.svg" alt="20+ Models" /></a>
   <a href="#"><img src="docs/images/badge-agents.svg" alt="8 Agents" /></a>
-  <a href="#"><img src="docs/images/badge-skills.svg" alt="109 Skills" /></a>
+  <a href="#"><img src="docs/images/badge-skills.svg" alt="112 Skills" /></a>
   <a href="https://skills.sh/drvoss/everything-copilot-cli"><img src="https://skills.sh/b/drvoss/everything-copilot-cli" alt="skills.sh installs" /></a>
   <a href="#多ai协同编排-"><img src="docs/images/badge-multi-ai.svg" alt="Multi-AI Orchestrator" /></a>
 </p>
@@ -194,9 +194,9 @@ claude plugin marketplace add drvoss/everything-copilot-cli
 claude plugin install everything-copilot-cli@everything-copilot-cli
 ```
 
-我们在 Claude Code 2.1.311（Windows 11）上做了验证：109 个技能全部可以安装并运行，既支持 `/everything-copilot-cli:stack-detector` 这样的斜杠调用，也支持 Claude 自行选择技能的自动调用。插件中的技能名带有插件前缀，因此在 Claude Code 中同时安装完整集合与 `copilot-native-workflows` 不会冲突。
+我们在 Claude Code 2.1.311（Windows 11）上做了验证：当时的 109 个技能全部可以安装并运行，既支持 `/everything-copilot-cli:stack-detector` 这样的斜杠调用，也支持 Claude 自行选择技能的自动调用。插件中的技能名带有插件前缀，因此在 Claude Code 中同时安装完整集合与 `copilot-native-workflows` 不会冲突。
 
-该装哪个插件：完整集合（`everything-copilot-cli`，109 个技能）或精简包（`copilot-native-workflows`，9 个技能），二选一即可。如果两个都装，让 Claude 自行选择时，同名技能会选用完整集合中的那一份。更新时运行 `claude plugin update everything-copilot-cli@everything-copilot-cli` 并重启 Claude Code；两个插件的版本都保持 0.1.0。
+该装哪个插件：完整集合（`everything-copilot-cli`，112 个技能）或精简包（`copilot-native-workflows`，9 个技能），二选一即可。如果两个都装，让 Claude 自行选择时，同名技能会选用完整集合中的那一份。更新时运行 `claude plugin update everything-copilot-cli@everything-copilot-cli` 并重启 Claude Code；两个插件的版本都保持 0.1.0。
 
 有两点需要说明：
 
@@ -218,13 +218,13 @@ npx skills add drvoss/everything-copilot-cli --agent antigravity-cli
 agy plugin install https://github.com/drvoss/everything-copilot-cli
 ```
 
-我们在 Cursor Agent CLI 2026.10.22 和 Antigravity CLI 1.4.7（Windows 11）上做了验证：109 个技能全部被发现，`/conventional-branch` 这样的斜杠调用在两个工具中都能工作。Cursor 通过本地插件文件夹和 `npx skills` 路径测试。Cursor 也会读取我们的 `.claude-plugin/marketplace.json`：用 `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` 注册并索引市场，然后在 Cursor 应用的 Customize → Plugins 中安装插件（CLI 没有插件安装命令）。
+我们在 Cursor Agent CLI 2026.10.22 和 Antigravity CLI 1.4.7（Windows 11）上做了验证：当时的 109 个技能全部被发现，`/conventional-branch` 这样的斜杠调用在两个工具中都能工作。Cursor 通过本地插件文件夹和 `npx skills` 路径测试。Cursor 也会读取我们的 `.claude-plugin/marketplace.json`：用 `cursor-agent plugin marketplace add drvoss/everything-copilot-cli` 注册并索引市场，然后在 Cursor 应用的 Customize → Plugins 中安装插件（CLI 没有插件安装命令）。
 
 我们在应用中验证了安装：安装 `copilot-native-workflows` 后，技能会出现在 Customize → Skills 中，`cursor-agent -p "..." --mode=ask --trust` 无需 `--plugin-dir` 即可从插件缓存加载 `stack-detector`。8 个 Copilot 格式的代理不会被加载（Subagents 标签页为空）。在一次运行于远程环境（`/home/ubuntu/.cursor/skills-cursor`）的聊天中，该技能不可用，因此请使用本地 Agent 或 CLI。插件技能是否出现在 `/` 斜杠列表中尚未验证，请按名称请求。
 
 市场注册会固定在添加时的提交上，`marketplace update` 只刷新索引时间。要获取更新的提交，请先运行 `cursor-agent plugin marketplace remove everything-copilot-cli`，再不带 `--git-ref` 重新运行 `marketplace add drvoss/everything-copilot-cli`。
 
-该装哪个插件：市场中有完整集合（109 个技能）和精简包 `copilot-native-workflows`（9 个技能），安装其中一个即可。
+该装哪个插件：市场中有完整集合（112 个技能）和精简包 `copilot-native-workflows`（9 个技能），安装其中一个即可。
 
 需要了解：
 
@@ -264,13 +264,13 @@ everything-copilot-cli/
 │   ├── doc-updater.md
 │   └── refactor-cleaner.md
 │
-├── skills/                        # Reusable workflow skills (109 total)
+├── skills/                        # Reusable workflow skills (112 total)
 │   ├── copilot-exclusive/         #   ★ Copilot-only skills (26)
-│   ├── development/               #   Dev skills (25)
+│   ├── development/               #   Dev skills (27)
 │   ├── documentation/             #   Doc skills (6)
 │   ├── security/                  #   Security skills (12)
 │   ├── testing/                   #   Test skills (6)
-│   ├── workflow/                  #   Workflow skills (26)
+│   ├── workflow/                  #   Workflow skills (27)
 │   ├── product/                   #   Product skills (5)
 │   └── content/                   #   Content & GEO skills (3)
 │
@@ -327,7 +327,7 @@ everything-copilot-cli/
 | **doc-updater** | 使文档与代码变更保持同步 |
 | **refactor-cleaner** | 识别并执行安全的重构机会 |
 
-### 技能（Skill）（共 109 个 · 8 个类别）
+### 技能（Skill）（共 112 个 · 8 个类别）
 
 按类别组织的可复用工作流技能。全部遵循 [agentskills.io](https://agentskills.io) 规范。
 
@@ -368,11 +368,13 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>开发技能（25）</strong></summary>
+<summary><strong>开发技能（27）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
 | `api-and-interface-design` | 在实现前先定义公开 API / CLI / webhook / SDK 的契约 |
+| `design-to-code` | 把 Figma 画板、截图或交付说明用现有 token 与组件实现为正式 UI，并在每个断点与设计稿对比 |
+| `go-runtime-debugging` | 用 -race、goroutine 转储、pprof、trace 与 Delve 诊断 Go 的 panic、挂起、死锁、goroutine/内存泄漏与数据竞争 |
 | `tdd-workflow` | Red → Green → Refactor 循环 |
 | `code-review` | 带严重级别的结构化评审 |
 | `cpp-debugging` | 当 C++ 故障涉及对象生命周期、未定义行为、原生崩溃或仅在调试器中显现的状态时，先用符号、sanitizer 与平台原生调试器定位根因，再避免症状式修补 |
@@ -440,13 +442,14 @@ everything-copilot-cli/
 </details>
 
 <details>
-<summary><strong>工作流技能（26）</strong></summary>
+<summary><strong>工作流技能（27）</strong></summary>
 
 | Skill | 说明 |
 |-------|------|
 | `commit-workflow` | Conventional commits + emoji，以及原子化拆分指导 |
 | `conventional-branch` | 在并行工作开始前，以 conventional 的类型/描述格式创建或校验 Git 分支名 |
 | `doubt-driven-development` | 在非平凡决策落定前，用 fresh-context 对抗式审查先尝试证伪 |
+| `incident-response` | 处理生产事故：定级与分工、单一时间线、先止损、定时通报、带责任人的无责复盘 |
 | `release` | tag → GitHub Release → 发布（npm/PyPI/Docker） |
 | `finishing-a-development-branch` | 验证测试并检测工作树状态，然后给出并执行 merge/PR/保留/丢弃选项 |
 | `verification-before-completion` | 在宣称完成前，用最新命令输出证明任务确实完成 |

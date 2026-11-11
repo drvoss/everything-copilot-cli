@@ -77,7 +77,16 @@ For read-only tools, mark the intent clearly in the tool design.
 
 ### 3. Implement the server
 
-TypeScript example:
+Pick the TypeScript SDK major version first. v2 (`@modelcontextprotocol/server`) is the stable
+release line for new servers and replaces v1's single `@modelcontextprotocol/sdk` package. Stay on
+v1 only when the project already depends on `@modelcontextprotocol/sdk`; the upstream codemod
+`npx @modelcontextprotocol/codemod@latest v1-to-v2 .` and the
+[v2 migration guide](https://ts.sdk.modelcontextprotocol.io/v2/migration/upgrade-to-v2) move a project
+over. Do not mix the two in one project — v1 imports do not apply to v2. (Version guidance adapted
+from anthropics/skills `mcp-builder`.)
+
+TypeScript example (SDK v1 API, for existing v1 projects — for v2 follow the
+[v2 documentation](https://ts.sdk.modelcontextprotocol.io/v2/)):
 
 ```typescript
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";

@@ -393,7 +393,7 @@ Be honest about what Claude Code does better:
 | # | Capability | Workaround in Copilot CLI |
 |---|-----------|--------------------------|
 | 1 | **16 Specialized Agents** | Use 7 built-in agent types (plus custom agents) + model overrides + custom prompts |
-| 2 | **109 Curated Skills** | 109 curated skills in this repo; port your custom skills |
+| 2 | **112 Curated Skills** | 112 curated skills in this repo; port your custom skills |
 | 3 | **Full Lifecycle Hooks** | Use Copilot's 14 native events first; complement them with startup scripts + SQL logging |
 | 4 | **AgentShield Security** | Use security-reviewer agent + security skills |
 | 5 | **Claude-Optimized Integration** | Use Claude models via model override |
@@ -407,8 +407,9 @@ orchestration — you can still invoke Claude Code for tasks where it excels.
 
 ## Using This Repository's Skills in Claude Code
 
-If you keep Claude Code in your workflow, you do not have to copy skills by hand. The 109 skills
-install as a Claude Code plugin, verified on Claude Code 2.1.311:
+If you keep Claude Code in your workflow, you do not have to copy skills by hand. This repository's
+skills install as a Claude Code plugin, verified on Claude Code 2.1.311 with the 109 skills of that
+time:
 
 ```bash
 claude plugin marketplace add drvoss/everything-copilot-cli

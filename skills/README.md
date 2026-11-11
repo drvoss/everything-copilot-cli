@@ -173,8 +173,10 @@ Core software development skills applicable to any project.
 | [`context-engineering`](development/context-engineering/SKILL.md) | Optimize information delivery to AI agents — minimize noise, maximize signal |
 | [`cpp-debugging`](development/cpp-debugging/SKILL.md) | Use when a C++ failure involves memory lifetime, undefined behavior, native crashes, or debugger-only state — debug with symbols, sanitizers, and platform-native debuggers before patching symptoms |
 | [`deprecation-and-migration`](development/deprecation-and-migration/SKILL.md) | Safely remove old APIs and migrate to new patterns with a 3-phase process |
+| [`design-to-code`](development/design-to-code/SKILL.md) | Use when a design (Figma frame, screenshot, or handoff) must become production UI — map it to existing tokens and components, implement only that scope, and compare at every breakpoint |
 | [`fix-build-errors`](development/fix-build-errors/SKILL.md) | Diagnose and fix build failures fast |
 | [`fix-github-issue`](development/fix-github-issue/SKILL.md) | Resolve a GitHub Issue end-to-end: read → locate → fix → test → PR |
+| [`go-runtime-debugging`](development/go-runtime-debugging/SKILL.md) | Use when a Go program panics, hangs, deadlocks, leaks goroutines or memory, or reports a data race — reproduce it, then diagnose with -race, goroutine dumps, pprof, traces, and Delve |
 | [`implement`](development/implement/SKILL.md) | Turn a PRD, spec, or set of issues into committed code via a five-step TDD → validate → review → commit loop |
 | [`improve-codebase-architecture`](development/improve-codebase-architecture/SKILL.md) | Use when a codebase feels hard to change, test, or navigate — surface architectural friction and walk one deeper-module candidate into a concrete refactoring direction |
 | [`performance-optimization`](development/performance-optimization/SKILL.md) | Measure first, isolate bottlenecks, and prove that a performance change actually helps |
@@ -261,6 +263,7 @@ End-to-end development workflow skills — from planning to shipping.
 | [`grill-with-docs`](workflow/grill-with-docs/SKILL.md) | Use when a plan must be stress-tested against the codebase's existing language and decisions — grill it against current docs, glossary terms, and ADRs before implementation begins |
 | [`handoff`](workflow/handoff/SKILL.md) | Use when context must survive a session end, agent swap, or machine switch — produce a compact, self-contained handoff document without duplicating existing artifacts |
 | [`implementation-review`](workflow/implementation-review/SKILL.md) | Use after a delegated implementation pass lands — compare the delivered diff against the original task spec and produce an actionable follow-up review |
+| [`incident-response`](workflow/incident-response/SKILL.md) | Use when production users are affected — declare severity and roles, keep one timeline, mitigate before diagnosing, post status on a cadence, and close with a blameless review |
 | [`interview-me`](workflow/interview-me/SKILL.md) | Use when starting a new task and the goal is still fuzzy — run a structured discovery interview before writing a plan, spec, or code |
 | [`llm-wiki`](workflow/llm-wiki/SKILL.md) | Use when research or domain knowledge keeps getting rediscovered across sessions — build a supplementary markdown wiki that compounds synthesized knowledge without replacing GitHub or committed project guidance |
 | [`deployment-canary`](workflow/deployment-canary/SKILL.md) | Use when a release needs staged rollout checks, rollback thresholds, and explicit promote/hold decisions |

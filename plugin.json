@@ -1,6 +1,6 @@
 {
   "name": "everything-copilot-cli",
-  "description": "A Copilot-first operating kit for GitHub Copilot CLI: 109 skills, 8 custom agents, rules, MCP presets, and multi-AI orchestration patterns.",
+  "description": "A Copilot-first operating kit for GitHub Copilot CLI: 112 skills, 8 custom agents, rules, MCP presets, and multi-AI orchestration patterns.",
   "version": "0.1.1",
   "author": {
     "name": "Everything Copilot CLI Contributors",
