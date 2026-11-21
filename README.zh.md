@@ -196,7 +196,7 @@ claude plugin install everything-copilot-cli@everything-copilot-cli
 
 我们在 Claude Code 2.1.311（Windows 11）上做了验证：当时的 109 个技能全部可以安装并运行，既支持 `/everything-copilot-cli:stack-detector` 这样的斜杠调用，也支持 Claude 自行选择技能的自动调用。插件中的技能名带有插件前缀，因此在 Claude Code 中同时安装完整集合与 `copilot-native-workflows` 不会冲突。
 
-该装哪个插件：完整集合（`everything-copilot-cli`，112 个技能）或精简包（`copilot-native-workflows`，9 个技能），二选一即可。如果两个都装，让 Claude 自行选择时，同名技能会选用完整集合中的那一份。更新时运行 `claude plugin update everything-copilot-cli@everything-copilot-cli` 并重启 Claude Code；两个插件的版本都保持 0.1.0。
+该装哪个插件：完整集合（`everything-copilot-cli`，112 个技能）或精简包（`copilot-native-workflows`，9 个技能），二选一即可。如果两个都装，让 Claude 自行选择时，同名技能会选用完整集合中的那一份。更新时运行 `claude plugin update everything-copilot-cli@everything-copilot-cli` 并重启 Claude Code；两个插件的版本都是 0.1.1。
 
 有两点需要说明：
 

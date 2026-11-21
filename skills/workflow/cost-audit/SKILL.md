@@ -88,6 +88,16 @@ Savings: (<before> − <after>) × calls per period
 
 Use approximate public pricing for estimation. Actual prices vary; check your provider dashboard.
 
+Label these numbers for what they are:
+
+- **A price-list figure is not a bill.** Tokens multiplied by a public per-token price show scale.
+  A flat-rate seat, an AI-credit allowance, or a negotiated plan charges differently, so do not
+  present the figure as money spent or saved.
+- **A small sample gives a preliminary result.** If the report rests on a handful of sessions or a
+  single day, say so at the top and keep its recommendations tentative.
+- **Missing is not zero.** When a log does not record something — who started a run, which model a
+  subagent used, cache tokens — report it as unknown. Do not count it as automated, free, or absent.
+
 ### 5. Prioritize
 
 | Priority | Criterion |
@@ -118,6 +128,10 @@ Estimated savings: ~80% cost reduction on boilerplate tasks.
 #### [MEDIUM] Entire codebase passed as context on every PR review
 ...
 ```
+
+If the report will be shared beyond the person whose usage it describes, ask first, and remove
+project names, file paths, session IDs, and prompt text unless they choose to keep them. Check the
+finished file for those before sending it.
 
 ## Common Waste Patterns
 

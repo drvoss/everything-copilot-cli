@@ -187,6 +187,15 @@ When reviewing permission rules:
 2. prefer exact paths when the writable surface is supposed to stay small
 3. treat "looks right" as insufficient until the concrete expansion is understood
 
+Shell rules are a common case. In Copilot CLI, tools such as `git`, `gh`, and `npm` are matched by
+the command plus its first subcommand only (`copilot help permissions`, CLI 1.0.114):
+`shell(gh pr)` matches `gh pr create --fill`, while `shell(gh pr create)` matches nothing. A rule
+written for one narrow action therefore either does nothing or, once widened to the form that
+works, also approves its siblings — `shell(gh pr)` lets `gh pr merge` and `gh pr close` run without
+a prompt. Deny rules are named the same way, so they cannot carve one sub-subcommand back out. When
+only one such action is acceptable, leave it unapproved and answer the prompt each time, or run the
+step outside the agent.
+
 ### 3-C. A denied tool is not a denied capability
 
 Denying one tool blocks that tool, not the outcome the tool produced. An agent that cannot use a

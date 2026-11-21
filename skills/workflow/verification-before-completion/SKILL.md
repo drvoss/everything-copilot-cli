@@ -89,6 +89,14 @@ Check:
 - Final status line
 - Warnings or partial failures
 - Whether the output actually matches the claim
+- Whether you saw all of it
+
+A zero exit code does not prove the output is complete. Output can be cut short by a buffer limit,
+a size cap in the tool that ran the command, or a display that shows only the first or last lines.
+Some runners report success while handing back only part of what the command printed. If the
+output looks truncated, or the tool says it was shortened, treat the result as unverified: write it
+to a file and read the file, narrow the command, or re-run it in pieces until you have seen the
+part that proves the claim.
 
 ### 4. Compare output to the claim
 

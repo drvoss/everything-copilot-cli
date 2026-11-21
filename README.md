@@ -198,7 +198,7 @@ claude plugin install everything-copilot-cli@everything-copilot-cli
 
 We checked this on Claude Code 2.1.311 (Windows 11): all 109 skills (the count at the time) install and run, both with a slash command such as `/everything-copilot-cli:stack-detector` and when Claude picks a skill on its own. Plugin skill names carry the plugin prefix, so installing `copilot-native-workflows` next to the full collection does not clash in Claude Code.
 
-Which plugin to install: the full collection (`everything-copilot-cli`, 112 skills) or the focused bundle (`copilot-native-workflows`, 9 skills). If you install both, Claude picked the full collection's copy of a same-named skill when we let it choose. To update, run `claude plugin update everything-copilot-cli@everything-copilot-cli` and restart Claude Code; both plugins stay at version 0.1.0.
+Which plugin to install: the full collection (`everything-copilot-cli`, 112 skills) or the focused bundle (`copilot-native-workflows`, 9 skills). If you install both, Claude picked the full collection's copy of a same-named skill when we let it choose. To update, run `claude plugin update everything-copilot-cli@everything-copilot-cli` and restart Claude Code; both plugins are at version 0.1.1.
 
 Two things to know:
 

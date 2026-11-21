@@ -197,7 +197,7 @@ claude plugin install everything-copilot-cli@everything-copilot-cli
 
 Claude Code 2.1.311(Windows 11)에서 확인했습니다. 당시 109개 스킬이 모두 설치되어 실행되고, `/everything-copilot-cli:stack-detector` 같은 슬래시 호출과 Claude가 스스로 고르는 자동 호출이 모두 동작합니다. 플러그인 스킬 이름에는 플러그인 접두사가 붙으므로, 전체 컬렉션과 `copilot-native-workflows`를 함께 설치해도 Claude Code에서는 충돌하지 않습니다.
 
-어떤 플러그인을 설치할까요? 전체 컬렉션(`everything-copilot-cli`, 스킬 112개)과 집중 번들(`copilot-native-workflows`, 스킬 9개) 중에서 고르면 됩니다. 둘 다 설치하면 Claude가 직접 고를 때 이름이 같은 스킬은 전체 컬렉션 쪽이 선택됐습니다. 갱신은 `claude plugin update everything-copilot-cli@everything-copilot-cli`를 실행하고 Claude Code를 다시 시작하세요. 두 플러그인 모두 버전은 0.1.0으로 유지됩니다.
+어떤 플러그인을 설치할까요? 전체 컬렉션(`everything-copilot-cli`, 스킬 112개)과 집중 번들(`copilot-native-workflows`, 스킬 9개) 중에서 고르면 됩니다. 둘 다 설치하면 Claude가 직접 고를 때 이름이 같은 스킬은 전체 컬렉션 쪽이 선택됐습니다. 갱신은 `claude plugin update everything-copilot-cli@everything-copilot-cli`를 실행하고 Claude Code를 다시 시작하세요. 두 플러그인 모두 버전은 0.1.1입니다.
 
 알아 두실 점이 두 가지 있습니다.
 

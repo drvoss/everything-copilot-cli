@@ -66,6 +66,13 @@ git --no-pager diff main...HEAD | Select-String "console\.log|debugger|print\("
 
 ### 4. Verify Tests
 
+Before you run tests yourself, make sure the working copy is the code under review. `git status
+--short` should be empty and `git rev-parse HEAD` should equal the PR head (or the commit you were
+asked to review); name that SHA in the review. A checkout can hold uncommitted edits from another
+session, and test results from it may describe code that is not in the change. If the working copy
+has someone else's edits, do not reset or stash them — review in a separate worktree, or say in the
+review that the results came from a modified checkout.
+
 ```powershell
 # Ensure tests exist for changed source files
 git --no-pager diff --name-only main...HEAD | Select-String "\.(ts|js|py|go)$"

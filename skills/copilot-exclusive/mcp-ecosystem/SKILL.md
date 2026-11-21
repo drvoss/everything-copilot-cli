@@ -210,12 +210,15 @@ A local server that needs the session's working directory — for example a file
 index server started from a user-level config — can reference `${COPILOT_SESSION_CWD}` in its
 configuration (CLI 1.0.106 and later) instead of a hard-coded absolute path.
 
-Not every built-in server is on by default (command reference, re-checked 2026-11-09). `github-mcp-server` is
+Not every built-in server is on by default (command reference, re-checked 2026-11-20). `github-mcp-server` is
 configured automatically when you are signed in, unless you disable it or supply your own
-configuration. `WorkIQ` (after a Microsoft Entra sign-in), `browser-use`, and `computer-use` (local
+configuration. Since CLI 1.0.112 it also does not start when your account's Copilot MCP policy
+disables MCP servers: the command reference notes that this policy covers trusted first-party
+servers even though they are exempt from managed allowlists and denylists. `WorkIQ` (after a Microsoft Entra sign-in), `browser-use`, and `computer-use` (local
 sessions on macOS and Windows) depend on your account, platform, and CLI version, and start
 disabled. `--disable-builtin-mcps` turns off `github-mcp-server`, `WorkIQ`, `browser-use`, and the
-legacy `github-copilot-browser` for one run but **not** `computer-use`; use `--disable-mcp-server computer-use` for one run, or
+legacy `github-copilot-browser` for one run but **not** `computer-use` (the 1.0.114 `copilot --help`
+text names only `github-mcp-server` and `githubiq` — check `copilot --help` on your version); use `--disable-mcp-server computer-use` for one run, or
 `/computer off` to save the preference. Managed settings can block enabling a server.
 
 Inside a running session, use `/env` to inspect which MCP servers were loaded for that session.

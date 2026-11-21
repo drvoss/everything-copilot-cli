@@ -117,7 +117,8 @@ CREATE TABLE IF NOT EXISTS research_sources (
     source_type TEXT,
     fetched_at TEXT,
     key_finding TEXT,
-    credibility TEXT  -- high | medium | low
+    credibility TEXT,  -- high | medium | low
+    read_scope TEXT    -- full | sections:<names> | abstract-only | not-opened
 );
 
 CREATE TABLE IF NOT EXISTS research_claims (
@@ -137,6 +138,11 @@ comparing whole sources.
 Treat factual claims as gated deliverables: if a factual claim remains `unsupported`, either gather
 more evidence, downgrade the claim, or remove it from the final brief instead of publishing it as
 settled fact.
+
+Raise `support_level` only for text you have read yourself. A search snippet, a link that
+resolves, or a subagent's "verified" tells you where to look; it is not support until you have read
+the passage. A source you could not open keeps its claims `unsupported` and goes under
+**Limitations** — it never quietly drops out of the brief.
 
 For each source:
 
@@ -176,6 +182,10 @@ Do not:
 - Fill gaps with plausible-sounding guesses
 - Omit dissenting evidence
 - Present synthesis as more certain than the underlying evidence
+- Claim that a source leaves something out unless its `read_scope` is `full` or lists the sections
+  you searched; with `abstract-only`, write "not in the abstract"
+- Let the **Summary** outrun the findings table. If a finding holds only for one version, sample, or
+  setting, the summary sentence names that condition too — or leaves the finding to the table
 
 ### 6. Brief format
 
@@ -282,6 +292,13 @@ Before finalizing a deep research brief, challenge it from three angles:
 
 Fold the answers into **Conflicting Evidence** and **Limitations**. Do not leave critique as a
 detached appendix that the reader can ignore.
+
+All three roles above run on the model you are using, so they tend to miss the same things. For a
+consequential brief, run the Skeptic as a `task` subagent on a model from another family (see
+[multi-model-strategy](../../copilot-exclusive/multi-model-strategy/SKILL.md)) and hand it the
+sources, not your draft — then compare its answer with yours. If the material is private or
+unpublished, check with the user before it goes to a model they have not already approved for this
+work.
 
 ## Quality Standards
 

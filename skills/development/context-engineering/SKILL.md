@@ -258,6 +258,18 @@ Next constraints:
 - [what must not change]
 ```
 
+The same rules apply when a long session is compacted (`/compact`, or automatic compaction) and
+the summary replaces the transcript. A summary that keeps the topic but loses the user's terms lets
+the next turn act on permission it was never given. Make sure a briefing or compaction summary keeps:
+
+- the user's current scope and the conditions they set before an action may happen
+- any approval word for word, together with the specific action it allows — not "the user approved"
+- later corrections, which replace what they correct
+- where each quoted example came from: the user, a tool's output, or an earlier guess by the agent
+
+A summary is a record, not a new grant. If the summary does not show that an action was approved,
+ask again instead of inferring approval from it.
+
 For Copilot CLI specifically, pair this with
 [`cross-session-memory`](../../copilot-exclusive/cross-session-memory/SKILL.md) when
 the handoff must survive across sessions rather than just across turns.

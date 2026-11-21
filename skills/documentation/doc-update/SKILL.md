@@ -52,6 +52,28 @@ grep -rn "function_name\|ClassName\|/api/v1" docs/ --include="*.md"
 grep -rn "\-\-[a-z]" README.md | Select-Object -First 20
 ```
 
+To find which docs to re-read first, compare commits, not file dates (a checkout or copy resets
+modification times). The order of commits is a signal, not a verdict: a doc committed later may
+still describe old behavior, and code committed later may not touch what the doc says.
+
+```powershell
+$code = git log -1 --format=%H -- src/rate-limiter.js
+$doc  = git log -1 --format=%H -- docs/rate-limiter.md
+if (-not $code -or -not $doc) { "no order: one of the files has no commits" }
+elseif ($code -eq $doc) { 'changed together in one commit' }
+else {
+  git merge-base --is-ancestor $doc $code
+  if ($LASTEXITCODE -eq 0) { 'code changed after the doc: review the doc first' }
+  else {
+    git merge-base --is-ancestor $code $doc
+    if ($LASTEXITCODE -eq 0) { 'doc changed after the code' } else { 'no order: read both' }
+  }
+}
+```
+
+A shallow clone, a rebase, or commits on different branches can leave the two unordered. Whatever the
+output, compare what the doc says with what the code does before calling it current.
+
 Use the `explore` agent for deeper analysis:
 
 ```text
@@ -141,7 +163,7 @@ grep -rn "utils" docs/ --include="*.md"
 | "The code is the documentation" | Code explains *what*. Documentation explains *why*. They're complementary, not interchangeable. |
 | "Too busy, I'll update docs later" | Context is lost by the next PR. Update docs alongside the change. |
 | "It's an internal API, no docs needed" | Your future self in 3 months is also an internal API consumer. |
-| "The README is already up to date" | Compare the last README update timestamp to the last code change. |
+| "The README is already up to date" | Use commit order to decide what to re-read first (step 2), then check the README against what the code does now. |
 
 ## Red Flags
 

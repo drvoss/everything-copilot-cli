@@ -272,6 +272,14 @@ when it does. Use both for unattended work:
   includes private-network addresses. Since v1.0.106 the local network switch covers loopback
   only; private-network destinations follow the outbound setting and host rules, so restrict those
   in `/sandbox` when the task does not need them.
+- Host rules accept IP addresses and CIDR ranges such as `10.0.0.0/8` or `fd00::/8` as well as
+  host names (`copilot help config`, CLI 1.0.114). The two lists read names differently:
+  `allowedHosts` needs the exact host name, or `*.example.com` for its subdomains, and a non-empty
+  list blocks every host it does not match; in `blockedHosts` a plain domain also blocks all of its
+  subdomains. Block rules win. When the sandbox proxy connects directly, a blocked address or range
+  also blocks a host name that resolves into it, and an allowed one allows a host name only if every
+  address it resolves to is allowed; a request forwarded to an upstream proxy is matched
+  by name only, so that proxy has to enforce its own address limits.
 - Helper processes have their own switches: `sandbox.sandboxMcpServers`,
   `sandbox.sandboxLspServers`, and `sandbox.sandboxExtensions` decide whether local (stdio) MCP
   servers, language servers, and extensions start inside the sandbox (extensions default to on).

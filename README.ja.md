@@ -197,7 +197,7 @@ claude plugin install everything-copilot-cli@everything-copilot-cli
 
 Claude Code 2.1.311（Windows 11）で確認しました。当時の 109 個のスキルがすべてインストールされて動作し、`/everything-copilot-cli:stack-detector` のようなスラッシュ呼び出しも、Claude が自分で選ぶ自動呼び出しも使えます。プラグインのスキル名にはプラグイン名の接頭辞が付くため、フルコレクションと `copilot-native-workflows` を同時に入れても Claude Code では衝突しません。
 
-どのプラグインを入れるか：フルコレクション（`everything-copilot-cli`、スキル 112 個）か、集中バンドル（`copilot-native-workflows`、スキル 9 個）のどちらかを選びます。両方入れた場合、Claude に選ばせたときは同名スキルのうちフルコレクション側が使われました。更新は `claude plugin update everything-copilot-cli@everything-copilot-cli` を実行し、Claude Code を再起動してください。どちらのプラグインもバージョンは 0.1.0 のままです。
+どのプラグインを入れるか：フルコレクション（`everything-copilot-cli`、スキル 112 個）か、集中バンドル（`copilot-native-workflows`、スキル 9 個）のどちらかを選びます。両方入れた場合、Claude に選ばせたときは同名スキルのうちフルコレクション側が使われました。更新は `claude plugin update everything-copilot-cli@everything-copilot-cli` を実行し、Claude Code を再起動してください。どちらのプラグインもバージョンは 0.1.1 です。
 
 知っておいていただきたい点が 2 つあります。
 
